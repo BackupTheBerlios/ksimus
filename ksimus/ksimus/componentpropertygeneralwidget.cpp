@@ -101,6 +101,6 @@ void ComponentPropertyGeneralWidget::defaultPressed()
 {
 	ComponentPropertyBaseWidget::defaultPressed();
 
-	m_nameEdit->setText(getComponent()->getInfo()->getName());
+	m_nameEdit->setText(i18n(getComponent()->getInfo()->getName().latin1()));
 	
 }
