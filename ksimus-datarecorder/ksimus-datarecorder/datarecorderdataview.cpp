@@ -115,7 +115,7 @@ DataRecorderDataView::DataRecorderDataView(DataRecorderWidget *parent, const cha
 		m_mapUpdateRequired(true),
 		m_samplePerPixel(1.0),
 		m_lastDrawnIndex(0),
-		m_snapHorizontal(horizontalScrollBar()->lineStep())
+		m_snapHorizontal(horizontalScrollBar()->lineStep() * 2)
 {
 	viewport()->setFocusPolicy(QWidget::WheelFocus);
 	m_map = new DataRecorderPixmap(this, OVER_SCAN);
@@ -130,6 +130,7 @@ DataRecorderDataView::DataRecorderDataView(DataRecorderWidget *parent, const cha
 	m_resizeTimer = new QTimer(this);
 	connect(m_resizeTimer,SIGNAL(timeout()),this,SLOT(delayedResizeEvent()));
 //	connect(this, SIGNAL(contentsMoving(int,int)),this,SLOT(slotContentsMove()));
+	connect((QObject*)getDataRecorder()->getDoc(), SIGNAL(signalUpdateView()), this, SLOT(newData()));
 
 	m_itemList = new DataRecorderDataViewItemList;
 	
