@@ -1,4 +1,6 @@
 	30.12.2001
+* Fix: Speedup document loading
+* New: Progress bar during loading
 * New: Classes ComponentStyle, ComponentPropertyStyleWidget, CompViewHBox and CompViewVBox for
   UI components. New properties foreground and background color and selectable frame.
 * Change: BooleanLed with user defineable foreground and background color. Frame hideable in user interface.
