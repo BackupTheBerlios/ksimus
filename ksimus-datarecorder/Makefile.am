@@ -2,7 +2,7 @@
 
 SUBDIRS = ksimus-datarecorder po doc 
 
-EXTRA_DIST = ksimus-datarecorder.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-datarecorder.lsm 
+EXTRA_DIST = ksimus-datarecorder.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-datarecorder.lsm 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 
@@ -23,8 +23,6 @@ MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 configure.files
 package-messages:
 	$(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
-
-EXTRA_DIST = admin 
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
