@@ -134,6 +134,8 @@ void CompViewHBox::setForegroundColor(const QColor & color)
 	}		
 	
 	pal.setColor(QPalette::Active, QColorGroup::Foreground, newColor);
+	pal.setColor(QPalette::Inactive, QColorGroup::Foreground, newColor);
+
 	setPalette(pal);
 	update();
 }
@@ -151,6 +153,8 @@ void CompViewHBox::setBackgroundColor(const QColor & color)
 	}		
 	
 	pal.setColor(QPalette::Active, QColorGroup::Background, newColor);
+	pal.setColor(QPalette::Inactive, QColorGroup::Background, newColor);
+	
 	setPalette(pal);
 	update();
 }
