@@ -143,7 +143,7 @@ DataRecorderChannelBoolean::~DataRecorderChannelBoolean()
 	if (m_propertyWidget)
 		delete m_propertyWidget;
 	delete m_data;
-	delete m_input;
+//	delete m_input;
 }
 
 void DataRecorderChannelBoolean::fetchData()
