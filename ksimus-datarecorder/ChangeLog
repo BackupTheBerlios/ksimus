@@ -1,6 +1,12 @@
+	10.10.2002
+* Fix: Errors in documentation. Thanks MrTLee!
+* Fix: A wrong initialize sequence of the component package causes untranslated
+  component names. Thanks Aurelien!
+* Update French translation. Thanks Aurelien!
+* Update German translation.
 	27.09.2002
 * Update documentation
-* New: Some set ups for implizite converter (not enabled yet)
+* New: Some setups for implizite converter (not enabled yet)
 	18.06.2002
 * Change: use class OptionalConnector for optional connectors.
 	27.05.2002

@@ -1,7 +1,13 @@
+	10.10.2002
+* Fix: Errors in documentation. Thanks MrTLee!
+* Fix: A wrong initialize sequence of the component package causes untranslated
+  component names. Thanks Aurelien!
+* Update French translation. Thanks Aurelien!
+* Update German translation.
 	27.09.2002
 * Update documentation
 * New: components atan2, sinh, asinh, cosh, acosh, tanh, atanh, random
-* New: Some set ups for implizite converter (not enabled yet)
+* New: Some setups for implizite converter (not enabled yet)
 	05.08.2002
 * Fix: undo problem with simple condition if condition type is changed
 	13.07.2002

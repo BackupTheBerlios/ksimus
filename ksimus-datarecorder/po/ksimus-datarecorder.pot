@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-04-20 20:11+0200\n"
+"POT-Creation-Date: 2002-10-01 19:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,11 +38,143 @@ msgid ""
 "Boolean"
 msgstr ""
 
-#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:220
+#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:222
 #: datarecorderwidget.cpp:177
 msgid ""
 "_: DataRecorder\n"
 "Channel:"
+msgstr ""
+
+#: textrec.cpp:101
+msgid ""
+"_: DataRecorder-Component\n"
+"Text Recorder"
+msgstr ""
+
+#: textrec.cpp:103
+msgid ""
+"_: DataRecorder-Component\n"
+"Recorder/Text Recorder"
+msgstr ""
+
+#: textrec.cpp:235
+msgid ""
+"_: DataRecorder-Connector\n"
+"Trigger"
+msgstr ""
+
+#: textrec.cpp:236
+msgid ""
+"_: DataRecorder-Connector Trigger\n"
+"T"
+msgstr ""
+
+#: textrec.cpp:242
+msgid ""
+"_: DataRecorder\n"
+"Trigger input:"
+msgstr ""
+
+#: textrec.cpp:326
+msgid "Creation of Connector %1 failed!"
+msgstr ""
+
+#: textrec.cpp:611
+msgid "Filename is not valid. Document not saved?"
+msgstr ""
+
+#: textrec.cpp:620
+msgid "File %1 is not writable"
+msgstr ""
+
+#: textrec.cpp:632
+msgid "Directory %1 not exists"
+msgstr ""
+
+#: textrec.cpp:676
+msgid "File open failed (Filename %1)"
+msgstr ""
+
+#: textrec.cpp:684
+msgid "No filename"
+msgstr ""
+
+#: textrec.cpp:697
+msgid "Add &boolean connector"
+msgstr ""
+
+#: textrec.cpp:698
+msgid "Add &floating point connector"
+msgstr ""
+
+#: textrec.cpp:707 textrec.cpp:719
+msgid "Add channel"
+msgstr ""
+
+#: textrec.cpp:738
+msgid "Remove channel"
+msgstr ""
+
+#: textrec.cpp:908
+msgid "File:"
+msgstr ""
+
+#: textrec.cpp:917
+msgid "Column separator:"
+msgstr ""
+
+#: textrec.cpp:921
+msgid "Edit the column separator here."
+msgstr ""
+
+#: textrec.cpp:929
+msgid "Switches:"
+msgstr ""
+
+#: textrec.cpp:932
+msgid "Append data to existing file"
+msgstr ""
+
+#: textrec.cpp:935
+msgid ""
+"If checked an exisiting file will not be deleted before a new simulations is "
+"started."
+msgstr ""
+
+#: textrec.cpp:939
+msgid "Add date and time at the top"
+msgstr ""
+
+#: textrec.cpp:942
+msgid ""
+"If checked the date and time of the simulation start is added top of the new "
+"data."
+msgstr ""
+
+#: textrec.cpp:946
+msgid "Add the connector names at the top"
+msgstr ""
+
+#: textrec.cpp:949
+msgid "If checked the the connector names are added top of the new data."
+msgstr ""
+
+#: textrec.cpp:954
+msgid "Add line numbers"
+msgstr ""
+
+#: textrec.cpp:957
+msgid "If checked the lines in the log file are numbered."
+msgstr ""
+
+#: textrec.cpp:961
+msgid "Add time stamp"
+msgstr ""
+
+#: textrec.cpp:964
+msgid ""
+"If checked a time stamp is added in front of each line (after the optional "
+"line number)."
 msgstr ""
 
 #: zoomwidget.cpp:219
@@ -57,37 +189,43 @@ msgid ""
 "%1 s/div"
 msgstr ""
 
-#: datarecorder.cpp:207 datarecorder.cpp:209
+#: datarecorder.cpp:232
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
 msgstr ""
 
-#: datarecorder.cpp:572 datarecorderview.cpp:87
+#: datarecorder.cpp:234
+msgid ""
+"_: DataRecorder-Component\n"
+"Recorder/Data Recorder"
+msgstr ""
+
+#: datarecorder.cpp:589 datarecorderview.cpp:88
 msgid ""
 "_: DataRecorder\n"
 "&Open graph"
 msgstr ""
 
-#: datarecorder.cpp:573
+#: datarecorder.cpp:590
 msgid ""
 "_: DataRecorder\n"
 "Add &boolean connector"
 msgstr ""
 
-#: datarecorder.cpp:574
+#: datarecorder.cpp:591
 msgid ""
 "_: DataRecorder\n"
 "Add &floating point connector"
 msgstr ""
 
-#: datarecorder.cpp:597 datarecorder.cpp:608
+#: datarecorder.cpp:614 datarecorder.cpp:625
 msgid ""
 "_: DataRecorder\n"
 "Add channel"
 msgstr ""
 
-#: datarecorder.cpp:624
+#: datarecorder.cpp:641
 msgid ""
 "_: DataRecorder\n"
 "Remove channel"

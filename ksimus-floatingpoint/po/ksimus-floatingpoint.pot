@@ -6,13 +6,103 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-04-21 18:10+0200\n"
+"POT-Creation-Date: 2002-10-01 19:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: random.cpp:59
+msgid ""
+"_: Component\n"
+"Random"
+msgstr ""
+
+#: random.cpp:61
+msgid ""
+"_: Component\n"
+"Floating Point/Random/Random"
+msgstr ""
+
+#: convertboolfloat.cpp:98 convertfloatbool.cpp:89 extconnfloatin.cpp:57
+#: extconnfloatout.cpp:57 float1out.cpp:58 floatstyle1out.cpp:58 random.cpp:98
+msgid ""
+"_: FloatingPoint-Connector\n"
+"Output"
+msgstr ""
+
+#: floatlatch.cpp:105 random.cpp:103
+msgid ""
+"_: FloatingPoint-Connector\n"
+"Enable"
+msgstr ""
+
+#: random.cpp:109
+msgid ""
+"_: FloatingPoint\n"
+"Enable input:"
+msgstr ""
+
+#: random.cpp:235
+msgid ""
+"_: FloatingPoint\n"
+"Maximum:"
+msgstr ""
+
+#: random.cpp:241
+msgid ""
+"_: FloatingPoint\n"
+"Set here the maximum value (exclusive)."
+msgstr ""
+
+#: random.cpp:246
+msgid ""
+"_: FloatingPoint\n"
+"Minimum:"
+msgstr ""
+
+#: random.cpp:252
+msgid ""
+"_: FloatingPoint\n"
+"Set here the minimum value (inclusive)."
+msgstr ""
+
+#: random.cpp:257
+msgid ""
+"_: FloatingPoint\n"
+"Seed:"
+msgstr ""
+
+#: random.cpp:262
+msgid ""
+"_: FloatingPoint - Random\n"
+"Random seed"
+msgstr ""
+
+#: random.cpp:263
+msgid ""
+"_: FloatingPoint - Random\n"
+"Individual seed"
+msgstr ""
+
+#: random.cpp:271
+msgid ""
+"_: FloatingPoint\n"
+"Set an individual or a random seed here."
+msgstr ""
+
+#: random.cpp:275
+msgid ""
+"_: FloatingPoint\n"
+"<p>Set an individual or a random seed here.</p><table><tr><td><b>Random "
+"seed</b></td><td> The random number generator is initialized with a random "
+"seed after each reset of the circuit.</td></tr><tr><td><b>Individual "
+"seed</b></td><td> The random number generator is initialized with an "
+"individual seed after each reset of the circuit (Range: 1 - "
+"%1).</td></tr></table>"
+msgstr ""
 
 #: floatsin.cpp:47
 msgid ""
@@ -38,6 +128,30 @@ msgid ""
 "Floating Point/Arithmetic/Trigonometric/asin(x)"
 msgstr ""
 
+#: floatsin.cpp:84
+msgid ""
+"_: Component\n"
+"Floating Point sinh(x)"
+msgstr ""
+
+#: floatsin.cpp:86
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/Hyperbolic/sinh(x)"
+msgstr ""
+
+#: floatsin.cpp:102
+msgid ""
+"_: Component\n"
+"Floating Point asinh(x)"
+msgstr ""
+
+#: floatsin.cpp:104
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)"
+msgstr ""
+
 #: floatlineoutput.cpp:50
 msgid ""
 "_: Component\n"
@@ -50,8 +164,9 @@ msgid ""
 "Floating Point/Output/Label"
 msgstr ""
 
-#: convertboolfloat.cpp:91 convertfloatbool.cpp:82 extconnfloatin.cpp:58
-#: extconnfloatout.cpp:58 float1in1out.cpp:50 floatlineoutput.cpp:73
+#: convertboolfloat.cpp:93 convertfloatbool.cpp:84 delay.cpp:81
+#: extconnfloatin.cpp:64 extconnfloatout.cpp:64 float1in1out.cpp:50
+#: floatlineoutput.cpp:73
 msgid ""
 "_: FloatingPoint-Connector\n"
 "Input"
@@ -93,6 +208,54 @@ msgid ""
 "Floating Point/Arithmetic/Trigonometric/atan(x)"
 msgstr ""
 
+#: floattan.cpp:86
+msgid ""
+"_: Component\n"
+"Floating Point atan2(x,y)"
+msgstr ""
+
+#: floattan.cpp:88
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/atan2(x,y)"
+msgstr ""
+
+#: floattan.cpp:106
+msgid ""
+"_: Component\n"
+"Floating Point tanh(x)"
+msgstr ""
+
+#: floattan.cpp:108
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/Hyperbolic/tanh(x)"
+msgstr ""
+
+#: floattan.cpp:125
+msgid ""
+"_: Component\n"
+"Floating Point atanh(x)"
+msgstr ""
+
+#: floattan.cpp:127
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/Hyperbolic/atanh(x)"
+msgstr ""
+
+#: floattan.cpp:247
+msgid ""
+"_: FloatingPoint\n"
+"Input X"
+msgstr ""
+
+#: floattan.cpp:248
+msgid ""
+"_: FloatingPoint\n"
+"Input Y"
+msgstr ""
+
 #: floatlog.cpp:47
 msgid ""
 "_: Component\n"
@@ -103,6 +266,18 @@ msgstr ""
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"
+msgstr ""
+
+#: floatlog.cpp:67
+msgid ""
+"_: Component\n"
+"Floating Point log10(x)"
+msgstr ""
+
+#: floatlog.cpp:69
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Exponentiation & Logarithms/log10(x)"
 msgstr ""
 
 #: floatsubtractor.cpp:46
@@ -159,58 +334,70 @@ msgid ""
 "Latch Output"
 msgstr ""
 
-#: dataselector.cpp:107
+#: dataselector.cpp:105
+msgid ""
+"_: FloatingPoint\n"
+"Output Latch:"
+msgstr ""
+
+#: dataselector.cpp:109
 msgid ""
 "_: FloatingPoint-Connector\n"
 "Latch Address Input"
 msgstr ""
 
-#: dataselector.cpp:115 floatlatch.cpp:108 floatxin1out.cpp:50
+#: dataselector.cpp:115
+msgid ""
+"_: FloatingPoint\n"
+"Address Latch:"
+msgstr ""
+
+#: dataselector.cpp:119 floatlatch.cpp:110 floatxin1out.cpp:50
 #, c-format
 msgid ""
 "_: Connector\n"
 "Input %1"
 msgstr ""
 
-#: dataselector.cpp:125
+#: dataselector.cpp:129
 #, c-format
 msgid ""
 "_: Connector\n"
 "Address %1"
 msgstr ""
 
-#: dataselector.cpp:194 floatlatch.cpp:204
+#: dataselector.cpp:198 floatlatch.cpp:206
 msgid ""
 "_: FloatingPoint\n"
 "&Add Channel"
 msgstr ""
 
-#: dataselector.cpp:201 floatlatch.cpp:212
+#: dataselector.cpp:205 floatlatch.cpp:214
 msgid ""
 "_: FloatingPoint\n"
 "&Delete Channel"
 msgstr ""
 
-#: dataselector.cpp:389 floatlatch.cpp:361
+#: dataselector.cpp:393 floatlatch.cpp:363
 msgid ""
 "_: FloatingPoint\n"
 "Number of channels: "
 msgstr ""
 
-#: dataselector.cpp:394 floatlatch.cpp:366
+#: dataselector.cpp:398 floatlatch.cpp:368
 msgid ""
 "_: FloatingPoint\n"
 "Change number of channels here."
 msgstr ""
 
-#: dataselector.cpp:399 float1out.cpp:173 floatlatch.cpp:371
-#: floatstyle1out.cpp:168
+#: dataselector.cpp:403 float1out.cpp:173 floatlatch.cpp:373
+#: floatstyle1out.cpp:167
 msgid ""
 "_: FloatingPoint\n"
 "Reset value: "
 msgstr ""
 
-#: dataselector.cpp:404 floatlatch.cpp:376
+#: dataselector.cpp:408 floatlatch.cpp:378
 msgid ""
 "_: FloatingPoint\n"
 "Change the reset value of the channels here."
@@ -228,131 +415,160 @@ msgid ""
 "Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"
 msgstr ""
 
-#: waveformgenerator.cpp:61
+#: floatexp.cpp:67
+msgid ""
+"_: Component\n"
+"Floating Point pow(base,power)"
+msgstr ""
+
+#: floatexp.cpp:69
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Exponentiation & Logarithms/pow(base,power)"
+msgstr ""
+
+#: floatexp.cpp:87
+msgid ""
+"_: Component\n"
+"Floating Point square root"
+msgstr ""
+
+#: floatexp.cpp:89
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Exponentiation & Logarithms/square root"
+msgstr ""
+
+#: floatexp.cpp:168
+msgid ""
+"_: FloatingPoint\n"
+"Power"
+msgstr ""
+
+#: floatexp.cpp:169
+msgid ""
+"_: FloatingPoint\n"
+"Base"
+msgstr ""
+
+#: waveformgenerator.cpp:60
 msgid ""
 "_: Component\n"
 "Floating Point Waveform Generator"
 msgstr ""
 
-#: waveformgenerator.cpp:63
+#: waveformgenerator.cpp:62
 msgid ""
 "_: Component\n"
 "Floating Point/Control/Waveform Generator"
 msgstr ""
 
-#: waveformgenerator.cpp:539
+#: waveformgenerator.cpp:536
 msgid ""
 "_: FloatingPoint\n"
 "Waveform: "
 msgstr ""
 
-#: waveformgenerator.cpp:544
+#: waveformgenerator.cpp:541
 msgid ""
 "_: FloatingPoint\n"
 "Sinusoidal"
 msgstr ""
 
-#: waveformgenerator.cpp:545
+#: waveformgenerator.cpp:542
 msgid ""
 "_: FloatingPoint\n"
 "Square"
 msgstr ""
 
-#: waveformgenerator.cpp:546
+#: waveformgenerator.cpp:543
 msgid ""
 "_: FloatingPoint\n"
 "Sawtooth"
 msgstr ""
 
-#: waveformgenerator.cpp:547
+#: waveformgenerator.cpp:544
 msgid ""
 "_: FloatingPoint\n"
 "Triangular"
 msgstr ""
 
-#: waveformgenerator.cpp:548
+#: waveformgenerator.cpp:545
 msgid ""
 "_: FloatingPoint\n"
 "Dirac"
 msgstr ""
 
-#: waveformgenerator.cpp:551
+#: waveformgenerator.cpp:548
 msgid ""
 "_: FloatingPoint\n"
 "Sets the waveform."
 msgstr ""
 
-#: waveformgenerator.cpp:557
+#: waveformgenerator.cpp:554
 msgid ""
 "_: FloatingPoint\n"
 "Period: "
 msgstr ""
 
-#: waveformgenerator.cpp:562
+#: waveformgenerator.cpp:559
 msgid ""
 "_: FloatingPoint\n"
 "The period or frequency of the wave."
 msgstr ""
 
-#: waveformgenerator.cpp:568
+#: waveformgenerator.cpp:565
 msgid ""
 "_: FloatingPoint\n"
 "Frequency: "
 msgstr ""
 
-#: waveformgenerator.cpp:573
+#: waveformgenerator.cpp:570
 msgid ""
 "_: FloatingPoint\n"
 "Shows the frequency (depends on the period)."
 msgstr ""
 
-#: waveformgenerator.cpp:580
+#: waveformgenerator.cpp:577
 msgid ""
 "_: FloatingPoint\n"
 "Phase: "
 msgstr ""
 
-#: waveformgenerator.cpp:585
+#: waveformgenerator.cpp:582
 msgid ""
 "_: FloatingPoint\n"
 "The phase of the wave. The phase is measured in degree."
 msgstr ""
 
-#: waveformgenerator.cpp:592
+#: waveformgenerator.cpp:589
 msgid ""
 "_: FloatingPoint\n"
 "Amplitude: "
 msgstr ""
 
-#: waveformgenerator.cpp:597
+#: waveformgenerator.cpp:594
 msgid ""
 "_: FloatingPoint\n"
 "The amplitude of the wave."
 msgstr ""
 
-#: waveformgenerator.cpp:604
+#: waveformgenerator.cpp:601
 msgid ""
 "_: FloatingPoint\n"
 "Offset: "
 msgstr ""
 
-#: waveformgenerator.cpp:609
+#: waveformgenerator.cpp:606
 msgid ""
 "_: FloatingPoint\n"
 "The offset of the wave."
 msgstr ""
 
-#: waveformgenerator.cpp:680
+#: waveformgenerator.cpp:677
 msgid ""
 "_: FloatingPoint Frequency\n"
 "%1 Hz"
-msgstr ""
-
-#: extconnfloatin.cpp:53 extconnfloatout.cpp:53 float1out.cpp:60
-#: floatstyle1out.cpp:62
-msgid ""
-"_: FloatingPoint-Connector\n"
-"Output"
 msgstr ""
 
 #: float1out.cpp:178
@@ -361,7 +577,7 @@ msgid ""
 "Change the reset value of the component here."
 msgstr ""
 
-#: floatstylerange1out.cpp:142
+#: floatstylerange1out.cpp:141
 msgid ""
 "The reset, minimum and maximum values do not match!\n"
 "The values have to match following conditions:\n"
@@ -370,26 +586,26 @@ msgid ""
 "\tMinimum Value >= Reset Value >= Maximum Value\n"
 msgstr ""
 
-#: floatstylerange1out.cpp:157
+#: floatstylerange1out.cpp:156
 msgid ""
 "The reset, minimum and maximum values do not match!\n"
 "The values have to match following condition:\n"
 "\tMinimum Value <= Reset Value <= Maximum Value\n"
 msgstr ""
 
-#: floatstylerange1out.cpp:179
+#: floatstylerange1out.cpp:178
 msgid "Maximum value: "
 msgstr ""
 
-#: floatstylerange1out.cpp:184
+#: floatstylerange1out.cpp:183
 msgid "The maximum value of the component."
 msgstr ""
 
-#: floatstylerange1out.cpp:189
+#: floatstylerange1out.cpp:188
 msgid "Minimum value: "
 msgstr ""
 
-#: floatstylerange1out.cpp:194
+#: floatstylerange1out.cpp:193
 msgid "The minimum value of the component."
 msgstr ""
 
@@ -405,32 +621,82 @@ msgid ""
 "Floating Point/Arithmetic/Absolute Value"
 msgstr ""
 
-#: floatadd.cpp:46
+#: floatadd.cpp:47
 msgid ""
 "_: Component\n"
 "Floating Point Adder"
 msgstr ""
 
-#: floatadd.cpp:48
+#: floatadd.cpp:49
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Adder"
 msgstr ""
 
-#: floatadd.cpp:87
+#: floatadd.cpp:97
 #, c-format
 msgid ""
-"_: FloatingPoint\n"
+"_: Connector\n"
 "Summand %1"
 msgstr ""
 
-#: float2in1out.cpp:50 simpleconditional.cpp:134
+#: delay.cpp:55
+msgid ""
+"_: Component\n"
+"Delay"
+msgstr ""
+
+#: delay.cpp:57
+msgid ""
+"_: Component\n"
+"Floating Point/Timing/Delay"
+msgstr ""
+
+#: delay.cpp:148
+#, c-format
+msgid ""
+"_: FloatingPoint\n"
+"Delay limited: %1"
+msgstr ""
+
+#: delay.cpp:251
+msgid ""
+"_: FloatingPoint\n"
+"Delay time:"
+msgstr ""
+
+#: delay.cpp:263
+msgid ""
+"_: FloatingPoint\n"
+"Set here the duration auf the delay."
+msgstr ""
+
+#: delay.cpp:267
+msgid ""
+"_: FloatingPoint - Hint in dialog\n"
+"Hint:"
+msgstr ""
+
+#: delay.cpp:275
+msgid ""
+"_: FloatingPoint - Hint in dialog\n"
+"Shows the effective delay time.\n"
+"This time depends on the value of 'Simulation time per tick'."
+msgstr ""
+
+#: delay.cpp:311
+msgid ""
+"_: FloatingPoint - prints delay in a suitable time unit and ticks\n"
+"effective delay time %1 / %2 ticks"
+msgstr ""
+
+#: float2in1out.cpp:50 simpleconditional.cpp:133
 msgid ""
 "_: FloatingPoint-Connector\n"
 "Input A"
 msgstr ""
 
-#: float2in1out.cpp:54 simpleconditional.cpp:139
+#: float2in1out.cpp:54 simpleconditional.cpp:138
 msgid ""
 "_: FloatingPoint-Connector\n"
 "Input B"
@@ -460,91 +726,91 @@ msgid ""
 "Divisor"
 msgstr ""
 
-#: convertboolfloat.cpp:67
+#: convertboolfloat.cpp:66
 msgid ""
 "_: Component\n"
 "Converter Boolean to Floating Point"
 msgstr ""
 
-#: convertboolfloat.cpp:69
+#: convertboolfloat.cpp:68
 msgid ""
 "_: Component\n"
 "Converter/Boolean to Float"
 msgstr ""
 
-#: convertboolfloat.cpp:214
+#: convertboolfloat.cpp:232
 msgid ""
 "_: FloatingPoint\n"
 "True Value: "
 msgstr ""
 
-#: convertboolfloat.cpp:219
+#: convertboolfloat.cpp:237
 msgid ""
 "_: FloatingPoint\n"
 "Sets the value which represents the true level."
 msgstr ""
 
-#: convertboolfloat.cpp:226
+#: convertboolfloat.cpp:242
 msgid ""
 "_: FloatingPoint\n"
 "False Value: "
 msgstr ""
 
-#: convertboolfloat.cpp:231
+#: convertboolfloat.cpp:247
 msgid ""
 "_: FloatingPoint\n"
 "Sets the value which represents the false level."
 msgstr ""
 
-#: floatstyle1out.cpp:173
+#: floatstyle1out.cpp:172
 msgid ""
 "_: FloatingPoint\n"
 "Change the reset value of the component here"
 msgstr ""
 
-#: floatlineinput.cpp:69
+#: floatlineinput.cpp:68
 msgid ""
 "_: Component\n"
 "Floating Point Line Edit Input"
 msgstr ""
 
-#: floatlineinput.cpp:71
+#: floatlineinput.cpp:70
 msgid ""
 "_: Component\n"
 "Floating Point/Input/Line Edit"
 msgstr ""
 
-#: floatlineinput.cpp:355
+#: floatlineinput.cpp:352
 msgid ""
 "_: FloatingPoint\n"
 "Notation: "
 msgstr ""
 
-#: floatlineinput.cpp:360
+#: floatlineinput.cpp:357
 msgid ""
 "_: FloatingPoint\n"
 "Fixed Point"
 msgstr ""
 
-#: floatlineinput.cpp:361
+#: floatlineinput.cpp:358
 msgid ""
 "_: FloatingPoint\n"
 "Exponential"
 msgstr ""
 
-#: floatlineinput.cpp:362
+#: floatlineinput.cpp:359
 msgid ""
 "_: FloatingPoint\n"
 "Automatic"
 msgstr ""
 
-#: floatlineinput.cpp:363
+#: floatlineinput.cpp:360
 msgid ""
 "_: FloatingPoint\n"
 "Sets the notation type of the input."
 msgstr ""
 
-#: floatlineinput.cpp:365
+#: floatlineinput.cpp:362
 msgid ""
 "\n"
 "Fixed Point:\n"
@@ -561,25 +827,25 @@ msgid ""
 "is used."
 msgstr ""
 
-#: floatlineinput.cpp:379
+#: floatlineinput.cpp:376
 msgid ""
 "_: FloatingPoint\n"
 "Precision: "
 msgstr ""
 
-#: floatlineinput.cpp:384
+#: floatlineinput.cpp:381
 msgid ""
 "_: FloatingPoint\n"
 "Sets the 'Precision' of the input."
 msgstr ""
 
-#: floatlineinput.cpp:389
+#: floatlineinput.cpp:386
 msgid ""
 "_: FloatingPoint\n"
 "Tracking"
 msgstr ""
 
-#: floatlineinput.cpp:391
+#: floatlineinput.cpp:388
 msgid ""
 "Enables the value tracking.\n"
 "If enabled the output will be updated after each inserted digit.\n"
@@ -587,103 +853,103 @@ msgid ""
 "another input field."
 msgstr ""
 
-#: floatinputslider.cpp:60
+#: floatinputslider.cpp:59
 msgid ""
 "_: Component\n"
 "Floating Point Input Slider"
 msgstr ""
 
-#: floatinputslider.cpp:62
+#: floatinputslider.cpp:61
 msgid ""
 "_: Component\n"
 "Floating Point/Input/Slider"
 msgstr ""
 
-#: floatinputslider.cpp:304
+#: floatinputslider.cpp:300
 msgid ""
 "_: FloatingPoint\n"
 "The reset value of the slider."
 msgstr ""
 
-#: floatinputslider.cpp:310
+#: floatinputslider.cpp:306
 msgid ""
 "_: FloatingPoint\n"
 "Top/Left value: "
 msgstr ""
 
-#: floatinputslider.cpp:315
+#: floatinputslider.cpp:311
 msgid ""
 "_: FloatingPoint\n"
 "The value of the slider at the top or left position."
 msgstr ""
 
-#: floatinputslider.cpp:320
+#: floatinputslider.cpp:316
 msgid ""
 "_: FloatingPoint\n"
 "Bottom/Right value: "
 msgstr ""
 
-#: floatinputslider.cpp:325
+#: floatinputslider.cpp:321
 msgid ""
 "_: FloatingPoint\n"
 "The value of the slider at the bottom or right position."
 msgstr ""
 
-#: convertfloatbool.cpp:58
+#: convertfloatbool.cpp:57
 msgid ""
 "_: Component\n"
 "Converter Floating Point to Boolean"
 msgstr ""
 
-#: convertfloatbool.cpp:60
+#: convertfloatbool.cpp:59
 msgid ""
 "_: Component\n"
 "Converter/Float to Boolean"
 msgstr ""
 
-#: convertfloatbool.cpp:229
+#: convertfloatbool.cpp:255
 msgid ""
 "_: FloatingPoint\n"
 "True Threshold: "
 msgstr ""
 
-#: convertfloatbool.cpp:234
+#: convertfloatbool.cpp:260
 msgid ""
 "_: FloatingPoint\n"
 "Sets the threshold where the converter switch to true."
 msgstr ""
 
-#: convertfloatbool.cpp:241
+#: convertfloatbool.cpp:267
 msgid ""
 "_: FloatingPoint\n"
 "False Threshold: "
 msgstr ""
 
-#: convertfloatbool.cpp:246
+#: convertfloatbool.cpp:272
 msgid ""
 "_: FloatingPoint\n"
 "Sets the threshold where the converter switch to false."
 msgstr ""
 
-#: convertfloatbool.cpp:251
+#: convertfloatbool.cpp:277
 msgid ""
 "_: FloatingPoint\n"
 "Medium Threshold: "
 msgstr ""
 
-#: convertfloatbool.cpp:256
+#: convertfloatbool.cpp:282
 msgid ""
 "_: FloatingPoint\n"
 "Shows the medium value between 'False Threshold' and 'True Threshold'."
 msgstr ""
 
-#: convertfloatbool.cpp:260
+#: convertfloatbool.cpp:286
 msgid ""
 "_: FloatingPoint\n"
 "Hysteresis: "
 msgstr ""
 
-#: convertfloatbool.cpp:265
+#: convertfloatbool.cpp:291
 msgid ""
 "_: FloatingPoint\n"
 "Shows the hysteresis between 'False Threshold' and 'True Threshold'."
@@ -701,11 +967,15 @@ msgid ""
 "Floating Point/Input/Constant"
 msgstr ""
 
-#: floatconstinput.cpp:107
+#: floatconstinput.cpp:119
 msgid "Edit &Value..."
 msgstr ""
 
-#: floatconstinput.cpp:234
+#: floatconstinput.cpp:151
+msgid "Change constant value"
+msgstr ""
+
+#: floatconstinput.cpp:258
 msgid "Value: "
 msgstr ""
 
@@ -733,25 +1003,49 @@ msgid ""
 "Floating Point/Arithmetic/Trigonometric/acos(x)"
 msgstr ""
 
-#: extconnfloatout.cpp:35
+#: floatcos.cpp:86
+msgid ""
+"_: Component\n"
+"Floating Point cosh(x)"
+msgstr ""
+
+#: floatcos.cpp:88
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/Hyperbolic/cosh(x)"
+msgstr ""
+
+#: floatcos.cpp:105
+msgid ""
+"_: Component\n"
+"Floating Point acosh(x)"
+msgstr ""
+
+#: floatcos.cpp:107
+msgid ""
+"_: Component\n"
+"Floating Point/Arithmetic/Trigonometric/Hyperbolic/acosh(x)"
+msgstr ""
+
+#: extconnfloatout.cpp:36
 msgid ""
 "_: Component\n"
 "External Connector Floating Point Output"
 msgstr ""
 
-#: extconnfloatout.cpp:37
+#: extconnfloatout.cpp:38
 msgid ""
 "_: Component\n"
 "External Connector/Floating Point Output"
 msgstr ""
 
-#: extconnfloatin.cpp:35
+#: extconnfloatin.cpp:36
 msgid ""
 "_: Component\n"
 "External Connector Floating Point Input"
 msgstr ""
 
-#: extconnfloatin.cpp:37
+#: extconnfloatin.cpp:38
 msgid ""
 "_: Component\n"
 "External Connector/Floating Point Input"
@@ -775,13 +1069,13 @@ msgid ""
 "Reset"
 msgstr ""
 
-#: floatlatch.cpp:103
+#: floatlatch.cpp:101
 msgid ""
-"_: FloatingPoint-Connector\n"
-"Enable"
+"_: FloatingPoint\n"
+"Reset input:"
 msgstr ""
 
-#: floatlatch.cpp:118
+#: floatlatch.cpp:120
 #, c-format
 msgid ""
 "_: Connector\n"
@@ -800,123 +1094,123 @@ msgid ""
 "Floating Point/Arithmetic/Remainder"
 msgstr ""
 
-#: simpleconditional.cpp:54
+#: simpleconditional.cpp:53
 msgid ""
 "_: Component\n"
 "Floating Point Conditional Lesser"
 msgstr ""
 
-#: simpleconditional.cpp:56
+#: simpleconditional.cpp:55
 msgid ""
 "_: Component\n"
 "Floating Point/Conditional/Lesser"
 msgstr ""
 
-#: simpleconditional.cpp:67
+#: simpleconditional.cpp:66
 msgid ""
 "_: Component\n"
 "Floating Point Conditional Lesser Equal"
 msgstr ""
 
-#: simpleconditional.cpp:69
+#: simpleconditional.cpp:68
 msgid ""
 "_: Component\n"
 "Floating Point/Conditional/Lesser Equal"
 msgstr ""
 
-#: simpleconditional.cpp:80
+#: simpleconditional.cpp:79
 msgid ""
 "_: Component\n"
 "Floating Point Conditional Equal"
 msgstr ""
 
-#: simpleconditional.cpp:82
+#: simpleconditional.cpp:81
 msgid ""
 "_: Component\n"
 "Floating Point/Conditional/Equal"
 msgstr ""
 
-#: simpleconditional.cpp:93
+#: simpleconditional.cpp:92
 msgid ""
 "_: Component\n"
 "Floating Point Conditional Larger Equal"
 msgstr ""
 
-#: simpleconditional.cpp:95
+#: simpleconditional.cpp:94
 msgid ""
 "_: Component\n"
 "Floating Point/Conditional/Larger Equal"
 msgstr ""
 
-#: simpleconditional.cpp:106
+#: simpleconditional.cpp:105
 msgid ""
 "_: Component\n"
 "Floating Point Conditional Larger"
 msgstr ""
 
-#: simpleconditional.cpp:108
+#: simpleconditional.cpp:107
 msgid ""
 "_: Component\n"
 "Floating Point/Conditional/Larger"
 msgstr ""
 
-#: simpleconditional.cpp:250
+#: simpleconditional.cpp:293
 msgid ""
 "_: FloatingPoint\n"
 "Conditional: "
 msgstr ""
 
-#: simpleconditional.cpp:255
+#: simpleconditional.cpp:298
 msgid ""
 "_: FloatingPoint\n"
 "A < B"
 msgstr ""
 
-#: simpleconditional.cpp:256
+#: simpleconditional.cpp:299
 msgid ""
 "_: FloatingPoint\n"
 "A <= B"
 msgstr ""
 
-#: simpleconditional.cpp:257
+#: simpleconditional.cpp:300
 msgid ""
 "_: FloatingPoint\n"
 "A == B"
 msgstr ""
 
-#: simpleconditional.cpp:258
+#: simpleconditional.cpp:301
 msgid ""
 "_: FloatingPoint\n"
 "A >= B"
 msgstr ""
 
-#: simpleconditional.cpp:259
+#: simpleconditional.cpp:302
 msgid ""
 "_: FloatingPoint\n"
 "A > B"
 msgstr ""
 
-#: simpleconditional.cpp:261
+#: simpleconditional.cpp:304
 msgid ""
 "_: FloatingPoint\n"
 "Sets the conditional."
 msgstr ""
 
-#: floatmultiplier.cpp:47
+#: floatmultiplier.cpp:48
 msgid ""
 "_: Component\n"
 "Floating Point Multiplier"
 msgstr ""
 
-#: floatmultiplier.cpp:49
+#: floatmultiplier.cpp:50
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Multiplier"
 msgstr ""
 
-#: floatmultiplier.cpp:88
+#: floatmultiplier.cpp:98
 #, c-format
 msgid ""
-"_: FloatingPoint\n"
+"_: Connector\n"
 "Factor %1"
 msgstr ""
