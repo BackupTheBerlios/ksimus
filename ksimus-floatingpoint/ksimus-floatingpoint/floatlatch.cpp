@@ -26,6 +26,7 @@
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/resource.h"
 #include "ksimus/ksimspinbox.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolinedge.h"
