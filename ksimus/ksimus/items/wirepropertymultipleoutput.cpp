@@ -120,11 +120,7 @@ void WirePropertyMultipleOutput::setupCircuit()
 		{
 			it.current()->setWireProperty(this);
 			comp = it.current()->getComponent();
-			if (comp->isModule() || comp->isExtConn())
-			{
-				// Nothing todo
-			}
-			else if (it.current()->inherits("ConnectorInputBase"))
+			if (it.current()->inherits("ConnectorInputBase"))
 			{
 				if (-1 == m_connectorInputList->findRef((ConnectorInputBase*)it.current()))
 				{
@@ -145,27 +141,31 @@ void WirePropertyMultipleOutput::setupCircuit()
 					}
 				}
 			}
-			else if (!it.current()->inherits("ConnectorTriStateBase"))
+			else if (it.current()->inherits("ConnectorTriStateBase"))
+			{
+				// Add connector if not in list and is not a connected Module or ExtConn connector
+				if ((-1 == m_connectorList->findRef((ConnectorTriStateBase*)it.current())))
+				{
+					m_connectorList->append((ConnectorTriStateBase*)it.current());
+					if (comp->isZeroDelayComponent())
+					{
+						// Component has to caclulate immediatly
+						if (-1 == m_zeroDelayList->findRef(comp))
+							m_zeroDelayList->append(comp);
+					}
+					else
+					{
+						// Component has to caclulate in next cycle
+						if (-1 == m_executeNextList->findRef(comp))
+							m_executeNextList->append(comp);
+						}
+				}
+			}
+			else
 			{
 				KSIMDEBUG(QString::fromLatin1("Connector '%1' is not a ConnectorTriStateBase (Component %2)")
 				          .arg(it.current()->getName())
 				          .arg(comp->getName()));
-			}
-			else if (-1 == m_connectorList->findRef((ConnectorTriStateBase*)it.current()))
-			{
-				m_connectorList->append((ConnectorTriStateBase*)it.current());
-				if (comp->isZeroDelayComponent())
-				{
-					// Component has to caclulate immediatly
-					if (-1 == m_zeroDelayList->findRef(comp))
-						m_zeroDelayList->append(comp);
-				}
-				else
-				{
-					// Component has to caclulate in next cycle
-					if (-1 == m_executeNextList->findRef(comp))
-						m_executeNextList->append(comp);
-				}
 			}
 		}
 	}
@@ -201,26 +201,7 @@ void WirePropertyMultipleOutput::setupInternal(WirePropertyMultipleOutput * wire
 				// ExternalConnector
 				ExternalConnector * extConn = (ExternalConnector *)comp;
 				setupInternalAddWireProperty(extConn->getInternalConn());
-				if (extConn->getContainer()->isParentComponent())
-				{
-					// Is inside a module and not the internal connector - find connector
-					const Module * module = (const Module *)extConn->getContainer()->getParentComponent();
-					ConnectorBase * conn = module->searchConn(extConn, module->getConnList());
-					if (conn)
-					{
-//						KSIMDEBUG_VAR("Found ExtConn: Add module Conn", conn->getName());
-						setupInternalAddWireProperty(conn);
-					}
-					else
-					{
-//						KSIMDEBUG_VAR("External connector not found", comp->getName());
-					}
-				}
-				else
-				{
-//					KSIMDEBUG_VAR("Found ExtConn: Add external Conn", extConn->getExternalConn()->getName());
-					setupInternalAddWireProperty(extConn->getExternalConn());
-				}
+				setupInternalAddWireProperty(extConn->getUsedExternalConn());
 			}
 		}
 	}
@@ -246,7 +227,7 @@ void WirePropertyMultipleOutput::setupInternalAddWireProperty(ConnectorBase * co
 		}
 		else
 		{
-			KSIMDEBUG("WireProperty is not a WirePropertyMultipleOutput");
+//			KSIMDEBUG("WireProperty is not a WirePropertyMultipleOutput");
 		}
 	}
 }

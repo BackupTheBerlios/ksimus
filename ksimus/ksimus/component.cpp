@@ -65,12 +65,20 @@ public:
 	Private()
 	{
 		flags.zeroDelay = 0;
+		addonListCalculate = (ComponentAddOnList *)0;
 	};
+
+	~Private()
+	{
+		delete addonListCalculate;
+	}
 	
 	struct
 	{
 		unsigned int zeroDelay :1;
 	} flags;
+
+	ComponentAddOnList * addonListCalculate;
 };
 
 
@@ -358,6 +366,30 @@ void Component::reset()
 	if(m_addonList)
 	{
 		m_addonList->reset();
+		if (m_p->addonListCalculate)
+		{
+			m_p->addonListCalculate->clear();
+		}
+		FOR_EACH_COMPONENT_ADDON(it, *m_addonList)
+		{
+			if (it.current()->getAction().isCalculateEnabled())
+			{
+				if (!m_p->addonListCalculate)
+					m_p->addonListCalculate = new ComponentAddOnList();
+				CHECK_PTR(m_p->addonListCalculate);
+				m_p->addonListCalculate->append(it.current());
+			}
+		}
+		if(m_p->addonListCalculate && (m_p->addonListCalculate->count() == 0))
+		{
+			delete m_p->addonListCalculate;
+			m_p->addonListCalculate = (ComponentAddOnList *)0;
+		}
+	}
+	else if (m_p->addonListCalculate)
+	{
+		delete m_p->addonListCalculate;
+		m_p->addonListCalculate = (ComponentAddOnList *)0;
 	}
 }
 
@@ -465,9 +497,9 @@ unsigned int Component::executePropertyCheck()
 
 void Component::calculate()
 {
-	if(m_addonList)
+	if(m_p->addonListCalculate)
 	{
-		m_addonList->calculate();
+		m_p->addonListCalculate->calculate();
 	}
 }
 
