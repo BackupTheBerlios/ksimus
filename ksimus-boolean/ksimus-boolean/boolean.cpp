@@ -54,6 +54,10 @@
 #include "booltristateor.h"
 #include "booltristatexor.h"
 
+
+#include "iodevicevirtualbool.h"
+
+
 // Forward declaration
 
 // Project-Includes
@@ -92,7 +96,7 @@ const PackageInfo * getPackageInfo()
 //#define EXPORT_CONNECTOR_INFO_LIST 1
 //#define EXPORT_WIREPROPERTY_INFO_LIST 1
 #define EXPORT_IMPICITCONVERTER_INFO_LIST 1
-//#define EXPORT_IODEVICE_INFO_LIST 1
+#define EXPORT_IODEVICE_INFO_LIST 1
 //#define EXPORT_IOJOIN_INFO_LIST 1
 
 
@@ -257,6 +261,7 @@ static const KSimIoDeviceInfoList & getDistIoDevice()
 		CHECK_PTR(pDistIoDevice);
 
 		// Add your io device info here
+		pDistIoDevice->append(IoDeviceVirtualBool::getStaticInfo());
 	}
 
 	return *pDistIoDevice;

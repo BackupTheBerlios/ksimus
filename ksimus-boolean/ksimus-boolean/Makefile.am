@@ -12,14 +12,14 @@ libksimus_boolean_la_METASOURCES = AUTO
 
 LDADD = 
 
-libksimus_boolean_la_SOURCES = booltristatexor.cpp booltristateor.cpp booltristateand.cpp booltristate1out.cpp implicitconverterbooltristate2bool.cpp extconnbooltristate.cpp convertbooltristate2bool.cpp convertbool2booltristate.cpp inverter.cpp delay.cpp demultiplexer.cpp multiplexer.cpp multidlatch.cpp boolean7segment.cpp booleanconstant.cpp booleancounter.cpp monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
+libksimus_boolean_la_SOURCES = iodevicevirtualbool.cpp booltristatexor.cpp booltristateor.cpp booltristateand.cpp booltristate1out.cpp implicitconverterbooltristate2bool.cpp extconnbooltristate.cpp convertbooltristate2bool.cpp convertbool2booltristate.cpp inverter.cpp delay.cpp demultiplexer.cpp multiplexer.cpp multidlatch.cpp boolean7segment.cpp booleanconstant.cpp booleancounter.cpp monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
 libksimus_boolean_la_LIBADD = 
 
 libksimus_boolean_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
 
 
 
-EXTRA_DIST = boolean.cpp boolean.h booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h booleancounter.cpp booleancounter.h booleanconstant.cpp booleanconstant.h boolean7segment.cpp boolean7segment.h multidlatch.cpp multidlatch.h multiplexer.cpp multiplexer.h demultiplexer.cpp demultiplexer.h delay.cpp delay.h inverter.cpp inverter.h convertbool2booltristate.cpp convertbool2booltristate.h convertbooltristate2bool.cpp convertbooltristate2bool.h extconnbooltristate.cpp extconnbooltristate.h implicitconverterbooltristate2bool.cpp implicitconverterbooltristate2bool.h booltristate1out.cpp booltristate1out.h booltristateand.cpp booltristateand.h booltristateor.cpp booltristateor.h booltristatexor.cpp booltristatexor.h 
+EXTRA_DIST = boolean.cpp boolean.h booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h booleancounter.cpp booleancounter.h booleanconstant.cpp booleanconstant.h boolean7segment.cpp boolean7segment.h multidlatch.cpp multidlatch.h multiplexer.cpp multiplexer.h demultiplexer.cpp demultiplexer.h delay.cpp delay.h inverter.cpp inverter.h convertbool2booltristate.cpp convertbool2booltristate.h convertbooltristate2bool.cpp convertbooltristate2bool.h extconnbooltristate.cpp extconnbooltristate.h implicitconverterbooltristate2bool.cpp implicitconverterbooltristate2bool.h booltristate1out.cpp booltristate1out.h booltristateand.cpp booltristateand.h booltristateor.cpp booltristateor.h booltristatexor.cpp booltristatexor.h iodevicevirtualbool.cpp iodevicevirtualbool.h 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # this 10 paths are KDE specific. Use them:
