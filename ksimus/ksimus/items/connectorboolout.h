@@ -43,8 +43,6 @@ class ConnectorBoolOut : public ConnectorOutputBase
 friend class WirePropertyBoolean;
 
 public:	
-	enum eResetMode { ResetDefault = 0, ResetTrue, ResetFalse };
-	
 	/**
 	 * Constructs a boolean output connector.
 	 *
@@ -73,38 +71,17 @@ public:
 						const QPoint & pos = QPoint()	);
 	
 	
-    /** Resets the connector
-     */
-	virtual void reset();
 	
 	void setOutput(bool out);
 						
 	// Setup the colors, brushs, and fills for the connector
 	virtual void setupColorScheme (QPainter * p) const;
 	
-	/** Load properties
-		Returns true if successful */
-	virtual bool load(KSimData & file);
-	/** Save properties */
-	virtual void save(KSimData & file) const;
 
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
 	/** Creates the property widget */
 	virtual QWidget* propertyWidget(QWidget * parent);
-
-	// ### Reset mode functions
-	/** Set the reset mode.
-		* The reset mode won't be saved in document, if init is true.
-	  * The signal signalProperty() is emitted.
-	  */
-	void setResetMode(eResetMode mode, bool init = false);
-	/** Returns the reset mode */
-	eResetMode getResetMode() const;
-	/** Returns the reset mode at init time */
-	eResetMode getInitResetMode() const;
-		
-
 
 
 protected:
@@ -132,8 +109,6 @@ protected:
 	virtual const void * getData() const;
 	
 	bool m_data;
-	eResetMode m_resetMode;
-	eResetMode m_resetModeInit;
 
 private slots:
 	/** Display a status help message for popup menu entries, if highlighted */

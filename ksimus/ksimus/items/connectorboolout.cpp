@@ -36,21 +36,6 @@
 // Forward declaration
 class ConnectorBoolOutWidget;
 
-/*static const char * sDefault   = "Default";
-static const char * sTrue      = "True";
-static const char * sFalse     = "False";*/
-static const char * sResetMode = "Reset Mode";
-
-
-
-EnumDict<ConnectorBoolOut::eResetMode>::tData EnumDict<ConnectorBoolOut::eResetMode>::data[]
-			= { {"Reset", ConnectorBoolOut::ResetDefault},
-          {"True",  ConnectorBoolOut::ResetTrue},
-					{"False", ConnectorBoolOut::ResetFalse},
-					{0,(ConnectorBoolOut::eResetMode)0}};
-
-EnumDict<ConnectorBoolOut::eResetMode> resetDict;
-
 
 static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
 {
@@ -64,18 +49,14 @@ const ConnectorInfo ConnectorBoolOutInfo (	"Boolean Output",
 
 ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QPoint & pos)
 	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
-		m_data(false),
-		m_resetMode(ResetDefault),
-		m_resetModeInit(ResetDefault)
+		m_data(false)
 {
 	init();
 }
 											
 ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QString & descr, const QPoint & pos)
 	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
-		m_data(false),
-		m_resetMode(ResetDefault),
-		m_resetModeInit(ResetDefault)
+		m_data(false)
 {
 	init();
 	new ConnectorLabel(this, descr);
@@ -122,83 +103,7 @@ const void * ConnectorBoolOut::getData() const
 	return &m_data;
 }											
 																						
-// ### Reset mode functions
-void ConnectorBoolOut::setResetMode(eResetMode mode, bool init)
-{
-	bool changed(false);
 	
-	if (m_resetMode != mode)
-	{
-		m_resetMode = mode;
-		changed = true;
-	}
-	if (init)
-	{
-		m_resetModeInit = mode;
-	}
-	if(changed)
-	{
-		emit signalProperty();
-	}
-}
-/** Returns the reset mode */
-ConnectorBoolOut::eResetMode ConnectorBoolOut::getResetMode() const
-{
-	return m_resetMode;
-}
-/** Returns the reset mode at init time */
-ConnectorBoolOut::eResetMode ConnectorBoolOut::getInitResetMode() const
-{
-	return m_resetModeInit;
-}
-	
-/** Resets the connector
-*/
-void ConnectorBoolOut::reset()
-{
-	switch (m_resetMode)
-	{
-		case ResetDefault:
-			m_data = isNegated();
-			break;
-			
-		case ResetTrue:
-			m_data = true;
-			break;
-	
-		case ResetFalse:
-			m_data = false;
-			break;
-		
-		default:
-			KSIMDEBUG_VAR("Unknown reset mode", (int)m_resetMode);
-			break;
-	}
-}
-
-/** Load properties
-	Returns true if successful */
-bool ConnectorBoolOut::load(KSimData & file)
-{
-	bool res;
-	res = ConnectorOutputBase::load(file);
-	
-	setResetMode(resetDict.load(file, sResetMode, getInitResetMode()));
-	
-	return res;
-}
-	
-/** Save properties */
-void ConnectorBoolOut::save(KSimData & file) const
-{
-	ConnectorOutputBase::save(file);
-	
-	// save only if set
-	if (getResetMode() != getInitResetMode())
-	{
-		resetDict.save(file, sResetMode, getResetMode());
-	}
-}
 
 /** Creates the property widget */
 QWidget* ConnectorBoolOut::propertyWidget(QWidget * parent)
