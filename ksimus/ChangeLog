@@ -1,3 +1,5 @@
+	29.12.2002
+* New: Modules can be loaded during application start.
 	27.12.2002
 * Fix: Bug #448 caused a crash sometimes if clicked with the right mouse button at a module in
   the component supplier. Thanks to kaplun for the bug report.
