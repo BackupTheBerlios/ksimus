@@ -80,31 +80,31 @@ ClockGeneratorView::ClockGeneratorView(Component * comp, eViewType viewType)
 
 void ClockGeneratorView::draw(QPainter * p)
 {
+	CompView::draw(p);
+	
 	drawFrame(p);
 
 	// 8 Steps (width)
 	#define XSTEP      (((5*gridX - 2*gridX) - 2) / 8)
-	#define XPOS(step) (((XSTEP * step) + 1*gridX + gridX/2 -1) /*+ getPlace().left()*/)
+	#define XPOS(step) ((XSTEP * step) + 1*gridX + gridX/2 -1)
 	// heigth
-	#define YPOS(high) ((high ? 2*gridY : 3*gridY) -1 /*+ getPlace().top()*/)
+	#define YPOS(high) ((high ? 2*gridY : 3*gridY) -1)
 	
 	
-	p->setPen(QPen(black, 0));
+	p->setPen(QPen(black, 1));
 	p->drawLine(XPOS(0),YPOS(0),XPOS(1),YPOS(0));
-	p->lineTo(XPOS(1),YPOS(1));
-	p->lineTo(XPOS(3),YPOS(1));
-	p->lineTo(XPOS(3),YPOS(0));
-	p->lineTo(XPOS(5),YPOS(0));
-	p->lineTo(XPOS(5),YPOS(1));
-	p->lineTo(XPOS(7),YPOS(1));
-	p->lineTo(XPOS(7),YPOS(0));
-	p->lineTo(XPOS(8),YPOS(0));
+	p->drawLine(XPOS(1),YPOS(0),XPOS(1),YPOS(1));
+	p->drawLine(XPOS(1),YPOS(1),XPOS(3),YPOS(1));
+	p->drawLine(XPOS(3),YPOS(1),XPOS(3),YPOS(0));
+	p->drawLine(XPOS(3),YPOS(0),XPOS(5),YPOS(0));
+	p->drawLine(XPOS(5),YPOS(0),XPOS(5),YPOS(1));
+	p->drawLine(XPOS(5),YPOS(1),XPOS(7),YPOS(1));
+	p->drawLine(XPOS(7),YPOS(1),XPOS(7),YPOS(0));
+	p->drawLine(XPOS(7),YPOS(0),XPOS(8),YPOS(0));
 	
 	#undef YPOS
 	#undef XPOS
 	#undef XSTEP
-	
-	CompView::draw(p);
 }
 
 
