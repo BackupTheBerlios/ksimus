@@ -112,7 +112,7 @@ void LogListItem::paint(QPainter * p)
 	}
 
 	
-	for (QStringList::Iterator it = m_textList->begin(); it != m_textList->end(); ++it)
+	for (QStringList::ConstIterator it = m_textList->begin(); it != m_textList->end(); ++it)
 	{
 		p->drawText(firstLine ? 5 : leadingSpace, y, *it);
 		y += ls;
@@ -130,7 +130,7 @@ int LogListItem::width( const QListBox * box) const
 {
 	int max = 0;
 	
-	for (QStringList::Iterator it = m_textList->begin(); it != m_textList->end(); ++it)
+	for (QStringList::ConstIterator it = m_textList->begin(); it != m_textList->end(); ++it)
 	{
 		max = QMAX(max, box->fontMetrics().width(*it)+5);
 	}
