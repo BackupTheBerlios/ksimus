@@ -17,7 +17,7 @@
 
 #include <qstringlist.h>
 #include <qpopupmenu.h>
-
+#include <qcursor.h>
 
 #include <klocale.h>
 #include <kinstance.h>

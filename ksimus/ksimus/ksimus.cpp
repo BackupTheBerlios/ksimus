@@ -34,6 +34,7 @@
 #include <kconfig.h>
 #include <kstdaction.h>
 #include <kstddirs.h>
+#include <kstatusbar.h>
 
 // application specific includes
 #include "globals.h"

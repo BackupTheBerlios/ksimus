@@ -26,6 +26,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qlabel.h>
+#include <qgrid.h>
 
 // KDE-Includes
 #include <klocale.h>

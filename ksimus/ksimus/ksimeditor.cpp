@@ -28,6 +28,7 @@
 #include <qtooltip.h>
 #include <qbitmap.h>
 #include <qpaintdevicemetrics.h>
+#include <qcursor.h>
 
 // include files for KDE
 #include <kinstance.h>

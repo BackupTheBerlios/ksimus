@@ -26,6 +26,7 @@
 #include <qlayout.h>
 #include <qgrid.h>
 #include <qcheckbox.h>
+#include <qpushbutton.h>
 
 // KDE-Includes
 #include <kdialog.h>

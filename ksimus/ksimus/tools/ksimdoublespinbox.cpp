@@ -23,6 +23,7 @@
 #include <qlineedit.h>
 #include <qpopupmenu.h>
 #include <qintdict.h>
+#include <qcursor.h>
 
 // KDE-Includes
 #include <klocale.h>

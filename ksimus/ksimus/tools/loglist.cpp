@@ -23,6 +23,7 @@
 // include QT-Headers
 #include <qpopupmenu.h>
 #include <qlayout.h>
+#include <qcursor.h>
 
 // include KDE-Headers
 #include <klocale.h>
