@@ -2,7 +2,7 @@
 
 SUBDIRS = ksimus po doc 
 
-EXTRA_DIST = ksimus.kdevprj admin AUTHORS COPYING INSTALL README TODO ksimus.lsm ChangeLog subdirs 
+EXTRA_DIST = ksimus.kdevprj admin AUTHORS COPYING INSTALL README TODO ksimus.lsm ChangeLog 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 

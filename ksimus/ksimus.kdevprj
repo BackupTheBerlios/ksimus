@@ -23,7 +23,7 @@ cflags=
 cppflags=
 cxxflags=\s-O3 -g2 -Wall
 ldadd=-lltdl -lkdeprint $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
-ldflags=\s            -rdynamic
+ldflags=\s             -rdynamic
 path_to_bin_program=ksimus
 
 [General]
@@ -43,7 +43,7 @@ project_type=normal_kde2
 sgml_file=/home/rasmus/Projekte/ksimus/doc/en/index.docbook
 short_info=The main program.
 sub_dir=ksimus/
-version=0.3.6-pre1
+version=0.3.6
 version_control=CVS
 workspace=1
 
