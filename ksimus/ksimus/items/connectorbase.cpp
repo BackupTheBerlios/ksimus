@@ -50,10 +50,6 @@ static const char * sHideType = "Hide";
 
 #define ERASABLE					0x0020
 
-#define INDIVIDUAL_SAVE		0x0040
-#define INDIVIDUAL_DRAW		0x0080
-
-
 
 class ConnectorBasePrivate
 {
@@ -99,14 +95,7 @@ public:
 	void setErasable(bool v)	{ setFlag(v,ERASABLE); };
 	bool isErasable() const 	{ return isFlagSet(ERASABLE); };
 	
-	// Individual flags
-	void setIndividualSave(bool v)  { setFlag(v,INDIVIDUAL_SAVE); };
-	bool isIndividualSave() const 	{ return isFlagSet(INDIVIDUAL_SAVE); };
-	
-	void setIndividualDraw(bool v)  { setFlag(v,INDIVIDUAL_DRAW); };
-	bool isIndividualDraw() const 	{ return isFlagSet(INDIVIDUAL_DRAW); };
-	
-	int flag;
+	Q_UINT32 flag;
 
 
 	// Initial name of the connector
@@ -601,7 +590,7 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 		{
 			if (isNegated())
 			{
-				p->drawEllipse(x-2, y-3, 6 , 6);
+				p->drawEllipse(x-3, y-2, 6 , 6);
 			}
 			p->drawLine(x, y-gridY/2, x, y+gridY/2);
 		}
@@ -621,7 +610,7 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 		{
 			if (isNegated())
 			{
-				p->drawEllipse(x-2, y-3, 6 , 6);
+				p->drawEllipse(x-3, y-4, 6 , 6);
 			}
 			p->drawLine(x, y-gridY/2, x, y+gridY/2);
 		}
