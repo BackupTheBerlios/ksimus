@@ -37,7 +37,6 @@
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimdata.h"
-#include "ksimus/componentpropertydialog.h"
 
 #include "boolean7segment.h"
 
