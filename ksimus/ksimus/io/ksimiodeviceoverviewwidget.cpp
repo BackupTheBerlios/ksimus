@@ -21,6 +21,7 @@
 #include <qlistview.h>
 #include <qvbox.h>
 #include <qpushbutton.h>
+#include <qlabel.h>
 #include <qlayout.h>
 
 // KDE includes
@@ -126,9 +127,15 @@ KSimIoDeviceOverviewWidget::KSimIoDeviceOverviewWidget(QWidget *parent, const ch
 	setColStretch(0, 10);
 	setColStretch(1, 0);
 	setColStretch(2, 0);
-	addColSpacing(1, 20);
+	addColSpacing(1, KDialog::spacingHint());
 
-	m_list = new QListView(this, "m_list");
+	QVBox * leftBox = new QVBox(this, "leftBox");
+	CHECK_PTR(leftBox);
+	leftBox->setSpacing(KDialog::spacingHint());
+
+	new QLabel(i18n("IO Devices known by KSimus:"), leftBox, "label");
+
+	m_list = new QListView(leftBox, "m_list");
 	CHECK_PTR(m_list);
 	m_list->addColumn(i18n("Name"));
 	m_list->addColumn(i18n("Type"));
@@ -151,6 +158,8 @@ KSimIoDeviceOverviewWidget::KSimIoDeviceOverviewWidget(QWidget *parent, const ch
 	m_buttonDelDev = new QPushButton(i18n("Delete"), buttonBox, "m_buttonDelDev");
 	CHECK_PTR(m_buttonDelDev);
 	connect(m_buttonDelDev, SIGNAL(clicked()), this, SLOT(slotDelDevice()));
+
+	connect(m_list, SIGNAL(doubleClicked(QListViewItem*)), m_buttonConfDev, SLOT(animateClick()));
 
 	setup();
 	slotSelectionChanged();
@@ -197,7 +206,17 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 	                                       KDialogBase::Ok,
 	                                       parentWidget(), "Select New IO Device");
 
+	CHECK_PTR(dialog);
 	QWidget * wid = dialog->plainPage();
+
+	QBoxLayout * horLayout = new QVBoxLayout(wid);
+	horLayout->setMargin(0);//KDialog::marginHint());
+	horLayout->setSpacing(KDialog::spacingHint());
+
+	QLabel * l = new QLabel(i18n("Select a IO Device Type:"), wid, "label");
+	CHECK_PTR(l);
+	horLayout->addWidget(l);
+
 
 	QListView * list = new QListView(wid, "new device list");
 	CHECK_PTR(list);
@@ -206,9 +225,6 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 	CHECK_PTR(okButton);
 	connect(list, SIGNAL(doubleClicked(QListViewItem*)), okButton, SLOT(animateClick()));
 
-	QBoxLayout * horLayout = new QHBoxLayout(wid);
-	horLayout->setMargin(KDialog::marginHint());
-	horLayout->setSpacing(KDialog::spacingHint());
 	horLayout->addWidget(list);
 
 	
@@ -330,20 +346,22 @@ int KSimIoDeviceOverviewWidget::executeDialog(QWidget *parent, const char *name)
 	                                       parent, name);
 	                                       
 
+	CHECK_PTR(dialog);
 	QWidget * wid = dialog->plainPage();
 
 	KSimIoDeviceOverviewWidget * child = new KSimIoDeviceOverviewWidget(wid, "KSimIoDeviceOverviewWidget");
 	CHECK_PTR(child);
+	child->setMargin(0);//KDialog::marginHint());
+//	child->setSpacing(0);//KDialog::spacingHint());
 
-	QBoxLayout * horLayout = new QHBoxLayout(wid);
-	horLayout->setMargin(KDialog::marginHint());
-	horLayout->setSpacing(KDialog::spacingHint());
+	QBoxLayout * horLayout = new QVBoxLayout(wid);
+//	horLayout->setMargin(0);//KDialog::marginHint());
+//	horLayout->setSpacing(0);//KDialog::spacingHint());
 	horLayout->addWidget(child);
 
 	connect(dialog, SIGNAL(okClicked()), child, SLOT(slotAccept()));
 	connect(dialog, SIGNAL(defaultClicked()), child, SLOT(slotDefault()));
 	connect(dialog, SIGNAL(cancelClicked()), child, SLOT(slotCancel()));
-
 
 	// Load last size
 	KConfig * config=kapp->config();

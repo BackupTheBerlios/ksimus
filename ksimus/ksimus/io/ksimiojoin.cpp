@@ -38,11 +38,19 @@
 class KSimIoJoin::Private
 {
 public:
-	Private() {};
+	Private()
+	{
+		flags.exclusive = 1;
+	};
 
 	int ioPinID;
 	QString deviceName;
 	QString defaultConnectorName;
+
+	struct
+	{
+		unsigned int exclusive : 1;
+	} flags;
 
 	//Some statics
 	static const char * const sDeviceName;
@@ -81,6 +89,10 @@ KSimIoJoin::KSimIoJoin(KSimIoComponent* ioComp, const KSimIoJoinInfo* info)
 KSimIoJoin::~KSimIoJoin()
 {
 	KSIMDEBUG_VAR("KSimIoJoin::~KSimIoJoin", getDefaultPinName());
+	if(m_device)
+	{
+		m_device->unregisterJoin(this);
+	}
 	getIoComponent()->getConnList()->removeRef(getConnector());
 	// delete getConnector(); is deleted by getIoComponent()->getConnList()
 	getIoComponent()->removeJoin(this);
@@ -120,9 +132,13 @@ void KSimIoJoin::setPin(const KSimIoPin * pin)
 
 	ASSERT(pin != (const KSimIoPin*)0);
 
-	if(m_pin != (const KSimIoPin*)0)
+	if(m_pin)
 	{
 		disconnect(m_pin, SIGNAL(destroyed()), this, SLOT(slotPinDelete()));
+	}
+	if(m_device)
+	{
+		m_device->unregisterJoin(this);
 	}
 
 	m_pin = pin;
@@ -130,6 +146,7 @@ void KSimIoJoin::setPin(const KSimIoPin * pin)
 
 	m_device = m_pin->getDevice();
 	CHECK_PTR(m_device);
+	m_device->registerJoin(this);
 	m_p->deviceName = getDevice()->getName();
 
 	m_p->defaultConnectorName = QString::fromLatin1("%1(%2)").arg(m_p->deviceName)
@@ -207,12 +224,34 @@ QString KSimIoJoin::getDefaultPinName() const
 }
 
 
+void KSimIoJoin::reset()
+{
+	ASSERT(m_pin != (const KSimIoPin*) 0);
+	ASSERT(m_device != (KSimIoDevice*) 0);
+	// Nothing todo
+}
+
+bool KSimIoJoin::isExclusive() const
+{
+	return (m_p->flags.exclusive == 0);
+}
+
+void KSimIoJoin::setExclusive(bool exclusive)
+{
+	m_p->flags.exclusive = exclusive ? 1 : 0;
+}
+
 
 //#########################################
 // Slots
 
 void KSimIoJoin::slotPinDelete()
 {
+	if(m_device)
+	{
+		m_device->unregisterJoin(this);
+	}
+
 	m_pin = (const KSimIoPin*) 0;
 	m_device = (KSimIoDevice *)0;
 }

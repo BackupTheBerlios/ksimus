@@ -30,12 +30,11 @@
 #include "ksimiopin.h"
 
 // Forward declaration
+class KSimusDoc;
 class KConfigBase;
 class KSimIoDeviceInfo;
 class KSimIoDevicePropertyDialog;
 class KSimIoDevicePropertyBaseWidget;
-
-
 
 /**Base class for IO devices
   *@author Rasmus Diekenbrock
@@ -44,6 +43,8 @@ class KSimIoDevicePropertyBaseWidget;
 class KSimIoDevice : public QObject
 {
 class Private;
+class JoinItem;
+class JoinItemList;
 
    Q_OBJECT
 public:
@@ -67,6 +68,13 @@ public:
 	virtual void save(KConfigBase & config) const;
 	virtual bool load(KConfigBase & config);
 
+	virtual void checkCircuit(const KSimusDoc * doc, QStringList & errorMsgList);
+
+	virtual bool openDevice(QString & errorMsg);
+	virtual void closeDevice();
+
+	unsigned int isDeviceOpened() const;
+
 	/** Sets an io pin.
 	  * @param ioPinID The ID of the pin to set.
 	  * @param pValue  A pointer to the value to set. The type depends on the pin type.
@@ -81,6 +89,10 @@ public:
 	void setSerial(unsigned int serial);
 	unsigned int getSerial() const { return m_mySerial; };
 	
+	/** The IO device may be used only once. 
+	  * The default is not exclusive. */
+	bool isExclusive() const;
+	void setExclusive(bool exclusive);
 
 	//#####################################
 	// Pins
@@ -90,6 +102,15 @@ public:
 	
 	void addPins2Pool();
 
+	//#####################################
+	// Joins
+
+	/** Register a join. The join use this device. */
+	void registerJoin(KSimIoJoin * join);
+
+	/** Unregister a join. The join had used this device.
+	  * Returns false, if join was not registered. */
+	bool unregisterJoin(KSimIoJoin * join);
 
 	//#####################################
 	// Dialog
@@ -133,9 +154,9 @@ private: // Private attributes
 
 };
 
+//################################################################################
+//################################################################################
 
-//################################################################################
-//################################################################################
 //#include "ksimiodeviceinfo.h"
 class KSimIoDeviceInfo;
 
@@ -168,5 +189,6 @@ private:
 	double m_inDouble1;
 	double m_outDouble1;
 };
+
 
 #endif

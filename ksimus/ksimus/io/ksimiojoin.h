@@ -82,14 +82,22 @@ public:
 	*   Returns true if successful */
 	virtual bool load(KSimData & file);
 
+	/** resets the join */
+	virtual void reset();
+
 	/** executes the join */
 	virtual void calculate() const = 0;
 
 	unsigned int getSerialID() const { return m_serialID; };
 	void setSerialID(unsigned int serial) { m_serialID = serial; };
 
+	/** The IO join may be used only once. Eg. output pins should only controlled by one join.
+	  * If isExclusive() is true, only one join can use the io pin.
+	  * The default is exclusive. */
+	bool isExclusive() const;
+	void setExclusive(bool exclusive);
 
-
+	
 protected:
 	KSimIoJoin(KSimIoComponent* ioComp, const KSimIoJoinInfo* info);
 	void setConnector(ConnectorBase * connector);

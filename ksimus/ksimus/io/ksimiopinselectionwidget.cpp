@@ -83,7 +83,7 @@ KSimIoPinSelectionWidget::KSimIoPinSelectionWidget(const KSimIoPin::List & pinLi
 	m_list = new QListView(this, "m_list");
 	CHECK_PTR(m_list);
 	m_list->addColumn(i18n("Device"));
-	m_list->addColumn(i18n("IO Pin"));
+	m_list->addColumn(i18n("Pin Name"));
 
 
 	FOR_EACH_IO_PIN(it, pinList)

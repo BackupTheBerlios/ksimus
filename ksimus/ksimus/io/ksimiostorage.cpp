@@ -66,7 +66,7 @@ bool KSimIoStorage::open(bool readOnly)
 {
 	ASSERT(m_conf == (KSimpleConfig*)0);
 	
-	QString filename(locateLocal(s_type, s_filename));
+	QString filename(locateLocal(s_type, QString::fromLatin1(s_filename)));
 //	KSIMDEBUG_VAR("", filename);
 	m_conf = new KSimpleConfig(filename, readOnly);
 	CHECK_PTR(m_conf);

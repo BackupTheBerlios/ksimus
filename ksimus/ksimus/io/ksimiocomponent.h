@@ -57,11 +57,15 @@ public:
 	  *	Return true, if items are added */
 	virtual bool initPopupMenu(QPopupMenu * popup);
 
+	/** Reset all simulation variables */
+	virtual void reset();
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
 	void updateLayout();
 
 
 	void removeJoin(KSimIoJoin * delJoin);
-
 
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);

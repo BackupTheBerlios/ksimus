@@ -31,6 +31,9 @@
 class KSimIoJoinInfo;
 
 /**A boolean input join.
+  *
+  * Remember: This is an input for KSimus and an output for the io device!!!
+  *
   *@author Rasmus Diekenbrock
   */
 
@@ -56,6 +59,13 @@ private:
 //###################################################################################
 //###################################################################################
 // TODO move to own file
+
+/**A boolean output join.
+  *
+  * Remember: This is an output for KSimus and an input for the io device!!!
+  *
+  *@author Rasmus Diekenbrock
+  */
 
 class KSimIoJoinBoolOut : public KSimIoJoin
 {

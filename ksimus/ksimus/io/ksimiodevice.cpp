@@ -27,12 +27,15 @@
 
 // Project includes
 #include "ksimdebug.h"
+#include "ksimusdoc.h"
 #include "ksimiodevice.h"
 #include "ksimiodevicelist.h"
 #include "ksimiodeviceinfo.h"
 #include "ksimiodevicepropertydialog.h"
 #include "ksimiodevicepropertybasewidget.h"
 #include "ksimiodevicepropertygeneralwidget.h"
+#include "ksimiojoin.h"
+#include "ksimiocomponent.h"
 
 // Forward declaration
 
@@ -44,9 +47,104 @@
 #endif
 
 
+
+class KSimIoDevice::JoinItem
+{
+public:
+	JoinItem()
+		:	join((KSimIoJoin *)0),
+			pinId(-1)
+	{};
+	JoinItem(KSimIoJoin * _join, int _pinId)
+		:	join(_join),
+			pinId(_pinId)
+	{};
+
+	KSimIoJoin * join;
+	int pinId;
+};
+
+
+//################################################################################
+//################################################################################
+
+class KSimIoDevice::JoinItemList : public QValueList<KSimIoDevice::JoinItem>
+{
+public:
+	int findIndexByJoin(const KSimIoJoin * join) const;
+	JoinItem * findByJoin(KSimIoJoin * join);
+
+	JoinItemList findListByPinId(int pinId) const;
+};
+
+int KSimIoDevice::JoinItemList::findIndexByJoin(const KSimIoJoin * join) const
+{
+	for (unsigned int i = 0; i < count(); i++)
+	{
+		if ((*at(i)).join == join)
+		{
+			return (int)i;  // I don't think there are ever so much joins
+		}
+	}
+	return -1;
+}
+
+
+KSimIoDevice::JoinItem * KSimIoDevice::JoinItemList::findByJoin(KSimIoJoin * join)
+{
+	Iterator it;
+
+	for(it = begin(); it != end(); ++it)
+	{
+		if ((*it).join == join)
+		{
+			return &(*it);
+		}
+	}
+	return (KSimIoDevice::JoinItem *)0;
+}
+
+KSimIoDevice::JoinItemList KSimIoDevice::JoinItemList::findListByPinId(int pinId) const
+{
+	JoinItemList list;
+
+	ConstIterator it;
+	for(it = begin(); it != end(); ++it)
+	{
+		if ((*it).pinId == pinId)
+		{
+			list.append(*it);
+		}
+	}
+	return list;
+}
+
+
+
+
+//################################################################################
+//################################################################################
+
+
+
 class KSimIoDevice::Private
 {
 public:
+	Private()
+		:	openCnt(0)
+	{
+		flags.exclusive = 0;
+	};
+
+	JoinItemList joinList;
+
+	struct
+	{
+		unsigned int exclusive :1;
+	} flags;
+	unsigned int openCnt;
+
+	
 	// Some statics
 	static const char * const s_deviceName;
 	static const char * const s_deviceDescription;
@@ -54,8 +152,12 @@ public:
 
 
 
+
 const char * const KSimIoDevice::Private::s_deviceName         = "Name";
 const char * const KSimIoDevice::Private::s_deviceDescription  = "Description";
+
+//################################################################################
+//################################################################################
 
 
 KSimIoDevice::KSimIoDevice(const KSimIoDeviceInfo * info, QObject *parent, const char *name)
@@ -65,6 +167,8 @@ KSimIoDevice::KSimIoDevice(const KSimIoDeviceInfo * info, QObject *parent, const
 		m_info(info),
 		m_mySerial(0)
 {
+	m_p = new Private;
+	CHECK_PTR(m_p);
 //	m_pinList.setAutoDelete(true); Are object childs from device!
 }
 
@@ -75,6 +179,7 @@ KSimIoDevice::~KSimIoDevice()
 	{
 		pool.remove(it);
 	}
+	delete m_p;
 }
 
 void KSimIoDevice::setName(const QString & newName)
@@ -108,6 +213,8 @@ bool KSimIoDevice::load(KConfigBase & config)
 {
 	setName(config.readEntry(Private::s_deviceName));
 	setDescription(config.readEntry(Private::s_deviceDescription));
+
+	return true;
 }
 
 
@@ -116,6 +223,133 @@ void KSimIoDevice::setSerial(unsigned int serial)
 	ASSERT(serial != 0);
 
 	m_mySerial = serial;
+}
+
+bool KSimIoDevice::isExclusive() const
+{
+	return (m_p->flags.exclusive != 0);
+}
+
+void KSimIoDevice::setExclusive(bool exclusive)
+{
+	m_p->flags.exclusive = exclusive ? 1 : 0;
+}
+
+void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgList)
+{
+	ASSERT(doc != (const KSimusDoc *)0);
+
+	// Device used by this doc?
+	bool deviceUsed = false;
+	JoinItemList::ConstIterator cJoinIt;
+	for (cJoinIt = m_p->joinList.begin(); cJoinIt != m_p->joinList.end(); ++cJoinIt)
+	{
+		if ((*cJoinIt).join->getIoComponent()->getDoc() == doc)
+		{
+			deviceUsed = true;
+			break;
+		}
+	}
+	if (!deviceUsed)
+		return;   // Device not used. No need to check!
+	
+	QStringList runningDocnameDeviceExclusive;
+	
+	// Exclusive execution of the io device
+	if (isExclusive())
+	{
+		JoinItemList::ConstIterator it;
+		for(it = m_p->joinList.begin(); it != m_p->joinList.end(); ++it)
+		{
+			KSimIoComponent * comp = (*it).join->getIoComponent();
+			if ((comp->getDoc() != doc) && (comp->isRunning()))
+			{
+				// Used in another running document
+				QString docName(comp->getDoc()->URL().path());
+				if (!runningDocnameDeviceExclusive.contains(docName))
+				{
+					runningDocnameDeviceExclusive.append(docName);
+				}
+			}
+		}
+		if (runningDocnameDeviceExclusive.count())
+		{
+			QString errMsg = i18n("IO Device", "IO device '%1' is used in another running circuit (%2)")
+			                 .arg(getName())
+			                 .arg(runningDocnameDeviceExclusive.join(QString::fromLatin1(", ")));
+			errorMsgList.append(errMsg);
+		}
+		
+	}
+
+	// Check pins
+	QListIterator<KSimIoPin> itPin(getPinList());
+	for (; itPin.current(); ++itPin)
+	{
+		unsigned int usedCnt = 0;
+		QStringList runningDocName;
+		const KSimIoPin * pin = itPin.current();
+		JoinItemList joinList = m_p->joinList.findListByPinId(pin->getPinID());
+		JoinItemList::ConstIterator itJoin;
+		for(itJoin = joinList.begin(); itJoin != joinList.end(); ++itJoin)
+		{
+			const KSimIoJoin * join = (*itJoin).join;
+			// Check exclusive joins
+			if (join->isExclusive())
+			{
+				if (join->getIoComponent()->getDoc() == doc)
+				{
+					// Used in doc
+					usedCnt++;
+				}
+				else if (join->getIoComponent()->isRunning())
+				{
+					// Used in another running document
+					QString docName(join->getIoComponent()->getDoc()->URL().path());
+					// Add docName if it is not in the list and if the doc does not causes an error during
+					// device exclusive check
+					if ( !runningDocName.contains(docName)
+					  && !runningDocnameDeviceExclusive.contains(docName))
+					{
+						runningDocName.append(docName);
+					}
+				}
+			}
+		}
+		if (usedCnt > 1)
+		{
+			QString errMsg = i18n("IO Device", "IO pin '%1::%2' is used more than once (used %3 times)")
+			                 .arg(getName())
+			                 .arg(pin->getName())
+			                 .arg(usedCnt);
+			errorMsgList.append(errMsg);
+		}
+		if (runningDocName.count())
+		{
+			QString errMsg = i18n("IO Device", "IO pin '%1::%2' is used in another running circuit (%3)")
+			                 .arg(getName())
+			                 .arg(pin->getName())
+			                 .arg(runningDocName.join(QString::fromLatin1(", ")));
+			errorMsgList.append(errMsg);
+		}
+	}
+}
+
+bool KSimIoDevice::openDevice(QString & /*errorMsg*/)
+{
+	m_p->openCnt++;
+	return true;
+}
+
+void KSimIoDevice::closeDevice()
+{
+	ASSERT(m_p->openCnt > 0);
+	m_p->openCnt--;
+}
+
+unsigned int KSimIoDevice::isDeviceOpened() const
+{
+	return m_p->openCnt;
 }
 
 //#####################################
@@ -135,6 +369,40 @@ const KSimIoPin * KSimIoDevice::findPinByID(int ioPinID) const
 	return (const KSimIoPin *)0;
 }
 
+
+//#####################################
+// Joins
+
+void KSimIoDevice::registerJoin(KSimIoJoin * join)
+{
+	ASSERT(join != (KSimIoJoin *)0);
+	
+	if ( -1 == m_p->joinList.findIndexByJoin(join))
+	{
+		m_p->joinList.append(JoinItem(join, join->getPin()->getPinID()));
+	}
+	else
+	{
+		KSIMDEBUG_VAR("Join already in list", join->getDefaultPinName());
+	}
+}
+
+bool KSimIoDevice::unregisterJoin(KSimIoJoin * join)
+{
+	ASSERT(join != (KSimIoJoin *)0);
+
+	int idx = m_p->joinList.findIndexByJoin(join);
+	if (idx != -1)
+	{
+		m_p->joinList.remove(m_p->joinList.at(idx));
+		return true;
+	}
+	else
+	{
+		KSIMDEBUG_VAR("Join not in list", join->getDefaultPinName());
+		return false;
+	}
+}
 
 //################################################################################
 // Property dialog
@@ -233,7 +501,7 @@ KSimIoDeviceTest::KSimIoDeviceTest(const KSimIoDeviceInfo * info, QObject *paren
 	pin->addPinInfo(KSimIoJoinBoolOut::getStaticInfo());
 	getPinList().append(pin);
 
-	
+//	setExclusive(true);
 }
 
 void KSimIoDeviceTest::setIO(int ioPinID, const void * pValue)
@@ -255,7 +523,7 @@ void KSimIoDeviceTest::setIO(int ioPinID, const void * pValue)
 
 void KSimIoDeviceTest::getIO(int ioPinID, void * pValue) const
 {
-	ASSERT(pValue != (const void *)0);
+	ASSERT(pValue != (void *)0);
 
 	switch(ioPinID)
 	{

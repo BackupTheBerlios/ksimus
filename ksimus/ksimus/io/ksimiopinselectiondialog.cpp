@@ -37,39 +37,46 @@ KSimIoPinSelectionDialog::KSimIoPinSelectionDialog(const KSimIoPin::List & pinLi
                                                    const QString & caption,
                                                    QWidget *parent,
                                                    const char *name)
-	:	 KSimDialog(caption,parent,name)
+	:	 KDialogBase(KDialogBase::Plain,
+		             caption,
+		             KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
+		             KDialogBase::Ok,
+		             parent,name)
 {
+	QWidget * wid = plainPage();
+
+	m_selWid = new KSimIoPinSelectionWidget(pinList, wid, "KSimIoPinSelectionWidget");
+	CHECK_PTR(m_selWid);
+	m_selWid->setMargin(0);
+
+	QBoxLayout * horLayout = new QHBoxLayout(wid);
+	CHECK_PTR(horLayout);
+	horLayout->addWidget(m_selWid);
+
+	connect(this, SIGNAL(okClicked()), m_selWid, SLOT(slotAccept()));
+	connect(this, SIGNAL(defaultClicked()), m_selWid, SLOT(slotDefault()));
+	connect(this, SIGNAL(cancelClicked()), m_selWid, SLOT(slotCancel()));
 }
 
 KSimIoPinSelectionDialog::~KSimIoPinSelectionDialog()
 {
 }
 
+const KSimIoPin * KSimIoPinSelectionDialog::getCurrentPin() const
+{
+	return m_selWid->getCurrentPin();
+}
+
+
+
+
 const KSimIoPin * KSimIoPinSelectionDialog::execute(const KSimIoPin::List & pinList,
                                                     const QString & caption,
                                                     QWidget *parent,
                                                     const char *name)
 {
-	KDialogBase * dialog = new KDialogBase(KDialogBase::Plain,
-	                                       caption /*i18n("IO Devices")*/,
-	                                       KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
-	                                       KDialogBase::Ok,
-	                                       parent, name);
-
-
-	QWidget * wid = dialog->plainPage();
-
-	KSimIoPinSelectionWidget * child = new KSimIoPinSelectionWidget(pinList, wid, "KSimIoPinSelectionWidget");
-	CHECK_PTR(child);
-
-	QBoxLayout * horLayout = new QHBoxLayout(wid);
-	horLayout->setMargin(KDialog::marginHint());
-	horLayout->setSpacing(KDialog::spacingHint());
-	horLayout->addWidget(child);
-
-	connect(dialog, SIGNAL(okClicked()), child, SLOT(slotAccept()));
-	connect(dialog, SIGNAL(defaultClicked()), child, SLOT(slotDefault()));
-	connect(dialog, SIGNAL(cancelClicked()), child, SLOT(slotCancel()));
+	KSimIoPinSelectionDialog * dialog = new KSimIoPinSelectionDialog(pinList, caption, parent, name);
+	CHECK_PTR(dialog);
 
 
 	// Load last size
@@ -91,7 +98,7 @@ const KSimIoPin * KSimIoPinSelectionDialog::execute(const KSimIoPin::List & pinL
 	config->writeEntry("Geometry", dialog->size());
 	config->setGroup(group);
 
-	const KSimIoPin * pin = child->getCurrentPin();
+	const KSimIoPin * pin = dialog->getCurrentPin();
 	delete dialog;
 
 	return (result == QDialog::Accepted) ? pin : (const KSimIoPin *)0;

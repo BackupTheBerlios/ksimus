@@ -23,20 +23,21 @@
 // QT-Includes
 
 // KDE-Includes
+#include <kdialogbase.h>
 
 // Project-Includes
-#include "ksimdialog.h"
 #include "ksimiopin.h"
 
 // Forward declaration
 class KSimIoDevice;
+class KSimIoPinSelectionWidget;
 
 
 /**Base dialog for io device property
   *@author Rasmus Diekenbrock
   */
 
-class KSimIoPinSelectionDialog : public KSimDialog
+class KSimIoPinSelectionDialog : public KDialogBase
 {
 // Some internal classes
 class Private;
@@ -48,6 +49,9 @@ public:
 	                         QWidget *parent=(QWidget *)0,
 	                         const char *name=(const char *)0);
 	~KSimIoPinSelectionDialog();
+
+	/** Returns the currently selected pin. */
+	const KSimIoPin * getCurrentPin() const;
 
 	/** Executes a KSimIoPinSelectionDialog.
 	    Do some additional stuff like size storing.
@@ -61,6 +65,7 @@ protected slots:
 
 private:
 	Private * m_p;
+	KSimIoPinSelectionWidget * m_selWid;
 };
 
 #endif

@@ -48,6 +48,8 @@ public:
 	KSimIoDevice * findByName(const QString & deviceName) const;
 
 	bool loadActive();
+
+	void checkCircuit(const KSimusDoc * doc, QStringList & errorMsg);
 	
 };
 

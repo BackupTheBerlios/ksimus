@@ -23,9 +23,11 @@
 #include <klocale.h>
 
 // Project includes
+#include "ksimdebug.h"
 #include "ksimiojoinboolin.h"
 #include "ksimiopin.h"
 #include "ksimiojoininfo.h"
+#include "ksimiodevice.h"
 #include "connectorboolin.h"
 #include "connectorboolout.h"
 
@@ -63,6 +65,7 @@ KSimIoJoin * KSimIoJoinBoolIn::create(KSimIoComponent * comp, const KSimIoJoinIn
 KSimIoJoinBoolIn::KSimIoJoinBoolIn(KSimIoComponent * comp, const KSimIoJoinInfo * info)
 	:	KSimIoJoin(comp, info)
 {
+	setExclusive(true);
 }
 
 KSimIoJoinBoolIn::~KSimIoJoinBoolIn()
@@ -71,7 +74,7 @@ KSimIoJoinBoolIn::~KSimIoJoinBoolIn()
 
 ConnectorBase * KSimIoJoinBoolIn::createConnector()
 {
-	ConnectorBoolIn * conn = new ConnectorBoolIn(getComponent(), QString::null, QString::null);
+	ConnectorBoolOut * conn = new ConnectorBoolOut(getComponent(), QString::null, QString::null);
 	CHECK_PTR(conn);
 	conn->setErasable(true);
 	setConnector(conn);
@@ -80,7 +83,11 @@ ConnectorBase * KSimIoJoinBoolIn::createConnector()
 
 void KSimIoJoinBoolIn::calculate() const
 {
-	
+	bool value;
+
+	getDevice()->getIO(getPin()->getPinID(), &value);
+
+	((ConnectorBoolOut *)getConnector())->setOutput(value);
 }
 
 
@@ -120,6 +127,7 @@ KSimIoJoin * KSimIoJoinBoolOut::create(KSimIoComponent * comp, const KSimIoJoinI
 KSimIoJoinBoolOut::KSimIoJoinBoolOut(KSimIoComponent * comp, const KSimIoJoinInfo * info)
 	:	KSimIoJoin(comp, info)
 {
+	setExclusive(false);
 }
 
 KSimIoJoinBoolOut::~KSimIoJoinBoolOut()
@@ -129,7 +137,7 @@ KSimIoJoinBoolOut::~KSimIoJoinBoolOut()
 
 ConnectorBase * KSimIoJoinBoolOut::createConnector()
 {
-	ConnectorBoolOut * conn = new ConnectorBoolOut(getComponent(), QString::null, QString::null);
+	ConnectorBoolIn * conn = new ConnectorBoolIn(getComponent(), QString::null, QString::null);
 	CHECK_PTR(conn);
 	conn->setErasable(true);
 	setConnector(conn);
@@ -138,5 +146,7 @@ ConnectorBase * KSimIoJoinBoolOut::createConnector()
 
 void KSimIoJoinBoolOut::calculate() const
 {
+	bool value = ((ConnectorBoolIn *)getConnector())->getInput();
 
+	getDevice()->setIO(getPin()->getPinID(), &value);
 }

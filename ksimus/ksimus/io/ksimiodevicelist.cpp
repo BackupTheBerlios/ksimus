@@ -71,8 +71,18 @@ bool KSimIoDeviceList::loadActive()
 	KSimIoStorage storage;
 
 	storage.open(true); // read only
-	storage.loadAll(this);
+	bool res = storage.loadAll(this);
 	storage.close();
+
+	return res;
 }
 
+void KSimIoDeviceList::checkCircuit(const KSimusDoc * doc, QStringList & errorMsg)
+{
+	FOR_EACH_IO_DEVICE(it, *this)
+	{
+		it.current()->checkCircuit(doc, errorMsg);
+	}
+
+}
 

@@ -114,10 +114,9 @@ KSimIoComponent::~KSimIoComponent()
 {
 	KSIMDEBUG_VAR("KSimIoComponent::~KSimIoComponent", getName());
 	// Remove joins
-	KSimIoJoin * join;
 	while(m_p->joinList.count())
 	{
-			// join removes it self from m_p->joinList !!!
+		// join removes it self from m_p->joinList !!!
 		delete m_p->joinList.getFirst();
 	};
 
@@ -238,6 +237,29 @@ bool KSimIoComponent::load(KSimData & file, bool copyLoad)
 	return loadOk;
 }
 
+/** Reset all simulation variables */
+void KSimIoComponent::reset()
+{
+	Component::reset();
+	FOR_EACH_IO_JOIN(it, m_p->joinList)
+	{
+		it.current()->reset();
+	}
+}
+
+/** Executes the simulation of this component */
+void KSimIoComponent::calculate()
+{
+	Component::calculate();
+	FOR_EACH_IO_JOIN(it, m_p->joinList)
+	{
+		it.current()->calculate();
+	}
+	executeNext();
+}
+
+
+
 
 /** Initialize the component popup menu */
 bool KSimIoComponent::initPopupMenu(QPopupMenu * popup)
@@ -245,7 +267,7 @@ bool KSimIoComponent::initPopupMenu(QPopupMenu * popup)
 	bool insert = Component::initPopupMenu(popup);
 	if (!insert)
 		popup->insertSeparator();
-	popup->insertItem(i18n("&Insert IO"), this, SLOT(slotPinSelection()));
+	popup->insertItem(i18n("&Insert IO Pin"), this, SLOT(slotPinSelection()));
 	return true;
 }
 
