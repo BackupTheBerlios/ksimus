@@ -59,10 +59,6 @@ public:
 	virtual bool load(KSimData & file, bool copyLoad);
 	
 
-	/** Initialize the component popup menu
-	  *	Return true, if items are added */
-	virtual bool initPopupMenu(QPopupMenu * popup);
-
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref Boolean1OutPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
@@ -76,8 +72,6 @@ public:
 	static const ComponentInfo * getStaticInfo();
 
 private slots:
-	void editValue();
-
 
 signals:
 	void signalSetNumber(double newNumber);

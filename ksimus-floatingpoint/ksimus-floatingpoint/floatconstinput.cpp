@@ -19,9 +19,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qpopupmenu.h>
-#include <qdialog.h>
-#include <qlayout.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -109,53 +106,6 @@ bool FloatConstInput::load(KSimData & file, bool copyLoad)
 	emit signalSetNumber(getResetValue());
 	
 	return res;
-}
-
-bool FloatConstInput::initPopupMenu(QPopupMenu * popup)
-{
-	Float1Out::initPopupMenu(popup);
-	
-	popup->insertSeparator();
-	popup->insertItem(i18n("Edit &Value..."), this, SLOT(editValue()));
-	
-	return true;
-}
-		
-void FloatConstInput::editValue()
-{
-	QWidget * activeWidget = getSheetView()->getWidgetList()->getActiveWidget();
-		
-	if (activeWidget)
-	{
-			
-//		KSIMDEBUG("Found activeWidget");
-		QDialog * dia = new QDialog((QWidget*)activeWidget->parent(), 0 , true, WType_Popup);
-		
-		// Set layout
-		QGridLayout * layout = new QGridLayout(dia,1,1);
-		
-		KSimDoubleEdit * edit = new KSimDoubleEdit(dia);
-		layout->addWidget(edit,0,0);
-		
-		dia->move(((QWidget*)activeWidget->parent())->mapToGlobal(activeWidget->pos()));
-		dia->resize(activeWidget->size());
-		connect(edit, SIGNAL(valueChanged(double)), dia, SLOT(accept()));
-		
-		edit->setFocus();
-		edit->setEdited(true);
-		edit->setValue(getResetValue());
-		dia->exec();
-		
-		if (edit->value() != getResetValue())
-		{
-			undoChangeProperty(i18n("Change constant value"));
-			setResetValue(edit->value());
-			setModified();
-			emit signalSetNumber(edit->value());
-		}
-		
-		delete dia;
-	}
 }
 
 /** Creates the general property page for the property dialog.
