@@ -112,7 +112,7 @@ void ConnectorPack::setConnectorCount(unsigned int connCount)
 {
 	bool deleted = true;
 	
-	KSIMDEBUG_VAR("setConnectorCount (1)",getConnectorCount());
+//	KSIMDEBUG_VAR("setConnectorCount (1)",getConnectorCount());
 	
 	// Limit connector count
 	if (connCount > getConnectorMaximum())
@@ -240,7 +240,7 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 	int i;
 	
 	ComponentAddOn::initPopupMenu(popup);
-	KSIMDEBUG_VAR("",getConnectorCount());
+//	KSIMDEBUG_VAR("",getConnectorCount());
 	
 	popup->insertSeparator();
 		
