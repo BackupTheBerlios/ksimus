@@ -160,6 +160,8 @@ ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QStri
 	m_p->orientation = orient;
 	m_p->direction = dir;
 	
+	connect(comp->getDoc(), SIGNAL(signalPreReset()), SLOT(slotPreReset()));
+
 	comp->addConnector(this);
 }
 
@@ -514,6 +516,7 @@ WireProperty * ConnectorBase::getWireProperty() const
   * In most cases this function is without any interest. */
 void ConnectorBase::setWireProperty(WireProperty * wireProperty)
 {
+//	KSIMDEBUG_VAR("ConnectorBase::setWireProperty", getFullName());
 	m_wireProperty = wireProperty;
 	
 	if (m_implicitConverter)
@@ -719,12 +722,16 @@ int ConnectorBase::checkCircuit()
 }
 	
 /** Setup the connector for a new circuit execution.
-*   The default implementation resets the @ref WireProperty pointer.
 */
 void ConnectorBase::setupCircuit()
 {
+}
+
+void ConnectorBase::slotPreReset()
+{
 	setWireProperty((WireProperty *)0);
 }
+
 
 void ConnectorBase::checkProperty(QStringList & /*errorMsg*/)
 {

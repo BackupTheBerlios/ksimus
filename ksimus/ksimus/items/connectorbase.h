@@ -246,7 +246,6 @@ public:
 	virtual int checkCircuit();
 	
 	/** Setup the connector for a new circuit execution.
-	*   The default implementation resets the @ref WireProperty pointer.
 	*/
 	virtual void setupCircuit();
 	
@@ -325,6 +324,9 @@ protected slots:
 	/** Display a status help message for popup menu entries, if highlighted. */
 	virtual void popupMenuHighlighted(int msg) const;
 	
+private slots:
+	void slotPreReset();
+
 
 // Property flags
 private:
