@@ -155,8 +155,6 @@ public:
 	/** Returns a list of all widgets of the component */
 	KSimWidgetList * getWidgetList();
 		
-protected: // Protected attributes
-
 	/** If enable is true, reserve space for connectors at the top of the component.
 		If false, reserve no space.
 	*/
@@ -196,6 +194,8 @@ protected: // Protected attributes
 	bool isGridSnapEnabled() const;
 	
 		
+protected: // Protected attributes
+
 	/** Returns the current Component Map */
 	ComponentMap * getComponentMap() const;
 
