@@ -5,10 +5,10 @@ noinst_LIBRARIES = libitems.a
 
 libitems_a_METASOURCES = AUTO
 
-libitems_a_SOURCES = wirepropertybooltristate.cpp watchitembooltristate.cpp connectorbooltristate.cpp implicitconverter.cpp watchitemfloatingpoint.cpp watchwidget.cpp watchitemboolean.cpp watchlistview.cpp watchviewitem.cpp watchitembase.cpp wirepropertymultipleoutput.cpp optionalconnector.cpp optionalfunction.cpp wirepropertyfloatingpoint.cpp connectorfloatout.cpp connectorfloatin.cpp doublelayout.cpp componentblocklayout.cpp connectorpack.cpp componentlayout.cpp connectorboolinedgepropertywidget.cpp connectorboolinedge.cpp connectorlabel.cpp externalconnector.cpp extconnboolout.cpp extconnboolin.cpp wirepropertyboolean.cpp wireproperty.cpp connectorpropertywidget.cpp connectorpropertydialog.cpp connectorlist.cpp connectorbooloutpropertywidget.cpp connectorboolout.cpp connectorboolinpropertywidget.cpp connectorboolin.cpp connectorbase.cpp 
+libitems_a_SOURCES = watchiteminteger.cpp wirepropertyinteger.cpp connectorintegerout.cpp connectorintegerin.cpp wirepropertybooltristate.cpp watchitembooltristate.cpp connectorbooltristate.cpp implicitconverter.cpp watchitemfloatingpoint.cpp watchwidget.cpp watchitemboolean.cpp watchlistview.cpp watchviewitem.cpp watchitembase.cpp wirepropertymultipleoutput.cpp optionalconnector.cpp optionalfunction.cpp wirepropertyfloatingpoint.cpp connectorfloatout.cpp connectorfloatin.cpp doublelayout.cpp componentblocklayout.cpp connectorpack.cpp componentlayout.cpp connectorboolinedgepropertywidget.cpp connectorboolinedge.cpp connectorlabel.cpp externalconnector.cpp extconnboolout.cpp extconnboolin.cpp wirepropertyboolean.cpp wireproperty.cpp connectorpropertywidget.cpp connectorpropertydialog.cpp connectorlist.cpp connectorbooloutpropertywidget.cpp connectorboolout.cpp connectorboolinpropertywidget.cpp connectorboolin.cpp connectorbase.cpp 
 
 
-EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h componentlayout.cpp componentlayout.h connectorpack.cpp connectorpack.h componentblocklayout.cpp componentblocklayout.h doublelayout.cpp doublelayout.h connectorfloatin.cpp connectorfloatin.h connectorfloatout.cpp connectorfloatout.h wirepropertyfloatingpoint.cpp wirepropertyfloatingpoint.h optionalfunction.cpp optionalfunction.h optionalconnector.cpp optionalconnector.h wirepropertymultipleoutput.cpp wirepropertymultipleoutput.h watchitembase.cpp watchitembase.h watchviewitem.cpp watchviewitem.h watchlistview.cpp watchlistview.h watchitemboolean.cpp watchitemboolean.h watchwidget.cpp watchwidget.h watchbreak_xpm.xpm watchitemfloatingpoint.cpp watchitemfloatingpoint.h implicitconverter.cpp implicitconverter.h connectorbooltristate.cpp connectorbooltristate.h watchitembooltristate.cpp watchitembooltristate.h wirepropertybooltristate.cpp wirepropertybooltristate.h 
+EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h componentlayout.cpp componentlayout.h connectorpack.cpp connectorpack.h componentblocklayout.cpp componentblocklayout.h doublelayout.cpp doublelayout.h connectorfloatin.cpp connectorfloatin.h connectorfloatout.cpp connectorfloatout.h wirepropertyfloatingpoint.cpp wirepropertyfloatingpoint.h optionalfunction.cpp optionalfunction.h optionalconnector.cpp optionalconnector.h wirepropertymultipleoutput.cpp wirepropertymultipleoutput.h watchitembase.cpp watchitembase.h watchviewitem.cpp watchviewitem.h watchlistview.cpp watchlistview.h watchitemboolean.cpp watchitemboolean.h watchwidget.cpp watchwidget.h watchbreak_xpm.xpm watchitemfloatingpoint.cpp watchitemfloatingpoint.h implicitconverter.cpp implicitconverter.h connectorbooltristate.cpp connectorbooltristate.h watchitembooltristate.cpp watchitembooltristate.h wirepropertybooltristate.cpp wirepropertybooltristate.h connectorintegerin.cpp connectorintegerin.h connectorintegerout.cpp connectorintegerout.h wirepropertyinteger.cpp wirepropertyinteger.h watchiteminteger.cpp watchiteminteger.h 
 
 install-data-local:
 	$(mkinstalldirs) $(pkgincludedir)/
@@ -56,6 +56,8 @@ install-data-local:
 	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/connectorfloatout.h $(pkgincludedir)/connectorfloatout.h
 	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/wirepropertyfloatingpoint.h $(pkgincludedir)/wirepropertyfloatingpoint.h
+	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/optionalfunction.h $(pkgincludedir)/optionalfunction.h
 	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/optionalconnector.h $(pkgincludedir)/optionalconnector.h
@@ -69,6 +71,12 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/connectorbooltristate.h $(pkgincludedir)/connectorbooltristate.h
 	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/wirepropertybooltristate.h $(pkgincludedir)/wirepropertybooltristate.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorintegerin.h $(pkgincludedir)/connectorintegerin.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorintegerout.h $(pkgincludedir)/connectorintegerout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/wirepropertyinteger.h $(pkgincludedir)/wirepropertyinteger.h
 
 uninstall-local:
 	-rm -f $(pkgincludedir)/connectorbase.h
@@ -93,6 +101,7 @@ uninstall-local:
 	-rm -f $(pkgincludedir)/doublelayout.h
 	-rm -f $(pkgincludedir)/connectorfloatin.h
 	-rm -f $(pkgincludedir)/connectorfloatout.h
+	-rm -f $(pkgincludedir)/wirepropertyfloatingpoint.h
 	-rm -f $(pkgincludedir)/optionalfunction.h
 	-rm -f $(pkgincludedir)/optionalconnector.h
 	-rm -f $(pkgincludedir)/wirepropertymultipleoutput.h
@@ -100,6 +109,9 @@ uninstall-local:
 	-rm -f $(pkgincludedir)/implicitconverter.h
 	-rm -f $(pkgincludedir)/connectorbooltristate.h
 	-rm -f $(pkgincludedir)/wirepropertybooltristate.h
+	-rm -f $(pkgincludedir)/connectorintegerin.h
+	-rm -f $(pkgincludedir)/connectorintegerout.h
+	-rm -f $(pkgincludedir)/wirepropertyinteger.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 
