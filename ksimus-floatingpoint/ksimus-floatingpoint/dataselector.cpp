@@ -226,11 +226,13 @@ ComponentPropertyBaseWidget * DataSelector::createGeneralProperty(QWidget *paren
 
 void DataSelector::slotAddChannel()
 {
+	undoChangeProperty(i18n("FloatingPoint", "Add Channel"));
 	setChannelCount(getChannelCount()+1);
 }
 
 void DataSelector::slotDeleteChannel()
 {
+	undoChangeProperty(i18n("FloatingPoint", "Delete Channel"));
 	setChannelCount(getChannelCount()-1);
 }
 
