@@ -56,9 +56,14 @@ public slots:
 	 */
 	virtual void slotDefault();
 
+	/** Returns the grid which is used as layout for this dialog widget. The gris has two columns. Add
+	  * The additional items to this layout.
+	  */
+	QGrid * getGrid() const { return m_grid; };
+
 protected:
 	QGrid * m_grid;
-    QLineEdit * m_nameEdit;
+	QLineEdit * m_nameEdit;
 
 };
 
