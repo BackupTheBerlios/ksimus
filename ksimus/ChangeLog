@@ -17,7 +17,7 @@
 * New: Add log window property to setting menu.
 	22.12.2002
 * Fix: Remove menu entry "Hide User View" if module with pixmap view.
-* New: Warnig message if module size is changed
+* New: Warning message if module size is changed
 * Fix: Remove some old code from module functionality
 * Fix: Some other problems during module reload
 * Remove: Remove obsolete 'User Interface' setting in module view
@@ -37,7 +37,7 @@
 * Change: The negated connector property is moved from the boolean connector classes into the base connector class
 * Fix: The default reset state of boolean output connector was always false. Now the default value of the component is used.
 * Fix: Floatingpoint connectors are not negatable by default.
-* New: Validity check insdie module loading code
+* New: Validity check inside module loading code
 	14.11.2002
 * New: Boolean Tristate Connector.
 	11.11.2002

@@ -17,7 +17,7 @@ Sorry for any circumstances!
 ====                         How to install                            ====
 ===========================================================================
 
-Use the common way to install KSimus
+Use the common way to install KSimus:
 
 >  ./configure
 >  make
@@ -34,26 +34,59 @@ e.g. /usr/lib/qt2
 Install first ksimus and than the packages in any order.
 
 
-If you get the error message:
+===========================================================================
+====    A summery of changes and new features in version 0.3.6:        ====
+===========================================================================
 
-> ./Makefile.am:5: EXTRA_DIST multiply defined in condition TRUE
->
->   EXTRA_DIST (User, where = 5) =
->   {
->     TRUE => ksimus-boolean.kdevprj AUTHORS COPYING ChangeLog INSTALL README
-> TODO ksimus-boolean.lsm
->   }
-
-You have to modify the Makefile.am in the base directory of the package. Please
-change the line (is near the end of file)
-EXTRA_DIST = admin
-into
-# EXTRA_DIST = admin
+====  Command Line Options ====
+There is new command line option:
+  --hidden    execute KSimus in hidden mode (only in combination with option 'execute')
 
 
+====  Modules ====
+KSimus allows the user to load modules during application startup. These module are sorted 
+to the tree view and the user can use them like regular components. The user can define single 
+module files as well as complete directories to search for modules.
+
+
+==== External Connectors ====
+External connectors may be optional know. The module creator can define an External Connector as
+optional. In case of External Input Connectors there is also a definable state or value which is 
+used if the connector is not connected (or hidden).
+In this case the user of the module can decide to use the connector or hide it. 
+
+
+==== New Data Type ====
+This data type has the three states 'False', 'True' and 'Inactive'. The state 'Inactive' 
+is also known as 'High Impedance'. A Tristate wire connects one or more Boolean Tristate 
+connectors. 
+How does it works? The combination of Boolean Tristate connectors and wire acts like a 
+'wired and' circuit. One active low output causes a low state on the wire. The wire state 
+is true, if the state of all connectors are inactive or true. 
+
+
+==== Implicit Data Converter ====
+This new feature allows you to connect a input connector to a wire with different data types,
+e.g. connect a boolean input to a floatingpoint wire. 
+
+
+==== New Components ====
+New components:
+- Package Boolean
+  * Identity, Inverter
+  * AND, NAND, OR, NOR, XOR, XNOR with tristate output
+  * Converter Boolean -> Boolean Tristate, Boolean Tristate -> Boolean
+  * External Connector Boolean Tristate
+
+==== Bug Fixes ====
+There are a lot of bug fixes. Some crashed KSimus, some causes an infinite loop,
+some cause data lost, but most was only uncomfortable.
+
+
+  
 
 ===========================================================================
-====            A summery of changes and new features:                 ====
+====    A summery of changes and new features in version 0.3.5:        ====
 ===========================================================================
 
 ====  Watch View ====
@@ -125,7 +158,7 @@ Update french and german translation.
 ====                               FAQ                                 ====
 ===========================================================================
 
-* KSimus crashs while loading additional packages.
+* KSimus crashes while loading additional packages.
 
 Reason: The package interface is not compatible to the KSimus interface.
 
@@ -139,7 +172,6 @@ http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=127083
 
 After patching the libtool KSimus will not crash and will also not load the
 incompatible package.
-
 
 
 
