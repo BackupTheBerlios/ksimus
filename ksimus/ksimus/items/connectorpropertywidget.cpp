@@ -106,24 +106,30 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	m_p->nameEdit = new QLineEdit(wid,"LineEdit");
 	m_p->nameEdit->setText(m_conn->getName());
 	lay1->addWidget(m_p->nameEdit,0,1);
-    QToolTip::add(m_p->nameEdit,i18n("Change the name of the connector here"));
+	QToolTip::add(m_p->nameEdit,i18n("Change the name of the connector here"));
 
 	label = new QLabel(i18n("Type : "), wid,"TypeLabel");
 	lay1->addWidget(label,1,0);
 	label = new QLabel(m_conn->getConnInfo()->getName(), wid,"Type");
 	lay1->addWidget(label,1,1,AlignLeft);
-    QToolTip::add(label,i18n("The type of the connector"));
+	QToolTip::add(label,i18n("The type of the connector"));
 	
 	
-	m_p->hide = new QCheckBox(i18n("Hidden"),settingWidget(),"HiddenCheck");
-    QToolTip::add(m_p->hide,i18n("Hide the connector"));
-	
-	if ((m_conn->getWire() != 0) || (!m_conn->isHideEnabled()))
+	if (m_conn->isHideEnabled())
 	{
-		m_p->hide->setEnabled(false);
-	}
-	m_p->hide->setChecked(m_conn->isHidden());
+		m_p->hide = new QCheckBox(i18n("Hidden"),settingWidget(),"HiddenCheck");
+		QToolTip::add(m_p->hide,i18n("Hide the connector"));
 	
+		if (m_conn->getWire() != 0)
+		{
+			m_p->hide->setEnabled(false);
+		}
+		m_p->hide->setChecked(m_conn->isHidden());
+	}
+	else
+	{
+		m_p->hide = 0;
+	}
 }
 
 
@@ -140,7 +146,7 @@ void ConnectorPropertyWidget::slotAccept()
 		changeData();
 		m_conn->setName(m_p->nameEdit->text());
 	}
-	if (m_conn->isHidden() != m_p->hide->isChecked())
+	if ((m_p->hide != 0) && (m_conn->isHidden() != m_p->hide->isChecked()))
 	{
 		changeData();
 		m_conn->setHide(m_p->hide->isChecked());
@@ -150,11 +156,10 @@ void ConnectorPropertyWidget::slotAccept()
 void ConnectorPropertyWidget::slotDefault()
 {
 	m_p->nameEdit->setText(m_conn->getInitName());
-	m_p->hide->setChecked(m_conn->isInitHidden());
-/*	if (m_p->negate)
+	if ((m_p->hide != 0) && (m_conn->getWire() == 0))
 	{
-		m_p->negate->setChecked(m_conn->isInitNegate());
-	}*/
+		m_p->hide->setChecked(m_conn->isInitHidden());
+	}
 }
 	
 
