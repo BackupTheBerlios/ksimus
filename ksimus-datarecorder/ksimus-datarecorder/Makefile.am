@@ -5,7 +5,7 @@ lib_LTLIBRARIES = libksimus-datarecorder.la
 ## INCLUDES were found outside kdevelop specific part
 
 
-LDFLAGS =    -shared
+LDFLAGS =     -shared
 
 libksimus_datarecorder_la_METASOURCES = AUTO
 

@@ -2,7 +2,7 @@
 
 SUBDIRS = ksimus-datarecorder po doc 
 
-EXTRA_DIST = ksimus-datarecorder.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-datarecorder.lsm subdirs 
+EXTRA_DIST = ksimus-datarecorder.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-datarecorder.lsm 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 
