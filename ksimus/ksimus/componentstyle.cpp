@@ -34,7 +34,6 @@
 
 #define FLAG_ENA_FRAME          0x0001
 #define FLAG_ENA_FRAME_ADJ      0x0002
-#define FLAG_ENA_COLOR_DEF      0x0010
 #define FLAG_ENA_COLOR_ADJ      0x0020
 #define FLAG_ENA_FONT_DEF       0x0100
 #define FLAG_ENA_FONT_ADJ       0x0200
@@ -50,7 +49,7 @@ const char * sFont            = "Font";
 
 ComponentStyle::ComponentStyle(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
-		m_flags(FLAG_ENA_FRAME | FLAG_ENA_COLOR_DEF | FLAG_ENA_FONT_DEF),
+		m_flags(FLAG_ENA_FRAME | FLAG_ENA_FONT_DEF),
 		m_foreColor(QColor()),
 		m_backColor(QColor()),
 		m_defaultForeColor(QColor()),
@@ -167,11 +166,6 @@ void ComponentStyle::setFrameAdjustmentEnabled(bool enable)
 	}
 }
 	
-bool ComponentStyle::isDefaultColorEnabled() const
-{
-	return m_flags & FLAG_ENA_COLOR_DEF;
-}
-
 bool ComponentStyle::isColorAdjustmentEnabled() const
 {
 	return m_flags & FLAG_ENA_COLOR_ADJ;
@@ -241,22 +235,6 @@ const QColor & ComponentStyle::getForegroundColor() const
 const QColor & ComponentStyle::getBackgroundColor() const
 {
 	return m_backColor;
-}
-
-
-void ComponentStyle::setDefaultColorEnabled(bool enable)
-{
-	if (enable)
-	{
-		m_flags |= FLAG_ENA_COLOR_DEF;
-		setForegroundColor(QColor());
-		setBackgroundColor(QColor());
-	}
-	else
-	{
-		m_flags &= ~FLAG_ENA_COLOR_DEF;
-	}
-	emit signalDefaultColorEnabled(enable);
 }
 
 

@@ -83,12 +83,6 @@ public:
 	  * on the constructors parameter. */
 	bool isColorAdjustmentEnabled() const;
 	
-	//##########   COLOR    ---   Default colors
-
-	/** Returns true, if the component have to use the default colors. */
-	bool isDefaultColorEnabled() const;
-	
-	
 	//##########   COLORs
 
 	/** Returns the foreground color. The default is a invalid color.*/
@@ -155,11 +149,9 @@ public:
 public slots:
 	//##########   COLOR    ############
 	
-	/** The component uses the default colors if true or the special colors if false. */
-	void setDefaultColorEnabled(bool enable);
-	/** Sets the foreground color. */
+	/** Sets the foreground color. If color is invalid, the system foreground color is used. */
 	void setForegroundColor(const QColor & color);
-	/** Sets the background color. */
+	/** Sets the background color. If color is invalid, the system background color is used. */
 	void setBackgroundColor(const QColor & color);
 
 	
@@ -184,8 +176,6 @@ signals:
 	void signalForegroundColor(const QColor & color);
 	/** Sets the background color. */
 	void signalBackgroundColor(const QColor & color);
-	/** The component uses the default colors if true or the special colors if false. */
-	void signalDefaultColorEnabled(bool enable);
 	/** Font has changed. */
 	void signalFont(const QFont & font);
 
