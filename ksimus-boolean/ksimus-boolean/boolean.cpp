@@ -145,6 +145,29 @@ static const WirePropertyInfoList & getDistWireProperty()
 	return *pDistWireProp;
 }
 
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Insert pointers to the ImplicitConverterInfo for each implicit converter you want to distribute.
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+static const ImplicitConverterInfoList & getImplicitConverterProperty()
+{
+	static ImplicitConverterInfoList * pImplicitConverterProp = 0;
+
+	if (pImplicitConverterProp == 0)
+	{
+		// Initialize
+		pImplicitConverterProp = new ImplicitConverterInfoList;
+		CHECK_PTR(pImplicitConverterProp);
+
+		// Add your implicit converter info here
+	}
+
+	return *pImplicitConverterProp;
+}
+
 
 
 /******************************************************************************************
@@ -167,7 +190,7 @@ extern "C"
 	const PackageInfo * PACKAGE_INIT_FUNCTION()
 	{
 
-		KSIMDEBUG("Init Package " PACKAGE_NAME);
+//		KSIMDEBUG("Init Package " PACKAGE_NAME);
 			
 		if (KSimLibBoolean::instance == 0)
 		{
@@ -181,7 +204,8 @@ extern "C"
 			                                               VERSION,      // version from config.h
 			                                               KSimLibBoolean::getDistComponents(),
 			                                               KSimLibBoolean::getDistConnector(),
-			                                               KSimLibBoolean::getDistWireProperty());
+			                                               KSimLibBoolean::getDistWireProperty(),
+			                                               KSimLibBoolean::getImplicitConverterProperty());
 		}
 	
 
