@@ -50,10 +50,11 @@
 
 #include "ksimgrid.h"
 
-static const char * sPropertyGrp ="Property/";
-static const char * sModuleGrp   ="Module/";
-static const char * sSheetSize   ="Sheetsize";
-static const char * sUserSize    ="Usersize";
+static const char * sPropertyGrp  = "Property/";
+static const char * sModuleGrp    = "Module/";
+static const char * sSheetSize    = "Sheetsize";
+static const char * sUserSize     = "Usersize";
+static const char * sSerialNumber = "Last Serial Number";
 
 
 class WirePropertyInfo;
@@ -1090,6 +1091,9 @@ bool CompContainer::saveProperty(KSimData & file) const
 	file.writeEntry(sSheetSize, getSheetSize());
 	file.writeEntry(sUserSize, getUserSize());
 
+	// Save serial number
+	file.writeEntry(sSerialNumber, m_lastSerialNumber);
+	
 	group = file.group();
 	file.setGroup(group + sModuleGrp);
 	moduleData->save(file);
@@ -1122,7 +1126,9 @@ bool CompContainer::loadProperty(KSimData & file)
 		// Store Size
 		setSheetSize(file.readSizeEntry(sSheetSize, &defaultSize));
 		setUserSize(file.readSizeEntry(sUserSize, &defaultSize));
-	
+		
+		// Read serial number
+		m_lastSerialNumber = file.readUnsignedNumEntry(sSerialNumber, 0);
 		
 		group = file.group();
 		if (file.hasGroup(group + sModuleGrp))
@@ -1175,8 +1181,8 @@ unsigned int CompContainer::newSerialNumber()
 		{
 			if (it.current()->getSerialNumber() == m_lastSerialNumber)
 			{
-	    		// Same number is used, try next number
-	    		m_lastSerialNumber ++;
+				// Same number is used, try next number
+				m_lastSerialNumber ++;
 				found = true;
 				break;
 			}
@@ -1723,7 +1729,7 @@ unsigned int CompContainer::getComponentNumber() const
 	{
 		if (it.current()->isModule())
 		{
-			 no += ((Module*)it.current())->getContainer()->getComponentNumber();
+			 no += ((Module*)it.current())->getModuleContainer()->getComponentNumber();
 		}
 	}
 	
