@@ -67,7 +67,9 @@ const ComponentInfo FloatLatchInfo(
                      I18N_NOOP("Floating Point/Control/Latch"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-control-latch");
 
 
 #define DEFAULT_RESET_VALUE  0.0
@@ -120,7 +122,7 @@ void FloatLatch::calculate()
 {
 	Component::calculate();
 	
-	if (getInputReset()->getInput())
+	if (getInputReset()->getInput() && !getInputReset()->isHidden())
 	{
 		m_values.fill(getResetValue());
 	}
