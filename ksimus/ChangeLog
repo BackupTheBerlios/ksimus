@@ -1,3 +1,6 @@
+	28.12.2001
+* New: Improve interface to loadable package.
+* Change: Use libltdl instead of libdl for loading packages
 	25.12.2001
 * Change: Connector class constructors uses "const QString &" instead "const char *" for name
 * Change: Unique feature of ComponentAddOn is now selectable

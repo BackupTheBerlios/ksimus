@@ -1,3 +1,9 @@
+	28.12.2001
+* Change: BooleanCounter has new library name "Boolean/Counter/with RCO and RBO"
+* New: Improve interface to loadable package.
+	27.12.2001
+* New: Component Boolean7Segment and some helper classes
+* Change: Component BooleanCounter swap RB and RC connectors
 	25.12.2001
 * New: Components BooleanCounter and BooleanConstant and some helper classes
 * Fix: Moc problem with namespaces
