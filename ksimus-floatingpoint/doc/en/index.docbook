@@ -67,8 +67,8 @@
   <!ENTITY FloatExtConnOut  '<link linkend="component-float-extconn-float-out">Floating Point Output</link>'>
 
 <!-- ########################        Converters          ######################## -->
-  <!ENTITY ConnvertBoolFloat '<link linkend="component-float-converter-bool-float">Boolean to Floating Point</link>'>
-  <!ENTITY ConnvertFloatBool '<link linkend="component-float-converter-float-bool">Floating Point to Boolean</link>'>
+  <!ENTITY ConverterBoolFloat '<link linkend="component-float-converter-bool-float">Boolean to Floating Point</link>'>
+  <!ENTITY ConverterFloatBool '<link linkend="component-float-converter-float-bool">Floating Point to Boolean</link>'>
 
 <!-- ########################        Inputs            ######################## -->
   <!ENTITY FloatInputConst    '<link linkend="component-float-input-const">Floating Point Constant</link>'>
@@ -79,6 +79,37 @@
   <!ENTITY FloatOutputLabel  '<link linkend="component-float-output-label">Floating Point Label</link>'>
 
 
+<!-- ########################        Truth table items       ######################## -->
+
+  <!ENTITY TT-False  '<entry align="center">False</entry>'>
+  <!ENTITY TT-True   '<entry align="center">True</entry>'>
+  <!ENTITY TT-X      '<entry align="center">X</entry>'>
+  <!ENTITY TT-Z      '<entry align="center">Inactive</entry>'>
+  <!ENTITY TT-Up     '<entry align="center">&arUp;</entry>'>
+  <!ENTITY TT-Down   '<entry align="center">&arDo;</entry>'>
+  <!ENTITY TT-Spare  '<entry></entry>'>
+  
+  
+  <!ENTITY TT-OutT   '<entry align="center">Output<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutT1  '<entry align="center">Output<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-NOutT  '<entry align="center">/Output<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-NOutT1 '<entry align="center">/Output<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-OutTA  '<entry align="center">Output A<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutTA1 '<entry align="center">Output A<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-OutTB  '<entry align="center">Output B<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutTB1 '<entry align="center">Output B<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-OutTX  '<entry align="center">Output X<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutTX1 '<entry align="center">Output X<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-InpT   '<entry align="center">Input<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-InpT1  '<entry align="center">Input<subscript>(t-1)</subscript></entry>'> 
+  <!ENTITY TT-InpTX  '<entry align="center">Input X<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-InpT1X '<entry align="center">Input X<subscript>(t-1)</subscript></entry>'> 
+  
+    
+  <!-- Some shortcuts -->
+  <!ENTITY TT-0      '<entry align="center">False</entry>'>
+  <!ENTITY TT-1      '&TT-True;'>
+  <!ENTITY TT-S      '&TT-Spare;'>
 
 
   <!ENTITY todo '<para>[TODO]</para>'>
@@ -150,6 +181,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <copyright>
 <year>2001</year>
 <year>2002</year>
+<year>2003</year>
 <holder>Rasmus Diekenbrock</holder>
 </copyright>
 <!-- Translators: put here the copyright notice of the translation -->
@@ -164,8 +196,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2002-09-16</date>
-<releaseinfo>0.3.5</releaseinfo>
+<date>2003-03-01</date>
+<releaseinfo>0.3.6</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -253,7 +285,55 @@ patent issues. -->
 <chapter id="kapp-features">
 <title>&packageName; package features</title>
 
-<para>The package contains following components:</para>
+<para>The package contains floatingpoint components like ADD or SIN. See also the complete 
+<link linkend="component-overview">Component Overview</link>.
+</para>
+
+<sect1 id="implicit-converter">
+<title>Implicit Converter</title>
+<para>
+Implicit Converters makes it possible to connect a wire to an input connector with a differnet data type. 
+For example without implicit converters it wouldn't be possible to connect a boolean wire to a 
+floatingpoint input connector.
+</para><para>
+Related to the data types in this package there exists following data types:
+<orderedlist>
+  <listitem><para>
+  Boolean Wire to Floatingpoint Input Connector:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Wire State</entry> &TT-S; <entry align="center">Connector Value</entry> </row>
+    </thead><tbody>
+    <row>                         &TT-0;          &TT-S; <entry align="center">0.0</entry>   </row>
+    <row>                         &TT-1;          &TT-S; <entry align="center">1.0</entry>   </row>
+    </tbody></tgroup></informaltable>
+  </para><para> </para></listitem>
+  <listitem><para>
+  Floatingpoint Wire to Boolean Input Connector:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Wire Value</entry> &TT-S; <entry align="center">Connector State</entry> </row>
+    </thead><tbody>
+    <row><entry align="center">0.0</entry>        &TT-S;  &TT-0;   </row>
+    <row><entry align="center">else</entry>       &TT-S;  &TT-1;   </row>
+    </tbody></tgroup></informaltable>
+  </para></listitem>
+</orderedlist>
+
+</para>
+</sect1>
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################            Components         ######################## -->
+<!-- ############################################################################### -->
+
+<chapter id="component">
+<title>Component Reference</title>
+
+<sect1 id="component-overview">
+<title>Component Overview</title>
 
 
 <para>Arithmetic:
@@ -337,8 +417,8 @@ patent issues. -->
 
 <para>Converters:
 <itemizedlist>
-<listitem><para>&ConnvertBoolFloat;</para></listitem>
-<listitem><para>&ConnvertFloatBool;</para></listitem>
+<listitem><para>&ConverterBoolFloat;</para></listitem>
+<listitem><para>&ConverterFloatBool;</para></listitem>
 </itemizedlist>
 </para>
 
@@ -357,17 +437,7 @@ patent issues. -->
 </para>
 
 
-
-
-
-</chapter>
-
-<!-- ############################################################################### -->
-<!-- ########################            Components         ######################## -->
-<!-- ############################################################################### -->
-
-<chapter id="component">
-<title>Component Reference</title>
+</sect1>
 
 
 

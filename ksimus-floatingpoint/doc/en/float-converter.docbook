@@ -6,8 +6,8 @@
 <title>Converter Components</title>
 
 <simplelist>
-<member>&ConnvertBoolFloat;</member>
-<member>&ConnvertFloatBool;</member>
+<member>&ConverterBoolFloat;</member>
+<member>&ConverterFloatBool;</member>
 </simplelist>
 
 
@@ -35,6 +35,8 @@ The assignment which floating point values represents a true or false level is u
 <listitem><para>
 User definable floating point values which represents the true and false state. The defaults are
 true is represented by 1.0 and false by 0.0.
+</para></listitem><listitem><para>
+The component has no delay.
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem></itemizedlist></sect3>
@@ -116,6 +118,8 @@ depending on the threshold values:
 User definable true and false threshold.
 </para></listitem><listitem><para>
 Supports a hysteresis.
+</para></listitem><listitem><para>
+The component has no delay.
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem></itemizedlist></sect3>
