@@ -367,6 +367,21 @@ bool ConnectorPack::load(KSimData & file)
 void ConnectorPack::setConnectorName(const QString & connName)
 {
 	m_connName = connName;
+
+	// #### rename connectors
+
+	// First remove all names
+	FOR_EACH_CONNECTOR(it, *getConnList())
+	{
+		it.current()->setWireName(QString::null);
+		it.current()->setName(QString::null, true);
+	}
+
+	// Now make new names
+	FOR_EACH_CONNECTOR(it, *getConnList())
+	{
+		createNewName(it.current());
+	}
 }
 
 QString ConnectorPack::getConnectorName() const
