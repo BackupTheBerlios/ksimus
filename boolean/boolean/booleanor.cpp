@@ -46,19 +46,19 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanOr(container, ci);
 }
 
-const ComponentInfo BooleanOrInfo (	"Boolean OR",
-									"Boolean/Gates/OR",
-									QString::null,//"Boolean OR",
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo BooleanOrInfo("Boolean OR",
+                                  "Boolean/Gates/OR",
+                                  QString::null,//"Boolean OR",
+                                  VA_SHEETVIEW,
+                                  create
+                                  );
 
-const ComponentInfo BooleanNorInfo (	"Boolean NOR",
-									"Boolean/Gates/NOR",
-									QString::null,//"Boolean NOR",
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo BooleanNorInfo("Boolean NOR",
+                                   "Boolean/Gates/NOR",
+                                   QString::null,//"Boolean NOR",
+                                   VA_SHEETVIEW,
+                                   create
+                                   );
 
 
 

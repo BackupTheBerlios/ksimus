@@ -47,10 +47,10 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 const ComponentInfo DFlipFlopInfo("D Latch",
-                                   "Boolean/Flip Flop/D Latch",
-                                   QString::null,//"D Latch",
-                                   VA_SHEETVIEW,
-                                   create
+                                  "Boolean/Flip Flop/D Latch",
+                                  QString::null,//"D Latch",
+                                  VA_SHEETVIEW,
+                                  create
                                   );
 
 

@@ -43,19 +43,19 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanXor(container, ci);
 }
 
-const ComponentInfo BooleanXorInfo (	"Boolean Exclusive OR",
-									"Boolean/Gates/XOR",
-									QString::null,//"Boolean  Exclusive Or",
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo BooleanXorInfo("Boolean Exclusive OR",
+                                   "Boolean/Gates/XOR",
+                                   QString::null,//"Boolean  Exclusive Or",
+                                   VA_SHEETVIEW,
+                                   create
+                                   );
 
-const ComponentInfo BooleanXnorInfo (	"Boolean  Exclusive NOR",
-									"Boolean/Gates/XNOR",
-									QString::null,//"Boolean  Exclusive Nor",
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo BooleanXnorInfo("Boolean  Exclusive NOR",
+                                    "Boolean/Gates/XNOR",
+                                    QString::null,//"Boolean  Exclusive Nor",
+                                    VA_SHEETVIEW,
+                                    create
+                                    );
 
 
 

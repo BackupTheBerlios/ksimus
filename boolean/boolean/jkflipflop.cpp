@@ -63,11 +63,11 @@ const ComponentInfo JKFlipFlopInfo("JK Flip Flop",
                                   );
 
 const ComponentInfo JKMSFlipFlopInfo("JK Master Slave Flip Flop",
-                                   "Boolean/Flip Flop/JK-MS-FF",
-                                   QString::null,/*"JK Flip Flop",*/
-                                   VA_SHEETVIEW,
-                                   create
-                                  );
+                                     "Boolean/Flip Flop/JK-MS-FF",
+                                     QString::null,/*"JK Flip Flop",*/
+                                     VA_SHEETVIEW,
+                                     create
+                                   );
 
 
 //###############################################################

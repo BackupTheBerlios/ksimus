@@ -58,11 +58,11 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 const ComponentInfo MonoFlopInfo("Mono Flop",
-                                   "Boolean/Flip Flop/Mono Flop",
-                                   QString::null,//"Mono Flop",
-                                   VA_SHEETVIEW,
-                                   create
-                                  );
+                                 "Boolean/Flip Flop/Mono Flop",
+                                 QString::null,//"Mono Flop",
+                                 VA_SHEETVIEW,
+                                 create
+                                 );
 
 
 //###############################################################
@@ -305,7 +305,6 @@ void MonoFlopPropertyGeneralWidget::acceptPressed()
 		changeData();
 		getMF()->setRetrigger(m_retrigger->getValue());
 	}
-	
 	
 	if (getMF()->getHighTime() != m_highTime->value())
 	{
