@@ -22,6 +22,7 @@
 #include "componentinfo.h"
 #include "componentdirectory.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 ComponentLibrary::ComponentLibrary()
 {
@@ -91,10 +92,24 @@ bool ComponentLibrary::insertInternal (const ComponentInfo * ci)
 bool ComponentLibrary::insert (const ComponentInfoList & cil, const PackageInfo * packageInfo)
 {
 	bool res = true;
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	unsigned int cnt = 0;
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	FOR_EACH_COMPONENT_INFO(it, cil)
 	{
 		res &= insert(it.current(), packageInfo);
+		#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		cnt++;
+		#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	}
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	if (cnt)
+	{
+		KSIMDEBUG(QString::fromLatin1("Package %1: Load %2 component")
+		          .arg(packageInfo->getPackageName())
+		          .arg(cnt));
+	}
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	return res;
 }
 bool ComponentLibrary::insertInternal (const ComponentInfoList & cil)

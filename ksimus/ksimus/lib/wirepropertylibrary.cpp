@@ -18,6 +18,7 @@
 #include "wirepropertylibrary.h"
 #include "wirepropertylibraryitem.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 WirePropertyLibrary::WirePropertyLibrary()
 {
@@ -62,10 +63,24 @@ bool WirePropertyLibrary::insert (const WirePropertyInfo * wireInfo, const Packa
 bool WirePropertyLibrary::insert(const WirePropertyInfoList & wirePropertyInfoList, const PackageInfo * packageInfo)
 {
 	bool res = true;
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	unsigned int cnt = 0;
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	FOR_EACH_WIREPROPERTY_INFO(it, wirePropertyInfoList)
 	{
 		res &= insert(it.current(), packageInfo);
+		#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		cnt++;
+		#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	}
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	if (cnt)
+	{
+		KSIMDEBUG(QString::fromLatin1("Package %1: Load %2 wire property")
+		          .arg(packageInfo->getPackageName())
+		          .arg(cnt));
+	}
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	return res;
 }
 	

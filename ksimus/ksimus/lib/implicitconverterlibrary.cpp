@@ -18,6 +18,7 @@
 #include "implicitconverterlibrary.h"
 #include "implicitconverterlibraryitem.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 ImplicitConverterLibrary::ImplicitConverterLibrary()
 {
@@ -65,10 +66,24 @@ bool ImplicitConverterLibrary::insert (const ImplicitConverterInfo * implicitCon
 bool ImplicitConverterLibrary::insert(const ImplicitConverterInfoList & implicitConverterInfoList, const PackageInfo * packageInfo)
 {
 	bool res = true;
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	unsigned int cnt = 0;
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	FOR_EACH_IMPLICITCONVERTER_INFO(it, implicitConverterInfoList)
 	{
 		res &= insert(it.current(), packageInfo);
+		#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		cnt++;
+		#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	}
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	if (cnt)
+	{
+		KSIMDEBUG(QString::fromLatin1("Package %1: Load %2 converter")
+		          .arg(packageInfo->getPackageName())
+		          .arg(cnt));
+	}
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	return res;
 }
 	

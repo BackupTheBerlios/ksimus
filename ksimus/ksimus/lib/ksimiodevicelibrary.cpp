@@ -18,6 +18,7 @@
 #include "ksimiodevicelibrary.h"
 #include "ksimiodevicelibraryitem.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 KSimIoDeviceLibrary::KSimIoDeviceLibrary()
 {
@@ -44,10 +45,24 @@ bool KSimIoDeviceLibrary::insert (const KSimIoDeviceInfo * di, const PackageInfo
 bool KSimIoDeviceLibrary::insert (const KSimIoDeviceInfoList & dil, const PackageInfo * packageInfo)
 {
 	bool res = true;
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	unsigned int cnt = 0;
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	FOR_EACH_IO_DEVICE_INFO(it, dil)
 	{
 		res &= insert(it.current(), packageInfo);
+		#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		cnt++;
+		#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	}
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	if (cnt)
+	{
+		KSIMDEBUG(QString::fromLatin1("Package %1: Load %2 io device")
+		          .arg(packageInfo->getPackageName())
+		          .arg(cnt));
+	}
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	return res;
 }
 

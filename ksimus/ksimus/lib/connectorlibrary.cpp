@@ -18,6 +18,7 @@
 #include "connectorlibrary.h"
 #include "connectorlibraryitem.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 ConnectorLibrary::ConnectorLibrary()
 {
@@ -44,10 +45,24 @@ bool ConnectorLibrary::insert (const ConnectorInfo * ci, const PackageInfo * pac
 bool ConnectorLibrary::insert (const ConnectorInfoList & cil, const PackageInfo * packageInfo)
 {
 	bool res = true;
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	unsigned int cnt = 0;
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	FOR_EACH_CONNECTOR_INFO(it, cil)
 	{
 		res &= insert(it.current(), packageInfo);
+		#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		cnt++;
+		#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	}
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	if (cnt)
+	{
+		KSIMDEBUG(QString::fromLatin1("Package %1: Load %2 connector")
+		          .arg(packageInfo->getPackageName())
+		          .arg(cnt));
+	}
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	return res;
 }
 

@@ -18,6 +18,7 @@
 #include "ksimiojoinlibrary.h"
 #include "ksimiojoinlibraryitem.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 KSimIoJoinLibrary::KSimIoJoinLibrary()
 {
@@ -44,10 +45,24 @@ bool KSimIoJoinLibrary::insert (const KSimIoJoinInfo * ji, const PackageInfo * p
 bool KSimIoJoinLibrary::insert (const KSimIoJoinInfoList & jil, const PackageInfo * packageInfo)
 {
 	bool res = true;
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	unsigned int cnt = 0;
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	FOR_EACH_IO_JOIN_INFO(it, jil)
 	{
 		res &= insert(it.current(), packageInfo);
+		#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		cnt++;
+		#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	}
+	#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+	if (cnt)
+	{
+		KSIMDEBUG(QString::fromLatin1("Package %1: Load %2 io join")
+		          .arg(packageInfo->getPackageName())
+		          .arg(cnt));
+	}
+	#endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 	return res;
 }
 
