@@ -39,6 +39,7 @@
 #include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdoubleedit.h"
+#include "ksimus/optionalconnector.h"
 
 #include "floatlatch.h"
 
@@ -94,8 +95,10 @@ FloatLatch::FloatLatch(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("FloatingPoint-Connector", "Reset"));
 	CHECK_PTR(m_inputReset);
 	m_inputReset->setEdgeSensitive(false,true);
-	m_inputReset->setHideEnabled(true);
-	m_inputReset->setHide(true,true);
+	// make Reset optional
+	new OptionalConnector(m_inputReset,
+	                      QString::fromLatin1("Reset input"),
+	                      i18n("FloatingPoint", "Reset input:"));
 	
 	m_inputEnable = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable"),

@@ -32,11 +32,15 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/componentlayout.h"
+#include "ksimus/optionalconnector.h"
+//#include "ksimus/componentpropertybasewidget.h"
 
 // Project-Includes
 #include "dflipflop.h"
 
 // Forward declaration
+
+
 
 
 
@@ -85,11 +89,16 @@ DFlipFlop::DFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	m_inEna->setEdgeSensitive(false, true);
 	
 	getResetInputConnector()->setEdgeSensitive(false,true);
-	getResetInputConnector()->setHideEnabled(true);
-	getResetInputConnector()->setHide(true,true);
 	getSetInputConnector()->setEdgeSensitive(false,true);
-	getSetInputConnector()->setHideEnabled(true);
-	getSetInputConnector()->setHide(true,true);
+	
+	// make Reset optional
+	new OptionalConnector(getResetInputConnector(),
+	                      QString::fromLatin1("Reset input"),
+	                      i18n("Boolean", "Reset input:"));
+	// make Set optional
+	new OptionalConnector(getSetInputConnector(),
+	                      QString::fromLatin1("Set input"),
+	                      i18n("Boolean", "Set input:"));
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -126,8 +135,6 @@ void DFlipFlop::calculate()
 
 //###############################################################
 //###############################################################
-
-#define getDFF() ((DFlipFlop *) getComponent())
 
 DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
@@ -176,7 +183,6 @@ void DFlipFlopView::draw(QPainter * p)
 	CompView::draw(p);
 }
 
-#undef getDFF()
 
 //###############################################################
 //###############################################################

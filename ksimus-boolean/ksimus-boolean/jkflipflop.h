@@ -45,38 +45,6 @@ const ComponentInfo * getJKFlipFlopInfo();
 const ComponentInfo * getJKMSFlipFlopInfo();
 
 
-/**Base class for JK-FF.
-  *@author Rasmus Diekenbrock
-  */
-
-class JKFlipFlopBase : public KSimLibBoolean::FlipFlopBase
-{
-	Q_OBJECT
-
-public:
-//	~JKFlipFlopBase();
-
-	/** Returns the "J" input connector.
-	  */
-	ConnectorBoolIn * getJInputConnector() const { return m_inJ; };
-	/** Returns the "K" input connector.
-	  */
-	ConnectorBoolIn * getKInputConnector() const { return m_inK; };
-	/** Returns the "Clk" input connector.
-	  */
-	ConnectorBoolInEdge * getClockInputConnector() const { return m_inClk; };
-
-protected:
-	JKFlipFlopBase(CompContainer * container, const ComponentInfo * ci);
-
-
-private:
-	ConnectorBoolIn * m_inJ;
-	ConnectorBoolIn * m_inK;
-	ConnectorBoolInEdge * m_inClk;
-};
-
-
 //###############################################################
 //###############################################################
 
@@ -88,7 +56,7 @@ private:
   * @author Rasmus Diekenbrock
   */
 
-class JKFlipFlop : public KSimLibBoolean::JKFlipFlopBase
+class JKFlipFlop : public KSimLibBoolean::FlipFlopBase
 {
 	Q_OBJECT
 
@@ -113,6 +81,16 @@ public:
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 	
+	/** Returns the "J" input connector.
+	  */
+	ConnectorBoolIn * getJInputConnector() const { return m_inJ; };
+	/** Returns the "K" input connector.
+	  */
+	ConnectorBoolIn * getKInputConnector() const { return m_inK; };
+	/** Returns the "Clk" input connector.
+	  */
+	ConnectorBoolInEdge * getClockInputConnector() const { return m_inClk; };
+	
 	/** Enables Master Slave. */
 	void setMasterSlaveEnabled(bool ena) { m_isMaterSlave = ena; };
 	/** Returns true, if Master Slave is enabled. */
@@ -125,6 +103,10 @@ protected:
 	/** Executes the simulation of a JK Master Slave FF */
 	void calculateJKMS();
 
+	ConnectorBoolIn * m_inJ;
+	ConnectorBoolIn * m_inK;
+	ConnectorBoolInEdge * m_inClk;
+	
 	bool m_isMaterSlave;
 	bool m_lastClk;
 	bool m_lastJ;
@@ -145,12 +127,15 @@ protected:
 class JKFlipFlopView : public CompView
 {
 public:
-	JKFlipFlopView(JKFlipFlopBase * comp, eViewType viewType);
+	JKFlipFlopView(JKFlipFlop * comp, eViewType viewType);
 //	~JKFlipFlopView();
 	virtual void draw(QPainter * p);
 
 private:
 	ComponentLayout * m_layout;
+
+	JKFlipFlop * getJKFF() { return (JKFlipFlop *) getComponent(); };
+
 };
 
 //###############################################################
@@ -178,6 +163,8 @@ public:
 
 private:
 	KSimBooleanBox * m_masterSlave;
+	
+	JKFlipFlop * getJKFF() { return (JKFlipFlop *) getComponent(); };
 };
 
 

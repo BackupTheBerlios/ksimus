@@ -40,6 +40,7 @@
 #include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdoubleedit.h"
+#include "ksimus/optionalconnector.h"
 
 #include "dataselector.h"
 
@@ -98,16 +99,20 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("FloatingPoint-Connector", "Latch Output"));
 	CHECK_PTR(m_latchOutput);
 	m_latchOutput->setEdgeSensitive(false,true);
-	m_latchOutput->setHideEnabled(true);
-	m_latchOutput->setHide(true,true);
+	// make Output Latch optional
+	new OptionalConnector(m_latchOutput,
+	                      QString::fromLatin1("Output Latch"),
+	                      i18n("FloatingPoint", "Output Latch:"));
 	
 	m_latchAddress = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Latch Address Input"),
 	                             i18n("FloatingPoint-Connector", "Latch Address Input"));
 	CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
-	m_latchAddress->setHideEnabled(true);
-	m_latchAddress->setHide(true,true);
+	// make Address Latch optional
+	new OptionalConnector(m_latchAddress,
+	                      QString::fromLatin1("Address Latch"),
+	                      i18n("FloatingPoint", "Address Latch:"));
 	
 	m_inputPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Input"),

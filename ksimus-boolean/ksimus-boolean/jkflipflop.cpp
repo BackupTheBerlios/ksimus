@@ -36,6 +36,8 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/componentlayout.h"
+#include "ksimus/optionalconnector.h"
+//#include "ksimus/componentpropertybasewidget.h"
 
 // Project-Includes
 #include "jkflipflop.h"
@@ -87,8 +89,12 @@ const ComponentInfo * getJKMSFlipFlopInfo()
 
 
 
-JKFlipFlopBase::JKFlipFlopBase(CompContainer * container, const ComponentInfo * ci)
-	: FlipFlopBase(container, ci)
+JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
+	: FlipFlopBase(container, ci),
+		m_isMaterSlave(false),
+		m_lastClk(false),
+		m_lastJ(false),
+		m_lastK(false)
 {
 	m_inJ = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("J"),
@@ -107,29 +113,17 @@ JKFlipFlopBase::JKFlipFlopBase(CompContainer * container, const ComponentInfo * 
 	m_inClk->setEdgeSensitiveChangeEnable(false);
 	
 	getResetInputConnector()->setEdgeSensitive(false,true);
-	getResetInputConnector()->setHideEnabled(true);
-	getResetInputConnector()->setHide(true,true);
 	getSetInputConnector()->setEdgeSensitive(false,true);
-	getSetInputConnector()->setHideEnabled(true);
-	getSetInputConnector()->setHide(true,true);
-}
-
-/*JKFlipFlopBase::~JKFlipFlopBase()
-{
-} */
-
-
-
-//###############################################################
-//###############################################################
-
-JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
-	: JKFlipFlopBase(container, ci),
-		m_isMaterSlave(false),
-		m_lastClk(false),
-		m_lastJ(false),
-		m_lastK(false)
-{
+	
+	// make Reset optional
+	new OptionalConnector(getResetInputConnector(),
+	                      QString::fromLatin1("Reset input"),
+	                      i18n("Boolean", "Reset input:"));
+	// make Set optional
+	new OptionalConnector(getSetInputConnector(),
+	                      QString::fromLatin1("Set input"),
+	                      i18n("Boolean", "Set input:"));
+	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
@@ -156,7 +150,7 @@ ComponentPropertyBaseWidget * JKFlipFlop::createGeneralProperty(QWidget *parent)
 /** save component properties */
 void JKFlipFlop::save(KSimData & file) const
 {
-	JKFlipFlopBase::save(file);
+	FlipFlopBase::save(file);
 	
 	if (isMasterSlaveEnabled())   // Save true state only (default is false!)
 	{
@@ -171,12 +165,12 @@ bool JKFlipFlop::load(KSimData & file, bool copyLoad)
 {
 	setMasterSlaveEnabled( file.readBoolEntry("Master Slave", false) );
 	
-	return JKFlipFlopBase::load(file, copyLoad);
+	return FlipFlopBase::load(file, copyLoad);
 }
 
 void JKFlipFlop::calculate()
 {
-	JKFlipFlopBase::calculate();
+	FlipFlopBase::calculate();
 
 	if(isMasterSlaveEnabled())
 	{
@@ -262,7 +256,7 @@ void JKFlipFlop::calculateJKMS()
 
 void JKFlipFlop::reset()
 {
-	JKFlipFlopBase::reset();
+	FlipFlopBase::reset();
 	
 	m_lastClk = getClockInputConnector()->isNegated();
 	m_lastJ = getJInputConnector()->isNegated();
@@ -273,9 +267,8 @@ void JKFlipFlop::reset()
 //###############################################################
 //###############################################################
 
-#define getJKFF() ((JKFlipFlop *) getComponent())
 
-JKFlipFlopView::JKFlipFlopView(JKFlipFlopBase * comp, eViewType viewType)
+JKFlipFlopView::JKFlipFlopView(JKFlipFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 //	setPlace(QRect(0, 0, 7*gridX, 7*gridY));
@@ -324,7 +317,6 @@ void JKFlipFlopView::draw(QPainter * p)
 	CompView::draw(p);
 }
 
-#undef getJKFF()
 
 //###############################################################
 //###############################################################
@@ -342,7 +334,7 @@ JKFlipFlopPropertyGeneralWidget::JKFlipFlopPropertyGeneralWidget(JKFlipFlop * co
 	lab = new QLabel(i18n("Boolean", "Master Slave:"), this);
 	CHECK_PTR(lab);
 	
-	m_masterSlave = new KSimBooleanBox(comp->isMasterSlaveEnabled(), this);
+	m_masterSlave = new KSimBooleanBox(getJKFF()->isMasterSlaveEnabled(), this);
 	CHECK_PTR(m_masterSlave);
 	
 	m_masterSlave->setTrueText(i18n("Boolean", "Enabled"));
@@ -364,10 +356,10 @@ void JKFlipFlopPropertyGeneralWidget::acceptPressed()
 {
 	FlipFlopBasePropertyGeneralWidget::acceptPressed();
 
-	if (((JKFlipFlop*)getComponent())->isMasterSlaveEnabled() != m_masterSlave->getValue())
+	if (getJKFF()->isMasterSlaveEnabled() != m_masterSlave->getValue())
 	{
 		changeData();
-		((JKFlipFlop*)getComponent())->setMasterSlaveEnabled(m_masterSlave->getValue());
+		getJKFF()->setMasterSlaveEnabled(m_masterSlave->getValue());
 	}
 }
 

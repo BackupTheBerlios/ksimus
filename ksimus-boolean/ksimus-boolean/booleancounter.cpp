@@ -40,6 +40,7 @@
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/componentpropertydialog.h"
+#include "ksimus/optionalconnector.h"
 
 // Forward declaration
 
@@ -96,22 +97,36 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	                             i18n("Boolean-Connector", "Reset"));
 	CHECK_PTR(m_inClear);
 	m_inClear->setEdgeSensitive(false,true);
-	m_inClear->setHideEnabled(true);
-	m_inClear->setHide(true,true);
+	// make optional
+	new OptionalConnector(m_inClear,
+	                      QString::fromLatin1("Reset Input"),
+	                      i18n("Boolean", "Reset input:"));
+	
 	
 	m_inClkUp = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock Up"),
 	                             i18n("Boolean-Connector", "Clock Up"));
 	CHECK_PTR(m_inClkUp);
 	m_inClkUp->setEdgeSensitiveChangeEnable(false);
-	m_inClkUp->setHideEnabled(true);
+	// make optional
+	new OptionalConnector(true, m_inClkUp,
+	                      QString::fromLatin1("Clock up input"),
+	                      i18n("Boolean", "Clock up input:"));
+	
+	
+	
 	
 	m_inClkDown = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock Down"),
 	                             i18n("Boolean-Connector", "Clock Down"));
 	CHECK_PTR(m_inClkDown);
 	m_inClkDown->setEdgeSensitiveChangeEnable(false);
-	m_inClkDown->setHideEnabled(true);
+	// make optional
+	new OptionalConnector(true, m_inClkDown,
+	                      QString::fromLatin1("Clock down input"),
+	                      i18n("Boolean", "Clock down input:"));
+	
+	
 	
 	m_outCnt = new ConnectorPack(this,
 	                             QString::fromLatin1("Output"),
@@ -125,14 +140,22 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	                             QString::fromLatin1("Ripple Borrow Out"),
 	                             i18n("Boolean-Connector", "Ripple Borrow Out"));
 	CHECK_PTR(m_outBorrow);
-	m_outBorrow->setHideEnabled(true);
+	// make optional
+	new OptionalConnector(true, m_outBorrow,
+	                      QString::fromLatin1("Ripple borrow output"),
+	                      i18n("Boolean", "Ripple borrow output:"));
+	
 	
 	m_outCarry = new ConnectorBoolOut(this,
 	                             QString::fromLatin1("Ripple Carry Out"),
 	                             i18n("Boolean-Connector", "Ripple Carry Out"));
 	CHECK_PTR(m_outCarry);
-	m_outCarry->setHideEnabled(true);
-
+	// make optional
+	new OptionalConnector(true, m_outCarry,
+	                      QString::fromLatin1("Ripple carry output"),
+	                      i18n("Boolean", "Ripple carry output:"));
+	
+	
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -179,7 +202,7 @@ void BooleanCounter::checkProperty(QStringList & errorMsg)
 	
 	if (getInputClockUp()->isHidden() && getInputClockDown()->isHidden())
 	{
-		errorMsg.append(i18n("Boolean", "Connector \"Clock Up\" or \"Clock Down\" must be visible."));
+		errorMsg.append(i18n("Boolean", "Connector 'Clock Up' or 'Clock Down' must be visible."));
 	}
 }
 
