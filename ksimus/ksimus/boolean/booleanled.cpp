@@ -111,6 +111,7 @@ void BooleanLed::calculate()
 
 	bool in = m_inConn->getInput();
 
+//	KSIMDEBUG(QString::fromLatin1("BooleanLed::calculate() %1  %2 >> %3").arg(getName()).arg(m_onState).arg(in));
 	if(m_onState != in)
 	{
 		m_onState = in;
