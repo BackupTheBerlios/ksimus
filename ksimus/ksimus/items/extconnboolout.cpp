@@ -75,7 +75,7 @@ ExtConnBoolOut::~ExtConnBoolOut()
 
 void ExtConnBoolOut::calculate()
 {
-	ConnectorBoolOut * out = (ConnectorBoolOut *)getExternalConn();
+	ConnectorBoolOut * out = (ConnectorBoolOut *)getUsedExternalConn();
 	ConnectorBoolIn * in = (ConnectorBoolIn *)getInternalConn();
 	
 	// Protect against infinite recursion

@@ -509,6 +509,7 @@ void Module::reloadModule()
 				oc->setEnabled(extConn->isOptionalConnEnabled() || conn->isConnected());
 				
 			}
+			extConn->setModuleConn(conn);
 			conn->setNegate(extConn->getExternalConn()->isNegated(),true);
 			
 			extList->append(extConn);

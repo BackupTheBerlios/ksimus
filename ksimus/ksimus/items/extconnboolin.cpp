@@ -92,16 +92,16 @@ void ExtConnBoolIn::reset()
 {
 	ExternalConnector::reset();
 
-	if (!getExternalConn()->isConnected())
+	if (!getUsedExternalConn()->isConnected())
 	{
-		getExternalConn()->copyData(&m_defaultState);
+		getUsedExternalConn()->copyData(&m_defaultState);
 	}
 }
 
 void ExtConnBoolIn::calculate()
 {
 	ConnectorBoolOut * out = (ConnectorBoolOut *)getInternalConn();
-	ConnectorBoolIn * in = (ConnectorBoolIn *)getExternalConn();
+	ConnectorBoolIn * in = (ConnectorBoolIn *)getUsedExternalConn();
 	
 	// Protect against infinite recursion
 	if (!isRecursionLocked())

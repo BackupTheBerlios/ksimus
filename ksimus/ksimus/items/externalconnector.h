@@ -106,14 +106,22 @@ public:
 	ConnectorBase * getExternalConn() const;
 	/** Returns the *internal* connector */
 	ConnectorBase * getInternalConn() const;
+	/** Returns the *module* connector. The module connector is set by the module if the
+	 *  ExternalConnector is part of this module. The connector represent the external
+	 *  connector of the module. */
+	ConnectorBase * getModuleConn() const;
+	/** Returns the used external connector. This is the external connector if not used in a module
+	 *  or the module connector if used in a module.  */
+	ConnectorBase * getUsedExternalConn() const;
+
 	/** Sets the *external* connector */
 	void setExternalConn(ConnectorBase * extConn);
 	/** Sets the *internal* connector */
 	void setInternalConn(ConnectorBase * inConn);
-
-	/** Removes the wire of the test connector */
-	void removeTestConnector();
-	
+	/** Sets the *module* connector. The module connector is set by the module if the
+	 *  ExternalConnector is part of this module. The connector represent the external
+	 *  connector of the module. */
+	void setModuleConn(ConnectorBase * modConn);
 
 	/** Returns the relative connector position in pixmap mode.
 	 *  The position is measured in gridX / gridY. */
@@ -169,6 +177,7 @@ protected:
 		unsigned int recursionLocked     :1;
 		unsigned int optionalConn        :1;
 		unsigned int optionalConnEnabled :1;
+		unsigned int useModuleConn       :1;
 	} m_flags;
 	QPoint m_pixmapPos;
 	ConnOrientationType m_pixmapOrient;
@@ -176,6 +185,7 @@ protected:
 	ConnOrientationType m_userViewOrient;
 	ConnectorBase * m_internalConn;
 	ConnectorBase * m_externalConn;
+	ConnectorBase * m_moduleConn;
 	
 private:
 	void init();

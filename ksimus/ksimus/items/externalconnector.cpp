@@ -212,6 +212,7 @@ void ExternalConnector::init()
 	setRecursionLocked(false);
 	setOptionalConn(DEFAULT_OPT_CONN);
 	setOptionalConnEnabled(DEFAULT_OPT_CONN_ENA);
+	setModuleConn((ConnectorBase *) 0);
 	
 	// set to invalid
 	m_pixmapPos.setX(-1);
@@ -359,6 +360,23 @@ ConnectorBase * ExternalConnector::getInternalConn() const
 	return m_internalConn;
 }
 
+ConnectorBase * ExternalConnector::getModuleConn() const
+{
+	return m_moduleConn;
+}
+
+ConnectorBase * ExternalConnector::getUsedExternalConn() const
+{
+	if (m_flags.useModuleConn)
+	{
+		return m_moduleConn;
+	}
+	else
+	{
+		return m_externalConn;
+	}
+}
+
 /** Sets the *external* connector */
 void ExternalConnector::setExternalConn(ConnectorBase * extConn)
 {
@@ -371,23 +389,18 @@ void ExternalConnector::setInternalConn(ConnectorBase * inConn)
 	m_internalConn = inConn;
 }
 
-/** Removes the wire of the test connector */
-void ExternalConnector::removeTestConnector()
+void ExternalConnector::setModuleConn(ConnectorBase * modConn)
 {
-	if (isInput())
+	m_moduleConn = modConn;
+	if (modConn)
 	{
-		// Remove input connection
-			if (getConnList()->at(1)->getWire())
-				getContainer()->delConnection(getConnList()->at(1));
+		m_flags.useModuleConn = 1;
 	}
 	else
 	{
-		// Remove output connection
-			if (getConnList()->at(0)->getWire())
-				getContainer()->delConnection(getConnList()->at(0));
+		m_flags.useModuleConn = 0;
 	}
 }
-
 
 /** Sets the orientation of the connector in pixmap mode. */
 void ExternalConnector::setPixmapOrientation(ConnOrientationType orientation)

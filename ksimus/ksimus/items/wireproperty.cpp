@@ -194,6 +194,7 @@ void WirePropertySingleOutput::setupCircuit()
 	
 	FOR_EACH_CONNECTOR(it, *getWire()->getConnList())
 	{
+		it.current()->setWireProperty(this);
 		if (it.current()->isInput())
 		{
 			if (it.current()->getComponent()->isModule())
@@ -205,11 +206,8 @@ void WirePropertySingleOutput::setupCircuit()
 				{
 					if (-1 == m_zeroDelayList->findRef(extConn))
 						m_zeroDelayList->append(extConn);
-					if (-1 == m_inZeroDelayConnectorList->findRef(extConn->getExternalConn()))
-						m_inZeroDelayConnectorList->append(extConn->getExternalConn());
-					extConn->getExternalConn()->setWireProperty(this);
-					// Copy negate type
-					extConn->getExternalConn()->setNegate(it.current(),true);
+					if (-1 == m_inZeroDelayConnectorList->findRef(it.current()))
+						m_inZeroDelayConnectorList->append(it.current());
 				}
 				else
 				{
@@ -224,42 +222,17 @@ void WirePropertySingleOutput::setupCircuit()
 					m_zeroDelayList->append(it.current()->getComponent());
 				if (-1 == m_inZeroDelayConnectorList->findRef(it.current()))
 					m_inZeroDelayConnectorList->append(it.current());
-				it.current()->setWireProperty(this);
 			}
 			else
 			{
 				// Regular connector
 				if (-1 == m_inConnectorList->findRef(it.current()))
 					m_inConnectorList->append(it.current());
-				it.current()->setWireProperty(this);
 			}
 		}
 		else if (it.current()->isOutput())
 		{
-			if (it.current()->getComponent()->isModule())
-			{
-				// Module
-				Module * module = (Module *)it.current()->getComponent();
-				ExternalConnector * extConn = module->searchExtConn(it.current());
-				if (extConn)
-				{
-					m_outConnector = extConn->getExternalConn();
-					extConn->getExternalConn()->setWireProperty(this);
-					// Copy negate type
-					extConn->getExternalConn()->setNegate(it.current(),true);
-				}
-				else
-				{
-					KSIMDEBUG("ExternalConnector not found");
-					ASSERT(extConn);
-				}
-			}
-			else
-			{
-				// Regular connector
-				m_outConnector = it.current();
-				it.current()->setWireProperty(this);
-			}
+			m_outConnector = it.current();
 		}
 		else
 		{
