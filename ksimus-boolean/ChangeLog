@@ -1,3 +1,7 @@
+	11.10.2003
+* Change: Use KSimSpinBox instead of QSpinBox in some component dialogs
+	6.8.2003
+* New: Virtual IO component
 	17.5.2003
 * Fix: Missing undo in mux and demux component
 * Change: KDE3 is now the develop system

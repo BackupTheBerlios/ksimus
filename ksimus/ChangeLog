@@ -1,3 +1,7 @@
+	11.10.2003
+* New: Class KSimSpinBox is a replacement for QSpinBox
+* Change: Use KSimSpinBox instead of QSpinBox in some component dialogs
+* New: ConnectorPack uses upper and lower case character for connector names (allows more than 26 connectors)
 	6.8.2003
 * Change: Add header componentinfo.h to component.h
 * New: Extend IO part
