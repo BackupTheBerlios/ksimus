@@ -31,7 +31,7 @@ configure_args=--prefix=/opt/kde2
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=GNU
+lfv_open_groups=Benutzerinterface,GNU,Header
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am
 modifyMakefiles=true
@@ -111,7 +111,7 @@ install_location=
 type=DATA
 
 [ksimus/Makefile.am]
-files=ksimus/main.cpp,ksimus/ksimus.cpp,ksimus/ksimus.h,ksimus/ksimusdoc.cpp,ksimus/ksimusdoc.h,ksimus/ksimusview.cpp,ksimus/ksimusview.h,ksimus/ksimusui.rc,ksimus/ksimus.desktop,ksimus/ksimus.xpm,ksimus/mini-ksimus.xpm,ksimus/basewindow.cpp,ksimus/basewindow.h,ksimus/compcontainer.h,ksimus/component.cpp,ksimus/component.h,ksimus/componentitem.cpp,ksimus/componentitem.h,ksimus/componentmap.cpp,ksimus/componentmap.h,ksimus/compview.cpp,ksimus/compview.h,ksimus/displaywidget.cpp,ksimus/displaywidget.h,ksimus/globals.cpp,ksimus/globals.h,ksimus/ksimfile.cpp,ksimus/ksimfile.h,ksimus/ksimundo.cpp,ksimus/ksimundo.h,ksimus/types.h,ksimus/wire.cpp,ksimus/wire.h,ksimus/resource.h,ksimus/ksimwidget.cpp,ksimus/ksimwidget.h,ksimus/ksimeditor.cpp,ksimus/ksimeditor.h,ksimus/compviewwidget.cpp,ksimus/compviewwidget.h,ksimus/ksimdebug.h,ksimus/componentpropertybasewidget.cpp,ksimus/componentpropertybasewidget.h,ksimus/componentpropertygeneralwidget.cpp,ksimus/componentpropertygeneralwidget.h,ksimus/componentpropertydialog.cpp,ksimus/componentpropertydialog.h,ksimus/componentpropertyinfowidget.cpp,ksimus/componentpropertyinfowidget.h,ksimus/library.cpp,ksimus/library.h,ksimus/compcontainer.cpp,ksimus/componentaddon.cpp,ksimus/componentaddon.h,ksimus/ksimaction.cpp,ksimus/ksimaction.h,ksimus/ksimdata.cpp,ksimus/ksimdata.h,ksimus/compviewhbox.cpp,ksimus/compviewhbox.h,ksimus/compviewvbox.cpp,ksimus/compviewvbox.h,ksimus/componentstyle.cpp,ksimus/componentstyle.h,ksimus/componentpropertystylewidget.cpp,ksimus/componentpropertystylewidget.h
+files=ksimus/main.cpp,ksimus/ksimus.cpp,ksimus/ksimus.h,ksimus/ksimusdoc.cpp,ksimus/ksimusdoc.h,ksimus/ksimusview.cpp,ksimus/ksimusview.h,ksimus/ksimusui.rc,ksimus/ksimus.desktop,ksimus/ksimus.xpm,ksimus/mini-ksimus.xpm,ksimus/basewindow.cpp,ksimus/basewindow.h,ksimus/compcontainer.h,ksimus/component.cpp,ksimus/component.h,ksimus/componentitem.cpp,ksimus/componentitem.h,ksimus/componentmap.cpp,ksimus/componentmap.h,ksimus/compview.cpp,ksimus/compview.h,ksimus/displaywidget.cpp,ksimus/displaywidget.h,ksimus/globals.cpp,ksimus/globals.h,ksimus/ksimfile.cpp,ksimus/ksimfile.h,ksimus/ksimundo.cpp,ksimus/ksimundo.h,ksimus/types.h,ksimus/wire.cpp,ksimus/wire.h,ksimus/resource.h,ksimus/ksimwidget.cpp,ksimus/ksimwidget.h,ksimus/ksimeditor.cpp,ksimus/ksimeditor.h,ksimus/compviewwidget.cpp,ksimus/compviewwidget.h,ksimus/ksimdebug.h,ksimus/componentpropertybasewidget.cpp,ksimus/componentpropertybasewidget.h,ksimus/componentpropertygeneralwidget.cpp,ksimus/componentpropertygeneralwidget.h,ksimus/componentpropertydialog.cpp,ksimus/componentpropertydialog.h,ksimus/componentpropertyinfowidget.cpp,ksimus/componentpropertyinfowidget.h,ksimus/library.cpp,ksimus/library.h,ksimus/compcontainer.cpp,ksimus/componentaddon.cpp,ksimus/componentaddon.h,ksimus/ksimaction.cpp,ksimus/ksimaction.h,ksimus/ksimdata.cpp,ksimus/ksimdata.h,ksimus/compviewhbox.cpp,ksimus/compviewhbox.h,ksimus/compviewvbox.cpp,ksimus/compviewvbox.h,ksimus/componentstyle.cpp,ksimus/componentstyle.h,ksimus/componentpropertystylewidget.cpp,ksimus/componentpropertystylewidget.h,ksimus/wire.cur,ksimus/wire_mask.cur
 sub_dirs=tools,module,boolean,lib,items
 type=prog_main
 
@@ -1471,11 +1471,23 @@ install=false
 install_location=
 type=SOURCE
 
+[ksimus/wire.cur]
+dist=true
+install=false
+install_location=
+type=DATA
+
 [ksimus/wire.h]
 dist=true
 install=true
 install_location=$$(pkgincludedir)/wire.h
 type=HEADER
+
+[ksimus/wire_mask.cur]
+dist=true
+install=false
+install_location=
+type=DATA
 
 [po/Makefile.am]
 sub_dirs=
