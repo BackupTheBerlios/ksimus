@@ -1,0 +1,395 @@
+<!-- ############################################################################### -->
+<!-- ########################        Boolean Latches        ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-boolean-latches">
+<title>Boolean Latches</title>
+
+<simplelist>
+<member>&BooleanRSFF;</member>
+<member>&BooleanJKFF;</member>
+<member>&BooleanDLatch;</member>
+<member>&BooleanMutliDLatch;</member>
+</simplelist>
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################          Boolean RS FF        ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-rs-ff">
+<title>Boolean RS Flip Flop</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a simple flip flop.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Two outputs, a non negtated output and a negated output.
+</para></listitem><listitem><para>
+The set and reset inputs are negatable.
+</para></listitem><listitem><para>
+The set and reset inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Selectable dominant set or dominant reset input.
+</para></listitem><listitem><para>
+The component supports a user definable reset state.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_rs_ff.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="5">
+<thead>
+<row><entry>Set</entry> <entry>Reset</entry> <entry></entry> <entry>Output<subscript> T</subscript></entry><entry>/Output<subscript> T</subscript></entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry>False</entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
+<row><entry>False</entry> <entry>True</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
+<row><entry>True</entry> <entry>False</entry> <entry></entry> <entry>True</entry><entry>False</entry></row>
+<row><entry>True</entry> <entry>True</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
+</tbody>
+</tgroup></informaltable>
+Set and reset inputs are level sensitive. Reset input is dominant.
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Flip Flop -> RS-FF</para></sect3>
+
+</sect2>
+
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################      Boolean JK (MS) FF       ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-jk-ff">
+<title>Boolean JK (Master Slave) Flip Flop</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a JK flip flop with or without master slave functionality.
+</para><para>
+With activated master slave functionality the j and k inputs are latched during the rising
+edge of the clock input. With the falling edge the outputs are updated according the
+latched j and k inputs.
+</para><para>
+With deactivated master slave functionality the outputs are updated according the
+j and k inputs during the rising edge of the clock input.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Two outputs, a non negtated output and a negated output.
+</para></listitem><listitem><para>
+The all inputs are negatable.
+</para></listitem><listitem><para>
+The set and reset inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Selectable dominant set or dominant reset input.
+</para></listitem><listitem><para>
+Hide or show set and reset input.
+</para></listitem><listitem><para>
+Selectable master slave functionality.
+</para></listitem><listitem><para>
+The component supports a user definable reset state.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_jk_ff.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_jk_ff_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="8">
+<thead>
+<row><entry>Set</entry>   <entry>Reset</entry> <entry>Clock</entry> <entry>J</entry>      <entry>K</entry>     <entry></entry> <entry>Output<subscript> T</subscript></entry><entry>/Output<subscript> T</subscript></entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry>True</entry>  <entry>X</entry>      <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>False</entry>  <entry>True</entry></row>
+<row><entry>True</entry>  <entry>False</entry> <entry>X</entry>      <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>True</entry>   <entry>False</entry></row>
+<row><entry>True</entry>  <entry>True</entry>  <entry>X</entry>      <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>False</entry>  <entry>True</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>False</entry>  <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>True</entry>   <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>False</entry> <entry>False</entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>False</entry> <entry>True</entry>  <entry></entry> <entry>False</entry>  <entry>True</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>True</entry>  <entry>False</entry> <entry></entry> <entry>True</entry>   <entry>False</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>True</entry>  <entry>True</entry>  <entry></entry> <entry>/Output<subscript> T-1</subscript></entry>  <entry>Output<subscript> T-1</subscript></entry></row>
+</tbody>
+</tgroup></informaltable>
+Set, reset and enable inputs are level sensitive. Reset input is dominant. Master slave functionality is deactivated.
+</para></sect3>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Flip Flop -> JK-FF</para>
+<para>Boolean -> Flip Flop -> JK-MS-FF</para>
+</sect3>
+
+</sect2>
+
+
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################      Boolean D Latch          ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-d-latch">
+<title>Boolean D Latch</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a D Latch.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Two outputs, a non negtated output and a negated output.
+</para></listitem><listitem><para>
+The all inputs are negatable.
+</para></listitem><listitem><para>
+The set, reset and enable inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Selectable dominant set or dominant reset input.
+</para></listitem><listitem><para>
+Hide or show set and reset input.
+</para></listitem><listitem><para>
+The component supports a user definable reset state.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_d_latch.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_d_latch_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="7">
+<thead>
+<row><entry>Set</entry> <entry>Reset</entry> <entry>Enable</entry> <entry>Data</entry> <entry></entry> <entry>Output<subscript> T</subscript></entry><entry>/Output<subscript> T</subscript></entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry>True</entry> <entry>X</entry> <entry>X</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
+<row><entry>True</entry> <entry>False</entry> <entry>X</entry> <entry>X</entry> <entry></entry> <entry>True</entry><entry>False</entry></row>
+<row><entry>True</entry> <entry>True</entry> <entry>X</entry> <entry>X</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>False</entry> <entry>X</entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>True</entry> <entry>False</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>True</entry> <entry>True</entry> <entry></entry> <entry>True</entry><entry>False</entry></row>
+</tbody>
+</tgroup></informaltable>
+Set, reset and enable inputs are level sensitive. Reset input is dominant.
+</para></sect3>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Flip Flop -> D Latch</para>
+</sect3>
+
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################  Boolean Multiple D Latches   ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-multiple-d-latches">
+<title>Boolean Multiple D Latches</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component contains several D Latches with a common enable and reset input.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 26 separat D latches.
+</para></listitem><listitem><para>
+The all inputs and outputs are negatable.
+</para></listitem><listitem><para>
+The reset and enable inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Hide or show the reset input.
+</para></listitem><listitem><para>
+The component supports a user definable reset state common for all D latches.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_multi_d_latch.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_multi_d_latch_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="5">
+<thead>
+<row><entry>Reset</entry> <entry>Enable</entry> <entry>Input x</entry> <entry></entry> <entry>Output<subscript> T</subscript> x</entry> </row>
+</thead>
+<tbody>
+<row><entry>True</entry>  <entry>X</entry>      <entry>X</entry>       <entry></entry> <entry>False</entry></row>
+<row><entry>False</entry> <entry>False</entry>  <entry>X</entry>       <entry></entry> <entry>Output<subscript> T-1</subscript> x</entry></row>
+<row><entry>False</entry> <entry>True</entry>   <entry>False</entry>   <entry></entry> <entry>False</entry></row>
+<row><entry>False</entry> <entry>True</entry>   <entry>True</entry>    <entry></entry> <entry>True</entry></row>
+</tbody>
+</tgroup></informaltable>
+Reset and enable inputs are level sensitive.
+</para></sect3>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Flip Flop -> Multiple D Latches</para>
+</sect3>
+
+</sect2>
+
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################       Boolean Mono Flop       ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-monoflop">
+<title>Boolean Monoflop</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The mono flop has a hideable reset input, a non negated and a negated output. The component has
+or has no retrigger property.
+</para><para>
+The time can be given in a time unit (ps,ns,&micro;s,ms,s) or in simulation cycles (ticks). Press the
+left mouse button in the input line and see the available manipulation options. The input of new
+delay time with one of the available unit works well. Or use the mouse wheel for changing the value
+in a 1-2-5 scheme.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The all inputs are negatable.
+</para></listitem><listitem><para>
+Selectable dominant trigger or dominant reset input.
+</para></listitem><listitem><para>
+Selectable retrigger or no retrigger property.
+</para></listitem><listitem><para>
+The reset input is level or edge sensitive.
+</para></listitem><listitem><para>
+Hide or show the reset input.
+</para></listitem><listitem><para>
+The component supports a user definable reset state.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_monoflop.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_monoflop_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Flip Flop -> Mono Flop</para>
+</sect3>
+
+</sect2>
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+#MIN_CONFIG
+
+AM_INIT_AUTOMAKE(ksimus-boolean,0.3.5-cvs)
+
+AC_DEFUN(CHECK_KSIMUS_HEADER,
+[
+  AC_MSG_CHECKING("for KSimus Header");
+
+  KSIMUS_HEADER_DIR=$includedir/ksimus
+
+  if eval "test -f $KSIMUS_HEADER_DIR/component.h" && eval "test -f $KSIMUS_HEADER_DIR/ksimus.h"; then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_ERROR(KSimus header not found)
+  fi
+])
+
+
+AC_DEFUN(CHECK_KSIMUS_BINARY,
+[
+  AC_MSG_CHECKING("for KSimus Binary");
+
+  KSIMUS_BINARY_DIR=$bindir
+
+
+  if test "${exec_prefix}" != NONE; then
+    KSIMUS_BINARY_DIR=${exec_prefix}/bin
+  else
+    KSIMUS_BINARY_DIR=${prefix}/bin
+  fi
+
+  if eval "test -f $KSIMUS_BINARY_DIR/ksimus"; then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_ERROR(KSimus not found)
+  fi
+])
+
+
+AC_DEFUN(CHECK_KSIMUS_VERSION,
+[
+  AC_MSG_CHECKING("KSimus version");
+
+  eval "KSIMUS_VERSION=`$KSIMUS_BINARY_DIR/ksimus  --version | grep 'KSimus:' | cut -d ' ' -f 2`"
+
+  dnl Limit version to relevant numbers
+  eval "KSIMUS_VERSION_LIMITED=`echo $KSIMUS_VERSION | cut -d '-' -f 1 | cut -d '.' -f 1,2,3`"
+  eval "PACKAGE_VERSION_LIMITED=`echo $VERSION | cut -d '-' -f 1 | cut -d '.' -f 1,2,3`"
+
+
+  if eval "test $KSIMUS_VERSION_LIMITED == $PACKAGE_VERSION_LIMITED"; then
+    AC_MSG_RESULT(($KSIMUS_VERSION) yes)
+  else
+    AC_MSG_ERROR(KSimus version $KSIMUS_VERSION does not match package version $VERSION)
+  fi
+])
+
+
+
+CHECK_KSIMUS_HEADER
+CHECK_KSIMUS_BINARY
+CHECK_KSIMUS_VERSION
+

@@ -1,0 +1,103 @@
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Input       ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-boolean-input">
+<title>Boolean Inputs</title>
+
+<simplelist>
+<member>&BooleanConstTrue;</member>
+<member>&BooleanConstFalse;</member>
+</simplelist>
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Boolean Constant True          ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-const-true">
+<title>Boolean Constant True</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Constant True has only one output which is always true.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+A stable high output.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_const_true.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Input -> Const True</para></sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Boolean Constant False         ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-const-false">
+<title>Boolean Constant False</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Const False has only one output which is always false.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+A stable false output.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_const_false.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Input -> Const False</para></sect3>
+
+</sect2>
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

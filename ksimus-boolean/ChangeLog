@@ -1,0 +1,61 @@
+	20.04.2002
+* New package naming ksimus-boolean
+* New: version check code in configure.in.in
+	20.03.2002
+* New: Version 0.3.4
+	02.03.2002
+* New: Enhance Component documentation
+* Fix: Prevent possible problems with hidden connectors.
+* Update: French translation from Aurelien Jarno. Thanks!
+* Update: German translation.
+* Fix: better version request in configure.in.in. Thanks Aurelien!
+	24.02.2002
+* New: Component documentation
+* New: Multi channel D Latch
+	04.02.2002
+* Change: Version 0.3.4.cvs
+* Fix: Namespace
+	23.01.2002
+* Change: Version 0.3.3
+	21.01.2002
+* New: German translation
+* Fix: not translateable code
+	20.01.2002
+* New: French translation from Aurelien Jarno. Thanks!
+	14.01.2002
+* Change: Boolean7Segment uses ComponentStyle and friends (adjust color and frame)
+	13.01.2002
+* New: Gates (not GUI objects) are rotatable now.
+	06.01.2002
+* Change: Version 0.3.3.cvs
+	05.01.2002
+* Change: Version 0.3.2
+* New: Check KSimus header and version during configure.
+* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre the bug message.
+	29.12.2001
+* Change: Version 0.3.1
+	28.12.2001
+* Fix: Boolean7Segment don't use i18n with Connector names
+* Fix: Rename BooleanBoolean7SegmentInfo to Boolean7SegmentInfo
+* Change: BooleanCounter has new library name "Boolean/Counter/with RCO and RBO"
+* New: Improve interface to loadable package.
+	27.12.2001
+* New: Component Boolean7Segment and some helper classes
+* Change: Component BooleanCounter swap RB and RC connectors
+	25.12.2001
+* New: Components BooleanCounter and BooleanConstant and some helper classes
+* Fix: Moc problem with namespaces
+	19.12.2001
+* Change: Better accept/default/cancel mechanism for PropertyWidget. The virtual slots are splitted
+  up to one virtual function and one slot.
+	12.12.2001
+* New: Component D-Flip Flop and Mono Flop
+* New function FlipFlopBasePropertyGeneralWidget::getDominantBox()
+	09.12.2001
+* Change: New version 0.3.0.
+* Change: Change lib names of the JKFlipFlip component
+* New: Components JK and JK MS Flip Flop
+* Change: BooleanOr and BooleanXor uses BooleanXIn1Out as base class
+* Change: RSFlipFlop uses Boolean1Out as base class
+
+

@@ -1,0 +1,100 @@
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Output       ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-boolean-output">
+<title>Boolean Outputs and Displays</title>
+
+<simplelist>
+<member>&Boolean7SegDisp;</member>
+</simplelist>
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Boolean 7 Segment Display      ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-7segment">
+<title>Boolean 7 Segment Display</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a seven segment display.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Shows values from 0hex up to 0Fhex.
+</para></listitem><listitem><para>
+The display is free resizable.
+</para></listitem><listitem><para>
+All inputs are freely negatable.
+</para></listitem><listitem><para>
+User definable color setting.
+</para></listitem><listitem><para>
+Selectable frame in the User View.
+</para></listitem><listitem><para>
+The 7 segment display is displayed in the user view.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_7_segment.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="6">
+<thead>
+<row><entry>Input 8</entry> <entry>Input 4</entry> <entry>Input 2</entry> <entry>Input 1</entry> <entry></entry> <entry>Display</entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry>False</entry> <entry>False</entry> <entry>False</entry> <entry></entry> <entry>0</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>False</entry> <entry>True </entry> <entry></entry> <entry>1</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>True </entry> <entry>False</entry> <entry></entry> <entry>2</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>True </entry> <entry>True </entry> <entry></entry> <entry>3</entry></row>
+<row><entry>False</entry> <entry>True </entry> <entry>False</entry> <entry>False</entry> <entry></entry> <entry>4</entry></row>
+<row><entry>False</entry> <entry>True </entry> <entry>False</entry> <entry>True </entry> <entry></entry> <entry>5</entry></row>
+<row><entry>False</entry> <entry>True </entry> <entry>True </entry> <entry>False</entry> <entry></entry> <entry>6</entry></row>
+<row><entry>False</entry> <entry>True </entry> <entry>True </entry> <entry>True </entry> <entry></entry> <entry>7</entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>False</entry> <entry>False</entry> <entry></entry> <entry>8</entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>False</entry> <entry>True </entry> <entry></entry> <entry>9</entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>True </entry> <entry>False</entry> <entry></entry> <entry>A</entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>True </entry> <entry>True </entry> <entry></entry> <entry>b</entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>False</entry> <entry>False</entry> <entry></entry> <entry>C</entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>False</entry> <entry>True </entry> <entry></entry> <entry>d</entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>True </entry> <entry>False</entry> <entry></entry> <entry>E</entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>True </entry> <entry>True </entry> <entry></entry> <entry>F</entry></row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Output -> 7 Segment Display</para></sect3>
+
+</sect2>
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
