@@ -172,7 +172,7 @@ Unit=Ticks
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=46
+Last Serial Number=49
 Number of channels=3
 Serial List=31,32,43
 Serial Number=10
@@ -230,7 +230,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 6/Sheet/]
 Pos=168,104
 
-[/Component 6/connPack/Summand/]
+[/Component 6/connPack/Input/]
 Connector Count=2
 
 [/Component 7/]

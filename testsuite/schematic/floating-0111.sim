@@ -20,7 +20,7 @@ Pos=16,48
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=28
+Last Serial Number=32
 Number of channels=4
 Serial List=1,2,23,24
 Serial Number=10
@@ -73,7 +73,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 11/Sheet/]
 Pos=192,144
 
-[/Component 11/connPack/Summand/]
+[/Component 11/connPack/Input/]
 Connector Count=2
 
 [/Component 12/]
@@ -327,7 +327,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 4/Sheet/]
 Pos=192,48
 
-[/Component 4/connPack/Summand/]
+[/Component 4/connPack/Input/]
 Connector Count=2
 
 [/Component 5/]
@@ -345,7 +345,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 6/Sheet/]
 Pos=192,216
 
-[/Component 6/connPack/Summand/]
+[/Component 6/connPack/Input/]
 Connector Count=3
 
 [/Component 7/]
@@ -368,7 +368,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 8/Sheet/]
 Pos=192,96
 
-[/Component 8/connPack/Summand/]
+[/Component 8/connPack/Input/]
 Connector Count=2
 
 [/Component 9/]

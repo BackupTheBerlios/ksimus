@@ -286,7 +286,7 @@ Type=wire/property/floating point
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=50
+Last Serial Number=55
 Number of channels=5
 Serial List=31,32,43,44,45
 Serial Number=10
@@ -357,7 +357,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 6/Sheet/]
 Pos=104,160
 
-[/Component 6/connPack/Summand/]
+[/Component 6/connPack/Input/]
 Connector Count=2
 
 [/Component 7/]
@@ -386,7 +386,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 9/Sheet/]
 Pos=104,208
 
-[/Component 9/connPack/Summand/]
+[/Component 9/connPack/Input/]
 Connector Count=2
 
 [/Document Property/]
