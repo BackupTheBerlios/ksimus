@@ -33,6 +33,7 @@
 #include "ksimus/ksimtimeserver.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimtimespinbox.h"
+#include "ksimus/ksimembfont.h"
 
 // Project-Includes
 #include "delay.h"
@@ -237,9 +238,8 @@ DelayView::DelayView(Delay * comp, eViewType viewType)
 void DelayView::draw(QPainter * p)
 {
 	drawFrame(p);
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Dly");
+	
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Dly");
 	
 	CompView::draw(p);
 }
