@@ -100,6 +100,7 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 	                             2, 10);
 	CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
+	m_inPack->setStoreName(QString::fromLatin1("Input"));
 	
 	// Initializes the sheet view
 	if (getSheetMap())
