@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-04-09 22:33+0200\n"
+"POT-Creation-Date: 2002-04-20 20:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,64 +15,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: channelpositionwidget.cpp:70
-msgid "&Offset: "
+msgid ""
+"_: DataRecorder\n"
+"&Offset: "
 msgstr ""
 
 #: channelpositionwidget.cpp:79
-msgid "&Gain: "
+msgid ""
+"_: DataRecorder\n"
+"&Gain: "
 msgstr ""
 
 #: datarecorderchannelbase.cpp:177
-msgid "Change Channel Name"
+msgid ""
+"_: DataRecorder\n"
+"Change Channel Name"
 msgstr ""
 
-#: datarecorderchannelboolean.cpp:129
-msgid "Boolean"
+#: datarecorderchannelboolean.cpp:130
+msgid ""
+"_: DataRecorder-Connector\n"
+"Boolean"
 msgstr ""
 
-#: datarecorderchannelboolean.cpp:225 datarecorderchannelfloat.cpp:218
+#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:220
 #: datarecorderwidget.cpp:177
-msgid "Channel:"
+msgid ""
+"_: DataRecorder\n"
+"Channel:"
 msgstr ""
 
 #: zoomwidget.cpp:219
-#, ycp-format
-msgid "%1 Sample/Pixel"
+msgid ""
+"_: DataRecorder\n"
+"%1 Sample/Pixel"
 msgstr ""
 
 #: zoomwidget.cpp:223
-#, ycp-format
-msgid "%1 s/div"
+msgid ""
+"_: DataRecorder\n"
+"%1 s/div"
 msgstr ""
 
-#: datarecorder.cpp:170 datarecorder.cpp:171
-msgid "Data Recorder"
+#: datarecorder.cpp:207 datarecorder.cpp:209
+msgid ""
+"_: DataRecorder-Component\n"
+"Data Recorder"
 msgstr ""
 
-#: datarecorder.cpp:533
-msgid "&Open"
+#: datarecorder.cpp:572 datarecorderview.cpp:87
+msgid ""
+"_: DataRecorder\n"
+"&Open graph"
 msgstr ""
 
-#: datarecorder.cpp:534
-msgid "Add &boolean connector"
+#: datarecorder.cpp:573
+msgid ""
+"_: DataRecorder\n"
+"Add &boolean connector"
 msgstr ""
 
-#: datarecorder.cpp:535
-msgid "Add &floating point connector"
+#: datarecorder.cpp:574
+msgid ""
+"_: DataRecorder\n"
+"Add &floating point connector"
 msgstr ""
 
-#: datarecorder.cpp:559 datarecorder.cpp:570
-msgid "Add channel"
+#: datarecorder.cpp:597 datarecorder.cpp:608
+msgid ""
+"_: DataRecorder\n"
+"Add channel"
 msgstr ""
 
-#: datarecorder.cpp:586
-msgid "Remove channel"
+#: datarecorder.cpp:624
+msgid ""
+"_: DataRecorder\n"
+"Remove channel"
 msgstr ""
 
-#: datarecorderchannelfloat.cpp:124
-msgid "Floating Point"
+#: datarecorderchannelfloat.cpp:125
+msgid ""
+"_: DataRecorder-Connector\n"
+"Floating Point"
 msgstr ""
 
 #: datarecorderwidget.cpp:182
-msgid "&Zoom:"
+msgid ""
+"_: DataRecorder\n"
+"&Zoom:"
 msgstr ""
