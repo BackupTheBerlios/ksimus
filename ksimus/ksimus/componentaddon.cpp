@@ -56,7 +56,11 @@ ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName)
 ComponentAddOn::~ComponentAddOn()
 {
 //	KSIMDEBUG_VAR("Delete", m_addOnName);
-	getComponent()->m_addonList->removeRef(this);
+	if(getComponent()->m_addonList->findRef(this))
+	{
+		// Remove from list
+		getComponent()->m_addonList->take();
+	}
 }
 	
 void ComponentAddOn::save(KSimData & ) const
