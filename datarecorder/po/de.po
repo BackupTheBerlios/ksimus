@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-21 22:18+0100\n"
-"PO-Revision-Date: 2002-01-21 22:20GMT\n"
+"POT-Creation-Date: 2002-03-07 22:33+0100\n"
+"PO-Revision-Date: 2002-03-07 22:36GMT\n"
 "Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,57 +14,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: channelpositionwidget.cpp:68
+#: channelpositionwidget.cpp:70
 msgid "&Offset: "
 msgstr "&Offset: "
 
-#: channelpositionwidget.cpp:77
+#: channelpositionwidget.cpp:79
 msgid "&Gain: "
-msgstr "&Verstärkung:"
+msgstr "&Verstärkung: "
 
-#: datarecorderchannelbase.cpp:174
+#: datarecorderchannelbase.cpp:177
 msgid "Change Channel Name"
 msgstr "Ändere Kanalname"
 
-#: datarecorderchannelboolean.cpp:126
+#: datarecorderchannelboolean.cpp:129
 msgid "Boolean"
-msgstr "Boolesche"
+msgstr "Boolean"
 
-#: datarecorderchannelboolean.cpp:222 datarecorderwidget.cpp:171
+#: datarecorderchannelboolean.cpp:225 datarecorderchannelfloat.cpp:218
+#: datarecorderwidget.cpp:177
 msgid "Channel:"
 msgstr "Kanal:"
 
-#: zoomwidget.cpp:217
+#: zoomwidget.cpp:219
 #, ycp-format
 msgid "%1 Sample/Pixel"
 msgstr "%1 Sample/Pixel"
 
-#: zoomwidget.cpp:221
+#: zoomwidget.cpp:223
 #, ycp-format
 msgid "%1 s/div"
 msgstr "%1 s/div"
 
-#: datarecorder.cpp:166 datarecorder.cpp:167
+#: datarecorder.cpp:170 datarecorder.cpp:171
 msgid "Data Recorder"
 msgstr "Datenrecorder"
 
-#: datarecorder.cpp:513
+#: datarecorder.cpp:532
 msgid "&Open"
 msgstr "&Öffne"
 
-#: datarecorder.cpp:514
-msgid "&Add boolean connector"
-msgstr "&Füge boolescher Anschluß hinzu"
+#: datarecorder.cpp:533
+msgid "Add &boolean connector"
+msgstr "Füge &boolean Connector hinzu"
 
-#: datarecorder.cpp:538
+#: datarecorder.cpp:534
+msgid "Add &floating point connector"
+msgstr "Füge &Floating Point Connector hinzu"
+
+#: datarecorder.cpp:558 datarecorder.cpp:569
 msgid "Add channel"
 msgstr "Füge Kanal hinzu"
 
-#: datarecorder.cpp:554
+#: datarecorder.cpp:585
 msgid "Remove channel"
 msgstr "Lösche Kanal"
 
-#: datarecorderwidget.cpp:176
+#: datarecorderchannelfloat.cpp:124
+msgid "Floating Point"
+msgstr "Floating Point"
+
+#: datarecorderwidget.cpp:182
 msgid "&Zoom:"
 msgstr "&Zoom:"
 
