@@ -246,7 +246,7 @@ void MultiDLatch::slotDeleteChannel()
 void MultiDLatch::setResetValue(bool resetValue)
 {
 	m_resetValue = resetValue;
-	reset(); // Update values
+// crashes ksimus	reset(); // Update values
 }
 	
 bool MultiDLatch::getResetValue() const
