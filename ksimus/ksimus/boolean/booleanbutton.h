@@ -128,8 +128,6 @@ public:
 	BooleanButtonView(Component * comp, eViewType viewType);
 //	virtual ~BooleanButtonView();
 	
-	/** Draws the Button to a printer */
-//	virtual void print(QPainter * paint);
 	virtual QWidget * createCompViewWidget(QWidget * parent);
 
 protected:

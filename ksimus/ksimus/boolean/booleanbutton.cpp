@@ -290,24 +290,7 @@ BooleanButtonView::BooleanButtonView(Component * comp, eViewType viewType)
 {
 }*/
 
-/** Draws the Button to a printer */
-/*void BooleanButtonView::print(QPainter * paint)
-{
-	QPushButton * button;
-	QPainter p;
-	
-	CompView::print(paint);
-	
-	QPushButton = (QButton*)getWidgetList()->getFirstWidget();
-	CHECK_PTR(button);
-	QPixmap pm(button->size());
 
-	p.begin(&pm, button);
-	QPushButton->drawButton(&p);
-	p.end();
-	
-	paint->drawPixmap(button->pos(), pm);
-}*/
 /**  */
 QWidget * BooleanButtonView::createCompViewWidget(QWidget * parent)
 {
