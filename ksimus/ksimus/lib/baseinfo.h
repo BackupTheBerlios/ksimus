@@ -24,29 +24,36 @@
   *@author Rasmus Diekenbrock
   */
 
-enum eInfoType { INFO_COMPONENT, INFO_CONNECTOR, INFO_WIREPROPERTY, INFO_IMPLICITCONVERTER };
-
-class QString;
-
 class BaseInfo
 {
 
-protected:	
-	BaseInfo(	eInfoType type,
-						const QString & name,
-						const QString & libName,
-						const QString & shortDescr,
-						const QString & HTMLDescr,
-						const QString & oldLibNames );
-//	~BaseInfo();
 
 public:
-	eInfoType getType() const;
-	const QString & getName() const;
-	const QString & getLibName() const;
-	const QString & getOldLibNames() const;
-	const QString & getShortDescr() const;
-	const QString & getHTMLDescr() const;
+	enum eInfoType { INFO_TYPE_UNKNOWN,      // Unknown Info Type
+	                 INFO_COMPONENT,         // Component Info
+	                 INFO_CONNECTOR,         // Connector Info
+	                 INFO_WIREPROPERTY,      // Wire Property Info
+	                 INFO_IMPLICITCONVERTER, // Implicit Converter Info
+	                 INFO_IO_DEVICE,         // IO Device Info
+	                 INFO_IO_JOIN            // IO Join Info
+	               };
+
+//	~BaseInfo();
+
+	eInfoType getType() const              { return m_type;        };
+	const QString & getName() const        { return m_name;        };
+	const QString & getLibName() const     { return m_libName;     };
+	const QString & getOldLibNames() const { return m_oldLibNames; };
+	const QString & getShortDescr() const  { return m_shortDescr;  };
+	const QString & getHTMLDescr() const   { return m_HTMLDescr;   };
+
+protected:
+	BaseInfo(eInfoType type,
+	         const QString & name,
+	         const QString & libName,
+	         const QString & shortDescr,
+	         const QString & HTMLDescr,
+	         const QString & oldLibNames );
 
 private:
 	eInfoType m_type;
