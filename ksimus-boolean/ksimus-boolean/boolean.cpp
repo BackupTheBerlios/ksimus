@@ -21,6 +21,7 @@
 
 // KDE-Includes
 #include <klocale.h>
+#include <kinstance.h>
 
 // KSimus-Includes
 #include "ksimus/packageinfo.h"
@@ -57,8 +58,42 @@
 
 // Project-Includes
 
+
+
+
 namespace KSimLibBoolean
 {
+
+static KInstance * packageInstance = (KInstance *)0;
+static PackageInfo * packageInfo = (PackageInfo *)0;
+static bool isPackageInitialized = false;
+
+
+KInstance * getPackageInstance()
+{
+	return packageInstance;
+}
+
+const PackageInfo * getPackageInfo()
+{
+	return packageInfo;
+}
+
+
+/************************************************************************************
+ ************************************************************************************
+ **
+ **  Comment out one or more of the following defines if you dont want to
+ **  distribute this item type.
+ **
+ ************************************************************************************
+ ************************************************************************************/
+#define EXPORT_COMPONENT_INFO_LIST 1
+//#define EXPORT_CONNECTOR_INFO_LIST 1
+//#define EXPORT_WIREPROPERTY_INFO_LIST 1
+#define EXPORT_IMPICITCONVERTER_INFO_LIST 1
+//#define EXPORT_IODEVICE_INFO_LIST 1
+//#define EXPORT_IOJOIN_INFO_LIST 1
 
 
 
@@ -69,6 +104,7 @@ namespace KSimLibBoolean
  **
  ************************************************************************************
  ************************************************************************************/
+#ifdef EXPORT_COMPONENT_INFO_LIST
 static const ComponentInfoList & getDistComponents()
 {
 	static ComponentInfoList * pDistComponents = (ComponentInfoList *)0;
@@ -115,6 +151,7 @@ static const ComponentInfoList & getDistComponents()
 
 	return *pDistComponents;
 }
+#endif // EXPORT_COMPONENT_INFO_LIST
 
 
 
@@ -125,6 +162,7 @@ static const ComponentInfoList & getDistComponents()
  **
  ************************************************************************************
  ************************************************************************************/
+#ifdef EXPORT_CONNECTOR_INFO_LIST
 static const ConnectorInfoList & getDistConnector()
 {
 	static ConnectorInfoList * pDistConnector = (ConnectorInfoList *)0;
@@ -136,11 +174,11 @@ static const ConnectorInfoList & getDistConnector()
 		CHECK_PTR(pDistConnector);
 
 		// Add your connector info here
-//		pDistConnector->append(getConnectorBoolInInfo());
 	}
 
 	return *pDistConnector;
 }
+#endif // EXPORT_CONNECTOR_INFO_LIST
 
 
 
@@ -151,6 +189,7 @@ static const ConnectorInfoList & getDistConnector()
  **
  ******************************************************************************************
  ******************************************************************************************/
+#ifdef EXPORT_WIREPROPERTY_INFO_LIST
 static const WirePropertyInfoList & getDistWireProperty()
 {
 	static WirePropertyInfoList * pDistWireProp = (WirePropertyInfoList *)0;
@@ -162,11 +201,13 @@ static const WirePropertyInfoList & getDistWireProperty()
 		CHECK_PTR(pDistWireProp);
 
 		// Add your wireproperty info here
-//		pDistWireProp->append(getWirePropertyBooleanInfo());
 	}
 
 	return *pDistWireProp;
 }
+#endif // EXPORT_WIREPROPERTY_INFO_LIST
+
+
 
 /******************************************************************************************
  ******************************************************************************************
@@ -175,23 +216,162 @@ static const WirePropertyInfoList & getDistWireProperty()
  **
  ******************************************************************************************
  ******************************************************************************************/
-static const ImplicitConverterInfoList & getDistImplicitConverterProperty()
+#ifdef EXPORT_IMPICITCONVERTER_INFO_LIST
+static const ImplicitConverterInfoList & getDistImplicitConverter()
 {
-	static ImplicitConverterInfoList * pDistImplicitConverterProp = (ImplicitConverterInfoList *)0;
+	static ImplicitConverterInfoList * pDistImplicitConverter = (ImplicitConverterInfoList *)0;
 
-	if (pDistImplicitConverterProp == (ImplicitConverterInfoList *)0)
+	if (pDistImplicitConverter == (ImplicitConverterInfoList *)0)
 	{
 		// Initialize
-		pDistImplicitConverterProp = new ImplicitConverterInfoList;
-		CHECK_PTR(pDistImplicitConverterProp);
+		pDistImplicitConverter = new ImplicitConverterInfoList;
+		CHECK_PTR(pDistImplicitConverter);
 
 		// Add your implicit converter info here
-		pDistImplicitConverterProp->append(ImplicitConverterBoolTristate2Bool::getStaticInfo());
+		pDistImplicitConverter->append(ImplicitConverterBoolTristate2Bool::getStaticInfo());
 	}
 
-	return *pDistImplicitConverterProp;
+	return *pDistImplicitConverter;
+}
+#endif // EXPORT_IMPICITCONVERTER_INFO_LIST
+
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Insert pointers to the KSimIoDeviceInfo for each io device type you want to distribute.
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+#ifdef EXPORT_IODEVICE_INFO_LIST
+static const KSimIoDeviceInfoList & getDistIoDevice()
+{
+	static KSimIoDeviceInfoList * pDistIoDevice = (KSimIoDeviceInfoList *)0;
+
+	if (pDistIoDevice == (KSimIoDeviceInfoList *)0)
+	{
+		// Initialize
+		pDistIoDevice = new KSimIoDeviceInfoList;
+		CHECK_PTR(pDistIoDevice);
+
+		// Add your io device info here
+	}
+
+	return *pDistIoDevice;
+}
+#endif // EXPORT_IODEVICE_INFO_LIST
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Insert pointers to the KSimIoJoinInfo for each io join type you want to distribute.
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+#ifdef EXPORT_IOJOIN_INFO_LIST
+static const KSimIoJoinInfoList & getDistIoJoin()
+{
+	static KSimIoJoinInfoList * pDistIoJoin = (KSimIoJoinInfoList *)0;
+
+	if (pDistIoJoin == (KSimIoJoinInfoList *)0)
+	{
+		// Initialize
+		pDistIoJoin = new KSimIoJoinInfoList;
+		CHECK_PTR(pDistIoJoin);
+
+		// Add your io join info here
+	}
+
+	return *pDistIoJoin;
+}
+#endif // EXPORT_IOJOIN_INFO_LIST
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  No changes required inside the next function
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+static void initPackage(KLocale * ksimusLocale)
+{
+
+//	KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
+	ASSERT(packageInstance == (KInstance *)0);
+	ASSERT(packageInfo == (const PackageInfo *)0);
+	ASSERT(ksimusLocale != (KLocale *)0);
+
+	packageInstance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
+	CHECK_PTR(packageInstance);
+	// add translation
+	ksimusLocale->insertCatalogue(packageInstance->instanceName());
+
+	packageInfo = new PackageInfo( (const char *)KSIMUS_PACKAGE_NAME,
+	                               packageInstance,
+	                               (const char *)VERSION);      // version from config.h
+	CHECK_PTR(packageInfo);
+
+	// Add info lists
+	#ifdef EXPORT_COMPONENT_INFO_LIST
+		packageInfo->insert(getDistComponents());
+	#endif
+
+	#ifdef EXPORT_CONNECTOR_INFO_LIST
+		packageInfo->insert(getDistConnector());
+	#endif
+
+	#ifdef EXPORT_WIREPROPERTY_INFO_LIST
+		packageInfo->insert(getDistWireProperty());
+	#endif
+
+	#ifdef EXPORT_IMPICITCONVERTER_INFO_LIST
+		packageInfo->insert(getDistImplicitConverter());
+	#endif
+
+	#ifdef EXPORT_IODEVICE_INFO_LIST
+		packageInfo->insert(getDistIoDevice());
+	#endif
+
+	#ifdef EXPORT_IOJOIN_INFO_LIST
+		packageInfo->insert(getDistIoJoin());
+	#endif
+
 }
 
+
+// Remove defines
+#ifdef EXPORT_COMPONENT_INFO_LIST
+	#undef EXPORT_COMPONENT_INFO_LIST
+#endif
+
+#ifdef EXPORT_CONNECTOR_INFO_LIST
+	#undef EXPORT_CONNECTOR_INFO_LIST
+#endif
+
+#ifdef EXPORT_WIREPROPERTY_INFO_LIST
+	#undef EXPORT_WIREPROPERTY_INFO_LIST
+#endif
+
+#ifdef EXPORT_IMPICITCONVERTER_INFO_LIST
+	#undef EXPORT_IMPICITCONVERTER_INFO_LIST
+#endif
+
+#ifdef EXPORT_IODEVICE_INFO_LIST
+	#undef EXPORT_IODEVICE_INFO_LIST
+#endif
+
+#ifdef EXPORT_IOJOIN_INFO_LIST
+	#undef EXPORT_IOJOIN_INFO_LIST
+#endif
+
+};  //namespace KSimLibBoolean
 
 
 /******************************************************************************************
@@ -202,42 +382,21 @@ static const ImplicitConverterInfoList & getDistImplicitConverterProperty()
  ******************************************************************************************
  ******************************************************************************************/
 
-KInstance * instance = (KInstance *)0;
-const PackageInfo * packageInfo = (const PackageInfo *)0;
-
-};  //namespace KSimLibBoolean
-
-
-
 extern "C"
 {
 	const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
 	{
-
-//		KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
-			
-		if (KSimLibBoolean::instance == (KInstance *)0)
+		if (!KSimLibBoolean::isPackageInitialized)
 		{
-			KSimLibBoolean::instance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
-			CHECK_PTR(KSimLibBoolean::instance);
-			CHECK_PTR(ksimusLocale);
-			// add translation
-			ksimusLocale->insertCatalogue(KSimLibBoolean::instance->instanceName());
+			KSimLibBoolean::initPackage(ksimusLocale);
+			KSimLibBoolean::isPackageInitialized = true;
 		}
-	
-		if (KSimLibBoolean::packageInfo == (const PackageInfo *)0)
-		{
-			KSimLibBoolean::packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
-			                                               KSimLibBoolean::instance,
-			                                               VERSION,      // version from config.h
-			                                               KSimLibBoolean::getDistComponents(),
-			                                               KSimLibBoolean::getDistConnector(),
-			                                               KSimLibBoolean::getDistWireProperty(),
-			                                               KSimLibBoolean::getDistImplicitConverterProperty());
-		}
-	
 
 		return KSimLibBoolean::packageInfo;
 	}
 }
+
+
+
+
 

@@ -29,6 +29,8 @@
 
 // Forward declaration
 class KLocale;
+class KInstance;
+class PackageInfo;
 
 /** The boolean package
   * @author Rasmus Diekenbrock
@@ -53,7 +55,6 @@ class KLocale;
 #define KSIMUS_PACKAGE_INIT_FUNCTION     init_libksimus_boolean
 
 
-
 /******************************************************************************************
  ******************************************************************************************
  **
@@ -64,11 +65,12 @@ class KLocale;
 
 namespace KSimLibBoolean
 {
-extern KInstance * instance;
-extern const PackageInfo * packageInfo;
-
+	KInstance * getPackageInstance();
+	const PackageInfo * getPackageInfo();
 
 };  //namespace KSimLibBoolean
+
+
 
 /** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
 extern "C" const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
