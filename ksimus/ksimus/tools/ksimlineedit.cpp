@@ -18,6 +18,7 @@
 // C-Includes
 
 // QT-Includes
+#include <qpopupmenu.h>
 
 // KDE-Includes
 
@@ -31,21 +32,25 @@
 KSimLineEdit::KSimLineEdit( QWidget *parent, const char *name )
 	:	KLineEdit(parent,name)
 {
-//	connect(this, SIGNAL(textChanged(const QString&)),SLOT(slotChanged()));
-	connect(this, SIGNAL(returnPressed()),SLOT(slotChanged()));
-
+	init();
 }
 
 KSimLineEdit::KSimLineEdit(const QString & contents, QWidget *parent, const char *name)
 	:	KLineEdit(contents,parent,name)
 {
-//	connect(this, SIGNAL(textChanged(const QString&)),SLOT(slotChanged()));
-	connect(this, SIGNAL(returnPressed()),SLOT(slotChanged()));
+	init();
 }
 
 KSimLineEdit::~KSimLineEdit()
 {
 }
+
+void KSimLineEdit::init()
+{
+//	connect(this, SIGNAL(textChanged(const QString&)),SLOT(slotChanged()));
+	connect(this, SIGNAL(returnPressed()),SLOT(slotChanged()));
+}
+
 
 void KSimLineEdit::focusOutEvent(QFocusEvent * ev)
 {

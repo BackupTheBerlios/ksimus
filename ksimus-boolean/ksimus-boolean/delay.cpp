@@ -20,6 +20,7 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
+#include <qhbox.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -165,7 +166,7 @@ void Delay::reset()
 	}
 	m_lastState = getResetState();
 	setState(getResetState());
-	m_counter = 0;
+	m_counter = m_list.size();
 	m_index = 0;
 }
 
@@ -270,17 +271,16 @@ DelayPropertyGeneralWidget::DelayPropertyGeneralWidget(Delay * comp, QWidget *pa
 	addToolTip(str, m_delayTime, lab);
 	addWhatsThis(str, m_delayTime, lab);
 	
-	lab = new QLabel(i18n("Boolean - Hint in dialog", "Hint:"), this);
-	CHECK_PTR(lab);
-	
-	m_delayTimeHint = new QLabel(this);
+	QHBox * hintBox = newRowHBox("hintBox");
+
+	m_delayTimeHint = new QLabel(hintBox, "m_delayTimeHint");
 	CHECK_PTR(m_delayTimeHint);
 	slotChanged(comp->getDelayTime());
 	connect(m_delayTime, SIGNAL(changed(const KSimTime &)), this, SLOT(slotChanged(const KSimTime &)));
 	
 	str = i18n("Boolean - Hint in dialog", "Shows the effective delay time.\nThis time depends on the value of 'Simulation time per tick'.");
-	addToolTip(str, m_delayTimeHint, lab);
-	addWhatsThis(str, m_delayTimeHint, lab);
+	addToolTip(str, m_delayTimeHint);
+	addWhatsThis(str, m_delayTimeHint);
 	
 }
 
@@ -314,7 +314,7 @@ void DelayPropertyGeneralWidget::slotChanged(const KSimTime & time)
 	myTime.setValue((double)ticks, unit_ticks);
 	
 	m_delayTimeHint->setText(i18n("Boolean - prints delay in a suitable time unit and ticks",
-	                              "effective delay time %1 / %2 ticks")
+	                              "Effective delay time: %1 or %2 ticks")
 	                         .arg(myTime.getAdjustValueString())
 	                         .arg(ticks));
 }

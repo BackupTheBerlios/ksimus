@@ -52,6 +52,7 @@ private slots:
 
 private:
 	Private * m_p;
+	void init();
 
 signals:
 	void changed();
