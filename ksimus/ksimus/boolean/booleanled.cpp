@@ -324,12 +324,12 @@ void BooleanLedWidgetView::slotColorChanged()
 //##########################################################################################
 
 
-#define RED		  red
-#define GREEN		green
-#define ORANGE	QColor(255,128,0)
+#define RED     red
+#define GREEN   green
+#define ORANGE  QColor(255,128,0)
 
 
-BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & text, bool withDefault, QWidget *parent=0, const char *name=0)
+BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & text, bool withDefault, QWidget *parent, const char *name)
 	:	QVButtonGroup(text, parent, name)
 {
 	

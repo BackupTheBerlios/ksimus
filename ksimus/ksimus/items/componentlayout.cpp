@@ -334,7 +334,7 @@ void CompLayoutBase::addLayout(CompLayoutBase * layout)
 	getItemList()->append(layout);
 }
 
-void CompLayoutBase::addConnector(ConnectorBase * conn, unsigned int additionalSpace = 1)
+void CompLayoutBase::addConnector(ConnectorBase * conn, unsigned int additionalSpace)
 {
 	CompLayoutBaseItem * item = new CompLayoutConnector(this, conn, additionalSpace);
 	CHECK_PTR(item);
@@ -361,7 +361,7 @@ void CompLayoutBase::addStretch(unsigned int factor)
 	getItemList()->append(item);
 }
 
-void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, unsigned int space = 1)
+void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, unsigned int space)
 {
 	CompLayoutBaseItem * item = new CompLayoutConnPack(this, connPack, space);
 	CHECK_PTR(item);
@@ -373,7 +373,7 @@ void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, unsigned int spa
 	QObject::connect(connPack, SIGNAL(signalDeletedConnector()),getBaseLayout(),SLOT(updateLayout()));
 }
 
-bool CompLayoutBase::removeItem(CompLayoutBaseItem * layoutItem, bool del = true)
+bool CompLayoutBase::removeItem(CompLayoutBaseItem * layoutItem, bool del)
 {
 	if (del)
 	{
