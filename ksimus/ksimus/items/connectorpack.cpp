@@ -304,11 +304,13 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 	
 	popup->insertSeparator();
 		
-	i = popup->insertItem(i18n("Add %1").arg(i18n(getName().latin1())), this, SLOT(slotAddConnector()));
+//	i = popup->insertItem(i18n("Add %1").arg(i18n(getName().latin1())), this, SLOT(slotAddConnector()));
+	i = popup->insertItem(i18n("Add %1").arg(getConnectorName().arg("").stripWhiteSpace()), this, SLOT(slotAddConnector()));
 	if(getConnectorCount() >= getConnectorMaximum())
 		popup->setItemEnabled(i, false);
 		
-	i = popup->insertItem(i18n("Delete %1").arg(i18n(getName().latin1())), this, SLOT(slotDeleteConnector()));
+//	i = popup->insertItem(i18n("Delete %1").arg(i18n(getName().latin1())), this, SLOT(slotDeleteConnector()));
+	i = popup->insertItem(i18n("Delete %1").arg(getConnectorName().arg("").stripWhiteSpace()), this, SLOT(slotDeleteConnector()));
 	if((getConnectorCount() <= getConnectorMinimum()) || (getDeletableConnector() == 0))
 		popup->setItemEnabled(i, false);
 
