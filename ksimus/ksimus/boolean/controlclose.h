@@ -38,8 +38,6 @@ class ConnectorBoolInEdge;
 class QLabel;
 class QSpinBox;
 
-const ComponentInfo * getControlCloseInfo();
-
 
 /**This component closes the document if triggered.
   *@author Rasmus Diekenbrock
@@ -82,6 +80,8 @@ public:
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private:
 	ConnectorBoolInEdge * m_trigger;
@@ -108,6 +108,9 @@ public:
 	
 protected:
 private:	
+	static QPixmap * pIcon;
+	static unsigned int compViewCnt;
+	static int offsetX, offsetY, height, width;
 };
 
 //###############################################################

@@ -48,12 +48,12 @@
 
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ControlClose::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ControlClose(container, ci);
 }
 
-const ComponentInfo * getControlCloseInfo()
+const ComponentInfo * ControlClose::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Control Close"),
 	                                QString::fromLatin1("Control/Close"),
@@ -154,23 +154,27 @@ ComponentPropertyBaseWidget * ControlClose::createGeneralProperty(QWidget *paren
 //###############################################################
 //###############################################################
 
-static QPixmap * pCloseIcon = 0;
-static unsigned int compViewCnt = 0;
-static int offsetX, offsetY, width, height;
+// Static members
+QPixmap * ControlCloseView::pIcon = (QPixmap *)0;
+unsigned int ControlCloseView::compViewCnt = 0;
+int ControlCloseView::offsetX = 0;
+int ControlCloseView::offsetY = 0;
+int ControlCloseView::height = 0;
+int ControlCloseView::width = 0;
 
 
 ControlCloseView::ControlCloseView(ControlClose * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
-	if (!pCloseIcon)
+	if (!pIcon)
 	{
-		pCloseIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("fileclose"),KIcon::Toolbar));
-		CHECK_PTR(pCloseIcon);
+		pIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("fileclose"),KIcon::Toolbar));
+		CHECK_PTR(pIcon);
 		
-		width  = ((pCloseIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
-		height = ((pCloseIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
-		offsetX = (width - pCloseIcon->width()) / 2 + gridX + 1;
-		offsetY = (height - pCloseIcon->height()) / 2 + 1;
+		width  = ((pIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
+		height = ((pIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
+		offsetX = (width - pIcon->width()) / 2 + gridX + 1;
+		offsetY = (height - pIcon->height()) / 2 + 1;
 	}
 	compViewCnt ++;
 	
@@ -187,8 +191,8 @@ ControlCloseView::~ControlCloseView()
 	compViewCnt --;
 	if (compViewCnt == 0)
 	{
-		delete pCloseIcon;
-		pCloseIcon = 0;
+		delete pIcon;
+		pIcon = (QPixmap *)0;
 	}
 }
 
@@ -196,7 +200,7 @@ void ControlCloseView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	p->drawPixmap(offsetX, offsetY, *pCloseIcon);
+	p->drawPixmap(offsetX, offsetY, *pIcon);
 	
 	CompView::draw(p);
 }
@@ -254,3 +258,4 @@ void ControlClosePropertyWidget::defaultPressed()
 	m_counter->setValue(DEFAULT_NO_OF_EDGES);
 }
 
+#undef DEFAULT_NO_OF_EDGES

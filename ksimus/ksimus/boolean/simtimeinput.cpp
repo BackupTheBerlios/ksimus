@@ -37,12 +37,12 @@
 // Project-Includes
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * SimTimeInput::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new SimTimeInput(container, ci);
 }
 
-const ComponentInfo * getSimTimeInputInfo()
+const ComponentInfo * SimTimeInput::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Simulation time"),
 	                                QString::fromLatin1("Control/Simulation Time"),
@@ -123,20 +123,20 @@ void SimTimeInput::reset()
 //###############################################################
 //###############################################################
 
-static Component * createTick(CompContainer * container, const ComponentInfo * ci)
+Component * TickTimeInput::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new TickTimeInput(container, ci);
 }
 
 
-const ComponentInfo * getTickTimeInputInfo()
+const ComponentInfo * TickTimeInput::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Tick time"),
 	                                QString::fromLatin1("Control/Tick Time"),
 	                                i18n("Component", "Control/Tick Time"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createTick,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-tick-time"));
 	return &Info;

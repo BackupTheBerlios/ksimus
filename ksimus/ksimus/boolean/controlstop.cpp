@@ -46,12 +46,12 @@
 #define DEFAULT_NO_OF_EDGES    1
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ControlStop::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ControlStop(container, ci);
 }
 
-const ComponentInfo * getControlStopInfo()
+const ComponentInfo * ControlStop::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Control Stop"),
 	                                QString::fromLatin1("Control/Stop"),
@@ -152,23 +152,27 @@ ComponentPropertyBaseWidget * ControlStop::createGeneralProperty(QWidget *parent
 //###############################################################
 //###############################################################
 
-static QPixmap * pStopIcon = 0;
-static unsigned int compViewCnt = 0;
-static int offsetX, offsetY, width, height;
+// Static members
+QPixmap * ControlStopView::pIcon = (QPixmap *)0;
+unsigned int ControlStopView::compViewCnt = 0;
+int ControlStopView::offsetX = 0;
+int ControlStopView::offsetY = 0;
+int ControlStopView::height = 0;
+int ControlStopView::width = 0;
 
 
 ControlStopView::ControlStopView(ControlStop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
-	if (!pStopIcon)
+	if (!pIcon)
 	{
-		pStopIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("stop"),KIcon::Toolbar));
-		CHECK_PTR(pStopIcon);
+		pIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("stop"),KIcon::Toolbar));
+		CHECK_PTR(pIcon);
 		
-		width  = ((pStopIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
-		height = ((pStopIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
-		offsetX = (width - pStopIcon->width()) / 2 + gridX + 1;
-		offsetY = (height - pStopIcon->height()) / 2 + 1;
+		width  = ((pIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
+		height = ((pIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
+		offsetX = (width - pIcon->width()) / 2 + gridX + 1;
+		offsetY = (height - pIcon->height()) / 2 + 1;
 	}
 	compViewCnt ++;
 	
@@ -185,8 +189,8 @@ ControlStopView::~ControlStopView()
 	compViewCnt --;
 	if (compViewCnt == 0)
 	{
-		delete pStopIcon;
-		pStopIcon = 0;
+		delete pIcon;
+		pIcon = (QPixmap *)0;
 	}
 }
 
@@ -194,7 +198,7 @@ void ControlStopView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	p->drawPixmap(offsetX, offsetY, *pStopIcon);
+	p->drawPixmap(offsetX, offsetY, *pIcon);
 	
 	CompView::draw(p);
 }
@@ -253,3 +257,4 @@ void ControlStopPropertyWidget::defaultPressed()
 	m_counter->setValue(DEFAULT_NO_OF_EDGES);
 }
 
+#undef DEFAULT_NO_OF_EDGES

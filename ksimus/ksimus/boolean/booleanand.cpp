@@ -36,12 +36,12 @@
 
 // Project-Includes
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanAnd::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new BooleanAnd(container, ci);
 }
 
-const ComponentInfo * getBooleanAndInfo()
+const ComponentInfo * BooleanAnd::getStaticAndInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean AND"),
 	                                QString::fromLatin1("Boolean/Gates/AND"),
@@ -54,7 +54,7 @@ const ComponentInfo * getBooleanAndInfo()
 	return &Info;
 }
 
-const ComponentInfo * getBooleanNandInfo()
+const ComponentInfo * BooleanAnd::getStaticNandInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean NAND"),
 	                                QString::fromLatin1("Boolean/Gates/NAND"),
@@ -90,7 +90,7 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 {
 	
 	// make NAND
-	if (ci == getBooleanNandInfo())
+	if (ci == getStaticNandInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}
@@ -109,7 +109,7 @@ void BooleanAnd::calculate()
 {
 	BooleanXIn1Out::calculate();
 	
-	bool result = true;
+/*	bool result = true;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
 	{
@@ -117,6 +117,21 @@ void BooleanAnd::calculate()
 		if (!result) break;	//  No more changes possible
 	}
 	
+	setState(result);*/
+
+
+	bool result = true;
+	
+	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
+	{
+		if (!((ConnectorBoolIn*)it.current())->getInput())
+		{
+			// One false input causes a false output
+			result = false;
+			break;
+		}
+	}
+
 	setState(result);
 }
 

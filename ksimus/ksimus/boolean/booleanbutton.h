@@ -41,9 +41,6 @@ class KSimBooleanBox;
   *@author Rasmus Diekenbrock
   */
 
-const ComponentInfo * getBooleanButtonInfo();
-const ComponentInfo * getBooleanToggleButtonInfo();
-
 
 //###############################################################
 //###############################################################
@@ -107,6 +104,10 @@ public:
 	/** Returns the default button text.
 	  * The text depends on the current language and the button type (toogle). */
 	const QString & getDefaultButtonText() const;
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticButtonInfo();
+	static const ComponentInfo * getStaticToggleButtonInfo();
 
 public slots: // Public slots
 	void toggled(bool pressed);

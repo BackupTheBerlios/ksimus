@@ -29,9 +29,6 @@
 
 // Forward declaration
 
-const ComponentInfo * getBooleanAndInfo();
-const ComponentInfo * getBooleanNandInfo();
-
 
 //###############################################################
 
@@ -47,6 +44,10 @@ public:
 	BooleanAnd(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticAndInfo();
+	static const ComponentInfo * getStaticNandInfo();
 
 };
 

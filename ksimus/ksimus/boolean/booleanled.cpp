@@ -46,35 +46,37 @@
 //############################################################################
 //############################################################################
 
-static Component * createBooleanLed(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanLed::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new BooleanLed(container, ci);
 }
 
-const ComponentInfo * getBooleanLedInfo()
+const ComponentInfo * BooleanLed::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("LED"),
 	                                QString::fromLatin1("Boolean/Output/LED"),
 	                                i18n("Component", "Boolean/Output/LED"),
 	                                QString::null,
 	                                VA_SHEET_AND_USER,
-	                                createBooleanLed,	
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-led"));
 	return &Info;
 }
 
 
+const QColor BooleanLed::defaultColor(Qt::red);
+
 //############################################################################
 //############################################################################
 
-#define DEFAULT_COLOR       red
+//#define DEFAULT_COLOR       red
 
 
 BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
 	: ComponentStyle(container, ci),
 		m_onState(false),
-		m_onColor(DEFAULT_COLOR),
+		m_onColor(BooleanLed::defaultColor),
 		m_offColor(QColor())
 {
 //	setColorAdjustmentEnabled(true);
@@ -154,7 +156,7 @@ void BooleanLed::save(KSimData & file) const
 {
 	ComponentStyle::save(file);
 	
-	if (getOnColor() != DEFAULT_COLOR)
+	if (getOnColor() != BooleanLed::defaultColor)
 	{
 		file.writeEntry("Color", getOnColor());
 	}
@@ -169,7 +171,7 @@ void BooleanLed::save(KSimData & file) const
 *	Returns true if successful */
 bool BooleanLed::load(KSimData & file, bool copyLoad)
 {
-	setOnColor(file.readColorEntry("Color",&DEFAULT_COLOR));
+	setOnColor(file.readColorEntry("Color",&BooleanLed::defaultColor));
 	QColor def = QColor();
 	setOffColor(file.readColorEntry("Off Color",&def));
 	
@@ -525,7 +527,7 @@ void BooleanLedPropertyWidget::defaultPressed()
 {
 	ComponentPropertyBaseWidget::defaultPressed();
 
-	m_onColor->setColor(DEFAULT_COLOR);
+	m_onColor->setColor(BooleanLed::defaultColor);
 	m_offColor->setColor(QColor());
 }
 

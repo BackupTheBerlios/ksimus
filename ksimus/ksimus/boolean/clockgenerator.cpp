@@ -45,23 +45,23 @@
 // Project-Includes
 
 
-static const char * sStartDelay = "Start Delay/";
-static const char * sHighTime   = "High Time/";
-static const char * sLowTime    = "Low Time/";
+const char * ClockGenerator::sStartDelay = "Start Delay/";
+const char * ClockGenerator::sHighTime   = "High Time/";
+const char * ClockGenerator::sLowTime    = "Low Time/";
 
-static Component * create2(CompContainer * container, const ComponentInfo * ci)
+Component * ClockGenerator::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ClockGenerator(container, ci);
 }
 
-const ComponentInfo * getClockGeneratorInfo()
+const ComponentInfo * ClockGenerator::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Clock Generator"),
 	                                QString::fromLatin1("Boolean/Gates/Clock Generator"),
 	                                i18n("Component", "Boolean/Gates/Clock Generator"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create2,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-clock-generator"));
 	return &Info;

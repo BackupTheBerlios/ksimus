@@ -41,8 +41,6 @@ class KSimTimeSpinBox;
   */
 
 
-const ComponentInfo * getClockGeneratorInfo();
-
 class ClockGenerator : public Component
 {
 
@@ -67,6 +65,9 @@ public:
 	*	Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 protected:
 	bool m_result;
 	ConnectorBoolOut * m_out;
@@ -74,6 +75,12 @@ protected:
 	KSimTime m_highTime;
 	KSimTime m_lowTime;
 	KSimTime m_time;
+
+private:
+	static const char * sStartDelay;
+	static const char * sHighTime;
+	static const char * sLowTime;
+
 };
 
 //###############################################################

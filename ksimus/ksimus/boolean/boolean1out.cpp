@@ -41,9 +41,6 @@
 // Forward declaration
 
 
-#define FLAGS_RESET_TRUE			0x0001;
-#define FLAGS_RESET_INIT_TRUE	0x0002;
-
 //###############################################################
 //###############################################################
 
@@ -74,6 +71,9 @@ bool Boolean1Out::getState() const
 	return getOutputConnector()->getOutput();
 }
 
+#define FLAGS_RESET_TRUE         0x0001
+#define FLAGS_RESET_INIT_TRUE    0x0002
+
 void Boolean1Out::setResetState(bool resetState, bool init)
 {
 	if (resetState)
@@ -103,7 +103,9 @@ bool Boolean1Out::getResetStateInit() const
 {
 	return m_flags & FLAGS_RESET_INIT_TRUE;
 };
-	
+
+#undef FLAGS_RESET_TRUE
+#undef FLAGS_RESET_INIT_TRUE
 
 
 void Boolean1Out::reset()

@@ -34,7 +34,6 @@
 #include "componentpropertybasewidget.h"
 
 // Forward declaration
-class QColor;
 class QRadioButton;
 class KColorButton;
 class KLed;
@@ -45,8 +44,6 @@ class QCheckBox;
 /**A LED
   *@author Rasmus Diekenbrock
   */
-
-const ComponentInfo * getBooleanLedInfo();
 
 class BooleanLed : public ComponentStyle
 {
@@ -79,6 +76,10 @@ public:
 	
 	bool getState() const { return m_onState; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+	static const QColor defaultColor;
+	
 protected: // Protected attributes
 	bool m_onState;
 	QColor m_onColor;

@@ -37,8 +37,6 @@ class ConnectorFloatOut;
   */
 
 
-const ComponentInfo * getSimTimeInputInfo();
-
 class SimTimeInput : public Component
 {
 
@@ -52,6 +50,9 @@ public:
 	/** Reset all simulation variables */
 	virtual void reset();
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 protected:
 	ConnectorFloatOut * m_out;
 };
@@ -76,8 +77,6 @@ public:
   */
 
 
-const ComponentInfo * getTickTimeInputInfo();
-
 class TickTimeInput : public Component
 {
 
@@ -89,6 +88,9 @@ public:
 	/** Reset all simulation variables */
 	virtual void reset();
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 protected:
 	ConnectorFloatOut * m_out;
 };

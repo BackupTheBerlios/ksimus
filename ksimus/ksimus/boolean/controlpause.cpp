@@ -48,12 +48,12 @@
 
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ControlPause::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ControlPause(container, ci);
 }
 
-const ComponentInfo * getControlPauseInfo()
+const ComponentInfo * ControlPause::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Control Pause"),
 	                                QString::fromLatin1("Control/Pause"),
@@ -154,23 +154,27 @@ ComponentPropertyBaseWidget * ControlPause::createGeneralProperty(QWidget *paren
 //###############################################################
 //###############################################################
 
-static QPixmap * pPauseIcon = 0;
-static unsigned int compViewCnt = 0;
-static int offsetX, offsetY, width, height;
+// Static members
+QPixmap * ControlPauseView::pIcon = (QPixmap *)0;
+unsigned int ControlPauseView::compViewCnt = 0;
+int ControlPauseView::offsetX = 0;
+int ControlPauseView::offsetY = 0;
+int ControlPauseView::height = 0;
+int ControlPauseView::width = 0;
 
 
 ControlPauseView::ControlPauseView(ControlPause * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
-	if (!pPauseIcon)
+	if (!pIcon)
 	{
-		pPauseIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("player_pause"),KIcon::Toolbar));
-		CHECK_PTR(pPauseIcon);
+		pIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("player_pause"),KIcon::Toolbar));
+		CHECK_PTR(pIcon);
 		
-		width  = ((pPauseIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
-		height = ((pPauseIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
-		offsetX = (width - pPauseIcon->width()) / 2 + gridX + 1;
-		offsetY = (height - pPauseIcon->height()) / 2 + 1;
+		width  = ((pIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
+		height = ((pIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
+		offsetX = (width - pIcon->width()) / 2 + gridX + 1;
+		offsetY = (height - pIcon->height()) / 2 + 1;
 	}
 	compViewCnt ++;
 	
@@ -187,8 +191,8 @@ ControlPauseView::~ControlPauseView()
 	compViewCnt --;
 	if (compViewCnt == 0)
 	{
-		delete pPauseIcon;
-		pPauseIcon = 0;
+		delete pIcon;
+		pIcon = (QPixmap *)0;
 	}
 }
 
@@ -196,7 +200,7 @@ void ControlPauseView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	p->drawPixmap(offsetX, offsetY, *pPauseIcon);
+	p->drawPixmap(offsetX, offsetY, *pIcon);
 	
 	CompView::draw(p);
 }
@@ -254,3 +258,4 @@ void ControlPausePropertyWidget::defaultPressed()
 	m_counter->setValue(DEFAULT_NO_OF_EDGES);
 }
 
+#undef DEFAULT_NO_OF_EDGES
