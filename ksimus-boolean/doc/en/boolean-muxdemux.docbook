@@ -67,31 +67,43 @@ The component is rotatable.
 <sect3><title>Truth Table</title><para>
 <informaltable><tgroup cols="8">
 <thead>
-<row><entry>Address A</entry> <entry>Address B</entry> <entry>Input A</entry> <entry>Input B</entry> <entry>Input C</entry> <entry>Input D</entry> <entry></entry> <entry>Output</entry> </row>
-</thead>
-<tbody>
-<row><entry>False</entry> <entry>False</entry> <entry>False</entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
-<row><entry>True </entry> <entry>False</entry> <entry>X    </entry> <entry>False</entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True </entry> <entry>False</entry> <entry>X    </entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
-<row><entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>False</entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
-<row><entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>True </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
-<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry>True </entry> <entry></entry> <entry>True </entry></row>
+<row><entry align="center">Address A</entry>
+     <entry align="center">Address B</entry>
+     <entry align="center">Input A</entry>
+     <entry align="center">Input B</entry>
+     <entry align="center">Input C</entry>
+     <entry align="center">Input D</entry>
+     <entry></entry>
+     <entry align="center">Output</entry></row>
+</thead><tbody>
+<!--     adrA    adrB    inA     inB      inC     inD      |      out   -->
+<row>   &TT-0;  &TT-0;  &TT-0;  &TT-X;   &TT-X;  &TT-X;  &TT-S;  &TT-0;</row>
+<row>   &TT-0;  &TT-0;  &TT-1;  &TT-X;   &TT-X;  &TT-X;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-X;  &TT-0;   &TT-X;  &TT-X;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-X;  &TT-1;   &TT-X;  &TT-X;  &TT-S;  &TT-1;</row>
+<row>   &TT-0;  &TT-1;  &TT-X;  &TT-X;   &TT-0;  &TT-X;  &TT-S;  &TT-0;</row>
+<row>   &TT-0;  &TT-1;  &TT-X;  &TT-X;   &TT-1;  &TT-X;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-X;  &TT-X;   &TT-X;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-X;  &TT-X;   &TT-X;  &TT-1;  &TT-S;  &TT-1;</row>
 </tbody>
 </tgroup></informaltable>
 The truth table shows a 4-input multiplexer.
 </para><para>
 <informaltable><tgroup cols="6">
 <thead>
-<row><entry>Enable Output Latch</entry> <entry>Address A</entry> <entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
-</thead>
-<tbody>
-<row><entry>True </entry> <entry>False</entry> <entry>False</entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True </entry> <entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
-<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>True </entry> <entry></entry> <entry>True </entry></row>
-<row><entry>False</entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry></row>
+<row><entry align="center">Enable Output Latch</entry>
+     <entry align="center">Address A</entry>
+     <entry align="center">Input A</entry>
+     <entry align="center">Input B</entry>
+     <entry></entry>
+     &TT-OutT;   </row>
+</thead><tbody>
+<!--     eol    adrA    inA     inB       |      out   -->
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-X;   &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-X;   &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-X;  &TT-0;   &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-X;  &TT-1;   &TT-S;  &TT-1;</row>
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-X;   &TT-S;  &TT-OutT1;</row>
 </tbody>
 </tgroup></informaltable>
 The truth table shows a 2-input multiplexer width output latch. The enable input of the output latch input is level senitive.
@@ -161,27 +173,39 @@ The component is rotatable.
 <sect3><title>Truth Table</title><para>
 <informaltable><tgroup cols="8">
 <thead>
-<row><entry>Address A</entry> <entry>Address B</entry> <entry>Input</entry> <entry></entry> <entry>Output A</entry> <entry>Output B</entry> <entry>Output C</entry> <entry>Output D</entry> </row>
-</thead>
-<tbody>
-<row><entry>X    </entry>     <entry>X    </entry>     <entry>False</entry> <entry></entry> <entry>False</entry>    <entry>False</entry>    <entry>False</entry>    <entry>False</entry></row>
-<row><entry>False</entry>     <entry>False</entry>     <entry>True </entry> <entry></entry> <entry>True </entry>    <entry>False</entry>    <entry>False</entry>    <entry>False</entry></row>
-<row><entry>True </entry>     <entry>False</entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>True </entry>    <entry>False</entry>    <entry>False</entry></row>
-<row><entry>False</entry>     <entry>True </entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>False</entry>    <entry>True </entry>    <entry>False</entry></row>
-<row><entry>True </entry>     <entry>True </entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>False</entry>    <entry>False</entry>    <entry>True </entry></row>
+<row><entry align="center">Address A</entry>
+     <entry align="center">Address B</entry>
+     <entry align="center">Input</entry>
+     <entry></entry>
+     <entry align="center">Output A</entry>
+     <entry align="center">Output B</entry>
+     <entry align="center">Output C</entry>
+     <entry align="center">Output D</entry></row>
+</thead><tbody>
+<!--     adrA    adrB    in       /       outA    outB    outC    outD   -->
+<row>   &TT-X;  &TT-X;  &TT-0;  &TT-S;   &TT-0;  &TT-0;  &TT-0;  &TT-0;</row>
+<row>   &TT-0;  &TT-0;  &TT-1;  &TT-S;   &TT-1;  &TT-0;  &TT-0;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;   &TT-0;  &TT-1;  &TT-0;  &TT-0;</row>
+<row>   &TT-0;  &TT-1;  &TT-1;  &TT-S;   &TT-0;  &TT-0;  &TT-1;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;   &TT-0;  &TT-0;  &TT-0;  &TT-1;</row>
 </tbody>
 </tgroup></informaltable>
 The truth table shows a 4-output demultiplexer (or a 2-to-4 decoder).
 </para><para>
 <informaltable><tgroup cols="6">
 <thead>
-<row><entry>Enable Output Latch</entry> <entry>Address A</entry> <entry>Input</entry> <entry></entry> <entry>Output A</entry> <entry>Output B</entry> </row>
-</thead>
-<tbody>
-<row><entry>True </entry>               <entry>X    </entry>     <entry>False</entry> <entry></entry> <entry>False</entry>    <entry>False</entry></row>
-<row><entry>True </entry>               <entry>False</entry>     <entry>True </entry> <entry></entry> <entry>True </entry>    <entry>False</entry></row>
-<row><entry>True </entry>               <entry>True </entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>True </entry></row>
-<row><entry>False</entry>               <entry>X    </entry>     <entry>X    </entry> <entry></entry> <entry>Output A<subscript> T-1</subscript></entry><entry>Output B<subscript> T-1</subscript></entry></row>
+<row><entry align="center">Enable Output Latch</entry>
+     <entry align="center">Address A</entry>
+     <entry align="center">Input</entry>
+     <entry></entry>
+     &TT-OutTA;
+     &TT-OutTB;   </row>
+</thead><tbody>
+<!--     eol    adrA     in       /       outA         outB   -->
+<row>   &TT-1;  &TT-X;  &TT-0;  &TT-S;   &TT-0;       &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;   &TT-1;       &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;   &TT-0;       &TT-1;</row>
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;   &TT-OutTA1;  &TT-OutTB1;</row>
 </tbody>
 </tgroup></informaltable>
 The truth table shows a 2-input multiplexer width output latch. The enable input of the output latch input is level senitive.

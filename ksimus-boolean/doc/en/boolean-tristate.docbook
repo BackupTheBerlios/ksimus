@@ -1,275 +1,40 @@
 <!-- ############################################################################### -->
-<!-- ########################          Boolean Gates        ######################## -->
+<!-- ########################    Tristate Components        ######################## -->
 <!-- ############################################################################### -->
 
-<sect1 id="component-boolean-gates">
-<title>Gates</title>
+<sect1 id="component-boolean-tristate">
+<title>Tristate Gates</title>
 
 <simplelist>
-<member>&BooleanIdentity;</member>
-<member>&BooleanInverter;</member>
-<member>&BooleanAND;</member>
-<member>&BooleanNAND;</member>
-<member>&BooleanOR;</member>
-<member>&BooleanNOR;</member>
-<member>&BooleanXOR;</member>
-<member>&BooleanXNOR;</member>
+<member>&BooleanTristateAND;</member>
+<member>&BooleanTristateNAND;</member>
+<member>&BooleanTristateOR;</member>
+<member>&BooleanTristateNOR;</member>
+<member>&BooleanTristateXOR;</member>
+<member>&BooleanTristateXNOR;</member>
 </simplelist>
 
+
+
+
+
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
-<!-- ########################      Boolean Gate Identity    ######################## -->
+<!-- ###################         AND  Tristate                   ################### -->
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
 
-<sect2 id="component-boolean-identity">
-<title>Identity Gate</title>
+<sect2 id="component-boolean-tristate-and">
+<title>AND Tristate</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
-This component is a logic Identity gate. The output state simply follows the input
-state.
-</para></sect3>
-
-<!-- #################################### Features ################################# -->
-<sect3><title>Features</title>
-<itemizedlist>
-<listitem><para>
-The input and the output are freely negatable.
-</para></listitem><listitem><para>
-The component supports a user definable reset state. The output adopts this state during
-the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
-</para></listitem><listitem><para>
-The component is rotatable.
-</para></listitem></itemizedlist></sect3>
-
-<!-- #################################### View ##################################### -->
-<sect3><title>View</title>
-<para><inlinemediaobject><imageobject>
-<imagedata fileref="boolean_identity.png" format="PNG"/>
-</imageobject></inlinemediaobject></para></sect3>
-
-<!-- ################################# Truth Table ################################# -->
-<sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="3">
-<thead>
-<row><entry align="center">Input</entry>
-     <entry></entry>
-     <entry align="center">Output</entry></row>
-</thead><tbody>
-<!--     in       |      out   -->
-<row>   &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-S;  &TT-1;</row>
-</tbody>
-</tgroup></informaltable></para></sect3>
-
-<!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> Identity</para></sect3>
-
-</sect2>
-
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-<!-- ########################      Boolean Gate Inverter    ######################## -->
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-
-<sect2 id="component-boolean-inverter">
-<title>Inverter Gate</title>
-
-<!-- ################################### Description ############################### -->
-<sect3><title>Description</title><para>
-This component is a logic inverter gate. The output state is the inverted input
-state.
-</para></sect3>
-
-<!-- #################################### Features ################################# -->
-<sect3><title>Features</title>
-<itemizedlist>
-<listitem><para>
-The input and the output are freely negatable.
-</para></listitem><listitem><para>
-The component supports a user definable reset state. The output adopts this state during
-the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
-</para></listitem><listitem><para>
-The component is rotatable.
-</para></listitem></itemizedlist></sect3>
-
-<!-- #################################### View ##################################### -->
-<sect3><title>View</title>
-<para><inlinemediaobject><imageobject>
-<imagedata fileref="boolean_inverter.png" format="PNG"/>
-</imageobject></inlinemediaobject></para></sect3>
-
-<!-- ################################# Truth Table ################################# -->
-<sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="3">
-<thead>
-<row><entry align="center">Input</entry>
-     <entry></entry>
-     <entry align="center">Output</entry></row>
-</thead><tbody>
-<!--     in       |      out   -->
-<row>   &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-S;  &TT-0;</row>
-</tbody>
-</tgroup></informaltable></para></sect3>
-
-<!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> Inverter</para></sect3>
-
-</sect2>
-
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-<!-- ########################          Boolean Gate AND     ######################## -->
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-
-<sect2 id="component-boolean-and-alien">
-<title>AND Gate</title>
-
-<!-- ################################### Description ############################### -->
-<sect3><title>Description</title><para>
-This component is a logic AND gate. The output is true if one or more inputs are
-true. The output is false if all inputs are false.
-</para>
-<para>
-This component is not part of this package. It's part of the main package KSimus. 
-The component is added to give a complete overview of all logic gates.
-</para>
-</sect3>
-
-<!-- #################################### Features ################################# -->
-<sect3><title>Features</title>
-<itemizedlist>
-<listitem><para>
-User definable number of inputs (2-26 inputs).
-</para></listitem><listitem><para>
-All inputs and the output are freely negatable.
-</para></listitem><listitem><para>
-The component supports a user definable reset state. The output adopts this state during
-the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
-</para></listitem><listitem><para>
-The component is rotatable.
-</para></listitem><listitem><para>
-Use the component popup menu to add a new or remove a input (Currently you can only remove
-the last input which has to be unconnected).
-</para></listitem></itemizedlist></sect3>
-
-<!-- #################################### View ##################################### -->
-<sect3><title>View</title>
-<para><inlinemediaobject><imageobject>
-<imagedata fileref="booleanand.png" format="PNG"/>
-</imageobject></inlinemediaobject></para></sect3>
-
-<!-- ################################# Truth Table ################################# -->
-<sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="4">
-<thead>
-<row><entry align="center">Input A</entry>
-     <entry align="center">Input B</entry>
-     <entry></entry>
-     <entry align="center">Output</entry></row>
-</thead><tbody>
-<!--     inA     inB      |      out   -->
-<row>   &TT-0;  &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-0;  &TT-1;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
-</tbody>
-</tgroup></informaltable></para></sect3>
-
-<!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> AND</para></sect3>
-
-</sect2>
-
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-<!-- ########################         Boolean Gate NAND     ######################## -->
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-
-<sect2 id="component-boolean-nand-alien">
-<title>NAND Gate</title>
-
-<!-- ################################### Description ############################### -->
-<sect3><title>Description</title><para>
-This component is a logic NAND gate. The output is false if one or more inputs are
-true. The output is true if all inputs are false.
-</para>
-<para>
-This component is not part of this package. It's part of the main package KSimus. 
-The component is added to give a complete overview of all logic gates.
-</para>
-</sect3>
-
-
-<!-- #################################### Features ################################# -->
-<sect3><title>Features</title>
-<itemizedlist>
-<listitem><para>
-User definable number of inputs (2-26 inputs).
-</para></listitem><listitem><para>
-All inputs and the output are freely negatable.
-</para></listitem><listitem><para>
-The component supports a user definable reset state. The output adopts this state during
-the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
-</para></listitem><listitem><para>
-The component is rotatable.
-</para></listitem><listitem><para>
-Use the component popup menu to add a new or remove a input (Currently you can only remove
-the last input which has to be unconnected).
-</para></listitem></itemizedlist></sect3>
-
-<!-- #################################### View ##################################### -->
-<sect3><title>View</title>
-<para><inlinemediaobject><imageobject>
-<imagedata fileref="booleannand.png" format="PNG"/>
-</imageobject></inlinemediaobject></para></sect3>
-
-<!-- ################################# Truth Table ################################# -->
-<sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="4">
-<thead>
-<row><entry align="center">Input A</entry>
-     <entry align="center">Input B</entry>
-     <entry></entry>
-     <entry align="center">Output</entry></row>
-</thead><tbody>
-<!--     inA     inB      |      out   -->
-<row>   &TT-0;  &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-0;  &TT-1;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-1;  &TT-S;  &TT-0;</row>
-</tbody>
-</tgroup></informaltable></para></sect3>
-
-<!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> NAND</para></sect3>
-
-</sect2>
-
-
-
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-<!-- ########################          Boolean Gate OR      ######################## -->
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-
-<sect2 id="component-boolean-or">
-<title>OR Gate</title>
-
-<!-- ################################### Description ############################### -->
-<sect3><title>Description</title><para>
-This component is a logic OR gate. The output is true if one or more inputs are
-true. The output is false if all inputs are false.
+The component 'AND Tristate' combines a regular &BooleanAND; with a &tristate; output.
+</para><para>
+A separate 'Enable Output' input controls the active or inactive state of the output connector.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
@@ -282,7 +47,7 @@ All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
 The component supports a user definable reset state. The output adopts this state during
 the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
+The default reset state is inactive.
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem><listitem><para>
@@ -293,105 +58,52 @@ the last input which has to be unconnected).
 <!-- #################################### View ##################################### -->
 <sect3><title>View</title>
 <para><inlinemediaobject><imageobject>
-<imagedata fileref="booleanor.png" format="PNG"/>
+<imagedata fileref="boolean_and_tri.png" format="PNG"/>
 </imageobject></inlinemediaobject></para></sect3>
+
 
 <!-- ################################# Truth Table ################################# -->
 <sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="4">
+<informaltable><tgroup cols="5">
 <thead>
-<row><entry align="center">Input A</entry>
+<row><entry align="center">Enable Output</entry>
+     <entry align="center">Input A</entry>
      <entry align="center">Input B</entry>
      <entry></entry>
      <entry align="center">Output</entry></row>
 </thead><tbody>
-<!--     inA     inB      |      out   -->
-<row>   &TT-0;  &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-0;  &TT-1;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
+<!--     Ena     inA     inB      |      Out   -->
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 
 <!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> OR</para></sect3>
-
+<sect3><title>Location</title><para>Boolean -> Tristate -> Gates -> AND</para></sect3>
 </sect2>
 
+
+
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
-<!-- ########################         Boolean Gate NOR      ######################## -->
+<!-- ###################        NAND  Tristate                   ################### -->
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
 
-<sect2 id="component-boolean-nor">
-<title>NOR Gate</title>
+<sect2 id="component-boolean-tristate-nand">
+<title>NAND Tristate</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
-This component is a logic NOR gate. The output is false if one or more inputs are
-true. The output is true if all inputs are false.
-</para></sect3>
-
-
-<!-- #################################### Features ################################# -->
-<sect3><title>Features</title>
-<itemizedlist>
-<listitem><para>
-User definable number of inputs (2-26 inputs).
-</para></listitem><listitem><para>
-All inputs and the output are freely negatable.
-</para></listitem><listitem><para>
-The component supports a user definable reset state. The output adopts this state during
-the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
-</para></listitem><listitem><para>
-The component is rotatable.
-</para></listitem><listitem><para>
-Use the component popup menu to add a new or remove a input (Currently you can only remove
-the last input which has to be unconnected).
-</para></listitem></itemizedlist></sect3>
-
-<!-- #################################### View ##################################### -->
-<sect3><title>View</title>
-<para><inlinemediaobject><imageobject>
-<imagedata fileref="booleannor.png" format="PNG"/>
-</imageobject></inlinemediaobject></para></sect3>
-
-<!-- ################################# Truth Table ################################# -->
-<sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="4">
-<thead>
-<row><entry align="center">Input A</entry>
-     <entry align="center">Input B</entry>
-     <entry></entry>
-     <entry align="center">Output</entry></row>
-</thead><tbody>
-<!--     inA     inB      |      out   -->
-<row>   &TT-0;  &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-0;  &TT-1;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-1;  &TT-S;  &TT-0;</row>
-</tbody>
-</tgroup></informaltable></para></sect3>
-
-<!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> NOR</para></sect3>
-</sect2>
-
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-<!-- ########################         Boolean Gate XOR      ######################## -->
-<!-- ############################################################################### -->
-<!-- ############################################################################### -->
-
-<sect2 id="component-boolean-xor">
-<title>XOR Gate</title>
-
-<!-- ################################### Description ############################### -->
-<sect3><title>Description</title><para>
-This component is a logic XOR gate. The output is true if count of inputs with true level
-is odd. In other case the output is false.
+The component 'NAND Tristate' combines a regular &BooleanNAND; with a &tristate; output.
+</para><para>
+A separate 'Enable Output' input controls the active or inactive state of the output connector.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
@@ -404,7 +116,7 @@ All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
 The component supports a user definable reset state. The output adopts this state during
 the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
+The default reset state is inactive.
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem><listitem><para>
@@ -415,43 +127,55 @@ the last input which has to be unconnected).
 <!-- #################################### View ##################################### -->
 <sect3><title>View</title>
 <para><inlinemediaobject><imageobject>
-<imagedata fileref="booleanxor.png" format="PNG"/>
+<imagedata fileref="boolean_nand_tri.png" format="PNG"/>
 </imageobject></inlinemediaobject></para></sect3>
+
 
 <!-- ################################# Truth Table ################################# -->
 <sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="4">
+<informaltable><tgroup cols="5">
 <thead>
-<row><entry align="center">Input A</entry>
+<row><entry align="center">Enable Output</entry>
+     <entry align="center">Input A</entry>
      <entry align="center">Input B</entry>
      <entry></entry>
      <entry align="center">Output</entry></row>
 </thead><tbody>
-<!--     inA     inB      |      out   -->
-<row>   &TT-0;  &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-0;  &TT-1;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-1;  &TT-1;  &TT-S;  &TT-0;</row>
+<!--     Ena     inA     inB      |      Out   -->
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-0;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;  &TT-0;</row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 
+
+
 <!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> XOR</para></sect3>
+<sect3><title>Location</title><para>Boolean -> Tristate -> Gates -> NAND</para></sect3>
 </sect2>
 
+
+
+
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
-<!-- ########################        Boolean Gate XNOR      ######################## -->
+<!-- ###################          OR  Tristate                   ################### -->
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
 
-<sect2 id="component-boolean-xnor">
-<title>XNOR Gate</title>
+<sect2 id="component-boolean-tristate-or">
+<title>OR Tristate</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
-This component is a logic XNOR gate. The output is true if count of inputs with true level
-is even (or zero). In other case the output is false.
+The component 'OR Tristate' combines a regular &BooleanOR; with a &tristate; output.
+</para><para>
+A separate 'Enable Output' input controls the active or inactive state of the output connector.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
@@ -464,7 +188,7 @@ All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
 The component supports a user definable reset state. The output adopts this state during
 the reset cycle and keeps this state until the first simulation cycle is finished.
-The default reset state is false.
+The default reset state is inactive.
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem><listitem><para>
@@ -475,31 +199,240 @@ the last input which has to be unconnected).
 <!-- #################################### View ##################################### -->
 <sect3><title>View</title>
 <para><inlinemediaobject><imageobject>
-<imagedata fileref="booleanxnor.png" format="PNG"/>
+<imagedata fileref="boolean_or_tri.png" format="PNG"/>
 </imageobject></inlinemediaobject></para></sect3>
+
 
 <!-- ################################# Truth Table ################################# -->
 <sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="4">
+<informaltable><tgroup cols="5">
 <thead>
-<row><entry align="center">Input A</entry>
+<row><entry align="center">Enable Output</entry>
+     <entry align="center">Input A</entry>
      <entry align="center">Input B</entry>
      <entry></entry>
      <entry align="center">Output</entry></row>
 </thead><tbody>
-<!--     inA     inB      |      out   -->
-<row>   &TT-0;  &TT-0;  &TT-S;  &TT-1;</row>
-<row>   &TT-0;  &TT-1;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
-<row>   &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
+<!--     Ena     inA     inB      |      Out   -->
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-0;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 
 <!-- ################################## Location ################################### -->
-<sect3><title>Location</title><para>Boolean -> Gates -> XNOR</para></sect3>
+<sect3><title>Location</title><para>Boolean -> Tristate -> Gates -> OR</para></sect3>
 </sect2>
 
 
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################         NOR  Tristate                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-tristate-nor">
+<title>NOR Tristate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component 'NOR Tristate' combines a regular &BooleanNOR; with a &tristate; output.
+</para><para>
+A separate 'Enable Output' input controls the active or inactive state of the output connector.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable number of inputs (2-26 inputs).
+</para></listitem><listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is inactive.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+Use the component popup menu to add a new or remove a input (Currently you can only remove
+the last input which has to be unconnected).
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_nor_tri.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="5">
+<thead>
+<row><entry align="center">Enable Output</entry>
+     <entry align="center">Input A</entry>
+     <entry align="center">Input B</entry>
+     <entry></entry>
+     <entry align="center">Output</entry></row>
+</thead><tbody>
+<!--     Ena     inA     inB      |      Out   -->
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;  &TT-0;</row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Tristate -> Gates -> NOR</para></sect3>
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################         XOR  Tristate                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-tristate-xor">
+<title>XOR Tristate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component 'XOR Tristate' combines a regular &BooleanXOR; with a &tristate; output.
+</para><para>
+A separate 'Enable Output' input controls the active or inactive state of the output connector.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable number of inputs (2-26 inputs).
+</para></listitem><listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is inactive.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+Use the component popup menu to add a new or remove a input (Currently you can only remove
+the last input which has to be unconnected).
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_xor_tri.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="5">
+<thead>
+<row><entry align="center">Enable Output</entry>
+     <entry align="center">Input A</entry>
+     <entry align="center">Input B</entry>
+     <entry></entry>
+     <entry align="center">Output</entry></row>
+</thead><tbody>
+<!--     Ena     inA     inB      |      Out   -->
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-0;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;  &TT-0;</row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Tristate -> Gates -> XOR</para></sect3>
+</sect2>
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################        XNOR  Tristate                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-tristate-xnor">
+<title>NOR Tristate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component 'XNOR Tristate' combines a regular &BooleanXNOR; with a &tristate; output.
+</para><para>
+A separate 'Enable Output' input controls the active or inactive state of the output connector.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable number of inputs (2-26 inputs).
+</para></listitem><listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is inactive.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+Use the component popup menu to add a new or remove a input (Currently you can only remove
+the last input which has to be unconnected).
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_xnor_tri.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="5">
+<thead>
+<row><entry align="center">Enable Output</entry>
+     <entry align="center">Input A</entry>
+     <entry align="center">Input B</entry>
+     <entry></entry>
+     <entry align="center">Output</entry></row>
+</thead><tbody>
+<!--     Ena     inA     inB      |      Out   -->
+<row>   &TT-0;  &TT-X;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-0;  &TT-S;  &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-1;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Tristate -> Gates -> XNOR</para></sect3>
+</sect2>
 
 
 

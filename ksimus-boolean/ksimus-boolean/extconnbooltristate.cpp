@@ -191,9 +191,9 @@ const ComponentInfo * ExtConnBoolTristateIn::getStaticInfo()
 	                                i18n("Component", "External Connector/Bool Tristate Input"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                ExtConnBoolTristateIn::create/*,
+	                                ExtConnBoolTristateIn::create,
 	                                QString::null,
-	                                QString::fromLatin1("component-ext-conn-bool-in") TODO */);
+	                                QString::fromLatin1("component-ext-conn-booltri-in"));
 
 	return &Info;
 }
@@ -265,9 +265,9 @@ const ComponentInfo * ExtConnBoolTristateOut::getStaticInfo()
 	                                i18n("Component", "External Connector/Bool Tristate Output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                ExtConnBoolTristateOut::create/*,
+	                                ExtConnBoolTristateOut::create,
 	                                QString::null,
-	                                QString::fromLatin1("component-ext-conn-bool-in") TODO */);
+	                                QString::fromLatin1("component-ext-conn-booltri-out"));
 
 	return &Info;
 }

@@ -1,0 +1,291 @@
+<!-- ############################################################################### -->
+<!-- ########################          Converter            ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-boolean-converter">
+<title>Converter Components</title>
+
+<simplelist>
+<member>&ConverterBoolBooltri;</member>
+<member>&ConverterBooltriBool;</member>
+<member>&ConverterBoolFloat;</member>
+<member>&ConverterFloatBool;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      Boolean to Boolean Tristate        ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-converter-bool-booltri">
+<title>Boolean to Boolean Tristate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Boolean to Tristate Converter converts a boolean value into a tristate value.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_2_booleantri.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="4">
+<thead>
+<row><entry align="center">Enable</entry>
+     <entry align="center">Input</entry>
+     <entry></entry>
+     <entry align="center">Output</entry></row>
+</thead><tbody>
+<!--     ena     in       |      out   -->
+<row>   &TT-0;  &TT-X;  &TT-S;  &TT-Z;</row>
+<row>   &TT-1;  &TT-0;  &TT-S;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-S;  &TT-1;</row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Converter -> Boolean to Boolean Tristate</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      Boolean Tristate to Boolean        ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-converter-booltri-bool">
+<title>Boolean to Boolean Tristate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Boolean to Boolean Tristate Converter converts a boolean value into a boolean tristate value.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="booleantri_2_boolean.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="4">
+<thead>
+<row><entry align="center">Input</entry>
+     <entry></entry>
+     <entry align="center">Wire active</entry>
+     <entry align="center">Data Output</entry></row>
+</thead><tbody>
+<!--     in       /      wire    out   -->
+<row>   &TT-Z;  &TT-S;  &TT-0;  &TT-1;</row>
+<row>   &TT-0;  &TT-S;  &TT-1;  &TT-0;</row>
+<row>   &TT-1;  &TT-S;  &TT-1;  &TT-1;</row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Converter -> Boolean Tristate to Boolean</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      Boolean to Floating Point          ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-converter-bool-float-alien">
+<title>Boolean to Floating Point</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Boolean to Floating Point Converter converts a boolean value into a floating point value.
+The assignment which floating point values represents a true or false level is user definable.
+</para>
+<para>
+This component is not part of this package. It's part of the Floatingpoint package. 
+The component is added to give a complete overview of all related converters.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable floating point values which represents the true and false state. The defaults are
+true is represented by 1.0 and false by 0.0.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="convert_bool2float.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Converter -> Boolean to Float</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      Floating Point to Boolean          ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-converter-float-bool-alien">
+<title>Floating Point to Boolean</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Floating Point to Boolean Converter converts a floating point value into a boolean value.
+The converter has a true and a false threshold. There exists three different functionalities
+depending on the threshold values:
+
+<orderedlist>
+  <listitem><para>
+  true threshold = false threshold:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Input</entry>                        <entry></entry> <entry align="center">Output</entry> </row>
+    </thead>
+    <tbody>
+    <row><entry align="center">input &gt;= true threshold</entry>   <entry></entry> <entry align="center">True</entry>   </row>
+    <row><entry align="center">input &lt; false threshold</entry>   <entry></entry> <entry align="center">False</entry>  </row>
+    </tbody>
+    </tgroup></informaltable>
+  </para><para> </para></listitem>
+  <listitem><para>
+  true threshold &gt; false threshold:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Input</entry>                        <entry></entry> <entry align="center">Output</entry> </row>
+    </thead>
+    <tbody>
+    <row><entry align="center">input &gt;= true threshold</entry>   <entry></entry> <entry align="center">True</entry>   </row>
+    <row><entry align="center">input &lt;= false threshold</entry>  <entry></entry> <entry align="center">False</entry>  </row>
+    <row><entry align="center">else</entry>                         <entry></entry> <entry align="center">Unchanged</entry>  </row>
+    </tbody>
+    </tgroup></informaltable>
+  </para></listitem>
+  <listitem><para>
+  true threshold &lt; false threshold:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Input</entry>                        <entry></entry> <entry align="center">Output</entry> </row>
+    </thead>
+    <tbody>
+    <row><entry align="center">input &lt;= true threshold</entry>   <entry></entry> <entry align="center">True</entry>   </row>
+    <row><entry align="center">input &gt;= false threshold</entry>  <entry></entry> <entry align="center">False</entry>  </row>
+    <row><entry align="center">else</entry>                         <entry></entry> <entry align="center">Unchanged</entry>  </row>
+    </tbody>
+    </tgroup></informaltable>
+  </para></listitem>
+</orderedlist></para>
+
+
+<para>
+This component is not part of this package. It's part of the Floatingpoint package. 
+The component is added to give a complete overview of all related converters.
+</para>
+
+
+
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable true and false threshold.
+</para></listitem><listitem><para>
+Supports a hysteresis.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="convert_float2bool.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Converter -> Float to Boolean</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

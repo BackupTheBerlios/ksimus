@@ -55,15 +55,19 @@ The component is rotatable.
 
 <!-- ################################# Truth Table ################################# -->
 <sect3><title>Truth Table</title><para>
-<informaltable><tgroup cols="5">
+<informaltable><tgroup cols="4">
 <thead>
-<row><entry>Set</entry> <entry>Reset</entry> <entry></entry> <entry>Output<subscript> T</subscript></entry><entry>/Output<subscript> T</subscript></entry> </row>
-</thead>
-<tbody>
-<row><entry>False</entry> <entry>False</entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
-<row><entry>False</entry> <entry>True</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
-<row><entry>True</entry> <entry>False</entry> <entry></entry> <entry>True</entry><entry>False</entry></row>
-<row><entry>True</entry> <entry>True</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
+<row><entry align="center">Set</entry>
+     <entry align="center">Reset</entry>
+     <entry></entry>
+     &TT-OutT;
+     &TT-NOutT; </row>
+</thead><tbody>
+<!--     set    reset     |     outT       NOutT -->
+<row>   &TT-0;  &TT-0;  &TT-S;  &TT-OutT1; &TT-NOutT1;</row>
+<row>   &TT-0;  &TT-1;  &TT-S;  &TT-0;     &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-S;  &TT-1;     &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-S;  &TT-0;     &TT-1;</row>
 </tbody>
 </tgroup></informaltable>
 Set and reset inputs are level sensitive. Reset input is dominant.
@@ -137,18 +141,25 @@ The component is rotatable.
 <sect3><title>Truth Table</title><para>
 <informaltable><tgroup cols="8">
 <thead>
-<row><entry>Set</entry>   <entry>Reset</entry> <entry>Clock</entry> <entry>J</entry>      <entry>K</entry>     <entry></entry> <entry>Output<subscript> T</subscript></entry><entry>/Output<subscript> T</subscript></entry> </row>
-</thead>
-<tbody>
-<row><entry>False</entry> <entry>True</entry>  <entry>X</entry>      <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>False</entry>  <entry>True</entry></row>
-<row><entry>True</entry>  <entry>False</entry> <entry>X</entry>      <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>True</entry>   <entry>False</entry></row>
-<row><entry>True</entry>  <entry>True</entry>  <entry>X</entry>      <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>False</entry>  <entry>True</entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>False</entry>  <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>True</entry>   <entry>X</entry>     <entry>X</entry>     <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>False</entry> <entry>False</entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>False</entry> <entry>True</entry>  <entry></entry> <entry>False</entry>  <entry>True</entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>True</entry>  <entry>False</entry> <entry></entry> <entry>True</entry>   <entry>False</entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>&arUp;</entry> <entry>True</entry>  <entry>True</entry>  <entry></entry> <entry>/Output<subscript> T-1</subscript></entry>  <entry>Output<subscript> T-1</subscript></entry></row>
+<row><entry align="center">Set</entry>
+     <entry align="center">Reset</entry>
+     <entry align="center">Clock</entry>
+     <entry align="center">J</entry>
+     <entry align="center">K</entry>
+     <entry></entry>
+     &TT-OutT;
+     &TT-NOutT; </row>
+</thead><tbody>
+<!--     set    reset   clock      J        K       |     outT       NOutT -->
+<row>   &TT-0;  &TT-1;  &TT-X;   &TT-X;  &TT-X;  &TT-S;  &TT-0;      &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-X;   &TT-X;  &TT-X;  &TT-S;  &TT-1;      &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-X;   &TT-X;  &TT-X;  &TT-S;  &TT-0;      &TT-1;</row>
+<row>   &TT-0;  &TT-0;  &TT-0;   &TT-X;  &TT-X;  &TT-S;  &TT-OutT1;  &TT-NOutT1;</row>
+<row>   &TT-0;  &TT-0;  &TT-1;   &TT-X;  &TT-X;  &TT-S;  &TT-OutT1;  &TT-NOutT1;</row>
+<row>   &TT-0;  &TT-0;  &TT-Up;  &TT-0;  &TT-0;  &TT-S;  &TT-OutT1;  &TT-NOutT1;</row>
+<row>   &TT-0;  &TT-0;  &TT-Up;  &TT-0;  &TT-1;  &TT-S;  &TT-0;      &TT-1;</row>
+<row>   &TT-0;  &TT-0;  &TT-Up;  &TT-1;  &TT-0;  &TT-S;  &TT-1;      &TT-0;</row>
+<row>   &TT-0;  &TT-0;  &TT-Up;  &TT-1;  &TT-1;  &TT-S;  &TT-NOutT1; &TT-OutT1;</row>
 </tbody>
 </tgroup></informaltable>
 Set, reset and enable inputs are level sensitive. Reset input is dominant. Master slave functionality is deactivated.
@@ -218,20 +229,25 @@ The component is rotatable.
 <sect3><title>Truth Table</title><para>
 <informaltable><tgroup cols="7">
 <thead>
-<row><entry>Set</entry> <entry>Reset</entry> <entry>Enable</entry> <entry>Data</entry> <entry></entry> <entry>Output<subscript> T</subscript></entry><entry>/Output<subscript> T</subscript></entry> </row>
-</thead>
-<tbody>
-<row><entry>False</entry> <entry>True</entry> <entry>X</entry> <entry>X</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
-<row><entry>True</entry> <entry>False</entry> <entry>X</entry> <entry>X</entry> <entry></entry> <entry>True</entry><entry>False</entry></row>
-<row><entry>True</entry> <entry>True</entry> <entry>X</entry> <entry>X</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>False</entry> <entry>X</entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry><entry>/Output<subscript> T-1</subscript></entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>True</entry> <entry>False</entry> <entry></entry> <entry>False</entry><entry>True</entry></row>
-<row><entry>False</entry> <entry>False</entry> <entry>True</entry> <entry>True</entry> <entry></entry> <entry>True</entry><entry>False</entry></row>
+<row><entry align="center">Set</entry>
+     <entry align="center">Reset</entry>
+     <entry align="center">Enable</entry>
+     <entry align="center">Data</entry>
+     <entry></entry>
+     &TT-OutT;
+     &TT-NOutT; </row>
+</thead><tbody>
+<!--     set    reset    ena      data     |     outT       NOutT -->
+<row>   &TT-0;  &TT-1;  &TT-X;   &TT-X;  &TT-S;  &TT-0;      &TT-1;</row>
+<row>   &TT-1;  &TT-0;  &TT-X;   &TT-X;  &TT-S;  &TT-1;      &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-X;   &TT-X;  &TT-S;  &TT-0;      &TT-1;</row>
+<row>   &TT-0;  &TT-0;  &TT-0;   &TT-X;  &TT-S;  &TT-OutT1;  &TT-NOutT1;</row>
+<row>   &TT-0;  &TT-0;  &TT-1;   &TT-0;  &TT-S;  &TT-0;      &TT-1;</row>
+<row>   &TT-0;  &TT-0;  &TT-1;   &TT-1;  &TT-S;  &TT-1;      &TT-0;</row>
 </tbody>
 </tgroup></informaltable>
 Set, reset and enable inputs are level sensitive. Reset input is dominant.
 </para></sect3>
-
 
 
 <!-- ################################## Location ################################### -->
@@ -291,13 +307,17 @@ The component is rotatable.
 <sect3><title>Truth Table</title><para>
 <informaltable><tgroup cols="5">
 <thead>
-<row><entry>Reset</entry> <entry>Enable</entry> <entry>Input x</entry> <entry></entry> <entry>Output<subscript> T</subscript> x</entry> </row>
-</thead>
-<tbody>
-<row><entry>True</entry>  <entry>X</entry>      <entry>X</entry>       <entry></entry> <entry>False</entry></row>
-<row><entry>False</entry> <entry>False</entry>  <entry>X</entry>       <entry></entry> <entry>Output<subscript> T-1</subscript> x</entry></row>
-<row><entry>False</entry> <entry>True</entry>   <entry>False</entry>   <entry></entry> <entry>False</entry></row>
-<row><entry>False</entry> <entry>True</entry>   <entry>True</entry>    <entry></entry> <entry>True</entry></row>
+<row><entry align="center">Reset</entry>
+     <entry align="center">Enable</entry>
+     <entry align="center">Input X</entry>
+     <entry></entry>
+     &TT-OutTX;  </row>
+</thead><tbody>
+<!--    reset    ena   input X     |     outTX   -->
+<row>   &TT-1;  &TT-X;  &TT-X;   &TT-S;  &TT-0;  </row>
+<row>   &TT-0;  &TT-0;  &TT-X;   &TT-S;  &TT-OutTX1;</row>
+<row>   &TT-0;  &TT-1;  &TT-0;   &TT-S;  &TT-0;</row>
+<row>   &TT-0;  &TT-1;  &TT-1;   &TT-S;  &TT-1;</row>
 </tbody>
 </tgroup></informaltable>
 Reset and enable inputs are level sensitive.
@@ -373,7 +393,6 @@ The component is rotatable.
 </sect3>
 
 </sect2>
-
 
 
 

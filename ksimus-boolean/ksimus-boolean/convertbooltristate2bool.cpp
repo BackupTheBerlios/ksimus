@@ -49,9 +49,9 @@ const ComponentInfo * getConvertBoolTristate2BoolInfo()
 	                                i18n("Component", "Converter/Boolean Tristate to Boolean"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create/*,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-clock-generator")  TODO */);
+	                                QString::fromLatin1("component-boolean-converter-booltri-bool"));
 	return &Info;
 }
 

@@ -49,9 +49,9 @@ const ComponentInfo * BoolTristateOr::getStaticOrInfo()
 	                                i18n("Component", "Boolean/Tristate/Gates/OR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create/* todo,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-and")*/);
+	                                QString::fromLatin1("component-boolean-tristate-or"));
 	return &Info;
 }
 
@@ -62,9 +62,9 @@ const ComponentInfo * BoolTristateOr::getStaticNorInfo()
 	                                i18n("Component", "Boolean/Tristate/Gates/NOR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create /* TODO,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-nand")*/);
+	                                QString::fromLatin1("component-boolean-tristate-nor"));
 	return &Info;
 }
 

@@ -8,6 +8,7 @@
 <simplelist>
 <member>&BooleanConstTrue;</member>
 <member>&BooleanConstFalse;</member>
+<member>&BooleanButton;</member>
 </simplelist>
 
 <!-- ############################################################################### -->
@@ -79,7 +80,63 @@ The component is rotatable.
 <!-- ################################## Location ################################### -->
 <sect3><title>Location</title><para>Boolean -> Input -> Const False</para></sect3>
 
+
+
 </sect2>
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################        (Toggle) Button        ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-button-alien">
+<title>Button / Toggle Button</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a button with selectable toggle property.
+</para><para>
+This component is not part of this package. It's part of the main package KSimus. 
+The component is added to give a complete overview of all logic inputs.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+Activate or deactivate the toggle property.
+</para></listitem><listitem><para>
+User definable button text. The button text is the same as the component name.
+</para></listitem><listitem><para>
+The font of the button text is user definable.
+</para></listitem><listitem><para>
+The button is free resizable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state (only in toggle mode). The output adopts
+this state during the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_button.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Input -> Button</para>
+<para>Boolean -> Input -> Toggle Button</para>
+</sect3>
+
+</sect2>
+
+
+
+
 
 
 

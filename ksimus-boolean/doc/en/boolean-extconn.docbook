@@ -1,0 +1,202 @@
+<!-- ############################################################################### -->
+<!-- ########################     External Connector        ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-ext-conns">
+<title>External Connector</title>
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<simplelist>
+<member>&ExtConnBoolIn;</member>
+<member>&ExtConnBoolOut;</member>
+<member>&ExtConnBooltriIn;</member>
+<member>&ExtConnBooltriOut;</member>
+</simplelist>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################  External Connector Bool In   ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-ext-conn-bool-in-alien">
+<title>External Connector Boolean Input</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external boolean input connector is used as an input for modules.
+</para><para>
+This component is not part of this package. It's part of the main package KSimus. 
+The component is added to give a complete overview of all related external connectors.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input and output is negatable. If the input connector is negated, the input connector of
+the module is also negated as default.
+</para></listitem><listitem><para>
+The name of the external connector is used as default name of the input connector of the module.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The external connector is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_ext_conn_bool_in.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>External Connector -> Bool Input</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################  External Connector Bool Out  ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-ext-conn-bool-out-alien">
+<title>External Connector Boolean Output</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external boolean output connector is used as an output for modules.
+</para><para>
+This component is not part of this package. It's part of the main package KSimus. 
+The component is added to give a complete overview of all related external connectors.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input and output is negatable. If the output connector is negated, the output connector of
+the module is also negated as default.
+</para></listitem><listitem><para>
+The name of the external connector is used as default name of the output connector of the module.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The external connector is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_ext_conn_bool_out.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>External Connector -> Bool Output</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################  External Connector Bool Tristate In   #################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-ext-conn-booltri-in">
+<title>External Connector Boolean Tristate Input</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external boolean tristate input connector is used as an input for modules.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The name of the external connector is used as default name of the input connector of the module.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The external connector is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="booleantri_extcon_in.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>External Connector -> Bool Tristate Input</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ####################  External Connector Bool Tristate Out  ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-ext-conn-booltri-out">
+<title>External Connector Boolean Output</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external boolean tristate output connector is used as an output for modules.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The name of the external connector is used as default name of the output connector of the module.
+</para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
+The external connector is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="booleantri_extcon_out.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>External Connector -> Bool Tristate Output</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+</sect1>
+

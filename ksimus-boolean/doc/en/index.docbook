@@ -9,48 +9,120 @@
   <!ENTITY componentSupplier 'Component Supplier'>
 
 
-<!-- ########################          Components        ######################## -->
+<!-- ########################        Gates          ######################## -->
   <!ENTITY BooleanIdentity '<link linkend="component-boolean-identity">Identity Gate</link>'>
   <!ENTITY BooleanInverter '<link linkend="component-boolean-inverter">Inverter Gate</link>'>
+  <!ENTITY BooleanAND '<link linkend="component-boolean-and-alien">AND Gate</link>'>  <!-- Not part of this package -->
+  <!ENTITY BooleanNAND '<link linkend="component-boolean-nand-alien">NAND Gate</link>'>  <!-- Not part of this package -->
   <!ENTITY BooleanOR '<link linkend="component-boolean-or">OR Gate</link>'>
   <!ENTITY BooleanNOR '<link linkend="component-boolean-nor">NOR Gate</link>'>
   <!ENTITY BooleanXOR '<link linkend="component-boolean-xor">XOR Gate</link>'>
   <!ENTITY BooleanXNOR '<link linkend="component-boolean-xnor">XNOR Gate</link>'>
 
-  <!ENTITY Boolean7SegDisp '<link linkend="component-boolean-7segment">7 Segment Display</link>'>
-
+<!-- ########################        Gates Tristate          ######################## -->
+  <!ENTITY BooleanTristateAND '<link linkend="component-boolean-tristate-and">AND Tristate</link>'>
+  <!ENTITY BooleanTristateNAND '<link linkend="component-boolean-tristate-nand">NAND Tristate</link>'>
+  <!ENTITY BooleanTristateOR '<link linkend="component-boolean-tristate-or">OR Tristate</link>'>
+  <!ENTITY BooleanTristateNOR '<link linkend="component-boolean-tristate-nor">NOR Tristate</link>'>
+  <!ENTITY BooleanTristateXOR '<link linkend="component-boolean-tristate-xor">XOR Tristate</link>'>
+  <!ENTITY BooleanTristateXNOR '<link linkend="component-boolean-tristate-xnor">XNOR Tristate</link>'>
+  
+<!-- ########################        Inputs          ######################## -->
   <!ENTITY BooleanConstTrue '<link linkend="component-boolean-const-true">Constant True</link>'>
   <!ENTITY BooleanConstFalse '<link linkend="component-boolean-const-false">Constant False</link>'>
+  <!ENTITY BooleanButton '<link linkend="component-button-alien">Button / Toggle Button</link>'>  <!-- Not part of this package -->
 
+<!-- ########################        Outputs          ######################## -->
+  <!ENTITY BooleanLED '<link linkend="component-boolean-led-alien">LED</link>'>  <!-- Not part of this package -->
+  <!ENTITY Boolean7SegDisp '<link linkend="component-boolean-7segment">7 Segment Display</link>'>
+
+<!-- ########################       FF / Latches          ######################## -->
   <!ENTITY BooleanRSFF '<link linkend="component-boolean-rs-ff">RS Flip Flop</link>'>
   <!ENTITY BooleanJKFF '<link linkend="component-boolean-jk-ff">JK (MS) Flip Flop</link>'>
   <!ENTITY BooleanDLatch '<link linkend="component-boolean-rs-ff">D Latch</link>'>
   <!ENTITY BooleanMutliDLatch '<link linkend="component-boolean-multiple-d-latches">Muliple D Latches</link>'>
   <!ENTITY BooleanMonoFlop '<link linkend="component-boolean-monoflop">Mono Flop</link>'>
 
+<!-- ########################        Counter          ######################## -->
   <!ENTITY BooleanCounterRcoRbo '<link linkend="component-boolean-counter-rco-rbo">Counter with RCO and RBO</link>'>
 
+<!-- ########################        (De)Multiplexer          ######################## -->
   <!ENTITY BooleanMultiplexer '<link linkend="component-boolean-multiplexer">Multiplexer</link>'>
   <!ENTITY BooleanDemultiplexer '<link linkend="component-boolean-demultiplexer">Demultiplexer</link>'>
 
+<!-- ########################        Timing Components          ######################## -->
   <!ENTITY BooleanTimingDelay '<link linkend="component-boolean-timing-delay">Delay</link>'>
+  <!ENTITY BooleanClockGenerator '<link linkend="component-clock-generator-alien">Clock Generator</link>'>  <!-- Not part of this package -->
+  
+<!-- ########################        Converters          ######################## -->
+  <!ENTITY ConverterBoolBooltri '<link linkend="component-boolean-converter-bool-booltri">Boolean to Boolean Tristate</link>'>
+  <!ENTITY ConverterBooltriBool '<link linkend="component-boolean-converter-booltri-bool">Boolean Tristate to Boolean</link>'>
+  <!ENTITY ConverterBoolFloat '<link linkend="component-boolean-converter-bool-float-alien">Boolean to Floating Point</link>'>  <!-- Not part of this package -->
+  <!ENTITY ConverterFloatBool '<link linkend="component-boolean-converter-float-bool-alien">Floating Point to Boolean</link>'>  <!-- Not part of this package -->
+
+<!-- ########################     External Connectors      ######################## -->
+  <!ENTITY ExtConnBoolIn '<link linkend="component-ext-conn-bool-in-alien">External Connector Boolean Input</link>'>  <!-- Not part of this package -->
+  <!ENTITY ExtConnBoolOut '<link linkend="component-ext-conn-bool-out-alien">External Connector Boolean Output</link>'>  <!-- Not part of this package -->
+  <!ENTITY ExtConnBooltriIn '<link linkend="component-ext-conn-booltri-in">External Connector Boolean Tristate Input</link>'>
+  <!ENTITY ExtConnBooltriOut '<link linkend="component-ext-conn-booltri-out">External Connector Boolean Tristate Output</link>'>
+
   
   <!ENTITY todo '<para>[TODO]</para>'>
 
   <!ENTITY boolean-gates-part SYSTEM "boolean-gates.docbook">
-  <!ENTITY boolean-output-part SYSTEM "boolean-output.docbook">
+  <!ENTITY boolean-tristate-part SYSTEM "boolean-tristate.docbook">
   <!ENTITY boolean-input-part SYSTEM "boolean-input.docbook">
+  <!ENTITY boolean-output-part SYSTEM "boolean-output.docbook">
   <!ENTITY boolean-latches-part SYSTEM "boolean-latches.docbook">
   <!ENTITY boolean-counters-part SYSTEM "boolean-counter.docbook">
   <!ENTITY boolean-muxdemux-part SYSTEM "boolean-muxdemux.docbook">
   <!ENTITY boolean-timing-part SYSTEM "boolean-timing.docbook">
+  <!ENTITY boolean-converter-part SYSTEM "boolean-converter.docbook">
+  <!ENTITY boolean-extconn-part SYSTEM "boolean-extconn.docbook">
+
+<!-- ########################        Some Links       ######################## -->
+  <!ENTITY tristate '<link linkend="datatype-boolean-tristate">Tristate</link>'>
+
 
 <!-- ########################        Truth table items       ######################## -->
 
   <!ENTITY arUp '<inlinemediaobject><imageobject><imagedata fileref="arrowUp.png" format="PNG"/></imageobject></inlinemediaobject>'>
   <!ENTITY arDo '<inlinemediaobject><imageobject><imagedata fileref="arrowDown.png" format="PNG"/></imageobject></inlinemediaobject>'>
+  
+  
+  <!ENTITY TT-False  '<entry align="center">False</entry>'>
+  <!ENTITY TT-True   '<entry align="center">True</entry>'>
+  <!ENTITY TT-X      '<entry align="center">X</entry>'>
+  <!ENTITY TT-Z      '<entry align="center">Inactive</entry>'>
+  <!ENTITY TT-Up     '<entry align="center">&arUp;</entry>'>
+  <!ENTITY TT-Down   '<entry align="center">&arDo;</entry>'>
+  <!ENTITY TT-Spare  '<entry></entry>'>
+  
+  
+  <!ENTITY TT-OutT   '<entry align="center">Output<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutT1  '<entry align="center">Output<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-NOutT  '<entry align="center">/Output<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-NOutT1 '<entry align="center">/Output<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-OutTA  '<entry align="center">Output A<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutTA1 '<entry align="center">Output A<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-OutTB  '<entry align="center">Output B<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutTB1 '<entry align="center">Output B<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-OutTX  '<entry align="center">Output X<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-OutTX1 '<entry align="center">Output X<subscript>(t-1)</subscript></entry>'>
+  <!ENTITY TT-InpT   '<entry align="center">Input<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-InpT1  '<entry align="center">Input<subscript>(t-1)</subscript></entry>'> 
+  <!ENTITY TT-InpTX  '<entry align="center">Input X<subscript>(t)</subscript></entry>'>
+  <!ENTITY TT-InpT1X '<entry align="center">Input X<subscript>(t-1)</subscript></entry>'> 
+  
+    
+  <!-- Some shortcuts -->
+  <!ENTITY TT-0      '<entry align="center">False</entry>'>
+  <!ENTITY TT-1      '&TT-True;'>
+  <!ENTITY TT-S      '&TT-Spare;'>
+  <!ENTITY TT-Do     '&TT-Down;'>
+  
 
-
+  
   <!-- Do not define any other entities; instead, use the entities
        from kde-genent.entities and $LANG/user.entities. -->
 ]>
@@ -104,6 +176,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <copyright>
 <year>2001</year>
 <year>2002</year>
+<year>2003</year>
 <holder>Rasmus Diekenbrock</holder>
 </copyright>
 <!-- Translators: put here the copyright notice of the translation -->
@@ -118,8 +191,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2002-09-20</date>
-<releaseinfo>0.3.5</releaseinfo>
+<date>2003-03-01</date>
+<releaseinfo>0.3.6</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -178,92 +251,122 @@ your application. -->
 <para>
 Install this package and KSimus will use it automatically (after a restart of KSimus).
 </para>
-
-<para>
-
-<!-- Note that all graphics should be in .png format. Use no gifs because of
-patent issues. -->
-
-<!-- <screenshot>
-<screeninfo>Here's a screenshot of &kapp;</screeninfo>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="screenshot.png" format="PNG"/>
-	  </imageobject>
-	  <imageobject>
-	    <imagedata fileref="screenshot.eps" format="EPS"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Screenshot</phrase>
-	  </textobject>
-	</mediaobject>
-</screenshot> -->
-</para>
 </chapter>
+
 
 
 <chapter id="kapp-features">
 <title>Boolean package features</title>
 
-<para>The Boolean package contains following components:</para>
-
-
-<para>Gates:
-<itemizedlist>
-<listitem><para>&BooleanIdentity;</para></listitem>
-<listitem><para>&BooleanInverter;</para></listitem>
-<listitem><para>&BooleanOR;</para></listitem>
-<listitem><para>&BooleanNOR;</para></listitem>
-<listitem><para>&BooleanXOR;</para></listitem>
-<listitem><para>&BooleanXNOR;</para></listitem>
-</itemizedlist>
+<para>The package contains boolean components like AND gates or counters. See also the complete 
+<link linkend="component-overview">Component Overview</link>.
 </para>
 
-<para>Inputs:
-<itemizedlist>
-<listitem><para>&BooleanConstTrue;</para></listitem>
-<listitem><para>&BooleanConstFalse;</para></listitem>
-</itemizedlist>
+<sect1 id="datatypes">
+<title>Date types</title>
+<para>There exists two data types used by this package:</para>
+
+<sect2 id="datatype-boolean">
+<title>The boolean data type</title>
+<para>
+This data type has the two states 'False' and 'True'. The 'False' state is also known as 'Low' or '0', the 'True' state as 
+'High' or '1'.
 </para>
-
-<para>Displays:
-<itemizedlist>
-<listitem><para>&Boolean7SegDisp;</para></listitem>
-</itemizedlist>
+<para>
+A boolean wire connects one boolean output connector and one or more boolean input connectors. 
+The data direction is always from the output to the inputs.
 </para>
+</sect2>
 
-<para>Flip Flop / Latches / Register:
-<itemizedlist>
-<listitem><para>&BooleanRSFF;</para></listitem>
-<listitem><para>&BooleanJKFF;</para></listitem>
-<listitem><para>&BooleanDLatch;</para></listitem>
-<listitem><para>&BooleanMutliDLatch;</para></listitem>
-<listitem><para>&BooleanMonoFlop;</para></listitem>
-</itemizedlist>
+<sect2 id="datatype-boolean-tristate">
+<title>The Boolean Tristate data type</title>
+<para>
+This data type has the three states 'False', 'True' and 'Inactive'. The state 'Inactive' is also known as 'High Impedance'.
+A Tristate wire connects one or more Boolean Tristate connectors. 
 </para>
-
-<para>Counters:
-<itemizedlist>
-<listitem><para>&BooleanCounterRcoRbo;</para></listitem>
-</itemizedlist>
+<para>
+How does it works? The combination of Boolean Tristate connectors and wire acts like a 'wired and' circuit. One
+active low output causes a low state on the wire. The wire state is true, if the state of all connectors are inactive or true. 
 </para>
+<para>
+KSimus also has an implicit type conversion from Boolean Tristate to Boolean. This means you can connect a 
+Boolean Tristate wire straight to a Boolean input connector. In this case the Boolean input connector detects a low state
+if the state of one or more Boolean Tristate connectors is low. The Boolean input connector detects a high state if all
+Boolean Tristate connectors are active high or inactive.
+</para><para>
+See also the following truth table:
 
-<para>Multiplexer &amp; Demultiplexer:
-<itemizedlist>
-<listitem><para>&BooleanMultiplexer;</para></listitem>
-<listitem><para>&BooleanDemultiplexer;</para></listitem>
-</itemizedlist>
+<informaltable><tgroup cols="5">
+<thead>
+<row><entry align="center">Tristate connector A</entry>
+     <entry align="center">Tristate connector B</entry>
+     <entry></entry>
+     <entry align="center">Wire State</entry>
+     <entry align="center">Boolean Input</entry></row>
+</thead><tbody>
+<!--    3OutA   3OutB     |      Wire   Bool In   -->
+<row>   &TT-Z;  &TT-Z;  &TT-S;  &TT-Z;  &TT-1;</row>
+<row>   &TT-0;  &TT-Z;  &TT-S;  &TT-0;  &TT-0;</row>
+<row>   &TT-1;  &TT-Z;  &TT-S;  &TT-1;  &TT-1;</row>
+<row>   &TT-Z;  &TT-0;  &TT-S;  &TT-0;  &TT-0;</row>
+<row>   &TT-0;  &TT-0;  &TT-S;  &TT-0;  &TT-0;</row>
+<row>   &TT-1;  &TT-0;  &TT-S;  &TT-0;  &TT-0;</row>
+<row>   &TT-Z;  &TT-1;  &TT-S;  &TT-1;  &TT-1;</row>
+<row>   &TT-0;  &TT-1;  &TT-S;  &TT-0;  &TT-0;</row>
+<row>   &TT-1;  &TT-1;  &TT-S;  &TT-1;  &TT-1;</row>
+</tbody>
+</tgroup></informaltable>
+</para></sect2>
+
+
+<sect2 id="implicit-converter">
+<title>Implicit Converter</title>
+<para>
+Implicit Converters makes it possible to connect a wire to an input connector with a differnet data type. 
+For example without implicit converters it wouldn't be possible to connect a boolean wire to a 
+floatingpoint input connector.
+</para><para>
+Related to the data types in this package there exists following data types:
+<orderedlist>
+  <listitem><para>
+  Boolean Wire to Floatingpoint Input Connector:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Wire State</entry> &TT-S; <entry align="center">Connector Value</entry> </row>
+    </thead><tbody>
+    <row>                         &TT-0;          &TT-S; <entry align="center">0.0</entry>   </row>
+    <row>                         &TT-1;          &TT-S; <entry align="center">1.0</entry>   </row>
+    </tbody></tgroup></informaltable>
+  </para><para> </para></listitem>
+  <listitem><para>
+  Floatingpoint Wire to Boolean Input Connector:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Wire Value</entry> &TT-S; <entry align="center">Connector State</entry> </row>
+    </thead><tbody>
+    <row><entry align="center">0.0</entry>        &TT-S;  &TT-0;   </row>
+    <row><entry align="center">else</entry>       &TT-S;  &TT-1;   </row>
+    </tbody></tgroup></informaltable>
+  </para></listitem>
+  <listitem><para>
+  Boolean Tristate Wire to Boolean Input Connector:
+    <informaltable><tgroup cols="3">
+    <thead>
+    <row><entry align="center">Wire State</entry> &TT-S; <entry align="center">Connector State</entry> </row>
+    </thead><tbody>
+    <row>                      &TT-Z;             &TT-S;  &TT-1;   </row>
+    <row>                      &TT-0;             &TT-S;  &TT-0;   </row>
+    <row>                      &TT-1;             &TT-S;  &TT-1;   </row>
+    </tbody></tgroup></informaltable>
+  </para></listitem>
+</orderedlist>
+
 </para>
-
-<para>Timing:
-<itemizedlist>
-<listitem><para>&BooleanTimingDelay;</para></listitem>
-</itemizedlist>
-</para>
+</sect2>
 
 
 
-
+</sect1>
 
 </chapter>
 
@@ -274,11 +377,121 @@ patent issues. -->
 <chapter id="component">
 <title>Component Reference</title>
 
+<sect1 id="component-overview">
+<title>Component Overview</title>
+
+
+<sect2 id="component-overview-gates">
+<title>Gates</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanIdentity;</para></listitem>
+  <listitem><para>&BooleanInverter;</para></listitem>
+  <listitem><para>&BooleanAND;</para></listitem>
+  <listitem><para>&BooleanNAND;</para></listitem>
+  <listitem><para>&BooleanOR;</para></listitem>
+  <listitem><para>&BooleanNOR;</para></listitem>
+  <listitem><para>&BooleanXOR;</para></listitem>
+  <listitem><para>&BooleanXNOR;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-tristate-gates">
+<title>Tristate Gates</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanTristateAND;</para></listitem>
+  <listitem><para>&BooleanTristateNAND;</para></listitem>
+  <listitem><para>&BooleanTristateOR;</para></listitem>
+  <listitem><para>&BooleanTristateNOR;</para></listitem>
+  <listitem><para>&BooleanTristateXOR;</para></listitem>
+  <listitem><para>&BooleanTristateXNOR;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-input">
+<title>Input Components</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanConstTrue;</para></listitem>
+  <listitem><para>&BooleanConstFalse;</para></listitem>
+  <listitem><para>&BooleanButton;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-display">
+<title>Display Components</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanLED;</para></listitem>
+  <listitem><para>&Boolean7SegDisp;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-flipflop">
+<title>Flip Flop / Latches / Register</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanRSFF;</para></listitem>
+  <listitem><para>&BooleanJKFF;</para></listitem>
+  <listitem><para>&BooleanDLatch;</para></listitem>
+  <listitem><para>&BooleanMutliDLatch;</para></listitem>
+  <listitem><para>&BooleanMonoFlop;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-counter">
+<title>Counter Components</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanCounterRcoRbo;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-mux-demux">
+<title>Multiplexer &amp; Demultiplexer Components</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanMultiplexer;</para></listitem>
+  <listitem><para>&BooleanDemultiplexer;</para></listitem>
+</itemizedlist></para></sect2>
+
+
+<sect2 id="component-overview-timing">
+<title>Timing Components</title>
+<para><itemizedlist>
+  <listitem><para>&BooleanTimingDelay;</para></listitem>
+  <listitem><para>&BooleanClockGenerator;</para></listitem>
+  <listitem><para>&BooleanMonoFlop;</para></listitem>
+</itemizedlist></para></sect2>
+
+<sect2 id="component-overview-converter">
+<title>Converter Components</title>
+<para><itemizedlist>
+  <listitem><para>&ConverterBoolBooltri;</para></listitem>
+  <listitem><para>&ConverterBooltriBool;</para></listitem>  
+  <listitem><para>&ConverterBoolFloat;</para></listitem>
+  <listitem><para>&ConverterFloatBool;</para></listitem>
+</itemizedlist></para></sect2>
+
+<sect2 id="component-overview-extconn">
+<title>External Connectors</title>
+<para><itemizedlist>
+  <listitem><para>&ExtConnBoolIn;</para></listitem>
+  <listitem><para>&ExtConnBoolOut;</para></listitem>
+  <listitem><para>&ExtConnBooltriIn;</para></listitem>
+  <listitem><para>&ExtConnBooltriOut;</para></listitem>
+</itemizedlist></para></sect2>
+  
+</sect1>
+
+
 <!-- ############################################################################### -->
 <!-- ########################          Boolean Gates        ######################## -->
 <!-- ############################################################################### -->
 
 &boolean-gates-part;
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################          Tristate             ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-tristate-part;
 
 
 
@@ -335,6 +548,27 @@ patent issues. -->
 <!-- ############################################################################### -->
 
 &boolean-timing-part;
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################          Converter            ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-converter-part;
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################     External Connectors       ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-extconn-part;
+
 
 
 </chapter>
@@ -415,7 +649,7 @@ distribution. -->
 &kapp;
 </para>
 <para>
-Program copyright 2002 Rasmus Diekenbrock &kappmail;
+Program copyright 2003 Rasmus Diekenbrock &kappmail;
 </para>
 
 <!--
@@ -431,7 +665,7 @@ Contributors:
 -->
 
 <para>
-Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
+Documentation copyright 2003 Rasmus Diekenbrock &kappmail;
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->

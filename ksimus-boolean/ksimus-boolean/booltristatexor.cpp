@@ -49,9 +49,9 @@ const ComponentInfo * BoolTristateXor::getStaticXorInfo()
 	                                i18n("Component", "Boolean/Tristate/Gates/XOR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create /* TODO,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-and")*/);
+	                                QString::fromLatin1("component-boolean-tristate-xor"));
 	return &Info;
 }
 
@@ -62,9 +62,9 @@ const ComponentInfo * BoolTristateXor::getStaticXnorInfo()
 	                                i18n("Component", "Boolean/Tristate/Gates/XNOR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create /* TODO,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-nand")*/);
+	                                QString::fromLatin1("component-boolean-tristate-xnor"));
 	return &Info;
 }
 
