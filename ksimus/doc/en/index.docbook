@@ -624,7 +624,8 @@ inserted to the &componentSupplier;.
 <guimenu>Execute</guimenu>
 <guimenuitem>Start</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Resets the &components; and starts the simulation.
+<listitem><para><action>Resets the &components; and starts the simulation if simulation is stopped. In case of a paused
+simulation this menu item continues the simulation.
 </action></para></listitem> </varlistentry>
 
 <varlistentry>
@@ -948,7 +949,7 @@ The using of <guilabel>Package files</guilabel> is analog to the using of
 <guimenuitem>Watch</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>
-Opens the watch setting dialog. See also &watchView;.
+Opens the dialog with the globale watch settings. See also &watchView;.
 </action></para></listitem> </varlistentry>
 
 </variablelist>

@@ -27,7 +27,7 @@ high. The output is low if one or more inputs are low.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
@@ -89,7 +89,7 @@ high. The output is high if one or more inputs are low.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
@@ -290,7 +290,7 @@ The LED is free resizable.
 </para></listitem><listitem><para>
 Selectable frame in the User View.
 </para></listitem><listitem><para>
-The LED is displayed in the user view.
+The LED is displayed in the User View.
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem></itemizedlist></sect3>

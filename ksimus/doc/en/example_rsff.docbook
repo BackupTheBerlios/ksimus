@@ -62,7 +62,7 @@ where you want to place the NAND gate. Click the left mouse button to place the 
 <para>
 &kapp; stays in &quot;component insert mode&quot; until you click the right mouse button. Because
 of this, you are able to place immediately the second NAND gate below the first gate. After placing
-the second gate press the right mouse to leave the &quot;component insert mode&quot;.
+the second gate press the right mouse button to leave the &quot;component insert mode&quot;.
 </para>
 
 <para>
@@ -70,8 +70,8 @@ Now it is time to connect the components. First connect the output connector of 
 to one of the input gates of the below NAND gate.
 </para>
 <para><userinput>
-Draw the mouse pointer to the output connector, press the left mouse button - hold it - move the
-mouse to the input gate and release the mouse button. There is no difference wether you connect
+For doing this, move the mouse pointer to the output connector, press the left mouse button - hold it - move
+the mouse to the input gate and release the mouse button. There is no difference wether you connect
 the output to the input or reverse.
 </userinput></para>
 
@@ -117,7 +117,7 @@ connect the &components; as shown below.
 
 <tip><para>
 It is possible to connect to a wire as well as to a connector. It is also possible to
-connect two wires.
+connect two or more wires.
 </para></tip>
 <para></para>
 <screenshot>
@@ -196,7 +196,7 @@ Set the &quot;Reset State&quot; to &quot;True&quot;.
 </screenshot>
 
 <para>
-At least we want to change the title of the buttons.
+At last we want to change the title of the buttons.
 </para>
 
 <para><userinput>
