@@ -21,20 +21,25 @@
 // C-Includes
 
 // QT-Includes
+#include <qvbuttongroup.h>
+#include <qcolor.h>
 
 // KDE-Includes
 
 // Project-Includes
-#include "component.h"
+//#include "component.h"
+#include "componentstyle.h"
 #include "compview.h"
-#include "compviewwidget.h"
+#include "compviewvbox.h"
 #include "componentpropertybasewidget.h"
 
 // Forward declaration
 class QColor;
 class QRadioButton;
+class KColorButton;
 class KLed;
 class ConnectorBoolIn;
+class QCheckBox;
 
 
 /**A LED
@@ -43,7 +48,7 @@ class ConnectorBoolIn;
 
 extern const ComponentInfo BooleanLedInfo;
 
-class BooleanLed : public Component
+class BooleanLed : public ComponentStyle
 {
 friend class BooleanLedView;
 
@@ -66,16 +71,22 @@ public:
 	*	Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
 	
-	void setColor(QColor & color);
-	const QColor & getColor() const;
+	void setOnColor(const QColor & color);
+	const QColor & getOnColor() const { return m_onColor; };
+
+	void setOffColor(const QColor & color);
+	const QColor & getOffColor() const { return m_offColor; };
+	
+	bool getState() const { return m_onState; };
 
 protected: // Protected attributes
 	bool m_onState;
-	QColor * m_color;
+	QColor m_onColor;
+	QColor m_offColor;
 	ConnectorBoolIn * m_inConn;
 
 signals:
-	void signalColor(const QColor & color);
+	void signalColorChanged();
 };
 
 class BooleanLedView : public CompViewSize
@@ -102,7 +113,7 @@ signals:
 	void signalState(bool on);
 };
 
-class BooleanLedWidgetView : public CompViewWidget
+class BooleanLedWidgetView : public CompViewVBox
 {
 	Q_OBJECT
 
@@ -111,18 +122,62 @@ friend class BooleanLedView;
 public:
 	BooleanLedWidgetView(CompView * cv, QWidget *parent=0, const char *name=0);
 	~BooleanLedWidgetView();
-	virtual void paintEvent(QPaintEvent * pe);
 
 public slots:
 	void slotState(bool on);
-	void slotColor(const QColor & color);
+	void slotColorChanged();
 
 protected:
 	KLed * m_led;
+	BooleanLed * m_boolLed;
 };
 
 //###############################################################
 //###############################################################
+
+
+class BooleanLedColorPropertyWidget : public QVButtonGroup
+{
+	
+	Q_OBJECT
+
+public:
+	BooleanLedColorPropertyWidget(const QString & text, QWidget *parent=0, const char *name=0);
+	~BooleanLedColorPropertyWidget();
+
+	QColor color() const;
+	
+	void setEnableDefault(bool ena);
+	
+	bool isDefault() const;
+	
+	
+public slots:
+	void setColor(const QColor & color);
+
+signals:
+	void changed(const QColor & color);
+
+private:
+	QColor m_color;
+	QCheckBox * m_defaultColor;
+	QRadioButton * m_red;
+	QRadioButton * m_green;
+	QRadioButton * m_orange;
+	KColorButton * m_userColor;
+	
+private slots:
+	void slotRed();
+	void slotGreen();
+	void slotOrange();
+	void slotDefault(bool def);	
+
+};
+
+
+//###############################################################
+//###############################################################
+
 
 class BooleanLedPropertyWidget : public ComponentPropertyBaseWidget
 {
@@ -144,15 +199,16 @@ public:
 	virtual void defaultPressed();
 
 protected slots:
-	void slotRed();
-	void slotGreen();
-	void slotOrange();
+	void slotOnColor(const QColor &);	
+	void slotOffColor(const QColor &);	
 	
 protected:
-	QRadioButton * m_red;
-	QRadioButton * m_green;
-	QRadioButton * m_orange;
-	QColor * m_newColor;
+	BooleanLedColorPropertyWidget * m_onColor;
+	BooleanLedColorPropertyWidget * m_offColor;
+	
+	KLed * m_exampleOn;
+	KLed * m_exampleOff;
+	
 };
 
 
