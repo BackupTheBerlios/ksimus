@@ -1,11 +1,25 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
-  <!ENTITY test '<application>Test</application>'>
-  <!ENTITY kapp "&test;"><!-- replace test here -->
+  <!ENTITY ksimusboolean '<application>KSimus Package Boolean</application>'>
+  <!ENTITY kapp "&ksimusboolean;"><!-- replace test here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
-  
-  
+  <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
+
+  <!ENTITY componentSupplier 'Component Supplier'>
+
+
+<!-- ########################          Components        ######################## -->
+  <!ENTITY BooleanOR '<link linkend="component-boolean-or">Boolean OR Gate</link>'>
+  <!ENTITY BooleanNOR '<link linkend="component-boolean-nor">Boolean NOR Gate</link>'>
+  <!ENTITY BooleanXOR '<link linkend="component-boolean-xor">Boolean XOR Gate</link>'>
+  <!ENTITY BooleanXNOR '<link linkend="component-boolean-xnor">Boolean XNOR Gate</link>'>
+
+
+  <!ENTITY todo '<para>[TODO]</para>'>
+
+  <!ENTITY boolean-gates-part SYSTEM "boolean-gates.docbook">
+
   <!-- Do not define any other entities; instead, use the entities
        from kde-genent.entities and $LANG/user.entities. -->
 ]>
@@ -41,15 +55,15 @@ thanks ;-).
 as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
-<title>The Test Handbook</title>
+<title>The Boolean Package Handbook</title>
 
 <authorgroup>
 <author>
-<firstname>George</firstname>
-<othername>N.</othername>
-<surname>Ugnacious</surname>
+<firstname>Rasmus</firstname>
+<!-- <othername>N.</othername> -->
+<surname>Diekenbrock</surname>
 <affiliation>
-<address><email>gnu@kde.org</email></address>
+<address>&kappmail;</address>
 </affiliation>
 </author>
 </authorgroup>
@@ -57,9 +71,9 @@ as Authors, publish date, the abstract, and Keywords -->
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 <copyright>
-<year>1999</year>
-<year>2000</year>
-<holder>George N. Ugnacious</holder>
+<year>2001</year>
+<year>2002</year>
+<holder>Rasmus Diekenbrock</holder>
 </copyright>
 <!-- Translators: put here the copyright notice of the translation -->
 <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook 
@@ -73,15 +87,14 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>03/04/1999</date>
-<releaseinfo>1.01.00</releaseinfo>
+<date>24/02/2002</date>
+<releaseinfo>0.00.01</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para>
-&test; is an application specially designed to do nothing you would
-ever want.
+The package Boolean contains some boolean components for KSimus.
 </para>
 </abstract>
 
@@ -91,10 +104,12 @@ Please at least include KDE, the KDE package it is in, the name
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
-<keyword>nothing</keyword>
-<keyword>nothing else</keyword>
+<keyword>KSimus</keyword>
+<keyword>Simulate</keyword>
+<keyword>Simulation</keyword>
+<keyword>Logic</keyword>
+<keyword>Boolean</keyword>
+<keyword>Package</keyword>
 </keywordset>
 
 </bookinfo>
@@ -117,24 +132,28 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-&kapp; is a program that lets you do absolutely nothing. Please report
-any problems or feature requests to the KDE mailing lists.
+The Boolean package contains some boolean components for KSimus.
 </para>
+
 </chapter>
 
 <chapter id="using-kapp">
-<title>Using Test</title>
+<title>Using the Boolean package</title>
 
 <!-- This chapter should tell the user how to use your app. You should use as
 many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
 your application. -->
 
 <para>
+Install this package and KSimus will use it automatically (after a restart).
+</para>
+
+<para>
 
 <!-- Note that all graphics should be in .png format. Use no gifs because of
 patent issues. -->
 
-<screenshot>
+<!-- <screenshot>
 <screeninfo>Here's a screenshot of &kapp;</screeninfo>
 	<mediaobject>
 	  <imageobject>
@@ -147,98 +166,62 @@ patent issues. -->
 	    <phrase>Screenshot</phrase>
 	  </textobject>
 	</mediaobject>
-</screenshot>
+</screenshot> -->
 </para>
-
-
-<sect1 id="kapp-features">
-<title>More Kapp features</title>
-
-<para>It slices! It dices! and it comes with a free toaster!</para>
-<para>
-The Squiggle Tool <guiicon><inlinemediaobject>
-	  <imageobject>
-	    <imagedata fileref="squiggle.png" format="PNG"/>
-	  </imageobject>
-	  <imageobject>
-	    <imagedata fileref="squiggle.eps" format="EPS"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Squiggle</phrase>
-	  </textobject>
-</inlinemediaobject></guiicon> is used to draw squiggly lines all over
-the &test; main window. It's not a bug, it's a feature!
-</para>
-
-</sect1>
 </chapter>
 
-<chapter id="commands">
-<title>Command Reference</title>
 
-<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
-application windows and their menubar and toolbar commands for easy reference.
-Also include any keys that have a special function but have no equivalent in the
-menus or toolbars. This may not be necessary for small apps or apps with no tool
-or menu bars. -->
+<chapter id="kapp-features">
+<title>Boolean package features</title>
 
-<sect1 id="kapp-mainwindow">
-<title>The main Test window</title>
-<para></para>
-
-<sect2>
-<title>The File Menu</title>
-<para>
-<variablelist>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>n</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>New</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Creates a new document</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>s</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Save</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Saves the document</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>q</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Quit</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Quits</action> &kapp;</para></listitem>
-</varlistentry>
-</variablelist>
+<para>The Boolean package contains following components:
+<itemizedlist>
+<listitem><para>&BooleanOR;</para></listitem>
+<listitem><para>&BooleanNOR;</para></listitem>
+<listitem><para>&BooleanXOR;</para></listitem>
+<listitem><para>&BooleanXNOR;</para></listitem>
+</itemizedlist>
 </para>
 
-</sect2>
-
-</sect1>
 </chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################            Components         ######################## -->
+<!-- ############################################################################### -->
+
+<chapter id="component">
+<title>Component Reference</title>
+
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Gates        ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-gates-part;
+
+
+
+
+
+
+
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################          Developers           ######################## -->
+<!-- ############################################################################### -->
 
 <chapter id="developers">
-<title>Developer's Guide to Test</title>
+<title>Developer's Guide to the Boolean Package</title>
 
 <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
 used for apps that use plugins or that provide their own scripting hooks
 and/or development libraries. -->
 
-<para>
-Programming &test; plugins is a joy to behold. Just read through the next
-66 pages of API's to learn how!
-</para>
+
+&todo;
+
+
 
 <!-- Use refentries to describe APIs.  Refentries are fairly complicated and you
 should consult the docbook reference for further details. The example below was
@@ -262,6 +245,8 @@ application work. -->
 &reporting.bugs;
 &updating.documentation;
 
+&todo;
+<!--
 <qandaset id="faqlist">
 <qandaentry>
 <question>
@@ -282,6 +267,7 @@ installed.</para>
 </answer>
 </qandaentry>
 </qandaset>
+-->
 </chapter>
 
 <chapter id="credits">
@@ -297,8 +283,10 @@ distribution. -->
 &kapp;
 </para>
 <para>
-Program copyright 1997 John Q. Hacker <email>jqh@kde.org</email>
+Program copyright 2002 Rasmus Diekenbrock &kappmail;
 </para>
+
+<!--
 <para>
 Contributors:
 <itemizedlist>
@@ -308,26 +296,25 @@ Contributors:
 </listitem>
 </itemizedlist>
 </para>
+-->
 
 <para>
-Documentation copyright 1999 George N. Ugnacious <email>gnu@kde.org</email>
+Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
-&underFDL;               <!-- FDL: do not remove. Commercial development should -->
+&underFDL;               <!-- FDL: do not remove. Commercial development should
+ -->
 <!-- replace this with their copyright and either remove it or re-set this.-->
 
-<!-- Determine which license your application is licensed under, 
+<!-- Determine which license your application is licensed under,
      and delete all the remaining licenses below:
 
-     (NOTE:  All documentation are licensed under the FDL, 
+     (NOTE:  All documentation are licensed under the FDL,
      regardless of what license the application uses) -->
 
 &underGPL;        	 <!-- GPL License -->
-&underBSDLicense;        <!-- BSD License -->
-&underArtisticLicense;   <!-- BSD Artistic License -->
-&underX11License;        <!-- X11 License  -->
 
 </chapter>
 
@@ -338,44 +325,29 @@ Documentation copyright 1999 George N. Ugnacious <email>gnu@kde.org</email>
 <title>How to obtain Test</title>
 
 <para>
-&test; is part of the KDE project
-<ulink url="http://www.kde.org">http://www.kde.org</ulink>.
-&test; can be found in the kdeutils package on
-<ulink url="ftp://ftp.kde.org/pub/kde/">ftp://ftp.kde.org/pub/kde/</ulink>, the
-main ftp site of the KDE project. </para>
+The Boolean package can be found on
+<ulink url="http://ksimus.berlios.de">http://ksimus.berlios.de</ulink>, the
+main site of the KSimus project. </para>
+
 </sect1>
 
 <sect1 id="requirements">
 <title>Requirements</title>
 
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport,
-kdelibs, or kdebase.
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
-
 <para>
-In order to successfully use &test;, you need KDE 1.1. Foobar.lib is required
-in order to support the advanced &test; features. &test; uses about 5 megs of
-memory to run, but this may vary depending on your platform and
-configuration.
+In order to successfully use the package boolean, you need the installed KSimus.
 </para>
 
 <para>
-All required libraries as well as &test; itself can be found
-on <ulink url="ftp://ftp.kapp.org">The &test; home page</ulink>.
+KSimus as well as the package Boolean itself can be found
+on <ulink url="http://ksimus.berlios.de">The KSimus home page</ulink>.
 </para>
 
 <!-- For a list of updates, you may refer to the application web site
 or the ChangeLog file, or ... -->
 <para>
 You can find a list of changes at <ulink
-url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
+url="http://ksimus.berlios.de/news.html">http://ksimus.berlios.de/news.html</ulink>.
 </para>
 </sect1>
 
@@ -383,8 +355,8 @@ url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
 <title>Compilation and Installation</title>
 
 <para>
-In order to compile and install KApp on your system, type the following in the base
-directory of the Icon Editor distribution:
+In order to compile and install the Boolean package on your system, type the following in the base
+directory of the distribution:
 <screen width="40">
 <prompt>%</prompt> <userinput>./configure</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -392,11 +364,12 @@ directory of the Icon Editor distribution:
 </screen>
 </para>
 
-<para>Since KApp uses autoconf and automake you should have not trouble compiling it.
+<para>Since the Boolean package uses autoconf and automake you should have not trouble compiling it.
 Should you run into problems please report them to the KDE mailing lists.</para>
 
 </sect1>
 
+<!--
 <sect1 id="configuration">
 <title>Configuration</title>
 
@@ -404,6 +377,7 @@ Should you run into problems please report them to the KDE mailing lists.</para>
 dicer-toaster daemon first, or KApp won't work !</para>
 
 </sect1>
+-->
 
 </appendix>
 

@@ -50,14 +50,18 @@ const ComponentInfo BooleanOrInfo(I18N_NOOP("Boolean OR"),
                                   I18N_NOOP("Boolean/Gates/OR"),
                                   QString::null,
                                   VA_SHEETVIEW,
-                                  create
+                                  create,	
+                                  QString::null,
+                                  "component-boolean-or"
                                   );
 
 const ComponentInfo BooleanNorInfo(I18N_NOOP("Boolean NOR"),
                                    I18N_NOOP("Boolean/Gates/NOR"),
                                    QString::null,
                                    VA_SHEETVIEW,
-                                   create
+                                   create,	
+                                   QString::null,
+                                   "component-boolean-nor"
                                    );
 
 

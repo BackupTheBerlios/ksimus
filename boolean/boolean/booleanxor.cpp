@@ -45,16 +45,20 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 
 const ComponentInfo BooleanXorInfo(I18N_NOOP("Boolean Exclusive OR"),
                                    I18N_NOOP("Boolean/Gates/XOR"),
-                                   QString::null,//"Boolean  Exclusive Or",
+                                   QString::null,
                                    VA_SHEETVIEW,
-                                   create
+                                   create,	
+                                   QString::null,
+                                   "component-boolean-xor"
                                    );
 
 const ComponentInfo BooleanXnorInfo(I18N_NOOP("Boolean Exclusive NOR"),
                                     I18N_NOOP("Boolean/Gates/XNOR"),
-                                    QString::null,//"Boolean  Exclusive Nor",
+                                    QString::null,
                                     VA_SHEETVIEW,
-                                    create
+                                    create,	
+                                    QString::null,
+                                    "component-boolean-xnor"
                                     );
 
 
