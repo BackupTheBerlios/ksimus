@@ -190,9 +190,6 @@ void Boolean1OutView::draw(QPainter * p)
 //###############################################################
 //###############################################################
 
-#define getBoolean1Out()  ((Boolean1Out*) getComponent())
-
-
 Boolean1OutPropertyGeneralWidget::Boolean1OutPropertyGeneralWidget(Boolean1Out * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
@@ -235,8 +232,6 @@ void Boolean1OutPropertyGeneralWidget::defaultPressed()
 
 	m_resetState->setValue(getBoolean1Out()->getResetStateInit());
 }
-
-#undef getBoolean1Out()
 
 //###############################################################
 //###############################################################

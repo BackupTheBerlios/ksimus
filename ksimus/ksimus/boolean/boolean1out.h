@@ -166,6 +166,10 @@ public:
 	  * @ref QToolTip and @ref QWhatsThis. */
 	QLabel * getResetStateBoxLabel() const { return m_resetStateLabel; };
 	
+	Boolean1Out * getBoolean1Out() { return ((Boolean1Out*) getComponent()); };
+
+
+
 protected:
 	KSimBooleanBox * m_resetState;
 	QLabel * m_resetStateLabel;
