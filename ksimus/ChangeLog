@@ -1,3 +1,8 @@
+	27.10.2002
+* Fix: Remove incorrect default parameter which causes gcc 3.2 to fail. Thanks Gerhard und Aurelien.
+* New: Add new command line option 'hidden'.
+* New: Implicit data type convertes. For example now it is possible to connect a boolean output to
+  a floatingpoint input.
 	19.10.2002
 * New: Version 0.3.5-1
 * Fix: The handbook generation failed after update to KDE 3.0.4, libxml2 2.4.25 and libxslt 1.0.21. This is fixed now.

@@ -27,7 +27,7 @@ ldflags=\s      -rdynamic
 path_to_bin_program=ksimus
 
 [General]
-AMChanged=true
+AMChanged=false
 author=Rasmus Diekenbrock
 configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --prefix=/opt/kde2\s
 dir_where_make_will_be_called=
