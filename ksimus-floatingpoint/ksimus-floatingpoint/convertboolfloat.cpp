@@ -29,13 +29,13 @@
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorfloatout.h"
-#include "ksimus/componentinfo.h"
-#include "ksimus/componentlayout.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimdoubleedit.h"
+#include "ksimus/wireproperty.h"
 
 #include "convertboolfloat.h"
 
@@ -81,14 +81,22 @@ const ComponentInfo * getConvertBoolFloatInfo()
 
 
 ConvertBoolFloat::ConvertBoolFloat(CompContainer * container, const ComponentInfo * ci)
-	: Float1Out(container, ci),
+	: Component(container, ci),
 		m_falseValue(DEFAULT_FALSE_VALUE),
-		m_trueValue(DEFAULT_TRUE_VALUE)
+		m_trueValue(DEFAULT_TRUE_VALUE),
+		m_recursionLocked(false)
 {
+	setZeroDelayComponent(true);
+	
 	m_input = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("FloatingPoint-Connector", "Input"));
 	CHECK_PTR(m_input);
+	
+	m_output = new ConnectorFloatOut(this,
+	                                 QString::fromLatin1("Output"),
+	                                 i18n("FloatingPoint-Connector", "Output"));
+	CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -99,24 +107,35 @@ ConvertBoolFloat::ConvertBoolFloat(CompContainer * container, const ComponentInf
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
+void ConvertBoolFloat::reset()
+{
+	Component::reset();
+	
+	m_recursionLocked = false;
+}
+
 /** Executes the simulation of this component */
 void ConvertBoolFloat::calculate()
 {
-	Float1Out::calculate();
+	Component::calculate();
 	
-	if (getInput()->getInput())
+	if (!m_recursionLocked)
 	{
-		setValue(getTrueValue());
-	}
-	else
-	{
-		setValue(getFalseValue());
+		m_recursionLocked = true;
+	
+		double d = getInput()->getInput() ? getTrueValue() : getFalseValue();
+		getOutput()->setOutput(d, false);
+		if (getOutput()->getWireProperty())
+		{
+			getOutput()->getWireProperty()->execute();
+		}
+		m_recursionLocked = false;
 	}
 }
 
 void ConvertBoolFloat::save(KSimData & file) const
 {
-	Float1Out::save(file);
+	Component::save(file);
 	
 	if (getTrueValue() != DEFAULT_TRUE_VALUE)
 	{
@@ -133,7 +152,7 @@ bool ConvertBoolFloat::load(KSimData & file, bool copyLoad)
 	setTrueValue(file.readDoubleNumEntry("True Value", DEFAULT_TRUE_VALUE));
 	setFalseValue(file.readDoubleNumEntry("False Value", DEFAULT_FALSE_VALUE));
 	
-	return Float1Out::load(file, copyLoad);
+	return Component::load(file, copyLoad);
 }
 
 /** Creates the general property page for the property dialog.
@@ -165,19 +184,18 @@ void ConvertBoolFloat::setFalseValue(double value)
 
 
 ConvertBoolFloatView::ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType viewType)
-	: Float1OutView(comp, viewType)
+	: CompView(comp, viewType)
 {
+	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
+	enableConnectorSpacingTop(false);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
+//	enableConnectorSpacingRight(false);
+	
 	enableRotation(true);
 	
-	if (viewType == SHEET_VIEW)
-	{
-		getComponentLayout()->setMinSize(5,3);
-		
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(comp->getInput());
-	
-		getComponentLayout()->updateLayout();
-	}
+	getComponent()->getInput()->setGridPos(0,1);
+	getComponent()->getOutput()->setGridPos(4,1);
 }
 /*ConvertBoolFloatView::~ConvertBoolFloatView()
 {
@@ -185,8 +203,9 @@ ConvertBoolFloatView::ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType vi
 
 void ConvertBoolFloatView::draw(QPainter * p)
 {
-	Float1OutView::draw(p);
+	CompView::draw(p);
 		
+	drawFrame(p);
 	QRect place(getDrawingPlace());
 	p->setPen(QPen(black, 1));
 	p->drawLine(place.bottomLeft()+QPoint(1,0), place.topRight()+QPoint(0,1));
@@ -206,7 +225,7 @@ void ConvertBoolFloatView::draw(QPainter * p)
 //###############################################################
 
 ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(ConvertBoolFloat * comp, QWidget *parent, const char *name)
-	:	Float1OutPropertyGeneralWidget(comp, parent, name)
+	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	QString tip;
 	
@@ -218,8 +237,6 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Sets the value which represents the true level.");
 	addToolTip(tip, m_trueValue, m_trueValueLabel);
 	addWhatsThis(tip, m_trueValue, m_trueValueLabel);
-	
-	
 	
 	
 	m_falseValueLabel = new QLabel(i18n("FloatingPoint", "False Value: "), this, "m_falseValueLabel");
@@ -244,7 +261,7 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
   */
 void ConvertBoolFloatPropertyGeneralWidget::acceptPressed()
 {
-	Float1OutPropertyGeneralWidget::acceptPressed();
+	ComponentPropertyGeneralWidget::acceptPressed();
 	
 	if (getComponent()->getTrueValue() != m_trueValue->value())
 	{
@@ -264,7 +281,7 @@ void ConvertBoolFloatPropertyGeneralWidget::acceptPressed()
   */
 void ConvertBoolFloatPropertyGeneralWidget::defaultPressed()
 {
-	Float1OutPropertyGeneralWidget::defaultPressed();
+	ComponentPropertyGeneralWidget::defaultPressed();
 
 	m_trueValue->setValue(DEFAULT_TRUE_VALUE);
 	m_falseValue->setValue(DEFAULT_FALSE_VALUE);

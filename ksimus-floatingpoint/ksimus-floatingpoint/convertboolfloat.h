@@ -26,14 +26,16 @@
 // KDE-Includes
 
 // Project-Includes
-#include "float1out.h"
-#include "ksimus/ksimtime.h"
 #include "ksimus/componentinfo.h"
+#include "ksimus/component.h"
+#include "ksimus/compview.h"
+#include "ksimus/componentpropertygeneralwidget.h"
 
 // Forward declaration
 class QLabel;
 class KSimDoubleEdit;
 class ConnectorBoolIn;
+class ConnectorFloatOut;
 
 namespace KSimLibFloatingPoint
 {
@@ -52,11 +54,14 @@ const ComponentInfo * getConvertBoolFloatInfo();
   * @author Rasmus Diekenbrock
   */
 
-class ConvertBoolFloat : public KSimLibFloatingPoint::Float1Out
+class ConvertBoolFloat : public Component
 {
 public:
 	/** Constructs the component. */
 	ConvertBoolFloat(CompContainer * container, const ComponentInfo * ci);
+	
+	/** Resets the component state. */
+	virtual void reset();
 	
 	/** Executes the simulation of this component */
 	virtual void calculate();
@@ -67,11 +72,12 @@ public:
 	virtual bool load(KSimData & file, bool copyLoad);
 
 	/** Creates the general property page for the property dialog.
-	  * This function creeates a @ref Boolean1OutPropertyGeneralWidget.
+	  * This function creeates a @ref ConvertBoolFloatPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
-	ConnectorBoolIn * getInput() { return m_input;	};
+	ConnectorBoolIn * getInput() { return m_input; };
+	ConnectorFloatOut * getOutput() { return m_output; };
 	
 	double getFalseValue() const { return m_falseValue; };
 	void setFalseValue(double value);
@@ -82,9 +88,11 @@ public:
 private:
 	
 	ConnectorBoolIn * m_input;
+	ConnectorFloatOut * m_output;
 	
 	double m_falseValue;
 	double m_trueValue;
+	bool m_recursionLocked;
 	
 };
 
@@ -94,7 +102,7 @@ private:
 	*
   * @author Rasmus Diekenbrock
   */
-class ConvertBoolFloatView : public KSimLibFloatingPoint::Float1OutView
+class ConvertBoolFloatView : public CompView
 {
 public:
 	ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType viewType);
@@ -102,7 +110,7 @@ public:
 	
 	virtual void draw(QPainter * p);
 	
-	ConvertBoolFloat* getComponent() { return (ConvertBoolFloat*) Float1OutView::getComponent(); };
+	ConvertBoolFloat* getComponent() { return (ConvertBoolFloat*) CompView::getComponent(); };
 };
 
 //###############################################################
@@ -113,7 +121,7 @@ public:
   */
 
 
-class ConvertBoolFloatPropertyGeneralWidget : public KSimLibFloatingPoint::Float1OutPropertyGeneralWidget
+class ConvertBoolFloatPropertyGeneralWidget : public ComponentPropertyGeneralWidget
 {
 	Q_OBJECT
 

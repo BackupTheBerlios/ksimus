@@ -74,15 +74,21 @@ ExtConnFloatOut::ExtConnFloatOut(CompContainer * container, const ComponentInfo 
 
 void ExtConnFloatOut::calculate()
 {
-//	ExternalConnector::calculate();
-	
-	ConnectorFloatOut * out = (ConnectorFloatOut *)getExternalConn();
-	ConnectorFloatIn * in = (ConnectorFloatIn *)getInternalConn();
-	
-	out->setOutput(in->getInput());
-	if (out->getWireProperty())
+	// Protect against infinite recursion
+	if (!isRecursionLocked())
 	{
-		out->getWireProperty()->execute();
+		setRecursionLocked(true);
+//		ExternalConnector::calculate();
+	
+		ConnectorFloatOut * out = (ConnectorFloatOut *)getExternalConn();
+		ConnectorFloatIn * in = (ConnectorFloatIn *)getInternalConn();
+	
+		out->setOutput(in->getInput(), false);
+		if (out->getWireProperty())
+		{
+			out->getWireProperty()->execute();
+		}
+		setRecursionLocked(false);
 	}
 }
 //###############################################################

@@ -26,12 +26,16 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/boolean1out.h"
+#include "ksimus/componentinfo.h"
+#include "ksimus/component.h"
+#include "ksimus/compview.h"
+#include "ksimus/componentpropertygeneralwidget.h"
 
 
 
 // Forward declaration
 class ConnectorFloatIn;
+class ConnectorBoolOut;
 class QLabel;
 class KSimDoubleEdit;
 
@@ -47,7 +51,7 @@ const ComponentInfo * getConvertFloatBoolInfo();
   *@author Rasmus Diekenbrock
   */
 
-class ConvertFloatBool : public Boolean1Out
+class ConvertFloatBool : public Component
 {
 
 	Q_OBJECT
@@ -57,6 +61,9 @@ public:
 	  */
 	ConvertFloatBool(CompContainer * container, const ComponentInfo * ci);
 //	~ConvertFloatBool();
+	
+	/** Resets the component state. */
+	virtual void reset();
 	
 	/** Executes the simulation of this component */
 	virtual void calculate();
@@ -71,7 +78,8 @@ public:
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
-	ConnectorFloatIn * getInput() { return m_input;	};
+	ConnectorFloatIn * getInput() { return m_input; };
+	ConnectorBoolOut * getOutput() { return m_output; };
 	
 	double getFalseThreshold() const { return m_falseThreshold; };
 	void setFalseThreshold(double limit);
@@ -84,9 +92,11 @@ public:
 protected:
 
 	ConnectorFloatIn * m_input;
+	ConnectorBoolOut * m_output;
 	
 	double m_falseThreshold;
 	double m_trueThreshold;
+	bool m_recursionLocked;
 		
 };
 
@@ -98,7 +108,7 @@ protected:
   */
 
 
-class ConvertFloatBoolView : public Boolean1OutView
+class ConvertFloatBoolView : public CompView
 {
 
 	Q_OBJECT
@@ -109,7 +119,7 @@ public:
 	
 	virtual void draw(QPainter * p);
 	
-	ConvertFloatBool* getComponent() { return (ConvertFloatBool*) Boolean1OutView::getComponent(); };
+	ConvertFloatBool* getComponent() { return (ConvertFloatBool*) CompView::getComponent(); };
 
 protected:
 	
@@ -125,7 +135,7 @@ private:
   */
 
 
-class ConvertFloatBoolPropertyGeneralWidget : public Boolean1OutPropertyGeneralWidget
+class ConvertFloatBoolPropertyGeneralWidget : public ComponentPropertyGeneralWidget
 {
 	Q_OBJECT
 
@@ -142,7 +152,7 @@ public:
 	 */
 	virtual void defaultPressed();
 
-	ConvertFloatBool* getComponent() { return (ConvertFloatBool*) Boolean1OutPropertyGeneralWidget::getComponent(); };
+	ConvertFloatBool* getComponent() { return (ConvertFloatBool*) ComponentPropertyGeneralWidget::getComponent(); };
 	
 	
 protected:

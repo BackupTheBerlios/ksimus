@@ -27,13 +27,13 @@
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/componentinfo.h"
-#include "ksimus/componentlayout.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimdoubleedit.h"
+#include "ksimus/wireproperty.h"
 #include "convertfloatbool.h"
 
 // Forward declaration
@@ -71,15 +71,23 @@ const ComponentInfo * getConvertFloatBoolInfo()
 
 
 ConvertFloatBool::ConvertFloatBool(CompContainer * container, const ComponentInfo * ci)
-	: Boolean1Out(container, ci),
+	: Component(container, ci),
 		m_falseThreshold(DEFAULT_FALSE_THRESHOLD),
-		m_trueThreshold(DEFAULT_TRUE_THRESHOLD)
+		m_trueThreshold(DEFAULT_TRUE_THRESHOLD),
+		m_recursionLocked(false)
 	
 {
+	setZeroDelayComponent(true);
+	
 	m_input = new ConnectorFloatIn(this,
-	                             QString::fromLatin1("Input"),
-	                             i18n("FloatingPoint-Connector", "Input"));
+	                               QString::fromLatin1("Input"),
+	                               i18n("FloatingPoint-Connector", "Input"));
 	CHECK_PTR(m_input);
+	
+	m_output = new ConnectorBoolOut(this,
+	                                QString::fromLatin1("Output"),
+	                                i18n("FloatingPoint-Connector", "Output"));
+	CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -94,42 +102,61 @@ ConvertFloatBool::ConvertFloatBool(CompContainer * container, const ComponentInf
 {
 } */
 
+void ConvertFloatBool::reset()
+{
+	Component::reset();
+	
+	m_recursionLocked = false;
+}
+
 void ConvertFloatBool::calculate()
 {
-	Boolean1Out::calculate();
-
-	bool state = getState();
-	double input = getInput()->getInput();
-	
-	if (getFalseThreshold() <= getTrueThreshold())
+	if (!m_recursionLocked)
 	{
-		if(input >= getTrueThreshold())
+		Component::calculate();
+		
+		bool state, oldState;
+		state = oldState = getOutput()->getOutput();
+		double input = getInput()->getInput();
+		
+		if (getFalseThreshold() <= getTrueThreshold())
 		{
-			state = true;
+			if(input >= getTrueThreshold())
+			{
+				state = true;
+			}
+			else if(input <= getFalseThreshold())
+			{
+				state = false;
+			}
 		}
-		else if(input <= getFalseThreshold())
+		else
 		{
-			state = false;
+			if(input <= getTrueThreshold())
+			{
+				state = true;
+			}
+			else if(input >= getFalseThreshold())
+			{
+				state = false;
+			}
+		}
+		if (state != oldState)
+		{
+			m_recursionLocked = true;
+			getOutput()->setOutput(state, false);
+			if (getOutput()->getWireProperty())
+			{
+				getOutput()->getWireProperty()->execute();
+			}
+			m_recursionLocked = false;
 		}
 	}
-	else
-	{
-		if(input <= getTrueThreshold())
-		{
-			state = true;
-		}
-		else if(input >= getFalseThreshold())
-		{
-			state = false;
-		}
-	}
-	
-	setState(state);
 }
 
 void ConvertFloatBool::save(KSimData & file) const
 {
-	Boolean1Out::save(file);
+	Component::save(file);
 	
 	if (getTrueThreshold() != DEFAULT_TRUE_THRESHOLD)
 	{
@@ -146,7 +173,7 @@ bool ConvertFloatBool::load(KSimData & file, bool copyLoad)
 	setTrueThreshold(file.readDoubleNumEntry("True Threshold", DEFAULT_TRUE_THRESHOLD));
 	setFalseThreshold(file.readDoubleNumEntry("False Threshold", DEFAULT_FALSE_THRESHOLD));
 	
-	return Boolean1Out::load(file, copyLoad);
+	return Component::load(file, copyLoad);
 }
 
 void ConvertFloatBool::setFalseThreshold(double limit)
@@ -179,19 +206,18 @@ ComponentPropertyBaseWidget * ConvertFloatBool::createGeneralProperty(QWidget *p
 
 
 ConvertFloatBoolView::ConvertFloatBoolView(ConvertFloatBool * comp, eViewType viewType)
-	: Boolean1OutView(comp, viewType)
+	: CompView(comp, viewType)
 {
+	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
+	enableConnectorSpacingTop(false);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
+//	enableConnectorSpacingRight(false);
+	
 	enableRotation(true);
 	
-	if (viewType == SHEET_VIEW)
-	{
-		getComponentLayout()->setMinSize(5,3);
-		
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(comp->getInput());
-	
-		getComponentLayout()->updateLayout();
-	}
+	getComponent()->getInput()->setGridPos(0,1);
+	getComponent()->getOutput()->setGridPos(4,1);
 }
 /*ConvertFloatBoolView::~ConvertFloatBoolView()
 {
@@ -199,8 +225,9 @@ ConvertFloatBoolView::ConvertFloatBoolView(ConvertFloatBool * comp, eViewType vi
 
 void ConvertFloatBoolView::draw(QPainter * p)
 {
-	Boolean1OutView::draw(p);
-		
+	CompView::draw(p);
+	
+	drawFrame(p);
 	QRect place(getDrawingPlace());
 	p->setPen(QPen(black, 1));
 	p->drawLine(place.bottomLeft()+QPoint(1,0), place.topRight()+QPoint(0,1));
@@ -208,7 +235,7 @@ void ConvertFloatBoolView::draw(QPainter * p)
 	if(getRotation() != 0)
 	{
 		int yMid = place.top() + place.bottom() / 2;
-	
+		
 		p->drawLine(QPoint(place.left()+4, yMid) , QPoint(place.right()-4, yMid));
 		p->drawLine(QPoint(place.right()-8, yMid-3) , QPoint(place.right()-4, yMid));
 		p->drawLine(QPoint(place.right()-8, yMid+3) , QPoint(place.right()-4, yMid));
@@ -221,7 +248,7 @@ void ConvertFloatBoolView::draw(QPainter * p)
 
 
 ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(ConvertFloatBool * comp, QWidget *parent, const char *name)
-	:	Boolean1OutPropertyGeneralWidget(comp, parent, name)
+	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	QString tip;
 	
@@ -284,7 +311,7 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
   */
 void ConvertFloatBoolPropertyGeneralWidget::acceptPressed()
 {
-	Boolean1OutPropertyGeneralWidget::acceptPressed();
+	ComponentPropertyGeneralWidget::acceptPressed();
 	
 	if (getComponent()->getTrueThreshold() != m_trueThreshold->value())
 	{
@@ -304,7 +331,7 @@ void ConvertFloatBoolPropertyGeneralWidget::acceptPressed()
   */
 void ConvertFloatBoolPropertyGeneralWidget::defaultPressed()
 {
-	Boolean1OutPropertyGeneralWidget::defaultPressed();
+	ComponentPropertyGeneralWidget::defaultPressed();
 
 	m_trueThreshold->setValue(DEFAULT_TRUE_THRESHOLD);
 	m_falseThreshold->setValue(DEFAULT_FALSE_THRESHOLD);
