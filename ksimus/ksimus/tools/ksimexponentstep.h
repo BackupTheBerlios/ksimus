@@ -30,7 +30,6 @@
 // Project-Includes
 
 // Forward declaration
-class KSimExponentStepPrivate;
 
 
 /**	Adjust double values to exponential steps.
@@ -62,6 +61,7 @@ class KSimExponentStepPrivate;
 
 class KSimExponentStep
 {
+class Private;
 public:
 	/** Creates an object with the base 10.0 and without any steps.
 	*/
@@ -129,7 +129,7 @@ private:
 	double convert(tParts & part)const;
 	
 	/** For internal use. */
-	KSimExponentStepPrivate * m_p;
+	Private * m_p;
 };
 
 #endif

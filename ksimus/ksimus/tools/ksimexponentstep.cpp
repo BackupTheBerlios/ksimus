@@ -50,10 +50,10 @@
 //#############################################################
 //#############################################################
 
-class KSimExponentStepPrivate
+class KSimExponentStep::Private
 {
 	public:
-	KSimExponentStepPrivate(double newBase)
+	Private(double newBase)
 		:	base(newBase)
 	{};
 	
@@ -73,7 +73,7 @@ class KSimExponentStepPrivate
 
 KSimExponentStep::KSimExponentStep()
 {
-	m_p = new KSimExponentStepPrivate(10.0);
+	m_p = new Private(10.0);
 	CHECK_PTR(m_p);
 	m_p->list.append(1.0);
 	m_p->list.append(2.0);
