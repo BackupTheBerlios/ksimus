@@ -1,11 +1,2 @@
-####### kdevelop will overwrite this part!!! (begin)##########
-
-
-EXTRA_DIST = index.docbook 
-
-####### kdevelop will overwrite this part!!! (end)############
-
+KDE_DOCS = ksimus-integer
 KDE_LANG = en
-KDE_DOCS = ksimusavr
-
-
