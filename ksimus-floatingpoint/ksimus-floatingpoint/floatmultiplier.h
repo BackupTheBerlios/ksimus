@@ -25,11 +25,12 @@
 // KDE-Includes
 
 // Project-Includes
-#include "floatxin1out.h"
+#include "float1out.h"
 #include "ksimus/componentinfo.h"
 
 
 // Forward declaration
+class ConnectorPack;
 
 namespace KSimLibFloatingPoint
 {
@@ -44,13 +45,20 @@ const ComponentInfo * getFloatMultiplierInfo();
   * @author Rasmus Diekenbrock
   */
 
-class FloatMultiplier : public FloatXIn1Out
+class FloatMultiplier : public Float1Out
 {
 public:
 	/** Constructs a floating point multiplier */
 	FloatMultiplier(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
+	
+	/** Returns the input connector pack.
+	  */
+	ConnectorPack * getInputConnectorPack() const { return m_inPack; };
+
+private:
+	ConnectorPack * m_inPack;
 
 };
 
@@ -60,11 +68,10 @@ public:
 	*
   * @author Rasmus Diekenbrock
   */
-class FloatMultiplierView : public FloatXIn1OutView
+class FloatMultiplierView : public Float1OutView
 {
 public:
-	FloatMultiplierView(FloatMultiplier * comp, eViewType viewType)
-		: FloatXIn1OutView(comp, viewType) {};
+	FloatMultiplierView(FloatMultiplier * comp, eViewType viewType);
 	
 	virtual void draw(QPainter * p);
 };

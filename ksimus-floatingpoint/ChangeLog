@@ -1,5 +1,7 @@
+	13.07.2002
+* Fix: Document incompatibility in component Adder and Multiplier caused in a change from 21.04.02
 	26.06.2002
-* Change: The converters and exeternal connectors have zero delay now.
+* Change: The converters and external connectors have zero delay now.
 * New: Component Delay.
 	18.06.2002
 * Change: use class OptionalConnector for optional connectors.

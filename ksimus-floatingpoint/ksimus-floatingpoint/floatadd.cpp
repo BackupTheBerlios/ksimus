@@ -27,6 +27,7 @@
 #include "floatadd.h"
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorpack.h"
+#include "ksimus/componentlayout.h"
 
 // Forward declaration
 
@@ -62,9 +63,21 @@ const ComponentInfo * getFloatAddInfo()
 //###############################################################
 
 
+FloatAddView::FloatAddView(FloatAdd * comp, eViewType viewType)
+	: Float1OutView(comp, viewType)
+{
+	if (viewType == SHEET_VIEW)
+	{
+		getComponentLayout()->getLeft()->addSpace(1);
+		getComponentLayout()->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+	
+		getComponentLayout()->updateLayout();
+	}
+}
+
 void FloatAddView::draw(QPainter * p)
 {
-	FloatXIn1OutView::draw(p);
+	Float1OutView::draw(p);
 	
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
@@ -76,22 +89,30 @@ void FloatAddView::draw(QPainter * p)
 //###############################################################
 
 FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
-	: FloatXIn1Out(container, ci)
+	: Float1Out(container, ci)
 {
+	
+	m_inPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Summand"),
+	                             i18n("Connector", "Summand %1"),
+	                             getConnectorFloatInInfo(),
+	                             2, 10);
+	CHECK_PTR(m_inPack);
+	m_inPack->setConnectorCount(2);
+	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
 		new FloatAddView(this, SHEET_VIEW);
 	}
 
-	getInputConnectorPack()->setConnectorName(i18n("FloatingPoint", "Summand %1"));
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
 void FloatAdd::calculate()
 {
-	FloatXIn1Out::calculate();
+	Float1Out::calculate();
 	
 	double result = 0.0;
 	

@@ -28,6 +28,7 @@
 #include "ksimus/resource.h"
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorpack.h"
+#include "ksimus/componentlayout.h"
 
 // Forward declaration
 
@@ -63,9 +64,21 @@ const ComponentInfo * getFloatMultiplierInfo()
 //###############################################################
 
 
+FloatMultiplierView::FloatMultiplierView(FloatMultiplier * comp, eViewType viewType)
+	: Float1OutView(comp, viewType)
+{
+	if (viewType == SHEET_VIEW)
+	{
+		getComponentLayout()->getLeft()->addSpace(1);
+		getComponentLayout()->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+	
+		getComponentLayout()->updateLayout();
+	}
+}
+
 void FloatMultiplierView::draw(QPainter * p)
 {
-	FloatXIn1OutView::draw(p);
+	Float1OutView::draw(p);
 	
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
@@ -77,22 +90,30 @@ void FloatMultiplierView::draw(QPainter * p)
 //###############################################################
 
 FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo * ci)
-	: FloatXIn1Out(container, ci)
+	: Float1Out(container, ci)
 {
+	
+	m_inPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Factor"),
+	                             i18n("Connector", "Factor %1"),
+	                             getConnectorFloatInInfo(),
+	                             2, 10);
+	CHECK_PTR(m_inPack);
+	m_inPack->setConnectorCount(2);
+	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
 		new FloatMultiplierView(this, SHEET_VIEW);
 	}
 
-	getInputConnectorPack()->setConnectorName(i18n("FloatingPoint", "Factor %1"));
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
 void FloatMultiplier::calculate()
 {
-	FloatXIn1Out::calculate();
+	Float1Out::calculate();
 	
 	double result = 1.0;
 	

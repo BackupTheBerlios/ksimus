@@ -25,14 +25,15 @@
 // KDE-Includes
 
 // Project-Includes
-#include "floatxin1out.h"
+#include "float1out.h"
 #include "ksimus/componentinfo.h"
 
 
+// Forward declaration
+class ConnectorPack;
+
 namespace KSimLibFloatingPoint
 {
-
-// Forward declaration
 
 const ComponentInfo * getFloatAddInfo();
 
@@ -44,14 +45,20 @@ const ComponentInfo * getFloatAddInfo();
   * @author Rasmus Diekenbrock
   */
 
-class FloatAdd : public FloatXIn1Out
+class FloatAdd : public Float1Out
 {
 public:
 	/** Constructs a floating point ADD */
 	FloatAdd(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
+	
+	/** Returns the input connector pack.
+	  */
+	ConnectorPack * getInputConnectorPack() const { return m_inPack; };
 
+private:
+	ConnectorPack * m_inPack;
 };
 
 //###############################################################
@@ -60,11 +67,10 @@ public:
 	*
   * @author Rasmus Diekenbrock
   */
-class FloatAddView : public FloatXIn1OutView
+class FloatAddView : public Float1OutView
 {
 public:
-	FloatAddView(FloatAdd * comp, eViewType viewType)
-		: FloatXIn1OutView(comp, viewType) {};
+	FloatAddView(FloatAdd * comp, eViewType viewType);
 	
 	virtual void draw(QPainter * p);
 };
