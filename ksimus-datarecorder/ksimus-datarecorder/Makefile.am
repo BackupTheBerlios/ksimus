@@ -2,23 +2,21 @@
 lib_LTLIBRARIES = libksimus-datarecorder.la
 
 
-INCLUDES = $(all_includes)
+## INCLUDES were found outside kdevelop specific part
 
 
-LDFLAGS = -shared
+LDFLAGS =  -shared
+
+libksimus_datarecorder_la_METASOURCES = AUTO
 
 
 LDADD = 
 
-
+libksimus_datarecorder_la_SOURCES = textrec.cpp datarecorderchannelfloat.cpp zoomwidget.cpp widgetcontrolbutton.cpp channelpositionwidget.cpp datarecorderchannelboolean.cpp datarecorderwidget.cpp datarecorderview.cpp datarecorderdataview.cpp datarecorderchannelbase.cpp datarecorder.cpp 
 libksimus_datarecorder_la_LIBADD = 
 
+libksimus_datarecorder_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
 
-libksimus_datarecorder_la_LDFLAGS = -avoid-version -module -no-undefined
-
-libksimus_datarecorder_la_METASOURCES = AUTO
-
-libksimus_datarecorder_la_SOURCES = textrec.cpp datarecorderchannelfloat.cpp zoomwidget.cpp widgetcontrolbutton.cpp channelpositionwidget.cpp datarecorderchannelboolean.cpp datarecorderwidget.cpp datarecorderview.cpp datarecorderdataview.cpp datarecorderchannelbase.cpp datarecorder.cpp 
 
 
 EXTRA_DIST = datarecorder.cpp datarecorder.h datarecorderchannelbase.cpp datarecorderchannelbase.h datarecorderdataview.cpp datarecorderdataview.h datarecorderview.cpp datarecorderview.h datarecorderwidget.cpp datarecorderwidget.h datarecorderchannelboolean.cpp datarecorderchannelboolean.h channelpositionwidget.cpp channelpositionwidget.h widgetcontrolbutton.cpp widgetcontrolbutton.h zoomwidget.cpp zoomwidget.h datarecorderchannelfloat.cpp datarecorderchannelfloat.h textrec.cpp textrec.h 
