@@ -57,7 +57,7 @@ KSimBoolTriState KSimBoolTriState::convert(const char * state, KSimBoolTriState 
 
 QString KSimBoolTriState::text() const
 {
-	return convert(m_value);
+	return QString::fromLatin1(convert(m_value));
 }
 
 void KSimBoolTriState::setText(const QString & text, bool * ok)

@@ -475,8 +475,8 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	                                    "<tr><td><b> &gt </b></td><td> Trigger if the number of active connectors is larger.</td></tr>"
 	                                    "<tr><td><b> Don't care </b></td><td> The number of active connectors causes no trigger.</td></tr></table>"));
 
-	static QString preP("<p>");
-	static QString postP("</p>");
+	static QString preP(QString::fromLatin1("<p>"));
+	static QString postP(QString::fromLatin1("</p>"));
 	
 	// ####################    Input State     ####################
 	// ####################          t         ####################
