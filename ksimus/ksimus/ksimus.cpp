@@ -295,6 +295,7 @@ void KSimusApp::initActions()
 	settingModuleFiles  = new KAction(i18n("&Module Files"), 0, this, SLOT(slotSettingModuleFiles()), actionCollection(), "setting_moduleFiles");
 	settingWatchWidget  = new KAction(i18n("&Watch"), 0, this, SLOT(slotSettingWatchWidget()), actionCollection(), "setting_watchWidget");
 	settingLogWidget  = new KAction(i18n("&Log View Properties"), 0, this, SLOT(slotSettingLogWidget()), actionCollection(), "setting_logWidget");
+	settingIoDevices  = new KAction(i18n("&IO Devices"), 0, this, SLOT(slotSettingIoDevices()), actionCollection(), "setting_ioDevices");
 	
 	
 	executeReset = new KAction(i18n("&Reset"), 0, this, SLOT(slotExecuteReset()), actionCollection(), "execute_reset");
@@ -321,7 +322,7 @@ void KSimusApp::initActions()
 	}
 	
 
-	testAction = new KAction(i18n("Test &Action"), QString::null, 0, this, SLOT(slotTestAction()), actionCollection(),"test_action");
+//	testAction = new KAction(i18n("Test &Action"), QString::null, 0, this, SLOT(slotTestAction()), actionCollection(),"test_action");
 
 	fileNewWindow->setToolTip(i18n("Opens a new application window"));
 	fileNew->setToolTip(i18n("Creates a new document"));
@@ -363,7 +364,8 @@ void KSimusApp::initActions()
 	settingModuleFiles->setToolTip(i18n("Select modules"));
 	settingWatchWidget->setToolTip(i18n("General watch settings"));
 	settingLogWidget->setToolTip(i18n("Log Window Properties"));
-
+	settingIoDevices->setToolTip(i18n("Add or remove IO devices or change properties"));
+	
 	if (helpPackages)
 	{
 		helpPackages->setToolTip(i18n("Package handbooks"));
@@ -1152,7 +1154,6 @@ void KSimusApp::slotSettingWatchWidget()
 	connect(dia, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
 	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
 	connect(dia, SIGNAL(cancelClicked()), wid, SLOT(slotCancel()));
-//	connect(wid, SIGNAL(signalChangeData()), dia, SLOT(slotDataChanged()));
 	dia->exec();
 
 
@@ -1185,6 +1186,15 @@ void KSimusApp::slotSettingLogWidget()
 	slotStatusMsg(i18n("Ready."));
 }
 
+
+void KSimusApp::slotSettingIoDevices()
+{
+	slotStatusMsg(i18n("IO Device Setting..."));
+
+	KSimIoDeviceOverviewWidget::executeDialog(this, "KSimIoDeviceOverviewWidget");
+
+	slotStatusMsg(i18n("Ready."));
+}
 
 void KSimusApp::slotExecuteReset()
 {
@@ -1333,8 +1343,6 @@ void KSimusApp::slotTestAction()
 {
 	slotStatusMsg(i18n("Test Action..."));
 	
-	KSimIoDeviceOverviewWidget::executeDialog(this, "KSimIoDeviceOverviewWidget");
-
 	slotStatusMsg(i18n("Ready."));
 }
 

@@ -36,7 +36,7 @@
     <Action name="setting_moduleFiles"/>
     <Action name="setting_watchWidget"/>
     <Action name="setting_logWidget"/>
-    <Action name="setting_ioConfWidget"/>
+    <Action name="setting_ioDevices"/>
   </Menu>
 
   <Menu name="help" noMerge="1"><text>&amp;Help</text>

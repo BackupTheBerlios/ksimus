@@ -44,6 +44,8 @@ class CompView;
 class CompViewList;
 class KSimTimeServer;
 class WatchWidget;
+class KSimIoDevice;
+class KSimIoDeviceList;
 
 /**
   *@author Rasmus Diekenbrock
@@ -211,6 +213,11 @@ public:
 	*/
 	unsigned int getComponentNumber() const;
 
+	bool registerIoDevice(KSimIoDevice * device);
+	bool unregisterIoDevice(KSimIoDevice * device);
+	KSimIoDeviceList * getIoDeviceList(); // Do not remove or add devices!!!
+	const KSimIoDeviceList * getIoDeviceList() const;
+
 
 protected:
 	/** Used for creating unique Component Numbers */
@@ -233,7 +240,7 @@ protected:
 	QSize userSize;
 	/** Used for module view */
 	ModuleData * moduleData;
-	
+
 	/** Inserts a component to the component list
 		Sort components:
 		1. Groups
@@ -267,6 +274,11 @@ protected:
 	void undoReload(Component * comp);
 	
 
+private:
+	class Private;
+	Private * m_p;
+
+	
 signals:
 	void signalDelete(Component * comp);
 	void signalAdd(Component * comp);

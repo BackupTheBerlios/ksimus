@@ -632,7 +632,7 @@ bool KSimusDoc::simulationCheckCirciut()
 	errorCounter = getContainer()->checkCircuit();
 
 	QStringList errorMsg;
-	KSimIoDeviceList::getList()->checkCircuit(this, errorMsg);
+	getContainer()->getIoDeviceList()->checkCircuit(this, errorMsg);
 	if (errorMsg.count())
 	{
 		errorCounter += errorMsg.count();

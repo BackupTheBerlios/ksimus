@@ -20,6 +20,7 @@
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qprogressdialog.h>
+#include <qmap.h>
 
 #include <klocale.h>
 
@@ -50,6 +51,10 @@
 
 #include "ksimgrid.h"
 
+#include "ksimiodevice.h"
+#include "ksimiodevicelist.h"
+
+
 static const char * const sPropertyGrp    = "Property/";
 static const char * const sModuleGrp      = "Module/";
 //static const char * const sRequirementGrp = "Requirement/";
@@ -59,10 +64,30 @@ static const char * const sSerialNumber   = "Last Serial Number";
 
 class WirePropertyInfo;
 
+
+class CompContainer::Private
+{
+public:
+	Private()
+	{};
+
+	QMap<KSimIoDevice *, unsigned int> ioDeviceMap;
+	KSimIoDeviceList ioDeviceList;
+};
+
+
+
+
+
+
+
 CompContainer::CompContainer(KSimusDoc * parent)
 	:	QObject(parent),
 		m_lastSerialNumber(0)
 {
+	m_p = new Private;
+	CHECK_PTR(m_p);
+	
 	docParent = true;
 	myParent.doc = parent;
 	
@@ -114,6 +139,9 @@ CompContainer::CompContainer(Component * parent)
 	:	QObject(parent),
 		m_lastSerialNumber(0)
 {
+	m_p = new Private;
+	CHECK_PTR(m_p);
+
 	docParent = false;
 	myParent.comp = parent;
 	
@@ -176,6 +204,7 @@ CompContainer::~CompContainer()
 	delete sheetViews;
 	delete userViews;
 	delete moduleData;
+	delete m_p;
 }
 	
 /** Returns a pointer to the document */
@@ -1736,3 +1765,91 @@ unsigned int CompContainer::getComponentNumber() const
 	return no;
 }
 
+bool CompContainer::registerIoDevice(KSimIoDevice * device)
+{
+	ASSERT(device != 0);
+
+	if (isParentDoc())
+	{
+		QMap<KSimIoDevice *, unsigned int>::Iterator it = m_p->ioDeviceMap.find(device);
+		if (it == m_p->ioDeviceMap.end())
+		{
+			// Not in list, append it
+			m_p->ioDeviceMap.insert(device, 1);
+			m_p->ioDeviceList.append(device);
+			KSIMDEBUG_VAR("Add device to device list", device->getName());
+		}
+		else
+		{
+			// increase counter
+			(*it)++;
+			KSIMDEBUG(QString::fromLatin1("Add device instance %1 %2").arg(device->getName()).arg(*it));
+		}
+		return true;
+	}
+	else
+	{
+		return getParentComponent()->getContainer()->registerIoDevice(device);
+	}
+}
+
+bool CompContainer::unregisterIoDevice(KSimIoDevice * device)
+{
+	ASSERT(device != 0);
+	
+	if (isParentDoc())
+	{
+		QMap<KSimIoDevice *, unsigned int>::Iterator it = m_p->ioDeviceMap.find(device);
+		if (it == m_p->ioDeviceMap.end())
+		{
+			// Not in list, error
+			KSIMDEBUG_VAR("Device not in device map", device->getName());
+			return false;
+		}
+		else
+		{
+			// decrease counter
+			(*it)--;
+			if (*it == 0)
+			{
+				// Last used removed ==> remove device from list and map
+				m_p->ioDeviceMap.remove(it);
+				m_p->ioDeviceList.remove(device);
+				KSIMDEBUG_VAR("Remove device from device list", device->getName());
+			}
+			else
+			{
+				KSIMDEBUG(QString::fromLatin1("Remove device instance %1 %2").arg(device->getName()).arg(*it));
+			}
+		}
+		return true;
+	}
+	else
+	{
+		return getParentComponent()->getContainer()->unregisterIoDevice(device);
+	}
+}
+
+KSimIoDeviceList * CompContainer::getIoDeviceList()
+{
+	if (isParentDoc())
+	{
+		return &m_p->ioDeviceList;
+	}
+	else
+	{
+		return getParentComponent()->getContainer()->getIoDeviceList();
+	}
+}
+
+const KSimIoDeviceList * CompContainer::getIoDeviceList() const
+{
+	if (isParentDoc())
+	{
+		return &m_p->ioDeviceList;
+	}
+	else
+	{
+		return getParentComponent()->getContainer()->getIoDeviceList();
+	}
+}
