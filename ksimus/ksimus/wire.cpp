@@ -226,7 +226,7 @@ Wire::Wire(CompContainer * container, const ComponentInfo * ci)
 {
 	m_isWire = true;
 	new WireSV(this);
-//	getConnList()->setAutoDelete (false);
+	getConnList()->setAutoDelete (false);
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
 
