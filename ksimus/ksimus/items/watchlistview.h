@@ -29,6 +29,7 @@
 // Project-Includes
 
 // Forward declaration
+class WatchWidget;
 
 /**The view for the watch list.
   *@author Rasmus Diekenbrock
@@ -38,11 +39,11 @@ class WatchListView : public QListView
 {
    Q_OBJECT
 public: 
-	WatchListView(QWidget *parent=0, const char *name=0);
+	WatchListView(WatchWidget * watchWidget, QWidget *parent=0, const char *name=0);
 	~WatchListView();
 	
 	/** Counts the selected items. */
-	unsigned int countSelected() const;
+	int countSelected() const;
 
 	/** Returns a pixmap which pictures a watch thats breaks the simulation. */
 	static QPixmap getPixmapBreaked();
@@ -50,12 +51,25 @@ public:
 private slots:
 	void slotRightButtonPressed(QListViewItem * lvi, const QPoint & pos, int cloumn);
 	void slotCurrentChanged(QListViewItem * lvi);
+	void slotDoubleClicked(QListViewItem * lvi);
 
 private:
 	void deleteSelected() const;
 	void deleteAll() const;
 	void enableBreakSelected(bool ena) const;
 	void enableBreakAll(bool ena) const;
+	void generalPropertyDialog();
+
+	WatchWidget * m_watchWidget;
+
+/*	int idDelete;
+	int idDeleteAll;
+	int idEnableBreak;
+	int idEnableBreakSelected;
+	int idDisableBreakSelected;
+	int idDisableBreakAll;
+	int idPropertyDialog;
+	int idGeneralPropertyDialog;*/
 };
 
 #endif

@@ -113,7 +113,7 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 		#else
 			m_fileHandle = lt_dlopenext(getFilename());
 		#endif
-		//KSIMDEBUG_VAR("",getFilename());
+		//KSIMDEBUG_VAR("", getFilename());
 		if (m_fileHandle == 0)
 		{
 			#ifdef USE_DLFCN

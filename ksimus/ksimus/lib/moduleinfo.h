@@ -30,16 +30,16 @@
 class ModuleInfo : public ComponentInfo
 {
 public: 
-	ModuleInfo(			const QString & moduleFile,
-									const QString & name,
-									const QString & libName,
-									const QString & additionalLibNames,
-									ViewAttribute viewAttr,
-									const QString & shortDescr = QString::null,
-									const QString & HTMLDescr = QString::null,
-									const QString & oldLibNames = QString::null );
+	ModuleInfo( const QString & moduleFile,
+	            const QString & name,
+	            const QString & libName,
+	            const QString & additionalLibNames,
+	            ViewAttribute viewAttr,
+	            const QString & shortDescr = QString::null,
+	            const QString & HTMLDescr = QString::null,
+	            const QString & oldLibNames = QString::null );
 	~ModuleInfo();
-  const QString & getModuleFile() const;
+	const QString & getModuleFile() const;
 
 private:
 

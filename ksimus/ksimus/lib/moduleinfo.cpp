@@ -23,16 +23,16 @@
 
 static Component * moduleInfoFactory(CompContainer * container, const ComponentInfo * ci);
 
-ModuleInfo::ModuleInfo(			const QString & moduleFile,
-														const QString & name,
-														const QString & libName,
-														const QString & additionalLibNames,
-														ViewAttribute viewAttr,
-														const QString & shortDescr,
-														const QString & HTMLDescr,
-														const QString & oldLibNames)
+ModuleInfo::ModuleInfo( const QString & moduleFile,
+                        const QString & name,
+                        const QString & libName,
+                        const QString & additionalLibNames,
+                        ViewAttribute viewAttr,
+                        const QString & shortDescr,
+                        const QString & HTMLDescr,
+                        const QString & oldLibNames)
 	: ComponentInfo(name, libName, libName, additionalLibNames, viewAttr, moduleInfoFactory,
-									shortDescr, HTMLDescr, oldLibNames),
+	                shortDescr, HTMLDescr, oldLibNames),
 		m_moduleFile(moduleFile)
 {
 }

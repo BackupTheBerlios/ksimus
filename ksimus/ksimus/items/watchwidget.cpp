@@ -96,7 +96,7 @@ WatchWidget::WatchWidget(KSimusApp * app, QWidget *parent, const char *name )
 
 	setSpacing(KDialog::spacingHint());
 
-	m_watchListView = new WatchListView(this, "WatchListView");
+	m_watchListView = new WatchListView(this, this, "WatchListView");
 	CHECK_PTR(m_watchListView);
 
 	// Button row

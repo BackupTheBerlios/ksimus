@@ -43,6 +43,11 @@ public:
 			m_falseCount(0)
 	{};
 	
+	WireStateBoolTristate(unsigned int trueCount, unsigned int falseCount)
+		: m_trueCount(trueCount),
+			m_falseCount(falseCount)
+	{};
+
 //	~WireStateBoolTristate();
 
 	void set(unsigned int trueCount, unsigned int falseCount);

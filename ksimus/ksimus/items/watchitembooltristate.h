@@ -43,8 +43,8 @@ class WatchItemBoolTristateBase : public WatchItemBase
 {
 class StatePropertyWidget;
 class ActivePropertyWidget;
-enum eStateProperty { eInactive, eFalse, eTrue, eInactiveOrFalse, eInactiveOrTrue, eFalseOrTrue, eDontCare };
-enum eActiveProperty { eLesser, eEqual, eLarger, eDontCareCount };
+enum eStateProperty { eInactive = 0, eFalse, eTrue, eInactiveOrFalse, eInactiveOrTrue, eFalseOrTrue, eDontCare };
+enum eActiveProperty { eLesser = 0, eEqual, eLarger, eDontCareCount };
 
 class ActiveProperty
 {

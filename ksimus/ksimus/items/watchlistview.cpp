@@ -22,8 +22,10 @@
 
 // KDE-Includes
 #include <klocale.h>
+#include <kdialogbase.h>
 
 // Project-Includes
+#include "watchwidget.h"
 #include "watchlistview.h"
 #include "watchitembase.h"
 #include "watchviewitem.h"
@@ -33,16 +35,9 @@
 // Forward declaration
 
 
-static int idDelete;
-static int idDeleteAll;
-static int idEnableBreak;
-static int idEnableBreakSelected;
-static int idDisableBreakSelected;
-static int idDisableBreakAll;
-static int idPropertyDialog;
-
-WatchListView::WatchListView(QWidget *parent, const char *name )
-	:	QListView(parent,name)
+WatchListView::WatchListView(WatchWidget * watchWidget, QWidget *parent, const char *name )
+	:	QListView(parent,name),
+		m_watchWidget(watchWidget)
 {
 	addColumn(QIconSet(getPixmapBreaked()),QString::null);
 	setColumnAlignment(0, AlignCenter);
@@ -56,6 +51,8 @@ WatchListView::WatchListView(QWidget *parent, const char *name )
 	connect (this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)),
 	         this, SLOT(slotRightButtonPressed(QListViewItem *, const QPoint &, int)));
 
+	connect (this, SIGNAL(doubleClicked(QListViewItem *)),
+	         this, SLOT(slotDoubleClicked(QListViewItem *)));
 }
 
 WatchListView::~WatchListView()
@@ -63,9 +60,9 @@ WatchListView::~WatchListView()
 //	KSIMDEBUG("WatchListView::~WatchListView()");
 }
 
-unsigned int WatchListView::countSelected() const
+int WatchListView::countSelected() const
 {
-	unsigned int i = 0;
+	int i = 0;
 	QListViewItem * child = firstChild();
 	while (child)
 	{
@@ -78,49 +75,32 @@ unsigned int WatchListView::countSelected() const
 
 void WatchListView::slotRightButtonPressed(QListViewItem * lvi, const QPoint & pos, int /*cloumn*/)
 {
-	if (countSelected() > 1)
+	int idDelete = 0;
+	int idDeleteSel = 0;
+	int idDeleteAll = 0;
+	int idEnableBreak = 0;
+	int idEnableBreakSel = 0;
+	int idDisableBreakSel = 0;
+	int idDisableBreakAll = 0;
+	int idPropertyDialog = 0;
+	int idGeneralPropertyDialog = 0;
+
+	int multiSelect = countSelected();
+	WatchViewItem * wvi = lvi ? (WatchViewItem *)lvi : (WatchViewItem *)0;
+	WatchItemBase * wib = wvi ? wvi->getWatchItem()  : (WatchItemBase *)0;
+	
+	QPopupMenu popup;
+
+
+	if (multiSelect > 1)
 	{
-//		KSIMDEBUG("Multi Selection");
-		QPopupMenu popup;
-		
-		idEnableBreakSelected = popup.insertItem(i18n("watchpoint enable trigger", "Enable selected triggers"));
-		idDisableBreakSelected = popup.insertItem(i18n("watchpoint disable trigger", "Disable selected triggers"));
-		idDelete = popup.insertItem(i18n("watchpoint delete", "Delete selected watchpoints"));
+		idEnableBreakSel = popup.insertItem(i18n("watchpoint enable trigger", "Enable selected triggers"));
+		idDisableBreakSel = popup.insertItem(i18n("watchpoint disable trigger", "Disable selected triggers"));
+		idDeleteSel = popup.insertItem(i18n("watchpoint delete", "Delete selected watchpoints"));
 		popup.insertSeparator();
-		idDisableBreakAll = popup.insertItem(i18n("watchpoint disable trigger", "Disable all triggers"));
-		idDeleteAll = popup.insertItem(i18n("watchpoint delete", "Delete all watchpoints"));
-		
-		
-		int id = popup.exec(pos);
-		
-		if (id == idDelete)
-		{
-			deleteSelected();
-		}
-		else if (id == idDeleteAll)
-		{
-			deleteAll();
-		}
-		else if (id == idEnableBreakSelected)
-		{
-			enableBreakSelected(true);
-		}
-		else if (id == idDisableBreakSelected)
-		{
-			enableBreakSelected(false);
-		}
-		else if (id == idDisableBreakAll)
-		{
-			enableBreakAll(false);
-		}
 	}
 	else if (lvi)
 	{
-//		KSIMDEBUG("Direct Selection");
-		QPopupMenu popup;
-		WatchViewItem * wvi = (WatchViewItem *)lvi;
-		WatchItemBase * wib = wvi->getWatchItem();
-		
 		if (wib->isBreakEnabled())
 		{
 			idEnableBreak = popup.insertItem(i18n("watchpoint disable trigger", "Disable trigger"));
@@ -130,34 +110,55 @@ void WatchListView::slotRightButtonPressed(QListViewItem * lvi, const QPoint & p
 			idEnableBreak = popup.insertItem(i18n("watchpoint enable trigger", "Enable trigger"));
 		}
 		idDelete = popup.insertItem(i18n("watchpoint delete", "Delete selected watchpoint"));
+		idPropertyDialog = popup.insertItem(i18n("watchpoint property", "Watchpoint settings"));
 		popup.insertSeparator();
+	}
+	
+	if ((childCount() != multiSelect) && !((childCount() == 1) && (wvi != 0)))
+	{
 		idDisableBreakAll = popup.insertItem(i18n("watchpoint disable trigger", "Disable all triggers"));
 		idDeleteAll = popup.insertItem(i18n("watchpoint delete", "Delete all watchpoints"));
 		popup.insertSeparator();
-		idPropertyDialog = popup.insertItem(i18n("watchpoint property", "Watchpoint settings"));
-		
-		int id = popup.exec(pos);
-		
-		if (id == idDelete)
-		{
-			delete wib;
-		}
-		else if (id == idDeleteAll)
-		{
-			deleteAll();
-		}
-		else if (id == idEnableBreak)
-		{
-			wib->setBreakEnabled(!wib->isBreakEnabled());
-		}
-		else if (id == idPropertyDialog)
-		{
-			wib->executePropertyDialog(this);
-		}
-		else if (id == idDisableBreakAll)
-		{
-			enableBreakAll(false);
-		}
+	}
+	idGeneralPropertyDialog = popup.insertItem(i18n("watchpoint property", "General settings"));
+
+	int id = popup.exec(pos);
+
+	if (id == idDeleteSel)
+	{
+		deleteSelected();
+	}
+	else if (id == idDeleteAll)
+	{
+		deleteAll();
+	}
+	else if (id == idEnableBreakSel)
+	{
+		enableBreakSelected(true);
+	}
+	else if (id == idDisableBreakSel)
+	{
+		enableBreakSelected(false);
+	}
+	else if (id == idDisableBreakAll)
+	{
+		enableBreakAll(false);
+	}
+	else if (id == idDelete)
+	{
+		delete wib;
+	}
+	else if (id == idEnableBreak)
+	{
+		wib->setBreakEnabled(!wib->isBreakEnabled());
+	}
+	else if (id == idPropertyDialog)
+	{
+		wib->executePropertyDialog(this);
+	}
+	else if (id == idGeneralPropertyDialog)
+	{
+		generalPropertyDialog();
 	}
 }
 
@@ -236,3 +237,31 @@ QPixmap WatchListView::getPixmapBreaked()
 	return breakPix;
 }
 
+void WatchListView::slotDoubleClicked(QListViewItem * lvi)
+{
+	if (lvi)
+	{
+		((WatchViewItem *)lvi)->getWatchItem()->executePropertyDialog(this);
+	}
+	
+}
+
+void WatchListView::generalPropertyDialog()
+{
+	KDialogBase * dia;
+	dia = new KDialogBase(KDialogBase::TreeList,
+	                      i18n("Watch Settings"),
+	                      KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
+	                      KDialogBase::Ok,
+	                      this);
+	QVBox * page;
+	WatchWidgetPropertyWidget * wid;
+	page = dia->addVBoxPage(i18n("Watch Settings"));
+	wid = new WatchWidgetPropertyWidget(m_watchWidget, page, "watch setting");
+	connect(dia, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
+	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
+	connect(dia, SIGNAL(cancelClicked()), wid, SLOT(slotCancel()));
+	dia->exec();
+
+	delete dia;
+}

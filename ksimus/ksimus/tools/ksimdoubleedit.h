@@ -67,14 +67,15 @@ public:
 	
 public slots:
 	void setValue(double value);
-	void restoreValue();
 
-protected slots:
+private slots:
 	void slotTextChanged(const QString & text);
 	void slotReady();
 
 
 private:
+	void restoreValue();
+
 	QDoubleValidator * m_dVal;
 	double m_lastValue;
 	double m_trackedValue;
@@ -83,8 +84,8 @@ private:
 	
 
 signals:
-	void valueChangedTracking(double value);	
-	void valueChanged(double value);	
+	void valueChangedTracking(double value);
+	void valueChanged(double value);
 
 };
 

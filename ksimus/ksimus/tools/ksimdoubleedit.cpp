@@ -74,11 +74,11 @@ void KSimDoubleEditValidator::fixup(QString & input) const
 //###############################################################
 
 
-#define FLAGS_TYPE_MASK				0x00FF
-#define FLAGS_ENA_TRACKING		0x0100
+#define FLAGS_TYPE_MASK      0x00FF
+#define FLAGS_ENA_TRACKING   0x0100
 
 
-#define DEFAULT_FLAGS		(FLAGS_ENA_TRACKING | ((Q_UINT32)'g') )
+#define DEFAULT_FLAGS        (FLAGS_ENA_TRACKING | ((Q_UINT32)'g') )
 
 
 //###############################################################
@@ -266,3 +266,8 @@ void KSimDoubleEdit::slotReady()
 		restoreValue();
 	}
 }
+
+#undef FLAGS_TYPE_MASK
+#undef FLAGS_ENA_TRACKING
+#undef DEFAULT_FLAGS
+
