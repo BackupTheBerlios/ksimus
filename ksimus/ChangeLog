@@ -1,5 +1,11 @@
-2001-03-08  
+	25.11.2001
+* Finish connector hide functionality.
+* Open the right connector entry at the ConnectorPropertyDialog,
+  if the user opens the connector property dialog. Before this change
+  the first connector entry was opened.
+* Change some functions from protected to public (some layout functions).
 
-	* Speed up simualtion
+
+
 
 
