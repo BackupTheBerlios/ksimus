@@ -18,8 +18,20 @@
 #ifndef EXTERNALCONNECTOR_H
 #define EXTERNALCONNECTOR_H
 
+// C-Includes
+
+// QT-Includes
+
+// KDE-Includes
+
+// Project-Includes
 #include "component.h"
 #include "compview.h"
+#include "componentpropertygeneralwidget.h"
+
+// Forward declaration
+class QCheckBox;
+class QGroupBox;
 
 /**Base class for external connectors
 	Used for modules
@@ -49,7 +61,10 @@ public:
 //###############################################################
 
 
-class ExternalConnector : public Component  {
+class ExternalConnector : public Component
+{
+	Q_OBJECT
+
 public: 
 	~ExternalConnector();
 	
@@ -73,7 +88,7 @@ public:
 	*/
 //	virtual void checkProperty(QStringList & errorMsg);
 	
-	bool isInput() const { return m_input; };
+	bool isInput() const { return m_flags.input; };
 	
 	/** save component properties */
 	virtual void save(KSimData & file) const;
@@ -82,6 +97,11 @@ public:
 	*	Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
 	
+	/** Creates the general property page for the property dialog.
+	  * This function creates a @ref BooleanButtonPropertyGeneralWidget.
+	  * This function is called by @ref addGeneralProperty*/
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
+
 	/** Returns the *external* connector */
 	ConnectorBase * getExternalConn() const;
 	/** Returns the *internal* connector */
@@ -118,10 +138,20 @@ public:
 	void setUserViewOrientation(ConnOrientationType orientation);
 
 	/** Sets the recursion lock bit. Use it in the function @ref calculate. */
-	void setRecursionLocked(bool locked) { m_recursionLocked = locked; };
+	void setRecursionLocked(bool locked) { m_flags.recursionLocked = locked; };
 	/** Returns the value of the recursion lock bit. Use it in the function @ref calculate. */
-	bool isRecursionLocked() const { return m_recursionLocked; };
+	bool isRecursionLocked() const { return m_flags.recursionLocked; };
 		
+	/** Sets the external connector as optional. The user can hide or unhide the connector. */
+	void setOptionalConn(bool ena) { m_flags.optionalConn = ena; };
+	/** Returns true, if the external connector is optional. */
+	bool isOptionalConn() const { return m_flags.optionalConn; };
+	/* Sets the optional connector hidden (ena = false) or unhidden (ena = true). */
+	void setOptionalConnEnabled(bool ena) { m_flags.optionalConnEnabled = ena; };
+	/** Returns true, if the optional connector is not hidden. */
+	bool isOptionalConnEnabled() const { return m_flags.optionalConnEnabled; };
+
+
 protected:
 	/** Creates an external connector.
 	  * @param input       True, if the external connector is an input (on the left side of the module)
@@ -133,18 +163,57 @@ protected:
 	  */
 	ExternalConnector(CompContainer * container, const ComponentInfo * ci);
 	
-	bool m_input;
+	struct
+	{
+		unsigned int input               :1;
+		unsigned int recursionLocked     :1;
+		unsigned int optionalConn        :1;
+		unsigned int optionalConnEnabled :1;
+	} m_flags;
 	QPoint m_pixmapPos;
 	ConnOrientationType m_pixmapOrient;
 	QPoint m_userViewPos;
 	ConnOrientationType m_userViewOrient;
 	ConnectorBase * m_internalConn;
 	ConnectorBase * m_externalConn;
-	bool m_recursionLocked;
 	
 private:
 	void init();
 	
 };
+
+
+//###############################################################
+
+class ExternalConnectorPropertyGeneralWidget : public ComponentPropertyGeneralWidget
+{
+	Q_OBJECT
+
+public:
+	ExternalConnectorPropertyGeneralWidget(ExternalConnector * comp, QWidget *parent=0, const char *name=0);
+//	~ExternalConnectorPropertyGeneralWidget();
+
+
+	/** The function acceptPressed() is called, if changes are accepted.
+		You have to reimplement this function, if you add new properties.
+		If you do so, then first call function changeData() and than changed data!
+	 */
+	virtual void acceptPressed();
+	/** The function defaultPressed() is called, if user wants to set the default values.
+		You have to reimplement this function, if you add new properties.
+	 */
+	virtual void defaultPressed();
+
+	ExternalConnector * getExtConn() { return (ExternalConnector *)getComponent();	};
+
+private slots:
+	void slotOptionalConnToggled(bool state);
+
+private:
+	QGroupBox * m_optionalbox;
+	QCheckBox * m_optionalConn;
+	QCheckBox * m_optionalConnEna;
+};
+
 
 #endif

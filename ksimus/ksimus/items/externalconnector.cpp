@@ -19,10 +19,15 @@ static const char * sPixPos     = "PixPos";
 static const char * sPixOrient  = "PixOrient";
 static const char * sUserPos    = "UserPos";
 static const char * sUserOrient = "UserOrient";
+static const char * sOption     = "Optional";
+static const char * sOptionEna  = "Optional Enabled";
 
 // QT-Includes
 #include <qpainter.h>
 #include <qpointarray.h>
+#include <qvbox.h>
+#include <qgroupbox.h>
+#include <qcheckbox.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -163,13 +168,14 @@ void ExternalConnectorMultipleOutputSV::draw(QPainter * p)
 
 //###############################################################
 
-#define DEFAULT_CO (isInput() ? CO_LEFT : CO_RIGHT)
+#define DEFAULT_CO             (isInput() ? CO_LEFT : CO_RIGHT)
+#define DEFAULT_OPT_CONN       false
+#define DEFAULT_OPT_CONN_ENA   false
 
 ExternalConnector::ExternalConnector(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput)
-	: Component(container, ci),
-	  m_input(input),
-	  m_recursionLocked(false)
+	: Component(container, ci)
 {
+	m_flags.input = input;
 	init();
 	
 	// Initializes the sheet view
@@ -177,20 +183,21 @@ ExternalConnector::ExternalConnector(CompContainer * container, const ComponentI
 	{
 		if (multiOutput)
 		{
-			new ExternalConnectorMultipleOutputSV(this);
+			CompView * cv = new ExternalConnectorMultipleOutputSV(this);
+			CHECK_PTR(cv);
 		}
 		else
 		{
-			new ExternalConnectorSV(this);
+			CompView * cv = new ExternalConnectorSV(this);
+			CHECK_PTR(cv);
 		}
 	}
 }
 
 ExternalConnector::ExternalConnector(CompContainer * container, const ComponentInfo * ci)
-	: Component(container, ci),
-	  m_input(false),
-	  m_recursionLocked(false)
+	: Component(container, ci)
 {
+	m_flags.input = false;
 	init();
 }
 
@@ -202,6 +209,9 @@ void ExternalConnector::init()
 {
 	setComponentType(eExternalConnector);
 	setZeroDelayComponent(true);
+	setRecursionLocked(false);
+	setOptionalConn(DEFAULT_OPT_CONN);
+	setOptionalConnEnabled(DEFAULT_OPT_CONN_ENA);
 	
 	// set to invalid
 	m_pixmapPos.setX(-1);
@@ -260,7 +270,7 @@ int ExternalConnector::checkCircuit()
 /** Save ExternalConnector properties */
 void ExternalConnector::save(KSimData & file) const
 {
-	Component::save(file);	
+	Component::save(file);
 	
 	// Pixmap view
 	if (m_pixmapPos.x() != -1)
@@ -277,6 +287,15 @@ void ExternalConnector::save(KSimData & file) const
 		
 		if (m_userViewOrient != DEFAULT_CO)
 			file.writeEntry(sUserOrient, (int)m_userViewOrient);
+	}
+
+	if (isOptionalConn())
+	{
+		file.writeEntry(sOption, true);
+	}
+	if (isOptionalConnEnabled())
+	{
+		file.writeEntry(sOptionEna, true);
 	}
 }
 
@@ -310,7 +329,22 @@ bool ExternalConnector::load(KSimData & file, bool copyLoad)
 		setUserViewOrientation((ConnOrientationType)file.readNumEntry(sUserOrient, (getExternalConn()->getOrientation())));
 	}
 
+	setOptionalConn(file.readBoolEntry(sOption, false));
+	setOptionalConnEnabled(file.readBoolEntry(sOptionEna, false));
 	return ok;
+}
+
+/** Creates the general property page for the property dialog.
+ * Overload this function if you want to use a modified General Propery Page. Use as base class
+ * @ref ComponentPropertyGeneralWidget.
+ * This function is called by @ref addGeneralProperty*/
+ComponentPropertyBaseWidget * ExternalConnector::createGeneralProperty(QWidget *parent)
+{
+	ExternalConnectorPropertyGeneralWidget * wid;
+	wid = new ExternalConnectorPropertyGeneralWidget(this, parent);
+	CHECK_PTR(wid);
+
+	return wid;
 }
 
 /** Returns the *external* connector */
@@ -366,4 +400,69 @@ void ExternalConnector::setUserViewOrientation(ConnOrientationType orientation)
 {
 	m_userViewOrient = orientation;
 };
-		
+
+//##########################################################################################
+//##########################################################################################
+
+
+ExternalConnectorPropertyGeneralWidget::ExternalConnectorPropertyGeneralWidget(ExternalConnector * comp, QWidget *parent, const char *name)
+	:	ComponentPropertyGeneralWidget(comp, parent, name)
+{
+	QString str;
+
+	m_optionalbox = new QGroupBox(1, Qt::Horizontal,
+	         i18n("Component property dialog", "Optional connector:"), newRowVBox(), "optionConnBox");
+	CHECK_PTR(m_optionalbox);
+
+	m_optionalConn = new QCheckBox(i18n("Component property dialog", "External connector is optional"), m_optionalbox, "optionConn");
+	CHECK_PTR(m_optionalConn);
+	str = i18n("An external connector may be optional. Optional means the connector may be visible or hidden.");
+	addToolTip(str, m_optionalConn);
+	addWhatsThis(str, m_optionalConn);
+
+	m_optionalConnEna = new QCheckBox(i18n("Component property dialog", "Default is visible"), m_optionalbox, "optionConnEna");
+	CHECK_PTR(m_optionalConnEna);
+	str = i18n("An optional external connector may be visible or hidden by default.");
+	addToolTip(str, m_optionalConnEna);
+	addWhatsThis(str, m_optionalConnEna);
+
+
+	m_optionalConn->setChecked(getExtConn()->isOptionalConn());
+	m_optionalConnEna->setChecked(getExtConn()->isOptionalConnEnabled());
+	m_optionalConnEna->setEnabled(getExtConn()->isOptionalConn());
+	connect(m_optionalConn, SIGNAL(toggled(bool)), this, SLOT(slotOptionalConnToggled(bool)));
+}
+
+/*ExternalConnectorPropertyGeneralWidget::~ExternalConnectorPropertyGeneralWidget()
+{
+} */
+
+void ExternalConnectorPropertyGeneralWidget::acceptPressed()
+{
+	ComponentPropertyGeneralWidget::acceptPressed();
+
+	if (getExtConn()->isOptionalConn() != m_optionalConn->isChecked())
+	{
+		changeData();
+		getExtConn()->setOptionalConn( m_optionalConn->isChecked() );
+	}
+
+	if (getExtConn()->isOptionalConnEnabled() != m_optionalConnEna->isChecked())
+	{
+		changeData();
+		getExtConn()->setOptionalConnEnabled(m_optionalConnEna->isChecked());
+	}
+}
+
+void ExternalConnectorPropertyGeneralWidget::defaultPressed()
+{
+	ComponentPropertyGeneralWidget::defaultPressed();
+
+	m_optionalConn->setChecked(DEFAULT_OPT_CONN);
+	m_optionalConnEna->setChecked(DEFAULT_OPT_CONN_ENA);
+}
+
+void ExternalConnectorPropertyGeneralWidget::slotOptionalConnToggled(bool state)
+{
+	m_optionalConnEna->setEnabled(state);
+}
