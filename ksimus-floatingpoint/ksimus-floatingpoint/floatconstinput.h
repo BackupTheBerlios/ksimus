@@ -70,6 +70,10 @@ public:
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
+
+	/** Updates widget value. */
+	void updateValue(double val);
+	
 private slots:
 	void editValue();
 
@@ -143,6 +147,11 @@ public:
 
 	FloatConstInput* getComponent() { return (FloatConstInput*) Float1OutPropertyGeneralWidget::getComponent(); };
 	
+	/** The function acceptPressed() is called, if changes are accepted.
+		You have to reimplement this function, if you add new properties.
+		If you do so, then first call function changeData() and than changed data!
+	 */
+	virtual void acceptPressed();
 };
 
 

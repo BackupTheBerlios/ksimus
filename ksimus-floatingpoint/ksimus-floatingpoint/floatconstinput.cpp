@@ -135,6 +135,7 @@ void FloatConstInput::editValue()
 		dia->exec();
 		
 		setResetValue(edit->value());
+		emit signalSetNumber(edit->value());
 		
 		delete dia;
 	}
@@ -152,6 +153,12 @@ ComponentPropertyBaseWidget * FloatConstInput::createGeneralProperty(QWidget *pa
 	
 	return wid;
 }
+
+void FloatConstInput::updateValue(double val)
+{
+	emit signalSetNumber(val);
+}
+
 
 //############################################################################
 //############################################################################
@@ -234,6 +241,12 @@ FloatConstInputPropertyGeneralWidget::FloatConstInputPropertyGeneralWidget(Float
 	m_resetValueLabel->setText(i18n("Value: "));
 }
 
+void FloatConstInputPropertyGeneralWidget::acceptPressed()
+{
+	Float1OutPropertyGeneralWidget::acceptPressed();
+	
+	getComponent()->updateValue(getComponent()->getResetValue());
+}
 //###############################################################
 //###############################################################
 

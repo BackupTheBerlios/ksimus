@@ -75,7 +75,7 @@ void Float1Out::updateOutput()
 void Float1Out::setResetValue(double resetValue)
 {
 	m_resetValue = resetValue;
-	reset(); // Update values
+// crashes Wavefrom Generator	reset(); // Update values
 }
 	
 double Float1Out::getResetValue() const
