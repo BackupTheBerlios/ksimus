@@ -50,11 +50,6 @@ class PackageInfo;
 /**  Enter the lower case package name. E.g. "boolean" */
 #define KSIMUS_PACKAGE_LOWER_NAME        "ksimus-boolean"
 
-/**  Enter the init function name. Format init_lib + lower case package name.
-     E.g. init_libboolean  (use "_" instead of "-") */
-#define KSIMUS_PACKAGE_INIT_FUNCTION     init_libksimus_boolean
-
-
 /******************************************************************************************
  ******************************************************************************************
  **
@@ -72,7 +67,7 @@ namespace KSimLibBoolean
 
 
 
-/** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
-extern "C" const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
+/** The init function. Don't change the name or signature! */
+extern "C" const PackageInfo * init_ksimus_package(KLocale * ksimusLocale);
 
 #endif
