@@ -315,6 +315,7 @@ void KSimusApp::initView()
 	connect(m_p->sheetView->getEditor(),SIGNAL(cutAllowed(bool)),SLOT(slotCutAllowed(bool)));
 	connect(m_p->sheetView->getEditor(),SIGNAL(copyAllowed(bool)),SLOT(slotCopyAllowed(bool)));
 	connect(m_p->sheetView->getEditor(),SIGNAL(signalStatusMsg(const QString &)),SLOT(slotStatusMsg(const QString &)));
+	connect(m_p->sheetView->getEditor(),SIGNAL(signalStatusHelpMsg(const QString &)),SLOT(slotStatusHelpMsg(const QString &)));
 
 	
 	
@@ -331,6 +332,7 @@ void KSimusApp::initView()
 	connect(m_p->userView->getEditor(),SIGNAL(cutAllowed(bool)),SLOT(slotCutAllowed(bool)));
 	connect(m_p->userView->getEditor(),SIGNAL(copyAllowed(bool)),SLOT(slotCopyAllowed(bool)));
 	connect(m_p->userView->getEditor(),SIGNAL(signalStatusMsg(const QString &)),SLOT(slotStatusMsg(const QString &)));
+	connect(m_p->userView->getEditor(),SIGNAL(signalStatusHelpMsg(const QString &)),SLOT(slotStatusHelpMsg(const QString &)));
 
 	m_p->tabWidget->insertTab(m_p->userView, i18n("User Interface"), ID_USER_VIEW);
 
@@ -1056,6 +1058,11 @@ void KSimusApp::slotEditorModeChanged(int mode)
 			break;
 		
 		case EM_SPECIAL:
+			break;
+		
+		case EM_COMP_RESIZE_B:
+		case EM_COMP_RESIZE_F:
+			slotStatusMsg(i18n("Resize Component..."));
 			break;
 		
 		case EM_WIRE:
