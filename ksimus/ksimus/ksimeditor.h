@@ -53,7 +53,7 @@ enum EditorModeType { 	EM_SELECT = 0, EM_INSERT, EM_INSERT_MOVE,
 						EM_PAST, EM_PAST_MOVE,
 						EM_MOVE_OR_SELECT, EM_MOVE, EM_MOVE_COPY,
 						EM_RECT_SELECT, EM_SINGLE_SELECT,
-						EM_SPECIAL, EM_WIRE, EM_RESIZE_MAP };
+						EM_SPECIAL, EM_COMP_RESIZE_B, EM_COMP_RESIZE_F, EM_WIRE, EM_RESIZE_MAP };
 							
 enum EditorViewType {	EV_NOTVALID = 0,
 						EV_SHEETVIEW,
@@ -154,7 +154,7 @@ protected: // Protected methods
 
 private:	
 	/** Displays the status message msg delayed */
-	void delayedStatusMsg(const QString & msg);
+	void delayedStatusHelpMsg(const QString & msg);
 	
 	QPoint dragStart;
 	QPoint dragNow;
@@ -178,8 +178,8 @@ private:
 	QSize size;
 
 	QTimer autoScrollTimer;
-	QTimer delayedStatusMsgTimer;
-	QString delayedStatusMsgString;
+	QTimer delayedStatusHelpMsgTimer;
+	QString delayedStatusHelpMsgString;
 	
 	int scrollDir;
 	int resizeDir;
@@ -196,7 +196,7 @@ public slots: // Public slots
 	
 private slots: // Private slots
 	void autoScroll();
-	void slotDelayedStatusMsg();
+	void slotDelayedStatusHelpMsg();
 
 signals:
 	void editorModeChanged(int);
@@ -204,6 +204,7 @@ signals:
 	void cutAllowed(bool);
 	void copyAllowed(bool);
 	void signalStatusMsg(const QString &);
+	void signalStatusHelpMsg(const QString &);
 };
 
 class KSimEditorList : public QList<KSimEditor> {};

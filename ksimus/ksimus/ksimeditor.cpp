@@ -71,7 +71,7 @@
 
 KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	:	QWidget(parent, name),
-		delayedStatusMsgString(),
+		delayedStatusHelpMsgString(),
 		m_insertCI(0)
 {
 	if (!g_editorList)
@@ -91,7 +91,7 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	setBackgroundMode(NoBackground);
 
 	connect (&autoScrollTimer, SIGNAL(timeout()), SLOT(autoScroll()));
-	connect (&delayedStatusMsgTimer, SIGNAL(timeout()), SLOT(slotDelayedStatusMsg()));
+	connect (&delayedStatusHelpMsgTimer, SIGNAL(timeout()), SLOT(slotDelayedStatusHelpMsg()));
 	
 	
 }
@@ -154,7 +154,8 @@ void KSimEditor::updateDrawMap()
 			break;
 		
 		case EV_USERVIEW:
-			drawMap->fill(lightGray);
+//			drawMap->fill(lightGray);
+			drawMap->fill(backgroundColor());
 			break;
 		
 		default:
@@ -354,8 +355,14 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 							break;
 							
 						case SPECIAL_HIT:
+						case COMP_RESIZE_F_HIT:
+						case COMP_RESIZE_B_HIT:
 							{
-								setEditorMode(EM_SPECIAL);
+								// Set editor mode
+								if(hit == COMP_RESIZE_B_HIT) setEditorMode(EM_COMP_RESIZE_B);
+								else if(hit == COMP_RESIZE_F_HIT) setEditorMode(EM_COMP_RESIZE_F);
+								else setEditorMode(EM_SPECIAL);
+								
 								special = getContainer()->getFirstCompView();
 								QPainter p(drawMap);
 								special->mousePress(ev, &p);
@@ -395,9 +402,14 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 						break;
 							
 					case SPECIAL_HIT:
+					case COMP_RESIZE_F_HIT:
+					case COMP_RESIZE_B_HIT:
 						{
+							// Set editor mode
+							if(hit == COMP_RESIZE_B_HIT) setEditorMode(EM_COMP_RESIZE_B);
+							else if(hit == COMP_RESIZE_F_HIT) setEditorMode(EM_COMP_RESIZE_F);
+							else setEditorMode(EM_SPECIAL);
 							QPainter p(drawMap);
-							setEditorMode(EM_SPECIAL);
 							special = getContainer()->getFirstCompView();
 							special->mousePress(ev, &p);
 							p.end();
@@ -577,6 +589,8 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				
 				case NORMAL_HIT:
 				case SPECIAL_HIT:
+				case COMP_RESIZE_F_HIT:
+				case COMP_RESIZE_B_HIT:
 					componentPopup(false);
 					break;
 			
@@ -586,6 +600,23 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 			}
 		}
 	}
+}
+
+static QString getComponentPartName(const Component * comp, const ConnectorBase * conn)
+{
+	QString s(comp->getInfo()->getName());
+
+	if (conn)
+	{
+		s += ":" + conn->getName();
+	}
+		
+	if (comp->getName() != comp->getInfo()->getName())	
+	{
+		s += " (" + comp->getName() + ")";
+	}
+	
+	return s;
 }
 
 void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
@@ -604,23 +635,28 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 		switch(getContainer()->isCompViewHit(&mousePos, viewList))
 		{
 			case NO_HIT:
-				delayedStatusMsg(QString());
+//				delayedStatusHelpMsg(QString());
 
 				break;
 			
 			case NORMAL_HIT:
 			case WIRE_HIT:
 			case SPECIAL_HIT:
-				delayedStatusMsg(getContainer()->getFirstCompView()->getComponent()->getName());
+			case COMP_RESIZE_F_HIT:
+			case COMP_RESIZE_B_HIT:
+//				delayedStatusHelpMsg(getContainer()->getFirstCompView()->getComponent()->getName());
+				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(), 0));
 				break;
 				
 			case CONNECTOR_HIT:
 			{
-				QString msg;
+/*				QString msg;
 				msg = getContainer()->getFirstCompView()->getComponent()->getName();
 				msg += ":";
 				msg += getContainer()->getFirstConnector()->getName();
-				delayedStatusMsg(msg);
+				delayedStatusHelpMsg(msg);*/
+				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
+				                                      getContainer()->getFirstConnector()));
 				break;
 			}
 		}
@@ -628,7 +664,9 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 	
 	if (lmbDown)
 	{
-		if (editorMode == EM_SPECIAL)
+		if ((editorMode == EM_SPECIAL)
+		 || (editorMode == EM_COMP_RESIZE_B)
+		 || (editorMode == EM_COMP_RESIZE_F))
 		{
 			QPainter p(drawMap);
 			special->mouseMove(ev, &p);
@@ -798,7 +836,9 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 	if (ev->button() == LeftButton)
 	{
 		lmbDown = FALSE;
-		if (editorMode == EM_SPECIAL)
+		if ((editorMode == EM_SPECIAL)
+		 || (editorMode == EM_COMP_RESIZE_B)
+		 || (editorMode == EM_COMP_RESIZE_F))
 		{
 			QPainter p(drawMap);
 			special->mouseRelease(ev, &p);
@@ -812,6 +852,15 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 			drawDragRect();
         dragging = false;
 
+		if ((editorMode == EM_MOVE) && (ev->state() & ControlButton))
+		{
+			setEditorMode(EM_MOVE_COPY);
+		}
+		else if ((editorMode == EM_MOVE_COPY) && !(ev->state() & ControlButton))
+		{
+			setEditorMode(EM_MOVE);
+		}
+		
 		switch (editorMode)
 		{
 			case EM_MOVE_OR_SELECT:
@@ -966,6 +1015,14 @@ void KSimEditor::setEditorMode(EditorModeType newMode)
 				setCursor(sizeBDiagCursor);
 			break;
 			
+		case EM_COMP_RESIZE_B:
+				setCursor(sizeBDiagCursor);
+			break;
+		
+		case EM_COMP_RESIZE_F:
+				setCursor(sizeFDiagCursor);
+			break;
+		
 		default:
 			setCursor(arrowCursor);
 			break;
@@ -1482,30 +1539,30 @@ void KSimEditor::slotDelete(Component * comp)
 		
 }
 
-void KSimEditor::delayedStatusMsg(const QString & msg)
+void KSimEditor::delayedStatusHelpMsg(const QString & msg)
 {
-	if (msg != delayedStatusMsgString)
+	if (msg != delayedStatusHelpMsgString)
 	{
-		delayedStatusMsgString = msg;
+		delayedStatusHelpMsgString = msg;
 /*		if (msg.isEmpty())
 		{
-			delayedStatusMsgTimer.stop();
+			delayedStatusHelpMsgTimer.stop();
 		}
 		else*/
 		{
-			delayedStatusMsgTimer.start(30, true);
+			delayedStatusHelpMsgTimer.start(30, true);
 		}
 	}
 }
 
-void KSimEditor::slotDelayedStatusMsg()
+void KSimEditor::slotDelayedStatusHelpMsg()
 {
-	if (delayedStatusMsgString.isEmpty())
+	if (delayedStatusHelpMsgString.isEmpty())
 	{
-		emit signalStatusMsg(i18n("Ready."));
+//		emit signalStatusHelpMsg(i18n("Ready."));
 	}
 	else
 	{
-		emit signalStatusMsg(delayedStatusMsgString);
+		emit signalStatusHelpMsg(delayedStatusHelpMsgString);
 	}
 }
