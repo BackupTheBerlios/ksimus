@@ -653,8 +653,8 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 							if (!mi)
 							{
 								// No valid module
-								KMessageBox::error(0,i18n("The file %1 contains no valid module!").arg(getApp()->getModuleFile()),
-								                     i18n("Open Module"));
+								KMessageBox::error(getApp(),i18n("The file %1 contains no valid module!").arg(getApp()->getModuleFile()),
+								                            i18n("Open Module"));
 
 //								delete newComp;
 								getContainer()->delComponent(newComp);
@@ -1915,7 +1915,7 @@ void KSimEditor::wirePopup(const QPoint & pos)
 		}
 		else
 		{
-			KMessageBox::sorry( (QWidget *)0,
+			KMessageBox::sorry( getApp(),
 			                    i18n("You can't add the wire to the watch view until \n"
 			                         "the data type is not specified!\n"));
 		}
