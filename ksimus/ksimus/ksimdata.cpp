@@ -212,7 +212,7 @@ void KSimData::writeEntry( const char *pKey, unsigned long nValue)
 
 void KSimData::writeEntry( const char *pKey, double nValue, char format, int precision )
 {
-	data.writeEntry(pKey, nValue, format, precision );	
+	data.writeEntry(pKey, nValue, true, false, format, precision );	
 }
 
 void KSimData::writeEntry( const char *pKey, bool bValue )

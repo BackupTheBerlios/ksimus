@@ -47,8 +47,6 @@ ExternalConnectorSV::~ExternalConnectorSV()
 
 void ExternalConnectorSV::draw(QPainter * p)
 {
-	QRect place(getPlace());
-	
 	p->setPen(QPen(black, 2));
 	p->setBrush(NoBrush);
 	p->drawEllipse(gridX*1, 0, gridX*3, gridY*3);

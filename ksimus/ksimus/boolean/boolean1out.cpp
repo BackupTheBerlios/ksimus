@@ -135,7 +135,7 @@ bool Boolean1Out::load(KSimData & file, bool copyLoad)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * Boolean1Out::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * Boolean1Out::createGeneralProperty(Component * /*comp*/, QWidget *parent)
 {
 	Boolean1OutPropertyGeneralWidget * wid;
 	wid = new Boolean1OutPropertyGeneralWidget(this, parent);

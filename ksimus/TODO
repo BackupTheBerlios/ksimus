@@ -5,3 +5,4 @@
 
   And so many things.
 
+ createGeneralProperty(Component * comp, QWidget *parent) - remove comp ???

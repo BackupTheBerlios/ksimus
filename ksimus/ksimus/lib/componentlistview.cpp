@@ -268,7 +268,7 @@ void ComponentListView::slotHideMe()
 	emit signalHideMe();
 }
 
-void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoint & p, int c)
+void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoint & /*p*/, int /*c*/)
 {
 	int idxFoldAll = 0;
 	int idxUnfoldAll = 0;

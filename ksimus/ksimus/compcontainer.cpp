@@ -835,7 +835,7 @@ void CompContainer::drawSheetView(QPainter * p) const
 		}
 		else
 		{
-			register QPoint pos(it.current()->getPos());
+			QPoint pos(it.current()->getPos());
 			p->translate(pos.x(), pos.y());
 		}
 		
@@ -894,7 +894,7 @@ void CompContainer::drawUserView(QPainter * p) const
 			}
 			else
 			{
-				register QPoint pos(it.current()->getPos());
+				QPoint pos(it.current()->getPos());
 				p->translate(pos.x(), pos.y());
 			}
 			

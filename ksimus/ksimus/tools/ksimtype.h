@@ -120,6 +120,7 @@ class KSimInt : public KSimTypeTemplate<int>
 public:
 	/** Constructs a new object with the value zero.*/
 	KSimInt()
+		: KSimTypeTemplate<int>()
 	{	
 		m_value = 0;
 	};
@@ -132,6 +133,7 @@ public:
 	
 	/** Constructs a new object with the value like i.*/
 	KSimInt(const KSimInt & i)
+		: KSimTypeTemplate<int>()
 	{	
 		m_value = i.value();
 	};
@@ -159,6 +161,7 @@ class KSimUInt : public KSimTypeTemplate<unsigned int>
 public:
 	/** Constructs a new object with the value zero.*/
 	KSimUInt()
+		: KSimTypeTemplate<unsigned int>()
 	{	
 		m_value = 0;
 	};
@@ -171,6 +174,7 @@ public:
 	
 	/** Constructs a new object with the value like i.*/
 	KSimUInt(const KSimUInt & u)
+		: KSimTypeTemplate<unsigned int>()
 	{	
 		m_value = u.value();
 	};

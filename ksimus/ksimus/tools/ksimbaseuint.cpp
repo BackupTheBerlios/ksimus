@@ -164,7 +164,7 @@ KSimBaseUIntValidator::~KSimBaseUIntValidator()
 {
 }
 
-QValidator::State KSimBaseUIntValidator::validate(QString & str, int & pos) const
+QValidator::State KSimBaseUIntValidator::validate(QString & str, int & /*pos*/) const
 {
 	// Copied from QT and modifed
 	

@@ -69,7 +69,7 @@ public:
 	CompLayoutConnector(CompLayoutBase * parentLayout, ConnectorBase * conn, unsigned int additionalSpace = 1)
 		:	CompLayoutBaseItem(parentLayout),
 			m_conn(conn),
-			m_space(QMAX(0,additionalSpace))
+			m_space(additionalSpace)
 	{};
 	
 	ConnectorBase * getConnector() const { return m_conn;};

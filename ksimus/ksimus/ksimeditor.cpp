@@ -307,7 +307,7 @@ void KSimEditor::print(KPrinter *pPrinter)
 			}
 			else
 			{
-				register QPoint pos(it.current()->getPos());
+				QPoint pos(it.current()->getPos());
 				p.translate(pos.x(), pos.y());
 			}
 		

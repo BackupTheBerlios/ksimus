@@ -27,6 +27,8 @@
 #include "connectorlist.h"
 #include "ksimdebug.h"
 
+using std::queue;
+
 typedef queue<QPoint> tPointQueue;
 
 //#define SETUP_COST_MAP_SHOW_LOOPS
