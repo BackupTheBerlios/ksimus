@@ -81,7 +81,7 @@ bool WirePropertyLibrary::create(WireProperty * * wireProperty, Wire * wire, con
 	else
 	{
 		KSIMDEBUG_VAR("Unknown Wire property", libName);
-		*wireProperty = 0;
+		*wireProperty = (WireProperty *)0;
 		return false;
 	}
 }

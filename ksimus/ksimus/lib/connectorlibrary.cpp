@@ -65,7 +65,7 @@ bool ConnectorLibrary::create(ConnectorBase * * conn, Component * comp, const QS
 	else
 	{
 		KSIMDEBUG_VAR("Unknown Connector", libName);
-		*conn = 0;
+		*conn = (ConnectorBase *)0;
 		return false;
 	}
 }

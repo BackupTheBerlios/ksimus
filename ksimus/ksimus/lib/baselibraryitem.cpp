@@ -31,7 +31,7 @@ BaseLibraryItem::BaseLibraryItem(const BaseInfo * bi, const PackageInfo * packag
 	}
 	else
 	{
-		m_oldLibNames = 0;
+		m_oldLibNames = (QStringList *)0;
 	}
 }
 

@@ -84,7 +84,7 @@ bool ImplicitConverterLibrary::create(ImplicitConverter * * implicitConverter, C
 	else
 	{
 		KSIMDEBUG_VAR("Unknown implicit converter", libName);
-		*implicitConverter = 0;
+		*implicitConverter = (ImplicitConverter *)0;
 		return false;
 	}
 }

@@ -187,7 +187,7 @@ bool ComponentLibrary::createComponent(Component * * newComp, CompContainer * co
 	else
 	{
 		KSIMDEBUG_VAR("Unknown Object", libName);
-		*newComp = 0;
+		*newComp = (Component *)0;
 		return false;
 	}
 }

@@ -30,7 +30,7 @@ ComponentLibraryItem::ComponentLibraryItem(const ComponentInfo * ci, const Packa
 	}
 	else
 	{
-		m_additionalI18nLibNames = 0;
+		m_additionalI18nLibNames = (QStringList *)0;
 	}
 }
 

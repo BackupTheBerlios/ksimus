@@ -154,7 +154,7 @@ void ComponentListView::insert(const QString & libName, const ComponentInfo * ci
 	
 	ComponentListViewItem * nextClvi;
 	
-	ComponentListViewItem * clvi = 0;
+	ComponentListViewItem * clvi = (ComponentListViewItem *)0;
 	
 	for (count = 0; count < sl.count(); count++)
 	{
