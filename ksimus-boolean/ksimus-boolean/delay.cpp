@@ -57,8 +57,8 @@ const ComponentInfo * getDelayInfo()
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
-	                                QString::null/*,TODO
-	                                QString::fromLatin1("component-boolean-monoflop")*/);
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-timing-delay"));
 	return &Info;
 }
 
@@ -217,7 +217,7 @@ ComponentPropertyBaseWidget * Delay::createGeneralProperty(QWidget *parent)
 DelayView::DelayView(Delay * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
-	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
 	enableConnectorSpacingBottom(false);
 //	enableConnectorSpacingLeft(false);
@@ -225,8 +225,8 @@ DelayView::DelayView(Delay * comp, eViewType viewType)
 	
 	enableRotation(true);
 	
-	getDelay()->getInputConnector()->setGridPos(0,1);
-	getDelay()->getOutputConnector()->setGridPos(4,1);
+	getDelay()->getInputConnector()->setGridPos(0,2);
+	getDelay()->getOutputConnector()->setGridPos(4,2);
 }
 
 /*DelayView::~DelayView()
