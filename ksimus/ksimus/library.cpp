@@ -40,6 +40,7 @@
 #include "wire.h"
 
 #include "connectorboolin.h"
+#include "connectorboolinedge.h"
 #include "connectorboolout.h"
 
 #include "wirepropertyboolean.h"
@@ -100,6 +101,7 @@ Library::Library()
 	CHECK_PTR(m_connectorLibrary);
 	
 	m_connectorLibrary->insert(&ConnectorBoolInInfo);
+	m_connectorLibrary->insert(&ConnectorBoolInEdgeInfo);
 	m_connectorLibrary->insert(&ConnectorBoolOutInfo);
 
 	
