@@ -81,7 +81,7 @@ bool BaseLibrary::_insert_(const BaseLibraryItem * bli)
 	
 		if (bli->getOldLibNames())
 		{
-			for (QStringList::Iterator it = bli->getOldLibNames()->begin(); it != bli->getOldLibNames()->end(); ++it)
+			for (QStringList::ConstIterator it = bli->getOldLibNames()->begin(); it != bli->getOldLibNames()->end(); ++it)
 			{
 				if (!m_oldLibNames->find(*it))
 				{
@@ -116,7 +116,7 @@ bool BaseLibrary::remove(const QString & libName)
 		
 		if (bli->getOldLibNames())
 		{
-			for (QStringList::Iterator it = bli->getOldLibNames()->begin(); it != bli->getOldLibNames()->end(); ++it)
+			for (QStringList::ConstIterator it = bli->getOldLibNames()->begin(); it != bli->getOldLibNames()->end(); ++it)
 			{
 				if (bli == m_oldLibNames->find(*it))
 				{

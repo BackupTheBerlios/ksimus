@@ -51,7 +51,7 @@ const PackageInfo * BaseLibraryItem::getPackageInfo() const
 	return m_packageInfo;
 }
 
-QStringList * BaseLibraryItem::getOldLibNames() const
+const QStringList * BaseLibraryItem::getOldLibNames() const
 {
 	return m_oldLibNames;
 }

@@ -43,13 +43,13 @@ public:
 	const QString & getHTMLDescr() const;
 
 		
-	QStringList * getOldLibNames() const;
+	const QStringList * getOldLibNames() const;
 	/** Returns true, if name is a old library name */
 	bool isOldLibName(const QString & name) const;
 
 protected:
-	const BaseInfo * m_baseInfo;
-	const PackageInfo * m_packageInfo;
+	const BaseInfo * const m_baseInfo;
+	const PackageInfo * const m_packageInfo;
 	QStringList * m_oldLibNames;
 
 };
