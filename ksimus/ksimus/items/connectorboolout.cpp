@@ -28,6 +28,7 @@
 #include "connectorinfo.h"
 #include "connectorboolout.h"
 #include "connectorbooloutpropertywidget.h"
+#include "connectorlabel.h"
 #include "ksimdebug.h"
 #include "component.h"
 #include "enumdict.h"
@@ -67,9 +68,31 @@ ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QP
 		m_resetMode(ResetDefault),
 		m_resetModeInit(ResetDefault)
 {
-	setNegateEnabled(true);
+	init();
 }
 											
+ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QString & descr, const QPoint & pos)
+	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
+		m_data(false),
+		m_resetMode(ResetDefault),
+		m_resetModeInit(ResetDefault)
+{
+	init();
+	new ConnectorLabel(this, descr);
+}
+
+ConnectorBoolOut::ConnectorBoolOut( Component * comp, const char * name, const QPoint & pos,
+                                    ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorOutputBase(comp, name, pos, orient, ci)
+{
+	init();
+}
+
+void ConnectorBoolOut::init()
+{
+	setNegateEnabled(true);
+}
+
 // Setup the colors, brushs, and fills for the connector
 void ConnectorBoolOut::setupColorScheme (QPainter * p) const
 {

@@ -26,6 +26,7 @@
 #include "connectorboolin.h"
 #include "connectorboolinpropertywidget.h"
 #include "connectorinfo.h"
+#include "connectorlabel.h"
 #include "component.h"
 #include "ksimdebug.h"
 
@@ -44,6 +45,28 @@ const ConnectorInfo ConnectorBoolInInfo (	"Boolean Input",
 
 ConnectorBoolIn::ConnectorBoolIn(Component * comp, const char * name, const QPoint & pos)
 	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorBoolInInfo)
+{
+	init();
+}
+
+ConnectorBoolIn::ConnectorBoolIn(	Component * comp,	const char * name,
+                                  const QString & descr, const QPoint & pos)
+	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorBoolInInfo)
+{
+	init();
+	new ConnectorLabel(this, descr);
+}
+
+
+ConnectorBoolIn::ConnectorBoolIn( Component * comp, const char * name, const QPoint & pos,
+                                  ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorInputBase(comp, name, pos, orient, ci)
+{
+	init();
+}
+
+
+void ConnectorBoolIn::init()
 {
 	setNegateEnabled(true);
 }

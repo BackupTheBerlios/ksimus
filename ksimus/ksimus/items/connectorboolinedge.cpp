@@ -28,6 +28,8 @@
 #include "connectorboolinedgepropertywidget.h"
 #include "connectorboolinedge.h"
 #include "component.h"
+#include "connectorlabel.h"
+#include "connectorinfo.h"
 
 // Forward declaration
 
@@ -36,21 +38,44 @@
 #define CHANGE_SENSITIVE_ENA  0x0002
 
 
+static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
+{
+	return new ConnectorBoolIn(comp, name, pos);
+}
+
+const ConnectorInfo ConnectorBoolInEdgeInfo (	"Boolean Input Edge",
+											"booleanInputEdge",
+											"Boolean",
+											create );
+	
 int ConnectorBoolInEdge::s_idSensitive;
 static const char * sSensitive = "Edge sensitive";
 
 
 ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const char * name, const QPoint & pos)
-	:	ConnectorBoolIn(comp, name, pos),
+	:	ConnectorBoolIn(comp, name, pos, CO_LEFT, &ConnectorBoolInEdgeInfo),
 		m_edgeSensitive(true),
 		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
 {
 }
 
-/*ConnectorBoolInEdge::~ConnectorBoolInEdge()
+ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const char * name,
+						                             const QString & descr, const QPoint & pos)
+	:	ConnectorBoolIn(comp, name, pos, CO_LEFT, &ConnectorBoolInEdgeInfo),
+		m_edgeSensitive(true),
+		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
 {
-} */
-
+	new ConnectorLabel(this, descr);
+}
+						
+ConnectorBoolInEdge::ConnectorBoolInEdge( Component * comp, const char * name, const QPoint & pos,
+                                           ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorBoolIn(comp, name, pos, orient, ci),
+		m_edgeSensitive(true),
+		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
+{
+}
+						
 /** True sets the connector edge sensitive. False sets the connector level sensitive.
  */
 void ConnectorBoolInEdge::setEdgeSensitive(bool edge)
