@@ -1,3 +1,14 @@
+	19.01.2002
+* Fix: ClockGenerator ugly print view
+* New: Add print function
+* New: Store current document position and restore it after loading
+	14.01.2002
+* Fix: Boolean1OutPropertyGeneralWidget fix tool tip
+* New: BooleanButton with selectable font (uses ComponentStyle)
+* New: ConnectorPropertyWidget hides the "settings" widget if the widget does not contains childs.
+* Fix: ComponentStyle and ComponentPropertyStyleWidget fix color adjustment and storing
+* Fix: CompViewHBox fix color adjustment if widget is inactive
+* New: CompViewWidget add color an font adjustment
 	13.01.2002
 * New: Improve rotate support
 * New: Rotatable user interface components
