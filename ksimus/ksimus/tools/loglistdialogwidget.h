@@ -30,6 +30,7 @@
 
 // Forward declaration
 class QCheckBox;
+class KColorButton;
 
 
 /**LogList property widget
@@ -51,6 +52,10 @@ public:
 		If you do so, then first call function changeData() and than changed data!
 	 */
 	virtual void acceptPressed();
+	/** The function defaultPressed() is called, if user wants to set the default values.
+		You have to reimplement this function, if you add new properties.
+	 */
+	virtual void defaultPressed();
 
 protected:
 	void initView();
@@ -58,7 +63,6 @@ protected:
 	
 	
 	LogList * m_logList;
-	LogListProperty m_property;
 	
 	QCheckBox * m_debugEnableCheck;
 	QCheckBox * m_infoEnableCheck;
@@ -70,6 +74,11 @@ protected:
 	QCheckBox * m_warningPopupCheck;
 	QCheckBox * m_errorPopupCheck;
 	
+	KColorButton * m_debugColor;
+	KColorButton * m_infoColor;
+	KColorButton * m_warningColor;
+	KColorButton * m_errorColor;
+
 
 protected slots:
 	void slotDebugEnableToogled(bool on);
@@ -81,6 +90,11 @@ protected slots:
 	void slotInfoPopupToogled(bool on);
 	void slotWarningPopupToogled(bool on);
 	void slotErrorPopupToogled(bool on);
+
+	void slotDebugColorChanged(const QColor & color);
+	void slotInfoColorChanged(const QColor & color);
+	void slotWarningColorChanged(const QColor & color);
+	void slotErrorColorChanged(const QColor & color);
 };
 
 #endif

@@ -32,15 +32,18 @@ friend class LogList;
 
 public:
 	LogListItem(const char * text, unsigned int priority);
+	LogListItem(const QString & text, unsigned int priority);
 
 protected:
 	~LogListItem();
 	unsigned int getPriority() const { return m_prio; };
+	void setPriority(unsigned int priority);
 	virtual void selected();
 	virtual void highlighted();
 	virtual void paint( QPainter * );
 	virtual int height( const QListBox * ) const;
 	virtual int width( const QListBox * ) const;
+	QString getPrioText() const;
 	
 	unsigned int m_prio;
 	QStringList * m_textList;

@@ -17,13 +17,12 @@
 
 
 // include C-Headers
-#include <stdarg.h>/* va_list, va_arg, va_end*/
-#include <stdio.h>
 
 // include QT-Headers
 #include <qpopupmenu.h>
 #include <qlayout.h>
 #include <qcursor.h>
+#include <qpalette.h>
 
 // include KDE-Headers
 #include <klocale.h>
@@ -34,31 +33,17 @@
 #include "loglist.h"
 #include "loglistitem.h"
 #include "ksimus.h"
+#include "ksimdebug.h"
 #include "loglistdialogwidget.h"
 
 
-#define MAX_TEXT_LENGHT		1000
-
-#define MAX_DEBUG_LENGHT	MAX_TEXT_LENGHT
-#define MAX_INFO_LENGHT		MAX_TEXT_LENGHT
-#define MAX_WARNING_LENGHT	MAX_TEXT_LENGHT
-#define MAX_ERROR_LENGHT	MAX_TEXT_LENGHT
-
-
 LogListProperty::LogListProperty()
-	:
-#ifdef DEBUG
-	m_priorityMask(LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR),
-#else
-	m_priorityMask(LOG_INFO|LOG_WARNING|LOG_ERROR),
-#endif
-	m_popupMask(m_priorityMask)
-{
-}
-
-LogListProperty::LogListProperty(const LogListProperty & llp)
-	:	m_priorityMask(llp.m_priorityMask),
-		m_popupMask(llp.m_popupMask)
+	:	m_priorityMask(getDefaultPriorityMask()),
+		m_popupMask(getDefaultPopupMask()),
+		m_debugColor(getDefaultDebugColor()),
+		m_infoColor(getDefaultInfoColor()),
+		m_warningColor(getDefaultWarningColor()),
+		m_errorColor(getDefaultErrorColor())
 {
 }
 
@@ -66,16 +51,23 @@ LogListProperty::~LogListProperty()
 {
 }
 
-const LogListProperty & LogListProperty::operator=(const LogListProperty & llp)
+unsigned int LogListProperty::getDefaultPriorityMask()
 {
-	if (this != &llp)
-	{
-		m_priorityMask = llp.m_priorityMask;
-		m_popupMask = llp.m_popupMask;
-	}
-	return llp;
+#ifdef DEBUG
+	return (LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR);
+#else
+	return (LOG_INFO|LOG_WARNING|LOG_ERROR)
+#endif
 }
 
+unsigned int LogListProperty::getDefaultPopupMask()
+{
+#ifdef DEBUG
+	return (LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR);
+#else
+	return (LOG_INFO|LOG_WARNING|LOG_ERROR)
+#endif
+}
 
 void LogListProperty::setDebugEnable(bool enable)
 {
@@ -141,6 +133,47 @@ void LogListProperty::setErrorPopup(bool popup)
 		m_popupMask &= ~LOG_ERROR;
 }
 	
+void LogListProperty::setDebugColor(const QColor & color)
+{
+	m_debugColor = color;
+}
+
+void LogListProperty::setInfoColor(const QColor & color)
+{
+	m_infoColor = color;
+}
+
+void LogListProperty::setWarningColor(const QColor & color)
+{
+	m_warningColor = color;
+}
+
+void LogListProperty::setErrorColor(const QColor & color)
+{
+	m_errorColor = color;
+}
+
+const QColor & LogListProperty::getDefaultDebugColor()
+{
+	return Qt::magenta;
+}
+
+const QColor & LogListProperty::getDefaultInfoColor()
+{
+	return Qt::black;
+}
+
+const QColor & LogListProperty::getDefaultWarningColor()
+{
+	return Qt::darkGreen;
+}
+
+const QColor & LogListProperty::getDefaultErrorColor()
+{
+	return Qt::red;
+}
+
+
 /** Save LogList property */
 void LogListProperty::save(KConfigBase & file) const
 {
@@ -153,6 +186,11 @@ void LogListProperty::save(KConfigBase & file) const
 	file.writeEntry("Info Popup",isInfoPopup());
 	file.writeEntry("Warning Popup",isWarningPopup());
 	file.writeEntry("Error Popup",isErrorPopup());
+
+	file.writeEntry("Debug Color",getDebugColor());
+	file.writeEntry("Info Color",getInfoColor());
+	file.writeEntry("Warning Color",getWarningColor());
+	file.writeEntry("Error Color",getErrorColor());
 }
 
 /** Load LogList property */
@@ -167,7 +205,26 @@ void LogListProperty::load(KConfigBase & file)
 	setInfoPopup(file.readBoolEntry("Info Popup",true));
 	setWarningPopup(file.readBoolEntry("Warning Popup",true));
 	setErrorPopup(file.readBoolEntry("Error Popup",true));
+
+	setDebugColor(file.readColorEntry("Debug Color", &getDefaultDebugColor()));
+	setInfoColor(file.readColorEntry("Info Color", &getDefaultInfoColor()));
+	setWarningColor(file.readColorEntry("Warning Color", &getDefaultWarningColor()));
+	setErrorColor(file.readColorEntry("Error Color", &getDefaultErrorColor()));
 }
+
+//##################################################################################
+//##################################################################################
+
+class LogList::Private
+{
+public:
+	Private(KSimusApp * ksimApp)
+		:	app(ksimApp)
+	{};
+
+	KSimusApp * app;
+};
+
 
 //##################################################################################
 //##################################################################################
@@ -175,16 +232,18 @@ void LogListProperty::load(KConfigBase & file)
 
 
 LogList::LogList(KSimusApp * app, QWidget *parent, const char *name )
-	:	QListBox(parent,name),
-		m_app(app)
+	:	QListBox(parent,name)
 {
-
+	m_p = new Private(app);
+	CHECK_PTR(app);
+	
 	connect(this, SIGNAL(selected(int)),SLOT(slotSelected(int)));
 	connect(this, SIGNAL(highlighted(int)),SLOT(slotHighlighted(int)));
 }
 
 LogList::~LogList()
 {
+	delete m_p;
 }
 
 void LogList::mousePressEvent(QMouseEvent * ev)
@@ -196,7 +255,7 @@ void LogList::mousePressEvent(QMouseEvent * ev)
 		
 		idx = menu->insertItem(i18n("&Remove Messages"), this, SLOT(slotClear()));
 		menu->setItemEnabled(idx,count());
-		menu->insertItem(i18n("&Hide Log Window"), m_app, SLOT(slotViewHideLog()));
+		menu->insertItem(i18n("&Hide Log Window"), m_p->app, SLOT(slotViewHideLog()));
 		menu->insertSeparator();
 		propertyidx = menu->insertItem(i18n("&Properties..."));
 		
@@ -206,10 +265,10 @@ void LogList::mousePressEvent(QMouseEvent * ev)
 		if (idx == propertyidx)
 		{
 			KDialogBase * dialog = new KDialogBase(KDialogBase::Plain,
-																i18n("Log Window Properties"),
-																KDialogBase::Ok | KDialogBase::Cancel,
-											 					KDialogBase::Ok,
-											 					this);
+			                                       i18n("Log Window Properties"),
+			                                       KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
+			                                       KDialogBase::Ok,
+			                                       this);
 			QWidget * wid = dialog->plainPage();
 			
 			LogListDialogWidget * child = new LogListDialogWidget(this, wid, i18n("Log Window Properties"));
@@ -219,7 +278,9 @@ void LogList::mousePressEvent(QMouseEvent * ev)
 			horLayout->setSpacing(KDialog::spacingHint());
 			horLayout->addWidget(child);
 			
-			connect(dialog,SIGNAL(okClicked()),child,SLOT(slotAccept()));
+			connect(dialog, SIGNAL(okClicked()), child, SLOT(slotAccept()));
+			connect(dialog, SIGNAL(defaultClicked()), child, SLOT(slotDefault()));
+			connect(dialog, SIGNAL(cancelClicked()), child, SLOT(slotCancel()));
 			dialog->exec();
 		}
 	}
@@ -244,61 +305,49 @@ void LogList::append(LogListItem * item)
 	else
 		delete item;
 }
-void LogList::debug(const char * file, int line, const char * format, ...)
+
+void LogList::debug(const char * file, int line, const char * text)
 {
-	char text[MAX_DEBUG_LENGHT];
-	va_list ap;
-	QString s;
-	
-	va_start(ap,format);
-	vsnprintf(text, MAX_DEBUG_LENGHT, format, ap);
-	va_end(ap);
-	
-	s.sprintf("%s(%d) %s",file, line, text);
-	LogListItem * lli = new LogListItem(s, LOG_DEBUG);
+	LogListItem * lli = new LogListItem(QString::fromLatin1("%1(%2) %3")
+	                                    .arg(QString::fromLatin1(file))
+	                                    .arg(line)
+	                                    .arg(QString::fromLatin1(text)),
+	                                    LOG_DEBUG);
 	CHECK_PTR(lli);
 	append(lli);
 }
 
-void LogList::info(const char * format, ...)
+void LogList::debug(const char * file, int line, const QString & text)
 {
-	char text[MAX_INFO_LENGHT];
-	va_list ap;
-	va_start(ap,format);
-	vsnprintf(text, MAX_INFO_LENGHT, format, ap);
-	va_end(ap);
-	
-	LogListItem * lli = new LogListItem(text,LOG_INFO);
+	LogListItem * lli = new LogListItem(QString::fromLatin1("%1(%2) %3")
+	                                    .arg(QString::fromLatin1(file))
+	                                    .arg(line)
+	                                    .arg(text),
+	                                    LOG_DEBUG);
 	CHECK_PTR(lli);
 	append(lli);
 }
 
-void LogList::warning(const char * format, ...)
+void LogList::info(const QString & s)
 {
-	char text[MAX_WARNING_LENGHT];
-	va_list ap;
-	va_start(ap,format);
-	vsnprintf(text, MAX_WARNING_LENGHT, format, ap);
-	va_end(ap);
-	
-	LogListItem * lli = new LogListItem(text,LOG_WARNING);
+	LogListItem * lli = new LogListItem(s,LOG_INFO);
 	CHECK_PTR(lli);
 	append(lli);
 }
 
-void LogList::error(const char * format, ...)
+void LogList::warning(const QString & s)
 {
-	char text[MAX_ERROR_LENGHT];
-	va_list ap;
-	va_start(ap,format);
-	vsnprintf(text, MAX_ERROR_LENGHT, format, ap);
-	va_end(ap);
-	
-	LogListItem * lli = new LogListItem(text,LOG_ERROR);
+	LogListItem * lli = new LogListItem(s,LOG_WARNING);
 	CHECK_PTR(lli);
 	append(lli);
 }
 
+void LogList::error(const QString & s)
+{
+	LogListItem * lli = new LogListItem(s,LOG_ERROR);
+	CHECK_PTR(lli);
+	append(lli);
+} 
 
 void LogList::slotSelected(int index)
 {
@@ -338,3 +387,7 @@ void LogList::slotClear()
 {
 	clear();
 }
+
+
+
+

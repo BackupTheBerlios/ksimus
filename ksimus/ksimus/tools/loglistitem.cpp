@@ -20,6 +20,8 @@
 #include <qfontmetrics.h>
 #include <qpainter.h>
 
+#include <klocale.h>
+
 #include "loglist.h"
 #include "loglistitem.h"
 
@@ -30,12 +32,29 @@
 
 LogListItem::LogListItem(const char * text, unsigned int priority)
 {
-	QString base(QString::fromLatin1(text));
-	
-	if ((priority == LOG_DEBUG)		||
-		(priority == LOG_INFO)		||
-		(priority == LOG_WARNING)	||
-		(priority == LOG_ERROR))
+	setPriority(priority);
+	m_textList = new QStringList(QStringList::split('\n', getPrioText() + QString::fromLatin1(text)));
+	CHECK_PTR(m_textList);
+}
+
+LogListItem::LogListItem(const QString & text, unsigned int priority)
+{
+	setPriority(priority);
+	m_textList = new QStringList(QStringList::split('\n', getPrioText() + text));
+	CHECK_PTR(m_textList);
+}
+
+LogListItem::~LogListItem()
+{
+	delete m_textList;
+}
+
+void LogListItem::setPriority(unsigned int priority)
+{
+	if ((priority == LOG_DEBUG)    ||
+	    (priority == LOG_INFO)     ||
+	    (priority == LOG_WARNING)  ||
+	    (priority == LOG_ERROR))
 	{
 		m_prio = priority;
 	}
@@ -44,54 +63,62 @@ LogListItem::LogListItem(const char * text, unsigned int priority)
 		KSIMDEBUG_VAR("unknown priority", priority);
 		m_prio = LOG_ERROR;
 	}
+}
 
+QString LogListItem::getPrioText() const
+{
 	switch(m_prio)
 	{
 		case LOG_DEBUG:
-			base = "DEBUG: " + base;
+			return i18n("DEBUG: ");
 			break;
-		
+
 		case LOG_INFO:
-			base = "INFO: " + base;
+			return i18n("INFO: ");
 			break;
-		
+
 		case LOG_WARNING:
-			base = "WARNING: " + base;
+			return i18n("WARNING: ");
 			break;
-		
+
 		case LOG_ERROR:
-			base = "ERROR: " + base;
-			break;
-			
-		default:
+			return i18n("ERROR: ");
 			break;
 	}
-		
-//	m_textList = new QStringList(true);
-//	CHECK_PTR(m_textList);
-	
-	// Split (multi line) text to single line strings
-//	split(m_textList,base,'\n');
-	m_textList = new QStringList(QStringList::split('\n', base));
-	
+
+	return QString::null;   // Because compiler warning
 }
 
-LogListItem::~LogListItem()
-{
-	delete m_textList;
-}
-	
+
 void LogListItem::paint(QPainter * p)
 {
+	p->save();
+	bool firstLine = true;
 	QFontMetrics fm = p->fontMetrics();
 	int ls = fm.lineSpacing();
 	int y = fm.ascent() + fm.leading()/2;
+	int leadingSpace = (m_textList->count() > 1) ? fm.width(getPrioText())+5 : 0;
+
+	// Use default color schema if selected
+	if (QListBoxItem::selected() == false)
+	{
+		switch(m_prio)
+		{
+			case LOG_DEBUG:   p->setPen(((LogList*)listBox())->getDebugColor());   break;
+			case LOG_INFO:    p->setPen(((LogList*)listBox())->getInfoColor());    break;
+			case LOG_WARNING: p->setPen(((LogList*)listBox())->getWarningColor()); break;
+			case LOG_ERROR:   p->setPen(((LogList*)listBox())->getErrorColor());   break;
+		}
+	}
+
 	
 	for (QStringList::Iterator it = m_textList->begin(); it != m_textList->end(); ++it)
 	{
-		p->drawText(5, y, *it);
+		p->drawText(firstLine ? 5 : leadingSpace, y, *it);
 		y += ls;
+		firstLine = false;
 	}
+	p->restore();
 }
 
 int LogListItem::height( const QListBox * box) const

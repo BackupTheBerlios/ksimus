@@ -22,6 +22,7 @@
 
 // QT-Includes
 #include <qlistbox.h>
+#include <qcolor.h>
 
 // KDE-Includes
 
@@ -32,6 +33,7 @@ class LogListItem;
 class KConfigBase;
 class LogList;
 class KSimusApp;
+class QColor;
 
 
 
@@ -42,10 +44,10 @@ class KSimusApp;
 
 
 
-#define LOG_DEBUG	0x01
-#define LOG_INFO	0x02
-#define LOG_WARNING	0x04
-#define LOG_ERROR	0x08
+#define LOG_DEBUG   0x01
+#define LOG_INFO    0x02
+#define LOG_WARNING 0x04
+#define LOG_ERROR   0x08
 
 
 class LogListProperty
@@ -53,16 +55,15 @@ class LogListProperty
 
 public:
 	LogListProperty();
-	LogListProperty(const LogListProperty & llp);
 	~LogListProperty();
 
-    const LogListProperty & operator=(const LogListProperty & llp);
-	
 	void setPriorityMask(unsigned int newMask) { m_priorityMask = newMask & (LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR); };
 	unsigned int getPriorityMask() const { return m_priorityMask; };
+	static unsigned int getDefaultPriorityMask();
 	
 	void setPopupMask(unsigned int newMask) { m_popupMask = newMask & (LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR); };
 	unsigned int getPopupMask() const { return m_popupMask; };
+	static unsigned int getDefaultPopupMask();
 	
 	void setDebugEnable(bool enable);
 	bool isDebugEnabled() const { return m_priorityMask & LOG_DEBUG; };
@@ -88,7 +89,27 @@ public:
 	
 	void setErrorPopup(bool popup);
 	bool isErrorPopup() const { return m_popupMask & LOG_ERROR; };
+
+
+	void setDebugColor(const QColor & color);
+	const QColor & getDebugColor() const { return m_debugColor; };
+
+	void setInfoColor(const QColor & color);
+	const QColor & getInfoColor() const { return m_infoColor; };
+
+	void setWarningColor(const QColor & color);
+	const QColor & getWarningColor() const { return m_warningColor; };
+
+	void setErrorColor(const QColor & color);
+	const QColor & getErrorColor() const { return m_errorColor; };
 	
+
+	static const QColor & getDefaultDebugColor();
+	static const QColor & getDefaultInfoColor();
+	static const QColor & getDefaultWarningColor();
+	static const QColor & getDefaultErrorColor();
+
+
 	/** Save LogList property */
 	void save(KConfigBase & file) const;
 	/** Load LogList property */
@@ -97,6 +118,10 @@ public:
 protected:
 	unsigned int m_priorityMask;
 	unsigned int m_popupMask;
+	QColor m_debugColor;
+	QColor m_infoColor;
+	QColor m_warningColor;
+	QColor m_errorColor;
 };
 
 
@@ -104,34 +129,16 @@ protected:
 
 class LogList : public QListBox, public LogListProperty
 {
-   Q_OBJECT
+	class Private;
+
+	Q_OBJECT
 
 public:
 	
 	#ifdef DEBUG
-		#define logDebug(p0)								debug(__FILE__,__LINE__,p0)
-		#define logDebug1(p0)								debug(__FILE__,__LINE__,p0)
-		#define logDebug2(p0,p1)							debug(__FILE__,__LINE__,p0,p1)
-		#define logDebug3(p0,p1,p2)							debug(__FILE__,__LINE__,p0,p1,p2)
-		#define logDebug4(p0,p1,p2,p3)						debug(__FILE__,__LINE__,p0,p1,p2,p3)
-		#define logDebug5(p0,p1,p2,p3,p4)					debug(__FILE__,__LINE__,p0,p1,p2,p3,p4)
-		#define logDebug6(p0,p1,p2,p3,p4,p5)				debug(__FILE__,__LINE__,p0,p1,p2,p3,p4,p5)
-		#define logDebug7(p0,p1,p2,p3,p4,p5,p6)				debug(__FILE__,__LINE__,p0,p1,p2,p3,p4,p5,p6)
-		#define logDebug8(p0,p1,p2,p3,p4,p5,p6,p7)			debug(__FILE__,__LINE__,p0,p1,p2,p3,p4,p5,p6,p7)
-		#define logDebug9(p0,p1,p2,p3,p4,p5,p6,p7,p8)		debug(__FILE__,__LINE__,p0,p1,p2,p3,p4,p5,p6,p7,p8)
-		#define logDebug10(p0,p1,p2,p3,p4,p5,p6,p7,p8,p9)	debug(__FILE__,__LINE__,p0,p1,p2,p3,p4,p5,p6,p7,p8,p9)
+		#define logDebug(p)      debug(__FILE__,__LINE__,p)
 	#else
-		#define logDebug(p0)								nop()
-		#define logDebug1(p0)								nop()
-		#define logDebug2(p0,p1)							nop()
-		#define logDebug3(p0,p1,p2)							nop()
-		#define logDebug4(p0,p1,p2,p3)						nop()
-		#define logDebug5(p0,p1,p2,p3,p4)					nop()
-		#define logDebug6(p0,p1,p2,p3,p4,p5)				nop()
-		#define logDebug7(p0,p1,p2,p3,p4,p5,p6)				nop()
-		#define logDebug8(p0,p1,p2,p3,p4,p5,p6,p7)			nop()
-		#define logDebug9(p0,p1,p2,p3,p4,p5,p6,p7,p8)		nop()
-		#define logDebug10(p0,p1,p2,p3,p4,p5,p6,p7,p8,p9)	nop()
+		#define logDebug(p)      nop()
 	#endif
 
 
@@ -140,16 +147,16 @@ public:
 	
 	void append(LogListItem * item);
 	
-	void debug(const char * file, int line, const char * format, ...);
-	void info(const char * format, ...);
-	void warning(const char * format, ...);
-	void error(const char * format, ...);
+	void debug(const char * file, int line, const char * txt);
+	void debug(const char * file, int line, const QString & s);
+	void info(const QString & s);
+	void warning(const QString & s);
+	void error(const QString & s);
 	void nop() const { ; };
 	
 protected:
 
 	virtual void mousePressEvent(QMouseEvent * ev);
-	KSimusApp * m_app;
 
 protected slots:
 	void slotSelected(int index);
@@ -159,6 +166,9 @@ protected slots:
 	void slotToggleWarning();
 	void slotToggleError();
 	void slotClear();
+
+private:
+	Private * m_p;
 
 signals:
 	void signalShow();
