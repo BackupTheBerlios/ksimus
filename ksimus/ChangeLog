@@ -1,3 +1,11 @@
+	21.12.2001
+* Change: Remove debug message from ComponentBlockLayout
+* Change: ComponentBlockLayout justify text output
+* Change: Remove debug message from ConnectorLabel
+* Fix: include file in KSimBooleanBox
+* Fix: Component deletes connectors in m_connList
+* Fix: Rearrange deleted items in the Component destructor
+* Fix: ComponentAddOn self deleting
 	19.12.2001
 * New: classes DoubleLayout, ComponentBlockLayout and ComponentControlBlock
 * Fix typo
