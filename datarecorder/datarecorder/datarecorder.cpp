@@ -446,7 +446,7 @@ bool DataRecorder::load(KSimData & file, bool copyLoad)
   for( it = serialNumberList.begin(); it != serialNumberList.end(); ++it )
   {
 		file.setGroup(baseGroup + QString(sChannelX).arg(*it));
-  	KSIMDEBUG(QString("Load Channel ") +  QString(sChannelX).arg(*it));
+//  	KSIMDEBUG(QString("Load Channel ") +  QString(sChannelX).arg(*it));
   	bool create = false;
   	DataRecorderChannelBase * channel = getChannelList()->findSerial(*it);
   	
@@ -463,9 +463,9 @@ bool DataRecorder::load(KSimData & file, bool copyLoad)
   	}
   	
   	channel->load(file, copyLoad);
-  	KSIMDEBUG_VAR("", channel->getConnector()->getName());
+/*  	KSIMDEBUG_VAR("", channel->getConnector()->getName());
   	KSIMDEBUG_VAR("", channel->getConnector()->getInitName());
-  	KSIMDEBUG_VAR("", channel->getConnector()->getWireName());
+  	KSIMDEBUG_VAR("", channel->getConnector()->getWireName());*/
   	
   	if (create)
   	{
