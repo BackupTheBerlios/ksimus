@@ -36,16 +36,22 @@
 class KSimLineEdit : public QLineEdit
 {
 	Q_OBJECT
+
+class Private;
+
 public:
 	KSimLineEdit( QWidget *parent, const char *name=0 );
 	KSimLineEdit( const QString &, QWidget *parent, const char *name=0 );
-//	~KSimLineEdit();
+	~KSimLineEdit();
 
 protected:
 	virtual void focusOutEvent(QFocusEvent *);
 
 private slots:
 	void slotChanged();
+
+private:
+	Private * m_p;
 
 signals:
 	void changed();

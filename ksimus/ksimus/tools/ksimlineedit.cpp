@@ -43,9 +43,9 @@ KSimLineEdit::KSimLineEdit(const QString & contents, QWidget *parent, const char
 	connect(this, SIGNAL(returnPressed()),SLOT(slotChanged()));
 }
 
-/*KSimLineEdit::~KSimLineEdit()
+KSimLineEdit::~KSimLineEdit()
 {
-} */
+}
 
 void KSimLineEdit::focusOutEvent(QFocusEvent * ev)
 {

@@ -18,7 +18,7 @@
 #ifndef KSIMDOUBLEEDIT_H
 #define KSIMDOUBLEEDIT_H
 
-#include <qlineedit.h>
+#include "ksimlineedit.h"
 
 class QDoubleValidator;
 
@@ -26,11 +26,16 @@ class QDoubleValidator;
   *@author Rasmus Diekenbrock
   */
 
-class KSimDoubleEdit : public QLineEdit
+class KSimDoubleEdit : public KSimLineEdit
 {
    Q_OBJECT
-public: 
-	KSimDoubleEdit(double bottom, double top, int decimals, QWidget *parent, const char *name);
+
+class Private;
+friend class KSimDoubleEditValidator;
+
+public:
+	KSimDoubleEdit(QWidget *parent, const char *name = 0);
+	KSimDoubleEdit(double bottom, double top, int decimals, QWidget *parent, const char *name = 0);
 	~KSimDoubleEdit();
 
 	void setRange(double bottom, double top, int decimals);
@@ -38,6 +43,27 @@ public:
 	double top() const;
 	int decimals() const;
 	double value();
+	void setBottom(double bottom);
+	void setTop(double top);
+	void setDecimals(int decimals);
+	
+	/** Sets the convertion type. Allowed types are 'g', 'G', 'e', 'E', 'g' and 'G'. See the printf docu.
+		*/
+	void setConversionType(char type);
+	/** Gets the convertion type. Allowed types are 'g', 'G', 'e', 'E', 'g' and 'G'. See the printf docu.
+		*/
+	char getConversionType() const;
+	
+	/** Enables the value tracking during the input. If the current input is a valid value
+	  * and is in the given range the signal @ref valueChanged is emitted. If tracking is
+	  * disabled the signal is emitted only after retrun pressed or the input line was leaved.
+	  * The default is enabled.
+	  */
+	void setTrackingEnabled(bool tracking);
+	/** Returns true if tracking is enabled.
+	  * @see setTrackingEnabled
+	  */
+	bool isTrackingEnabled() const;
 	
 public slots:
 	void setValue(double value);
@@ -45,14 +71,21 @@ public slots:
 
 protected slots:
 	void slotTextChanged(const QString & text);
+	void slotReady();
 
 
-signals:
-	void valueChanged(double value);	
-
-protected:
+private:
 	QDoubleValidator * m_dVal;
 	double m_lastValue;
+	double m_trackedValue;
+	Q_UINT32 m_flags;
+	Private * m_p;
+	
+
+signals:
+	void valueChangedTracking(double value);	
+	void valueChanged(double value);	
+
 };
 
 #endif
