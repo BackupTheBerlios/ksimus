@@ -1486,7 +1486,10 @@ void KSimEditor::wirePopup(const QPoint & pos)
 		comp->initPropertyDialog(dia);
 		dia->exec();
 		delete dia;
-//		comp->propertyDialog();
+	}
+	else if (res == -1)
+	{
+		// Nothing
 	}
 	else
 	{
