@@ -201,22 +201,22 @@ static void setGlobalTabOrder(QWidget * main, QWidget ** last)
 {
 	const QObjectList * list = main->children();
 	
-    if (list)
-    {
+	if (list)
+	{
 		QObject * obj;
-	    for ( obj = ((QObjectList*)list)->first(); obj; obj = ((QObjectList*)list)->next() )
-    	{
-    		if (obj->isWidgetType())
-	    	{
-    			if (*last)
-    			{
-	    			QWidget::setTabOrder(*last,(QWidget*)obj);
-		    	}
-		    	*last = (QWidget*)obj;
-	    		setGlobalTabOrder((QWidget*)obj, last);
-	    	}
-	    }
-    }
+		for ( obj = ((QObjectList*)list)->first(); obj; obj = ((QObjectList*)list)->next() )
+		{
+			if (obj->isWidgetType())
+			{
+				if (*last)
+				{
+					QWidget::setTabOrder(*last,(QWidget*)obj);
+				}
+				*last = (QWidget*)obj;
+				setGlobalTabOrder((QWidget*)obj, last);
+			}
+		}
+	}
 }	
 
 QWidget * ConnectorPropertyWidget::rowWidget()
