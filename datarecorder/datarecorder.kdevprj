@@ -38,7 +38,7 @@ project_type=kpart_plugin
 sgml_file=/home/rasmus/datarecorder/doc/en/index.docbook
 short_info=
 sub_dir=datarecorder/
-version=0.1.1
+version=0.3.0
 version_control=None
 workspace=1
 
