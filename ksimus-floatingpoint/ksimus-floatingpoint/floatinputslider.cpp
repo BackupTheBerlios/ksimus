@@ -93,7 +93,6 @@ FloatInputSlider::FloatInputSlider(CompContainer * container, const ComponentInf
 	{
 		new FloatInputSliderView(this, USER_VIEW);
 	}
-//	getAction().disable(KSimAction::UPDATEOUTPUT);
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
 }
@@ -104,8 +103,6 @@ void FloatInputSlider::reset()
 	FloatStyle1Out::reset();
 	
 	emit valueChanged(toSlider(getValue()));
-	updateOutput();
-	
 }
 
 void FloatInputSlider::newValue(int i)

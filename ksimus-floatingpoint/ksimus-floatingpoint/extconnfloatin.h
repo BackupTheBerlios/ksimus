@@ -21,9 +21,6 @@
 #include "ksimus/externalconnector.h"
 
 
-class ConnectorFloatOut;
-class ConnectorFloatIn;
-
 namespace KSimLibFloatingPoint
 {
 
@@ -38,14 +35,10 @@ class ExtConnFloatIn : public ExternalConnector
 public: 
 	ExtConnFloatIn(CompContainer * container, const ComponentInfo * ci);
 //	~ExtConnFloatIn();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
+	/** Executes the simulation of this component */
+	virtual void calculate();
 
 protected:
-	ConnectorFloatOut * out;
-	ConnectorFloatIn * in;
-	
-
 };
 
 //###############################################################

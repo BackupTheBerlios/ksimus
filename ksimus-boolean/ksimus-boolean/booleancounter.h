@@ -71,7 +71,7 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 	/** Shift the result of calculation to output */
-	virtual void updateOutput();
+	void setOutput() const;
 	/** Reset all simulation variables */
 	virtual void reset();
 

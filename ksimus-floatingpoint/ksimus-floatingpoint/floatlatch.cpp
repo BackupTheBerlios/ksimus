@@ -139,6 +139,7 @@ void FloatLatch::calculate()
 	if (getInputReset()->getInput() && !getInputReset()->isHidden())
 	{
 		m_values.fill(getResetValue());
+		setOutput();
 	}
 	else if (getInputEnable()->getInput())
 	{
@@ -149,13 +150,12 @@ void FloatLatch::calculate()
 			m_values[i++] = ((ConnectorFloatIn*)it.current())->getInput();
 			++it;
 		};
+		setOutput();
 	}
 }
 
-void FloatLatch::updateOutput()
+void FloatLatch::setOutput()
 {
-	Component::updateOutput();
-	
 	QListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
 	int i = 0;
 	while(it.current())
@@ -173,7 +173,7 @@ void FloatLatch::reset()
 	m_values.resize(QMAX(getInputPack()->getConnectorCount(),getOutputPack()->getConnectorCount()));
 	m_values.fill(getResetValue());
 	
-	updateOutput();
+	setOutput();
 }
 
 void FloatLatch::save(KSimData & file) const

@@ -139,6 +139,7 @@ void MultiDLatch::calculate()
 	if (getInputReset()->getInput() && !getInputReset()->isHidden())
 	{
 		m_values.fill(false);
+		setOutput();
 	}
 	else if (getInputEnable()->getInput())
 	{
@@ -149,13 +150,12 @@ void MultiDLatch::calculate()
 			m_values[i++] = ((ConnectorBoolIn*)it.current())->getInput();
 			++it;
 		};
+		setOutput();
 	}
 }
 
-void MultiDLatch::updateOutput()
+void MultiDLatch::setOutput() const
 {
-	Component::updateOutput();
-	
 	QListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
 	int i = 0;
 	while(it.current())
@@ -173,7 +173,7 @@ void MultiDLatch::reset()
 	m_values.resize(QMAX(getInputPack()->getConnectorCount(),getOutputPack()->getConnectorCount()));
 	m_values.fill(getResetValue());
 	
-	updateOutput();
+	setOutput();
 }
 
 void MultiDLatch::save(KSimData & file) const

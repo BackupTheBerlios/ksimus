@@ -541,15 +541,6 @@ void DataRecorder::calculate()
 	executeNext();
 }
 	
-void DataRecorder::updateOutput()
-{
-//	readSampleTime(); in reset() only
-/*	if (getDataRecoderWidget() != 0)
-	{
-		getDataRecoderWidget()->getDataView()->newData();
-	}*/
-}
-
 
 void DataRecorder::reset()
 {

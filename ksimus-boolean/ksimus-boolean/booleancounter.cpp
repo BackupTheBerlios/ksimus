@@ -194,7 +194,7 @@ void BooleanCounter::reset()
 	m_borrow = false;
 	m_carry = false;
 	
-	updateOutput();
+	setOutput();
 }
 
 
@@ -212,6 +212,7 @@ void BooleanCounter::calculate()
 	if (clear)
 	{
 		m_cnt = getMinCount();
+		setOutput();
 	}
 	else
 	{
@@ -224,11 +225,13 @@ void BooleanCounter::calculate()
 			if (m_cnt < getMaxCount())
 			{
 				m_cnt++;
+				setOutput();
 			}
 			else
 			{
 				m_cnt = getMinCount();
 				m_carry = true;
+				setOutput();
 			}
 		}
 		else if (down)
@@ -236,21 +239,21 @@ void BooleanCounter::calculate()
 			if (m_cnt > getMinCount())
 			{
 				m_cnt--;
+				setOutput();
 			}
 			else
 			{
 				m_cnt = getMaxCount();
 				m_borrow = true;
+				setOutput();
 			}
 		}
 	}
 }
 
 
-void BooleanCounter::updateOutput()
+void BooleanCounter::setOutput() const
 {
-	Component::updateOutput();
-	
 	unsigned int mask = 1;
 	FOR_EACH_CONNECTOR(it, *getOutputCounter()->getConnList())
 	{

@@ -85,18 +85,20 @@ Boolean2In1Out::Boolean2In1Out(CompContainer * container, const ComponentInfo * 
 {
 } */
 
-void Boolean2In1Out::updateOutput()
+void Boolean2In1Out::setState(bool newState)
 {
-	Component::updateOutput();
+	getOutputConnector()->setOutput(newState);
+}
 	
-	m_out->setOutput(m_result);
+bool Boolean2In1Out::getState() const
+{
+	return getOutputConnector()->getOutput();
 }
 
 void Boolean2In1Out::reset()
 {
 	Component::reset();
-	
-	m_result = false;
+	setState(false);
 }
 
 }; //namespace KSimLibBoolean

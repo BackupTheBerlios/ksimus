@@ -105,7 +105,6 @@ FloatLineInput::FloatLineInput(CompContainer * container, const ComponentInfo * 
 	{
 		new FloatLineInputView(this, USER_VIEW);
 	}
-//	getAction().disable(KSimAction::UPDATEOUTPUT);
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
 }
@@ -147,7 +146,6 @@ void FloatLineInput::reset()
 	FloatStyleRange1Out::reset();
 	
 	emit valueChanged(getValue());
-	updateOutput();
 }
 
 void FloatLineInput::newValueTracking(double i)

@@ -87,7 +87,6 @@ FloatLineOutput::FloatLineOutput(CompContainer * container, const ComponentInfo 
 	{
 		new FloatLineOutputView(this, USER_VIEW);
 	}
-	getAction().disable(KSimAction::UPDATEOUTPUT);
 }
 
 /*FloatLineOutput::~FloatLineOutput()

@@ -53,9 +53,6 @@ class FlipFlopBase : public Boolean1Out
 public:
 //	~FlipFlopBase();
 
-	/** Shifts the current component state (@ref setState) to output connecotor. */
-	virtual void updateOutput();
-	
 	/** Resets the component state. */
 	virtual void reset();
 	
@@ -65,6 +62,11 @@ public:
 	*   copyLoad is true, if the load function is used as a copy function
 	*	  Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
+	
+	/** Sets the current component state. */
+	void setState(bool newState);
+	/** Returns the current component state. */
+//	bool getState() const;
 	
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref FlipFlopBasePropertyGeneralWidget.

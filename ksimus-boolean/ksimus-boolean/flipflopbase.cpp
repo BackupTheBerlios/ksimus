@@ -75,19 +75,22 @@ FlipFlopBase::FlipFlopBase(CompContainer * container, const ComponentInfo * ci)
 }*/
 
 
-void FlipFlopBase::updateOutput()
+void FlipFlopBase::setState(bool newState)
 {
-	Boolean1Out::updateOutput();
-	getNotOutputConnector()->setOutput(getState());
+	getOutputConnector()->setOutput(newState);
+	getNotOutputConnector()->setOutput(newState);
 }
+	
+/*bool Boolean1Out::getState() const
+{
+	return getOutputConnector()->getOutput();
+} */
 
 void FlipFlopBase::reset()
 {
 	Boolean1Out::reset();
 	
 	setState( getResetState() );
-	getOutputConnector()->setOutput(getState());
-	getNotOutputConnector()->setOutput(getState());
 }
 
 /** save component properties */

@@ -122,7 +122,6 @@ Boolean7Segment::Boolean7Segment(CompContainer * container, const ComponentInfo 
 	{
 		new Boolean7SegmentView(this, USER_VIEW);
 	}
-	getAction().disable(KSimAction::UPDATEOUTPUT);
 }
 
 /*Boolean7Segment::~Boolean7Segment()

@@ -568,11 +568,6 @@ void TextRec::calculate()
 	*m_stream << "\n";
 }
 	
-void TextRec::updateOutput()
-{
-	Component::updateOutput();
-}
-
 
 void TextRec::reset()
 {
@@ -606,7 +601,13 @@ int TextRec::checkCircuit()
 		// Check file
 		QFileInfo fi(m_filename.getFilename());
 	
-		if (fi.exists())
+		if (!m_filename.isPathValid())
+		{
+			KSIMDEBUG("Filename is not valid. Document not saved?");
+			logError(i18n("Filename is not valid. Document not saved?"));
+			err++;
+		}
+		else if (fi.exists())
 		{
 			//File exists!
 			if (!fi.isWritable())

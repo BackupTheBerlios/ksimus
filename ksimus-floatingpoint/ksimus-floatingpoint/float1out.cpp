@@ -51,7 +51,6 @@ namespace KSimLibFloatingPoint
 
 Float1Out::Float1Out(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
-		m_value(DEFAULT_RESET_VALUE),
 		m_resetValue(DEFAULT_RESET_VALUE)
 {
 	
@@ -66,16 +65,19 @@ Float1Out::Float1Out(CompContainer * container, const ComponentInfo * ci)
 {
 } */
 
-void Float1Out::updateOutput()
+void Float1Out::setValue(double newValue)
 {
-	Component::updateOutput();
-	getOutputConnector()->setOutput(getValue());
-}
+	getOutputConnector()->setOutput(newValue);
+};
+
+double Float1Out::getValue() const
+{
+	return getOutputConnector()->getOutput();
+};
 
 void Float1Out::setResetValue(double resetValue)
 {
 	m_resetValue = resetValue;
-// crashes Wavefrom Generator	reset(); // Update values
 }
 	
 double Float1Out::getResetValue() const
@@ -89,7 +91,6 @@ void Float1Out::reset()
 	Component::reset();
 	
 	setValue(getResetValue());
-	getOutputConnector()->setOutput(getValue());
 }
 
 /** save component properties */

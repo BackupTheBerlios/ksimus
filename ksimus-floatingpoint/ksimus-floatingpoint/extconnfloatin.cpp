@@ -21,6 +21,7 @@
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorfloatout.h"
 #include "ksimus/componentinfo.h"
+#include "ksimus/wireproperty.h"
 
 namespace KSimLibFloatingPoint
 {
@@ -48,16 +49,22 @@ const ComponentInfo * getExtConnFloatInInfo()
 ExtConnFloatIn::ExtConnFloatIn(CompContainer * container, const ComponentInfo * ci)
 	: ExternalConnector(container, ci, true)
 {
+	ConnectorFloatOut * out;
+	ConnectorFloatIn * in;
+	
 	out = new ConnectorFloatOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("FloatingPoint-Connector", "Output"),
 	                             QPoint(4,1));
 	CHECK_PTR(out);
+	setInternalConn(out);
+	
 	in = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("FloatingPoint-Connector", "Input"),
 	                             QPoint(0,1));
 	CHECK_PTR(in);
+	setExternalConn(in);
 	
 }
 
@@ -65,11 +72,18 @@ ExtConnFloatIn::ExtConnFloatIn(CompContainer * container, const ComponentInfo * 
 {
 } */
 
-/** Shift the result of calculation to output */
-void ExtConnFloatIn::updateOutput()
+void ExtConnFloatIn::calculate()
 {
-	ExternalConnector::updateOutput();
+	//ExternalConnector::calculate();
+	
+	ConnectorFloatOut * out = (ConnectorFloatOut *)getInternalConn();
+	ConnectorFloatIn * in = (ConnectorFloatIn *)getExternalConn();
+	
 	out->setOutput(in->getInput());
+	if (out->getWireProperty())
+	{
+		out->getWireProperty()->execute();
+	}
 }
 //###############################################################
 

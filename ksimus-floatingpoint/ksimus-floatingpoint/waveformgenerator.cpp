@@ -247,8 +247,6 @@ void WaveformGenerator::reset()
 	m_lastFrac = 100000; // A pos value
 	
 	calculate();
-	updateOutput();
-
 }
 
 /** Executes the simulation of this component */

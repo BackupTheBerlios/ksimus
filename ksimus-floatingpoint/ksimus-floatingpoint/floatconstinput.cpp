@@ -81,7 +81,6 @@ FloatConstInput::FloatConstInput(CompContainer * container, const ComponentInfo 
 	{
 		new FloatConstInputView(this, SHEET_VIEW);
 	}
-	getAction().disable(KSimAction::UPDATEOUTPUT);
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
 }

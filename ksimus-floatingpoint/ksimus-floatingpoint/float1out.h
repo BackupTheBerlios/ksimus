@@ -51,8 +51,7 @@ class Float1Out : public Component
 
 public:
 //	~Float1Out();
-	/** Shifts the current component value (@ref setValue) to the output connector. */
-	virtual void updateOutput();
+	
 	/** Resets the component state. */
 	virtual void reset();
 
@@ -69,10 +68,10 @@ public:
 
 
 	/** Sets the current component value. */
-	void setValue(double newValue) { m_value = newValue; };
+	void setValue(double newValue);
 	
 	/** Returns the current component value. */
-	double getValue() const { return m_value; };
+	double getValue() const;
 	
 	/** Sets the reset value. The component gets this state each call @ref reset.*/
 	void setResetValue(double resetValue);
@@ -92,7 +91,6 @@ protected:
 	  */
 	Float1Out(CompContainer * container, const ComponentInfo * ci);
 	
-	double m_value;
 	double m_resetValue;
 	ConnectorFloatOut * m_out;
 

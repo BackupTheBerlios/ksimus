@@ -170,11 +170,8 @@ BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo 
 	{
 		new BooleanConstantView(this, SHEET_VIEW);
 	}
-
 	getAction().disable(KSimAction::UPDATEVIEW);
-	getAction().disable(KSimAction::UPDATEOUTPUT);
 	getAction().disable(KSimAction::CALCULATE);
-	
 }
 
 /*BooleanConstant::~BooleanConstant()

@@ -53,7 +53,6 @@ namespace KSimLibFloatingPoint
 
 FloatStyle1Out::FloatStyle1Out(CompContainer * container, const ComponentInfo * ci)
 	: ComponentStyle(container, ci),
-		m_value(DEFAULT_RESET_VALUE),
 		m_resetValue(DEFAULT_RESET_VALUE)
 {
 	
@@ -68,11 +67,15 @@ FloatStyle1Out::FloatStyle1Out(CompContainer * container, const ComponentInfo * 
 {
 } */
 
-void FloatStyle1Out::updateOutput()
+void FloatStyle1Out::setValue(double newValue)
 {
-	Component::updateOutput();
-	getOutputConnector()->setOutput(getValue());
-}
+	getOutputConnector()->setOutput(newValue);
+};
+
+double FloatStyle1Out::getValue() const
+{
+	return getOutputConnector()->getOutput();
+};
 
 void FloatStyle1Out::setResetValue(double resetValue)
 {
@@ -90,7 +93,6 @@ void FloatStyle1Out::reset()
 	ComponentStyle::reset();
 	
 	setValue(getResetValue());
-	getOutputConnector()->setOutput(getValue());
 }
 
 /** save component properties */

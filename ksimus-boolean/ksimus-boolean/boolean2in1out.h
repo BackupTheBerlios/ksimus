@@ -48,12 +48,23 @@ class Boolean2In1Out : public Component
 public:
 	Boolean2In1Out(CompContainer * container, const ComponentInfo * ci);
 //	~Boolean2In1Out();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
+	
 	/** Reset all simulation variables */
 	virtual void reset();
+	
+	/** Returns the output connector. */
+	ConnectorBoolOut * getOutputConnector() const { return m_out; };
+	/** Returns the intput connector A. */
+	ConnectorBoolIn * getInputConnectorA() const { return m_inA; };
+	/** Returns the intput connector A. */
+	ConnectorBoolIn * getInputConnectorB() const { return m_inB; };
+	/** Sets the current component state. */
+	void setState(bool newState);
+	/** Returns the current component state. */
+	bool getState() const;
+	
 
-protected:
+private:
 	bool m_result;
 	ConnectorBoolOut * m_out;
 	ConnectorBoolIn * m_inA;

@@ -67,8 +67,6 @@ public:
 
 	/** Executes the simulation of this component */
 	virtual void calculate();
-	/** Shifts the current component value (@ref setValue) to the output connector. */
-//	virtual void updateOutput();
 	/** Resets the component state. */
 	virtual void reset();
 

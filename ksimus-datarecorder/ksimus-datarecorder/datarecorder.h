@@ -115,7 +115,6 @@ public:
 	virtual void calculate();
 	/** Reset all simulation variables */
 	virtual void reset();
-	virtual void updateOutput();
 	/** Initialize the component popup menu
 	  *	Return true, if items are added */
 	virtual bool initPopupMenu(QPopupMenu * popup);
