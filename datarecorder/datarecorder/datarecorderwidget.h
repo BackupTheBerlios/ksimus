@@ -34,7 +34,6 @@ class DataRecorderDataView;
 class DataRecorderChannelBase;
 class KSimGridWidget;
 class ZoomWidget;
-class KSimpleConfig;
 
 /**Widget class for the data recorder.
   *@author Rasmus Diekenbrock

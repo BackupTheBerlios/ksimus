@@ -22,9 +22,9 @@
 #include <qlabel.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 
 // KSimus-Includes
+#include "ksimus/ksimdata.h"
 #include <ksimus/ksimdoublespinbox.h>
 #include <ksimus/ksimunit.h>
 
@@ -345,7 +345,7 @@ void ZoomWidgetVar::copyTo(ZoomWidget & zoom) const
 	zoom.setExponentEnabled(m_exponentSteps);
 }
 
-void ZoomWidgetVar::save(KSimpleConfig & file) const
+void ZoomWidgetVar::save(KSimData & file) const
 {
 	QString oldGroup(file.group());
 	
@@ -369,7 +369,7 @@ void ZoomWidgetVar::save(KSimpleConfig & file) const
 	file.setGroup(oldGroup);
 }
 	
-bool ZoomWidgetVar::load(KSimpleConfig & file, bool /*copyLoad*/)
+bool ZoomWidgetVar::load(KSimData & file, bool /*copyLoad*/)
 {
 	QString oldGroup(file.group());
 	

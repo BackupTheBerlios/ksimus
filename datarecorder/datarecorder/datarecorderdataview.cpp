@@ -24,12 +24,12 @@
 #include <qpixmap.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 
 // Project-Includes
 #include "datarecorderdataview.h"
 #include "datarecorder.h"
 #include "datarecorderchannelbase.h"
+#include "ksimus/ksimdata.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimtimeserver.h"
 

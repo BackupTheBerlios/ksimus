@@ -25,11 +25,11 @@
 #include <qvbox.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 #include <kdialogbase.h>
 #include <kcolorbtn.h>
 
 // KSIMUS-Includes
+#include "ksimus/ksimdata.h"
 #include <ksimus/ksimlineedit.h>
 #include "ksimus/connectorboolin.h"
 #include "ksimus/ksimdebug.h"

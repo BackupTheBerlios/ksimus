@@ -24,9 +24,9 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <ksimpleconfig.h>
 
 // Project-Includes
+#include "ksimus/ksimdata.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/connectorbase.h"
 #include "ksimus/ksimdebug.h"
@@ -265,7 +265,7 @@ void DataRecorder::arrangeChannelInputs()
 }
 
 /** Save DataRecorder properties */
-void DataRecorder::save(KSimpleConfig & file) const
+void DataRecorder::save(KSimData & file) const
 {
 	const QString baseGroup(file.group());
 
@@ -299,7 +299,7 @@ void DataRecorder::save(KSimpleConfig & file) const
 /** Load DataRecorder properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool DataRecorder::load(KSimpleConfig & file, bool copyLoad)
+bool DataRecorder::load(KSimData & file, bool copyLoad)
 {
 	bool ok = true;
 	const QString baseGroup(file.group());

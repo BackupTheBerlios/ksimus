@@ -33,7 +33,7 @@
 // Project-Includes
 
 // Forward declaration
-class KSimpleConfig;
+class KSimData;
 class QPaintDevice;
 class ConnectorInputBase;
 class DataRecorder;
@@ -81,11 +81,11 @@ public:
   virtual void reset() = 0;
 
 	/** save channel properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load channel properties
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-	virtual bool load(KSimpleConfig & file, bool copyLoad);
+	virtual bool load(KSimData & file, bool copyLoad);
 
   /** Returns the current line color. */
   const QColor & getLineColor() const;

@@ -34,7 +34,7 @@
 class QLabel;
 class KSimDoubleUnitSpinBox;
 class DataRecorderDataView;
-class KSimpleConfig;
+class KSimData;
 
 
 /**Time division selector.
@@ -113,11 +113,11 @@ public:
 	void copyTo(ZoomWidget & zoom) const;
 	
 	/** save properties */
-	void save(KSimpleConfig & file) const;
+	void save(KSimData & file) const;
 	/** load properties
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-	bool load(KSimpleConfig & file, bool copyLoad);
+	bool load(KSimData & file, bool copyLoad);
 	
 private:
 	double m_rawValue;

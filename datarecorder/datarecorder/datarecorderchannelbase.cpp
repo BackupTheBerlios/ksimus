@@ -22,13 +22,13 @@
 #include <qpoint.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 // Project-Includes
 #include "datarecorder.h"
 #include "datarecorderchannelbase.h"
 #include "ksimus/ksimdebug.h"
+#include "ksimus/ksimdata.h"
 #include "ksimus/enumdict.h"
 #include "ksimus/connectorbase.h"
 // Forward declaration
@@ -96,7 +96,7 @@ ConnectorInputBase * DataRecorderChannelBase::getConnector() const
 }
 
 /** save channel properties */
-void DataRecorderChannelBase::save(KSimpleConfig & file) const
+void DataRecorderChannelBase::save(KSimData & file) const
 {
 	file.writeEntry(sColor, getLineColor());
 	file.writeEntry(sVertGain, getVerticalGain());
@@ -108,7 +108,7 @@ void DataRecorderChannelBase::save(KSimpleConfig & file) const
 /** load channel properties
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-bool DataRecorderChannelBase::load(KSimpleConfig & file, bool copyLoad)
+bool DataRecorderChannelBase::load(KSimData & file, bool copyLoad)
 {
 	setLineColor(file.readColorEntry(sColor, &getLineColor()));
 	setVerticalGain(file.readDoubleNumEntry(sVertGain, getVerticalGain()));
