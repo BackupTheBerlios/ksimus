@@ -826,8 +826,8 @@ eHitType CompContainer::isCompViewHit(const QPoint * pos, const CompViewList * v
 {
 	eHitType hit = NO_HIT;
 
-    hitConn = 0;
-    hitCompView = 0;
+	hitConn = 0;
+	hitCompView = 0;
 
 	
 	FOR_EACH_COMPVIEW(it, *viewList)
@@ -1216,24 +1216,38 @@ int CompContainer::checkCircuit()
 	
 }
 
+
+static ConnectorBase * findConnWirePos(const QPoint & pos, const ConnectorList & connList)
+{
+	FOR_EACH_CONNECTOR(itConn, connList)
+	{
+		if (itConn.current()->getWirePos() == pos)
+		{
+			return itConn.current();
+		}
+	}
+	return 0;
+}
+
+
 /** Truncate the wire at the given position  */
 void CompContainer::truncateWire(Wire * wire, const QPoint & pos)
 {
 	truncateWire(wire, pos.x(), pos.y());
 }
+
+
 /** Truncate the wire at the given position  */
 void CompContainer::truncateWire(Wire * wire, int x, int y)
 {
-//	QList<tPointList> routes;
-//	QList<tPointList> orgRoutes;	
-//	QList<tPointList> breakRoutes;
-//	tPointList a,b;
 	CPointListList routes;
 	CPointListList orgRoutes;	
 	CPointListList breakRoutes;
 	CPointList a,b;
 	int breakRoute=-1;
 	int breakSegment=-1;
+	ConnectorList conns(*wire->getConnList());
+	conns.setAutoDelete(false);
 	
 	// Convert to grid
 	x /= gridX;
@@ -1405,18 +1419,25 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, WireInfo.getLibName()))
 		{
 			addComponent(wire);
-		    // Add connectors
-		    for (unsigned int i = 0; i < a.count(); i++)
-		    {
-		    	QPoint pos;
-		    	pos.setX( a.at(i)->x()*gridX);
-		    	pos.setY( a.at(i)->y()*gridY);
-		    	if (CONNECTOR_HIT == isCompViewHit(&pos, sheetViews))
-		    	{
-		    		wire->addConnector(getFirstConnector());
-		    	}
-		    	else
-		    	{
+			// Add connectors
+			for (unsigned int i = 0; i < a.count(); i++)
+			{
+				ConnectorBase * conn;
+				QPoint pos;
+				pos.setX( a.at(i)->x()*gridX+gridX/2);
+				pos.setY( a.at(i)->y()*gridY+gridY/2);
+/*				if (CONNECTOR_HIT == isCompViewHit(&pos, sheetViews))
+				{
+					wire->addConnector(getFirstConnector());
+				}*/
+				conn = findConnWirePos(pos, conns);
+				if (conn)
+				{
+					wire->addConnector(conn);
+					conns.removeRef(conn);
+				}
+				else
+				{
 					KSIMDEBUG("connector not found (A)");
 				}
 			}
@@ -1442,18 +1463,25 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, WireInfo.getLibName()))
 		{
 			addComponent(wire);
-		    // Add connectors
-		    for (unsigned int i = 0; i < b.count(); i++)
-		    {
-		    	QPoint pos;
-		    	pos.setX( b.at(i)->x()*gridX);
-		    	pos.setY( b.at(i)->y()*gridY);
-		    	if (CONNECTOR_HIT == isCompViewHit(&pos, sheetViews))
-		    	{
-		    		wire->addConnector(getFirstConnector());
-		    	}
-		    	else
-		    	{
+			// Add connectors
+			for (unsigned int i = 0; i < b.count(); i++)
+			{
+				ConnectorBase * conn;
+				QPoint pos;
+				pos.setX( b.at(i)->x()*gridX+gridX/2);
+				pos.setY( b.at(i)->y()*gridY+gridY/2);
+/*				if (CONNECTOR_HIT == isCompViewHit(&pos, sheetViews))
+				{
+					wire->addConnector(getFirstConnector());
+				}*/
+				conn = findConnWirePos(pos, conns);
+				if (conn)
+				{
+					wire->addConnector(conn);
+					conns.removeRef(conn);
+				}
+				else
+				{
 					KSIMDEBUG("connector not found (B)");
 				}
 			}
