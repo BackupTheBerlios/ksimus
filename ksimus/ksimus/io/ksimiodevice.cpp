@@ -36,6 +36,7 @@
 #include "ksimiodevicepropertygeneralwidget.h"
 #include "ksimiojoin.h"
 #include "ksimiocomponent.h"
+#include "ksimiodevicepropertypinwidget.h"
 
 // Forward declaration
 
@@ -291,14 +292,38 @@ void KSimIoDevice::save(KConfigBase & config) const
 {
 	config.writeEntry(Private::s_deviceName, getName());
 	config.writeEntry(Private::s_deviceDescription, getDescription());
+
+	QString oldGroup(config.group());
+	QString pinGroup(oldGroup + QString::fromLatin1("Pin %1/"));
+
+	FOR_EACH_IO_PIN(it, getPinList())
+	{
+		config.setGroup(pinGroup.arg(it.current()->getPinID()));
+		it.current()->save(config);
+	}
+
+	config.setGroup(oldGroup);
 }
 
 bool KSimIoDevice::load(KConfigBase & config)
 {
+	bool res = true;
+	
 	setName(config.readEntry(Private::s_deviceName));
 	setDescription(config.readEntry(Private::s_deviceDescription));
 
-	return true;
+	QString oldGroup(config.group());
+	QString pinGroup(oldGroup + QString::fromLatin1("Pin %1/"));
+	
+	FOR_EACH_IO_PIN(it, getPinList())
+	{
+		config.setGroup(pinGroup.arg(it.current()->getPinID()));
+		res &= it.current()->load(config);
+	}
+
+	config.setGroup(oldGroup);
+
+	return res;
 }
 
 
@@ -363,7 +388,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 			                 .arg(getName())
 			                 .arg(runningDocnameDeviceExclusive.join(QString::fromLatin1(", ")));
 			errorMsgList.append(errMsg);
-			KSIMDEBUG_VAR("", errMsg);
+			KSIMDEBUG(errMsg.latin1());
 		}
 		
 	}
@@ -409,7 +434,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 			                 .arg(pin->getName())
 			                 .arg(usedCnt);
 			errorMsgList.append(errMsg);
-			KSIMDEBUG_VAR("", errMsg);
+			KSIMDEBUG(errMsg.latin1());
 		}
 		if (runningDocName.count())
 		{
@@ -418,7 +443,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 			                 .arg(pin->getName())
 			                 .arg(runningDocName.join(QString::fromLatin1(", ")));
 			errorMsgList.append(errMsg);
-			KSIMDEBUG_VAR("", errMsg);
+			KSIMDEBUG(errMsg.latin1());
 		}
 	}
 }
@@ -498,6 +523,7 @@ bool KSimIoDevice::unregisterJoin(KSimIoJoin * join)
 void KSimIoDevice::initPropertyDialog(KSimIoDevicePropertyDialog * dialog)
 {
 	addGeneralProperty(dialog);
+	addAllPinProperties(dialog);
 }
 
 void KSimIoDevice::addGeneralProperty(KSimIoDevicePropertyDialog * dialog)
@@ -515,6 +541,56 @@ KSimIoDevicePropertyBaseWidget * KSimIoDevice::createGeneralProperty(QWidget *pa
 	CHECK_PTR(wid);
 	return wid;
 }
+
+void KSimIoDevice::addAllPinProperties(KSimIoDevicePropertyDialog * dialog)
+{
+	static const QString i18nTitel(i18n("IO Device property dialog", "Pins"));
+
+	if (getPinList().count())
+	{
+		QStringList nameList;
+		QStringList strList;
+		strList.append(i18nTitel);
+		strList.append(QString::null);
+		unsigned int i,j,c;
+
+		FOR_EACH_IO_PIN(it, getPinList())
+		{
+			nameList.append(it.current()->getName());
+		}
+
+		for(i = 0; i < getPinList().count(); i++)
+		{
+			c = 1;
+			for(j = i+1; j < getPinList().count(); j++)
+			{
+				if (nameList[i] == nameList[j])
+				{
+					c++;
+					nameList[j] = nameList[j]+ QString::fromLatin1("[%1]").arg(c);
+				}
+			}
+			if (c != 1)
+			{
+				nameList[i] = nameList[i]+ "[1]";
+			}
+
+			strList[1] = nameList[i];
+			QVBox * page = dialog->addVBoxPage(strList);
+			PropertyWidget * wid = addPinProperty(getPinList().at(i), page);
+			dialog->connectSlots(wid);
+		}
+	}
+}
+
+
+KSimIoDevicePropertyBaseWidget * KSimIoDevice::addPinProperty(KSimIoPin * pin, QWidget *parent)
+{
+	KSimIoDevicePropertyPinWidget * wid = new KSimIoDevicePropertyPinWidget(pin, parent);
+	CHECK_PTR(wid);
+	return wid;
+}
+
 
 
 void KSimIoDevice::checkProperty(QStringList & errorMsg)
@@ -599,6 +675,7 @@ KSimIoDeviceTest::KSimIoDeviceTest(const KSimIoDeviceInfo * info)
 	pin = new KSimIoPin(this, 0, QString::fromLatin1("PA 1"), i18n("PA 1"));
 	CHECK_PTR(pin);
 	pin->addPinInfo(KSimIoJoinBoolIn::getStaticInfo());
+	pin->addPinInfo(KSimIoJoinBoolOut::getStaticInfo());
 	addPin(pin);
 
 	pin = new KSimIoPin(this, 1, QString::fromLatin1("PA 2"), i18n("PA 2"));

@@ -123,23 +123,7 @@ private:
 void KSimIoPinSelectionWidget::PinListItem::init()
 {
 	setText(0,getPin()->getName());
-
-	QString s;
-	bool first = true;
-	FOR_EACH_IO_JOIN_INFO(it, getPin()->getJoinInfoList())
-	{
-		if (first)
-		{
-			first = false;
-		}
-		else
-		{
-			s += QString::fromLatin1("; ");
-		}
-
-		s += it.current()->getI18nLibName();
-	}
-	setText(1, s);
+	setText(1, getPin()->getSelectedJoinInfo()->getI18nLibName());
 }
 
 //################################################################################

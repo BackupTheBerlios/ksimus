@@ -20,6 +20,7 @@
 // QT includes
 
 // KDE includes
+#include <kconfig.h>
 
 // Project includes
 #include "ksimiopin.h"
@@ -35,7 +36,8 @@ KSimIoPin::KSimIoPin(KSimIoDevice * parentDevice, int pinID, const QString & nam
 		m_pinID(pinID),
 		m_defaultName(name),
 		m_defaultI18nName(i18nName),
-		m_name(QString::null)
+		m_name(QString::null),
+		m_selectedJoinInfo(0)
 {
 	KSIMDEBUG_VAR("KSimIoPin::KSimIoPin", getName());
 }
@@ -48,6 +50,10 @@ KSimIoPin::~KSimIoPin()
 void KSimIoPin::addPinInfo(const KSimIoJoinInfo * joinInfo)
 {
 	m_joinInfoList.append(joinInfo);
+	if (m_selectedJoinInfo == 0)
+	{
+		m_selectedJoinInfo = joinInfo; // First is default
+	}
 }
 
 void KSimIoPin::setName(const QString & name)
@@ -70,6 +76,60 @@ QString KSimIoPin::getName() const
 	}
 	return m_name;
 }
+
+
+void KSimIoPin::setSelectedJoinInfo(const KSimIoJoinInfo * joinInfo)
+{
+	ASSERT(joinInfo != 0);
+	if (getJoinInfoList().containsRef(joinInfo))
+	{
+		m_selectedJoinInfo = joinInfo;
+	}
+	else
+	{
+		KSIMDEBUG(QString::fromLatin1("JoinInfo not found (Join %1, Device %2, Pin %3)")
+		                              .arg(joinInfo->getLibName())
+		                              .arg(getDevice()->getName())
+		                              .arg(getName()));
+	}
+}
+
+
+void KSimIoPin::save(KConfigBase & config) const
+{
+	config.writeEntry("Name", getName());
+
+	if (getJoinInfoList().count() > 1)
+	{
+		config.writeEntry("Type", getSelectedJoinInfo()->getLibName());
+	}
+}
+
+bool KSimIoPin::load(KConfigBase & config)
+{
+	bool found = true;
+
+	setName(config.readEntry("Name", getName()));
+
+	if (config.hasKey("Type"))
+	{
+		found = false;
+		QString type = config.readEntry("Type");
+		FOR_EACH_IO_JOIN_INFO(it, getJoinInfoList())
+		{
+			if (it.current()->getLibName() == type)
+			{
+				m_selectedJoinInfo = it.current();
+				found = true;
+				break;
+			}
+		}
+	}
+
+	return found;
+}
+
+
 
 
 //################################################################################

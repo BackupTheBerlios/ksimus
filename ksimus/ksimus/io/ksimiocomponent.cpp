@@ -20,6 +20,7 @@
 // QT includes
 #include <qpainter.h>
 #include <qpopupmenu.h>
+#include <qstringlist.h>
 
 // KDE includes
 #include <klocale.h>
@@ -73,6 +74,7 @@ public:
 	{};
 
 	KSimIoJoin::List joinList;
+	KSimIoJoin::List activeJoinList;
 	unsigned int lastSerial;
 
 	// Some statics
@@ -237,11 +239,40 @@ bool KSimIoComponent::load(KSimData & file, bool copyLoad)
 	return loadOk;
 }
 
+int KSimIoComponent::checkCircuit()
+{
+	int errors = Component::checkCircuit();
+	QStringList unknwonDevices;
+
+	m_p->activeJoinList.clear();
+	FOR_EACH_IO_JOIN(it,m_p->joinList)
+	{
+		if (it.current()->getDevice() == 0)
+		{
+			if (!unknwonDevices.contains(it.current()->getDeviceName()))
+			{
+				unknwonDevices.append(it.current()->getDeviceName());
+			}
+		}
+		else
+		{
+			m_p->activeJoinList.append(it.current());
+		}
+	}
+	for(QStringList::ConstIterator it = unknwonDevices.begin(); it != unknwonDevices.end(); ++it)
+	{
+		// Waring only
+		logWarning(i18n("IO Component", "IO Component uses unknown device '%1'.").arg(*it));
+	}
+
+	return errors;
+}
+
 /** Reset all simulation variables */
 void KSimIoComponent::reset()
 {
 	Component::reset();
-	FOR_EACH_IO_JOIN(it, m_p->joinList)
+	FOR_EACH_IO_JOIN(it, m_p->activeJoinList)
 	{
 		it.current()->reset();
 	}
@@ -251,7 +282,7 @@ void KSimIoComponent::reset()
 void KSimIoComponent::calculate()
 {
 	Component::calculate();
-	FOR_EACH_IO_JOIN(it, m_p->joinList)
+	FOR_EACH_IO_JOIN(it, m_p->activeJoinList)
 	{
 		it.current()->calculate();
 	}
@@ -291,23 +322,19 @@ void KSimIoComponent::slotPinSelection()
                                                             QWidget *parent,
                                                             const char *name)*/);
 
-	if (pin)
+	if (pin && pin->getSelectedJoinInfo())
 	{
 		undoChangeProperty(i18n("IO Component", "Add connector"));
 		setModified();
-		
-		QListIterator<const KSimIoJoinInfo> it(pin->getJoinInfoList());
-		if (it.count())
-		{
-			const KSimIoJoinInfo * info = it.toFirst();
-			KSimIoJoin * join = info->create(this, info);
-			CHECK_PTR(join);
-			join->setSerialID(getNextSerial());
-			join->setPin(pin);
-			join->createConnector();
-			m_p->joinList.append(join);
-			updateLayout();
-		}
+
+		const KSimIoJoinInfo * info = pin->getSelectedJoinInfo();
+		KSimIoJoin * join = info->create(this, info);
+		CHECK_PTR(join);
+		join->setSerialID(getNextSerial());
+		join->setPin(pin);
+		join->createConnector();
+		m_p->joinList.append(join);
+		updateLayout();
 	}
 }
 

@@ -70,6 +70,7 @@ public:
 	KSimIoComponent * getIoComponent() const { return (KSimIoComponent*) ComponentItem::getComponent();}
 
 	QString getDefaultPinName() const;
+	QString getDeviceName() const;
 
 	void setOrientation(ConnOrientationType orient);
 	ConnOrientationType getOrientation() const { return m_orient; };

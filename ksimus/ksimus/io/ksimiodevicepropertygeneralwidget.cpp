@@ -22,8 +22,7 @@
 #include <qlineedit.h>
 #include <qmultilineedit.h>
 #include <qvbox.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <qstring.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -52,43 +51,40 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	str = i18n("Change the name of the IO device here.");
 	label = new QLabel(i18n("Name:"), this,"LineEditLabel");
 	CHECK_PTR(label);
-	QToolTip::add(label, str);
-	QWhatsThis::add(label, str);
 	
 	m_nameEdit = new QLineEdit(this,"m_nameEdit");
 	CHECK_PTR(m_nameEdit);
 	m_nameEdit->setText(getDevice()->getName());
-	QToolTip::add(m_nameEdit, str);
-	QWhatsThis::add(label, str);
+
+	addToolTip(str, m_nameEdit, label);
+	addWhatsThis(str, m_nameEdit, label);
 
 	// Device type
 	str = i18n("Shows the IO device type.");
 	
 	label = new QLabel(i18n("Type:"), this);
 	CHECK_PTR(label);
-	QToolTip::add(label, str);
-	QWhatsThis::add(label, str);
 	
-	label = new QLabel(getDevice()->getInfo()->getName(), this);
-	CHECK_PTR(label);
-	QToolTip::add(label, str);
-	QWhatsThis::add(label, str);
+	QLabel * label1 = new QLabel(getDevice()->getInfo()->getName(), this);
+	CHECK_PTR(label1);
 	
+	addToolTip(str, label, label1);
+	addWhatsThis(str, label, label1);
+
 	// Device description  
 	QVBox * descBox = newRowVBox("descBox");
 	str = i18n("Enter a description for the IO device here.");
 
 	label = new QLabel(i18n("Description:"), descBox);
 	CHECK_PTR(label);
-	QToolTip::add(label, str);
-	QWhatsThis::add(label, str);
 
 	m_descriptionEdit = new QMultiLineEdit(descBox, "m_descriptionEdit");
 	CHECK_PTR(label);
 	m_descriptionEdit->setText(getDevice()->getDescription());
 	m_descriptionEdit->setMaxLines(-1);
-	QToolTip::add(m_descriptionEdit, str);
-	QWhatsThis::add(m_descriptionEdit, str);
+
+	addToolTip(str, m_descriptionEdit, label);
+	addWhatsThis(str, m_descriptionEdit, label);
 	
 }
 

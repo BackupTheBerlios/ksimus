@@ -92,7 +92,7 @@ void KSimIoStorage::loadSerialList()
 	m_deviceSerialList.clear();
 	m_conf->setGroup(s_storage);
 	QStringList serialList = m_conf->readListEntry(s_deviceList);
-	for (QStringList::Iterator it = serialList.begin(); it != serialList.end(); ++it )
+	for (QStringList::ConstIterator it = serialList.begin(); it != serialList.end(); ++it )
 	{
 		unsigned int u = (*it).toUInt(&ok);
 		if (ok)
@@ -229,7 +229,7 @@ bool KSimIoStorage::loadAll(KSimIoDeviceList * list)
 	bool commonRes = true;
 
 	// Load stored devices
-	for (QValueList<unsigned int>::Iterator it = m_deviceSerialList.begin(); it != m_deviceSerialList.end(); ++it )
+	for (QValueList<unsigned int>::ConstIterator it = m_deviceSerialList.begin(); it != m_deviceSerialList.end(); ++it )
 	{
 		KSimIoDevice * device = (KSimIoDevice *)0;
 
@@ -282,9 +282,8 @@ void KSimIoStorage::remove(KSimIoDevice * device)
 	QString devDir = QString::fromLatin1(s_deviceDir).arg(device->getSerial());
 
 	QStringList grpList = m_conf->groupList();
-	QStringList::Iterator it;
 
-	for (it = grpList.begin(); it != grpList.end(); ++it)
+	for (QStringList::ConstIterator it = grpList.begin(); it != grpList.end(); ++it)
 	{
 		QStringList dirParts = QStringList::split('/', *it);
 		QString first = '/' + dirParts.first() + '/';

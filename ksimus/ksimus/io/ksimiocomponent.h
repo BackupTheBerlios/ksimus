@@ -57,6 +57,12 @@ public:
 	  *	Return true, if items are added */
 	virtual bool initPopupMenu(QPopupMenu * popup);
 
+	/** Checks the component
+	*   Eg. all required inputs are connected.
+	*   The default implementation calls the checks functions of the connectors.
+	*   Returns the number of errors.
+	*/
+	virtual int checkCircuit();
 	/** Reset all simulation variables */
 	virtual void reset();
 	/** Executes the simulation of this component */

@@ -82,7 +82,7 @@ public:
 	virtual void setIO(int ioPinID, const void * pValue) = 0;
 	/** Reads an io pin.
 	  * @param ioPinID The ID of the pin to set.
-	  * @param pValue  A pointer to the value will be writen. The type depends on the pin type.
+	  * @param pValue  A pointer to the varibale where there value will be written. The type depends on the pin type.
 	  */
 	virtual void getIO(int ioPinID, void * pValue) const = 0;
 
@@ -140,6 +140,12 @@ public:
 	  * This function is called by @ref addGeneralProperty*/
 	virtual KSimIoDevicePropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
+	void addAllPinProperties(KSimIoDevicePropertyDialog * dialog);
+	/** Creates the io pin property page for the property dialog.
+	  * Overload this function if you want to use a modified Io Pin Propery Page. Use as base class
+	  * @ref KSimIoDevicePropertyPinWidget.
+	  * This function is called by @ref addAllPinProperties*/
+	virtual KSimIoDevicePropertyBaseWidget * addPinProperty(KSimIoPin * pin, QWidget *parent);
 	/** Checks the io device property. The functions is called after the
 	*   property dialog.
 	*   Eg. all connectors have unique names.

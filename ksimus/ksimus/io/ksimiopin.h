@@ -31,6 +31,7 @@
 
 // Forward declaration
 class KSimIoDevice;
+class KConfigBase;
 
 
 /**Base class for io pins
@@ -53,12 +54,16 @@ public:
 	void addPinInfo(const KSimIoJoinInfo * joinInfo);
 
 	const KSimIoJoinInfoList & getJoinInfoList() const { return m_joinInfoList; };
+	const KSimIoJoinInfo * getSelectedJoinInfo() const { return m_selectedJoinInfo; };
+	void setSelectedJoinInfo(const KSimIoJoinInfo * joinInfo);
 
 	QString getDefaultName() const { return m_defaultName; };
 	QString getDefaultI18nName() const { return m_defaultI18nName; };
 	void setName(const QString & name);
 	QString getName() const;
 
+	void save(KConfigBase & config) const;
+	bool load(KConfigBase & config);
 
 private:
 	KSimIoDevice * m_parentDevice;
@@ -67,6 +72,7 @@ private:
 	const QString m_defaultI18nName;
 	QString m_name;
 	KSimIoJoinInfoList m_joinInfoList;
+	const KSimIoJoinInfo * m_selectedJoinInfo;
 	
 };
 
