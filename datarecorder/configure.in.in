@@ -41,7 +41,7 @@ AC_DEFUN(CHECK_KSIMUS_VERSION,
 [
   AC_MSG_CHECKING("KSimus version");
 
-  eval "KSIMUS_VERSION=`$KSIMUS_BINARY_DIR/ksimus --simpleVersion`"
+  eval "KSIMUS_VERSION=`$KSIMUS_BINARY_DIR/ksimus --version | grep 'KSimus:' | cut -d ' ' -f 2`"
   echo -n is $KSIMUS_VERSION
 
   dnl by default KSimus and the package must have the same version
