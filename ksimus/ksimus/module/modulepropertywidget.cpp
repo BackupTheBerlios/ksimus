@@ -112,12 +112,12 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	
 	// User View Attribute
 	tooltip = i18n("Check the box, if your module should also have a view in user interface (User view only).");
-	m_userViewAtrriute = new QCheckBox(i18n("User Interface"),this);
-	CHECK_PTR(m_userViewAtrriute);
-	m_userViewAtrriute->setFocusPolicy(ClickFocus);
-	QToolTip::add(m_userViewAtrriute,tooltip);
-	QWhatsThis::add(m_userViewAtrriute,tooltip);
-	connect(m_userViewAtrriute, SIGNAL(clicked()), SLOT(slotUserViewAtrriuteChanged()));
+	m_userViewAttribute = new QCheckBox(i18n("User Interface"),this);
+	CHECK_PTR(m_userViewAttribute);
+	m_userViewAttribute->setFocusPolicy(ClickFocus);
+	QToolTip::add(m_userViewAttribute,tooltip);
+	QWhatsThis::add(m_userViewAttribute,tooltip);
+	connect(m_userViewAttribute, SIGNAL(clicked()), SLOT(slotUserViewAttributeChanged()));
 
 	// Store selection
 	m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
@@ -179,18 +179,18 @@ void ModulePropertyWidget::setup()
 
 	if ((data->getUserViewAttrib() == VA_SHEET_AND_USER) && (data->getModuleView() == MV_USERVIEW))
 	{
-		m_userViewAtrriute->setChecked(true);
+		m_userViewAttribute->setChecked(true);
 	}
 	else
 	{
-		m_userViewAtrriute->setChecked(false);
+		m_userViewAttribute->setChecked(false);
 	}
 		
 	m_leModuleName->setEnabled(data->getModuleView() != MV_NONE);
 	m_leModuleLibNames->setEnabled(data->getModuleView() != MV_NONE);
 	m_leShortDescr->setEnabled(data->getModuleView() != MV_NONE);
 	m_fileBox->setEnabled(data->getModuleView() == MV_PIXMAP);
-	m_userViewAtrriute->setEnabled(data->getModuleView() == MV_USERVIEW);
+	m_userViewAttribute->setEnabled(data->getModuleView() == MV_USERVIEW);
 	
 	switch(data->getPixmapStore())
 	{
@@ -301,10 +301,10 @@ void ModulePropertyWidget::slotPixmapOpenFileDialog()
 	}
 }
 
-void ModulePropertyWidget::slotUserViewAtrriuteChanged()
+void ModulePropertyWidget::slotUserViewAttributeChanged()
 {
-	m_dialog->modifyProperties(i18n("Change User View Atrriute"));
-	if(m_userViewAtrriute->isChecked())
+	m_dialog->modifyProperties(i18n("Change User View Attribute"));
+	if(m_userViewAttribute->isChecked())
 	{
 		data->setUserViewAttrib(VA_SHEET_AND_USER);
 	}

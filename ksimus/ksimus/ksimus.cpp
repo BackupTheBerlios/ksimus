@@ -957,7 +957,7 @@ void KSimusApp::slotSettingTiming()
 
 	KDialogBase * dia;
 	dia = new KDialogBase(KDialogBase::TreeList,
-	                      i18n("Timings Settings"),
+	                      i18n("Timing Settings"),
 	                      KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
 	                      KDialogBase::Ok,
 	                      this);

@@ -74,23 +74,23 @@ private:
 	KSimLineEdit * m_leModuleLibNames;
 	KSimLineEdit * m_leShortDescr;
 	KSimLineEdit * m_lePixmapFile;
-  QHBox * m_fileBox;
-  QCheckBox * m_userViewAtrriute;
-  QVButtonGroup * m_storeBox;
-  QRadioButton * m_storeAbsolute;
-  QRadioButton * m_storeRelative;
-  QRadioButton * m_storeInternal;
+	QHBox * m_fileBox;
+	QCheckBox * m_userViewAttribute;
+	QVButtonGroup * m_storeBox;
+	QRadioButton * m_storeAbsolute;
+	QRadioButton * m_storeRelative;
+	QRadioButton * m_storeInternal;
 
 private slots:
 	void slotModuleNameChanged();
 	void slotModuleLibNamesChanged();
-  void slotShortDescrChanged();
-  void slotPixmapFileChanged();
-  void slotPixmapOpenFileDialog();
-  void slotUserViewAtrriuteChanged();
-  void slotStoreAbsoluteChanged();
-  void slotStoreRelativeChanged();
-  void slotStoreInternalChanged();
+	void slotShortDescrChanged();
+	void slotPixmapFileChanged();
+	void slotPixmapOpenFileDialog();
+	void slotUserViewAttributeChanged();
+	void slotStoreAbsoluteChanged();
+	void slotStoreRelativeChanged();
+	void slotStoreInternalChanged();
 
 signals:
 	void changed();
