@@ -837,7 +837,6 @@ void CompContainer::drawSheetView(QPainter * p) const
 		{
 			register QPoint pos(it.current()->getPos());
 			p->translate(pos.x(), pos.y());
-			p->rotate(it.current()->getRotation());
 		}
 		
 		it.current()->draw(p);
@@ -867,11 +866,36 @@ void CompContainer::drawUserView(QPainter * p) const
 		{
 			p->save();
 			
-			register QPoint pos(it.current()->getPos());
-			p->translate(pos.x(), pos.y());
-			if (it.current()->isRotationEnabled())
+			if (it.current()->isNormalRotationEnabled())
 			{
-				p->rotate(it.current()->getRotation());
+				double rot = it.current()->getRotation();
+				QRect rect(it.current()->getPlace());
+			
+				if((rot < 45.0) || (rot >= 315.0))
+				{
+					p->translate(rect.left(), rect.top());
+//					p->rotate(0.0);
+				}
+				else if(rot < 135.0)
+				{
+					p->translate(rect.left() + rect.width(), rect.top());
+					p->rotate(90.0);
+				}
+				else if(rot < 225.0)
+				{
+					p->translate(rect.right() + 1, rect.bottom() + 1);
+					p->rotate(180.0);
+				}
+				else
+				{
+					p->translate(rect.left(), rect.top() + rect.height());
+					p->rotate(270.0);
+				}
+			}
+			else
+			{
+				register QPoint pos(it.current()->getPos());
+				p->translate(pos.x(), pos.y());
 			}
 			
 			it.current()->draw(p);
