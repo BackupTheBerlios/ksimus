@@ -43,13 +43,13 @@ const ConnectorInfo ConnectorBoolInInfo (	"Boolean Input",
 	
 
 
-ConnectorBoolIn::ConnectorBoolIn(Component * comp, const char * name, const QPoint & pos)
+ConnectorBoolIn::ConnectorBoolIn(Component * comp, const QString & name, const QPoint & pos)
 	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorBoolInInfo)
 {
 	init();
 }
 
-ConnectorBoolIn::ConnectorBoolIn(	Component * comp,	const char * name,
+ConnectorBoolIn::ConnectorBoolIn(	Component * comp,	const QString & name,
                                   const QString & descr, const QPoint & pos)
 	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorBoolInInfo)
 {
@@ -58,7 +58,7 @@ ConnectorBoolIn::ConnectorBoolIn(	Component * comp,	const char * name,
 }
 
 
-ConnectorBoolIn::ConnectorBoolIn( Component * comp, const char * name, const QPoint & pos,
+ConnectorBoolIn::ConnectorBoolIn( Component * comp, const QString & name, const QPoint & pos,
                                   ConnOrientationType orient, const ConnectorInfo * ci)
 	:	ConnectorInputBase(comp, name, pos, orient, ci)
 {

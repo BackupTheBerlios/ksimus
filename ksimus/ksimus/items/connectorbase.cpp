@@ -123,7 +123,7 @@ public:
 
 
 
-ConnectorBase::ConnectorBase(Component * comp, const char * name, const QPoint & pos,
+ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QPoint & pos,
 								ConnOrientationType orient,	ConnDirType dir,
 								const ConnectorInfo * ci)
 	:	QObject(comp, name),
@@ -709,7 +709,7 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 // *** class ConnectorInputBase ***
 	
 ConnectorInputBase::ConnectorInputBase(	
-	Component * comp, const char * name, const QPoint & pos,
+	Component * comp, const QString & name, const QPoint & pos,
 	ConnOrientationType orient,	const ConnectorInfo * ci)
 	:	ConnectorBase (comp,name,pos,orient,CD_INPUT,ci)
 {
@@ -746,7 +746,7 @@ int ConnectorInputBase::checkCircuit()
 	
 
 ConnectorOutputBase::ConnectorOutputBase(	
-	Component * comp, const char * name, const QPoint & pos,
+	Component * comp, const QString & name, const QPoint & pos,
 	ConnOrientationType orient,	const ConnectorInfo * ci)
 	:	ConnectorBase (comp,name,pos,orient,CD_OUTPUT,ci),
 		dataValid(true)

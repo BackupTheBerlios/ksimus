@@ -50,7 +50,7 @@ public:
 	 *             or the status bar.
 	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolInEdge(Component * comp, const char * name, const QPoint & pos = QPoint());
+	ConnectorBoolInEdge(Component * comp, const QString & name, const QPoint & pos = QPoint());
 
 	/**
 	 * Constructs a edge sensitive boolean input connector. Like the constructor above, but creates also a
@@ -63,7 +63,7 @@ public:
 	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
 	 */
 	ConnectorBoolInEdge(Component * comp,
-	                    const char * name,
+	                    const QString & name,
 	                    const QString & descr,
 	                    const QPoint & pos = QPoint()	);
 	
@@ -122,7 +122,7 @@ protected:
 	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorBoolInEdge(Component * comp,
-	                    const char * name,
+	                    const QString & name,
 	                    const QPoint & pos,
 	                    ConnOrientationType orient,
 	                    const ConnectorInfo * ci);

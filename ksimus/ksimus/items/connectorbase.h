@@ -216,7 +216,7 @@ public:
 protected:
 	//**************************************************************************	
 	ConnectorBase(	Component * comp,
-					const char * name,
+					const QString & name,
 					const QPoint & pos,	
 					ConnOrientationType orient,
 					ConnDirType dir,
@@ -304,7 +304,7 @@ protected:
 	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorInputBase(	Component * comp,
-						const char * name,
+						const QString & name,
 						const QPoint & pos,
 						ConnOrientationType orient,
 						const ConnectorInfo * ci);
@@ -332,7 +332,7 @@ public:
 
 protected:	
 	ConnectorOutputBase(	Component * comp,
-							const char * name,
+							const QString & name,
 							const QPoint & pos,
 							ConnOrientationType orient,
 							const ConnectorInfo * ci);

@@ -42,7 +42,7 @@ public:
 	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
 	 */
 	ConnectorBoolIn(	Component * comp,
-						const char * name,
+						const QString & name,
 						const QPoint & pos = QPoint()	);
 	
 	/**
@@ -56,7 +56,7 @@ public:
 	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
 	 */
 	ConnectorBoolIn(	Component * comp,
-						const char * name,
+						const QString & name,
 						const QString & descr,
 						const QPoint & pos = QPoint()	);
 	
@@ -85,7 +85,7 @@ protected:
 	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorBoolIn(	Component * comp,
-						const char * name,
+						const QString & name,
 						const QPoint & pos,
 						ConnOrientationType orient,
 						const ConnectorInfo * ci);

@@ -52,14 +52,14 @@ int ConnectorBoolInEdge::s_idSensitive;
 static const char * sSensitive = "Edge sensitive";
 
 
-ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const char * name, const QPoint & pos)
+ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name, const QPoint & pos)
 	:	ConnectorBoolIn(comp, name, pos, CO_LEFT, &ConnectorBoolInEdgeInfo),
 		m_edgeSensitive(true),
 		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
 {
 }
 
-ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const char * name,
+ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name,
 						                             const QString & descr, const QPoint & pos)
 	:	ConnectorBoolIn(comp, name, pos, CO_LEFT, &ConnectorBoolInEdgeInfo),
 		m_edgeSensitive(true),
@@ -68,7 +68,7 @@ ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const char * name,
 	new ConnectorLabel(this, descr);
 }
 						
-ConnectorBoolInEdge::ConnectorBoolInEdge( Component * comp, const char * name, const QPoint & pos,
+ConnectorBoolInEdge::ConnectorBoolInEdge( Component * comp, const QString & name, const QPoint & pos,
                                            ConnOrientationType orient, const ConnectorInfo * ci)
 	:	ConnectorBoolIn(comp, name, pos, orient, ci),
 		m_edgeSensitive(true),

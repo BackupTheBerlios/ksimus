@@ -47,14 +47,14 @@ const ConnectorInfo ConnectorBoolOutInfo (	"Boolean Output",
 											"Boolean",
 											create );
 
-ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QPoint & pos)
+ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name, const QPoint & pos)
 	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
 		m_data(false)
 {
 	init();
 }
 											
-ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QString & descr, const QPoint & pos)
+ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name, const QString & descr, const QPoint & pos)
 	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
 		m_data(false)
 {
@@ -62,7 +62,7 @@ ConnectorBoolOut::ConnectorBoolOut(Component * comp, const char * name, const QS
 	new ConnectorLabel(this, descr);
 }
 
-ConnectorBoolOut::ConnectorBoolOut( Component * comp, const char * name, const QPoint & pos,
+ConnectorBoolOut::ConnectorBoolOut( Component * comp, const QString & name, const QPoint & pos,
                                     ConnOrientationType orient, const ConnectorInfo * ci)
 	:	ConnectorOutputBase(comp, name, pos, orient, ci)
 {
