@@ -109,16 +109,6 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	QWhatsThis::add(widget,tooltip);
 	connect(m_lePixmapFile, SIGNAL(changed()), SLOT(slotPixmapFileChanged()));
 
-	
-	// User View Attribute
-	tooltip = i18n("Check the box, if your module should also have a view in user interface (User view only).");
-	m_userViewAttribute = new QCheckBox(i18n("User Interface"),this);
-	CHECK_PTR(m_userViewAttribute);
-	m_userViewAttribute->setFocusPolicy(ClickFocus);
-	QToolTip::add(m_userViewAttribute,tooltip);
-	QWhatsThis::add(m_userViewAttribute,tooltip);
-	connect(m_userViewAttribute, SIGNAL(clicked()), SLOT(slotUserViewAttributeChanged()));
-
 	// Store selection
 	m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
 
@@ -177,20 +167,10 @@ void ModulePropertyWidget::setup()
 	setPixmapFile(data->getPixmapFile());
 	data->loadPixmap(getPixmalFile());
 
-	if ((data->getUserViewAttrib() == VA_SHEET_AND_USER) && (data->getModuleView() == MV_USERVIEW))
-	{
-		m_userViewAttribute->setChecked(true);
-	}
-	else
-	{
-		m_userViewAttribute->setChecked(false);
-	}
-		
 	m_leModuleName->setEnabled(data->getModuleView() != MV_NONE);
 	m_leModuleLibNames->setEnabled(data->getModuleView() != MV_NONE);
 	m_leShortDescr->setEnabled(data->getModuleView() != MV_NONE);
 	m_fileBox->setEnabled(data->getModuleView() == MV_PIXMAP);
-	m_userViewAttribute->setEnabled(data->getModuleView() == MV_USERVIEW);
 	
 	switch(data->getPixmapStore())
 	{
@@ -299,22 +279,6 @@ void ModulePropertyWidget::slotPixmapOpenFileDialog()
 		setPixmapFile(file);
 		slotPixmapFileChanged();
 	}
-}
-
-void ModulePropertyWidget::slotUserViewAttributeChanged()
-{
-	m_dialog->modifyProperties(i18n("Change User View Attribute"));
-	if(m_userViewAttribute->isChecked())
-	{
-		data->setUserViewAttrib(VA_SHEET_AND_USER);
-	}
-	else
-	{
-		data->setUserViewAttrib(VA_SHEETVIEW);
-	}
-	
-	emit changed();
-	
 }
 
 void ModulePropertyWidget::slotStoreAbsoluteChanged()

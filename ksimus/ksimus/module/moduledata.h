@@ -22,6 +22,7 @@
 
 // QT-Includes
 #include <qlist.h>
+#include <qrect.h>
 
 // KDE-Includes
 #include <kurl.h>
@@ -60,7 +61,6 @@ enum ModulePixmapStoreType {
 typedef QList<QPoint> PointList;
 typedef QList<ConnOrientationType> OrientList;
 
-
 class ModuleData
 {
 class Private;
@@ -68,7 +68,6 @@ class Private;
 public:
 	
 	ModuleData(CompContainer * parent);
-	ModuleData(ModuleData * mdata);
 	~ModuleData();
 	/** set the type of module view.
 		Types are: MV_NONE, MV_GENERIC, MV_USERVIEW, MV_PIXMAP. */
@@ -90,11 +89,6 @@ public:
 	OrientList * getUserViewConnOrient();
 	CompViewList * getUserViewList() const;
 	
-	ViewAttribute getPixmapAttrib() const;
-	void setPixmapAttrib(ViewAttribute viewAttrib);
-	ViewAttribute getUserViewAttrib() const;
-	void setUserViewAttrib(ViewAttribute viewAttrib);
-
 	/** set the pixmap filename. */
 	void setPixmapFile(const QString & filename);
 	/** Returns the file name of the pixmap.
@@ -145,6 +139,11 @@ public:
 	void setPixmapStore(ModulePixmapStoreType newStore) { m_pixmapStore = newStore; };
 	ModulePixmapStoreType getPixmapStore() const { return m_pixmapStore; };
 
+	/** Checks the consistence of the module connectors.
+	  * If showMessage is true a messages is shown if the connector position does not
+	  * match the connector area of the module. */
+	bool checkConnectorPosition(bool showMessage);
+
 protected:
 
 	/** Returns the current file name.
@@ -175,12 +174,10 @@ protected:
 	OrientList * m_connOrientPixmap;
 	QPixmap * m_pixmap;	
 	QString m_pixmapFile;
-	ViewAttribute m_viewAttribPixmap;
 	ModulePixmapStoreType m_pixmapStore;
 	
 	PointList * m_connPosUserView;
 	OrientList * m_connOrientUserView;
-	ViewAttribute m_viewAttribUserView;
 	
 	ModuleViewType  m_moduleView;
 	

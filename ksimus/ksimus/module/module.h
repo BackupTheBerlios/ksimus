@@ -41,25 +41,40 @@ const ComponentInfo * getModuleBaseInfo();
 
 class ModuleSV : public CompView
 {
+
+	Q_OBJECT
+
+
 public:
 	ModuleSV(Component * comp, eViewType viewType);
 	~ModuleSV();
 	virtual void draw(QPainter * p);
 	static void drawGeneric(QPainter * p, QRect & place);
 	static void drawGeneric(QPainter * p, QSize & size);
+
+	/** load component properties
+		Returns true if successful */
+	virtual bool load(KSimData & file);
+	/** Draw the boundary of the component */
+	virtual void drawBound(QPainter * p);
 	/** Draws the CompView to a printer. Widget are also drawn. */
 	virtual void print(QPainter * paint);
 	
 	/** Creates a new Widget  */
 	QWidget * createCompViewWidget(QWidget * parent);
-	/** New position of the component view */
-	virtual void setPos(const QPoint & pos);
 	
 	void reload();
 	
 protected:
-	virtual void resize();
 	KSimWidgetList * widgetList;
+
+private slots:
+	void slotWidgetShow();
+	void slotWidgetHide();
+
+signals:
+	void signalWidgetShow();
+	void signalWidgetHide();
 
 };
 

@@ -75,7 +75,6 @@ private:
 	KSimLineEdit * m_leShortDescr;
 	KSimLineEdit * m_lePixmapFile;
 	QHBox * m_fileBox;
-	QCheckBox * m_userViewAttribute;
 	QVButtonGroup * m_storeBox;
 	QRadioButton * m_storeAbsolute;
 	QRadioButton * m_storeRelative;
@@ -87,7 +86,6 @@ private slots:
 	void slotShortDescrChanged();
 	void slotPixmapFileChanged();
 	void slotPixmapOpenFileDialog();
-	void slotUserViewAttributeChanged();
 	void slotStoreAbsoluteChanged();
 	void slotStoreRelativeChanged();
 	void slotStoreInternalChanged();

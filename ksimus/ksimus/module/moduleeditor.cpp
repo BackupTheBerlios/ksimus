@@ -21,6 +21,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qfontmetrics.h>
+#include <qobjectlist.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -110,6 +111,7 @@ void ModuleEditor::connMouseEvent(QMouseEvent * ev)
 		orientation = CO_BOTTOM;
 	}
 		
+
 	if (found)
 	{
 		QPoint pos;
@@ -217,11 +219,9 @@ void ModuleEditor::updateDrawMapPixmapView()
 {
 	if(mdata->isPixmapFileValid())
 	{
-		QSize pixSize = mdata->getPixmapSize();
-	
 		// calculate view layout
-		calGeometric(pixSize);
-							
+		calGeometric(mdata->getPixmapSize());
+		
 		resize(m_viewSize);
 		m_drawMap->resize(m_viewSize);
 		m_drawMap->fill();			
@@ -238,11 +238,11 @@ void ModuleEditor::updateDrawMapPixmapView()
 /** Setup the m_drawMap for the user view */
 void ModuleEditor::updateDrawMapUserView()
 {
-	QSize userViewSize = mdata->getUserViewSize();
+	const QSize & userViewSize = mdata->getUserViewSize();
 	CompViewList * viewList = mdata->getUserViewList();
 	
 	// calculate view layout
-    calGeometric(userViewSize + QSize(2*gridX, 2*gridY));
+	calGeometric(userViewSize);
 	
 	if (!m_userView)
 	{
@@ -252,20 +252,49 @@ void ModuleEditor::updateDrawMapUserView()
 	
 	m_userView->move(m_viewOffsetX+gridX, m_viewOffsetY+gridY);
 	m_userView->setBackgroundMode(NoBackground);
-	m_userView->resize( userViewSize );
+	m_userView->resize( userViewSize - QSize(2*gridX, 2*gridY));
 	m_userView->show();
-							
+	
 	resize(m_viewSize);
-	m_drawMap->resize(m_viewSize);
+	m_drawMap->resize(m_viewSize /* - QSize(2*gridX, 2*gridY)*/);
 	m_drawMap->fill();
 	
+	// Delete Widgets
+	if (m_userView->children())
+	{
+		QObjectListIt it(*m_userView->children());
+		for (; it.current(); )
+		{
+			if (it.current()->isWidgetType())
+			{
+				delete it.current();
+			}
+			else
+			{
+				++it;
+			}
+		}
+	}
+	// Create Widgets
 	FOR_EACH_COMPVIEW(it, *viewList)
 	{
 		it.current()->makeWidget(m_userView);
 	}
+	//Show childs
+/*	if (m_userView->children())
+	{
+		QObjectListIt it(*m_userView->children());
+		for (; it.current(); ++it)
+		{
+			if (it.current()->isWidgetType())
+			{
+				KSIMDEBUG_VAR("ModuleEditor::updateDrawMapUserView Widget", it.current()->name());
+			}
+		}
+	}*/
 	QPainter p (m_drawMap);
 	drawConn(&p);
-}	
+}
 
 /** Setup the m_drawMap for the message view */
 void ModuleEditor::updateDrawMapMessage(const QString & message)
@@ -293,6 +322,7 @@ void ModuleEditor::drawConn(QPainter *p)
 	ConnOrientationType orient;
 	QPoint pos;
 	
+
 	drawConnArea(p, m_topArea);
 	drawConnArea(p, m_bottomArea);
 	drawConnArea(p, m_leftArea);

@@ -29,6 +29,8 @@
 #include <qpixmap.h>
 
 // KDE-Includes
+#include <kmessagebox.h>
+#include <klocale.h>
 
 // Project-Includes
 #include "ksimdata.h"
@@ -46,6 +48,7 @@
 #include "externalconnector.h"
 #include "enumdict.h"
 #include "ksimdebug.h"
+#include "loglist.h"
 
 // Forward declaration
 
@@ -62,8 +65,6 @@ static const char * sPixmapFile 		= "PixFile";
 static const char * sModuleName 		= "Module Name";
 static const char * sModuleLibNames = "Module Lib Names";
 static const char * sShortDescr 		= "Short Descr";
-static const char * sViewAttribPixmap	= "View Attribute Pixmap";
-static const char * sViewAttribUserView	= "View Attribute User View";
 static const char * sPixmapStore	= "Pixmap Store";
 static const char * sPixmapData = "Pixmap Data";
 
@@ -110,11 +111,9 @@ ModuleData::ModuleData(CompContainer * parent)
 		m_connOrientPixmap(0),
 		m_pixmap(0),
 		m_pixmapFile(),
-		m_viewAttribPixmap(VA_SHEETVIEW),
 		m_pixmapStore(MPS_ABSOLTUE),
 		m_connPosUserView(0),
 		m_connOrientUserView(0),
-		m_viewAttribUserView(VA_SHEETVIEW),
 		m_moduleView(MV_NONE),
 		m_container(parent),
 		m_moduleName(),
@@ -216,11 +215,11 @@ const QString & ModuleData::getPixmapFile() const
 bool ModuleData::isPixmapFileValid() const
 {
 	return     (m_pixmapStore == MPS_INTERNAL)
-					|| (
-								 !m_pixmapFile.isEmpty()
-							&& (QFile::exists(m_pixmapFile))
-							&& (0 != QPixmap::imageFormat(m_pixmapFile))
-						 );
+	        || (
+	               !m_pixmapFile.isEmpty()
+	            && (QFile::exists(m_pixmapFile))
+	            && (0 != QPixmap::imageFormat(m_pixmapFile))
+	           );
 }
 
 /** Load the pixmap
@@ -229,8 +228,6 @@ bool ModuleData::loadPixmap()
 {
 	if (m_pixmapStore == MPS_INTERNAL)
 		return false;
-	
-	
 	
 	bool res;
 	QPixmap * newPixmap = new QPixmap;
@@ -243,8 +240,9 @@ bool ModuleData::loadPixmap()
 		if (m_pixmap)
 			delete m_pixmap;
 		m_pixmap = newPixmap;
+		// Round up to next valid size and add connector space
 		m_pixmapSize = QSize( (((m_pixmap->width()  + 3*gridX - 1)/gridX)*gridX),
-													(((m_pixmap->height() + 3*gridY - 1)/gridY)*gridY) );
+		                      (((m_pixmap->height() + 3*gridY - 1)/gridY)*gridY) );
 	}
 	else
 	{
@@ -264,7 +262,7 @@ bool ModuleData::loadPixmap(const QString & filename)
 
 QSize ModuleData::getUserViewSize() const
 {
-	return m_container->getUserSize();
+	return m_container->getUserSize() + QSize(2*gridX, 2*gridY);
 }
 
 CompViewList * ModuleData::getUserViewList() const
@@ -294,27 +292,6 @@ OrientList * ModuleData::getUserViewConnOrient()
 	}
 	return m_connOrientUserView;
 };
-
-
-ViewAttribute ModuleData::getPixmapAttrib() const
-{
-	return m_viewAttribPixmap;
-}
-
-void ModuleData::setPixmapAttrib(ViewAttribute viewAttrib)
-{
-	m_viewAttribPixmap = viewAttrib;
-}
-
-ViewAttribute ModuleData::getUserViewAttrib() const
-{
-	return m_viewAttribUserView;
-}
-	
-void ModuleData::setUserViewAttrib(ViewAttribute viewAttrib)
-{
-	m_viewAttribUserView = viewAttrib;
-}
 
 
 /** Search externals in compList */
@@ -563,12 +540,6 @@ void ModuleData::save(KSimData & file)
 
 	if(!m_shortDescr.isEmpty())
 		file.writeEntry(sShortDescr, m_shortDescr);
-
-	if(m_viewAttribPixmap != VA_SHEETVIEW)
-		file.writeEntry(sViewAttribPixmap, ComponentInfo::convertViewAttribute(m_viewAttribPixmap));
-
-	if(m_viewAttribUserView != VA_SHEETVIEW)
-		file.writeEntry(sViewAttribUserView, ComponentInfo::convertViewAttribute(m_viewAttribUserView));
 }
 
 /** Load module properties
@@ -598,6 +569,7 @@ bool ModuleData::load(KSimData & file)
 					CHECK_PTR(m_pixmap);
 				}
 				*m_pixmap = file.readPixmapEntry(sPixmapData);
+				// Round up to next valid size and add connector space
 				m_pixmapSize = QSize( (((m_pixmap->width()  + 3*gridX - 1)/gridX)*gridX),
 				                      (((m_pixmap->height() + 3*gridY - 1)/gridY)*gridY) );
 			}
@@ -614,13 +586,9 @@ bool ModuleData::load(KSimData & file)
 	m_moduleLibNames = file.readEntry(sModuleLibNames);
 	m_shortDescr = file.readEntry(sShortDescr);
 	
-	m_viewAttribPixmap = ComponentInfo::convertViewAttribute(file.readEntry(sViewAttribPixmap), VA_SHEETVIEW);
-	m_viewAttribUserView = ComponentInfo::convertViewAttribute(file.readEntry(sViewAttribUserView), VA_SHEETVIEW);
-
 	return true;
 }
-							
-							
+
 const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 {
 	KSimData file(filename);
@@ -652,11 +620,11 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 			break;
 		
 		case MV_USERVIEW:
-			viewAttrib = ComponentInfo::convertViewAttribute(file.readEntry(sViewAttribUserView), VA_SHEETVIEW);
+			viewAttrib = VA_SHEET_AND_USER;
 			break;
 	
 		case MV_PIXMAP:
-			viewAttrib = ComponentInfo::convertViewAttribute(file.readEntry(sViewAttribPixmap), VA_SHEETVIEW);
+			viewAttrib = VA_SHEET_AND_USER;
 			break;
 	
 		default:
@@ -816,5 +784,86 @@ void ModuleData::setRelativePath(QString relPath)
 }
 
 
+bool ModuleData::checkConnectorPosition(bool showMessage)
+{
+	bool matchPos(true);
+	const PointList * connPosList = (PointList *)0;
+	QSize size;
+
+	switch(getModuleView())
+	{
+		case MV_NONE:
+		case MV_GENERIC:
+			// Nothing yet
+			return matchPos;
+			break;
+
+		case MV_PIXMAP:
+			connPosList = getPixmapConnPos();
+			size = getPixmapSize();
+			break;
+
+		case MV_USERVIEW:
+			connPosList = getUserViewConnPos();
+			size = getUserViewSize();
+			break;
+
+		default:
+			KSIMDEBUG(QString::fromLatin1("Unknown module view = %1").arg((int)getModuleView()));
+			return matchPos;
+			break;
+	}
+
+	size.rwidth()  /= gridX;
+	size.rheight() /= gridY;
+	QRect topArea   (             1,               0, size.width()-2,               1);
+	QRect bottomArea(             1, size.height()-1, size.width()-2,               1);
+	QRect leftArea  (             0,               1,              1, size.height()-2);
+	QRect rightArea (size.width()-1,               1,              1, size.height()-2);
+
+	for (QListIterator<QPoint> it(*connPosList);it.current();++it)
+	{
+		// not hidden?
+		if (it.current()->x() != -1)
+		{
+			// Connector inside one area
+			if ( topArea.contains(*it.current())
+			  || bottomArea.contains(*it.current())
+			  || leftArea.contains(*it.current())
+			  || rightArea.contains(*it.current()) )
+			{
+				// Okay
+			}
+			else
+			{
+				KSIMDEBUG(QString::fromLatin1("Failed (%1/%2)").arg(it.current()->x()).arg(it.current()->y()));
+				KSIMDEBUG(QString::fromLatin1("Size (%1/%2)").arg(size.width()).arg(size.height()));
+				KSIMDEBUG(QString::fromLatin1("topArea (%1/%2 - %3/%4)").arg(topArea.left()).arg(topArea.top()).arg(topArea.right()).arg(topArea.bottom()));
+				KSIMDEBUG(QString::fromLatin1("bottomArea (%1/%2 - %3/%4)").arg(bottomArea.left()).arg(bottomArea.top()).arg(bottomArea.right()).arg(bottomArea.bottom()));
+				KSIMDEBUG(QString::fromLatin1("leftArea (%1/%2 - %3/%4)").arg(leftArea.left()).arg(leftArea.top()).arg(leftArea.right()).arg(leftArea.bottom()));
+				KSIMDEBUG(QString::fromLatin1("rightArea (%1/%2 - %3/%4)").arg(rightArea.left()).arg(rightArea.top()).arg(rightArea.right()).arg(rightArea.bottom()));
+//				matchPos = false;
+//				break;
+			}
+		}
+	}
+
+	if (!matchPos && showMessage)
+	{
+		QString s1 = i18n("The placement of the external connectors does not match the module shape!");
+		QString s2 = i18n("\n\nThe common reason for this error is a resized module without rearranged external connectors.");
+		KMessageBox::error((QWidget*)0, s1 + s2,
+		                   i18n("Load Module"));
+		if (m_container->isParentComponent())
+		{
+			m_container->getParentComponent()->logError(s1);
+		}
+		else
+		{
+			m_container->getLogList()->error(s1);
+		}
+	}
+	return matchPos;
+}
 
 

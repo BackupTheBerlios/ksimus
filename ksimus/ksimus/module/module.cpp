@@ -20,10 +20,14 @@
 #include <qrect.h>
 #include <qsize.h>
 #include <qpopupmenu.h>
+#include <qobjectlist.h>
 
 #include <kfiledialog.h>
 #include <klocale.h>
 
+#include "ksimusdoc.h"
+#include "ksimusview.h"
+#include "ksimeditor.h"
 #include "ksimdata.h"
 #include "ksimdebug.h"
 #include "module.h"
@@ -70,11 +74,55 @@ ModuleSV::ModuleSV(Component * comp, eViewType viewType)
 {
 	widgetList = new KSimWidgetList();
 	CHECK_PTR(widgetList);
-	setPlace(QRect(0, 0, minX*gridX, minY*gridY));
+
+	if(viewType == SHEET_VIEW)
+	{
+		setPlace(QRect(0, 0, minX * gridX, minY * gridY));
+		enableConnectorSpacingRight(true);
+		enableConnectorSpacingTop(true);
+		enableConnectorSpacingBottom(true);
+		enableConnectorSpacingLeft(true);
+	}
+	else
+	{
+		setPlace(QRect(0, 0, (minX-2) * gridX, (minY-2) * gridY));
+		enableConnectorSpacingRight(false);
+		enableConnectorSpacingTop(false);
+		enableConnectorSpacingBottom(false);
+		enableConnectorSpacingLeft(false);
+	}
 }
 ModuleSV::~ModuleSV()
 {
 	delete widgetList;
+}
+
+
+bool ModuleSV::load(KSimData & file)
+{
+	bool res = CompView::load(file);
+
+	switch(((Module *) getComponent())->getModuleContainer()->getModuleData()->getModuleView())
+	{
+		case MV_GENERIC:
+		case MV_PIXMAP:
+			if ((getViewType() == USER_VIEW) && !isHidden())
+			{
+				// always hidden !!!
+				setHide(true);
+			}
+			break;
+
+		case MV_USERVIEW:
+			// Nothing to do
+			break;
+
+		default:
+			KSIMDEBUG_VAR("Unknown module view",(int)((Module *) getComponent())->getModuleContainer()->getModuleData()->getModuleView());
+			break;
+	}
+
+	return res;
 }
 
 void ModuleSV::draw(QPainter * p)
@@ -87,11 +135,19 @@ void ModuleSV::draw(QPainter * p)
 	switch(mod->getModuleContainer()->getModuleData()->getModuleView())
 	{
 		case MV_GENERIC:
-			drawGeneric(p, size);
+			// Don't draw if sub module
+//			if  (mod->getContainer()->isParentDoc())
+			if (getViewType() == SHEET_VIEW)
+			{
+				drawGeneric(p, size);
+			}
 			break;
 			
 		case MV_PIXMAP:
-			p->drawPixmap(gridX, gridY, *mod->getModuleContainer()->getModuleData()->getPixmap());
+			if (getViewType() == SHEET_VIEW)
+			{
+				p->drawPixmap(gridX, gridY, *mod->getModuleContainer()->getModuleData()->getPixmap());
+			}
 			break;
 			
 		case MV_USERVIEW:
@@ -142,19 +198,11 @@ QWidget * ModuleSV::createCompViewWidget(QWidget * parent)
 	
 	Module * module = (Module*)getComponent();
 	
-	if (module->getModuleContainer()->getModuleData()->getModuleView() != MV_USERVIEW)
-	{
-		return (QWidget *)0;
-	}
-	
+//	KSIMDEBUG_VAR("ModuleSV::createCompViewWidget", getComponent()->getName());
 	CompViewList * viewList = module->getModuleContainer()->getUserViewList();
-	ModuleWidget * display = new ModuleWidget(module, viewList , parent, module->getName());
+	ModuleWidget * display = new ModuleWidget(module, viewList, parent, module->getName());
 	CHECK_PTR(display);
 	widgetList->addWidget(display);
-	display->setBackgroundMode(QWidget::PaletteDark);
-
-	display->installEventFilter(parent);
-	display->setMouseTracking(true);
 	
 	/* General signals */
 	// Delete signal (CompView->Widget)
@@ -162,54 +210,169 @@ QWidget * ModuleSV::createCompViewWidget(QWidget * parent)
 	// Delete signal (Editor->Widget)
 	QObject::connect(parent, SIGNAL(destroyed()), display, SLOT(slotDelete()));
 	// Move signal (CompView->Widget)
-	QObject::connect(this, SIGNAL(signalMove(const QPoint &)), display, SLOT(move(const QPoint &)));
+	QObject::connect(this, SIGNAL(signalMoveWidget(const QPoint &)), display, SLOT(move(const QPoint &)));
 	// Resize signal (CompView->Widget)
-	QObject::connect(this, SIGNAL(signalResize(const QSize &)), display, SLOT(resize(const QSize &)));
+	QObject::connect(this, SIGNAL(signalResizeWidget(const QSize &)), display, SLOT(resize(const QSize &)));
 
-	// Hide signal (CompView->Widget)
-	connect(this, SIGNAL(signalHide()), display, SLOT(hide()));
-	// Show signal (CompView->Widget)
-	connect(this, SIGNAL(signalShow()), display, SLOT(show()));
-	
+	// Hide signal (CompView->ModuleSV)
+	connect(this, SIGNAL(signalHide()), this, SLOT(slotWidgetHide()));
+	// Hide signal (ModuleSV->Widget)
+	connect(this, SIGNAL(signalWidgetHide()), display, SLOT(hide()));
+
+	// Show signal (CompView->ModuleSV)
+	connect(this, SIGNAL(signalShow()), this, SLOT(slotWidgetShow()));
+	// Show signal (ModuleSV->Widget)
+	connect(this, SIGNAL(signalWidgetShow()), display, SLOT(show()));
+
 	display->reload();
-	
-	//Work around for widget positioning
-	resize();
-	display->show();
 	
 	return display;
 }
 
-void ModuleSV::setPos(const QPoint & pos)
+void ModuleSV::drawBound(QPainter * p)
 {
-	CompView::setPos(pos);
-	
-	QPoint gridPos = mapToGrid(pos);
-	QPoint newPos (gridPos.x()+gridX, gridPos.y()+gridY);
-	emit signalMove(newPos);
-}
-
-void ModuleSV::resize()
-{
-	CompView::resize();	
-	
-	QSize newSize;
-	
-	newSize.setWidth(getPlace().width() - 2*gridX );
-	newSize.setHeight(getPlace().height() - 2*gridY );
-
-	emit signalResize(newSize);
-	setPos(getPlace().topLeft());
-	
+	// Draw boundary
+	if (((Module*)getComponent())->getModuleContainer()->getModuleData()->getModuleView() == MV_USERVIEW)
+	{
+		p->save();
+		p->setRasterOp (NotROP);
+		p->setPen (DashLine);
+		p->setBrush (NoBrush);
+		p->drawRect (getPlace().left()-1,
+	               getPlace().top()-1,
+	               getPlace().width()+2,
+	               getPlace().height()+2);
+		p->restore();
+	}
+	else
+	{
+		CompView::drawBound(p);
+	}
 }
 
 void ModuleSV::reload()
 {
 	QList<QWidget> * list = widgetList->getWidgetList();
+//	KSIMDEBUG_VAR("ModuleSV::reload()", list->count());
+
 	for(QListIterator<QWidget> it(*list);it.current();++it)
 	{
 		((ModuleWidget*)it.current())->reload();
 	}
+}
+
+
+void ModuleSV::slotWidgetShow()
+{
+	switch(((Module *) getComponent())->getModuleContainer()->getModuleData()->getModuleView())
+	{
+		case MV_GENERIC:
+		case MV_PIXMAP:
+			// always hidden !!!
+			emit signalWidgetHide();
+			break;
+
+		case MV_USERVIEW:
+			emit signalWidgetShow();
+			// Nothing to do
+			break;
+
+		default:
+			KSIMDEBUG_VAR("Unknown module view",(int)((Module *) getComponent())->getModuleContainer()->getModuleData()->getModuleView());
+			break;
+	}
+	
+}
+
+void ModuleSV::slotWidgetHide()
+{
+	emit signalWidgetHide();
+}
+
+
+//###############################################################
+
+ModuleWidget::ModuleWidget(Module * module, CompViewList * viewList, QWidget *parent, const char *name)
+	: DisplayWidget(viewList, parent, name),
+		m_module(module)
+{
+}
+
+ModuleWidget::~ModuleWidget()
+{
+}
+
+/** The event filter has to be installed by compViews based on widgets */
+bool ModuleWidget::eventFilter( QObject * obj, QEvent * ev)
+{
+	if (m_module->getContainer()->isRunning())
+	{
+		return false;
+	}
+	else
+	{
+		switch (ev->type())
+		{
+			case QEvent::MouseButtonPress:
+			case QEvent::MouseButtonRelease:
+			case QEvent::MouseButtonDblClick:
+			case QEvent::MouseMove:
+			{
+				QMouseEvent mouseEv = QMouseEvent(ev->type(),
+				                  ((QWidget*)obj)->mapToParent(((QMouseEvent*)ev)->pos()),
+				                  ((QMouseEvent*)ev)->button(),
+				                  ((QMouseEvent*)ev)->state()
+				                  );
+				return event(&mouseEv);
+			}
+
+			default:
+				return false;
+		}
+	}
+}
+
+void ModuleWidget::reload()
+{
+/*	KSIMDEBUG_VAR("ModuleWidget::reload", m_module->getName());
+
+	KSIMDEBUG_VAR("ModuleWidget::reload()", displayList->count());
+	KSIMDEBUG_VAR("ModuleWidget::reload()", m_module->getContainer()->getUserViewList()->count());
+	KSIMDEBUG_VAR("ModuleWidget::reload()", m_module->getModuleContainer()->getUserViewList()->count());*/
+
+	// Delete all child objects
+	emit QObject::destroyed();
+
+	// Recreate child widgets if user view
+	if (m_module->getModuleContainer()->getModuleData()->getModuleView() == MV_USERVIEW)
+	{
+		FOR_EACH_COMPVIEW(it, *displayList)
+		{
+			it.current()->makeWidget(this);
+		}
+	}
+
+/*	if (children())
+	{
+		QObjectListIt it(*children());
+		for (; it.current(); ++it)
+		{
+			if (it.current()->isWidgetType())
+			{
+				KSIMDEBUG(QString::fromLatin1("ModuleWidget::reload Module %1 Widget %2").arg(m_module->getName()).arg(QString::fromLatin1(it.current()->name())));
+			}
+		}
+	}*/
+
+/*	// Show display list
+	if (displayList)
+	{
+		FOR_EACH_COMPVIEW(it, *displayList)
+		{
+			KSIMDEBUG(QString::fromLatin1("ModuleWidget::reload displayList Module %1 Widget %2").arg(m_module->getName()).arg(QString::fromLatin1(it.current()->name())));
+		}
+	}*/
+
 }
 
 //###############################################################
@@ -233,7 +396,6 @@ Module::Module(CompContainer * _container, const ComponentInfo * ci)
 }
 Module::~Module()
 {
-//	delete container;
 	delete extList;
 }
 
@@ -251,7 +413,6 @@ const QString & Module::getModuleFile() const
 void Module::save(KSimData & file) const
 {
 	file.writeEntry(sModFile, moduleFile);
-//	file.writeEntry(sConnector, getConnList()->count());
 	
 	Component::save(file);
 }
@@ -261,10 +422,7 @@ void Module::save(KSimData & file) const
 *	Returns true if successful */
 bool Module::load(KSimData & file, bool copyLoad)
 {
-//	unsigned int connNo;//,i;
-	
 	moduleFile = file.readEntry(sModFile);
-//	connNo = file.readUnsignedNumEntry(sConnector,0);
 	
 	reloadModule();
 	
@@ -274,8 +432,7 @@ bool Module::load(KSimData & file, bool copyLoad)
 /** reloads the module and recreates the view */
 void Module::reloadModule()
 {
-	static PointList emptyPosList;
-	PointList * posList = 0;
+	PointList * posList = (PointList *)0;
 	unsigned int i;
 	ModuleData * mdata;
 
@@ -340,7 +497,10 @@ void Module::reloadModule()
 		setName(mdata->getModuleName());
 	}
 	
-	// Some view type depending checks 
+	// Search external connectors
+	mdata->searchExternals(m_moduleContainer->getComponentList());
+
+	// Some view type depending checks and setup 
 	switch(mdata->getModuleView())
 	{
 		case MV_GENERIC:
@@ -348,7 +508,17 @@ void Module::reloadModule()
 			break;
 
 		case MV_PIXMAP:
-			if (!mdata->isPixmapFileValid())
+			if (mdata->isPixmapFileValid())
+			{
+				// Calculate and set module size
+				mdata->setupPixmapData();
+				mdata->loadPixmap();
+				if (!mdata->checkConnectorPosition(true))
+				{
+					mdata->setModuleView(MV_GENERIC);
+				}
+			}
+			else
 			{
 				logWarning(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(mdata->getPixmapFile()));
 				mdata->setModuleView(MV_GENERIC);
@@ -356,7 +526,12 @@ void Module::reloadModule()
 			break;
 
 		case MV_USERVIEW:
-			// Nothing yet
+			// Calculate and set module size
+			mdata->setupUserViewData();
+			if (!mdata->checkConnectorPosition(true))
+			{
+				mdata->setModuleView(MV_GENERIC);
+			}
 			break;
 		
 		case MV_NONE:
@@ -375,9 +550,6 @@ void Module::reloadModule()
 	if(getUserView())
 		((ModuleSV*)getUserView())->reload();
 	
-	// Search external connectors
-	mdata->searchExternals(m_moduleContainer->getComponentList());
-	
 	m_moduleView = mdata->getModuleView();
 	switch(m_moduleView)
 	{
@@ -389,14 +561,16 @@ void Module::reloadModule()
 			// set view size
 			if (getSheetView())
 			{
-				getSheetView()->setHide(false);
+				if (getSheetView()->isHidden())
+					getSheetView()->setHide(false);
 				emit getSheetView()->signalHide();
 				getSheetView()->setPlace(QRect(getSheetView()->getPos(), mdata->getGenericSize()));
 			}
 			
 			if (getUserView())
 			{
-				getUserView()->setHide(true);
+				if (!getUserView()->isHidden())
+					getUserView()->setHide(true);
 				emit getUserView()->signalHide();
 				getUserView()->setPlace(QRect(getUserView()->getPos(), mdata->getGenericSize()));
 			}
@@ -408,20 +582,22 @@ void Module::reloadModule()
 		
 		case MV_PIXMAP:
 		{
-			// Calculate and set module size
-			mdata->setupPixmapData();
-			mdata->loadPixmap();
-			
 			// set view size
 			if (getSheetView())
 			{
-				getSheetView()->setHide(false);
+				if (getSheetView()->isHidden())
+					getSheetView()->setHide(false);
 				emit getSheetView()->signalHide();
 				getSheetView()->setPlace(QRect(getSheetView()->getPos(), mdata->getPixmapSize()));
 			}
+			else
+			{
+				KSIMDEBUG_VAR("Module::reload MV_PIXMAP without SheetView", getModuleFile());
+			}
 			if (getUserView())
 			{
-				getUserView()->setHide(true);
+				if (!getUserView()->isHidden())
+					getUserView()->setHide(true);
 				emit getUserView()->signalHide();
 				getUserView()->setPlace(QRect(getUserView()->getPos(), mdata->getPixmapSize()));
 			}
@@ -433,30 +609,25 @@ void Module::reloadModule()
 		
 		case MV_USERVIEW:
 		{
-			// Calculate and set module size
-			mdata->setupUserViewData();
-			
 			// set view size
 			if (getSheetView())
 			{
-				getSheetView()->setHide(false);
+				if (getSheetView()->isHidden())
+					getSheetView()->setHide(false);
 				emit getSheetView()->signalShow();
-				getSheetView()->setPlace(QRect(getSheetView()->getPos(), mdata->getUserViewSize()+QSize(2*gridX,2*gridY)));
+				getSheetView()->setPlace(QRect(getSheetView()->getPos(), mdata->getUserViewSize()));
+			}
+			else
+			{
+				KSIMDEBUG_VAR("Module::reload MV_USERVIEW without SheetView", getModuleFile());
 			}
 			if (getUserView())
 			{
-				if(mdata->getUserViewAttrib() == VA_SHEET_AND_USER)
-				{
-					getUserView()->setHide(false);
-					emit getUserView()->signalShow();
-				}
-				else
-				{
-					getUserView()->setHide(true);
-					emit getUserView()->signalHide();
-				}
-					
-				getUserView()->setPlace(QRect(getUserView()->getPos(), mdata->getUserViewSize()+QSize(2*gridX,2*gridY)));
+				getUserView()->setPlace(QRect(getUserView()->getPos(), mdata->getUserViewSize()-QSize(2*gridX,2*gridY)));
+			}
+			else
+			{
+				KSIMDEBUG_VAR("Module::reload MV_USERVIEW without UserView", getModuleFile());
 			}
 			// Create Connectors
 			posList = mdata->getUserViewConnPos();
@@ -464,8 +635,7 @@ void Module::reloadModule()
 		break;
 		
 		default:
-/*			KSIMDEBUG(QString::fromLatin1("Unknown module view = %1 Filename = %2").arg((int)mdata->getModuleView()).arg(getModuleFile()));
-			posList = &emptyPosList;*/
+			KSIMDEBUG(QString::fromLatin1("Unknown module view = %1 Filename = %2").arg((int)mdata->getModuleView()).arg(getModuleFile()));
 			break;
 	}
 	
@@ -677,61 +847,5 @@ void Module::slotReload()
 void Module::setupSimulationList()
 {
 	getModuleContainer()->setupSimulationList();
-}
-
-	
-//###############################################################
-
-ModuleWidget::ModuleWidget(Module * module, CompViewList * viewList, QWidget *parent, const char *name)
-	: DisplayWidget(viewList, parent, name),
-		m_module(module)
-{
-}
-
-ModuleWidget::~ModuleWidget()
-{
-}
-
-/** The event filter has to be installed by compViews based on widgets */
-bool ModuleWidget::eventFilter( QObject * obj, QEvent * ev)
-{
-	if (m_module->getContainer()->isRunning())
-	{
-		return false;
-	}
-	else
-	{
-		switch (ev->type())
-		{
-			case QEvent::MouseButtonPress:
-			case QEvent::MouseButtonRelease:
-			case QEvent::MouseButtonDblClick:
-			case QEvent::MouseMove:
-			{
-				QMouseEvent mouseEv = QMouseEvent(ev->type(),
-				                  ((QWidget*)obj)->mapToParent(((QMouseEvent*)ev)->pos()),
-				                  ((QMouseEvent*)ev)->button(),
-				                  ((QMouseEvent*)ev)->state()
-				                  );
-				return event(&mouseEv);
-			}
-			
-			default:
-				return false;
-		}
-	}
-}
-	
-void ModuleWidget::reload()
-{
-	emit QObject::destroyed();
-	
-	if (m_module->getModuleContainer()->getModuleData()->getModuleView() == MV_USERVIEW)
-	{
-		FOR_EACH_COMPVIEW(it, *displayList)
-		{
-			it.current()->makeWidget(this);
-		}
-	}
 }
 
