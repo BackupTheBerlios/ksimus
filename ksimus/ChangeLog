@@ -1,3 +1,10 @@
+	22.12.2002
+* Fix: Remove menu entry "Hide User View" if module with pixmap view.
+* New: Warnig message if module size is changed
+* Fix: Remove some old code from module functionality
+* Fix: Some other problems during module reload
+* Remove: Remove obsolete 'User Interface' setting in module view
+* Fix: Add missing modify setting after 'Hide User View'
 	30.11.2002
 * Change: Some performance changes in class ConnectorBase
 * Fix: Some timing issues External Connector
