@@ -399,3 +399,4 @@ ComponentAddOn * ComponentAddOnList::findByName(const QString & addOnName) const
 	}
 	return (ComponentAddOn *)0;
 }
+
