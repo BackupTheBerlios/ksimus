@@ -353,6 +353,8 @@ the module is also negated as default.
 </para></listitem><listitem><para>
 The name of the external connector is used as default name of the input connector of the module.
 </para></listitem><listitem><para>
+The component has no delay.
+</para></listitem><listitem><para>
 The external connector is rotatable.
 </para></listitem></itemizedlist></sect3>
 
@@ -394,6 +396,8 @@ The input and output is negatable. If the output connector is negated, the outpu
 the module is also negated as default.
 </para></listitem><listitem><para>
 The name of the external connector is used as default name of the output connector of the module.
+</para></listitem><listitem><para>
+The component has no delay.
 </para></listitem><listitem><para>
 The external connector is rotatable.
 </para></listitem></itemizedlist></sect3>
