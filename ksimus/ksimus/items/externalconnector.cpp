@@ -39,6 +39,7 @@ ExternalConnectorSV::ExternalConnectorSV(Component * comp)
 	: CompView(comp, SHEET_VIEW)
 {
 	setPlace( QRect(0, 0, 5*gridX, 3*gridY) );
+	enableRotation(true);
 }
 ExternalConnectorSV::~ExternalConnectorSV()
 {
