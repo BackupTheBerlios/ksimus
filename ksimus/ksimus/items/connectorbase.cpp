@@ -136,8 +136,6 @@ public:
 	int idDisconnect;
 	int idErase;
 	int idNegate;
-
-	SimulationExecute * execute;
 };
 
 
@@ -565,7 +563,7 @@ void ConnectorBase::setWireProperty(WireProperty * wireProperty)
 /** Adds the component in the list for execute next cycle. */
 void ConnectorBase::executeComponentNext()
 {
-	m_p->execute->executeComponentNext(getComponent());
+	getDoc()->getExecute().executeComponentNext(getComponent());
 }
 
 /** Adds the @ref WireProperty in the list for execute next cycle. */
@@ -737,7 +735,6 @@ void ConnectorBase::checkProperty(QStringList & /*errorMsg*/)
 */
 void ConnectorBase::reset()
 {
-	m_p->execute = &(getDoc()->getExecute());
 }
 
 	
