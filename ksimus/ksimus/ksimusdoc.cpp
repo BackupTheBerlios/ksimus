@@ -679,11 +679,12 @@ void KSimusDoc::simulationStart(void)
 	getApp()->slotSimulationTimeChanged();
   m_simRunning = true;
 
+	getContainer()->setupSimulationList();
+  
 	// Check circiut
 	if (simulationCheckCirciut())
 	{
 		emit signalPreReset();
-		getContainer()->setupSimulationList();
 		getContainer()->setupCircuit();
 		getContainer()->resetComponents();
 		emit signalPostReset();
@@ -732,11 +733,10 @@ void KSimusDoc::simulateExecute()
 {
 	getApp()->slotSimulationTimeChanged();
 	
-	// Calulate
+	// Calculate
 	emit signalCalculate();
 	m_execute->execute();
 	getApp()->getWatchWidget()->execute();
-
 }
 
 void KSimusDoc::simulateUpdate()
