@@ -29,10 +29,49 @@
 
 // Forward declaration
 
-/**A boolean and gate
-  *@author Rasmus Diekenbrock
+/** The boolean package
+  * @author Rasmus Diekenbrock
   */
-extern const ComponentInfoList distributeComponents;
 
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Modify the package properties below !!!
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+/**  Enter the package name. E.g. "Boolean" */
+#define PACKAGE_NAME              "Boolean"
+
+/**  Enter the lower case package name. E.g. "boolean" */
+#define PACKAGE_LOWER_NAME        "boolean"
+
+/**  Enter the library namespace. Format KSimLib + package name. E.g. KSimLibBoolean */
+#define LIB_NAMESPACE             KSimLibBoolean
+
+/**  Enter the init function name. Format init_lib + lower case package name. E.g. init_libboolean */
+#define PACKAGE_INIT_FUNCTION     init_libboolean
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  No changes required below !!!
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+namespace LIB_NAMESPACE
+{
+extern KInstance * instance;
+extern const PackageInfo * packageInfo;
+
+
+};  //namespace LIB_NAMESPACE
+
+/** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
+extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
 
 #endif

@@ -32,7 +32,9 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimtimebase.h"
 #include "ksimus/ksimtimeserver.h"
+#include "ksimus/packageinfo.h"
 
+#include "config.h"
 
 #include "datarecorder.h"
 #include "datarecorderview.h"
@@ -45,6 +47,112 @@
 
 
 // Forward declaration
+
+
+//#################################################################
+//#################################################################
+
+
+
+namespace LIB_NAMESPACE
+{
+
+
+
+/************************************************************************************
+ ************************************************************************************
+ **
+ **  Insert pointers to the ComponentInfo for each component you want to distribute.
+ **
+ ************************************************************************************
+ ************************************************************************************/
+static const ComponentInfoPtr distributeComponent[] =
+{
+	&DataRecorderInfo,
+	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
+};
+
+
+
+
+/************************************************************************************
+ ************************************************************************************
+ **
+ **  Insert pointers to the ConnectorInfo for each connector you want to distribute.
+ **
+ ************************************************************************************
+ ************************************************************************************/
+static const ConnectorInfoPtr distributeConnector[] =
+{
+	(ConnectorInfoPtr) 0          // Do not remove. Must be the last item.
+};
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Insert pointers to the WirePropertyInfo for each wire property you want to distribute.
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+static const WirePropertyInfoPtr distributeWireProperty[] =
+{
+	(WirePropertyInfoPtr) 0       // Do not remove. Must be the last item.
+};
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  No changes required below !!!
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+KInstance * instance = 0;
+const PackageInfo * packageInfo = 0;
+
+};  //namespace LIB_NAMESPACE
+
+
+
+extern "C"
+{
+	const PackageInfo * PACKAGE_INIT_FUNCTION()
+	{
+
+		KSIMDEBUG("Init Package " PACKAGE_NAME);
+			
+		if (LIB_NAMESPACE::instance == 0)
+		{
+			LIB_NAMESPACE::instance = new KInstance(PACKAGE_LOWER_NAME);
+		}
+	
+		if (LIB_NAMESPACE::packageInfo == 0)
+		{
+			LIB_NAMESPACE::packageInfo = new PackageInfo( PACKAGE_NAME,
+			                                              LIB_NAMESPACE::instance,
+	  		                                            VERSION,      // version from config.h
+	    		                                          LIB_NAMESPACE::distributeComponent,
+	      		                                        LIB_NAMESPACE::distributeConnector,
+	        		                                      LIB_NAMESPACE::distributeWireProperty);
+	  }
+	
+
+		return LIB_NAMESPACE::packageInfo;
+	}
+}
+
+
+
+
+
+
+
+//#################################################################
+//#################################################################
 
 #define MAX_CHANNEL 16
 
@@ -61,11 +169,6 @@ const ComponentInfo DataRecorderInfo (	"Data Recorder",
 									VA_SHEETVIEW,
 									create
 								);
-
-
-
-const ComponentInfoList distributeComponents = { &DataRecorderInfo,
-																								 0 };
 
 
 //#################################################################
@@ -99,7 +202,7 @@ DataRecorder::DataRecorder(CompContainer * container, const ComponentInfo * ci)
 		new DataRecorderView(this, SHEET_VIEW);
 	}
 	m_channelList = new DataRecorderChannelList;
-	m_channelList->setAutoDelete(true);
+//	m_channelList->setAutoDelete(true);
 	
 	m_channelInputList = new ConnectorInputList;
 
@@ -117,8 +220,8 @@ DataRecorder::~DataRecorder()
 {
 	if(m_widget)
 		delete m_widget;
-	delete m_channelList;
 	delete m_channelInputList;
+	delete m_channelList;
 	delete m_zoomVar;
 }
 

@@ -44,7 +44,73 @@ class ZoomWidgetVar;
   *@author Rasmus Diekenbrock
   */
 
-extern "C" const ComponentInfoList distributeComponents;
+
+
+//#################################################################
+//#################################################################
+
+// C-Includes
+
+// QT-Includes
+
+// KDE-Includes
+
+// Project-Includes
+#include "ksimus/componentinfo.h"
+
+// Forward declaration
+
+/** The boolean package
+  * @author Rasmus Diekenbrock
+  */
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Modify the package properties below !!!
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+/**  Enter the package name. E.g. "Boolean" */
+#define PACKAGE_NAME              "DataRecorder"
+
+/**  Enter the lower case package name. E.g. "boolean" */
+#define PACKAGE_LOWER_NAME        "datarecorder"
+
+/**  Enter the library namespace. Format KSimLib + package name. E.g. KSimLibBoolean */
+#define LIB_NAMESPACE             /*KSimLibBoolean*/
+
+/**  Enter the init function name. Format init_lib + lower case package name. E.g. init_libboolean */
+#define PACKAGE_INIT_FUNCTION     init_libdatarecorder
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  No changes required below !!!
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+namespace LIB_NAMESPACE
+{
+extern KInstance * instance;
+extern const PackageInfo * packageInfo;
+
+
+};  //namespace LIB_NAMESPACE
+
+/** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
+extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
+
+
+
+//#################################################################
+//#################################################################
+
+extern const ComponentInfo DataRecorderInfo;
 
 class DataRecorder : public Component
 {

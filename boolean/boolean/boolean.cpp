@@ -21,8 +21,15 @@
 
 // KDE-Includes
 
+// KSimus-Includes
+#include "ksimus/packageinfo.h"
+#include "ksimus/ksimdebug.h"
+
 // Project-Includes
+#include "config.h"
 #include "boolean.h"
+
+// Component-Includes
 #include "booleanor.h"
 #include "booleanxor.h"
 #include "rsflipflop.h"
@@ -37,19 +44,106 @@
 
 // Project-Includes
 
-const ComponentInfoList distributeComponents = { &KSimLibBoolean::BooleanOrInfo,
-                                                 &KSimLibBoolean::BooleanNorInfo,
-                                                 &KSimLibBoolean::BooleanXorInfo,
-                                                 &KSimLibBoolean::BooleanXnorInfo,
-                                                 &KSimLibBoolean::RSFlipFlopInfo,
-                                                 &KSimLibBoolean::JKFlipFlopInfo,
-                                                 &KSimLibBoolean::JKMSFlipFlopInfo,
-                                                 &KSimLibBoolean::DFlipFlopInfo,
-                                                 &KSimLibBoolean::MonoFlopInfo,
-                                                 &KSimLibBoolean::BooleanCounterInfo,
-                                                 &KSimLibBoolean::BooleanConstantTrue,
-                                                 &KSimLibBoolean::BooleanConstantFalse,
-                                                 &KSimLibBoolean::BooleanBoolean7SegmentInfo,
-                                                 0 };
+namespace LIB_NAMESPACE
+{
 
+
+
+/************************************************************************************
+ ************************************************************************************
+ **
+ **  Insert pointers to the ComponentInfo for each component you want to distribute.
+ **
+ ************************************************************************************
+ ************************************************************************************/
+static const ComponentInfoPtr distributeComponent[] =
+{
+	&BooleanOrInfo,
+	&BooleanNorInfo,
+	&BooleanXorInfo,
+	&BooleanXnorInfo,
+	&RSFlipFlopInfo,
+	&JKFlipFlopInfo,
+	&JKMSFlipFlopInfo,
+	&DFlipFlopInfo,
+	&MonoFlopInfo,
+	&BooleanCounterInfo,
+	&BooleanConstantTrue,
+	&BooleanConstantFalse,
+	&BooleanBoolean7SegmentInfo,
+	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
+};
+
+
+
+
+/************************************************************************************
+ ************************************************************************************
+ **
+ **  Insert pointers to the ConnectorInfo for each connector you want to distribute.
+ **
+ ************************************************************************************
+ ************************************************************************************/
+static const ConnectorInfoPtr distributeConnector[] =
+{
+	(ConnectorInfoPtr) 0          // Do not remove. Must be the last item.
+};
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Insert pointers to the WirePropertyInfo for each wire property you want to distribute.
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+static const WirePropertyInfoPtr distributeWireProperty[] =
+{
+	(WirePropertyInfoPtr) 0       // Do not remove. Must be the last item.
+};
+
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  No changes required below !!!
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+
+KInstance * instance = 0;
+const PackageInfo * packageInfo = 0;
+
+};  //namespace LIB_NAMESPACE
+
+
+
+extern "C"
+{
+	const PackageInfo * PACKAGE_INIT_FUNCTION()
+	{
+
+		KSIMDEBUG("Init Package " PACKAGE_NAME);
+			
+		if (LIB_NAMESPACE::instance == 0)
+		{
+			LIB_NAMESPACE::instance = new KInstance(PACKAGE_LOWER_NAME);
+		}
+	
+		if (LIB_NAMESPACE::packageInfo == 0)
+		{
+			LIB_NAMESPACE::packageInfo = new PackageInfo( PACKAGE_NAME,
+			                                              LIB_NAMESPACE::instance,
+	  		                                            VERSION,      // version from config.h
+	    		                                          LIB_NAMESPACE::distributeComponent,
+	      		                                        LIB_NAMESPACE::distributeConnector,
+	        		                                      LIB_NAMESPACE::distributeWireProperty);
+	  }
+	
+
+		return LIB_NAMESPACE::packageInfo;
+	}
+}
 
