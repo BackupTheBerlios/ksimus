@@ -37,7 +37,7 @@ class ConnectorPack;
 class ComponentControlBlock;
 class ComponentLayout;
 class ConnectorLabel;
-class QSpinBox;
+class KSimSpinBox;
 class QLabel;
 class KSimDoubleEdit;
 
@@ -202,7 +202,7 @@ public:
 protected:
 	int m_min;
 	
-	QSpinBox * m_channels;
+	KSimSpinBox * m_channels;
 	QLabel * m_channelsLabel;
 	
 	KSimDoubleEdit * m_resetValue;

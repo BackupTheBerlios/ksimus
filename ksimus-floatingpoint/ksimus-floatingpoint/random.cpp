@@ -21,7 +21,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qspinbox.h>
 
 
 // KDE-Includes
@@ -29,6 +28,7 @@
 #include <klocale.h>
 
 // KSimus-Includes
+#include "ksimus/ksimspinbox.h"
 #include "ksimus/resource.h"
 #include "ksimus/connectorboolinedge.h"
 #include "ksimus/connectorfloatout.h"
@@ -213,9 +213,18 @@ RandomView::RandomView(Random * comp, eViewType viewType)
 void RandomView::draw(QPainter * p)
 {
 	drawFrame(p);
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Rnd\n\nFlt");
+	p->setFont(QFont("helvetica",10));
+
+	if (getRandom()->getEnableConnector()->isHidden())
+	{
+		p->drawText(getDrawingPlace(), AlignCenter, "Rnd");
+	}
+	else
+	{
+		QRect place = getDrawingPlace();
+		place.rTop() += 2;
+		p->drawText(place, AlignTop | AlignHCenter, "Rnd");
+	}
 	
 	CompView::draw(p);
 }
@@ -263,7 +272,7 @@ RandomPropertyGeneralWidget::RandomPropertyGeneralWidget(Random * comp, QWidget 
 	m_useSeed->setTrueText(i18n("FloatingPoint - Random", "Individual seed"));
 
 	addEmptyCell();
-	m_seed = new QSpinBox(this, "RndF-Seed");
+	m_seed = new KSimSpinBox(this, "RndF-Seed");
 	CHECK_PTR(m_seed);
 	m_seed->setMinValue(MIN_SEED);
 	m_seed->setMaxValue(MAX_SEED);

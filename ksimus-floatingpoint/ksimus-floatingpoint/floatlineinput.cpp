@@ -22,12 +22,12 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qspinbox.h>
 
 // KDE-Includes
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/ksimspinbox.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/resource.h"
@@ -383,7 +383,7 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	m_decimalsLabel = new QLabel(i18n("FloatingPoint", "Precision: "), this, "DecimalLabel");
 	CHECK_PTR(m_decimalsLabel);
 	
-	m_decimals = new QSpinBox(0, 100, 1, this, "Decimals");
+	m_decimals = new KSimSpinBox(0, 100, 1, this, "Decimals");
 	CHECK_PTR(m_decimals);
 	tip = i18n("FloatingPoint", "Sets the 'Precision' of the input.");
 	addToolTip(tip, m_decimals, m_decimalsLabel);

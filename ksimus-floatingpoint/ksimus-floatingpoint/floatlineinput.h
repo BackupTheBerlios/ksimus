@@ -31,7 +31,7 @@
 // Forward declaration
 class KSimDoubleEdit;
 class QLabel;
-class QSpinBox;
+class KSimSpinBox;
 class QCheckBox;
 class QComboBox;
 
@@ -199,7 +199,7 @@ protected:
 	QComboBox * m_convertType;
 	
 	QLabel * m_decimalsLabel;
-	QSpinBox * m_decimals;
+	KSimSpinBox * m_decimals;
 	QCheckBox * m_tracking;
 
 private:

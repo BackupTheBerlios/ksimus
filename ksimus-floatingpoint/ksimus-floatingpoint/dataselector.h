@@ -38,7 +38,7 @@ class ConnectorPack;
 class ComponentControlBlock;
 class ComponentLayout;
 class ConnectorLabel;
-class QSpinBox;
+class KSimSpinBox;
 class QLabel;
 class KSimDoubleEdit;
 
@@ -196,7 +196,7 @@ public:
 	QLabel * getResetValueLabel() const { return m_resetValueLabel; };
 	
 protected:
-	QSpinBox * m_channels;
+	KSimSpinBox * m_channels;
 	QLabel * m_channelsLabel;
 	
 	KSimDoubleEdit * m_resetValue;

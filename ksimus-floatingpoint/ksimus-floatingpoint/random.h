@@ -41,7 +41,7 @@ class ConnectorBoolInEdge;
 class ConnectorFloatOut;
 class KRandomSequence;
 class KSimDoubleEdit;
-class QSpinBox;
+class KSimSpinBox;
 
 namespace KSimLibFloatingPoint
 {
@@ -153,7 +153,7 @@ private:
 	KSimDoubleEdit * m_min;
 	KSimDoubleEdit * m_max;
 	KSimBooleanBox * m_useSeed;
-	QSpinBox * m_seed;
+	KSimSpinBox * m_seed;
 
 };
 //###############################################################
