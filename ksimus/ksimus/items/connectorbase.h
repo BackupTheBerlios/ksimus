@@ -231,6 +231,8 @@ public:
 	/** Draws the connector on/in the given place and orientation. */
 	void draw (QPainter * p, ConnOrientationType orient, int x, int y) const;
 
+	/** Returns a text which represents the current value. */
+	virtual QString getValueText() const = 0;
 
 protected:
 	//**************************************************************************	
