@@ -88,7 +88,9 @@ public:
 	bool isEdgeSensitiveChangeEnable() const;
 	
 	
-	/** Returns the input data */
+	/** Returns the input data.
+	  *
+	  * WARNING: Call this function only one time during one simulation cycle!  */
 	bool getInput();
   /** Resets the connector.
      */
