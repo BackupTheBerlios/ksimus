@@ -1,4 +1,74 @@
 #MIN_CONFIG
 
-AM_INIT_AUTOMAKE(boolean,0.3.1)
+AM_INIT_AUTOMAKE(boolean,0.3.2.cvs)
+
+AC_DEFUN(CHECK_KSIMUS_HEADER,
+[
+  AC_MSG_CHECKING("for KSimus Header");
+
+  KSIMUS_HEADER_DIR=$includedir/ksimus
+
+  if eval "test -f $KSIMUS_HEADER_DIR/component.h" && eval "test -f $KSIMUS_HEADER_DIR/ksimus.h"; then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_ERROR(KSimus header not found)
+  fi
+])
+
+
+AC_DEFUN(CHECK_KSIMUS_BINARY,
+[
+  AC_MSG_CHECKING("for KSimus Binary");
+
+  KSIMUS_BINARY_DIR=$bindir
+
+
+  if test "${exec_prefix}" != NONE; then
+    KSIMUS_BINARY_DIR=${exec_prefix}/bin
+  else
+    KSIMUS_BINARY_DIR=${prefix}/bin
+  fi
+
+  if eval "test -f $KSIMUS_BINARY_DIR/ksimus"; then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_ERROR(KSimus not found)
+  fi
+])
+
+
+AC_DEFUN(CHECK_KSIMUS_VERSION,
+[
+  AC_MSG_CHECKING("KSimus version");
+
+  eval "KSIMUS_VERSION=`$KSIMUS_BINARY_DIR/ksimus --simpleVersion`"
+  echo -n is $KSIMUS_VERSION
+
+  dnl by default KSimus and the package must have the same version
+  VALID_KSIMUS_VERSION="$VERSION"
+
+  KSIMUS_VERSION_IS_VALID=0
+
+  for j in $VALID_KSIMUS_VERSION;
+  do
+dnl    echo check $j
+    if eval "test $KSIMUS_VERSION = $j"; then
+      KSIMUS_VERSION_IS_VALID=1
+      break
+    fi
+  done
+
+
+  if test $KSIMUS_VERSION_IS_VALID -eq 1; then
+    AC_MSG_RESULT(" ok")
+  else
+    AC_MSG_ERROR(does not match to package version $VERSION)
+  fi
+])
+
+
+
+CHECK_KSIMUS_HEADER
+CHECK_KSIMUS_BINARY
+CHECK_KSIMUS_VERSION
 

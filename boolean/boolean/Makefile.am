@@ -45,6 +45,7 @@ uninstall-local:
 # kde_wallpaperdir  Where general wallpapers should go to.
 
 libdir = @libdir@/ksimus
+INCLUDES= $(all_includes) -I$(includedir)
 
 
 

@@ -48,6 +48,7 @@ uninstall-local:
 # the -x is for skipping messages already translated in kdelibs
 
 libdir = @libdir@/ksimus
+INCLUDES= $(all_includes) -I$(includedir)
 
 
 messages:
