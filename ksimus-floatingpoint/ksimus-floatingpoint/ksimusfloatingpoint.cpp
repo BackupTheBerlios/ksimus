@@ -56,6 +56,7 @@
 #include "floatmax.h"
 #include "floatmin.h"
 #include "delay.h"
+#include "random.h"
 
 // Forward declaration
 
@@ -107,16 +108,27 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(getFloatLatchInfo());
 		pDistComponents->append(getDataSelectorInfo());
 		pDistComponents->append(getFloatExpInfo());
+		pDistComponents->append(getFloatPowInfo());
+		pDistComponents->append(getFloatSqrtInfo());
 		pDistComponents->append(getFloatLogInfo());
+		pDistComponents->append(getFloatLog10Info());
 		pDistComponents->append(getFloatSinInfo());
 		pDistComponents->append(getFloatASinInfo());
+		pDistComponents->append(getFloatSinhInfo());
+		pDistComponents->append(getFloatASinhInfo());
 		pDistComponents->append(getFloatCosInfo());
 		pDistComponents->append(getFloatACosInfo());
+		pDistComponents->append(getFloatCoshInfo());
+		pDistComponents->append(getFloatACoshInfo());
 		pDistComponents->append(getFloatTanInfo());
 		pDistComponents->append(getFloatATanInfo());
+		pDistComponents->append(getFloatATan2Info());
+		pDistComponents->append(getFloatTanhInfo());
+		pDistComponents->append(getFloatATanhInfo());
 		pDistComponents->append(getFloatMaxInfo());
 		pDistComponents->append(getFloatMinInfo());
 		pDistComponents->append(getDelayInfo());
+		pDistComponents->append(getRandomInfo());
 	}
 
 	return *pDistComponents;
@@ -174,6 +186,30 @@ static const WirePropertyInfoList & getDistWireProperty()
 	return *pDistWireProp;
 }
 
+/******************************************************************************************
+ ******************************************************************************************
+ **
+ **  Insert pointers to the ImplicitConverterInfo for each implicit converter you want to distribute.
+ **
+ ******************************************************************************************
+ ******************************************************************************************/
+static const ImplicitConverterInfoList & getImplicitConverterProperty()
+{
+	static ImplicitConverterInfoList * pImplicitConverterProp = 0;
+
+	if (pImplicitConverterProp == 0)
+	{
+		// Initialize
+		pImplicitConverterProp = new ImplicitConverterInfoList;
+		CHECK_PTR(pImplicitConverterProp);
+
+		// Add your implicit converter info here
+	}
+
+	return *pImplicitConverterProp;
+}
+
+
 
 
 /******************************************************************************************
@@ -196,7 +232,7 @@ extern "C"
 	const PackageInfo * PACKAGE_INIT_FUNCTION()
 	{
 
-		KSIMDEBUG("Init Package " PACKAGE_NAME);
+//		KSIMDEBUG("Init Package " PACKAGE_NAME);
 			
 		if (KSimLibFloatingPoint::instance == 0)
 		{
@@ -210,7 +246,8 @@ extern "C"
 			                                              VERSION,      // version from config.h
 			                                              KSimLibFloatingPoint::getDistComponents(),
 			                                              KSimLibFloatingPoint::getDistConnector(),
-			                                              KSimLibFloatingPoint::getDistWireProperty());
+			                                              KSimLibFloatingPoint::getDistWireProperty(),
+			                                              KSimLibFloatingPoint::getImplicitConverterProperty());
 	  }
 	
 
