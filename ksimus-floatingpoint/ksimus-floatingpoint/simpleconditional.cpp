@@ -211,7 +211,7 @@ void SimpleConditional::setConditionalType(eConditionalType newCond)
 void SimpleConditional::setConditionalType(const QString & type)
 {
 	if (type == getConditionalLesserInfo()->getLibName())
-		setConditionalType(eLarger);
+		setConditionalType(eLesser);
 	else if (type == getConditionalLesserEqualInfo()->getLibName())
 		setConditionalType(eLesserEqual);
 	else if (type == getConditionalEqualInfo()->getLibName())
