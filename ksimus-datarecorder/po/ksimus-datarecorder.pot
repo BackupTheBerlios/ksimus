@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-04-09 22:33+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: channelpositionwidget.cpp:70
+msgid "&Offset: "
+msgstr ""
+
+#: channelpositionwidget.cpp:79
+msgid "&Gain: "
+msgstr ""
+
+#: datarecorderchannelbase.cpp:177
+msgid "Change Channel Name"
+msgstr ""
+
+#: datarecorderchannelboolean.cpp:129
+msgid "Boolean"
+msgstr ""
+
+#: datarecorderchannelboolean.cpp:225 datarecorderchannelfloat.cpp:218
+#: datarecorderwidget.cpp:177
+msgid "Channel:"
+msgstr ""
+
+#: zoomwidget.cpp:219
+#, ycp-format
+msgid "%1 Sample/Pixel"
+msgstr ""
+
+#: zoomwidget.cpp:223
+#, ycp-format
+msgid "%1 s/div"
+msgstr ""
+
+#: datarecorder.cpp:170 datarecorder.cpp:171
+msgid "Data Recorder"
+msgstr ""
+
+#: datarecorder.cpp:533
+msgid "&Open"
+msgstr ""
+
+#: datarecorder.cpp:534
+msgid "Add &boolean connector"
+msgstr ""
+
+#: datarecorder.cpp:535
+msgid "Add &floating point connector"
+msgstr ""
+
+#: datarecorder.cpp:559 datarecorder.cpp:570
+msgid "Add channel"
+msgstr ""
+
+#: datarecorder.cpp:586
+msgid "Remove channel"
+msgstr ""
+
+#: datarecorderchannelfloat.cpp:124
+msgid "Floating Point"
+msgstr ""
+
+#: datarecorderwidget.cpp:182
+msgid "&Zoom:"
+msgstr ""

@@ -1,0 +1,10 @@
+make[2]: Entering directory `/home/projekte/Projekte/ksimus-datarecorder/ksimus-datarecorder'
+make[2]: *** Warning: File `_transMakefile' has modification time in the future (2002-04-09 22:33:29 > 2002-04-09 22:33:28)
+/opt/kde2//include/kde.pot: Warnung: Zeichensatz »CHARSET« ist ein nicht portabler Kodierungsname.
+                                     Konvertierung der Meldungen in den Zeichensatz des Anwenders
+                                     könnte fehlschlagen.
+/opt/kde2/include/kde.pot: Warnung: Zeichensatz »CHARSET« ist ein nicht portabler Kodierungsname.
+                                    Konvertierung der Meldungen in den Zeichensatz des Anwenders
+                                    könnte fehlschlagen.
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+make[2]: Leaving directory `/home/projekte/Projekte/ksimus-datarecorder/ksimus-datarecorder'

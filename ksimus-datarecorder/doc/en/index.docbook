@@ -1,0 +1,514 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
+
+  <!ENTITY packageName 'Data Recorder'>
+  <!ENTITY ksimusPackage '<application>KSimus Package &packageName;</application>'>
+  <!ENTITY kapp "&ksimusPackage;"><!-- replace test here -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"><!-- change language only here -->
+  <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
+
+
+
+  <!ENTITY todo '<para>[TODO]</para>'>
+
+
+
+  <!-- Do not define any other entities; instead, use the entities
+       from kde-genent.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.8 October 1 1999
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001   -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+In the future, we may want to change from SGML-based DocBook to XML-based
+DocBook. To make this change easier, please be careful :
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The &packageName; Package Handbook</title>
+
+<authorgroup>
+<author>
+<firstname>Rasmus</firstname>
+<!-- <othername>N.</othername> -->
+<surname>Diekenbrock</surname>
+<affiliation>
+<address>&kappmail;</address>
+</affiliation>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>2001</year>
+<year>2002</year>
+<holder>Rasmus Diekenbrock</holder>
+</copyright>
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook 
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>04/03/2002</date>
+<releaseinfo>0.01.00</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+The package &packageName; contains some floating point related components for KSimus.
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>KSimus</keyword>
+<keyword>Simulate</keyword>
+<keyword>Simulation</keyword>
+<keyword>Logic</keyword>
+<keyword>Floating-point</keyword>
+<keyword>Floating</keyword>
+<keyword>Point</keyword>
+<keyword>Package</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<para>
+The &packageName; Package contains a graphical data recorder for KSimus.
+</para>
+
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using the &packageName; package</title>
+
+<!-- This chapter should tell the user how to use your app. You should use as
+many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
+your application. -->
+
+<para>
+Install this package and KSimus will use it automatically (after a restart of KSimus).
+</para>
+
+<para>
+
+<!-- Note that all graphics should be in .png format. Use no gifs because of
+patent issues. -->
+
+<!-- <screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot> -->
+</para>
+</chapter>
+
+
+<chapter id="kapp-features">
+<title>&packageName; package features</title>
+
+<para>
+The component DataRecorder records boolean and floating point values. The values are shown
+like a storage oszilloscope it does.
+</para>
+
+<para>
+In the current version the DataRecorder uses a separate window for displaying the values. In a
+future version it will be also possible to place the data view inside the schematic and user view.
+</para>
+
+
+<para>
+The schematic view of the DataRecorder:
+</para>
+
+
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="schematic_1.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="schematic_2.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="schematic_3.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+</para>
+
+<para>
+The DataRecorder can connect any combination of boolean and floating point connectors.
+</para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of the popup menu</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="popupmenu.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Popup Menu</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+There are four additional items at the component popup menu:
+</para>
+<itemizedlist>
+<listitem>
+<para>Erase Connector</para>
+<para>Removes the connector on which the mouse has pointed when you pressed the right mouse button.
+The connector must be not connected.</para>
+</listitem>
+
+<listitem>
+<para>Open</para>
+<para>Opens the data view (see below).</para>
+</listitem>
+
+<listitem>
+<para>Add boolean connector</para>
+<para>Adds a new boolean channel.</para>
+</listitem>
+
+<listitem>
+<para>Add floating point connector</para>
+<para>Adds a new floating point channel.</para>
+</listitem>
+</itemizedlist>
+
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of a data view</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="dataview.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Date view</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+The screenshot above shows the data view with three functions:
+</para>
+
+<itemizedlist>
+<listitem>
+<para>f1(t) = sin(t)</para>
+<para>This is the black line.</para>
+</listitem>
+
+<listitem>
+<para>f2(t) = t</para>
+<para>This is the red line.</para>
+</listitem>
+
+<listitem>
+<para>f3(t) = f1(t)/f(2t) = sin(t)/t </para>
+<para>This is the green line.</para>
+</listitem>
+</itemizedlist>
+
+<para>
+The the data view has on the left side a panel with one button for each channel and a
+zoom control. On the right side is the data area.
+</para>
+
+<para>
+The buttons on the panel are named like the related connectors. Left on each button is a small
+colored rectangle. This color is used to draw the line of this channel. A press on a button opens
+or closes a control window for the channel.
+</para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of a channel control window</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="channelcontrol.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Control window</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+The first item in the control window shows the channel name which is also the related connector name.
+Changes in this item will change the channel name as well as the connector name. The second item is a
+offset control and the third item is a gain control. Changes at this items cause an immediately update
+of the data area. The last item let you change the color of the line.
+</para>
+
+
+
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################          Developers           ######################## -->
+<!-- ############################################################################### -->
+
+<chapter id="developers">
+<title>Developer's Guide to the &packageName; Package</title>
+
+<!-- (OPTIONAL) A Programming/Scripting reference chapter should be
+used for apps that use plugins or that provide their own scripting hooks
+and/or development libraries. -->
+
+
+&todo;
+
+
+
+<!-- Use refentries to describe APIs.  Refentries are fairly complicated and you
+should consult the docbook reference for further details. The example below was
+taken from that reference and shortened a bit for readability. -->
+
+</chapter>
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<!-- (OPTIONAL but recommended) This chapter should include all of the silly
+(and not-so-silly) newbie questions that fill up your mailbox. This chapter
+should be reserved for BRIEF questions and answers! If one question uses more
+than a page or so then it should probably be part of the
+"Using this Application" chapter instead. You should use links to
+cross-reference questions to the parts of your documentation that answer them.
+This is also a great place to provide pointers to other FAQ's if your users
+must do some complicated configuration on other programs in order for your
+application work. -->
+
+&reporting.bugs;
+&updating.documentation;
+
+&todo;
+<!--
+<qandaset id="faqlist">
+<qandaentry>
+<question>
+<para>My Mouse doesn't work. How do I quit &kapp;?</para>
+</question>
+<answer>
+<para>You silly goose! Check out the <link linkend="commands">Commands
+Section</link> for the answer.</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>Why can't I twiddle my documents?</para>
+</question>
+<answer>
+<para>You can only twiddle your documents if you have the foobar.lib
+installed.</para>
+</answer>
+</qandaentry>
+</qandaset>
+-->
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&kapp;
+</para>
+<para>
+Program copyright 2002 Rasmus Diekenbrock &kappmail;
+</para>
+
+<!--
+<para>
+Contributors:
+<itemizedlist>
+<listitem><para>Konqui the KDE Dragon <email>konqui@kde.org</email></para>
+</listitem>
+<listitem><para>Tux the Linux Penguin <email>tux@linux.org</email></para>
+</listitem>
+</itemizedlist>
+</para>
+-->
+
+<para>
+Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove. Commercial development should
+ -->
+<!-- replace this with their copyright and either remove it or re-set this.-->
+
+<!-- Determine which license your application is licensed under,
+     and delete all the remaining licenses below:
+
+     (NOTE:  All documentation are licensed under the FDL,
+     regardless of what license the application uses) -->
+
+&underGPL;        	 <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-test">
+<title>How to obtain Test</title>
+
+<para>
+The &packageName; Package can be found on
+<ulink url="http://ksimus.berlios.de">http://ksimus.berlios.de</ulink>, the
+main site of the KSimus project. </para>
+
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<para>
+In order to successfully use the package &packageName;, you need the installed KSimus.
+</para>
+
+<para>
+KSimus as well as the package &packageName; itself can be found
+on <ulink url="http://ksimus.berlios.de">The KSimus home page</ulink>.
+</para>
+
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<para>
+You can find a list of changes at <ulink
+url="http://ksimus.berlios.de/news.html">http://ksimus.berlios.de/news.html</ulink>.
+</para>
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+<para>
+In order to compile and install the &packageName; package on your system, type the following in the base
+directory of the distribution:
+<screen width="40">
+<prompt>%</prompt> <userinput>./configure</userinput>
+<prompt>%</prompt> <userinput>make</userinput>
+<prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+
+<para>Since the &packageName; package uses autoconf and automake you should have not trouble compiling it.
+Should you run into problems please report them to the KDE mailing lists.</para>
+
+</sect1>
+
+<!--
+<sect1 id="configuration">
+<title>Configuration</title>
+
+<para>Don't forget to tell your system to start the <filename>dtd</filename>
+dicer-toaster daemon first, or KApp won't work !</para>
+
+</sect1>
+-->
+
+</appendix>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+

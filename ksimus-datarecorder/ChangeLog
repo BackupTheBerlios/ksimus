@@ -1,0 +1,39 @@
+	20.03.2002
+* New: Version 0.3.4
+	07.03.2002
+* New: Component documentation
+* New: French translation from Aurelien Jarno. Thanks!
+* New: German translation.
+* Fix: better version request in configure.in.in. Thanks Aurelien!
+	18.02.2002
+* Fix: Datarecorder connector management
+* Fix: Drawing floating point channel
+	04.02.2002
+* Change: Version 0.3.4.cvs
+* New: Floating Point Channel
+* Fix: Namespace
+* Fix: Connector name problem. Reload had failed.
+* New: Store size of the Recorder Widget
+	23.01.2002
+* Change: Version 0.3.3
+	21.01.2002
+* New: German translation
+* Fix: not translateable code
+	20.01.2002
+* New: French translation from Aurelien Jarno. Thanks!
+	13.01.2002
+* New: Gates (not GUI objects) are rotatable now.
+	06.01.2002
+* Change: Version 0.3.3.cvs
+	05.01.2002
+* Change: Version 0.3.2
+* New: Check KSimus header and version during configure.
+* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre the bug message.
+	29.12.2001
+* Change: Version 0.3.1
+	28.12.2001
+* New: Improve interface to loadable package.
+* Fix: DataRecorderChannelBoolean do not delete connector self.
+	09.12.2001
+* Change: new version 0.3.0
+
