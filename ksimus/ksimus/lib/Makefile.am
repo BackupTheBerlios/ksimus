@@ -33,6 +33,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/packageinfo.h $(pkgincludedir)/packageinfo.h
 	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/implicitconverterinfo.h $(pkgincludedir)/implicitconverterinfo.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimiodeviceinfo.h $(pkgincludedir)/ksimiodeviceinfo.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimiojoininfo.h $(pkgincludedir)/ksimiojoininfo.h
 
 uninstall-local:
 	-rm -f $(pkgincludedir)/baseinfo.h
@@ -46,6 +50,8 @@ uninstall-local:
 	-rm -f $(pkgincludedir)/ksimpackage.h
 	-rm -f $(pkgincludedir)/packageinfo.h
 	-rm -f $(pkgincludedir)/implicitconverterinfo.h
+	-rm -f $(pkgincludedir)/ksimiodeviceinfo.h
+	-rm -f $(pkgincludedir)/ksimiojoininfo.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 
