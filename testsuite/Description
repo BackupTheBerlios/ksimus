@@ -32,6 +32,9 @@ ksimus-003x.sim
     Boolean
 ############################################################################
 ############################################################################
+boolean-00xx.sim  Test gates
+boolean-01xx.sim  Test FlopFlop
+boolean-02xx.sim  Test counter
 
 boolean-001x.sim
   Test OR / NOR gate
@@ -98,6 +101,18 @@ boolean-0020x.sim
 ############################################################################
     Floatingpoint
 ############################################################################
+############################################################################
+floating-00xx.sim  Test wave generator
+floating-01xx.sim  Test arithmtics
+floating-02xx.sim  Test arithmtics - log & exp
+floating-03xx.sim  Test arithmtics - trigonometrics
+floating-04xx.sim  Test conditionals
+floating-05xx.sim  Test controls
+floating-06xx.sim  Test converter
+floating-07xx.sim  Test random
+floating-08xx.sim  Test timing
+
+
 ############################################################################
 
 floating-00xx.sim
@@ -216,6 +231,8 @@ floating-01xx.sim
   sub 2 inputs
   reset 1000
 
+############################################################################
+
 floating-02xx.sim
   Test arithmtics - log & exp
 
@@ -232,6 +249,29 @@ floating-02xx.sim
   floating-0211.sim
   log
   reset 1000
+
+  floating-0220.sim
+  log10
+
+  floating-0221.sim
+  log10
+  reset 9999
+
+  floating-0230.sim
+  pow
+
+  floating-0231.sim
+  pow
+  reset 1000
+
+  floating-0240.sim
+  sqrt
+
+  floating-0241.sim
+  sqrt
+  reset 1000
+
+############################################################################
 
 floating-03xx.sim
   Test arithmtics - trigonometrics
@@ -257,6 +297,10 @@ floating-03xx.sim
   atan
   reset 1000
 
+  floating-0323.sim
+  atan2
+  reset 0 & 1000 & -1000
+
   floating-0330.sim
   cos
 
@@ -277,6 +321,34 @@ floating-03xx.sim
   floating-0351.sim
   tan
   reset 1000
+
+
+  floating-0360.sim
+  acosh
+  reset 0 & 1000 & -1000
+
+  floating-0361.sim
+  asinh
+  reset 0 & 1000 & -1000
+
+  floating-0362.sim
+  atanh
+  reset 0 & 1000 & -1000
+
+  floating-0363.sim
+  cosh
+  reset 0 & 1000 & -1000
+
+  floating-0364.sim
+  sinh
+  reset 0 & 1000 & -1000
+
+  floating-0365.sim
+  tanh
+  reset 0 & 1000 & -1000
+
+
+############################################################################
 
 floating-04xx.sim
   Test conditionals
@@ -315,6 +387,8 @@ floating-04xx.sim
   floating-0441.sim
   lesser equal
   reset true
+
+############################################################################
 
 floating-05xx.sim
   Test controls
@@ -402,6 +476,37 @@ floating-05xx.sim
   max / min
   2 Channel
   reset -99
+
+############################################################################
+
+floating-06xx.sim
+  Test converter
+
+  floating-0600.sim
+  Converter Float to Boolean
+
+  floating-0610.sim
+  Converter Boolean to Float
+
+############################################################################
+
+floating-07xx.sim
+  Test random
+
+  floating-0700.sim
+  Random
+
+############################################################################
+
+floating-08xx.sim
+  Test timing
+
+  floating-0700.sim
+  Delay 1T, 10ms, 10T, 100ms
+  Reset -1000 & 0 & 1000
+
+
+
 
 
 
