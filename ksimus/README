@@ -1,5 +1,129 @@
+===========================================================================
+====                         New Name                                  ====
+===========================================================================
 
-FAQ:
+The packages have since version 0.3.5 the new names like
+ksimus-boolean instead of boolean in prior version. The files and
+directories are renamed also. This supports a uniform naming schema for the
+KSimus packages.
+Because this you have to uninstall a prior version before installing the new
+package.
+
+Sorry for any circumstances!
+
+
+
+===========================================================================
+====                         How to install                            ====
+===========================================================================
+
+Use the common way to install KSimus
+
+>  ./configure
+>  make
+>  make install (as root)
+
+Some distributions requires some parameter for configure.
+If you are not sure use
+>  ./configure --prefix=KDEDIR --with-qt-dir=QTDIR
+where KDEDIR is the directory where KDE is installed
+e.g. /opt/kde2 or /usr/local/kde
+QTDIR is the directory where QT is installed
+e.g. /usr/lib/qt2
+
+Install first ksimus and than the packages in any order.
+
+
+If you get the error message:
+
+> ./Makefile.am:5: EXTRA_DIST multiply defined in condition TRUE
+>
+>   EXTRA_DIST (User, where = 5) =
+>   {
+>     TRUE => ksimus-boolean.kdevprj AUTHORS COPYING ChangeLog INSTALL README
+> TODO ksimus-boolean.lsm
+>   }
+
+You have to modify the Makefile.am in the base directory of the package. Please
+change the line (is near the end of file)
+EXTRA_DIST = admin
+into
+# EXTRA_DIST = admin
+
+
+
+===========================================================================
+====            A summery of changes and new features:                 ====
+===========================================================================
+
+====  Watch View ====
+The most important is the watch view with some debug possibilities including
+a trace buffer and break points.
+
+====  Package Names ====
+Some users told me to unify the name of component packages. The new names are
+- ksimus-boolean
+- ksimus-floatingpoint
+- ksimus-datarecorder
+To avoid version conflicts uninstall the old packages before install the new
+ones.
+Some hints if you want to remove the files manually instead of make uninstall.
+Following files and dirs are not used and not updated with the new packages:
+Remove all files in:
+$KDEDIR/lib/ksimus/
+Remove the dirs:
+$KDEDIR/share/doc/HTML/en/boolean
+$KDEDIR/share/doc/HTML/en/datarecorder
+$KDEDIR/share/doc/HTML/en/ksimusfloatingpoint
+
+====  Command Line Options ====
+There new command line options:
+  --execute    starts the simulation of the given file immediatly
+  --language   use the given language (for testing)
+
+==== Data Transport Layer ====
+Data transport layer redesigned. Faster execution, easier component
+  implementation, no delay for external connectors and converters
+
+==== New Components ====
+New components:
+- KSimus
+  * Pause (pauses the simulation if input gets active)
+  * Stop (stops the simulation if input gets active)
+  * Close (close the document if input gets active)
+- Package Boolean
+  * Delay
+  * Demultiplexer
+  * Multiplexer
+- Package DataRecorder
+  * A Textrecorder (logs data to a file)
+- Package FloatingPoint
+  * atan2
+  * sinh
+  * asinh
+  * cosh
+  * acosh
+  * tanh
+  * atanh
+  * random
+  * delay
+
+==== Bug Fixes ====
+There are a lot of bug fixes. Some crashed KSimus, some causes an infinite loop,
+some cause data lost, but most was only uncomfortable.
+
+==== Translations ====
+Remove the outdated brazilian portuguese translation from project.
+Update french and german translation.
+
+
+
+
+
+
+===========================================================================
+====                               FAQ                                 ====
+===========================================================================
 
 * KSimus crashs while loading additional packages.
 

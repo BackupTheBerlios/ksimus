@@ -1,3 +1,5 @@
+	12.10.2002
+* Remove the outdated brazilian portuguese translation from project.
 	10.10.2002
 * Fix: Errors in documentation. Thanks MrTLee!
 * Fix: A wrong initialize sequence of the component package causes untranslated

@@ -5,8 +5,6 @@
 
   check temp dir after creating
 
-  And so many things.
-
   Add library help files to help menu
 
   Check unused connectors - Error if component does not work without this unwired connector.
