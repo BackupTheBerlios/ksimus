@@ -59,7 +59,10 @@ const ComponentInfo Boolean7SegmentInfo(I18N_NOOP("7 Segment Display"),
                                         I18N_NOOP("Boolean/Output/7 Segment Display"),
                                         QString::null,
                                         VA_SHEET_AND_USER,
-                                        create	);
+                                        create,	
+                                        QString::null,
+                                        "component-boolean-7segment"
+                                        );
 
 
 

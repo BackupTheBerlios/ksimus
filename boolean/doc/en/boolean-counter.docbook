@@ -1,0 +1,94 @@
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Counters       ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-boolean-counters">
+<title>Boolean Counters</title>
+
+<simplelist>
+<member>&BooleanCounterRcoRbo;</member>
+</simplelist>
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Boolean Counter RCO RBO        ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-counter-rco-rbo">
+<title>Boolean Counter with RCO and RBO</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a up/down counter with Ripple Carry Out (RCO) and Ripple Borrow Out (RBO).
+The counter width is selectable from 2 bit up to 16 bit. The counter supports also a minimum
+and maximum value as well as a special reset value. These values are user adjustable with following limit:
+</para><para>
+Min Counter Value &lt;= Reset Value &lt;= Max Counter Value
+</para><para>
+The output RCO is one simulation cycle active if overflow event has occurred.
+The output RBO is one simulation cycle active if underflow event has occurred.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The all inputs and outputs are negatable.
+</para></listitem><listitem><para>
+The reset input is level or edge sensitive.
+</para></listitem><listitem><para>
+The up input and down input are always edge sensitive.
+</para></listitem><listitem><para>
+The up input or down input (but not both) are hideable.
+</para></listitem><listitem><para>
+The reset input, the RCO and RBO output are hideable.
+</para></listitem><listitem><para>
+The input line for reset, minimum and maximum accepts binary, octal, decimal and hexadecimal values.
+See the following examples how to select the different bases:
+</para><para>Binary: 0b11001
+</para><para>Octal: 0o31
+</para><para>Decimal: 25
+</para><para>Hexadecimal: 0x19
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_counter.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_counter_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Counter -> with RCO and RBO</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,15 +15,38 @@
   <!ENTITY BooleanXOR '<link linkend="component-boolean-xor">Boolean XOR Gate</link>'>
   <!ENTITY BooleanXNOR '<link linkend="component-boolean-xnor">Boolean XNOR Gate</link>'>
 
+  <!ENTITY Boolean7SegDisp '<link linkend="component-boolean-7segment">Boolean 7 Segment Display</link>'>
+
+  <!ENTITY BooleanConstTrue '<link linkend="component-boolean-const-true">Boolean Constant True</link>'>
+  <!ENTITY BooleanConstFalse '<link linkend="component-boolean-const-false">Boolean Constant False</link>'>
+
+  <!ENTITY BooleanRSFF '<link linkend="component-boolean-rs-ff">Boolean RS Flip Flop</link>'>
+  <!ENTITY BooleanJKFF '<link linkend="component-boolean-jk-ff">Boolean JK (MS) Flip Flop</link>'>
+  <!ENTITY BooleanDLatch '<link linkend="component-boolean-rs-ff">Boolean D Latch</link>'>
+  <!ENTITY BooleanMutliDLatch '<link linkend="component-boolean-multiple-d-latches">Boolean Muliple D Latches</link>'>
+  <!ENTITY BooleanMonoFlop '<link linkend="component-boolean-monoflop">Boolean Mono Flop</link>'>
+
+  <!ENTITY BooleanCounterRcoRbo '<link linkend="component-boolean-counter-rco-rbo">Boolean Counter with RCO and RBO</link>'>
+
 
   <!ENTITY todo '<para>[TODO]</para>'>
 
   <!ENTITY boolean-gates-part SYSTEM "boolean-gates.docbook">
+  <!ENTITY boolean-output-part SYSTEM "boolean-output.docbook">
+  <!ENTITY boolean-input-part SYSTEM "boolean-input.docbook">
+  <!ENTITY boolean-latches-part SYSTEM "boolean-latches.docbook">
+  <!ENTITY boolean-counters-part SYSTEM "boolean-counter.docbook">
+
+<!-- ########################        Truth table items       ######################## -->
+
+  <!ENTITY arUp '<inlinemediaobject><imageobject><imagedata fileref="arrowUp.png" format="PNG"/></imageobject></inlinemediaobject>'>
+  <!ENTITY arDo '<inlinemediaobject><imageobject><imagedata fileref="arrowDown.png" format="PNG"/></imageobject></inlinemediaobject>'>
+
 
   <!-- Do not define any other entities; instead, use the entities
        from kde-genent.entities and $LANG/user.entities. -->
 ]>
-<!-- kdoctemplate v0.8 October 1 1999 
+<!-- kdoctemplate v0.8 October 1 1999
      Minor update to "Credits and Licenses" section on August 24, 2000
      Removed "Revision history" section on 22 January 2001   -->
 
@@ -87,8 +110,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>24/02/2002</date>
-<releaseinfo>0.00.01</releaseinfo>
+<date>02/03/2002</date>
+<releaseinfo>0.01.00</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -145,7 +168,7 @@ many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
 your application. -->
 
 <para>
-Install this package and KSimus will use it automatically (after a restart).
+Install this package and KSimus will use it automatically (after a restart of KSimus).
 </para>
 
 <para>
@@ -174,7 +197,10 @@ patent issues. -->
 <chapter id="kapp-features">
 <title>Boolean package features</title>
 
-<para>The Boolean package contains following components:
+<para>The Boolean package contains following components:</para>
+
+
+<para>Gates:
 <itemizedlist>
 <listitem><para>&BooleanOR;</para></listitem>
 <listitem><para>&BooleanNOR;</para></listitem>
@@ -182,6 +208,44 @@ patent issues. -->
 <listitem><para>&BooleanXNOR;</para></listitem>
 </itemizedlist>
 </para>
+
+<para>Inputs:
+<itemizedlist>
+<listitem><para>&BooleanConstTrue;</para></listitem>
+<listitem><para>&BooleanConstFalse;</para></listitem>
+</itemizedlist>
+</para>
+
+<para>Displays:
+<itemizedlist>
+<listitem><para>&Boolean7SegDisp;</para></listitem>
+</itemizedlist>
+</para>
+
+<para>Flip Flop / Latches / Register:
+<itemizedlist>
+<listitem><para>&BooleanRSFF;</para></listitem>
+<listitem><para>&BooleanJKFF;</para></listitem>
+<listitem><para>&BooleanDLatch;</para></listitem>
+<listitem><para>&BooleanMutliDLatch;</para></listitem>
+<listitem><para>&BooleanMonoFlop;</para></listitem>
+</itemizedlist>
+</para>
+
+<para>Counters:
+<itemizedlist>
+<listitem><para>&BooleanCounterRcoRbo;</para></listitem>
+</itemizedlist>
+</para>
+
+
+
+
+
+
+
+
+
 
 </chapter>
 
@@ -200,9 +264,39 @@ patent issues. -->
 
 
 
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Input       ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-input-part;
 
 
 
+
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Output       ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-output-part;
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Latches      ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-latches-part;
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################         Boolean Counters      ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-counters-part;
 
 
 </chapter>

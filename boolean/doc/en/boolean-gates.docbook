@@ -58,10 +58,10 @@ the last input which has to be unconnected).
 <row><entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
 </thead>
 <tbody>
-<row><entry>False</entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>False</entry> <entry>True</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True</entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True</entry> <entry>True</entry> <entry></entry> <entry>True</entry></row>
+<row><entry>False</entry>   <entry>False</entry>   <entry></entry> <entry>False</entry>  </row>
+<row><entry>False</entry>   <entry>True</entry>    <entry></entry> <entry>True</entry>   </row>
+<row><entry>True</entry>    <entry>False</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>True</entry>    <entry>True</entry>    <entry></entry> <entry>True</entry>   </row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 
@@ -117,10 +117,10 @@ the last input which has to be unconnected).
 <row><entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
 </thead>
 <tbody>
-<row><entry>False</entry> <entry>False</entry> <entry></entry> <entry>True</entry></row>
-<row><entry>False</entry> <entry>True</entry> <entry></entry> <entry>True</entry></row>
-<row><entry>True</entry> <entry>False</entry> <entry></entry> <entry>True</entry></row>
-<row><entry>True</entry> <entry>True</entry> <entry></entry> <entry>False</entry></row>
+<row><entry>False</entry>   <entry>False</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>False</entry>   <entry>True</entry>    <entry></entry> <entry>False</entry>  </row>
+<row><entry>True</entry>    <entry>False</entry>   <entry></entry> <entry>False</entry>  </row>
+<row><entry>True</entry>    <entry>True</entry>    <entry></entry> <entry>False</entry>  </row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 
@@ -174,10 +174,10 @@ the last input which has to be unconnected).
 <row><entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
 </thead>
 <tbody>
-<row><entry>False</entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>False</entry> <entry>True</entry> <entry></entry> <entry>True</entry></row>
-<row><entry>True</entry> <entry>False</entry> <entry></entry> <entry>True</entry></row>
-<row><entry>True</entry> <entry>True</entry> <entry></entry> <entry>False</entry></row>
+<row><entry>False</entry>   <entry>False</entry>   <entry></entry> <entry>False</entry>  </row>
+<row><entry>False</entry>   <entry>True</entry>    <entry></entry> <entry>True</entry>   </row>
+<row><entry>True</entry>    <entry>False</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>True</entry>    <entry>True</entry>    <entry></entry> <entry>False</entry>  </row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 
@@ -231,10 +231,10 @@ the last input which has to be unconnected).
 <row><entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
 </thead>
 <tbody>
-<row><entry>False</entry> <entry>False</entry> <entry></entry> <entry>True</entry></row>
-<row><entry>False</entry> <entry>True</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True</entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
-<row><entry>True</entry> <entry>True</entry> <entry></entry> <entry>True</entry></row>
+<row><entry>False</entry>   <entry>False</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>False</entry>   <entry>True</entry>    <entry></entry> <entry>False</entry>  </row>
+<row><entry>True</entry>    <entry>False</entry>   <entry></entry> <entry>False</entry>  </row>
+<row><entry>True</entry>    <entry>True</entry>    <entry></entry> <entry>True</entry>   </row>
 </tbody>
 </tgroup></informaltable></para></sect3>
 

@@ -45,13 +45,17 @@ const ComponentInfo BooleanConstantTrue(I18N_NOOP("Boolean Const True"),
                                         I18N_NOOP("Boolean/Input/Const True"),
                                         QString::null,
                                         VA_SHEETVIEW,
-                                        create);
+                                        create,	
+                                        QString::null,
+                                        "component-boolean-const-true");
 
 const ComponentInfo BooleanConstantFalse(I18N_NOOP("Boolean Const False"),
                                          I18N_NOOP("Boolean/Input/Const False"),
                                          QString::null,
                                          VA_SHEETVIEW,
-                                         create);
+                                         create,	
+                                         QString::null,
+                                         "component-boolean-const-false");
 
 //###############################################################
 //###############################################################

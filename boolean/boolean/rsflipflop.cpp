@@ -47,9 +47,11 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 
 const ComponentInfo RSFlipFlopInfo(I18N_NOOP("RS Flip Flop"),
                                    I18N_NOOP("Boolean/Flip Flop/RS-FF"),
-                                   QString::null,//"RS Flip Flop",
+                                   QString::null,
                                    VA_SHEETVIEW,
-                                   create
+                                   create,	
+                                   QString::null,
+                                   "component-boolean-rs-ff"
                                   );
 
 
