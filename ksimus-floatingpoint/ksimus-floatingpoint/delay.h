@@ -26,7 +26,6 @@
 // KDE-Includes
 
 // KSimus-Includes
-#include "ksimus/compview.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/ksimtime.h"
 #include "float1out.h"
