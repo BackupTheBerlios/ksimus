@@ -76,6 +76,8 @@ FloatAbs::FloatAbs(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatAbs::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(fabs(getInput()->getInput()));
 }
 

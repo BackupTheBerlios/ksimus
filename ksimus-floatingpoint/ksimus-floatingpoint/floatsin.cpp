@@ -128,6 +128,8 @@ FloatSin::FloatSin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatSin::calculate()
 {
+	Float1In1Out::calculate();
+
 	setValue(sin(getInput()->getInput()));
 }
 
@@ -149,6 +151,8 @@ FloatASin::FloatASin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatASin::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(asin(getInput()->getInput()));
 }
 
@@ -170,6 +174,8 @@ FloatSinh::FloatSinh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatSinh::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(sinh(getInput()->getInput()));
 }
 
@@ -191,6 +197,8 @@ FloatASinh::FloatASinh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatASinh::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(asinh(getInput()->getInput()));
 }
 

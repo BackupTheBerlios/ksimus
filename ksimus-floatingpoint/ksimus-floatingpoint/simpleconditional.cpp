@@ -177,6 +177,8 @@ bool SimpleConditional::isProperReloadType(const QString & type) const
 
 void SimpleConditional::calculate()
 {
+	Boolean1Out::calculate();
+	
 	bool state = false;
 	
 	switch(getConditionalType())

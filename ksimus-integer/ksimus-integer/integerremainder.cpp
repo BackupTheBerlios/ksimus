@@ -73,7 +73,7 @@ IntegerRemainder::IntegerRemainder(CompContainer * container, const ComponentInf
 /** Executes the simulation of this component */
 void IntegerRemainder::calculate()
 {
-//	Integer2In1Out::calculate();
+	Integer2In1Out::calculate();
 
 	const int a(getInputA()->getInput());
 	const int b(getInputB()->getInput());

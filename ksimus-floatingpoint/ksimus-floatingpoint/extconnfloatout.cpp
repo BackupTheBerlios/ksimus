@@ -79,6 +79,8 @@ void ExtConnFloatOut::calculate()
 	{
 		setRecursionLocked(true);
 		
+		ExternalConnector::calculate();
+	
 		ConnectorFloatOut * out = (ConnectorFloatOut *)getUsedExternalConn();
 		ConnectorFloatIn * in = (ConnectorFloatIn *)getInternalConn();
 	

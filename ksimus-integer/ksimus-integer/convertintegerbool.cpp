@@ -112,7 +112,7 @@ void ConvertIntegerBool::reset()
 
 void ConvertIntegerBool::calculate()
 {
-//	Component::calculate();
+	Component::calculate();
 
 	if (!m_recursionLocked)
 	{

@@ -70,7 +70,7 @@ IntegerXor::IntegerXor(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerXor::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 
 	unsigned int result = 0;
 
@@ -121,7 +121,7 @@ IntegerXnor::IntegerXnor(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerXnor::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 
 	unsigned int result = 0;
 

@@ -89,6 +89,8 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatAdd::calculate()
 {
+	Float1Out::calculate();
+	
 	double result = 0.0;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

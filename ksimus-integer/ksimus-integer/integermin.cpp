@@ -75,7 +75,7 @@ IntegerMin::IntegerMin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerMin::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 	
 	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
 	

@@ -111,6 +111,8 @@ void ConvertFloatBool::reset()
 
 void ConvertFloatBool::calculate()
 {
+	Component::calculate();
+	
 	if (!m_recursionLocked)
 	{
 		m_recursionLocked = true;

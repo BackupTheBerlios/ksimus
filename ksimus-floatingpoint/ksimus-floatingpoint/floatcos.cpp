@@ -130,6 +130,8 @@ FloatCos::FloatCos(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatCos::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(cos(getInput()->getInput()));
 }
 
@@ -151,6 +153,8 @@ FloatACos::FloatACos(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatACos::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(acos(getInput()->getInput()));
 }
 
@@ -172,6 +176,8 @@ FloatCosh::FloatCosh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatCosh::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(cosh(getInput()->getInput()));
 }
 
@@ -193,6 +199,8 @@ FloatACosh::FloatACosh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatACosh::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(acosh(getInput()->getInput()));
 }
 

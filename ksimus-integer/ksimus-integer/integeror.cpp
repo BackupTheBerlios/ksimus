@@ -70,6 +70,8 @@ IntegerOr::IntegerOr(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerOr::calculate()
 {
+	IntegerXIn1Out::calculate();
+	
 	unsigned int result = 0;
 
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
@@ -119,6 +121,8 @@ IntegerNor::IntegerNor(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerNor::calculate()
 {
+	IntegerXIn1Out::calculate();
+	
 	unsigned int result = 0;
 
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

@@ -74,7 +74,7 @@ IntegerArithmeticInverter::IntegerArithmeticInverter(CompContainer * container, 
 /** Executes the simulation of this component */
 void IntegerArithmeticInverter::calculate()
 {
-//	Integer1In1Out::calculate();
+	Integer1In1Out::calculate();
 
 	setValue(-getInputConnector()->getInput());
 }

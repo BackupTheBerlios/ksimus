@@ -74,6 +74,8 @@ FloatRemainder::FloatRemainder(CompContainer * container, const ComponentInfo * 
 /** Executes the simulation of this component */
 void FloatRemainder::calculate()
 {
+	Float2In1Out::calculate();
+	
 	setValue(fmod(getInputA()->getInput(), getInputB()->getInput()));
 }
 

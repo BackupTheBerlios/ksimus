@@ -1,4 +1,5 @@
 	6.3.2004
+* add missing calls to BASECLASS::calculate()
 * Include moc file into source files
 * Change to KDevelop3 (great IDE)
 * New init function name

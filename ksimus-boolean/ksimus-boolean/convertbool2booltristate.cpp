@@ -128,6 +128,8 @@ void ConvertBool2BoolTristate::reset()
 
 void ConvertBool2BoolTristate::calculate()
 {
+	Component::calculate();
+	
 	if(!m_lockRecursion)
 	{
 		m_lockRecursion = true;

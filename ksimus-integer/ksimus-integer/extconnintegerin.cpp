@@ -109,7 +109,7 @@ void ExtConnIntegerIn::calculate()
 	if (!isRecursionLocked())
 	{
 		setRecursionLocked(true);
-		//ExternalConnector::calculate();
+		ExternalConnector::calculate();
 	
 		ConnectorIntegerOut * out = (ConnectorIntegerOut *)getInternalConn();
 		ConnectorIntegerIn * in = (ConnectorIntegerIn *)getUsedExternalConn();

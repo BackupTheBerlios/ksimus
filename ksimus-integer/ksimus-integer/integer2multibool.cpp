@@ -120,7 +120,7 @@ void Integer2MultiBool::reset()
 /** Executes the simulation of this component */
 void Integer2MultiBool::calculate()
 {
-//	Component::calculate();
+	Component::calculate();
 
 	setValue(getInputConnector()->getInput());
 }

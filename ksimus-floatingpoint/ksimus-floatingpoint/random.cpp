@@ -125,6 +125,8 @@ Random::Random(CompContainer * container, const ComponentInfo * ci)
 
 void Random::calculate()
 {
+	Component::calculate();
+	
 	bool ena = getEnableConnector()->isHidden() || getEnableConnector()->getInput();
 
 	if (ena)

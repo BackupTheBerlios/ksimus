@@ -155,6 +155,8 @@ void DataSelector::reset()
 /** Executes the simulation of this component */
 void DataSelector::calculate()
 {
+	Float1Out::calculate();
+	
 	if ((getLatchAddress()->isHidden()) || getLatchAddress()->getInput())
 	{
 		// Fetch address if "Latch Address Input" is hidden or enabled

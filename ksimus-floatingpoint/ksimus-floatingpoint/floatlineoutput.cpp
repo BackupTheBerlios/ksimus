@@ -95,6 +95,8 @@ FloatLineOutput::FloatLineOutput(CompContainer * container, const ComponentInfo 
 
 void FloatLineOutput::calculate()
 {
+	ComponentStyle::calculate();
+	
 	double newValue = getInput()->getInput();
 	
 	if(m_number != newValue)

@@ -74,7 +74,7 @@ IntegerDivider::IntegerDivider(CompContainer * container, const ComponentInfo * 
 /** Executes the simulation of this component */
 void IntegerDivider::calculate()
 {
-//	Integer2In1Out::calculate();
+	Integer2In1Out::calculate();
 
 	const int a(getInputA()->getInput());
 	const int b(getInputB()->getInput());

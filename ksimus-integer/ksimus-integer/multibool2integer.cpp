@@ -99,7 +99,7 @@ MultiBool2Integer::MultiBool2Integer(CompContainer * container, const ComponentI
 /** Executes the simulation of this component */
 void MultiBool2Integer::calculate()
 {
-//	Integer1Out::calculate();
+	Integer1Out::calculate();
 
 	unsigned int result = 0;
 	unsigned int mask = 1;

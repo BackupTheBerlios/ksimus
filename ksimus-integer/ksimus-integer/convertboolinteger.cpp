@@ -115,7 +115,7 @@ void ConvertBoolInteger::reset()
 /** Executes the simulation of this component */
 void ConvertBoolInteger::calculate()
 {
-//	Component::calculate();
+	Component::calculate();
 	
 	if (!m_recursionLocked)
 	{

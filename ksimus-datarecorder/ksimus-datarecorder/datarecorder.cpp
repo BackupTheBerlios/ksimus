@@ -496,6 +496,8 @@ bool DataRecorder::load(KSimData & file, bool copyLoad)
 
 void DataRecorder::calculate()
 {
+	Component::calculate();
+	
 	FOR_EACH_CHANNEL(it, *m_channelList)
 	{
 		it.current()->fetchData();

@@ -153,6 +153,8 @@ FloatTan::FloatTan(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatTan::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(tan(getInput()->getInput()));
 }
 
@@ -174,6 +176,8 @@ FloatATan::FloatATan(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatATan::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(atan(getInput()->getInput()));
 }
 
@@ -197,6 +201,8 @@ FloatATan2::FloatATan2(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatATan2::calculate()
 {
+	Float2In1Out::calculate();
+	
 	setValue(atan2(getInputA()->getInput(), getInputB()->getInput()));
 }
 
@@ -218,6 +224,8 @@ FloatTanh::FloatTanh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatTanh::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(tanh(getInput()->getInput()));
 }
 
@@ -239,6 +247,8 @@ FloatATanh::FloatATanh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatATanh::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(atanh(getInput()->getInput()));
 }
 

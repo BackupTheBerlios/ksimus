@@ -73,7 +73,7 @@ IntegerSubtractor::IntegerSubtractor(CompContainer * container, const ComponentI
 /** Executes the simulation of this component */
 void IntegerSubtractor::calculate()
 {
-//	Integer2In1Out::calculate();
+	Integer2In1Out::calculate();
 	
 	setValue(getInputA()->getInput() - getInputB()->getInput());
 	

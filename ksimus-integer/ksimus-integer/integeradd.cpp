@@ -71,6 +71,8 @@ IntegerAdd::IntegerAdd(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerAdd::calculate()
 {
+	IntegerXIn1Out::calculate();
+	
 	int result = 0;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

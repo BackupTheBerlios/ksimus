@@ -134,7 +134,7 @@ IntegerLatch::IntegerLatch(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerLatch::calculate()
 {
-//	Component::calculate();
+	Component::calculate();
 	
 	if (getInputReset()->getInput() && !getInputReset()->isHidden())
 	{

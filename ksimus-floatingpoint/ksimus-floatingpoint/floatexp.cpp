@@ -113,6 +113,8 @@ FloatExp::FloatExp(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatExp::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(exp(getInput()->getInput()));
 }
 
@@ -136,6 +138,8 @@ FloatPow::FloatPow(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatPow::calculate()
 {
+	Float2In1Out::calculate();
+	
 	setValue(pow(getInputB()->getInput(), getInputA()->getInput()));
 }
 
@@ -157,6 +161,8 @@ FloatSqrt::FloatSqrt(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatSqrt::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(sqrt(getInput()->getInput()));
 }
 

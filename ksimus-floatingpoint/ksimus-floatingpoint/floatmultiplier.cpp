@@ -89,6 +89,8 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 /** Executes the simulation of this component */
 void FloatMultiplier::calculate()
 {
+	Float1Out::calculate();
+	
 	double result = 1.0;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

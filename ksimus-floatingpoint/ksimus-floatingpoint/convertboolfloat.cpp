@@ -117,6 +117,8 @@ void ConvertBoolFloat::reset()
 /** Executes the simulation of this component */
 void ConvertBoolFloat::calculate()
 {
+	Component::calculate();
+	
 	if (!m_recursionLocked)
 	{
 		m_recursionLocked = true;

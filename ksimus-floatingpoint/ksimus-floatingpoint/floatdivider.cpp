@@ -72,6 +72,8 @@ FloatDivider::FloatDivider(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatDivider::calculate()
 {
+	Float2In1Out::calculate();
+	
 	setValue(getInputA()->getInput() / getInputB()->getInput());
 }
 

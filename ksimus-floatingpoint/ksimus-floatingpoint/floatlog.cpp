@@ -93,6 +93,8 @@ FloatLog::FloatLog(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatLog::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(log(getInput()->getInput()));
 }
 
@@ -114,6 +116,8 @@ FloatLog10::FloatLog10(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatLog10::calculate()
 {
+	Float1In1Out::calculate();
+	
 	setValue(log10(getInput()->getInput()));
 }
 

@@ -76,6 +76,8 @@ FloatSubtractor::FloatSubtractor(CompContainer * container, const ComponentInfo 
 /** Executes the simulation of this component */
 void FloatSubtractor::calculate()
 {
+	Float2In1Out::calculate();
+	
 	setValue(getInputA()->getInput() - getInputB()->getInput());
 }
 

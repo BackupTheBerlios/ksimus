@@ -141,6 +141,8 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 
 void Delay::calculate()
 {
+	Float1Out::calculate();
+	
 	if (m_list.size() < 1)
 	{
 		setValue(getInputConnector()->getInput());

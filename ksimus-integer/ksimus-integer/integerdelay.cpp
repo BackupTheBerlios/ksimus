@@ -95,7 +95,7 @@ IntegerDelay::IntegerDelay(CompContainer * container, const ComponentInfo * ci)
 
 void IntegerDelay::calculate()
 {
-//	Integer1In1Out::calculate();
+	Integer1In1Out::calculate();
 	
 	if (m_list.size() < 1)
 	{

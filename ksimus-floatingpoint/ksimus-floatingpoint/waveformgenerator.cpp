@@ -146,6 +146,8 @@ void WaveformGenerator::reset()
 /** Executes the simulation of this component */
 void WaveformGenerator::calculate()
 {
+	Float1Out::calculate();
+	
 	const double frac = ((double)((getTimeServer().raw() + m_phaseLength) % getPeriod().raw()))
 	                                  / m_periodLength;
 	double val = 0;

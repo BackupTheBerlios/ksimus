@@ -71,7 +71,7 @@ IntegerAnd::IntegerAnd(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerAnd::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 
 	unsigned int result = UINT_MAX; // all ones
 
@@ -122,7 +122,7 @@ IntegerNand::IntegerNand(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerNand::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 
 	unsigned int result = UINT_MAX;
 

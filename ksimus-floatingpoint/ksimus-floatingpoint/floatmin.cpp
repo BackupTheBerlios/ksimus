@@ -72,6 +72,8 @@ FloatMin::FloatMin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatMin::calculate()
 {
+	FloatXIn1Out::calculate();
+	
 	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
 	
 	// Hint: Gate has min 2 inputs !!! No check is required.

@@ -71,7 +71,7 @@ IntegerInverter::IntegerInverter(CompContainer * container, const ComponentInfo 
 /** Executes the simulation of this component */
 void IntegerInverter::calculate()
 {
-//	Integer1In1Out::calculate();
+	Integer1In1Out::calculate();
 	
 	setValue(~getInputConnector()->getInput());
 }

@@ -73,7 +73,7 @@ IntegerMultiplier::IntegerMultiplier(CompContainer * container, const ComponentI
 /** Executes the simulation of this component */
 void IntegerMultiplier::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 	
 	int result = 1;
 	

@@ -72,8 +72,9 @@ FloatMax::FloatMax(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatMax::calculate()
 {
+	FloatXIn1Out::calculate();
+
 	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
-	
 	
 	// Hint: Gate has min 2 inputs !!! No check is required.
 	double result = ((ConnectorFloatIn*)it.current())->getInput();

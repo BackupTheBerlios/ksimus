@@ -119,7 +119,7 @@ void ConvertFloatInteger::reset()
 
 void ConvertFloatInteger::calculate()
 {
-//	Component::calculate();
+	Component::calculate();
 
 	if (!m_recursionLocked)
 	{

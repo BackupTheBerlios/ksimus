@@ -106,7 +106,7 @@ void ConvertIntegerFloat::reset()
 /** Executes the simulation of this component */
 void ConvertIntegerFloat::calculate()
 {
-//	Component::calculate();
+	Component::calculate();
 	
 	if (!m_recursionLocked)
 	{

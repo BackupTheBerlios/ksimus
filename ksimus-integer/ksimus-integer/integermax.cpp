@@ -71,7 +71,7 @@ IntegerMax::IntegerMax(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerMax::calculate()
 {
-//	IntegerXIn1Out::calculate();
+	IntegerXIn1Out::calculate();
 	
 	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
 	

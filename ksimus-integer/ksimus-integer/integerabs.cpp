@@ -71,7 +71,7 @@ IntegerAbs::IntegerAbs(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void IntegerAbs::calculate()
 {
-//	Integer1In1Out::calculate();
+	Integer1In1Out::calculate();
 	
 	setValue(abs(getInputConnector()->getInput()));
 }

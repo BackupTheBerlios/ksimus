@@ -380,7 +380,7 @@ IntegerCounterClkUpClkDown::~IntegerCounterClkUpClkDown()
 
 void IntegerCounterClkUpClkDown::calculate()
 {
-//	IntegerCounterBase::calculate();
+	IntegerCounterBase::calculate();
 
 	bool clear(getInputClear()->getInput() && !getInputClear()->isHidden());
 	bool up(getInputClockUp()->getInput() && !getInputClockUp()->isHidden());
@@ -500,7 +500,7 @@ IntegerCounterClkUpClkDownLoad::~IntegerCounterClkUpClkDownLoad()
 
 void IntegerCounterClkUpClkDownLoad::calculate()
 {
-//	IntegerCounterClkUpClkDown::calculate();
+	IntegerCounterClkUpClkDown::calculate();
 
 	bool clear(getInputClear()->getInput() && !getInputClear()->isHidden());
 	bool loadEna(getInputLoadEnable()->getInput());
@@ -635,7 +635,7 @@ IntegerCounterClkDir::~IntegerCounterClkDir()
 
 void IntegerCounterClkDir::calculate()
 {
-//	IntegerCounterBase::calculate();
+	IntegerCounterBase::calculate();
 
 	bool clear(getInputClear()->getInput() && !getInputClear()->isHidden());
 	bool clk(getInputClock()->getInput());
@@ -747,7 +747,7 @@ IntegerCounterClkDirLoad::~IntegerCounterClkDirLoad()
 
 void IntegerCounterClkDirLoad::calculate()
 {
-//	IntegerCounterClkDir::calculate();
+	IntegerCounterClkDir::calculate();
 
 	bool clear(getInputClear()->getInput() && !getInputClear()->isHidden());
 	bool loadEna(getInputLoadEnable()->getInput());

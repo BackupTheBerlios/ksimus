@@ -136,6 +136,8 @@ FloatLatch::FloatLatch(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatLatch::calculate()
 {
+	Component::calculate();
+	
 	if (getInputReset()->getInput() && !getInputReset()->isHidden())
 	{
 		m_values.fill(getResetValue());
