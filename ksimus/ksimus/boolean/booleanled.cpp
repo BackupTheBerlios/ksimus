@@ -66,11 +66,15 @@ const ComponentInfo BooleanLedInfo("LED",
 
 
 BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
-	: ComponentStyle(false, true, container, ci),
+	: ComponentStyle(container, ci),
 		m_onState(false),
 		m_onColor(DEFAULT_COLOR),
 		m_offColor(QColor())
 {
+//	setColorAdjustmentEnabled(true);
+	setFrameAdjustmentEnabled(true);
+//	setFontAdjustmentEnabled(true);
+	
 	m_inConn = new ConnectorBoolIn (this, i18n("Input"), QPoint(0,1));
 	CHECK_PTR(m_inConn);
 	
