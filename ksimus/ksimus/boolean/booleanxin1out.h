@@ -28,7 +28,6 @@
 #include "boolean1out.h"
 #include "component.h"
 #include "compview.h"
-#include "componentinfo.h"
 #include "componentpropertygeneralwidget.h"
 
 

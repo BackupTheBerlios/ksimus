@@ -35,7 +35,6 @@
 #include "resource.h"
 #include "ksimdebug.h"
 #include "connectorboolinedge.h"
-#include "componentinfo.h"
 #include "ksimusdoc.h"
 #include "ksimus.h"
 #include "ksimdata.h"

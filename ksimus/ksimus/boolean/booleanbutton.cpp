@@ -38,7 +38,6 @@
 #include "booleanbutton.h"
 #include "connectorboolin.h"
 #include "connectorboolout.h"
-#include "componentinfo.h"
 #include "ksimdebug.h"
 #include "componentpropertydialog.h"
 #include "ksimbooleanbox.h"

@@ -28,7 +28,6 @@
 #include "simtimeinput.h"
 #include "resource.h"
 #include "connectorfloatout.h"
-#include "componentinfo.h"
 #include "ksimtime.h"
 #include "ksimtimeserver.h"
 

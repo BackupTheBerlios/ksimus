@@ -27,7 +27,6 @@
 // Project-Includes
 #include "component.h"
 #include "compview.h"
-#include "componentinfo.h"
 #include "ksimtime.h"
 #include "ksimtimeserver.h"
 #include "componentpropertybasewidget.h"

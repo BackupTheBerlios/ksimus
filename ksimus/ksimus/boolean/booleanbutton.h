@@ -29,7 +29,6 @@
 #include "componentstyle.h"
 #include "compview.h"
 #include "compviewwidget.h"
-#include "componentinfo.h"
 #include "componentpropertygeneralwidget.h"
 
 // Forward declaration

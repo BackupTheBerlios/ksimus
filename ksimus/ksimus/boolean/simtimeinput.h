@@ -27,7 +27,6 @@
 // Project-Includes
 #include "component.h"
 #include "compview.h"
-#include "componentinfo.h"
 
 // Forward declaration
 class ConnectorFloatOut;

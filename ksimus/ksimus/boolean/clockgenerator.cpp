@@ -34,7 +34,6 @@
 #include "clockgenerator.h"
 #include "resource.h"
 #include "connectorboolout.h"
-#include "componentinfo.h"
 #include "ksimtime.h"
 #include "ksimtimeserver.h"
 #include "componentpropertydialog.h"

@@ -28,7 +28,6 @@
 #include "resource.h"
 #include "connectorboolin.h"
 #include "connectorboolout.h"
-#include "componentinfo.h"
 #include "connectorpack.h"
 #include "componentlayout.h"
 

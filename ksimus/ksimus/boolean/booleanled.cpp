@@ -35,7 +35,6 @@
 #include "ksimdata.h"
 #include "booleanled.h"
 #include "connectorboolin.h"
-#include "componentinfo.h"
 #include "resource.h"
 #include "ksimdebug.h"
 #include "componentpropertydialog.h"

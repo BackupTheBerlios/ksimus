@@ -33,7 +33,6 @@
 #include "resource.h"
 #include "ksimdebug.h"
 #include "connectorboolout.h"
-#include "componentinfo.h"
 #include "componentlayout.h"
 #include "ksimdata.h"
 #include "ksimbooleanbox.h"
