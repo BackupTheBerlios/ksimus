@@ -273,7 +273,7 @@ void KSimusApp::initActions()
 	settingPackageFiles  = new KAction(i18n("&Package Files"), 0, this, SLOT(slotSettingPackageFiles()), actionCollection(), "setting_packageFiles");
 	settingModuleFiles  = new KAction(i18n("&Module Files"), 0, this, SLOT(slotSettingModuleFiles()), actionCollection(), "setting_moduleFiles");
 	settingWatchWidget  = new KAction(i18n("&Watch"), 0, this, SLOT(slotSettingWatchWidget()), actionCollection(), "setting_watchWidget");
-	settingLogWidget  = new KAction(i18n("&Log Window"), 0, this, SLOT(slotSettingLogWidget()), actionCollection(), "setting_logWidget");
+	settingLogWidget  = new KAction(i18n("&Log View Properties"), 0, this, SLOT(slotSettingLogWidget()), actionCollection(), "setting_logWidget");
 	
 	
 	executeReset = new KAction(i18n("&Reset"), 0, this, SLOT(slotExecuteReset()), actionCollection(), "execute_reset");
