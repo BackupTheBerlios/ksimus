@@ -552,7 +552,9 @@ void Component::initPropertyDialog(ComponentPropertyDialog * dialog)
 	addGeneralProperty(dialog);
 	addConnectorProperty(dialog);
 	addInfoProperty(dialog);
-	
+
+	// Don't forget ComponentStyle
+		
 	if(m_addonList)
 	{
 		m_addonList->initPropertyDialog(dialog);
