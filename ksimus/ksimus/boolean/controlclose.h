@@ -35,7 +35,7 @@
 // Forward declaration
 class ConnectorBoolInEdge;
 class QLabel;
-class QSpinBox;
+class KSimSpinBox;
 
 
 /**This component closes the document if triggered.
@@ -44,7 +44,6 @@ class QSpinBox;
 
 class ControlClose : public Component
 {
-
 public:
 	/** Creates a component which can stop the simulation.
 	  */
@@ -118,8 +117,6 @@ private:
 
 class ControlClosePropertyWidget : public ComponentPropertyGeneralWidget
 {
-	Q_OBJECT
-
 public:
 	ControlClosePropertyWidget(ControlClose * comp, QWidget *parent=0, const char *name=0);
 	~ControlClosePropertyWidget();
@@ -139,7 +136,7 @@ public:
 	
 protected:
 	QLabel * m_counterLabel;
-	QSpinBox  * m_counter;
+	KSimSpinBox  * m_counter;
 };
 
 #endif

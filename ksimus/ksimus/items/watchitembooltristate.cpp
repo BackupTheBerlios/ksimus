@@ -20,7 +20,6 @@
 // QT-Includes
 #include <qcombobox.h>
 #include <qcheckbox.h>
-#include <qspinbox.h>
 #include <qlabel.h>
 #include <qgrid.h>
 #include <qhbox.h>
@@ -37,6 +36,7 @@
 #include "propertywidget.h"
 #include "wire.h"
 #include "ksimdebug.h"
+#include "ksimspinbox.h"
 
 // Forward declaration
 
@@ -124,7 +124,7 @@ public:
 private:
 	void init();
 	QComboBox * m_box;
-	QSpinBox * m_spin;
+	KSimSpinBox * m_spin;
 };
 
 WatchItemBoolTristateBase::ActivePropertyWidget::ActivePropertyWidget(QWidget * parent, const char * name)
@@ -157,7 +157,7 @@ void WatchItemBoolTristateBase::ActivePropertyWidget::init()
 	s = i18n("Boolean Tristate Watch", "Don't care");
 	m_box->insertItem(s, (int)eDontCareCount);
 
-	m_spin = new QSpinBox(this, name());
+	m_spin = new KSimSpinBox(this, name());
 	CHECK_PTR(m_spin);
 	m_spin->setMinValue(0);
 }

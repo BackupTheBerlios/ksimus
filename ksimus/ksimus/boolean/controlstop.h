@@ -35,7 +35,7 @@
 // Forward declaration
 class ConnectorBoolInEdge;
 class QLabel;
-class QSpinBox;
+class KSimSpinBox;
 
 
 /**This component stops the simulation if triggered.
@@ -98,7 +98,6 @@ private:
 
 class ControlStopView : public CompView
 {
-
 public:
 	ControlStopView(ControlStop * comp, eViewType viewType);
 	~ControlStopView();
@@ -118,8 +117,6 @@ private:
 
 class ControlStopPropertyWidget : public ComponentPropertyGeneralWidget
 {
-	Q_OBJECT
-
 public:
 	ControlStopPropertyWidget(ControlStop * comp, QWidget *parent=0, const char *name=0);
 	~ControlStopPropertyWidget();
@@ -139,7 +136,7 @@ public:
 	
 protected:
 	QLabel * m_counterLabel;
-	QSpinBox  * m_counter;
+	KSimSpinBox  * m_counter;
 };
 
 #endif

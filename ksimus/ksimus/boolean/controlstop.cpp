@@ -23,7 +23,6 @@
 #include <qtimer.h>
 #include <qpixmap.h>
 #include <qlabel.h>
-#include <qspinbox.h>
 #include <qgrid.h>
 
 
@@ -39,6 +38,7 @@
 #include "ksimus.h"
 #include "ksimdata.h"
 #include "ksimicon.h"
+#include "ksimspinbox.h"
 
 // Forward declaration
 
@@ -216,7 +216,7 @@ ControlStopPropertyWidget::ControlStopPropertyWidget(ControlStop * comp, QWidget
 	m_counterLabel = new QLabel(i18n("Number of edges: "), this, "m_counterLabel");
 	CHECK_PTR(m_counterLabel);
 	
-	m_counter = new QSpinBox(1, INT_MAX, 1, this, "m_counter");
+	m_counter = new KSimSpinBox(1, INT_MAX, 1, this, "m_counter");
 	CHECK_PTR(m_counter);
 	tip = i18n("Set number of required edges until the simulation stops here.");
 	addToolTip(tip, m_counter, m_counterLabel);

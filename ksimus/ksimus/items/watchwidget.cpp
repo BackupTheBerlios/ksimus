@@ -473,13 +473,13 @@ bool WatchWidget::isRiseByAdd() const
 //############################################################################
 
 
-#include <qspinbox.h>
+#include "ksimspinbox.h"
 #include <qcheckbox.h>
 
 class WatchWidgetPropertyWidget::Private
 {
 public:
-	QSpinBox * traceSize;
+	KSimSpinBox * traceSize;
 	QCheckBox * riseByAdd;
 };
 
@@ -501,7 +501,7 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 	label = new QLabel(i18n("Watch settings", "Trace buffer size:"), this, "history depth label");
 	CHECK_PTR(label);
 
-	m_p->traceSize = new QSpinBox(1, 10000, 10, this, "history depth spinbox");
+	m_p->traceSize = new KSimSpinBox(1, 10000, 10, this, "history depth spinbox");
 	CHECK_PTR(m_p->traceSize);
 	addToolTip(i18n("Set the size of the trace buffer."),
 	           m_p->traceSize, label);

@@ -35,7 +35,7 @@
 // Forward declaration
 class ConnectorBoolInEdge;
 class QLabel;
-class QSpinBox;
+class KSimSpinBox;
 
 
 /**This component pauses the simulation if triggered.
@@ -44,7 +44,6 @@ class QSpinBox;
 
 class ControlPause : public Component
 {
-
 public:
 	/** Creates a component which can pause the simulation.
 	  */
@@ -98,7 +97,6 @@ private:
 
 class ControlPauseView : public CompView
 {
-
 public:
 	ControlPauseView(ControlPause * comp, eViewType viewType);
 	~ControlPauseView();
@@ -118,8 +116,6 @@ private:
 
 class ControlPausePropertyWidget : public ComponentPropertyGeneralWidget
 {
-	Q_OBJECT
-
 public:
 	ControlPausePropertyWidget(ControlPause * comp, QWidget *parent=0, const char *name=0);
 	~ControlPausePropertyWidget();
@@ -139,7 +135,7 @@ public:
 	
 protected:
 	QLabel * m_counterLabel;
-	QSpinBox  * m_counter;
+	KSimSpinBox  * m_counter;
 };
 
 #endif

@@ -34,7 +34,7 @@ class ConnectorBase;
 class WireProperty;
 class WatchViewItem;
 class WatchWidget;
-class QSpinBox;
+class KSimSpinBox;
 class QCheckBox;
 class PropertyWidget;
 
@@ -217,7 +217,7 @@ private:
 	bool m_breakEnabled;
 	QBitArray m_traceSet;
 	QArray<int> m_traceBreakCnt;
-	QSpinBox * m_propertyWidget_cntSpinBox;
+	KSimSpinBox * m_propertyWidget_cntSpinBox;
 	QCheckBox * m_propertyWidget_enaCheckBox;
 
 };

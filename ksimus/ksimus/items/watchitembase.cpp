@@ -21,7 +21,6 @@
 // QT-Includes
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include <qspinbox.h>
 #include <qhbox.h>
 #include <qvgroupbox.h>
 
@@ -39,6 +38,7 @@
 #include "ksimdebug.h"
 #include "ksimdialog.h"
 #include "propertywidget.h"
+#include "ksimspinbox.h"
 
 // Forward declaration
 
@@ -249,7 +249,7 @@ PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 	QLabel * cntLabel = new QLabel(i18n("watchpoint trigger count", "Trigger count:"), cntBox, "watchpoint count label");
 	CHECK_PTR(cntLabel);
 	
-	m_propertyWidget_cntSpinBox = new QSpinBox(1, INT_MAX, 1, cntBox, "watchpoint count spinbox");
+	m_propertyWidget_cntSpinBox = new KSimSpinBox(1, INT_MAX, 1, cntBox, "watchpoint count spinbox");
 	CHECK_PTR(m_propertyWidget_cntSpinBox);
 	PropertyWidget::addToolTip(i18n("Set the count of trigger events until simulation breaks."),
 	                           m_propertyWidget_cntSpinBox, cntLabel);
