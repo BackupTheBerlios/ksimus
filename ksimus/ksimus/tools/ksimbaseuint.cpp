@@ -21,14 +21,42 @@
 // QT-Includes
 
 // KDE-Includes
-#include <klocale.h>
 
 // Project-Includes
 #include "ksimbaseuint.h"
+#include "ksimbaseint.h"
 #include "ksimdebug.h"
+#include "enumdict.h"
 
 // Forward declaration
 
+
+//##########################################################
+//##########################################################
+
+
+EnumDict<KSimBaseUInt::eBaseType>::tData EnumDict<KSimBaseUInt::eBaseType>::data[]
+      = { {"Binary",      KSimBaseUInt::Binary},
+          {"Octal",       KSimBaseUInt::Octal},
+          {"Decimal",     KSimBaseUInt::Decimal},
+          {"Hexadecimal", KSimBaseUInt::Hexadecimal},
+          {0,             KSimBaseUInt::Decimal}};
+
+static const EnumDict<KSimBaseUInt::eBaseType> & getKSimBaseUIntBaseTypeDict()
+{
+	static EnumDict<KSimBaseUInt::eBaseType> dict(5);
+	return dict;
+}
+
+
+const char * KSimBaseUInt::convertBase(KSimBaseUInt::eBaseType base)
+{
+	return getKSimBaseUIntBaseTypeDict().find(base);
+}
+KSimBaseUInt::eBaseType KSimBaseUInt::convertBase(const char * base, KSimBaseUInt::eBaseType defaultBase)
+{
+	return getKSimBaseUIntBaseTypeDict().find(base, defaultBase);
+}
 
 //#######################################################################################
 //#######################################################################################
@@ -36,36 +64,45 @@
 
 KSimBaseUInt::KSimBaseUInt(const QString & text)
 	:	KSimUInt(0),
-		m_base(Decimal)
+		m_base(KSimBaseUInt::Decimal)
 {	
 	setText(text);
-};
+}
+
+
+KSimBaseUInt::KSimBaseUInt(const KSimBaseInt & newValue)
+	:	KSimUInt((unsigned int)newValue.value()),
+		m_base((KSimBaseUInt::eBaseType)newValue.base())
+{
+}
 
 
 void KSimBaseUInt::setText(const QString & str, bool * ok)
 {
-	m_value = convert(str, &m_base, ok);
-};
+	KSimBaseUInt u(convert(str, ok));
+	m_value = u.value();
+	m_base = u.base();
+}
 
 
 QString KSimBaseUInt::text() const
 {
 	switch(base())
 	{
-		case Binary:
-			return "0b" + QString::number(value(), 2);
+		case KSimBaseUInt::Binary:
+			return QString::fromLatin1("0b") + QString::number(value(), 2);
 			break;
 		
-		case Octal:
-			return "0o" + QString::number(value(), 8);
+		case KSimBaseUInt::Octal:
+			return QString::fromLatin1("0o") + QString::number(value(), 8);
 			break;
 		
-		case Decimal:
-			return QString::number(value());
+		case KSimBaseUInt::Decimal:
+			return QString::number(value(), 10);
 			break;
 		
-		case Hexadecimal:
-			return "0x" + QString::number(value(), 16);
+		case KSimBaseUInt::Hexadecimal:
+			return QString::fromLatin1("0x") + QString::number(value(), 16);
 			break;
 
 		default:
@@ -74,243 +111,77 @@ QString KSimBaseUInt::text() const
 	}
 }
 
-unsigned int KSimBaseUInt::convert(const QString & text, eKSimBaseTypes * base, bool * ok)
+KSimBaseUInt KSimBaseUInt::convert(const QString & text, bool * ok)
 {
 	QString str(text.stripWhiteSpace());
 	int myBase = 10;
-	eKSimBaseTypes baseEnum = Decimal;
+	KSimBaseUInt::eBaseType baseEnum = KSimBaseUInt::Decimal;
+	unsigned int idx = 0;
+	unsigned int v = 0;
+	bool myOk = true;
 	
 	
-	if (str[0] == '0')
+	if (str[idx].latin1() == '0')
 	{
-		str = str.right(str.length()-1); // Remove first
+		idx++;
 	}
 	
-	switch(str[0].latin1())
+	switch(str[idx].latin1())
 	{
 		case 'b':
 		case 'B':
 			myBase = 2;
-			baseEnum = Binary;
-			str = str.right(str.length()-1); // Remove first
+			baseEnum = KSimBaseUInt::Binary;
+			idx++;
 			break;
 	
 		case 'o':
 		case 'O':
 			myBase = 8;
-			baseEnum = Octal;
-			str = str.right(str.length()-1); // Remove first
+			baseEnum = KSimBaseUInt::Octal;
+			idx++;
 			break;
 	
 		case 'x':
 		case 'X':
 			myBase = 16;
-			baseEnum = Hexadecimal;
-			str = str.right(str.length()-1); // Remove first
+			baseEnum = KSimBaseUInt::Hexadecimal;
+			idx++;
 			break;
 	
 		default:
 			break;
 	}
 	
-	bool myOk;
-	
-	unsigned int v = str.toUInt(&myOk, myBase);
+	if (str.length() > idx)
+	{
+		str = str.right(str.length()-idx); // leading chars
+
+		v = str.toUInt(&myOk, myBase);
+
+		if (!myOk)
+		{
+			KSIMDEBUG_VAR("Conversion error", text);
+		}
+	}
 	
 	if(ok)
 	{
 		*ok = myOk;
 	}
 	
-	if (myOk)
-	{
-		if (base)
-		{
-			*base = baseEnum;
-		}
-	}
-	else
-	{
-		KSIMDEBUG_VAR("Conversion error", text);
-	}
 	
-	return v;
+	return KSimBaseUInt(v, baseEnum);
 }
 
-
-
-//#######################################################################################
-//#######################################################################################
-
-
-
-KSimBaseUIntValidator::KSimBaseUIntValidator(QWidget * parent, const char * name)
-	:	QValidator(parent, name),
-		m_bottom(0),
-		m_top(UINT_MAX)
+bool KSimBaseUInt::operator==(const KSimBaseUInt & u) const
 {
-}
+	return ((this->value() == u.value()) && (this->base() == u.base()));
+};
 
-KSimBaseUIntValidator::KSimBaseUIntValidator(unsigned int bottom, unsigned int top,
-                                                     QWidget * parent, const char * name)
-	:	QValidator(parent, name),
-		m_bottom(bottom),
-		m_top(top)
+bool KSimBaseUInt::operator!=(const KSimBaseUInt & u) const
 {
-}
+	return ((this->value() != u.value()) || (this->base() != u.base()));
+};
 
-
-KSimBaseUIntValidator::~KSimBaseUIntValidator()
-{
-}
-
-QValidator::State KSimBaseUIntValidator::validate(QString & str, int & /*pos*/) const
-{
-	// Copied from QT and modifed
-	
-	QRegExp empty( QString::fromLatin1("^ *0?[bBoOxX]?$") );
-	if ( empty.match( str ) >= 0 )
-		return QValidator::Intermediate;
-	bool ok;
-	unsigned int tmp = KSimBaseUInt::convert(str, (KSimBaseUInt::eKSimBaseTypes *) 0, &ok);
-	if ( !ok )
-		return QValidator::Invalid;
-	else if ((tmp < bottom()) || (tmp > top()))
-		return QValidator::Intermediate;
-	else
-		return QValidator::Acceptable;
-}
-	
-void KSimBaseUIntValidator::setBottom(unsigned int bottom)
-{
-	m_bottom = bottom;
-}
-
-void KSimBaseUIntValidator::setTop(unsigned int top)
-{
-	m_top = top;
-}
-
-void KSimBaseUIntValidator::setRange(unsigned int bottom, unsigned int top)
-{
-	setBottom(bottom);
-	setTop(top);
-}
-
-
-
-//#######################################################################################
-//#######################################################################################
-
-KSimBaseUIntLineEdit::KSimBaseUIntLineEdit(QWidget * parent, const char * name)
-	:	KSimLineEdit(parent, name)
-{
-	m_validator = new KSimBaseUIntValidator(this);
-	CHECK_PTR(m_validator);
-	
-	setValidator(m_validator);
-}
-
-KSimBaseUIntLineEdit::KSimBaseUIntLineEdit(unsigned int bottom, unsigned int top, QWidget * parent, const char * name)
-	:	KSimLineEdit(parent, name)
-{
-	m_validator = new KSimBaseUIntValidator(bottom, top, this);
-	CHECK_PTR(m_validator);
-	
-	setValidator(m_validator);
-}
-
-KSimBaseUIntLineEdit::KSimBaseUIntLineEdit(const KSimBaseUInt & value, QWidget * parent, const char * name)
-	:	KSimLineEdit(parent, name)
-{
-	m_validator = new KSimBaseUIntValidator(this);
-	CHECK_PTR(m_validator);
-	
-	setValidator(m_validator);
-	
-	setValue(value);
-}
-
-KSimBaseUIntLineEdit::KSimBaseUIntLineEdit(const KSimBaseUInt & value, unsigned int bottom, unsigned int top, QWidget * parent, const char * name)
-	:	KSimLineEdit(parent, name)
-{
-	m_validator = new KSimBaseUIntValidator(bottom, top, this);
-	CHECK_PTR(m_validator);
-	
-	setValidator(m_validator);
-	
-	setValue(value);
-}
-
-
-KSimBaseUInt KSimBaseUIntLineEdit::value() const
-{
-	return KSimBaseUInt(text());	
-}
-
-void KSimBaseUIntLineEdit::setValue(const KSimBaseUInt & newValue)
-{
-	setText(newValue.text());
-}
-
-void KSimBaseUIntLineEdit::setValue(unsigned int newValue)
-{
-	KSimBaseUInt v(text());
-
-	v = newValue;
-	
-	setValue(v);
-}
-
-void KSimBaseUIntLineEdit::setBottom(unsigned int minimum)
-{
-	m_validator->setBottom(minimum);
-	
-	KSimBaseUInt value(text());
-	if (value < minimum)
-	{
-		value = minimum;
-		setText(value.text());
-	}
-}
-
-void KSimBaseUIntLineEdit::setTop(unsigned int maximum)
-{
-	m_validator->setTop(maximum);
-	
-	KSimBaseUInt value(text());
-	if (value > maximum)
-	{
-		value = maximum;
-		setText(value.text());
-	}
-}
-
-void KSimBaseUIntLineEdit::setRange(unsigned int bottom, unsigned int top)
-{
-	setBottom(bottom);
-	setTop(top);
-}
-
-unsigned int KSimBaseUIntLineEdit::bottom() const
-{
-	return m_validator->bottom();
-}
-
-unsigned int KSimBaseUIntLineEdit::top() const
-{
-	return m_validator->top();
-}
-
-const QString & KSimBaseUIntLineEdit::getWhatsThisHelp()
-{
-	static const QString s(i18n("\nThe input line accepts binary, octal, decimal and hexadecimal values."
-	                            "\nSee the following examples how to select the different bases:"
-	                            "\nBinary: 0b11001"
-	                            "\nOctal: 0o31"
-	                            "\nDecimal: 25"
-	                            "\nHexadecimal: 0x19" ));
-	
-	return s;
-}
 

@@ -21,7 +21,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qvalidator.h>
 
 // KDE-Includes
 
@@ -30,6 +29,7 @@
 #include "ksimlineedit.h"
 
 // Forward declaration
+class KSimBaseInt;
 
 
 //#######################################################################################
@@ -45,140 +45,53 @@ class KSimBaseUInt : public KSimUInt
 {
 public:
 
-	enum eKSimBaseTypes { Binary, Octal, Decimal, Hexadecimal };
+	// Defintion must be same as KSimBaseInt::eBaseType !!!
+	enum eBaseType { Binary      = 2,
+	                 Octal       = 8,
+	                 Decimal     = 10,
+	                 Hexadecimal = 16
+	};
 
 	KSimBaseUInt()
 		:	KSimUInt((unsigned int)0),
 			m_base(Decimal)
-	{	};
+	{ };
 	
 	KSimBaseUInt(unsigned int u)
 		:	KSimUInt(u),
 			m_base(Decimal)
-	{	};
+	{ };
 	
-	KSimBaseUInt(unsigned int u, eKSimBaseTypes base)
+	KSimBaseUInt(unsigned int u, eBaseType base)
 		:	KSimUInt(u),
 			m_base(base)
-	{	};
+	{ };
 	
 	KSimBaseUInt(const KSimBaseUInt & u)
 		:	KSimUInt(u.value()),
 			m_base(u.base())
-	{	};
+	{ };
 
 	KSimBaseUInt(const QString & text);
+	KSimBaseUInt(const KSimBaseInt & newValue);
 	
 	const KSimBaseUInt & operator=(unsigned int newValue) { m_value = newValue; return *this; };
 	
-	void setBase(eKSimBaseTypes base) { m_base = base; };
-	eKSimBaseTypes base() const { return m_base; };
+	void setBase(eBaseType base) { m_base = base; };
+	eBaseType base() const { return m_base; };
 
 	virtual void setText(const QString & str, bool * ok = 0);
 	virtual QString text() const;
 
-	static unsigned int convert(const QString & text, eKSimBaseTypes * base = 0, bool * ok = 0);
+	bool operator==(const KSimBaseUInt & u) const;
+	bool operator!=(const KSimBaseUInt & u) const;
+
+	static KSimBaseUInt convert(const QString & text, bool * ok = 0);
+	static const char * convertBase(eBaseType base);
+	static eBaseType convertBase(const char * base, eBaseType defaultBase = Decimal);
 
 private:
-	eKSimBaseTypes m_base;
-};
-
-//#######################################################################################
-//#######################################################################################
-
-/** A validator for @ref KSimBaseUInt objects.
-  *
-  *@author Rasmus Diekenbrock
-  */
-
-
-class KSimBaseUIntValidator : public QValidator
-{
-public:
-	/** Creates a validator with range 0 to UINT_MAX. */
-	KSimBaseUIntValidator(QWidget * parent, const char * name = 0);
-	/** Creates a validator with range bottom to top. */
-	KSimBaseUIntValidator(unsigned int bottom, unsigned int top, QWidget * parent, const char * name = 0);
-	/** The destructor. */
-	~KSimBaseUIntValidator();
-
-	/** Reimplemented for valdiate @ref KSimBaseUInt. */
-	virtual State validate(QString & str, int & pos) const;
-	
-	/** Sets the minimum value. */
-	void setBottom(unsigned int bottom);
-	/** Sets the maximum value. */
-	void setTop(unsigned int top);
-	/** Sets the valid range. */
-	void setRange(unsigned int bottom, unsigned int top);
-
-	/** Returns the minimum value. */
-	unsigned int bottom() const { return m_bottom; }
-	/** Returns the maximum value. */
-	unsigned int top() const { return m_top; }
-
-
-private:
-	unsigned int m_bottom, m_top;
-
-};
-
-
-//#######################################################################################
-//#######################################################################################
-
-/** A line edit for @ref KSimBaseUInt objects.
-  *
-  *@author Rasmus Diekenbrock
-  */
-
-class KSimBaseUIntLineEdit : public KSimLineEdit
-{
-
-	Q_OBJECT
-
-public:
-	/** Constructs a @ref LineEdit widget for @ref KSimBaseUInt objects. The start value is a empty string.
-	  * The allowed range is from  0 to UINT_MAX. The validator @ref KSimBaseUIntValidator is used. */
-	KSimBaseUIntLineEdit(QWidget * parent = 0, const char * name = 0);
-	/** Constructs a @ref LineEdit widget for @ref KSimBaseUInt objects. The start value is a empty string.
-	  * The allowed range is from bottom to top. The validator @ref KSimBaseUIntValidator is used. */
-	KSimBaseUIntLineEdit(unsigned int bottom, unsigned int top, QWidget * parent = 0, const char * name = 0);
-	/** Constructs a @ref LineEdit widget for @ref KSimBaseUInt objects. The start value is given by value.
-	  * The allowed range is from  0 to UINT_MAX. The validator @ref KSimBaseUIntValidator is used. */
-	KSimBaseUIntLineEdit(const KSimBaseUInt & value, QWidget * parent = 0, const char * name = 0);
-	/** Constructs a @ref LineEdit widget for @ref KSimBaseUInt objects. The start value is given by value.
-	  * The allowed range is from  bottom to top. The validator @ref KSimBaseUIntValidator is used. */
-	KSimBaseUIntLineEdit(const KSimBaseUInt & value, unsigned int bottom, unsigned int top, QWidget * parent = 0, const char * name = 0);
-	
-	
-	/** Returns the current value. */
-	KSimBaseUInt value() const;
-
-  /** Sets the minimum value. */
-  void setBottom(unsigned int minimum);
-  /** Sets the maximum value. */
-  void setTop(unsigned int maximum);
-	/** Sets the valid range. */
-	void setRange(unsigned int bottom, unsigned int top);
-
-  /** Returns the minimum value. */
-  unsigned int bottom() const;
-  /** Returns the maximum value. */
-  unsigned int top() const;
-
-	/** Returns a help text which explains the usage of this widget. Add this text to the whatsThis text. */
-	static const QString & getWhatsThisHelp();
-
-public slots:
-	/** Sets a new value. */
-	void setValue(const KSimBaseUInt & newValue);
-	/** Sets a new value. Leave base unchanged. */
-	void setValue(unsigned int newValue);
-
-
-private:
-	KSimBaseUIntValidator * m_validator;
+	eBaseType m_base;
 };
 
 
