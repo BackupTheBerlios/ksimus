@@ -43,7 +43,9 @@ public:
 	void removeWidget(const QWidget * widget);
 	QWidget * getWidget(int index);
 	QWidget * getFirstWidget() const;
-    QList<QWidget> * getWidgetList() { return &widgetList; };
+	QList<QWidget> * getWidgetList() { return &widgetList; };
+	
+	QWidget * getActiveWidget();
 
 protected:
 	QList<QWidget> widgetList;

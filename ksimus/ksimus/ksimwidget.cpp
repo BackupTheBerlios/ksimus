@@ -18,6 +18,8 @@
 #include <qpainter.h>
 
 #include "ksimwidget.h"
+#include "ksimeditor.h"
+#include "ksimusdoc.h"
 
 
 
@@ -62,3 +64,24 @@ void KSimWidgetList::slotRemoveWidget(const QWidget * widget)
 	removeWidget(widget);
 }
 	
+QWidget * KSimWidgetList::getActiveWidget()
+{
+	QWidget * activeWidget = 0;
+	QWidget * currentWidget = widgetList.getFirst();
+	
+	while (currentWidget)
+	{
+		if (currentWidget->parent()->inherits("KSimEditor"))
+		{
+			KSimEditor * editor = (KSimEditor*)(widgetList.getFirst()->parent());
+			if (editor->getDoc()->getActiveEditor() == editor)
+			{
+				activeWidget = currentWidget;
+				break;
+			}
+		}
+		currentWidget = widgetList.next();
+	};
+	
+	return activeWidget;
+}
