@@ -97,6 +97,13 @@ public:
    */
   bool hasGroup(const QString &_pGroup) const;
 
+  /**
+   * Returns @p true if the specified key is known about.
+   *
+   * @param pKey The key to search for.
+   * @returns Whether the key exists.
+   */
+  bool hasKey(const char *pKey) const;
 
 
   /**

@@ -75,6 +75,11 @@ bool KSimData::hasGroup(const QString &_pGroup) const
 	return data.hasGroup(_pGroup);	
 }
 
+bool KSimData::hasKey(const char *pKey) const
+{
+	return data.hasKey(pKey);	
+}
+
 QString KSimData::readEntry( const char *pKey, const QString& aDefault) const
 {
 	return data.readEntry(pKey, aDefault);	
