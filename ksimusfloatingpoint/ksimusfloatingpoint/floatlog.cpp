@@ -46,8 +46,9 @@ const ComponentInfo FloatLogInfo(I18N_NOOP("Floating Point log(x)"),
                                  I18N_NOOP("Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 create
-                                 );
+                                 create,
+                                 QString::null,
+                                 "component-float-arithmetic-log");
 
 
 

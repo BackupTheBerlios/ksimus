@@ -1,0 +1,83 @@
+<!-- ############################################################################### -->
+<!-- ########################     Output Components         ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-outputs">
+<title>Output Components</title>
+
+<simplelist>
+<member>&FloatOutputLabel;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Floating Point Label           ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-output-label">
+<title>Floating Point Label</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The floating point label shows the current value of the input connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The label is free resizable.
+</para></listitem><listitem><para>
+User definable color setting.
+</para></listitem><listitem><para>
+User definable font setting.
+</para></listitem><listitem><para>
+Selectable frame in the User View.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="output_label.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Output -> Label</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

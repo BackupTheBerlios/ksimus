@@ -54,35 +54,45 @@ const ComponentInfo ConditionalLesserInfo(
                      I18N_NOOP("Floating Point/Conditional/Lesser"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-conditional-lesser");
 
 const ComponentInfo ConditionalLesserEqualInfo(
                      I18N_NOOP("Floating Point Conditional Lesser Equal"),
                      I18N_NOOP("Floating Point/Conditional/Lesser Equal"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-conditional-lesser-equal");
 
 const ComponentInfo ConditionalEqualInfo(
                      I18N_NOOP("Floating Point Conditional Equal"),
                      I18N_NOOP("Floating Point/Conditional/Equal"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-conditional-equal");
 
 const ComponentInfo ConditionalLargerEqualInfo(
                      I18N_NOOP("Floating Point Conditional Larger Equal"),
                      I18N_NOOP("Floating Point/Conditional/Larger Equal"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-conditional-larger-equal");
 
 const ComponentInfo ConditionalLargerInfo(
                      I18N_NOOP("Floating Point Conditional Larger"),
                      I18N_NOOP("Floating Point/Conditional/Larger"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-conditional-larger");
 
 //###############################################################
 //###############################################################

@@ -46,8 +46,9 @@ const ComponentInfo FloatSinInfo(I18N_NOOP("Floating Point sin(x)"),
                                  I18N_NOOP("Floating Point/Arithmetic/Trigonometric/sin(x)"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 createSin
-                                 );
+                                 createSin,
+                                 QString::null,
+                                 "component-float-trigonometric-sin");
 
 
 static Component * createASin(CompContainer * container, const ComponentInfo * ci)
@@ -59,8 +60,9 @@ const ComponentInfo FloatASinInfo(I18N_NOOP("Floating Point asin(x)"),
                                   I18N_NOOP("Floating Point/Arithmetic/Trigonometric/asin(x)"),
                                   QString::null,
                                   VA_SHEETVIEW,
-                                  createASin
-                                  );
+                                  createASin,
+                                  QString::null,
+                                  "component-float-trigonometric-asin");
 
 
 

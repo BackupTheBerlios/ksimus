@@ -45,8 +45,9 @@ const ComponentInfo FloatMaxInfo(I18N_NOOP("Floating Point Maximum"),
                                  I18N_NOOP("Floating Point/Control/Maximum"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 create
-                                 );
+                                 create,
+                                 QString::null,
+                                 "component-float-control-maximum");
 
 
 

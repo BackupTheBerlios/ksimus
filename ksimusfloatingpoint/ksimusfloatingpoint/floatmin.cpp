@@ -45,8 +45,9 @@ const ComponentInfo FloatMinInfo(I18N_NOOP("Floating Point Minimum"),
                                  I18N_NOOP("Floating Point/Control/Minimum"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 create
-                                 );
+                                 create,
+                                 QString::null,
+                                 "component-float-control-minimum");
 
 
 

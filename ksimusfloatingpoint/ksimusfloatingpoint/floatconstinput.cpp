@@ -54,7 +54,9 @@ const ComponentInfo FloatConstInputInfo(I18N_NOOP("Floating Point Constant"),
                                         I18N_NOOP("Floating Point/Input/Constant"),
                                         QString::null,
                                         VA_SHEETVIEW,
-                                        create	);
+                                        create,
+                                        QString::null,
+                                        "component-float-input-const");
 
 
 

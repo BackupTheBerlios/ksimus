@@ -34,7 +34,9 @@ const ComponentInfo ExtConnFloatOutInfo(I18N_NOOP("External Connector Floating P
                                         I18N_NOOP("External Connector/Floating Point Output"),
                                         QString::null,
                                         VA_SHEETVIEW,
-                                        create );
+                                        create,
+                                        QString::null,
+                                        "component-float-extconn-float-out");
 
 //###############################################################
 

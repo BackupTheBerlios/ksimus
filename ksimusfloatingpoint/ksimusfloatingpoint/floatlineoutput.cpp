@@ -49,7 +49,9 @@ const ComponentInfo FloatLineOutputInfo(I18N_NOOP("Floating Point Label"),
                                         I18N_NOOP("Floating Point/Output/Label"),
                                         QString::null,
                                         VA_SHEET_AND_USER,
-                                        create	);
+                                        create,
+                                        QString::null,
+                                        "component-float-output-label");
 
 
 

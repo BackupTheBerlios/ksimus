@@ -44,8 +44,9 @@ const ComponentInfo FloatDividerInfo(I18N_NOOP("Floating Point Divider"),
                                      I18N_NOOP("Floating Point/Arithmetic/Divider"),
                                      QString::null,
                                      VA_SHEETVIEW,
-                                     create
-                                     );
+                                     create,
+                                     QString::null,
+                                     "component-float-arithmetic-div");
 
 
 

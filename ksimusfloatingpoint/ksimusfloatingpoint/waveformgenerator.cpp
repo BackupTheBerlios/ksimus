@@ -60,8 +60,9 @@ const ComponentInfo WaveformGeneratorInfo(I18N_NOOP("Floating Point Waveform Gen
                                           I18N_NOOP("Floating Point/Control/Waveform Generator"),
                                           QString::null,
                                           VA_SHEETVIEW,
-                                          create
-                                          );
+                                          create,
+                                          QString::null,
+                                          "component-float-control-waveform-gen");
 
 
 //###############################################################

@@ -46,8 +46,9 @@ const ComponentInfo FloatMultiplierInfo(I18N_NOOP("Floating Point Multiplier"),
                                         I18N_NOOP("Floating Point/Arithmetic/Multiplier"),
                                         QString::null,
                                         VA_SHEETVIEW,
-                                        create
-                                        );
+                                        create,
+                                        QString::null,
+                                        "component-float-arithmetic-mul");
 
 
 

@@ -46,8 +46,9 @@ const ComponentInfo FloatExpInfo(I18N_NOOP("Floating Point exp(x)"),
                                  I18N_NOOP("Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 create
-                                 );
+                                 create,
+                                 QString::null,
+                                 "component-float-arithmetic-exp");
 
 
 

@@ -46,8 +46,9 @@ const ComponentInfo FloatRemainderInfo(I18N_NOOP("Floating Point Remainder"),
                                        I18N_NOOP("Floating Point/Arithmetic/Remainder"),
                                        QString::null,
                                        VA_SHEETVIEW,
-                                       create
-                                       );
+                                       create,
+                                       QString::null,
+                                       "component-float-arithmetic-mod");
 
 
 

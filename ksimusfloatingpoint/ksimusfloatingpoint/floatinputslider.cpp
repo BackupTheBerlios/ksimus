@@ -59,7 +59,9 @@ const ComponentInfo FloatInputSliderInfo(I18N_NOOP("Floating Point Input Slider"
                                          I18N_NOOP("Floating Point/Input/Slider"),
                                          QString::null,
                                          VA_SHEET_AND_USER,
-                                         create	);
+                                         create,
+                                         QString::null,
+                                         "component-float-input-slider");
 
 
 //############################################################################

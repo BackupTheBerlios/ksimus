@@ -1,0 +1,160 @@
+<!-- ############################################################################### -->
+<!-- ########################          Converter            ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-converter">
+<title>Converter Components</title>
+
+<simplelist>
+<member>&ConnvertBoolFloat;</member>
+<member>&ConnvertFloatBool;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      Boolean to Floating Point          ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-converter-bool-float">
+<title>Boolean to Floating Point</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Boolean to Floating Point Converter converts a boolean value into a floating point value.
+The assignment which floating point values represents a true or false level is user definable.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable floating point values which represents the true and false state. The defaults are
+true is represented by 1.0 and false by 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="convert_bool2float.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Converter -> Boolean to Float</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      Floating Point to Boolean          ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-converter-float-bool">
+<title>Floating Point to Boolean</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Floating Point to Boolean Converter converts a floating point value into a boolean value.
+The converter has a true and a false threshold. There exists three different functionalities
+depending on the threshold values:
+</para>
+
+<sect4><title>true threshold = false threshold:</title><para>
+<informaltable><tgroup cols="3">
+<thead>
+<row><entry>Input</entry>                        <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>input &gt;= true threshold</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>input &lt; false threshold</entry>   <entry></entry> <entry>False</entry>  </row>
+</tbody>
+</tgroup></informaltable>
+</para></sect4>
+<sect4><title>true threshold &gt; false threshold:</title><para>
+<informaltable><tgroup cols="3">
+<thead>
+<row><entry>Input</entry>                        <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>input &gt;= true threshold</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>input &lt;= false threshold</entry>  <entry></entry> <entry>False</entry>  </row>
+<row><entry>else</entry>                         <entry></entry> <entry>Unchanged</entry>  </row>
+</tbody>
+</tgroup></informaltable>
+</para></sect4>
+<sect4><title>true threshold &lt; false threshold:</title><para>
+<informaltable><tgroup cols="3">
+<thead>
+<row><entry>Input</entry>                        <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>input &lt;= true threshold</entry>   <entry></entry> <entry>True</entry>   </row>
+<row><entry>input &gt;= false threshold</entry>  <entry></entry> <entry>False</entry>  </row>
+<row><entry>else</entry>                         <entry></entry> <entry>Unchanged</entry>  </row>
+</tbody>
+</tgroup></informaltable>
+</para></sect4>
+
+
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable true and false threshold.
+</para></listitem><listitem><para>
+Supports a hysteresis.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="convert_float2bool.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Converter -> Float to Boolean</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -46,8 +46,9 @@ const ComponentInfo FloatCosInfo(I18N_NOOP("Floating Point cos(x)"),
                                  I18N_NOOP("Floating Point/Arithmetic/Trigonometric/cos(x)"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 createCos
-                                 );
+                                 createCos,
+                                 QString::null,
+                                 "component-float-trigonometric-cos");
 
 
 static Component * createACos(CompContainer * container, const ComponentInfo * ci)
@@ -59,8 +60,9 @@ const ComponentInfo FloatACosInfo(I18N_NOOP("Floating Point acos(x)"),
                                   I18N_NOOP("Floating Point/Arithmetic/Trigonometric/acos(x)"),
                                   QString::null,
                                   VA_SHEETVIEW,
-                                  createACos
-                                  );
+                                  createACos,
+                                  QString::null,
+                                  "component-float-trigonometric-acos");
 
 
 

@@ -1,0 +1,269 @@
+<!-- ############################################################################### -->
+<!-- ########################           Conditional         ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-conditional">
+<title>Conditional Components</title>
+
+<simplelist>
+<member>&FloatCondLesser;</member>
+<member>&FloatCondLesserEqual;</member>
+<member>&FloatCondEqual;</member>
+<member>&FloatCondLargerEqual;</member>
+<member>&FloatCondLarger;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                lesser                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-conditional-lesser">
+<title>Lesser</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component compares the input A and B and set the output value to true if A is lesser than B.
+In other cases the output value is set to false.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+The condition is changeable in the component property dialog.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="conditional_lesser.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Conditional -> Lesser</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################             lesser equal                ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-conditional-lesser-equal">
+<title>Lesser Equal</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component compares the input A and B and set the output value to true if A is lesser than or equal B.
+In other cases the output value is set to false.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+The condition is changeable in the component property dialog.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="conditional_lesser_equal.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Conditional -> Lesser Equal</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                Equal                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-conditional-equal">
+<title>Equal</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component compares the input A and B and set the output value to true if A is equal B.
+In other cases the output value is set to false.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+The condition is changeable in the component property dialog.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="conditional_equal.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Conditional -> Equal</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################             larger equal                ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-conditional-larger-equal">
+<title>Larger Equal</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component compares the input A and B and set the output value to true if A is larger than or equal B.
+In other cases the output value is set to false.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+The condition is changeable in the component property dialog.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="conditional_larger_equal.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Conditional -> Larger Equal</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Larger                  ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-conditional-larger">
+<title>Larger</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component compares the input A and B and set the output value to true if A larger than B.
+In other cases the output value is set to false.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+The condition is changeable in the component property dialog.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="conditional_larger.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Conditional -> Larger</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

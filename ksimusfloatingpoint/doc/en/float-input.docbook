@@ -1,0 +1,180 @@
+<!-- ############################################################################### -->
+<!-- ########################      Input Components         ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-inputs">
+<title>Input Components</title>
+
+<simplelist>
+<member>&FloatInputConst;</member>
+<member>&FloatInputLineEdit;</member>
+<member>&FloatInputSlider;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Floating Point Constant        ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-input-const">
+<title>Floating Point Constant</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component supplies a schematic with a constant floating point value. It is not possible
+to change the value while the simulation is active.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component is free resizable.
+</para></listitem><listitem><para>
+The component is never shown in the User View.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="input_const.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Input -> Constant</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Floating Point Line Edit       ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-input-line-edit">
+<title>Floating Point Line Edit</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component supplies a schematic with a input line for floating point values.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Limits the value to an upper and a lower range.
+</para></listitem><listitem><para>
+Allows key tracking. This means that the output is changed every new inserted or deleted digit (as long as
+the resulting value is not outside the allowed range). This feature optional.
+</para></listitem><listitem><para>
+The component supports a user definable reset value.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The label is free resizable.
+</para></listitem><listitem><para>
+User definable font setting.
+</para></listitem><listitem><para>
+The notation is user definable.
+</para></listitem><listitem><para>
+Selectable frame in the User View.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="input_line_edit.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Input -> Line Edit</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                   Slider                ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-input-slider">
+<title>Slider</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component supplies a schematic with a slider for floating point values.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The slider orientation is detected automatically by the ratio of width : height.
+</para></listitem><listitem><para>
+User definable upper and lower value.
+</para></listitem><listitem><para>
+The component supports a user definable reset value.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The label is free resizable.
+</para></listitem><listitem><para>
+Selectable frame in the User View.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="input_slider.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="input_slider_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Input -> Slider</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

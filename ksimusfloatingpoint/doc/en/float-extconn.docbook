@@ -1,0 +1,115 @@
+<!-- ############################################################################### -->
+<!-- ########################      External Connector       ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-external-conn">
+<title>External Connectors</title>
+
+<simplelist>
+<member>&FloatExtConnIn;</member>
+<member>&FloatExtConnOut;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      External Connector Float In        ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-extconn-float-in">
+<title>Floating Point Input</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external floating point input connector is used as an input for modules.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The name of the external connector is used as default name of the input connector of the module.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="extConn_float_in.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>External Connector -> Floating Point Input</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################      External Connector Float Out       ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-extconn-float-out">
+<title>Floating Point Output</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external floating point output connector is used as an output for modules.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The name of the external connector is used as default name of the output connector of the module.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="extConn_float_out.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>External Connector -> Floating Point Output</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

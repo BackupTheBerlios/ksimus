@@ -45,8 +45,9 @@ const ComponentInfo FloatAddInfo(I18N_NOOP("Floating Point Adder"),
                                  I18N_NOOP("Floating Point/Arithmetic/Adder"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 create
-                                 );
+                                 create,
+                                 QString::null,
+                                 "component-float-arithmetic-add");
 
 
 

@@ -46,8 +46,9 @@ const ComponentInfo FloatAbsInfo(I18N_NOOP("Floating Point Absolute Value"),
                                  I18N_NOOP("Floating Point/Arithmetic/Absolute Value"),
                                  QString::null,
                                  VA_SHEETVIEW,
-                                 create
-                                 );
+                                 create,
+                                 QString::null,
+                                 "component-float-arithmetic-abs");
 
 
 
