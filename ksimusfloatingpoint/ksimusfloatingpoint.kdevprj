@@ -24,7 +24,7 @@ ldadd=
 ldflags=-shared
 
 [General]
-AMChanged=false
+AMChanged=true
 author=Rasmus Diekenbrock
 configure_args=--prefix=/opt/kde2
 email=ksimus@gmx.de
@@ -497,5 +497,18 @@ install_location=
 type=HEADER
 
 [po/Makefile.am]
+files=po/fr.po,po/de.po
 sub_dirs=
 type=po
+
+[po/de.po]
+dist=false
+install=false
+install_location=
+type=PO
+
+[po/fr.po]
+dist=false
+install=false
+install_location=
+type=PO
