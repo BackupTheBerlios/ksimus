@@ -78,6 +78,7 @@ ConnectorBoolTriState::ConnectorBoolTriState(Component * comp, const QString & n
 
 void ConnectorBoolTriState::init()
 {
+	setNegateEnabled(true);
 }
 
 // Get the colors for the connector
@@ -107,27 +108,49 @@ void ConnectorBoolTriState::copyData(const void * pData)
 /** Set the current output */
 void ConnectorBoolTriState::setOutput(bool out, bool active, bool exeWirePropNext)
 {
-	if ((out != m_outData.getState()) || (active != m_outData.isActive()))
+	KSimBoolTriState state(out ^ isNegated(), active);
+	
+	if (state != m_outData.getTriState())
 	{
 		// Value changed
-		if (!active)
-		{
-			m_outData.set(0, 0);
-		}
-		else if (out)
-		{
-			m_outData.set(1, 0);
-		}
-		else
-		{
-			m_outData.set(0, 1);
-		}
+		m_outData.setTriState(state);
 		// No Wire connected ?
 		if (!getWireProperty())
 		{
 			m_inData = m_outData;
 		}
 		if (exeWirePropNext) executeWirePropertyNext();
+	}
+}
+
+void ConnectorBoolTriState::setOutput(KSimBoolTriState state, bool executeWirePropertyNext)
+{
+	setOutput(state.isTrue(), state.isActive(), executeWirePropertyNext);
+}
+
+/** Return the current output */
+KSimBoolTriState ConnectorBoolTriState::getOutput() const
+{
+	if (isNegated())
+	{
+		return KSimBoolTriState(m_outData.isFalse(), m_outData.isActive());
+	}
+	else
+	{
+		return m_outData.getTriState();
+	}
+};
+
+/** Return the current wire state */
+KSimBoolTriState ConnectorBoolTriState::getInput() const
+{
+	if (isNegated())
+	{
+		return KSimBoolTriState(m_inData.isFalse(), m_inData.isActive());
+	}
+	else
+	{
+		return m_inData.getTriState();
 	}
 }
 

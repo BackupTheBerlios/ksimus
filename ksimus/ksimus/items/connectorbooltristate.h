@@ -26,8 +26,7 @@
 
 // KSimus Includes
 #include "connectorbase.h"
-
-// Project-Includes
+#include "ksimbooltristate.h"
 #include "wirepropertybooltristate.h"
 
 
@@ -81,18 +80,21 @@ public:
 	
 /** Set the current output.
 	* @param out                      The new output value.
+	* @param active                   Ture, if out is active.
 	* @param executeWirePropertyNext  If set the wire property is execute next. The parameter is used
 	*                                 with zero delay components.
 	*/
 	void setOutput(bool out, bool active, bool executeWirePropertyNext = true);
+/** Set the current output.
+	* @param state                    The new output state.
+	* @param executeWirePropertyNext  If set the wire property is execute next. The parameter is used
+	*                                 with zero delay components.
+	*/
+	void setOutput(KSimBoolTriState state, bool executeWirePropertyNext = true);
 /** Return the current output */
-	bool getOutput() const { return m_outData.getState(); };
-/** Returns true if output is active. */
-	bool isOutputActive() const { return m_outData.isActive(); };
+	KSimBoolTriState getOutput() const;
 /** Return the current wire state */
-	bool getInput() const { return m_inData.getState(); };
-/** Returns true if input is active. */
-	bool isInputActive() const { return m_inData.isActive(); };
+	KSimBoolTriState getInput() const;
 	
 	// Get the colors for the connector
 	virtual const WireColorScheme & getColorScheme() const;
