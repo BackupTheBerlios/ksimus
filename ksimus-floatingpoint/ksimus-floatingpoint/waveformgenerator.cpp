@@ -91,7 +91,7 @@ public:
 };
 
 
-static EnumDict<WaveformGenerator::eWaveType> waveformGeneratorTypeDict;
+static EnumDict<WaveformGenerator::eWaveType> waveformGeneratorTypeDict(5);
 
 
 EnumDict<WaveformGenerator::eWaveType>::tData EnumDict<WaveformGenerator::eWaveType>::data[]
