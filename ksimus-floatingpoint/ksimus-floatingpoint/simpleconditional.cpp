@@ -151,6 +151,28 @@ SimpleConditional::SimpleConditional(CompContainer * container, const ComponentI
 {
 } */
 
+/** load component properties
+*   copyLoad is true, if the load function is used as a copy function
+*	Returns true if successful */
+bool SimpleConditional::load(KSimData & file, bool copyLoad)
+{
+	bool res = Boolean1Out::load(file, copyLoad);
+
+	QString id = file.readEntry(Component::sType);
+	setConditionalType(id);
+	
+	return res;
+}
+
+bool SimpleConditional::isProperReloadType(const QString & type) const
+{
+	return (type == getConditionalLesserInfo()->getLibName())
+	    || (type == getConditionalLesserEqualInfo()->getLibName())
+	    || (type == getConditionalEqualInfo()->getLibName())
+	    || (type == getConditionalLargerEqualInfo()->getLibName())
+	    || (type == getConditionalLargerInfo()->getLibName());
+}
+
 void SimpleConditional::calculate()
 {
 	Boolean1Out::calculate();
@@ -178,9 +200,31 @@ void SimpleConditional::setConditionalType(eConditionalType newCond)
 		case eLargerEqual: setInfo(getConditionalLargerEqualInfo()); break;
 		case eLarger:      setInfo(getConditionalLargerInfo());      break;
 	}
-	m_conditionalType = newCond;	
+	m_conditionalType = newCond;
+	if (hasDefaultName())
+	{
+		// Set new default name if required
+		setName(getDefaultName());
+	}
 }
 
+void SimpleConditional::setConditionalType(const QString & type)
+{
+	if (type == getConditionalLesserInfo()->getLibName())
+		setConditionalType(eLarger);
+	else if (type == getConditionalLesserEqualInfo()->getLibName())
+		setConditionalType(eLesserEqual);
+	else if (type == getConditionalEqualInfo()->getLibName())
+		setConditionalType(eEqual);
+	else if (type == getConditionalLargerEqualInfo()->getLibName())
+		setConditionalType(eLargerEqual);
+	else if (type == getConditionalLargerInfo()->getLibName())
+		setConditionalType(eLarger);
+	else
+	{
+		KSIMDEBUG_VAR("Unknown type", type);
+	}
+}
 
 /** Creates the general property page for the property dialog.
  * Overload this function if you want to use a modified General Propery Page. Use as base class

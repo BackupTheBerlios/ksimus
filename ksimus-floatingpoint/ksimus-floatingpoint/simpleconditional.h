@@ -64,6 +64,14 @@ public:
 	SimpleConditional(CompContainer * container, const ComponentInfo * ci);
 //	~SimpleConditional();
 	
+	/** load component properties
+	*   copyLoad is true, if the load function is used as a copy function
+	*	  Returns true if successful */
+	virtual bool load(KSimData & file, bool copyLoad);
+	/** Returns true, if the parameter type is a proper reload type. This is useful if a component
+	  * supports more than one types and the type decides the different functionality (e.g.
+	  * @ref BooleanButton). The implementation returns true, if type is on of the conditionals.*/
+	virtual bool isProperReloadType(const QString & type) const;
 	/** Executes the simulation of this component */
 	virtual void calculate();
 	
@@ -77,7 +85,7 @@ public:
 	
 	eConditionalType getConditionalType() const { return m_conditionalType; };
 	void setConditionalType(eConditionalType newCond);
-	
+	void setConditionalType(const QString & type);
 
 
 protected:
