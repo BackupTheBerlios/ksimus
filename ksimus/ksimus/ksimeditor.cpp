@@ -415,14 +415,15 @@ void KSimEditor::drawDragRect ()
 
 	switch (editorMode)
 	{
-		case EM_MOVE:	
-		case EM_MOVE_COPY:	
-		case EM_INSERT_MOVE:	
+		case EM_MOVE:
+		case EM_MOVE_COPY:
+		case EM_INSERT_MOVE:
+		case EM_PAST_MOVE:
 			FOR_EACH_COMPVIEW(it, selected)
 			{
 				QPoint oldPos = it.current()->getPos();
 				QPoint newPos (oldPos - dragStart + dragNow);
-	      		it.current()->drawBound (&p, newPos);
+				it.current()->drawBound (&p, newPos);
 			}
 			break;
 
@@ -443,7 +444,7 @@ void KSimEditor::drawDragRect ()
 		default:
 			break;
 	}
-   	update();
+	update();
 }
 
 
@@ -494,13 +495,12 @@ void KSimEditor::unselectAll()
 	emit copyAllowed(false);
 }
 
-
 void KSimEditor::mousePressEvent (QMouseEvent *ev)
 {
 	eHitType hit;
 	getDoc()->setActiveView(getView());
 	QPoint mousePos = mapFromGlobal(ev->globalPos());
-  	// Left mouse button
+	// Left mouse button
 	if (ev->button() == LeftButton)
 	{
 		dragStart = dragNow = mousePos;
@@ -711,12 +711,12 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				int minY = INT_MAX;
 				int maxX = INT_MIN;
 				int maxY = INT_MIN;
-				unselectAll();
-				getDoc()->setModified();
 				KSimUndo * undo = getDoc()->getUndo();
 				undo->begin(i18n("Copy Components"));
 				getContainer()->pastComponent(&compList, pos);
 				undo->end();
+				unselectAll();
+				getDoc()->setModified();
 				convertComponentToCompView(&compList, &selected);
 				// Calculate dimension and the middle of all components
 				FOR_EACH_COMPVIEW(it, selected)
@@ -734,7 +734,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				};
 				pos.setX( x / (selected.count()*2));
 				pos.setY( y / (selected.count()*2));
-				pos = dragStart - pos;				
+				pos = dragStart - pos;
 				// Components have to fit in sheet
 				if (pos.x() < -minX)
 					pos.setX(-minX);
@@ -749,9 +749,9 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				select(selected.first(),true);
 				getContainer()->routeComponents();
 				refresh();
-				setEditorMode(EM_PAST_MOVE);
 
 				dragNow = mousePos;
+				setEditorMode(EM_PAST_MOVE);
 				mouseMoveEvent(ev);
 			}
 			break;
@@ -899,7 +899,7 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 					if (hit == NORMAL_HIT)
 					{
 						select (getContainer()->getFirstCompView(),
-								selected.containsRef (getContainer()->getFirstCompView()) == 0);
+						        selected.containsRef (getContainer()->getFirstCompView()) == 0);
 					}
 				}
 				// no break here !!!!!
@@ -959,7 +959,7 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 				break;
 				
 				default:
-				break;			
+				break;
 			}
 
 			// Falls Maus außerhalb des Fensters, autoScroll aktivieren
@@ -1020,12 +1020,12 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			else
 			{
 				dragging = true;
-			}       	
+			}
 		    // Save new position
 			dragNow = dragPos;
 			
 			drawDragRect();
-		}		
+		}
 	}
 	else  // (!lmb)
 	{
@@ -1099,7 +1099,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 				}
 				setEditorMode(EM_SELECT);
 				break;
-			}			
+			}
 			case EM_MOVE:
 			{
 				KSimUndo * undo = getDoc()->getUndo();
@@ -1201,8 +1201,8 @@ void KSimEditor::autoScroll ()
 	
 	// Call mouseMoveEvent for position calculating
 	QMouseEvent ev = QMouseEvent( QEvent::MouseMove,
-								  mapFromGlobal(QCursor::pos()),
-								  evButton, evState);
+	                              mapFromGlobal(QCursor::pos()),
+	                              evButton, evState);
 	mouseMoveEvent(&ev);
 }
 
@@ -1398,7 +1398,6 @@ CompView* KSimEditor::getSpecificCompView(Component * comp) const
 /** Convert a list of component to a list of compoennt views in order of the selected  view type */
 void KSimEditor::convertComponentToCompView(ComponentList * compList, CompViewList * compViewList)
 {
-//	REMOVE_ALL_COMPVIEW(compViewList);
 	compViewList->clear();
 	FOR_EACH_COMP(it, *compList)
 	{

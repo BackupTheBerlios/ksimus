@@ -52,7 +52,7 @@
 
 static const char * sPropertyGrp    = "Property/";
 static const char * sModuleGrp      = "Module/";
-static const char * sRequirementGrp = "Requirement/";
+//static const char * sRequirementGrp = "Requirement/";
 static const char * sSheetSize      = "Sheetsize";
 static const char * sUserSize       = "Usersize";
 static const char * sSerialNumber   = "Last Serial Number";
@@ -526,15 +526,15 @@ void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMo
 		KSimData file (fileName);
 		// Dont track component creation
 		if (getUndo()) getUndo()->pause(true);
-		container->loadComponents(file, true);	//copy load
+		container->loadComponents(file, true);     //copy load
 		if (getUndo()) getUndo()->pause(false);
 	}
 
-	/* Add Components to component list */
+	// Add Components to component list
 	for (itNew.toFirst(); itNew.current(); ++itNew)
 	{
 		Component * newComp = itNew.current();
-		/* Search wire with one or no connections and delete them */
+		// Search wire with one or no connections and delete them
 		if ((newComp->isWire()) && (newComp->getConnList()->count() < 2))
 		{
 			// Dont track delete wire
@@ -564,7 +564,7 @@ void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMo
 			}
 		}
 	}
-	container->getComponentList()->setAutoDelete(false);
+	container->getComponentList()->setAutoDelete(false);   // TODO ist false richtig  ???
 	// Dont track delete
 	if (getUndo()) getUndo()->pause(true);
 	delete container;
@@ -841,33 +841,31 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 {
 	unsigned int numOfComp;
 	unsigned int loadedCompCounter = 0;
-	unsigned int lastCompCounter = !loadedCompCounter;
 	unsigned int err = 0;
+	QProgressDialog * progress = 0;
 	QString baseGroup;
 	
 	bool storedRefresh(isRefreshEnabled());
 	
 	setRefreshEnabled(false);		//No refrehes during loading
-	
+
 	// Correct group is selected by caller !!!
 	baseGroup = file.group();
 	
 	numOfComp = file.readUnsignedNumEntry("Components", 0);
 	
+	if (isParentDoc())
+	{
+		// Not for modules !!
+		progress = new QProgressDialog(i18n("Loading..."), QString::null, numOfComp, getApp(), "progress");
+		CHECK_PTR(progress);
+		progress->setMinimumDuration(1000);
+	}
 
-	QProgressDialog progress(i18n("Loading..."), QString::null, numOfComp, getApp(), "progress", TRUE);
-	progress.setMinimumDuration(1000);
-	
+
 	// First load components (no wires)
 	for (unsigned int i=0;i < numOfComp; i++)
 	{
-		if (((loadedCompCounter & 0x7) == 0) && (loadedCompCounter != lastCompCounter))
-		{
-			lastCompCounter = loadedCompCounter;
-			progress.setProgress(loadedCompCounter);
-			qApp->processEvents();
-		}
-		
 		Component * comp;
 		QString id;
 		unsigned int serialNo;
@@ -882,6 +880,13 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		if (id != getWireInfo()->getLibName())
 		{
 			loadedCompCounter++;
+
+			if (progress && ((loadedCompCounter & 0x7) == 0))
+			{
+				progress->setProgress(loadedCompCounter);
+				qApp->processEvents();
+			}
+
 			bool compExist = false;
 			FOR_EACH_COMP(it, *components)
 			{
@@ -943,13 +948,6 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 	// Then load wires
 	for (unsigned int i=0;i < numOfComp; i++)
 	{
-		if (((loadedCompCounter & 0x7) == 0) && (loadedCompCounter != lastCompCounter))
-		{
-			lastCompCounter = loadedCompCounter;
-			progress.setProgress(loadedCompCounter);
-			qApp->processEvents();
-		}
-		
 		Component * comp;
 		QString id;
 		unsigned int serialNo;
@@ -964,6 +962,13 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		if (id == getWireInfo()->getLibName())
 		{
 			loadedCompCounter++;
+			
+			if (progress && ((loadedCompCounter & 0x7) == 0))
+			{
+				progress->setProgress(loadedCompCounter);
+				qApp->processEvents();
+			}
+
 			bool compExist = false;
 			FOR_EACH_COMP(it, *components)
 			{
@@ -1019,11 +1024,11 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 	}
 	
 	
-	progress.setProgress(numOfComp);
+	delete progress;
 	
 	file.setGroup(baseGroup);
 	
-	setRefreshEnabled(storedRefresh);		//Restore refreh property
+	setRefreshEnabled(storedRefresh);		//Restore refresh property
 	refresh();
 	
 //	routeComponents();
