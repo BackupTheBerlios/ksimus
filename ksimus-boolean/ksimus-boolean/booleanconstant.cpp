@@ -41,21 +41,31 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanConstant(container, ci);
 }
 
-const ComponentInfo BooleanConstantTrue(I18N_NOOP("Boolean Const True"),
-                                        I18N_NOOP("Boolean/Input/Const True"),
-                                        QString::null,
-                                        VA_SHEETVIEW,
-                                        create,	
-                                        QString::null,
-                                        "component-boolean-const-true");
+const ComponentInfo * getBooleanConstantTrue()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean Const True"),
+	                                QString::fromLatin1("Boolean/Input/Const True"),
+	                                i18n("Component", "Boolean/Input/Const True"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-const-true"));
+	return &Info;
+}
 
-const ComponentInfo BooleanConstantFalse(I18N_NOOP("Boolean Const False"),
-                                         I18N_NOOP("Boolean/Input/Const False"),
-                                         QString::null,
-                                         VA_SHEETVIEW,
-                                         create,	
-                                         QString::null,
-                                         "component-boolean-const-false");
+const ComponentInfo * getBooleanConstantFalse()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean Const False"),
+	                                QString::fromLatin1("Boolean/Input/Const False"),
+	                                i18n("Component", "Boolean/Input/Const False"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-const-false"));
+	return &Info;
+}
 
 //###############################################################
 //###############################################################
@@ -95,7 +105,7 @@ BooleanConstantView::BooleanConstantView(BooleanConstant * comp, eViewType viewT
 
 void BooleanConstantView::setConnPos()
 {
-	if (getComponent()->getInfo() == &BooleanConstantTrue)
+	if (getComponent()->getInfo() == getBooleanConstantTrue())
 	{
 		// True
 		getConnector()->setGridPos(1,2);
@@ -117,7 +127,7 @@ void BooleanConstantView::draw(QPainter * p)
 	
 	QPoint pos(0,0);
 	
-	if (getComponent()->getInfo() == &BooleanConstantTrue)
+	if (getComponent()->getInfo() == getBooleanConstantTrue())
 	{
 		#define dia 12
 		// True
@@ -150,7 +160,9 @@ void BooleanConstantView::draw(QPainter * p)
 BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci)
 {
-	m_out = new ConnectorBoolOut(this, I18N_NOOP("Output"));
+	m_out = new ConnectorBoolOut(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("Boolean-Connector", "Output"));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
@@ -170,7 +182,7 @@ BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo 
 
 void BooleanConstant::reset()
 {
-	if (getInfo() == &BooleanConstantTrue)
+	if (getInfo() == getBooleanConstantTrue())
 	{
   	getOutputConnector()->setOutput(true);
   }

@@ -55,15 +55,19 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new Boolean7Segment(container, ci);
 }
 
-const ComponentInfo Boolean7SegmentInfo(I18N_NOOP("7 Segment Display"),
-                                        I18N_NOOP("Boolean/Output/7 Segment Display"),
-                                        QString::null,
-                                        VA_SHEET_AND_USER,
-                                        create,	
-                                        QString::null,
-                                        "component-boolean-7segment"
-                                        );
 
+const ComponentInfo * getBoolean7SegmentInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "7 Segment Display"),
+	                                QString::fromLatin1("Boolean/Output/7 Segment Display"),
+	                                i18n("Component", "Boolean/Output/7 Segment Display"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-7segment"));
+	return &Info;
+}
 
 
 //############################################################################
@@ -88,16 +92,24 @@ Boolean7Segment::Boolean7Segment(CompContainer * container, const ComponentInfo 
 	setDefaultColors(DEFAULT_FOREGROUND,DEFAULT_BACKGROUND);
 	setFrameEnabled(true);
 	
-	m_in1 = new ConnectorBoolIn (this, I18N_NOOP("Input 1"));
+	m_in1 = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input 1"),
+	                             i18n("Boolean-Connector", "Input 1"));
 	CHECK_PTR(m_in1);
 	
-	m_in2 = new ConnectorBoolIn (this, I18N_NOOP("Input 2"));
+	m_in2 = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input 2"),
+	                             i18n("Boolean-Connector", "Input 2"));
 	CHECK_PTR(m_in2);
 	
-	m_in4 = new ConnectorBoolIn (this, I18N_NOOP("Input 4"));
+	m_in4 = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input 4"),
+	                             i18n("Boolean-Connector", "Input 4"));
 	CHECK_PTR(m_in4);
 	
-	m_in8 = new ConnectorBoolIn (this, I18N_NOOP("Input 8"));
+	m_in8 = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input 8"),
+	                             i18n("Boolean-Connector", "Input 8"));
 	CHECK_PTR(m_in8);
 	
 	// Initializes the sheet view

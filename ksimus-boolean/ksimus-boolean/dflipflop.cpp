@@ -49,14 +49,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new DFlipFlop(container, ci);
 }
 
-const ComponentInfo DFlipFlopInfo(I18N_NOOP("D Latch"),
-                                  I18N_NOOP("Boolean/Flip Flop/D Latch"),
-                                  QString::null,//"D Latch",
-                                  VA_SHEETVIEW,
-                                  create,	
-                                  QString::null,
-                                  "component-boolean-d-latch"
-                                  );
+const ComponentInfo * getDFlipFlopInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "D Latch"),
+	                                QString::fromLatin1("Boolean/Flip Flop/D Latch"),
+	                                i18n("Component", "Boolean/Flip Flop/D Latch"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-d-latch"));
+	return &Info;
+}
 
 
 //###############################################################
@@ -68,10 +72,14 @@ DFlipFlop::DFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	: FlipFlopBase(container, ci)
 {
 	
-	m_inD = new ConnectorBoolIn(this, I18N_NOOP("Data"));
+	m_inD = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Data"),
+	                             i18n("Boolean-Connector", "Data"));
 	CHECK_PTR(m_inD);
 
-	m_inEna = new ConnectorBoolInEdge(this, I18N_NOOP("Enable"));
+	m_inEna = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Enable"),
+	                             i18n("Boolean-Connector", "Enable"));
 	CHECK_PTR(m_inEna);
 //	m_inEna->setEdgeSensitiveChangeEnable(false);
 	m_inEna->setEdgeSensitive(false, true);

@@ -57,14 +57,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new MonoFlop(container, ci);
 }
 
-const ComponentInfo MonoFlopInfo(I18N_NOOP("Mono Flop"),
-                                 I18N_NOOP("Boolean/Flip Flop/Mono Flop"),
-                                 QString::null,//"Mono Flop",
-                                 VA_SHEETVIEW,
-                                 create,	
-                                 QString::null,
-                                 "component-boolean-monoflop"
-                                 );
+const ComponentInfo * getMonoFlopInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Mono Flop"),
+	                                QString::fromLatin1("Boolean/Flip Flop/Mono Flop"),
+	                                i18n("Component", "Boolean/Flip Flop/Mono Flop"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-monoflop"));
+	return &Info;
+}
 
 
 //###############################################################
@@ -82,7 +86,7 @@ MonoFlop::MonoFlop(CompContainer * container, const ComponentInfo * ci)
 {
 
 //	getSetInputConnector()->setEdgeSensitive(true,true);
-	getSetInputConnector()->setName(I18N_NOOP("Trigger"), true);
+	getSetInputConnector()->setName(i18n("Boolean", "Trigger"), true);
 
 	getResetInputConnector()->setEdgeSensitive(false,true);
 	getResetInputConnector()->setHideEnabled(true);
@@ -253,35 +257,35 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	:	FlipFlopBasePropertyGeneralWidget(comp, parent, name)
 {
 	
-	getDominantBox()->setTrueText(i18n("Trigger Input"));
-	getDominantBox()->setFalseText(i18n("Reset Input"));
+	getDominantBox()->setTrueText(i18n("Boolean", "Trigger Input"));
+	getDominantBox()->setFalseText(i18n("Boolean", "Reset Input"));
 	
 	
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Retrigger:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Retrigger:"), getGrid());
 	CHECK_PTR(lab);
 	
 	m_retrigger = new KSimBooleanBox(comp->getRetrigger(), getGrid());
 	CHECK_PTR(m_retrigger);
 	
-	m_retrigger->setTrueText(i18n("On"));
-	m_retrigger->setFalseText(i18n("Off"));
+	m_retrigger->setTrueText(i18n("Boolean", "On"));
+	m_retrigger->setFalseText(i18n("Boolean", "Off"));
 	
-	str = i18n("Set here the retrigger mode.");
+	str = i18n("Boolean", "Set here the retrigger mode.");
 	QToolTip::add(m_retrigger, str);
 	QToolTip::add(lab, str);
 	QWhatsThis::add(m_retrigger, str);
 	QWhatsThis::add(lab, str);
 	
-	lab = new QLabel(i18n("Time:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Time:"), getGrid());
 	CHECK_PTR(lab);
 	
 	m_highTime = new KSimTimeSpinBox(comp->getHighTime(), getGrid());
 	CHECK_PTR(m_highTime);
 	
-	str = i18n("Set here the duration.");
+	str = i18n("Boolean", "Set here the duration.");
 	QToolTip::add(m_highTime, str);
 	QToolTip::add(lab, str);
 	QWhatsThis::add(m_highTime, str);

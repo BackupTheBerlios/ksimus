@@ -46,23 +46,31 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanOr(container, ci);
 }
 
-const ComponentInfo BooleanOrInfo(I18N_NOOP("Boolean OR"),
-                                  I18N_NOOP("Boolean/Gates/OR"),
-                                  QString::null,
-                                  VA_SHEETVIEW,
-                                  create,	
-                                  QString::null,
-                                  "component-boolean-or"
-                                  );
+const ComponentInfo * getBooleanOrInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean OR"),
+	                                QString::fromLatin1("Boolean/Gates/OR"),
+	                                i18n("Component", "Boolean/Gates/OR"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-or"));
+	return &Info;
+}
 
-const ComponentInfo BooleanNorInfo(I18N_NOOP("Boolean NOR"),
-                                   I18N_NOOP("Boolean/Gates/NOR"),
-                                   QString::null,
-                                   VA_SHEETVIEW,
-                                   create,	
-                                   QString::null,
-                                   "component-boolean-nor"
-                                   );
+const ComponentInfo * getBooleanNorInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean NOR"),
+	                                QString::fromLatin1("Boolean/Gates/NOR"),
+	                                i18n("Component", "Boolean/Gates/NOR"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-nor"));
+	return &Info;
+}
 
 
 
@@ -90,7 +98,7 @@ BooleanOr::BooleanOr(CompContainer * container, const ComponentInfo * ci)
 	: BooleanXIn1Out(container, ci)
 {
 	// make Nor
-	if (ci == &BooleanNorInfo)
+	if (ci == getBooleanNorInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}

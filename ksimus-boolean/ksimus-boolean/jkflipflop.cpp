@@ -55,23 +55,31 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new JKFlipFlop(container, ci);
 }
 
-const ComponentInfo JKFlipFlopInfo(I18N_NOOP("JK Flip Flop"),
-                                   I18N_NOOP("Boolean/Flip Flop/JK-FF"),
-                                   QString::null,/*"JK Flip Flop",*/
-                                   VA_SHEETVIEW,
-                                   create,	
-                                   QString::null,
-                                   "component-boolean-jk-ff"
-                                  );
+const ComponentInfo * getJKFlipFlopInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "JK Flip Flop"),
+	                                QString::fromLatin1("Boolean/Flip Flop/JK-FF"),
+	                                i18n("Component", "Boolean/Flip Flop/JK-FF"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-jk-ff"));
+	return &Info;
+}
 
-const ComponentInfo JKMSFlipFlopInfo(I18N_NOOP("JK Master Slave Flip Flop"),
-                                     I18N_NOOP("Boolean/Flip Flop/JK-MS-FF"),
-                                     QString::null,/*"JK Flip Flop",*/
-                                     VA_SHEETVIEW,
-                                     create,	
-                                     QString::null,
-                                     "component-boolean-jk-ff"
-                                   );
+const ComponentInfo * getJKMSFlipFlopInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "JK Master Slave Flip Flop"),
+	                                QString::fromLatin1("Boolean/Flip Flop/JK-MS-FF"),
+	                                i18n("Component", "Boolean/Flip Flop/JK-MS-FF"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-jk-ff"));
+	return &Info;
+}
 
 
 //###############################################################
@@ -83,13 +91,19 @@ const ComponentInfo JKMSFlipFlopInfo(I18N_NOOP("JK Master Slave Flip Flop"),
 JKFlipFlopBase::JKFlipFlopBase(CompContainer * container, const ComponentInfo * ci)
 	: FlipFlopBase(container, ci)
 {
-	m_inJ = new ConnectorBoolIn(this, "J");
+	m_inJ = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("J"),
+	                             i18n("Boolean-Connector JK-FF", "J"));
 	CHECK_PTR(m_inJ);
 
-	m_inK = new ConnectorBoolIn(this, "K");
+	m_inK = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("K"),
+	                             i18n("Boolean-Connector JK-FF", "K"));
 	CHECK_PTR(m_inK);
 
-	m_inClk = new ConnectorBoolInEdge(this, I18N_NOOP("Clock"));
+	m_inClk = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Clock"),
+	                             i18n("Boolean-Connector", "Clock"));
 	CHECK_PTR(m_inClk);
 	m_inClk->setEdgeSensitiveChangeEnable(false);
 	
@@ -123,7 +137,7 @@ JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
 		new JKFlipFlopView(this, SHEET_VIEW);
 	}
 	
-	if (ci == &JKMSFlipFlopInfo)
+	if (ci == getJKMSFlipFlopInfo())
 	{
 		setMasterSlaveEnabled(true);
 	}	
@@ -326,16 +340,16 @@ JKFlipFlopPropertyGeneralWidget::JKFlipFlopPropertyGeneralWidget(JKFlipFlop * co
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Master Slave:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Master Slave:"), getGrid());
 	CHECK_PTR(lab);
 	
 	m_masterSlave = new KSimBooleanBox(comp->isMasterSlaveEnabled(), getGrid());
 	CHECK_PTR(m_masterSlave);
 	
-	m_masterSlave->setTrueText(i18n("Enabled"));
-	m_masterSlave->setFalseText(i18n("Disabled"));
+	m_masterSlave->setTrueText(i18n("Boolean", "Enabled"));
+	m_masterSlave->setFalseText(i18n("Boolean", "Disabled"));
 	
-	str = i18n("Enables the Master Salve functionality.\nIf disabled, the FF works in single edge mode.");
+	str = i18n("Boolean", "Enables the Master Salve functionality.\nIf disabled, the FF works in single edge mode.");
 	QToolTip::add(m_masterSlave, str);
 	QToolTip::add(lab, str);
 	QWhatsThis::add(m_masterSlave, str);

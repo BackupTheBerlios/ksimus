@@ -43,24 +43,31 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanXor(container, ci);
 }
 
-const ComponentInfo BooleanXorInfo(I18N_NOOP("Boolean Exclusive OR"),
-                                   I18N_NOOP("Boolean/Gates/XOR"),
-                                   QString::null,
-                                   VA_SHEETVIEW,
-                                   create,	
-                                   QString::null,
-                                   "component-boolean-xor"
-                                   );
+const ComponentInfo * getBooleanXorInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean Exclusive OR"),
+	                                QString::fromLatin1("Boolean/Gates/XOR"),
+	                                i18n("Component", "Boolean/Gates/XOR"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-xor"));
+	return &Info;
+}
 
-const ComponentInfo BooleanXnorInfo(I18N_NOOP("Boolean Exclusive NOR"),
-                                    I18N_NOOP("Boolean/Gates/XNOR"),
-                                    QString::null,
-                                    VA_SHEETVIEW,
-                                    create,	
-                                    QString::null,
-                                    "component-boolean-xnor"
-                                    );
-
+const ComponentInfo * getBooleanXnorInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean Exclusive NOR"),
+	                                QString::fromLatin1("Boolean/Gates/XNOR"),
+	                                i18n("Component", "Boolean/Gates/XNOR"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-xnor"));
+	return &Info;
+}
 
 
 //###############################################################
@@ -84,7 +91,7 @@ BooleanXor::BooleanXor(CompContainer * container, const ComponentInfo * ci)
 	: BooleanXIn1Out(container, ci)
 {
 	// make Xnor
-	if (ci == &BooleanXnorInfo)
+	if (ci == getBooleanXnorInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}

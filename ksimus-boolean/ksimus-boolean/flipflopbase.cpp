@@ -51,14 +51,20 @@ FlipFlopBase::FlipFlopBase(CompContainer * container, const ComponentInfo * ci)
 	:	Boolean1Out(container, ci),
 		m_setDominant(false)
 {
-	m_notOut = new ConnectorBoolOut (this, I18N_NOOP("/Output"));
+	m_notOut = new ConnectorBoolOut(this,
+	                             QString::fromLatin1("/Output"),
+	                             i18n("Boolean-Connector", "/Output"));
 	CHECK_PTR(m_notOut);
 	m_notOut->setNegate(true, true);
 	
-	m_inSet = new ConnectorBoolInEdge (this, I18N_NOOP("Set"));
+	m_inSet = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Set"),
+	                             i18n("Boolean-Connector", "Set"));
 	CHECK_PTR(m_inSet);
 	
-	m_inReset = new ConnectorBoolInEdge (this, I18N_NOOP("Reset"));
+	m_inReset = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Reset"),
+	                             i18n("Boolean-Connector", "Reset"));
 	CHECK_PTR(m_inReset);
 
 
@@ -129,16 +135,16 @@ FlipFlopBasePropertyGeneralWidget::FlipFlopBasePropertyGeneralWidget(FlipFlopBas
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Dominant Input:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Dominant Input:"), getGrid());
 	CHECK_PTR(lab);
 	
 	m_dominant = new KSimBooleanBox(comp->getDominant(), getGrid());
 	CHECK_PTR(m_dominant);
 	
-	m_dominant->setTrueText(i18n("Set Input"));
-	m_dominant->setFalseText(i18n("Reset Input"));
+	m_dominant->setTrueText(i18n("Boolean", "Set Input"));
+	m_dominant->setFalseText(i18n("Boolean", "Reset Input"));
 	
-	str = i18n("Set here dominant input.");
+	str = i18n("Boolean", "Set here dominant input.");
 	QToolTip::add(m_dominant, str);
 	QToolTip::add(lab, str);
 	QWhatsThis::add(m_dominant, str);
