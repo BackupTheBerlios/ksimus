@@ -69,7 +69,7 @@ void BooleanXorView::draw(QPainter * p)
 {
 	BooleanXIn1OutView::draw(p);
 	
-	p->drawText(getPlace(), AlignCenter, "=1");
+	p->drawText(getDrawingPlace(), AlignCenter, "=1");
 }
 
 
