@@ -82,6 +82,7 @@ BooleanConstantView::BooleanConstantView(BooleanConstant * comp, eViewType viewT
 	:	CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 3*gridX, 3*gridY));
+	enableRotation(true);
 
 	setConnPos();
 }
@@ -109,7 +110,7 @@ void BooleanConstantView::draw(QPainter * p)
 {
 	CompView::draw(p);
 	
-	QPoint pos(getPos());
+	QPoint pos(0,0);
 	
 	if (getComponent()->getInfo() == &BooleanConstantTrue)
 	{

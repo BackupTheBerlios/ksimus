@@ -53,17 +53,8 @@ Boolean2In1OutView::Boolean2In1OutView(Component * comp, eViewType viewType)
 
 void Boolean2In1OutView::draw(QPainter * p)
 {
-/*	QRect rect(getPlace().topLeft()+QPoint(gridX+1,1),
-							getPlace().bottomRight()-QPoint(gridX-0,1));*/
-	QRect rect(getPlace().topLeft()+QPoint(gridX+1,1),
-							getPlace().bottomRight()-QPoint(gridX-0,0));
+	drawFrame(p);
 	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-//	p->drawText(rect, AlignCenter, ">=1");
-
 	CompView::draw(p);
 }
 

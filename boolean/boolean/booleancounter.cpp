@@ -283,6 +283,7 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 {
 	if (viewType == SHEET_VIEW)
 	{
+		enableRotation(true);
 		m_layout = new ComponentLayout(this);
 		CHECK_PTR(m_layout);
 		
@@ -333,7 +334,8 @@ void BooleanCounterView::draw(QPainter * p)
 {
 	CompView::draw(p);
 	
-	QRect rect(getWidgetPlace());
+//	QRect rect(getWidgetPlace());
+	QRect rect(getDrawingPlace());
 	rect.rLeft() ++;
 	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
 	rect.rBottom() ++;

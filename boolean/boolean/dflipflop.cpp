@@ -128,6 +128,7 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 //	setPlace(QRect(0, 0, 7*gridX, 7*gridY));
+	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
@@ -165,13 +166,7 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 
 void DFlipFlopView::draw(QPainter * p)
 {
-	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
-							getWidgetPlace().bottomRight());
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
+  drawFrame(p);
 
 	CompView::draw(p);
 }

@@ -203,6 +203,7 @@ MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 //	setPlace(QRect(0, 0, 7*gridX, 7*gridY));
+	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
@@ -236,14 +237,8 @@ MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
 
 void MonoFlopView::draw(QPainter * p)
 {
-	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
-							getWidgetPlace().bottomRight());
+  drawFrame(p);
 	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-
 	CompView::draw(p);
 }
 
