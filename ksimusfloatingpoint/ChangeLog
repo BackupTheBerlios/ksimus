@@ -1,5 +1,7 @@
 	20.03.2002
 * New: Version 0.3.4
+	22.03.2002
+* Add missing #include <math.h>. Thanks Francois Dickey!
 	04.03.2002
 * New: Component documentation
 * New: French translation from Aurelien Jarno. Thanks!
