@@ -50,7 +50,7 @@
 //###############################################################
 
 ConnectorLabel::ConnectorLabel(ConnectorBase * conn, const QString & descr)
-	: ComponentAddOn(conn->getComponent()),
+	: ComponentAddOn(conn->getComponent(), QString("Connector Label " + descr)),
 		m_conn(conn),
 		m_descr(descr),
 		m_spacing(1),
@@ -60,7 +60,7 @@ ConnectorLabel::ConnectorLabel(ConnectorBase * conn, const QString & descr)
 }
 	
 ConnectorLabel::ConnectorLabel(ConnectorBoolInEdge * conn, const QString & descr)
-	: ComponentAddOn(conn->getComponent()),
+	: ComponentAddOn(conn->getComponent(), QString("Connector Label " + descr)),
 		m_conn(conn),
 		m_descr(descr),
 		m_spacing(1),

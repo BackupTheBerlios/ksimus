@@ -45,9 +45,9 @@ static const char * sConn           = "Conn%1/";
 
 
 
-ConnectorPack::ConnectorPack(const QString & name, Component * comp, const ConnectorInfo * connInfo,
+ConnectorPack::ConnectorPack(Component * comp, const QString & name, const ConnectorInfo * connInfo,
                               unsigned int minConn = 1, unsigned int maxConn = 10)
-	:	ComponentAddOn(comp),
+	:	ComponentAddOn(comp, name),
 		m_name(name),
 		m_connInfo(connInfo),
 		m_minConn(minConn),
@@ -58,8 +58,9 @@ ConnectorPack::ConnectorPack(const QString & name, Component * comp, const Conne
 {
 	m_connList = new ConnectorList();
 	CHECK_PTR(m_connList);
-//	m_connList->setAutoDelete(true);
-
+//	m_connList->setAutoDelete(true);   ConnectorList of the Component deletes it
+	getAction().disable(KSimAction::ALL);
+	getAction().enable(KSimAction::eAction(KSimAction::STORAGE | KSimAction::INITPOPUPMENU));
 }
 
 ConnectorPack::~ConnectorPack()

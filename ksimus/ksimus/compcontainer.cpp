@@ -581,7 +581,7 @@ void CompContainer::pastComponent(ComponentList * compList, QPoint * relMove)
 	
 	{
 		KSimData file (fileName);
-		// Dont track delete wire
+		// Dont track component creation
 		if (getUndo()) getUndo()->pause(true);
 		container->loadComponents(file, true);	//copy load
 		if (getUndo()) getUndo()->pause(false);

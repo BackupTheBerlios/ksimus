@@ -104,12 +104,20 @@ public:
   /** Returns the actions object. In this object describes all of this addon required actions. */
 	KSimAction & getAction() { return m_myActions; };
 
-
+  /** Returns the name of the add on. */
+  const QString & getName() const { return m_addOnName; };
+	
 protected:
-	ComponentAddOn(Component * component);
+	/** Constructs a new add on.
+	  *
+	  * @param component The component to which the addon is added.
+	  * @param addOnName The name of the add on. The name have to be unique within a component.
+	  */
+	ComponentAddOn(Component * component, const QString & addOnName);
 
 private:
 	KSimAction m_myActions;
+	QString m_addOnName;
 };
 
 

@@ -47,14 +47,14 @@ public:
 	
 	/** Constructs a new connector pack.
 		*
+		* @param comp     The parent component.
 		* @param name     The name is used for the storages of the connector pack. It is also used as default
 		*                 connector name.
-		* @param comp     The parent component.
 		* @param connInfo The info (means type) of the connector to add by this connector pack.
 		* @param minConn  The minimum count of connectors. The default is one connector.
 		* @param maxConn  The maximum count of connectors. The default are ten connecotrs.
 		*/
-	ConnectorPack(const QString & name, Component * comp, const ConnectorInfo * connInfo,
+	ConnectorPack(Component * comp, const QString & name, const ConnectorInfo * connInfo,
 	              unsigned int minConn = 1, unsigned int maxConn = 10);
 	/** The destructor.
 	 */

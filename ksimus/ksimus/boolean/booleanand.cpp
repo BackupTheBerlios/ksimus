@@ -92,10 +92,10 @@ void BooleanAndView::draw(QPainter * p)
 BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
-	m_out = new ConnectorBoolOut (this, i18n("Output"), QPoint(4,2));
+	m_out = new ConnectorBoolOut (this, i18n("Output"));
 	CHECK_PTR(m_out);
 	
-	m_inPack = new ConnectorPack(QString("Input"), this, &ConnectorBoolInInfo, 2, 10);
+	m_inPack = new ConnectorPack(this, QString("Input"), &ConnectorBoolInInfo, 2, 10);
 	CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
 	

@@ -433,7 +433,7 @@ void CompLayoutBase::addPosition(QPoint & pos, int add)
 
 
 ComponentLayout::ComponentLayout(Component * component)
-	:	ComponentAddOn(component),
+	:	ComponentAddOn(component, QString("Component Layout")),
 		m_minSize(QSize(5,5)),
 		m_currentSize(QSize()),
 		m_fixedSize(false)
@@ -518,18 +518,20 @@ void ComponentLayout::updateLayout()
 		QRect newPlace(getComponent()->getSheetView()->getPos(), m_currentSize);
 		QSize mapSize(getComponent()->getContainer()->getSheetSize());
 		
-		if (newPlace.bottom() > mapSize.height())
-			newPlace.moveBy(0, mapSize.height() - newPlace.bottom());
+		if (getComponent()->getContainer()->isVisible())
+		{
+			if (newPlace.bottom() > mapSize.height())
+				newPlace.moveBy(0, mapSize.height() - newPlace.bottom());
 		
-		if (newPlace.right() > mapSize.width())
-			newPlace.moveBy(mapSize.width() - newPlace.right(), 0);
+			if (newPlace.right() > mapSize.width())
+				newPlace.moveBy(mapSize.width() - newPlace.right(), 0);
 		
-		if (newPlace.top() < 0)
-			newPlace.moveBy(0, - newPlace.top());
+			if (newPlace.top() < 0)
+				newPlace.moveBy(0, - newPlace.top());
 		
-		if (newPlace.left() < 0)
-			newPlace.moveBy( -newPlace.left(), 0);
-		
+			if (newPlace.left() < 0)
+				newPlace.moveBy( -newPlace.left(), 0);
+		}
 		
 		getComponent()->getSheetView()->setPlace(newPlace);
 	}

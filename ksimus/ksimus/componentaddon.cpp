@@ -26,19 +26,30 @@
 #include "component.h"
 #include "componentaddon.h"
 #include "ksimaction.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
-ComponentAddOn::ComponentAddOn(Component * component)
+ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName)
 	: QObject(component),
 		ComponentItem(component),
-		m_myActions(KSimAction::ALL)
+		m_myActions(KSimAction::ALL),
+		m_addOnName(addOnName)
 {
 	if (!component->m_addonList)
 	{
 		component->m_addonList = new ComponentAddOnList;
 		CHECK_PTR(component->m_addonList);
 	}
+	
+	FOR_EACH_COMPONENT_ADDON(it, *component->m_addonList)
+	{
+		if (it.current()->getName() == m_addOnName)
+		{
+			KSIMDEBUG_VAR("Add on name not unique!", m_addOnName);
+		}
+	}
+	
 	component->m_addonList->append(this);
 }
 
