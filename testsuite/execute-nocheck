@@ -1,0 +1,72 @@
+#!/bin/bash
+
+
+DIR_SCHEMATIC=schematic
+DIR_RESULT=result
+DIR_REFERENCE=reference
+
+if test -z $1; then
+{
+	EXECUTE_MASK=$DIR_SCHEMATIC/*.sim
+};
+else
+{
+	EXECUTE_MASK=$*
+};
+fi
+
+let TEST_CNT=0
+
+
+rm $DIR_RESULT/*.txt
+
+for file in $EXECUTE_MASK; do
+	echo execute $file
+	ksimus --language C --execute $file
+
+	BASENAME=`basename $file .sim`
+
+	RESULT_FILE=$DIR_RESULT/$BASENAME.txt
+	echo result file $RESULT_FILE
+
+	REFERENCE_FILE=$DIR_REFERENCE/$BASENAME.txt
+	echo reference file $REFERENCE_FILE
+
+	if test ! -e $RESULT_FILE; then
+	{
+		echo $file: No result file
+		exit
+	};
+	fi
+#	if test ! -e $REFERENCE_FILE; then
+#	{
+#		echo $file: No reference file
+#		exit
+#	};
+#	fi
+
+#	DIFF=`diff $RESULT_FILE $REFERENCE_FILE`
+
+#	if test -z "$DIFF"; then
+#	{
+#		echo $file: OK
+#		echo
+#		let TEST_CNT+=1
+#	};
+#	else
+#	{
+#		echo $file: result does not match
+#		echo $DIFF
+#		exit
+#	};
+#	fi
+done;
+
+echo
+echo Schematics tested: $TEST_CNT
+
+
+
+
+
+
