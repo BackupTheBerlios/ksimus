@@ -22,9 +22,9 @@
 #include "displaywidget.h"
 
 DisplayWidget::DisplayWidget(CompViewList * viewList, QWidget *parent, const char *name )
-	: 	QWidget(parent,name),
-	    drawMap(new QPixmap),
-			displayList(viewList)
+	:	QWidget(parent,name),
+		drawMap(new QPixmap),
+		displayList(viewList)
 {
 	CHECK_PTR(drawMap);
 }
@@ -43,7 +43,7 @@ void DisplayWidget::updateDrawMap()
 	CHECK_PTR(drawMap);
 
 	QPainter p (drawMap);
-	drawMap->fill(lightGray);
+	drawMap->fill(backgroundColor()/*lightGray*/);
 	
 	FOR_EACH_COMPVIEW(it, *displayList)
 	{
