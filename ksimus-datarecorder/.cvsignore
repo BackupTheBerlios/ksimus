@@ -11,3 +11,6 @@ libtool
 stamp-h
 stamp-h.in
 ksimus-datarecorder.kdevses
+ksimus-datarecorder.kdevelop.pcs
+debug
+autom4te.cache
