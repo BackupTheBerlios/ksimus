@@ -18,11 +18,6 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-
 // Include QT-Header
 #include <qlist.h>
 #include <qobject.h>
@@ -225,7 +220,7 @@ public:
 	/** Returns the default name of the component.
 	  * This is: "initName serialNumber"
 	  */
-	QString Component::getDefaultName() const;
+	QString getDefaultName() const;
 	/** Returns true, if the component uses the default name .*/
 	bool hasDefaultName() const;
 	/** Returns the name of the component.

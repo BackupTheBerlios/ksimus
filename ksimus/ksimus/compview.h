@@ -18,10 +18,6 @@
 #ifndef COMPVIEW_H
 #define COMPVIEW_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 // C-Includes
 
 // QT-Includes

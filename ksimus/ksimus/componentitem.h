@@ -18,11 +18,6 @@
 #ifndef COMPONENTITEM_H
 #define COMPONENTITEM_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-
 /**Base class for all classes you can add to a component
   *@author Rasmus Diekenbrock
   */

@@ -18,10 +18,6 @@
 #ifndef KSIMWIDGET_H
 #define KSIMWIDGET_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <qobject.h>
 #include <qlist.h>
 
