@@ -24,6 +24,7 @@
 #include <kmessagebox.h>
 
 // Project includes
+#include "ksimus.h"
 #include "ksimdata.h"
 #include "resource.h"
 #include "component.h"
@@ -46,9 +47,9 @@
 
 #include "implicitconverterlibrary.h"
 
-static const char * sName = "Name";
-static const char * sNegType = "Neg";
-static const char * sHideType = "Hide";
+static const char * const sName = "Name";
+static const char * const sNegType = "Neg";
+static const char * const sHideType = "Hide";
 
 
 #define HIDDEN_TYPE_ENA		0x0001
@@ -143,7 +144,7 @@ public:
 ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QString & i18nName,
                              const QPoint & pos, ConnOrientationType orient,
                              ConnDirType dir, const ConnectorInfo * ci)
-	:	QObject(comp, name),
+	:	QObject(comp, name.latin1()),
 		ComponentItem(comp),
 		m_wire(0),
 		m_negType(false),
@@ -580,7 +581,7 @@ void ConnectorBase::executeWirePropertyNext()
 
 WatchItemBase * ConnectorBase::makeWatchItem()
 {
-	KMessageBox::sorry( (QWidget *)0,
+	KMessageBox::sorry( getDoc()->getApp(),
 	                    i18n("The watch functionality is not implementated yet.\n"
 	                         "Connector Type: %1")
 	                         .arg(this->getConnInfo()->getName()));
