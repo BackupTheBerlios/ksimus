@@ -2,7 +2,7 @@
 
 SUBDIRS = ksimus-boolean po doc 
 
-EXTRA_DIST = ksimus-boolean.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-boolean.lsm 
+EXTRA_DIST = ksimus-boolean.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-boolean.lsm subdirs 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 

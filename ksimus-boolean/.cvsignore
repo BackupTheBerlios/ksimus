@@ -10,6 +10,5 @@ configure.in
 libtool
 stamp-h
 stamp-h.in
-subdirs
 ksimus-boolean.kdevses
 tags

@@ -10,7 +10,6 @@ configure.in
 libtool
 stamp-h
 stamp-h.in
-subdirs
 messages.log
 tags
 ksimus-floatingpoint.kdevses
