@@ -131,6 +131,10 @@ void ConvertBoolFloat::calculate()
 		}
 		m_recursionLocked = false;
 	}
+	else
+	{
+		executeNext();
+	}
 }
 
 void ConvertBoolFloat::save(KSimData & file) const
