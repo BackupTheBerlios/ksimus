@@ -287,6 +287,16 @@ friend class Module;
 	virtual int checkCircuit();
 
 protected:	
+	/**
+	 * Constructs a input connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient Sets the orientation of the connector.
+	 * @param ci     Sets the connector info (@see ConnectorInfo):
+	 */
 	ConnectorInputBase(	Component * comp,
 						const char * name,
 						const QPoint & pos,
