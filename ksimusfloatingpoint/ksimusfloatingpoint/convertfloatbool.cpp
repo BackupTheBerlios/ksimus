@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 // C-Includes
+#include <math.h>
 
 // QT-Includes
 #include <qpainter.h>
