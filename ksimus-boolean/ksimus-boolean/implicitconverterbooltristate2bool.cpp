@@ -66,7 +66,7 @@ ImplicitConverterBoolTriState2Bool::ImplicitConverterBoolTriState2Bool(Connector
 
 const void * ImplicitConverterBoolTriState2Bool::convert(const void * data)
 {
-	if (data && ((const WireStateBoolTriState *) data)->getState())
+	if (data && !((const WireStateBoolTriState *) data)->isFalse())
 	{
 		m_result = true;
 	}
