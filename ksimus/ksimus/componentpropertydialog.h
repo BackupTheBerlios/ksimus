@@ -48,6 +48,10 @@ public:
 	ComponentPropertyDialog(Component *comp, const QString & caption, QWidget *parent=0, const char *name=0);
 	~ComponentPropertyDialog();
 	
+	/** Executes a ComponentPropertyDialog.
+	    Do some addtional stuff like size storing. */
+	static int execute(Component *comp, const QString & caption, QWidget *parent=0, const char *name=0);
+
 protected slots:
 	virtual void slotDataChanged();
 	virtual void slotOk();
