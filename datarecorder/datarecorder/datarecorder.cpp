@@ -163,12 +163,12 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 
-const ComponentInfo DataRecorderInfo (	"Data Recorder",
-									"Data Recorder",
-									QString::null,
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo DataRecorderInfo(I18N_NOOP("Data Recorder"),
+                                     I18N_NOOP("Data Recorder"),
+                                     QString::null,
+                                     VA_SHEETVIEW,
+                                     create
+                                     );
 
 
 //#################################################################

@@ -35,7 +35,7 @@ DataRecorderView::DataRecorderView(Component * comp, eViewType viewType)
 	setPlace(QRect(0, 0, 7*gridX, 5*gridY));
 	enableRotation(true);
 	enableConnectorSpacingTop(false);
-//	enableConnectorSpacingRight(bool enable = true);
+//	enableConnectorSpacingRight(false);
 	enableConnectorSpacingBottom(false);
 //	enableConnectorSpacingLeft(false);
 }

@@ -27,6 +27,7 @@
 // KDE-Includes
 #include <kdialogbase.h>
 #include <kcolorbtn.h>
+#include <klocale.h>
 
 // KSIMUS-Includes
 #include "ksimus/ksimdata.h"
@@ -122,7 +123,7 @@ DataRecorderChannelBoolean::DataRecorderChannelBoolean(DataRecorder * recorder)
 		m_propertyWidget(0)
 {
 	setChannelType(CT_Boolean);
-	m_input = new ConnectorBoolIn(recorder,"Boolean",QPoint());
+	m_input = new ConnectorBoolIn(recorder,I18N_NOOP("Boolean"),QPoint());
 	m_input->setErasable(true);
 	m_input->getAction().disable(KSimAction::STORAGE);
 	connect(m_input, SIGNAL(signalDeleteRequest(ConnectorBase *)),
@@ -218,7 +219,7 @@ QWidget * DataRecorderChannelBoolean::getPropertyWidget(QWidget * parent, const 
 		widget->setSpacing(KDialog::spacingHint());
 		
 		QLabel * lab;
-		lab = new QLabel("Channel:", widget);
+		lab = new QLabel(i18n("Channel:"), widget);
 		CHECK_PTR(lab);
 		
 		KSimLineEdit * conName;
