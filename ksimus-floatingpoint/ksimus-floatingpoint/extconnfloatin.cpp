@@ -94,9 +94,9 @@ void ExtConnFloatIn::reset()
 {
 	ExternalConnector::reset();
 
-	if (!getExternalConn()->isConnected())
+	if (!getUsedExternalConn()->isConnected())
 	{
-		getExternalConn()->copyData(&m_defaultValue);
+		getUsedExternalConn()->copyData(&m_defaultValue);
 	}
 }
 
@@ -109,7 +109,7 @@ void ExtConnFloatIn::calculate()
 		//ExternalConnector::calculate();
 	
 		ConnectorFloatOut * out = (ConnectorFloatOut *)getInternalConn();
-		ConnectorFloatIn * in = (ConnectorFloatIn *)getExternalConn();
+		ConnectorFloatIn * in = (ConnectorFloatIn *)getUsedExternalConn();
 	
 		out->setOutput(in->getInput(), false);
 		if (out->getWireProperty())

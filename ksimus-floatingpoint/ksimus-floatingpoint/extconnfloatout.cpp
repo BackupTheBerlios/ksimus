@@ -80,7 +80,7 @@ void ExtConnFloatOut::calculate()
 		setRecursionLocked(true);
 //		ExternalConnector::calculate();
 	
-		ConnectorFloatOut * out = (ConnectorFloatOut *)getExternalConn();
+		ConnectorFloatOut * out = (ConnectorFloatOut *)getUsedExternalConn();
 		ConnectorFloatIn * in = (ConnectorFloatIn *)getInternalConn();
 	
 		out->setOutput(in->getInput(), false);
