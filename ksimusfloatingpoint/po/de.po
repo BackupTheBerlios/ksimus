@@ -1,0 +1,670 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-03-04 18:16+0100\n"
+"PO-Revision-Date: 2002-03-04 19:04GMT\n"
+"Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: floatsin.cpp:45
+msgid "Floating Point sin(x)"
+msgstr "Gleitkomma sin(x)"
+
+#: floatsin.cpp:46
+msgid "Floating Point/Arithmetic/Trigonometric/sin(x)"
+msgstr "Floating Point/Arithmetic/Trigonometric/sin(x)"
+
+#: floatsin.cpp:59
+msgid "Floating Point asin(x)"
+msgstr "Gleitkomma asin(x)"
+
+#: floatsin.cpp:60
+msgid "Floating Point/Arithmetic/Trigonometric/asin(x)"
+msgstr "Floating Point/Arithmetic/Trigonometric/asin(x)"
+
+#: floatlineoutput.cpp:48
+msgid "Floating Point Label"
+msgstr "Gleitkomma Label"
+
+#: floatlineoutput.cpp:49
+msgid "Floating Point/Output/Label"
+msgstr "Floating Point/Output/Label"
+
+#: convertboolfloat.cpp:85 convertfloatbool.cpp:75 dataselector.cpp:105
+#: extconnfloatin.cpp:50 extconnfloatout.cpp:48 float1in1out.cpp:40
+#: floatlatch.cpp:98 floatlineoutput.cpp:66 floatxin1out.cpp:48
+msgid "Input"
+msgstr "Input"
+
+#: floatmax.cpp:44
+msgid "Floating Point Maximum"
+msgstr "Gleitkomma Maximum"
+
+#: floatmax.cpp:45
+msgid "Floating Point/Control/Maximum"
+msgstr "Floating Point/Control/Maximum"
+
+#: floattan.cpp:45
+msgid "Floating Point tan(x)"
+msgstr "Gleitkomma tan(x)"
+
+#: floattan.cpp:46
+msgid "Floating Point/Arithmetic/Trigonometric/tan(x)"
+msgstr "Floating Point/Arithmetic/Trigonometric/tan(x)"
+
+#: floattan.cpp:59
+msgid "Floating Point atan(x)"
+msgstr "Gleitkomma atan(x)"
+
+#: floattan.cpp:60
+msgid "Floating Point/Arithmetic/Trigonometric/atan(x)"
+msgstr "Floating Point/Arithmetic/Trigonometric/atan(x)"
+
+#: floatlog.cpp:45
+msgid "Floating Point log(x)"
+msgstr "Gleitkomma log(x)"
+
+#: floatlog.cpp:46
+msgid "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"
+msgstr "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"
+
+#: floatsubtractor.cpp:44
+msgid "Floating Point Subtractor"
+msgstr "Gleitkomma Subtrahierer"
+
+#: floatsubtractor.cpp:45
+msgid "Floating Point/Arithmetic/Subtractor"
+msgstr "Floating Point/Arithmetic/Subtractor"
+
+#: floatsubtractor.cpp:82
+msgid "Minuend"
+msgstr "Minuend"
+
+#: floatsubtractor.cpp:83
+msgid "Subtrahend"
+msgstr "Subtrahend"
+
+#: floatmin.cpp:44
+msgid "Floating Point Minimum"
+msgstr "Gleitkomma Minimum"
+
+#: floatmin.cpp:45
+msgid "Floating Point/Control/Minimum"
+msgstr "Floating Point/Control/Minimum"
+
+#: dataselector.cpp:67
+msgid "Floating Data Selector"
+msgstr "Gleitkomma Datenselektor"
+
+#: dataselector.cpp:68
+msgid "Floating Point/Control/Data Selector"
+msgstr "Floating Point/Control/Data Selector"
+
+#: dataselector.cpp:93
+msgid "Latch Output"
+msgstr "Latch Output"
+
+#: dataselector.cpp:99
+msgid "Latch Address Input"
+msgstr "Latch Address Input"
+
+#: dataselector.cpp:108 floatlatch.cpp:101 floatxin1out.cpp:50
+#, c-format, ycp-format
+msgid "Input %1"
+msgstr "Input %1"
+
+#: dataselector.cpp:112
+msgid "Address"
+msgstr "Address"
+
+#: dataselector.cpp:115
+#, c-format, ycp-format
+msgid "Address %1"
+msgstr "Address %1"
+
+#: dataselector.cpp:180 floatlatch.cpp:190
+msgid "&Add Channel"
+msgstr "&Füge Kanal hinzu"
+
+#: dataselector.cpp:187 floatlatch.cpp:198
+msgid "&Delete Channel"
+msgstr "&Entferne Kanal"
+
+#: dataselector.cpp:375 floatlatch.cpp:347
+msgid "Channel count: "
+msgstr "Anzahl Kanäle:"
+
+#: dataselector.cpp:380 floatlatch.cpp:352
+msgid "Change count of channels here."
+msgstr "Ändere hier die Anzahl der Kanäle."
+
+#: dataselector.cpp:385 float1out.cpp:171 floatlatch.cpp:357
+#: floatstyle1out.cpp:166
+msgid "Reset value: "
+msgstr "Resetwert: "
+
+#: dataselector.cpp:390 float1out.cpp:176 floatlatch.cpp:362
+msgid "Change the reset value of the component here."
+msgstr "Ändere hier den Resetwert der Komponente."
+
+#: floatexp.cpp:45
+msgid "Floating Point exp(x)"
+msgstr "Gleitkomma exp(x)"
+
+#: floatexp.cpp:46
+msgid "Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"
+msgstr "Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"
+
+#: waveformgenerator.cpp:59
+msgid "Floating Point Waveform Generator"
+msgstr "Gleitkomma Signalgenerator"
+
+#: waveformgenerator.cpp:60
+msgid "Floating Point/Control/Waveform Generator"
+msgstr "Floating Point/Control/Waveform Generator"
+
+#: waveformgenerator.cpp:533
+msgid "Waveform: "
+msgstr "Signalform: "
+
+#: waveformgenerator.cpp:538
+msgid "Sinusoidal"
+msgstr "Sinus"
+
+#: waveformgenerator.cpp:539
+msgid "Square"
+msgstr "Rechteck"
+
+#: waveformgenerator.cpp:540
+msgid "Sawtooth"
+msgstr "Sägezahn"
+
+#: waveformgenerator.cpp:541
+msgid "Triangular"
+msgstr "Dreieck"
+
+#: waveformgenerator.cpp:542
+msgid "Dirac"
+msgstr "Dirac"
+
+#: waveformgenerator.cpp:545
+msgid "Sets the waveform."
+msgstr "Setzt die Signalform."
+
+#: waveformgenerator.cpp:551
+msgid "Period: "
+msgstr "Periode: "
+
+#: waveformgenerator.cpp:556
+msgid "The period or frequency of the wave."
+msgstr "Die Periode oder Frequenz des Signals."
+
+#: waveformgenerator.cpp:562
+msgid "Frequency: "
+msgstr "Frequenz: "
+
+#: waveformgenerator.cpp:567
+msgid "Shows the frequency (depends on the period)."
+msgstr "Zeigt die Frequenz (hängt von der Periode ab)."
+
+#: waveformgenerator.cpp:574
+msgid "Phase: "
+msgstr "Phase: "
+
+#: waveformgenerator.cpp:579
+msgid "The phase of the wave. The phase is measured in degree."
+msgstr "Die Phase des Signals. Die Phase wird in Grad angegeben."
+
+#: waveformgenerator.cpp:586
+msgid "Amplitude: "
+msgstr "Amplitude: "
+
+#: waveformgenerator.cpp:591
+msgid "The amplitude of the wave."
+msgstr "Die Amplitude des Signals."
+
+#: waveformgenerator.cpp:598
+msgid "Offset: "
+msgstr "Offset: "
+
+#: waveformgenerator.cpp:603
+msgid "The offset of the wave."
+msgstr "Der Offset des Signals."
+
+#: waveformgenerator.cpp:674
+#, ycp-format
+msgid "%1 Hz"
+msgstr "%1 Hz"
+
+#: extconnfloatin.cpp:48 extconnfloatout.cpp:46 float1out.cpp:58
+#: floatlatch.cpp:105 floatstyle1out.cpp:60
+msgid "Output"
+msgstr "Output"
+
+#: floatstylerange1out.cpp:142
+msgid ""
+"The reset, minimum and maximum values do not match!\n"
+"The values have to match following conditions:\n"
+"\tMinimum Value <= Reset Value <= Maximum Value\n"
+"or\n"
+"\tMinimum Value >= Reset Value >= Maximum Value\n"
+msgstr ""
+"Die Reset-, Minimum- und Maximumwerte passen nicht zusammen!\n"
+"Die Werte müssen folgende Bedingung erfüllen:\n"
+"\tMinimumwert <= Resetwert <= Maximumwert\n"
+"oder\n"
+"\tMinimumwert >= Resetwert >= Maximumwert\n"
+
+#: floatstylerange1out.cpp:157
+msgid ""
+"The reset, minimum and maximum values do not match!\n"
+"The values have to match following condition:\n"
+"\tMinimum Value <= Reset Value <= Maximum Value\n"
+msgstr ""
+"Die Reset-, Minimum- und Maximumwerte passen nicht zusammen!\n"
+"Die Werte müssen folgende Bedingung erfüllen:\n"
+"\tMinimumwert <= Resetwert <= Maximumwert\n"
+
+#: floatstylerange1out.cpp:179
+msgid "Maximum value: "
+msgstr "Maximumwert: "
+
+#: floatstylerange1out.cpp:184
+msgid "The maximum value of the component."
+msgstr "Der maximale Wert der Komponente."
+
+#: floatstylerange1out.cpp:189
+msgid "Minimum value: "
+msgstr "Minimumwert: "
+
+#: floatstylerange1out.cpp:194
+msgid "The minimum value of the component."
+msgstr "Der minimale Wert der Komponente."
+
+#: floatabs.cpp:45
+msgid "Floating Point Absolute Value"
+msgstr "Gleitkomma Betrag"
+
+#: floatabs.cpp:46
+msgid "Floating Point/Arithmetic/Absolute Value"
+msgstr "Floating Point/Arithmetic/Absolute Value"
+
+#: floatadd.cpp:44
+msgid "Floating Point Adder"
+msgstr "Gleitkomma Addierer"
+
+#: floatadd.cpp:45
+msgid "Floating Point/Arithmetic/Adder"
+msgstr "Floating Point/Arithmetic/Adder"
+
+#: floatadd.cpp:82
+#, c-format, ycp-format
+msgid "Summand %1"
+msgstr "Summand %1"
+
+#: float2in1out.cpp:40 simpleconditional.cpp:112
+msgid "Input A"
+msgstr "Input A"
+
+#: float2in1out.cpp:41 simpleconditional.cpp:115
+msgid "Input B"
+msgstr "Input B"
+
+#: floatdivider.cpp:43
+msgid "Floating Point Divider"
+msgstr "Gleitkomma Dividierer"
+
+#: floatdivider.cpp:44
+msgid "Floating Point/Arithmetic/Divider"
+msgstr "Floating Point/Arithmetic/Divider"
+
+#: floatdivider.cpp:81 floatremainder.cpp:83
+msgid "Dividend"
+msgstr "Dividend"
+
+#: floatdivider.cpp:82 floatremainder.cpp:84
+msgid "Divisor"
+msgstr "Divisor"
+
+#: convertboolfloat.cpp:66
+msgid "Converter Boolean to Floating Point"
+msgstr "Konverter Boolean nach Gleitkomma"
+
+#: convertboolfloat.cpp:67
+msgid "Converter/Boolean to Float"
+msgstr "Converter/Boolean to Float"
+
+#: convertboolfloat.cpp:208
+msgid "True Value: "
+msgstr "Wahr-Wert: "
+
+#: convertboolfloat.cpp:213
+msgid "Sets the value which represents the true level."
+msgstr "Setzt den Wert der dem Wahr-Pegel entspricht."
+
+#: convertboolfloat.cpp:220
+msgid "False Value: "
+msgstr "Falsch-Wert: "
+
+#: convertboolfloat.cpp:225
+msgid "Sets the value which represents the false level."
+msgstr "Setzt den Wert der dem Falsch-Pegel entspricht."
+
+#: floatstyle1out.cpp:171
+msgid "Change the reset value of the component here"
+msgstr "Ändere hier den Resetwert der Komponente."
+
+#: floatlineinput.cpp:67
+msgid "Floating Point Line Edit Input"
+msgstr "Gleitkomma Eingabezeile"
+
+#: floatlineinput.cpp:68
+msgid "Floating Point/Input/Line Edit"
+msgstr "Floating Point/Input/Line Edit"
+
+#: floatlineinput.cpp:348
+msgid "Notation: "
+msgstr "Notation: "
+
+#: floatlineinput.cpp:353
+msgid "Fixed Point"
+msgstr "Festkomma"
+
+#: floatlineinput.cpp:354
+msgid "Exponential"
+msgstr "Exponential"
+
+#: floatlineinput.cpp:355
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: floatlineinput.cpp:356
+msgid "Sets the notation type of the input."
+msgstr "Setzt die Notationstyp der Eingabe."
+
+#: floatlineinput.cpp:358
+msgid ""
+"\n"
+"Fixed Point:\n"
+"The value is displayed in fixed point notation.\n"
+"The 'Precision' gives the number of digits after the decimal point.\n"
+"Exponential:\n"
+"The value is displayed in exponential notation.\n"
+"The 'Precision' gives the number of digits after the decimal point.\n"
+"Automatic:\n"
+"The notation depends on the value and precision.\n"
+"The value is displayed in exponent notation if the exponent is less than -4 "
+"or\n"
+"greater than or equal to the 'Precision'; otherwise the fixed-point notation "
+"is used."
+msgstr ""
+"\n"
+"Festkomma:\n"
+"Der Wert wird in der Festkommanotation dargestellt.\n"
+"Die 'Genauigkeit' gibt die Anzahl der Ziffern nach dem Dezimalpunkt an.\n"
+"Exponential:\n"
+"Der Wert wird in der Exponentialnotation dargestellt.\n"
+"Die 'Genauigkeit' gibt die Anzahl der Ziffern nach dem Dezimalpunkt an.\n"
+"Automatisch:\n"
+"Die Notation hängt von dem Wert und der Genauigkeit ab.\n"
+"Der wert wird in der Exponentialnotation angezeigt, wenn der Exponent kleiner als -4 oder\n"
+"größer/gleich der 'Genauigkeit' ist; ansonsten wird die Festkommanotation verwendet."
+
+#: floatlineinput.cpp:372
+msgid "Precision: "
+msgstr "Genauigkeit: "
+
+#: floatlineinput.cpp:377
+msgid "Sets the 'Precision' of the input."
+msgstr "Setzt die Genauigkeit der Eingabe."
+
+#: floatlineinput.cpp:382
+msgid "Tracking"
+msgstr "Verfolgen"
+
+#: floatlineinput.cpp:384
+msgid ""
+"Enables the value tracking.\n"
+"If enabled the output will be updated after each inserted digit.\n"
+"If disabled the output will be updated after the user press return or select "
+"another input field."
+msgstr ""
+"Aktiviert die Wertverfolgung.\n"
+"Wenn aktiviert wird der Ausgang nach jeder eingegebenen Zahl aktualisiert.\n"
+"Wenn deaktiviert wird der Ausgang aktualisiert nachdem der Benutzer die Returntaste\n"
+"betätigt hat oder ein anderes Feld angewählt hat."
+
+#: floatinputslider.cpp:58
+msgid "Floating Point Input Slider"
+msgstr "Gleitkomma Schieber"
+
+#: floatinputslider.cpp:59
+msgid "Floating Point/Input/Slider"
+msgstr "Floating Point/Input/Slider"
+
+#: floatinputslider.cpp:298
+msgid "The reset value of the slider."
+msgstr "Der Resetwert des Schiebers."
+
+#: floatinputslider.cpp:304
+msgid "Top/Left value: "
+msgstr "Oberer/Linker Wert: "
+
+#: floatinputslider.cpp:309
+msgid "The value of the slider at the top or left position."
+msgstr "Der Wert des Schieber an der oberen oder linken Position."
+
+#: floatinputslider.cpp:314
+msgid "Bottom/Right value: "
+msgstr "Unterer/Rechter Wert: "
+
+#: floatinputslider.cpp:319
+msgid "The value of the slider at the bottom or right position."
+msgstr "Der Wert des Schieber an der unteren oder rechten Position."
+
+#: convertfloatbool.cpp:56
+msgid "Converter Floating Point to Boolean"
+msgstr "Konverter Gleitkomma nach Boolean"
+
+#: convertfloatbool.cpp:57
+msgid "Converter/Float to Boolean"
+msgstr "Converter/Float to Boolean"
+
+#: convertfloatbool.cpp:222
+msgid "True Threshold: "
+msgstr "Wahr-Schwellwert: "
+
+#: convertfloatbool.cpp:227
+msgid "Sets the threshold where the converter switch to true."
+msgstr "Setzt die Schwellwert an der der Konverter auf Wahr schaltet."
+
+#: convertfloatbool.cpp:234
+msgid "False Threshold: "
+msgstr "Falsch-Schwellwert: "
+
+#: convertfloatbool.cpp:239
+msgid "Sets the threshold where the converter switch to false."
+msgstr "Setzt den Schwellwert an der der Konverter auf Falsch schaltet."
+
+#: convertfloatbool.cpp:244
+msgid "Medium Threshold: "
+msgstr "Mittlerer Schwellwert: "
+
+#: convertfloatbool.cpp:249
+msgid "Shows the medium value between 'False Threshold' and 'True Threshold'."
+msgstr "Zeigt den Mittelwert zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
+
+#: convertfloatbool.cpp:253
+msgid "Hysteresis: "
+msgstr "Hysterese: "
+
+#: convertfloatbool.cpp:258
+msgid "Shows the hysteresis between 'False Threshold' and 'True Threshold'."
+msgstr "Zeigt die Hysterese zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
+
+#: floatconstinput.cpp:53
+msgid "Floating Point Constant"
+msgstr "Gleitkomma Konstante"
+
+#: floatconstinput.cpp:54
+msgid "Floating Point/Input/Constant"
+msgstr "Floating Point/Input/Constant"
+
+#: floatconstinput.cpp:102
+msgid "Edit &Value..."
+msgstr "Verändere &Wert..."
+
+#: floatconstinput.cpp:229
+msgid "Value: "
+msgstr "Wert: "
+
+#: floatcos.cpp:45
+msgid "Floating Point cos(x)"
+msgstr "Gleitkomma cos(x)"
+
+#: floatcos.cpp:46
+msgid "Floating Point/Arithmetic/Trigonometric/cos(x)"
+msgstr "Floating Point/Arithmetic/Trigonometric/cos(x)"
+
+#: floatcos.cpp:59
+msgid "Floating Point acos(x)"
+msgstr "Gleitkomma acos(x)"
+
+#: floatcos.cpp:60
+msgid "Floating Point/Arithmetic/Trigonometric/acos(x)"
+msgstr "Floating Point/Arithmetic/Trigonometric/acos(x)"
+
+#: extconnfloatout.cpp:33
+msgid "External Connector Floating Point Output"
+msgstr "Externer Connector Gleitkomma Ausgang"
+
+#: extconnfloatout.cpp:34
+msgid "External Connector/Floating Point Output"
+msgstr "External Connector/Floating Point Output"
+
+#: extconnfloatin.cpp:33
+msgid "External Connector Floating Point Input"
+msgstr "Externer Connector Gleitkomma Eingang"
+
+#: extconnfloatin.cpp:34
+msgid "External Connector/Floating Point Input"
+msgstr "External Connector/Floating Point Input"
+
+#: floatlatch.cpp:66
+msgid "Floating Point Latch"
+msgstr "Gleitkomma Speicher"
+
+#: floatlatch.cpp:67
+msgid "Floating Point/Control/Latch"
+msgstr "Floating Point/Control/Latch"
+
+#: floatlatch.cpp:89
+msgid "Reset"
+msgstr "Reset"
+
+#: floatlatch.cpp:95
+msgid "Enable"
+msgstr "Enable"
+
+#: floatlatch.cpp:108
+#, c-format, ycp-format
+msgid "Output %1"
+msgstr "Output %1"
+
+#: floatremainder.cpp:45
+msgid "Floating Point Remainder"
+msgstr "Gleitkomma Restglied"
+
+#: floatremainder.cpp:46
+msgid "Floating Point/Arithmetic/Remainder"
+msgstr "Floating Point/Arithmetic/Remainder"
+
+#: simpleconditional.cpp:53
+msgid "Floating Point Conditional Lesser"
+msgstr "Gleitkomma Bedingung Kleiner"
+
+#: simpleconditional.cpp:54
+msgid "Floating Point/Conditional/Lesser"
+msgstr "Floating Point/Conditional/Lesser"
+
+#: simpleconditional.cpp:62
+msgid "Floating Point Conditional Lesser Equal"
+msgstr "Gleitkomma Bedingung Kleiner/Gleich"
+
+#: simpleconditional.cpp:63
+msgid "Floating Point/Conditional/Lesser Equal"
+msgstr "Floating Point/Conditional/Lesser Equal"
+
+#: simpleconditional.cpp:71
+msgid "Floating Point Conditional Equal"
+msgstr "Gleitkomma Bedingung Gleich"
+
+#: simpleconditional.cpp:72
+msgid "Floating Point/Conditional/Equal"
+msgstr "Floating Point/Conditional/Equal"
+
+#: simpleconditional.cpp:80
+msgid "Floating Point Conditional Larger Equal"
+msgstr "Gleitkomma Bedingung Größer/Gleich"
+
+#: simpleconditional.cpp:81
+msgid "Floating Point/Conditional/Larger Equal"
+msgstr "Floating Point/Conditional/Larger Equal"
+
+#: simpleconditional.cpp:89
+msgid "Floating Point Conditional Larger"
+msgstr "Gleitkomma Bedingung Größer"
+
+#: simpleconditional.cpp:90
+msgid "Floating Point/Conditional/Larger"
+msgstr "Floating Point/Conditional/Larger"
+
+#: simpleconditional.cpp:226
+msgid "Conditional: "
+msgstr "Bedingung: "
+
+#: simpleconditional.cpp:231
+msgid "A < B"
+msgstr "A < B"
+
+#: simpleconditional.cpp:232
+msgid "A <= B"
+msgstr "A <= B"
+
+#: simpleconditional.cpp:233
+msgid "A == B"
+msgstr "A == B"
+
+#: simpleconditional.cpp:234
+msgid "A >= B"
+msgstr "A >= B"
+
+#: simpleconditional.cpp:235
+msgid "A > B"
+msgstr "A > B"
+
+#: simpleconditional.cpp:237
+msgid "Sets the conditional."
+msgstr "Setzt die Bedingung."
+
+#: floatmultiplier.cpp:45
+msgid "Floating Point Multiplier"
+msgstr "Gleitkomma Multiplizierer"
+
+#: floatmultiplier.cpp:46
+msgid "Floating Point/Arithmetic/Multiplier"
+msgstr "Floating Point/Arithmetic/Multiplier"
+
+#: floatmultiplier.cpp:83
+#, c-format, ycp-format
+msgid "Factor %1"
+msgstr "Factor %1"
+
