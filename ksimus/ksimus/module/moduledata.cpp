@@ -591,7 +591,7 @@ bool ModuleData::load(KSimData & file)
 
 const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 {
-	KSimData file(filename);
+	KSimData file(filename, KSimData::versionAsIs, true);   // Read only
 	file.setGroup("/Property/Module/");
 	
 	ModuleViewType moduleView = getModuleViewDict().load(file, sViewType, MV_NONE);
@@ -617,18 +617,16 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 	{
 		case MV_NONE:
 		case MV_GENERIC:
+		case MV_PIXMAP:
 			break;
 		
 		case MV_USERVIEW:
 			viewAttrib = VA_SHEET_AND_USER;
 			break;
 	
-		case MV_PIXMAP:
-			viewAttrib = VA_SHEETVIEW;
-			break;
-	
 		default:
 			KSIMDEBUG_VAR("Unknown module view", moduleView);
+			ASSERT(0);
 			break;
 	}	
 	
