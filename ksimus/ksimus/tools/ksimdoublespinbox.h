@@ -32,8 +32,6 @@
 
 // Forward declaration
 class KSimMultiUnitList;
-class KSimDoubleSpinBoxPrivate;
-class KSimDoubleUnitSpinBoxPrivate;
 class KSimExponentStep;
 class QPopupMenu;
 
@@ -53,6 +51,7 @@ class QPopupMenu;
 
 class KSimDoubleSpinBox : public QSpinBox
 {
+class Private;
 	Q_OBJECT
 
 public:
@@ -228,7 +227,7 @@ private:
 	/** Internal function.
 	*/
 	void init();
-	KSimDoubleSpinBoxPrivate * m_p;
+	Private * m_p;
 
 private slots:
 	/** Internal slot.
@@ -259,6 +258,7 @@ signals:
 
 class KSimDoubleUnitSpinBox : public KSimDoubleSpinBox
 {
+class Private;
 	Q_OBJECT
 
 public:
@@ -341,7 +341,7 @@ protected:
 	virtual void execRmbMenu(int ID);
 
 private:
-	KSimDoubleUnitSpinBoxPrivate * m_p;
+	Private * m_p;
 };
 
 

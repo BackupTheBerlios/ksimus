@@ -40,17 +40,16 @@
 //#############################################################
 //#############################################################
 
-class KSimDoubleSpinBoxPrivate
+class KSimDoubleSpinBox::Private
 {
-	friend class KSimDoubleSpinBox;
-	
-	KSimDoubleSpinBoxPrivate(double value, double min, double max, double steps)
+public:
+	Private(double value, double min, double max, double steps)
 		:	m_value(value),
 			m_min(min),
 			m_max(max),
 			m_step(steps),
 			m_expEna(false),
-			m_expSteps(0),
+			m_expSteps((KSimExponentStep *)0L),
 			m_fieldwidth(0),
 			m_format('g'),
 			m_precision(-1),
@@ -61,7 +60,7 @@ class KSimDoubleSpinBoxPrivate
 	{
 	};
 	
-	~KSimDoubleSpinBoxPrivate()
+	~Private()
 	{
 		delete m_expSteps;
 	};
@@ -114,12 +113,12 @@ class KSimDoubleSpinBoxPrivate
 	static int rmbExponentStepID;
 };
 
-int KSimDoubleSpinBoxPrivate::rmbExponentStepID = -1;
+int KSimDoubleSpinBox::Private::rmbExponentStepID = -1;
 
-#define QSPINBOX_UPPER_LIMIT	2
-#define QSPINBOX_TOGGLE_1			1
-#define QSPINBOX_TOGGLE_0			0
-#define QSPINBOX_LOWER_LIMIT	-1
+#define QSPINBOX_UPPER_LIMIT  2
+#define QSPINBOX_TOGGLE_1     1
+#define QSPINBOX_TOGGLE_0     0
+#define QSPINBOX_LOWER_LIMIT -1
 
 
 
@@ -127,7 +126,7 @@ int KSimDoubleSpinBoxPrivate::rmbExponentStepID = -1;
 
 KSimDoubleSpinBox::KSimDoubleSpinBox(QWidget * parent, const char * name)
 	: QSpinBox(parent, name),
-		m_p(new KSimDoubleSpinBoxPrivate(0.0, -10.0, 10.0, 0.1))
+		m_p(new Private(0.0, -10.0, 10.0, 0.1))
 {
 	init();
 }
@@ -135,7 +134,7 @@ KSimDoubleSpinBox::KSimDoubleSpinBox(QWidget * parent, const char * name)
 KSimDoubleSpinBox::KSimDoubleSpinBox(double value, double min, double max, double steps,
                                      QWidget * parent, const char * name)
 	: QSpinBox(parent, name),
-		m_p(new KSimDoubleSpinBoxPrivate(value, min, max, steps))
+		m_p(new Private(value, min, max, steps))
 {
 	init();
 }
@@ -623,18 +622,18 @@ void KSimDoubleSpinBox::initRmbMenu(QPopupMenu * popup)
 {
 	if (exponentStepPossible())
 	{
-		KSimDoubleSpinBoxPrivate::rmbExponentStepID = popup->insertItem(i18n("Enable exponent steps"));
-		popup->setItemChecked(KSimDoubleSpinBoxPrivate::rmbExponentStepID, exponentStepEnabled());
+		Private::rmbExponentStepID = popup->insertItem(i18n("Enable exponent steps"));
+		popup->setItemChecked(Private::rmbExponentStepID, exponentStepEnabled());
 	}
 	else
 	{
-		KSimDoubleSpinBoxPrivate::rmbExponentStepID = -1; // invalid value
+		Private::rmbExponentStepID = -1; // invalid value
 	}
 }
 
 void KSimDoubleSpinBox::execRmbMenu(int ID)
 {
-	if (ID == KSimDoubleSpinBoxPrivate::rmbExponentStepID)
+	if (ID == Private::rmbExponentStepID)
 	{
 		setExponentStepEnabled(!exponentStepEnabled());
 	}
@@ -643,11 +642,11 @@ void KSimDoubleSpinBox::execRmbMenu(int ID)
 //#############################################################
 //#############################################################
 
-class KSimDoubleUnitSpinBoxPrivate
+class KSimDoubleUnitSpinBox::Private
 {
-	friend class KSimDoubleUnitSpinBox;
+public:
 
-	KSimDoubleUnitSpinBoxPrivate()
+	Private()
 		: currentUnit(0),
 			lastUnit(0),
 			fixedUnit(0),
@@ -656,7 +655,7 @@ class KSimDoubleUnitSpinBoxPrivate
 		multiUnitList = new KSimMultiUnitList();
 		CHECK_PTR(multiUnitList);
 	};
-	~KSimDoubleUnitSpinBoxPrivate()
+	~Private()
 	{
 		delete multiUnitList;
 	};
@@ -672,23 +671,23 @@ class KSimDoubleUnitSpinBoxPrivate
 	static QIntDict<QString> * rmbUnitIDList;
 };
 
-int KSimDoubleUnitSpinBoxPrivate::rmbAutoUnitID = -1;
-QIntDict<QString> * KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList = 0;
+int KSimDoubleUnitSpinBox::Private::rmbAutoUnitID = -1;
+QIntDict<QString> * KSimDoubleUnitSpinBox::Private::rmbUnitIDList = (QIntDict<QString> *)0L;
 
 //#############################################################
 //#############################################################
 
 KSimDoubleUnitSpinBox::KSimDoubleUnitSpinBox(QWidget * parent, const char * name)
 	:	KSimDoubleSpinBox(parent, name),
-		m_p(new KSimDoubleUnitSpinBoxPrivate())
+		m_p(new Private())
 {
 	CHECK_PTR(m_p);
 }
 
 KSimDoubleUnitSpinBox::KSimDoubleUnitSpinBox(double min, double max, double steps,
-                        										QWidget * parent, const char * name)
+                                             QWidget * parent, const char * name)
 	:	KSimDoubleSpinBox(0.0, min, max, steps, parent, name),
-		m_p(new KSimDoubleUnitSpinBoxPrivate())
+		m_p(new Private())
 {
 	CHECK_PTR(m_p);
 }
@@ -907,13 +906,13 @@ void KSimDoubleUnitSpinBox::initRmbMenu(QPopupMenu * popup)
 		popup->insertSeparator();
 	}
 	
-	KSimDoubleUnitSpinBoxPrivate::rmbAutoUnitID = popup->insertItem(i18n("Auto unit"));
-	popup->setItemChecked(KSimDoubleUnitSpinBoxPrivate::rmbAutoUnitID, fixedUnit() == 0);
+	KSimDoubleUnitSpinBox::Private::rmbAutoUnitID = popup->insertItem(i18n("Auto unit"));
+	popup->setItemChecked(KSimDoubleUnitSpinBox::Private::rmbAutoUnitID, fixedUnit() == 0);
 	
 	//####  Add units
 	
-	KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList = new QIntDict<QString>;
-	CHECK_PTR(KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList);
+	KSimDoubleUnitSpinBox::Private::rmbUnitIDList = new QIntDict<QString>;
+	CHECK_PTR(KSimDoubleUnitSpinBox::Private::rmbUnitIDList);
 	
 	QListIterator<KSimUnitList> mulitListIt(getMultiUnitList().getList());
 	
@@ -936,17 +935,17 @@ void KSimDoubleUnitSpinBox::initRmbMenu(QPopupMenu * popup)
 						break;
 					}
 				}
-	    	if (unitIt.current())
-  	  	{
-	  	  	// Insert unit
-	  	  	int ID = popup->insertItem(unitIt.current()->getUnitString());
-  	  		KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList->insert(ID, &unitIt.current()->getUnitString());
-  	  	}
-  	  	break;
-  	  }
-  	  	
-  	  default:
-  	  {
+				if (unitIt.current())
+				{
+					// Insert unit
+					int ID = popup->insertItem(unitIt.current()->getUnitString());
+					KSimDoubleUnitSpinBox::Private::rmbUnitIDList->insert(ID, &unitIt.current()->getUnitString());
+				}
+				break;
+			}
+
+			default:
+			{
 				// Create own popup
 				QPopupMenu * unitPopup = new QPopupMenu (popup, mulitListIt.current()->getListName());
 				CHECK_PTR(unitPopup);
@@ -954,23 +953,23 @@ void KSimDoubleUnitSpinBox::initRmbMenu(QPopupMenu * popup)
 				QListIterator<KSimUnitBase> unitIt(*mulitListIt.current());
 				for (; unitIt.current(); ++unitIt)
 				{
-    			if (!unitIt.current()->isHidden())
-    			{
-	    			int ID = unitPopup->insertItem(unitIt.current()->getUnitString());
-  	  			KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList->insert(ID, &unitIt.current()->getUnitString());
-  	  		}
-    		}
+					if (!unitIt.current()->isHidden())
+					{
+						int ID = unitPopup->insertItem(unitIt.current()->getUnitString());
+						KSimDoubleUnitSpinBox::Private::rmbUnitIDList->insert(ID, &unitIt.current()->getUnitString());
+					}
+				}
 				popup->insertItem(mulitListIt.current()->getListName(), unitPopup);
 				break;
 			}
-		}		
+		}
 	}
 }
 
 void KSimDoubleUnitSpinBox::execRmbMenu(int ID)
 {
 	KSimDoubleSpinBox::execRmbMenu(ID);
-	if (ID == KSimDoubleUnitSpinBoxPrivate::rmbAutoUnitID)
+	if (ID == KSimDoubleUnitSpinBox::Private::rmbAutoUnitID)
 	{
 		if (fixedUnit())
 		{
@@ -983,17 +982,17 @@ void KSimDoubleUnitSpinBox::execRmbMenu(int ID)
 	}
 	else
 	{
-		if (KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList)
+		if (KSimDoubleUnitSpinBox::Private::rmbUnitIDList)
 		{
-			QString * unitStr = KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList->find(ID);
+			QString * unitStr = KSimDoubleUnitSpinBox::Private::rmbUnitIDList->find(ID);
 			if (unitStr)
 			{
 				setFixedUnit(*unitStr);
 			}
 		}
 	}
-	delete KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList;
-	KSimDoubleUnitSpinBoxPrivate::rmbUnitIDList = 0;
+	delete KSimDoubleUnitSpinBox::Private::rmbUnitIDList;
+	KSimDoubleUnitSpinBox::Private::rmbUnitIDList = (QIntDict<QString> *)0L;
 }
 
 
