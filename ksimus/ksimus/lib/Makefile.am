@@ -1,60 +1,7 @@
-####### kdevelop will overwrite this part!!! (begin)##########
+INCLUDES = -I$(top_srcdir)/ksimus -I$(top_srcdir)/ksimus/io -I$(top_srcdir)/ksimus/items -I$(top_srcdir)/ksimus/module -I$(top_srcdir)/ksimus/tools $(all_includes)
+METASOURCES = AUTO
 noinst_LIBRARIES = liblib.a
-
-## INCLUDES were found outside kdevelop specific part
-
-liblib_a_METASOURCES = AUTO
-
-liblib_a_SOURCES = ksimiojoinlibraryitem.cpp ksimiojoinlibrary.cpp ksimiojoininfo.cpp ksimiodevicelibraryitem.cpp ksimiodevicelibrary.cpp ksimiodeviceinfo.cpp implicitconverterlibraryitem.cpp implicitconverterlibrary.cpp implicitconverterinfo.cpp packageinfo.cpp ksimpackage.cpp moduleinfo.cpp wirepropertylibraryitem.cpp wirepropertylibrary.cpp wirepropertyinfo.cpp connectorlibraryitem.cpp connectorlibrary.cpp connectorinfo.cpp componentpopupmenu.cpp componentlistviewitem.cpp componentlistview.cpp componentlibraryitem.cpp componentlibrary.cpp componentinfo.cpp componentdirectory.cpp baselibraryitem.cpp baselibrary.cpp baseinfo.cpp 
-
-
-EXTRA_DIST = baseinfo.cpp baseinfo.h baselibrary.cpp baselibrary.h baselibraryitem.cpp baselibraryitem.h componentdirectory.cpp componentdirectory.h componentinfo.cpp componentinfo.h componentlibrary.cpp componentlibrary.h componentlibraryitem.cpp componentlibraryitem.h componentlistview.cpp componentlistview.h componentlistviewitem.cpp componentlistviewitem.h componentpopupmenu.cpp componentpopupmenu.h connectorinfo.cpp connectorinfo.h connectorlibrary.cpp connectorlibrary.h connectorlibraryitem.cpp connectorlibraryitem.h wirepropertyinfo.cpp wirepropertyinfo.h wirepropertylibrary.cpp wirepropertylibrary.h wirepropertylibraryitem.cpp wirepropertylibraryitem.h moduleinfo.cpp moduleinfo.h ksimpackage.cpp ksimpackage.h packageinfo.cpp packageinfo.h implicitconverterinfo.cpp implicitconverterinfo.h implicitconverterlibrary.cpp implicitconverterlibrary.h implicitconverterlibraryitem.cpp implicitconverterlibraryitem.h ksimiodeviceinfo.cpp ksimiodeviceinfo.h ksimiodevicelibrary.cpp ksimiodevicelibrary.h ksimiodevicelibraryitem.cpp ksimiodevicelibraryitem.h ksimiojoininfo.cpp ksimiojoininfo.h ksimiojoinlibrary.cpp ksimiojoinlibrary.h ksimiojoinlibraryitem.cpp ksimiojoinlibraryitem.h 
-
-install-data-local:
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/baseinfo.h $(pkgincludedir)/baseinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/baselibrary.h $(pkgincludedir)/baselibrary.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/componentdirectory.h $(pkgincludedir)/componentdirectory.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/componentinfo.h $(pkgincludedir)/componentinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/connectorinfo.h $(pkgincludedir)/connectorinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/connectorlibrary.h $(pkgincludedir)/connectorlibrary.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/wirepropertyinfo.h $(pkgincludedir)/wirepropertyinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/moduleinfo.h $(pkgincludedir)/moduleinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/ksimpackage.h $(pkgincludedir)/ksimpackage.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/packageinfo.h $(pkgincludedir)/packageinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/implicitconverterinfo.h $(pkgincludedir)/implicitconverterinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/ksimiodeviceinfo.h $(pkgincludedir)/ksimiodeviceinfo.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/ksimiojoininfo.h $(pkgincludedir)/ksimiojoininfo.h
-
-uninstall-local:
-	-rm -f $(pkgincludedir)/baseinfo.h
-	-rm -f $(pkgincludedir)/baselibrary.h
-	-rm -f $(pkgincludedir)/componentdirectory.h
-	-rm -f $(pkgincludedir)/componentinfo.h
-	-rm -f $(pkgincludedir)/connectorinfo.h
-	-rm -f $(pkgincludedir)/connectorlibrary.h
-	-rm -f $(pkgincludedir)/wirepropertyinfo.h
-	-rm -f $(pkgincludedir)/moduleinfo.h
-	-rm -f $(pkgincludedir)/ksimpackage.h
-	-rm -f $(pkgincludedir)/packageinfo.h
-	-rm -f $(pkgincludedir)/implicitconverterinfo.h
-	-rm -f $(pkgincludedir)/ksimiodeviceinfo.h
-	-rm -f $(pkgincludedir)/ksimiojoininfo.h
-
-####### kdevelop will overwrite this part!!! (end)############
-
-INCLUDES= $(all_includes) -I.. -I../items -I../lib -I../module -I../tools
-
-
+liblib_a_SOURCES =  baseinfo.cpp baselibrary.cpp baselibraryitem.cpp componentdirectory.cpp componentinfo.cpp componentlibrary.cpp componentlibraryitem.cpp componentlistview.cpp componentlistviewitem.cpp componentpopupmenu.cpp connectorinfo.cpp connectorlibrary.cpp connectorlibraryitem.cpp implicitconverterinfo.cpp implicitconverterlibrary.cpp implicitconverterlibraryitem.cpp ksimiodeviceinfo.cpp ksimiodevicelibrary.cpp ksimiodevicelibraryitem.cpp ksimiojoininfo.cpp ksimiojoinlibrary.cpp ksimiojoinlibraryitem.cpp ksimpackage.cpp moduleinfo.cpp packageinfo.cpp wirepropertyinfo.cpp wirepropertylibrary.cpp wirepropertylibraryitem.cpp
+noinst_HEADERS =  baseinfo.h baselibrary.h baselibraryitem.h componentdirectory.h componentinfo.h componentlibrary.h componentlibraryitem.h componentlistview.h componentlistviewitem.h componentpopupmenu.h connectorinfo.h connectorlibrary.h connectorlibraryitem.h implicitconverterinfo.h implicitconverterlibrary.h implicitconverterlibraryitem.h ksimiodeviceinfo.h ksimiodevicelibrary.h ksimiodevicelibraryitem.h ksimiojoininfo.h ksimiojoinlibrary.h ksimiojoinlibraryitem.h ksimpackage.h moduleinfo.h packageinfo.h wirepropertyinfo.h wirepropertylibrary.h wirepropertylibraryitem.h
+AM_CXXFLAGS =  -fPIC
+pkginclude_HEADERS = baseinfo.h componentinfo.h connectorinfo.h ksimiodeviceinfo.h ksimiojoininfo.h ksimpackage.h packageinfo.h wirepropertyinfo.h implicitconverterinfo.h connectorlibrary.h baselibrary.h
