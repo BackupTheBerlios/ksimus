@@ -26,6 +26,8 @@
 #include <qpixmap.h>
 #include <qscrollview.h>
 #include <qpopupmenu.h>
+#include <qtooltip.h>
+#include <qbitmap.h>
 
 // include files for KDE
 #include <klocale.h>
@@ -69,6 +71,129 @@
 
 #define RS_HANDLE_SIZE 8
 
+
+//###################################################################
+//###################################################################
+
+class DynamicTip: public QToolTip
+{
+public:	
+	DynamicTip(QWidget * parent)
+		:	QToolTip(parent),
+			m_text(QString::null)
+	{
+    // no explicit initialization needed
+	};
+	
+	~DynamicTip() {};
+
+	virtual void maybeTip(const QPoint &pos);
+	
+	QString m_text;
+};
+
+
+
+void DynamicTip::maybeTip( const QPoint &pos )
+{
+	if (m_text.isNull())
+		return;
+	QRect r( pos - QPoint(3,3), pos + QPoint(3,3));
+
+	tip( r, m_text );
+}
+
+
+//###################################################################
+//###################################################################
+
+
+#include "wire.cur"
+#include "wire_mask.cur"
+
+class KSimEditorCursor
+{
+public:
+	enum KSimCursorType { arrowCursor, upArrowCursor, crossCursor, waitCursor, ibeamCursor,
+	                      sizeVerCursor, sizeHorCursor, sizeBDiagCursor, sizeFDiagCursor,
+	                      sizeAllCursor, blankCursor, splitVCursor, splitHCursor,
+	                      pointingHandCursor, forbiddenCursor, wireCursor };
+	
+	KSimEditorCursor(KSimEditor * editor);
+	~KSimEditorCursor() {};
+	
+	void set(KSimCursorType newCursor);
+	void setNow(KSimCursorType newCursor);
+	KSimCursorType get() const { return m_current; };
+		
+		
+private:
+	KSimCursorType m_current;
+	KSimEditor * m_editor;
+	QCursor * m_wireCursor;
+	
+};
+
+KSimEditorCursor::KSimEditorCursor(KSimEditor * editor)
+	:	m_editor(editor)
+{
+	// Wire cursor
+	QBitmap bitmap(wire_width, wire_height, wire_bits, true);
+	QBitmap bitmapMask(wire_mask_width, wire_mask_height, wire_mask_bits, true);
+	m_wireCursor = new QCursor(bitmap, bitmapMask, wire_x_hot, wire_y_hot);
+	CHECK_PTR(m_wireCursor);
+
+	setNow(arrowCursor);
+};
+
+void KSimEditorCursor::set(KSimCursorType newCursor)
+{
+	if(get() != newCursor)
+	{
+		setNow(newCursor);
+	}
+}
+
+void KSimEditorCursor::setNow(KSimCursorType newCursor)
+{
+	m_current = newCursor;
+	
+	switch(newCursor)
+	{
+		// Std-Cursors
+		case arrowCursor       : m_editor->setCursor(Qt::arrowCursor);        break;
+		case upArrowCursor     : m_editor->setCursor(Qt::upArrowCursor);      break;
+		case crossCursor       : m_editor->setCursor(Qt::crossCursor);        break;
+		case waitCursor        : m_editor->setCursor(Qt::waitCursor);         break;
+		case ibeamCursor       : m_editor->setCursor(Qt::ibeamCursor);        break;
+		case sizeVerCursor     : m_editor->setCursor(Qt::sizeVerCursor);      break;
+		case sizeHorCursor     : m_editor->setCursor(Qt::sizeHorCursor);      break;
+		case sizeBDiagCursor   : m_editor->setCursor(Qt::sizeBDiagCursor);    break;
+		case sizeFDiagCursor   : m_editor->setCursor(Qt::sizeFDiagCursor);    break;
+		case sizeAllCursor     : m_editor->setCursor(Qt::sizeAllCursor);      break;
+		case blankCursor       : m_editor->setCursor(Qt::blankCursor);        break;
+		case splitVCursor      : m_editor->setCursor(Qt::splitVCursor);       break;
+		case splitHCursor      : m_editor->setCursor(Qt::splitHCursor);       break;
+		case pointingHandCursor: m_editor->setCursor(Qt::pointingHandCursor); break;
+		case forbiddenCursor   : m_editor->setCursor(Qt::forbiddenCursor);    break;
+		
+		// KSimus Cursors
+		case wireCursor:
+			m_editor->setCursor(*m_wireCursor);    break;
+			break;
+	}
+}
+
+
+
+
+
+
+
+//###################################################################
+//###################################################################
+
+
 KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	:	QWidget(parent, name),
 		delayedStatusHelpMsgString(),
@@ -81,6 +206,11 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	drawMap = new QPixmap;
 	CHECK_PTR(drawMap);
   	
+	m_myTip = new DynamicTip(this);
+	CHECK_PTR(m_myTip);
+	m_myCursor = new KSimEditorCursor(this);
+	CHECK_PTR(m_myCursor);
+	
 	setMouseTracking(true);
 	setEditorMode(EM_SELECT);
 	setEditorView(EV_SHEETVIEW);
@@ -93,6 +223,9 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	connect (&autoScrollTimer, SIGNAL(timeout()), SLOT(autoScroll()));
 	connect (&delayedStatusHelpMsgTimer, SIGNAL(timeout()), SLOT(slotDelayedStatusHelpMsg()));
 	
+	
+	QFont newFont("helvetica",12);
+	setFont(newFont);
 	
 }
 
@@ -165,10 +298,10 @@ void KSimEditor::updateDrawMap()
 	
 	p.setPen(black);
 	p.setBrush(black);
-    p.drawRect(0,            0,              RS_HANDLE_SIZE,  RS_HANDLE_SIZE);
-    p.drawRect(0,            size.height(),  RS_HANDLE_SIZE, -RS_HANDLE_SIZE);
-    p.drawRect(size.width(), 0,             -RS_HANDLE_SIZE,  RS_HANDLE_SIZE);
-    p.drawRect(size.width(), size.height(), -RS_HANDLE_SIZE, -RS_HANDLE_SIZE);
+	p.drawRect(0,            0,              RS_HANDLE_SIZE,  RS_HANDLE_SIZE);
+	p.drawRect(0,            size.height(),  RS_HANDLE_SIZE, -RS_HANDLE_SIZE);
+	p.drawRect(size.width(), 0,             -RS_HANDLE_SIZE,  RS_HANDLE_SIZE);
+	p.drawRect(size.width(), size.height(), -RS_HANDLE_SIZE, -RS_HANDLE_SIZE);
 	
 	
 	switch (editorView)
@@ -305,8 +438,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 	{
 		dragStart = dragNow = mousePos;
 		lmbDown = TRUE;
-        dragging = isMapResized = false;
-
+		dragging = isMapResized = false;
 
 		switch (editorMode)
 		{
@@ -334,7 +466,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				}
 				
 				// First check selected object
-				hit = getContainer()->isCompViewHit(&mousePos, &selected);
+				hit = getContainer()->isCompViewHit(mousePos, &selected);
 				{
 					switch (hit)
 					{
@@ -380,7 +512,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 					}
 				}
 				// Then check all displayed objects
-				hit = getContainer()->isCompViewHit(&mousePos, viewList);
+				hit = getContainer()->isCompViewHit(mousePos, viewList);
 				switch (hit)
 				{
 					case NORMAL_HIT:
@@ -524,18 +656,16 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				// Calculate dimension and the middle of all components
 				FOR_EACH_COMPVIEW(it, selected)
 				{
-					x += it.current()->getPlace().left();
-					if (minX > it.current()->getPlace().left())
-						minX = it.current()->getPlace().left();
-					x += it.current()->getPlace().right();
-					if (maxX < it.current()->getPlace().right())
-						maxX = it.current()->getPlace().right();
-					y += it.current()->getPlace().top();
-					if (minY > it.current()->getPlace().top())
-						minY = it.current()->getPlace().top();
-					y += it.current()->getPlace().bottom();
-					if (maxY < it.current()->getPlace().bottom())
-						maxY = it.current()->getPlace().bottom();
+					QRect rec(it.current()->getPlace());
+					
+					x += rec.left();
+					if (minX > rec.left()) minX = rec.left();
+					x += rec.right();
+					if (maxX < rec.right())	maxX = rec.right();
+					y += rec.top();
+					if (minY > rec.top())	minY = rec.top();
+					y += rec.bottom();
+					if (maxY < rec.bottom()) maxY = rec.bottom();
 				};
 				pos.setX( x / (selected.count()*2));
 				pos.setY( y / (selected.count()*2));
@@ -576,7 +706,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 		
 		if (!getContainer()->isRunning())
 		{
-			switch(getContainer()->isCompViewHit(&mousePos, viewList))
+			switch(getContainer()->isCompViewHit(mousePos, viewList))
 			{
 				case NO_HIT:
 					backgroundPopup();
@@ -627,6 +757,7 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 	static int lastMsgX = -1, lastMsgY = -1;
 	QPoint dragPos;
 	QPoint mousePos = mapFromGlobal(ev->globalPos());
+	eHitType hit = getContainer()->isCompViewHit(mousePos, viewList);
 	// New component info
 	if (((mousePos.x()+gridX)/2 != lastMsgX)
 		|| ((mousePos.y()+gridY)/2 != lastMsgY))
@@ -635,11 +766,12 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 		 lastMsgX = (mousePos.x()+gridX)/2;
 		 lastMsgY = (mousePos.y()+gridY)/2;
 		
-		switch(getContainer()->isCompViewHit(&mousePos, viewList))
+		switch(hit)
 		{
+			case INVALID_HIT:
 			case NO_HIT:
-//				delayedStatusHelpMsg(QString());
-
+				delayedStatusHelpMsg(QString::null);
+				m_myTip->m_text = QString::null;
 				break;
 			
 			case NORMAL_HIT:
@@ -647,19 +779,16 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			case SPECIAL_HIT:
 			case COMP_RESIZE_F_HIT:
 			case COMP_RESIZE_B_HIT:
-//				delayedStatusHelpMsg(getContainer()->getFirstCompView()->getComponent()->getName());
 				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(), 0));
+				m_myTip->m_text = getComponentPartName(getContainer()->getFirstCompView()->getComponent(), 0);
 				break;
 				
 			case CONNECTOR_HIT:
 			{
-/*				QString msg;
-				msg = getContainer()->getFirstCompView()->getComponent()->getName();
-				msg += ":";
-				msg += getContainer()->getFirstConnector()->getName();
-				delayedStatusHelpMsg(msg);*/
 				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
 				                                      getContainer()->getFirstConnector()));
+				m_myTip->m_text = getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
+				                                      getContainer()->getFirstConnector());
 				break;
 			}
 		}
@@ -687,17 +816,19 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			switch (editorMode)
 			{
 				case EM_SINGLE_SELECT:
+				{
 					eHitType hit;
 
 					if ((ev->state() & ControlButton) == 0)
 						unselectAll();
-					hit = getContainer()->isCompViewHit(&dragStart, viewList);
+					hit = getContainer()->isCompViewHit(dragStart, viewList);
 					if (hit == NORMAL_HIT)
 					{
 						select (getContainer()->getFirstCompView(),
 								selected.containsRef (getContainer()->getFirstCompView()) == 0);
 					}
-					// no break here !!!!!
+				}
+				// no break here !!!!!
 					
 				case EM_MOVE_OR_SELECT:
 					setEditorMode(EM_MOVE);
@@ -719,10 +850,9 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 					
 					dragPos = mousePos;
 					// Components fits into sheet?
-					QRect newPlace;
-			    	FOR_EACH_COMPVIEW (it, selected)
-	   				{
-   						newPlace = it.current()->getPlace();
+					FOR_EACH_COMPVIEW (it, selected)
+					{
+						QRect newPlace(it.current()->getPlace());
 						newPlace.moveTopLeft(newPlace.topLeft()+ dragPos - dragStart);
 				
 						if (0 < (sheet.top()- newPlace.top()))
@@ -823,6 +953,10 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			drawDragRect();
 		}		
 	}
+	else  // (!lmb)
+	{
+		setEditorCursor(&mousePos, hit);
+	}
 }
 
 static int evButton, evState;
@@ -870,7 +1004,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 			case EM_SINGLE_SELECT:
 				if ((ev->state() & ControlButton) == 0)
 					unselectAll();
-				hit = getContainer()->isCompViewHit(&dragNow, viewList);
+				hit = getContainer()->isCompViewHit(dragNow, viewList);
 				if (hit == NORMAL_HIT)
 				{
 					select (getContainer()->getFirstCompView(),
@@ -884,8 +1018,8 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 				if ((ev->state() & ControlButton) == 0)
 					unselectAll();
 				QRect selectArea = QRect (dragStart, dragNow).normalize();
-			    FOR_EACH_COMPVIEW(it, *viewList)
-	    	 	{
+				FOR_EACH_COMPVIEW(it, *viewList)
+				{
  					if (selectArea.contains (it.current()->getPlace()))
 						select (it.current(), TRUE);
 				}
@@ -941,7 +1075,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 			}
 				
 			case EM_WIRE:
-				hit = getContainer()->isCompViewHit(&dragNow, viewList);
+				hit = getContainer()->isCompViewHit(dragNow, viewList);
 				if ((hit == CONNECTOR_HIT) || (hit == WIRE_HIT))
 				{
 					KSimUndo * undo = getDoc()->getUndo();
@@ -1002,37 +1136,107 @@ void KSimEditor::setEditorMode(EditorModeType newMode)
 {
 	editorMode = newMode;
 	
+	setEditorCursor((QPoint*)0, INVALID_HIT);
+	
+	emit editorModeChanged(editorMode);
+}
+
+void KSimEditor::setEditorCursor(QPoint * pMousePos, eHitType hit) const
+{
 	// set cursor type
 	switch (editorMode)
 	{
 		case EM_INSERT:
 		case EM_PAST:
-			setCursor(crossCursor);
+				m_myCursor->set(KSimEditorCursor::crossCursor);
 			break;
 			
 		case EM_RESIZE_MAP:
 			if (   ((resizeDir ^ (RS_Left|RS_Up)) == 0)
 				|| ((resizeDir ^ (RS_Right|RS_Down)) == 0) )
-				setCursor(sizeFDiagCursor);
+				m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
 			else
-				setCursor(sizeBDiagCursor);
+				m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
 			break;
 			
 		case EM_COMP_RESIZE_B:
-				setCursor(sizeBDiagCursor);
+				m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
 			break;
 		
 		case EM_COMP_RESIZE_F:
-				setCursor(sizeFDiagCursor);
+				m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+			break;
+		
+		case EM_WIRE:
+				m_myCursor->set(KSimEditorCursor::wireCursor);
 			break;
 		
 		default:
-			setCursor(arrowCursor);
-			break;
+			{
+				if (!getContainer()->isRunning() /* && (editorMode == EM_SELECT)*/)
+				{
+					QPoint myMousePos;
+					if (pMousePos)
+					{
+						myMousePos = *pMousePos;
+					}
+					else
+					{
+						myMousePos = mapFromGlobal(QCursor::pos());
+					}
+						
+					if ( ((myMousePos.x()<= RS_HANDLE_SIZE) && (myMousePos.y()<= RS_HANDLE_SIZE))
+					   ||((myMousePos.x()>= size.width()-RS_HANDLE_SIZE) && (myMousePos.y()>= size.height()-RS_HANDLE_SIZE)) )
+					{
+						m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+					}
+					else if ( ((myMousePos.x()<= RS_HANDLE_SIZE) && (myMousePos.y()>= size.height()-RS_HANDLE_SIZE))
+					        ||((myMousePos.x()>= size.width()-RS_HANDLE_SIZE) && (myMousePos.y()<= RS_HANDLE_SIZE)))
+					{
+						m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
+					}
+					else
+					{
+						if (hit == INVALID_HIT)
+						{
+							hit = getContainer()->isCompViewHit(myMousePos, viewList);
+						}
+						switch(hit)
+						{
+							case INVALID_HIT:
+							case NO_HIT:
+							case SPECIAL_HIT:
+							case NORMAL_HIT:
+								m_myCursor->set(KSimEditorCursor::arrowCursor);
+								break;
+				
+							case CONNECTOR_HIT:
+							case WIRE_HIT:
+								m_myCursor->set(KSimEditorCursor::wireCursor);
+								break;
+					
+							case COMP_RESIZE_F_HIT:
+								m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+								break;
+					
+							case COMP_RESIZE_B_HIT:
+								m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
+							break;
+						}
+					}
+				}
+				else
+				{
+					m_myCursor->set(KSimEditorCursor::arrowCursor);
+				}
+				break;
+			}
 	}
-	
-	emit editorModeChanged(editorMode);
 }
+
+
+
+
 /**  */
 void KSimEditor::refreshSimMode(CompViewList * sheetList, CompViewList * userList)
 {
@@ -1380,6 +1584,8 @@ void KSimEditor::backgroundPopup()
 void KSimEditor::componentPopup(bool connectorHit)
 {
 	int idx, connIdx;
+	int rotCWIdx = 0;
+	int rotCCWIdx = 0;
 	KSimUndo * undo = getDoc()->getUndo();
 	CHECK_PTR(undo);
 	QPopupMenu * menu = new QPopupMenu(0, "componentPopup");
@@ -1394,15 +1600,25 @@ void KSimEditor::componentPopup(bool connectorHit)
 		select(getContainer()->getFirstCompView(), TRUE);
 	}
 	
-    getApp()->editDelete->plug(menu);
-    getApp()->editCut->plug(menu);
-    getApp()->editCopy->plug(menu);
-    getApp()->editPaste->plug(menu);
+	getApp()->editDelete->plug(menu);
+	getApp()->editCut->plug(menu);
+	getApp()->editCopy->plug(menu);
+	getApp()->editPaste->plug(menu);
 	
 	if (selected.count()==1)
 	{
 		Component * comp = selected.first()->getComponent();
+		CompView * compView = getSpecificCompView(comp);
 		ConnectorBase * conn = 0;
+		
+		
+		// Init rotation
+		if(compView && compView->isNormalRotationEnabled())
+		{
+			menu->insertSeparator();
+			rotCWIdx = menu->insertItem(i18n("Rotate &CW"));
+			rotCCWIdx = menu->insertItem(i18n("Rotate CC&W"));
+		}
 		
 		if (connectorHit)
 		{
@@ -1431,6 +1647,22 @@ void KSimEditor::componentPopup(bool connectorHit)
 			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn);
 			dia->exec();
 			delete dia;
+		}
+		else if (res == rotCWIdx)
+		{
+			undo->changeProperty(compView, i18n("Rotate CW"));
+			compView->stepRotationCW();
+			getDoc()->setModified();
+			getContainer()->routeComponents();
+			refresh();
+		}
+		else if (res == rotCCWIdx)
+		{
+			undo->changeProperty(compView, i18n("Rotate CCW"));
+			compView->stepRotationCCW();
+			getDoc()->setModified();
+			getContainer()->routeComponents();
+			refresh();
 		}
 	}
 	else
