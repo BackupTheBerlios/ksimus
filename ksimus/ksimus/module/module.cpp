@@ -520,7 +520,7 @@ void Module::reloadModule()
 			}
 			else
 			{
-				logWarning(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(mdata->getPixmapFile()));
+				logError(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(mdata->getPixmapFile()));
 				mdata->setModuleView(MV_GENERIC);
 			}
 			break;
