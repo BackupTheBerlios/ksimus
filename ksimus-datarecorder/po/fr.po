@@ -1,24 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of fr.po to FRANCAIS
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Aurelien Jarno <aurelien@aurel32.net>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: fr\n"
 "POT-Creation-Date: 2003-03-02 17:43+0100\n"
-"PO-Revision-Date: 2002-10-09 10:34GMT+1\n"
+"PO-Revision-Date: 2003-03-28 01:35GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #: channelpositionwidget.cpp:70
 msgid ""
 "_: DataRecorder\n"
 "&Offset: "
-msgstr "&Offset :"
+msgstr "&Offset : "
 
 #: channelpositionwidget.cpp:79
 msgid ""
@@ -252,3 +252,4 @@ msgid ""
 "_: DataRecorder\n"
 "&Zoom:"
 msgstr "&Zoom :"
+
