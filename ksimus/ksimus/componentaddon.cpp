@@ -104,6 +104,10 @@ void ComponentAddOn::reset()
 {
 }
 
+void ComponentAddOn::menuExecuted()
+{
+}
+
 void ComponentAddOn::initPropertyDialog(ComponentPropertyDialog * )
 {
 }
@@ -256,6 +260,16 @@ void ComponentAddOnList::reset()
 		{
 			it.current()->reset();
 		}
+	}
+}
+
+/** Init the property dialog.
+	*/
+void ComponentAddOnList::menuExecuted()
+{
+	FOR_EACH_COMPONENT_ADDON(it, *this)
+	{
+		it.current()->menuExecuted();
 	}
 }
 

@@ -101,6 +101,19 @@ public:
 		*/
 	virtual bool initPopupMenu(QPopupMenu * popup);
 
+	/** Is called after execution of the PopupMenu (@ref initPopupMenu) or PropertyDialog
+	  * (@ref initPropertyDialog). Use this function to adjust things which are difficult
+	  * to handle inside a slot or the function @ref PropertyWidget::acceptPressed.
+	  *
+	  * For example it is problematic to change the connector count inside the PropertyDialog
+	  * because each connector has also a property widget. If you reduce the connector count
+	  * some of these propert widgets have no valid connector. This function delays the connector
+	  * count modification until all property widgets are removed.
+	  *
+	  * The default implementation does nothing.
+	  */
+	virtual void menuExecuted();
+
   /** Returns the actions object. In this object describes all of this addon required actions. */
 	KSimAction & getAction() { return m_myActions; };
 
@@ -172,6 +185,9 @@ public:
 		* This function takes care about the KSimAction information.
 		*/
 	void reset();
+	/** Executes the menuExecuted of the Component.
+		*/
+	void menuExecuted();
 	/** Init the property dialog.
 		* This function takes care about the KSimAction information.
 		*/

@@ -212,6 +212,19 @@ public:
 	  *	Return true, if items are added */
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
+	/** Is called after execution of the PopupMenu (@ref initPopupMenu) or PropertyDialog
+	  * (@ref initPropertyDialog). Use this function to adjust things which are difficult
+	  * to handle inside a slot or the function @ref PropertyWidget::acceptPressed.
+	  *
+	  * For example it is problematic to change the connector count inside the PropertyDialog
+	  * because each connector has also a property widget. If you reduce the connector count
+	  * some of these propert widgets have no valid connector. This function delays the connector
+	  * count modification until all property widgets are removed.
+	  *
+	  * The default implementation calls the @ref ComponentAddOn::menuExecuted functions.
+	  */
+	virtual void menuExecuted();
+	
 	/** Returns a pointer to the sheet map from the parent conatiner */
 	ComponentMap * getSheetMap() const;
 	/** Returns a pointer to the sheet map from the parent conatiner */

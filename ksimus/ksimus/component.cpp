@@ -556,6 +556,16 @@ void Component::logError(const QString & msg)
 //##########################################################
 // Component Dialog
 
+
+void Component::menuExecuted()
+{
+	if(m_addonList)
+	{
+		m_addonList->menuExecuted();
+	}
+}
+
+
 /** Init the property dialog */
 void Component::initPropertyDialog(ComponentPropertyDialog * dialog)
 {
@@ -676,7 +686,7 @@ bool Component::initPopupMenu(QPopupMenu * popup)
 			popup->insertSeparator();
 			insertSep = true;
 		}
-		int idx = popup->insertItem((const char*)i18n("&Hide User View"), getUserView(), SLOT(slotToggleHide()));
+		int idx = popup->insertItem(i18n("&Hide User View"), getUserView(), SLOT(slotToggleHide()));
 		popup->setItemChecked(idx, getUserView()->isHidden());
 	}
 	
