@@ -20,6 +20,7 @@
 
 // Include KDE Header
 #include <klocale.h>
+#include <kapp.h>
 
 // Include KSimus Header
 #include "componentstyle.h"
@@ -31,24 +32,23 @@
 
 // Forward declaration
 
-#define FLAG_ENA_FRAME          0x0002
-#define FLAG_ENA_FRAME_ADJ      0x0004
-#define FLAG_ENA_COLOR          0x0010
-#define FLAG_ENA_COLOR_DEF      0x0020
-#define FLAG_ENA_COLOR_ADJ      0x0040
-
-#define INIT_FRAME(x)       ((x) ? (FLAG_ENA_FRAME | FLAG_ENA_FRAME_ADJ) : 0)
-#define INIT_COLOR(x)       ((x) ? (FLAG_ENA_COLOR | FLAG_ENA_COLOR_ADJ) : FLAG_ENA_COLOR_DEF)
+#define FLAG_ENA_FRAME          0x0001
+#define FLAG_ENA_FRAME_ADJ      0x0002
+#define FLAG_ENA_COLOR_DEF      0x0010
+#define FLAG_ENA_COLOR_ADJ      0x0020
+#define FLAG_ENA_FONT_DEF       0x0100
+#define FLAG_ENA_FONT_ADJ       0x0200
 
 const char * sForegroundColor = "Foreground Color";
 const char * sBackgroundColor = "Foreground Color";
 const char * sFrameEnabled    = "Frame Enabled";
+const char * sFont            = "Font";
 
 
 
-ComponentStyle::ComponentStyle(bool colorEna, bool frameEna, CompContainer * container, const ComponentInfo * ci)
+ComponentStyle::ComponentStyle(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
-		m_flags(INIT_COLOR(colorEna) | INIT_FRAME(frameEna)),
+		m_flags(FLAG_ENA_FRAME | FLAG_ENA_COLOR_DEF | FLAG_ENA_FONT_DEF),
 		m_foreColor(QColor()),
 		m_backColor(QColor()),
 		m_defaultForeColor(QColor()),
@@ -65,23 +65,25 @@ void ComponentStyle::save(KSimData & file) const
 {
 	Component::save(file);
 	
-	if(isColorAdjustmentEnabled())
+	if (getDefaultForegroundColor() != getForegroundColor())
 	{
-		if (getDefaultForegroundColor() != getForegroundColor())
-		{
-			file.writeEntry(sForegroundColor, getForegroundColor());
-		}
-
-		if (getDefaultBackgroundColor() != getBackgroundColor())
-		{
-			file.writeEntry(sBackgroundColor, getBackgroundColor());
-		}
+		file.writeEntry(sForegroundColor, getForegroundColor());
+	}
+	if (getDefaultBackgroundColor() != getBackgroundColor())
+	{
+		file.writeEntry(sBackgroundColor, getBackgroundColor());
 	}
 
-	if (isFrameAdjustmentEnabled() && !isFrameEnabled())
+	if (!isFrameEnabled())
 	{
 		file.writeEntry(sFrameEnabled, false);
 	}
+
+	if (!isDefaultFontEnabled())
+	{
+		file.writeEntry(sFont, getFont());
+	}
+	
 }
 
 bool ComponentStyle::load(KSimData & file, bool copyLoad)
@@ -92,11 +94,23 @@ bool ComponentStyle::load(KSimData & file, bool copyLoad)
 		setBackgroundColor(file.readColorEntry(sBackgroundColor, &getDefaultBackgroundColor()));
 	}
 
-	if (isFrameAdjustmentEnabled())
+	if(isFrameAdjustmentEnabled())
 	{
 		setFrameEnabled(file.readBoolEntry(sFrameEnabled, true));
 	}
 
+	QFont defFont(KApplication::font());
+	if(file.hasKey(sFont))
+	{
+		setFont(file.readFontEntry(sFont, &defFont));
+		setDefaultFontEnabled(false);
+	}
+	else
+	{
+		setFont(defFont);
+		setDefaultFontEnabled(true);
+	}
+	
 	return Component::load(file, copyLoad);
 }
 	
@@ -123,11 +137,6 @@ void ComponentStyle::setFrameAdjustmentEnabled(bool enable)
 	}
 }
 	
-bool ComponentStyle::isColorEnabled() const
-{
-	return m_flags & FLAG_ENA_COLOR;
-}
-
 bool ComponentStyle::isDefaultColorEnabled() const
 {
 	return m_flags & FLAG_ENA_COLOR_DEF;
@@ -162,7 +171,7 @@ void ComponentStyle::setDefaultBackgroundColor(const QColor & color)
 	setBackgroundColor(color);
 }
 
-void ComponentStyle::setDefaultColor(const QColor & fore, const QColor & back)
+void ComponentStyle::setDefaultColors(const QColor & fore, const QColor & back)
 {
 	setDefaultForegroundColor(fore);
 	setDefaultBackgroundColor(back);
@@ -194,11 +203,24 @@ void ComponentStyle::setBackgroundColor(const QColor & color)
 	signalBackgroundColor(color);	
 }
 
+const QColor & ComponentStyle::getForegroundColor() const
+{
+	return m_foreColor;
+}
+	
+const QColor & ComponentStyle::getBackgroundColor() const
+{
+	return m_backColor;
+}
+
+
 void ComponentStyle::setDefaultColorEnabled(bool enable)
 {
 	if (enable)
 	{
 		m_flags |= FLAG_ENA_COLOR_DEF;
+		setForegroundColor(QColor());
+		setBackgroundColor(QColor());
 	}
 	else
 	{
@@ -206,6 +228,65 @@ void ComponentStyle::setDefaultColorEnabled(bool enable)
 	}
 	emit signalDefaultColorEnabled(enable);
 }
+
+
+void ComponentStyle::setFontAdjustmentEnabled(bool enable)
+{
+	if (enable)
+	{
+		m_flags |= FLAG_ENA_FONT_ADJ;
+	}
+	else
+	{
+		m_flags &= ~FLAG_ENA_FONT_ADJ;
+	}
+}
+
+bool ComponentStyle::isFontAdjustmentEnabled() const
+{
+	return m_flags & FLAG_ENA_FONT_ADJ;
+}
+
+bool ComponentStyle::isDefaultFontEnabled() const
+{
+	return m_flags & FLAG_ENA_FONT_DEF;
+}
+
+QFont ComponentStyle::getFont() const
+{
+	if (isDefaultFontEnabled())
+	{
+		return KApplication::font();
+	}
+	else
+	{	
+		return m_font;
+	}
+}
+
+
+void ComponentStyle::setFont(const QFont & font)
+{
+	if (m_font != font)
+	{
+		m_font = font;
+	}
+	emit signalFont(getFont());
+}
+	
+void ComponentStyle::setDefaultFontEnabled(bool defFont)
+{
+	if (defFont)
+	{
+		m_flags |= FLAG_ENA_FONT_DEF;
+	}
+	else
+	{
+		m_flags &= ~FLAG_ENA_FONT_DEF;
+	}
+	emit signalFont(getFont());
+}
+
 
 void ComponentStyle::initPropertyDialog(ComponentPropertyDialog * dialog)
 {

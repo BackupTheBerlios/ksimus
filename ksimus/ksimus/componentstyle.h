@@ -20,6 +20,7 @@
 
 // Include QT Header
 #include <qcolor.h>
+#include <qfont.h>
 
 // Include KDE Header
 
@@ -41,12 +42,10 @@ class ComponentStyle : public Component
 public:
 	
 	/** Constructs a component with additional style properties.
-	  * @param colorEna   Enables color property und the color adjustment
-	  * @param frameEna   Enables frame property (user view only) und the frame adjustment
 	  * @param container  The container which is the parent.
 	  * @param ci         Component info of this component
 	  */
-	ComponentStyle(bool colorEna, bool frameEna, CompContainer * container, const ComponentInfo * ci);
+	ComponentStyle(CompContainer * container, const ComponentInfo * ci);
 	/** The destuctor */
 	~ComponentStyle();
 	
@@ -59,56 +58,7 @@ public:
 	virtual bool load(KSimData & file, bool copyLoad);
 	
 	
-	/** Returns true, if the component have to be displayed a frame  (user view only). */
-	bool isFrameEnabled() const;
 	
-	/** Returns true, if the adjustment of the frame property is allowed. The default depends
-	  * on the constructors parameter. */
-	bool isFrameAdjustmentEnabled() const;
-	
-	/** Sets the adjustment of the frame property. True allows the adjustment, false hides the
-	  * adjustment. The default depends on the constructors parameter. */
-	void setFrameAdjustmentEnabled(bool enable);
-	
-	
-	/** Returns true, if the component have to be colored. */
-	bool isColorEnabled() const;
-	
-	/** Returns true, if the component have to use the default colors. */
-	bool isDefaultColorEnabled() const;
-	
-	/** Returns true, if the adjustment of the color property is allowed. The default depends
-	  * on the constructors parameter. */
-	bool isColorAdjustmentEnabled() const;
-	
-	/** Sets the adjustment of the color property. True allows the adjustment, false hides the
-	  * adjustment. The default depends on the constructors parameter. */
-	void setColorAdjustmentEnabled(bool enable);
-	
-	/** Returns the foreground color. The default is a invalid color.*/
-	const QColor & getForegroundColor() const { return m_foreColor; };
-	
-	/** Sets the default foreground color. The default is a invalid color
-	  * Sets also the foreground color. */
-	void setDefaultForegroundColor(const QColor & color);
-	
-	/** Returns the default foreground color. The default is a invalid color.*/
-	const QColor & getDefaultForegroundColor() const { return m_defaultForeColor; };
-	
-	/** Returns the background color. The default is a invalid color. */
-	const QColor & getBackgroundColor() const { return m_backColor; };
-	
-	/** Sets the default background color. The default is a invalid color.
-	  * Sets also the background color. */
-	void setDefaultBackgroundColor(const QColor & color);
-	
-	/** Returns the default background color. The default is a invalid color. */
-	const QColor & getDefaultBackgroundColor() const { return m_defaultBackColor; };
-	
-	/** Sets the default colors. The defaults are a invalid colors.
-	  * Sets also the foreground and background colors. */
-	void setDefaultColor(const QColor & fore, const QColor & back);
-
 	/** Init the property dialog */
 	virtual void initPropertyDialog(ComponentPropertyDialog * dialog);
 	
@@ -122,16 +72,110 @@ public:
 	virtual ComponentPropertyBaseWidget * createStyleProperty(ComponentStyle * comp, QWidget *parent);
 
 	
+	
+	//##########   COLOR    ############
+
+	/** Sets the adjustment of the color property. True allows the adjustment, false hides the
+	  * adjustment. The default depends on the constructors parameter. */
+	void setColorAdjustmentEnabled(bool enable);
+	
+	/** Returns true, if the adjustment of the color property is allowed. The default depends
+	  * on the constructors parameter. */
+	bool isColorAdjustmentEnabled() const;
+	
+	//##########   COLOR    ---   Default colors
+
+	/** Returns true, if the component have to use the default colors. */
+	bool isDefaultColorEnabled() const;
+	
+	
+	//##########   COLORs
+
+	/** Returns the foreground color. The default is a invalid color.*/
+	const QColor & getForegroundColor() const;
+	
+	/** Returns the background color. The default is a invalid color. */
+	const QColor & getBackgroundColor() const;
+	
+	
+	
+	/** Sets the default foreground color. The default is a invalid color
+	  * Sets also the foreground color. */
+	void setDefaultForegroundColor(const QColor & color);
+	
+	/** Returns the default foreground color. The default is a invalid color.*/
+	const QColor & getDefaultForegroundColor() const { return m_defaultForeColor; };
+	
+	
+	/** Sets the default background color. The default is a invalid color.
+	  * Sets also the background color. */
+	void setDefaultBackgroundColor(const QColor & color);
+	
+	/** Returns the default background color. The default is a invalid color. */
+	const QColor & getDefaultBackgroundColor() const { return m_defaultBackColor; };
+	
+	/** Sets the default colors. The defaults are a invalid colors.
+	  * Sets also the foreground and background colors. */
+	void setDefaultColors(const QColor & fore, const QColor & back);
+
+	
+	
+	//##########   FRAME    ############
+	
+	/** Sets the adjustment of the frame property. True allows the adjustment, false hides the
+	  * adjustment. The default is off. */
+	void setFrameAdjustmentEnabled(bool enable);
+	
+	/** Returns true, if the adjustment of the frame property is allowed. The default is off. */
+	bool isFrameAdjustmentEnabled() const;
+	
+	/** Returns true, if the component have to be displayed a frame (user view only). The default is true. */
+	bool isFrameEnabled() const;
+	
+	//##########   FONT    ############
+	
+	/** Sets the adjustment of the font property. True allows the adjustment, false hides the
+	  * adjustment. The default is off. */
+	void setFontAdjustmentEnabled(bool enable);
+	
+	/** Returns true, if the adjustment of the font property is allowed. The default is off. */
+	bool isFontAdjustmentEnabled() const;
+	
+	/** Returns true, if the component have to use the default font. */
+	bool isDefaultFontEnabled() const;
+	
+	/** Returns the selected font. */
+	QFont getFont() const;
+	
+	
+	
+	
+	
+	
 public slots:
-	/** Enables the frame of the component view (user view only). */
-	void setFrameEnabled(bool enable);
+	//##########   COLOR    ############
+	
+	/** The component uses the default colors if true or the special colors if false. */
+	void setDefaultColorEnabled(bool enable);
 	/** Sets the foreground color. */
 	void setForegroundColor(const QColor & color);
 	/** Sets the background color. */
 	void setBackgroundColor(const QColor & color);
-	/** The component uses the default colors if true or the special colors if false. */
-	void setDefaultColorEnabled(bool enable);
 
+	
+	//##########   FRAME    ############
+	
+	/** Enables the frame of the component view (user view only). The default is true. */
+	void setFrameEnabled(bool enable);
+	
+	//##########   FONT    ############
+	
+	/** Sets the font. */
+	void setFont(const QFont & font);
+	
+	/** Sets the font. */
+	void setDefaultFontEnabled(bool defFont);
+	
 
 signals:
 	/** Enables the frame of the component view (user view only). */
@@ -142,6 +186,8 @@ signals:
 	void signalBackgroundColor(const QColor & color);
 	/** The component uses the default colors if true or the special colors if false. */
 	void signalDefaultColorEnabled(bool enable);
+	/** Font has changed. */
+	void signalFont(const QFont & font);
 
 private:
 	Q_UINT32 m_flags;
@@ -149,6 +195,7 @@ private:
 	QColor m_backColor;
 	QColor m_defaultForeColor;
 	QColor m_defaultBackColor;
+	QFont m_font;
 	
 };
 
