@@ -343,12 +343,11 @@ unsigned int Component::executePropertyCheck()
 	{	
 		// Error detected
 		QString errText(i18n("Property Errors"));
-		errText += "\n" + errMsg.join("\n");
+		errText += ":\n\n" + errMsg.join("\n");
 		
-		LogListItem *item = new LogListItem(errText,LOG_ERROR);
-		getLogList()->append(item);
-		
-		KMessageBox::error(0,errText,i18n("Property Errors"));
+		logError(errText);
+
+		KMessageBox::error(0, errText, i18n("Property Errors"));
 
 		// Restore data
 		if(getUndo())
