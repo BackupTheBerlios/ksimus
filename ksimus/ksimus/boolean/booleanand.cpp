@@ -63,59 +63,28 @@ const ComponentInfoList BooleanAndList = { &BooleanAndInfo, &BooleanNandInfo, 0 
 //###############################################################
 
 
-BooleanAndView::BooleanAndView(BooleanAnd * comp, eViewType viewType)
-	: CompView(comp, viewType)
-{
-	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
-
-	ComponentLayout * lay = new ComponentLayout(this);
-	CHECK_PTR(lay);
-	
-	lay->getLeft()->addSpace(1);
-	lay->getLeft()->addConnectorPack(comp->getInputConnectorPack());
-	
-	lay->getRight()->addStretch(2);
-	lay->getRight()->addConnector(comp->getOutputConnector(),0);
-	lay->getRight()->addStretch(2);
-	
-	lay->updateLayout();
-}
-BooleanAndView::~BooleanAndView()
-{
-}
-
 void BooleanAndView::draw(QPainter * p)
 {
-	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
-							getWidgetPlace().bottomRight()-QPoint(0,0));
+	BooleanXIn1OutView::draw(p);
 	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
+	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
+							getWidgetPlace().bottomRight());
 	
 	p->drawText(rect, AlignCenter, "&");
-
-	CompView::draw(p);
 }
 
 
 //###############################################################
+//###############################################################
 
 BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
-	: Component(container, ci)
+	: BooleanXIn1Out(container, ci)
 {
-	m_out = new ConnectorBoolOut (this, i18n("Output"));
-	CHECK_PTR(m_out);
 	
-	m_inPack = new ConnectorPack(this, QString("Input"), &ConnectorBoolInInfo, 2, 10);
-	CHECK_PTR(m_inPack);
-//	m_inPack->setDeleteLastOnly(false);
-	m_inPack->setConnectorCount(2);
-	
-	// make Nand
+	// make NAND
 	if (ci == &BooleanNandInfo)
 	{
-		m_out->setNegate(true, true);
+		getOutputConnector()->setNegate(true, true);
 	}
 	
 	// Initializes the sheet view
@@ -130,26 +99,16 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void BooleanAnd::calculate()
 {
-	Component::calculate();
-	m_result = true;
+	BooleanXIn1Out::calculate();
 	
-	FOR_EACH_CONNECTOR(it, *m_inPack->getConnList())
+	bool result = true;
+	
+	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
 	{
-		m_result &= ((ConnectorBoolIn*)it.current())->getInput();
-		if (!m_result) break;	//  No more changes possible
+		result &= ((ConnectorBoolIn*)it.current())->getInput();
+		if (!result) break;	//  No more changes possible
 	}
-}
-
-/** Shift the result of calculation to output */
-void BooleanAnd::updateOutput()
-{
-	Component::updateOutput();
-	m_out->setOutput(m_result);
-}
-/** Reset all simulation variables */
-void BooleanAnd::reset()
-{
-	Component::reset();
-	m_result = false;
+	
+	setState(result);
 }
 

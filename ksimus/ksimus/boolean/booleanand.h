@@ -25,53 +25,42 @@
 // KDE-Includes
 
 // Project-Includes
-#include "component.h"
-#include "compview.h"
-#include "componentinfo.h"
+#include "booleanxin1out.h"
 
 // Forward declaration
-class ConnectorPack;
-class ConnectorBoolOut;
 
-/**A boolean and gate
-  *@author Rasmus Diekenbrock
+extern const ComponentInfoList BooleanAndList;
+
+
+//###############################################################
+
+/**A boolean AND /NAND gate with muliple inputs
+	*
+  * @author Rasmus Diekenbrock
   */
-extern "C" const ComponentInfoList BooleanAndList;
 
-class BooleanAnd : public Component
+class BooleanAnd : public BooleanXIn1Out
 {
 public:
 	/** Constructs a boolean AND/NAND */
 	BooleanAnd(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
-	/** Reset all simulation variables */
-	virtual void reset();
-
-	/** Returns the output connector.
-	  */
-	ConnectorBoolOut * getOutputConnector() const { return m_out; };
-	/** Returns the input connector pack.
-	  */
-	ConnectorPack * getInputConnectorPack() const { return m_inPack; };
-	
-
-protected:
-	bool m_result;
-	ConnectorBoolOut * m_out;
-	ConnectorPack * m_inPack;
 
 };
 
 //###############################################################
 
-class BooleanAndView : public CompView
+/** The view for the boolean AND/NAND gates.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class BooleanAndView : public BooleanXIn1OutView
 {
 public:
-	BooleanAndView(BooleanAnd * comp, eViewType viewType);
-	~BooleanAndView();
+	BooleanAndView(BooleanAnd * comp, eViewType viewType)
+		: BooleanXIn1OutView(comp, viewType) {};
+	
 	virtual void draw(QPainter * p);
 };
 
