@@ -478,12 +478,17 @@ unsigned int Component::executePropertyCheck()
 	if(errMsg.count())
 	{	
 		// Error detected
-		QString errText(i18n("Property Errors"));
-		errText += ":\n\n" + errMsg.join(QString::fromLatin1("\n"));
-		
-		logError(errText);
+		QString caption((errMsg.count() == 1)
+		                ? i18n("Property Error")
+		                : i18n("Property Errors"));
 
-		KMessageBox::error(0, errText, i18n("Property Errors"));
+		QString errText(caption
+		                + QString::fromLatin1(":\n\n")
+		                + errMsg.join(QString::fromLatin1("\n")));
+
+//		logError(errText);
+
+		KMessageBox::error(0, errText, caption);
 
 		// Restore data
 		if(getUndo())
