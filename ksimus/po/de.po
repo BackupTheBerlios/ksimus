@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-03-02 22:22+0100\n"
-"PO-Revision-Date: 2002-03-02 22:57GMT\n"
+"PO-Revision-Date: 2002-03-04 19:30GMT\n"
 "Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -346,12 +346,12 @@ msgstr "External Connector/Bool Input"
 #: boolean/simtimeinput.cpp:168 items/extconnboolin.cpp:47
 #: items/extconnboolout.cpp:44
 msgid "Output"
-msgstr "Ausgang"
+msgstr "Output"
 
 #: boolean/booleanled.cpp:80 boolean/booleanxin1out.cpp:45
 #: items/extconnboolin.cpp:49 items/extconnboolout.cpp:46
 msgid "Input"
-msgstr "Eingang"
+msgstr "Input"
 
 #: items/connectorbase.cpp:542
 msgid "&Disconnect wire"
@@ -1237,7 +1237,7 @@ msgstr "Control/Tick Time"
 #: boolean/booleanxin1out.cpp:47
 #, c-format, ycp-format
 msgid "Input %1"
-msgstr "Eingang %1"
+msgstr "Input %1"
 
 #: boolean/booleanand.cpp:44
 msgid "Boolean AND"

@@ -424,7 +424,7 @@ The external connector is rotatable.
 
 <simplelist>
 <member><link linkend="component-sim-time">Simulation Time</link></member>
-<member><link linkend="component-tick-time">Simulation Time</link></member>
+<member><link linkend="component-tick-time">Tick Time</link></member>
 </simplelist>
 
 
