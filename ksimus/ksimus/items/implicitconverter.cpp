@@ -25,6 +25,7 @@
 #include "implicitconverter.h"
 #include "implicitconverterinfo.h"
 #include "connectorbase.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
@@ -56,10 +57,13 @@ ImplicitConverter::ImplicitConverter(ConnectorBase * connector, const ImplicitCo
 	m_p = new Private(implicitConverterInfo);
 	CHECK_PTR(m_p);
 
+//	KSIMDEBUG_VAR("ImplicitConverter::ImplicitConverter", implicitConverterInfo->getName());
+
 }
 
 ImplicitConverter::~ImplicitConverter()
 {
+//	KSIMDEBUG_VAR("ImplicitConverter::~ImplicitConverter", m_p->implicitConverterInfo->getName());
 	delete m_p;
 }
 

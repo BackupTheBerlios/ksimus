@@ -108,6 +108,7 @@ const void * ConnectorBoolIn::readoutData() const
 void ConnectorBoolIn::copyData(const void * p)
 {
 	bool tmp = *(const bool *)p;
+//	KSIMDEBUG(QString::fromLatin1("copyData %1   %2 ==> %3").arg(getFullName()).arg(m_data).arg(tmp));
 	if (tmp != m_data)
 	{
 		m_data = tmp;
@@ -117,6 +118,7 @@ void ConnectorBoolIn::copyData(const void * p)
 /** Returns the input data */
 bool ConnectorBoolIn::getInput() const
 {
+//	KSIMDEBUG(QString::fromLatin1("getInput %1 %2").arg(getFullName()).arg(m_data ^ isNegated()));
 	return m_data ^ isNegated();
 }
 

@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 // C-Includes
 #include <limits.h>
 
@@ -102,6 +101,12 @@ void WirePropertyBoolTristate::setupCircuit()
   * to the input connector. */
 void WirePropertyBoolTristate::execute()
 {
+//	KSIMDEBUG_VAR("WirePropertyBoolTristate::execute()", getWire()->getName());
+/*	if (this != getMasterWireProperty())
+	{
+		KSIMDEBUG_VAR("this != getMasterWireProperty()", getWire()->getName());
+	}*/
+	
 	if (m_lockRecursion) return;
 	
 	m_lockRecursion = true;
