@@ -207,7 +207,7 @@ DataRecorder::DataRecorder(CompContainer * container, const ComponentInfo * ci)
 		new DataRecorderView(this, SHEET_VIEW);
 	}
 	m_channelList = new DataRecorderChannelList;
-//	m_channelList->setAutoDelete(true);
+	m_channelList->setAutoDelete(true);
 	
 	m_channelInputList = new ConnectorInputList;
 
@@ -348,9 +348,9 @@ void DataRecorder::arrangeChannelInputs()
 {
 	int c = 0;
 	
-	FOR_EACH_CONNECTORINPUT(it, *m_channelInputList)
+	FOR_EACH_CHANNEL(it, *m_channelList)
 	{
-		it.current()->setGridPos(QPoint(0, 2*c+1));
+		it.current()->getConnector()->setGridPos(QPoint(0, 2*c+1));
 		c++;
 	}
 
@@ -359,13 +359,13 @@ void DataRecorder::arrangeChannelInputs()
 	{
 		int newHeight;
 	
-	  if (m_channelInputList->count() < 3)
+	  if (m_channelList->count() < 3)
 	  {
 			newHeight = 5 * gridY;
 		}
 		else
 		{
-			newHeight = (m_channelInputList->count()*2+1) * gridY;
+			newHeight = (m_channelList->count()*2+1) * gridY;
 		}
 	
 		QRect place = getSheetView()->getPlace();
@@ -577,7 +577,7 @@ void DataRecorder::slotRemoveChannelConn(ConnectorBase * conn)
 {
 	bool found = false;
 	
-//	KSIMDEBUG("Remove Connector");
+	KSIMDEBUG("Remove Connector");
 	FOR_EACH_CHANNEL(it, *getChannelList())
 	{
 		if (it.current()->getConnector() == conn)
