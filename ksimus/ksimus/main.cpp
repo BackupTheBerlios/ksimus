@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
 	KAboutData aboutData( "ksimus", I18N_NOOP("KSimus"),
 		VERSION, description, KAboutData::License_GPL,
-		"(c) 2002, Rasmus Diekenbrock");
+		"(c) 2003, Rasmus Diekenbrock");
 	aboutData.addAuthor("Rasmus Diekenbrock",0, "ksimus@gmx.de");
 	KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
