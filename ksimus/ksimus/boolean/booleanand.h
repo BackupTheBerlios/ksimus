@@ -30,7 +30,7 @@
 #include "componentinfo.h"
 
 // Forward declaration
-class ConnectorBoolIn;
+class ConnectorPack;
 class ConnectorBoolOut;
 
 /**A boolean and gate
@@ -41,8 +41,8 @@ extern "C" const ComponentInfoList BooleanAndList;
 class BooleanAnd : public Component
 {
 public:
+	/** Constructs a boolean AND/NAND */
 	BooleanAnd(CompContainer * container, const ComponentInfo * ci);
-	~BooleanAnd();
 	/** Executes the simulation of this component */
 	virtual void calculate();
 	/** Shift the result of calculation to output */
@@ -51,10 +51,9 @@ public:
 	virtual void reset();
 
 protected:
-	bool result;
-	ConnectorBoolOut * out;
-	ConnectorBoolIn * inA;
-	ConnectorBoolIn * inB;
+	bool m_result;
+	ConnectorBoolOut * m_out;
+	ConnectorPack * m_inPack;
 
 };
 

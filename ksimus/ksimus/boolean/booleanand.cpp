@@ -29,6 +29,8 @@
 #include "connectorboolin.h"
 #include "connectorboolout.h"
 #include "componentinfo.h"
+#include "connectorpack.h"
+#include "componentlayout.h"
 
 // Forward declaration
 
@@ -72,18 +74,14 @@ BooleanAndView::~BooleanAndView()
 
 void BooleanAndView::draw(QPainter * p)
 {
-	QRect rect(getPlace().topLeft()+QPoint(gridX+1,1),
-							getPlace().bottomRight()-QPoint(gridX-0,0));
+	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
+							getWidgetPlace().bottomRight()-QPoint(0,0));
 	
 	p->setPen(QPen(black, 2));
 	p->setBrush(NoBrush);
-//	p->drawRect(getPlace().x()+gridX*1+1, getPlace().y()+1, gridX*3-1, gridY*5-1);
 	p->drawRect(rect);
 	
 	p->drawText(rect, AlignCenter, "&");
-/*	p->drawText(getPlace().x()+gridX+1, getPlace().y()+gridY+1,
-				getPlace().width()-gridX*2-1, getPlace().height()-gridY*2-1,
-				AlignCenter, "&");*/
 
 	CompView::draw(p);
 }
@@ -94,17 +92,17 @@ void BooleanAndView::draw(QPainter * p)
 BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
-	out = new ConnectorBoolOut (this, i18n("Output"), QPoint(4,2));
-	CHECK_PTR(out);
-	inA = new ConnectorBoolIn (this, i18n("Input A"), QPoint(0,1));
-	CHECK_PTR(inA);
-	inB = new ConnectorBoolIn (this, i18n("Input B"), QPoint(0,3));
-	CHECK_PTR(inB);
+	m_out = new ConnectorBoolOut (this, i18n("Output"), QPoint(4,2));
+	CHECK_PTR(m_out);
+	
+	m_inPack = new ConnectorPack(QString("Input"), this, &ConnectorBoolInInfo, 2, 10);
+	CHECK_PTR(m_inPack);
+	m_inPack->setConnectorCount(2);
 	
 	// make Nand
 	if (ci == &BooleanNandInfo)
 	{
-		out->setNegate(true, true);
+		m_out->setNegate(true, true);
 	}
 	
 	// Initializes the sheet view
@@ -114,29 +112,41 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
-}
-
-BooleanAnd::~BooleanAnd()
-{
+	
+	ComponentLayout * lay = new ComponentLayout(this);
+	
+	lay->getLeft()->addSpace(1);
+	lay->getLeft()->addConnectorPack(m_inPack);
+	
+	lay->getRight()->addStretch(2);
+	lay->getRight()->addConnector(m_out,0);
+	lay->getRight()->addStretch(2);
+	
+	lay->updateLayout();
 }
 
 /** Executes the simulation of this component */
 void BooleanAnd::calculate()
 {
 	Component::calculate();
-	result = inA->getInput() && inB->getInput();
+	m_result = true;
+	
+	FOR_EACH_CONNECTOR(it, *m_inPack->getConnList())
+	{
+		m_result &= ((ConnectorBoolIn*)it.current())->getInput();
+	}
 }
 
 /** Shift the result of calculation to output */
 void BooleanAnd::updateOutput()
 {
 	Component::updateOutput();
-	out->setOutput(result);
+	m_out->setOutput(m_result);
 }
 /** Reset all simulation variables */
 void BooleanAnd::reset()
 {
 	Component::reset();
-	result = false;
+	m_result = false;
 }
 
