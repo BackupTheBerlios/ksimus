@@ -1,7 +1,7 @@
 [/]
 Components=18
 Document Type=KSimus
-Document Version=KSimus 0.3.5
+Document Version=KSimus 0.3.7
 
 [/Component 0/]
 Amplitude=10
@@ -22,7 +22,7 @@ Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
 Column Separator=,
-Last Serial Number=47
+Last Serial Number=50
 Number of channels=3
 Serial List=1,2,23
 Serial Number=10
@@ -105,99 +105,99 @@ Connector=Input 2
 Type=wire/property/floating point
 
 [/Component 13/]
-Serial Number=41
+Serial Number=44
 Type=Wire/Wire
 
 [/Component 13/Connections/]
-Number=3
+Number=2
 
 [/Component 13/Connections/Connection 0/]
-Component=1
+Component=32
 Connector=Output
 
 [/Component 13/Connections/Connection 1/]
-Component=22
-Connector=Summand A
-
-[/Component 13/Connections/Connection 2/]
-Component=46
-Connector=Input B
+Component=31
+Connector=Summand B
 
 [/Component 13/Property/]
 Type=wire/property/floating point
 
 [/Component 14/]
-Serial Number=43
+Serial Number=45
 Type=Wire/Wire
 
 [/Component 14/Connections/]
-Number=3
+Number=2
 
 [/Component 14/Connections/Connection 0/]
-Component=30
+Component=23
 Connector=Output
 
 [/Component 14/Connections/Connection 1/]
-Component=31
-Connector=Summand A
-
-[/Component 14/Connections/Connection 2/]
-Component=46
-Connector=Input A
+Component=22
+Connector=Summand B
 
 [/Component 14/Property/]
 Type=wire/property/floating point
 
 [/Component 15/]
-Serial Number=44
+Serial Number=47
 Type=Wire/Wire
 
 [/Component 15/Connections/]
 Number=2
 
 [/Component 15/Connections/Connection 0/]
-Component=32
+Component=46
 Connector=Output
 
 [/Component 15/Connections/Connection 1/]
-Component=31
-Connector=Summand B
+Component=10
+Connector=Input 23
 
 [/Component 15/Property/]
 Type=wire/property/floating point
 
 [/Component 16/]
-Serial Number=45
+Serial Number=48
 Type=Wire/Wire
 
 [/Component 16/Connections/]
-Number=2
+Number=3
 
 [/Component 16/Connections/Connection 0/]
-Component=23
+Component=30
 Connector=Output
 
 [/Component 16/Connections/Connection 1/]
-Component=22
-Connector=Summand B
+Component=31
+Connector=Summand A
+
+[/Component 16/Connections/Connection 2/]
+Component=46
+Connector=Input B
 
 [/Component 16/Property/]
 Type=wire/property/floating point
 
 [/Component 17/]
-Serial Number=47
+Serial Number=49
 Type=Wire/Wire
 
 [/Component 17/Connections/]
-Number=2
+Number=3
 
 [/Component 17/Connections/Connection 0/]
-Component=46
+Component=1
 Connector=Output
 
 [/Component 17/Connections/Connection 1/]
-Component=10
-Connector=Input 23
+Component=22
+Connector=Summand A
+
+[/Component 17/Connections/Connection 2/]
+Component=46
+Connector=Input A
 
 [/Component 17/Property/]
 Type=wire/property/floating point
@@ -218,7 +218,7 @@ Unit=Ticks
 Pos=128,304
 
 [/Component 2/Start Delay/]
-Time=1000000000
+Time=10000000000
 Unit=s
 
 [/Component 3/]
@@ -314,7 +314,7 @@ Time=500000000
 Unit=ms
 
 [/Property/]
-Last Serial Number=47
+Last Serial Number=49
 Sheetsize=1000,504
 Usersize=1000,504
 

@@ -1,11 +1,11 @@
 [/]
 Components=12
 Document Type=KSimus
-Document Version=KSimus 0.3.5
+Document Version=KSimus 0.3.7
 
 [/Component 0/]
 Amplitude=10
-Offset=9
+Offset=10
 Serial Number=1
 Type=Floating Point/Control/Waveform Generator
 Wave Type=Sawtooth
@@ -15,14 +15,14 @@ Time=10000000000
 Unit=s
 
 [/Component 0/Sheet/]
-Pos=16,48
+Pos=32,48
 
 [/Component 1/]
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
 Column Separator=,
-Last Serial Number=34
+Last Serial Number=36
 Number of channels=2
 Serial List=1,2
 Serial Number=10
@@ -94,7 +94,7 @@ Time=5
 Unit=Ticks
 
 [/Component 2/Sheet/]
-Pos=128,304
+Pos=128,296
 
 [/Component 2/Start Delay/]
 Time=1000000000
