@@ -5,144 +5,241 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-04-20 20:11+0200\n"
-"PO-Revision-Date: 2002-02-26 13:25GMT+1\n"
+"POT-Creation-Date: 2002-10-01 19:52+0200\n"
+"PO-Revision-Date: 2002-10-09 10:34GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
-"Language-Team: Français <de@li.org>\n"
+"Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
 #: channelpositionwidget.cpp:70
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "&Offset: "
-msgstr "Enregisteur de données"
+msgstr "&Offset :"
 
 #: channelpositionwidget.cpp:79
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "&Gain: "
-msgstr "Enregisteur de données"
+msgstr "&Gain :"
 
 #: datarecorderchannelbase.cpp:177
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "Change Channel Name"
-msgstr "Changer le nom du canal"
+msgstr "Changement du nom du canal"
 
 #: datarecorderchannelboolean.cpp:130
-#, fuzzy
 msgid ""
 "_: DataRecorder-Connector\n"
 "Boolean"
-msgstr "Enregisteur de données"
+msgstr "Logique"
 
-#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:220
+#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:222
 #: datarecorderwidget.cpp:177
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "Channel:"
-msgstr "Enregisteur de données"
+msgstr "Canal :"
+
+#: textrec.cpp:101
+msgid ""
+"_: DataRecorder-Component\n"
+"Text Recorder"
+msgstr "Enregisteur de texte"
+
+#: textrec.cpp:103
+msgid ""
+"_: DataRecorder-Component\n"
+"Recorder/Text Recorder"
+msgstr "Enregistreur/Enregisteur de texte"
+
+#: textrec.cpp:235
+msgid ""
+"_: DataRecorder-Connector\n"
+"Trigger"
+msgstr "Trigger"
+
+#: textrec.cpp:236
+msgid ""
+"_: DataRecorder-Connector Trigger\n"
+"T"
+msgstr "T"
+
+#: textrec.cpp:242
+msgid ""
+"_: DataRecorder\n"
+"Trigger input:"
+msgstr "Entrée trigger :"
+
+#: textrec.cpp:326
+msgid "Creation of Connector %1 failed!"
+msgstr "Échec lors de la création du connecteur %1 !"
+
+#: textrec.cpp:611
+msgid "Filename is not valid. Document not saved?"
+msgstr "Le nom de fichier n'est pas valable. Document non enregistré ?"
+
+#: textrec.cpp:620
+msgid "File %1 is not writable"
+msgstr "Écriture impossible du fichier %1"
+
+#: textrec.cpp:632
+msgid "Directory %1 not exists"
+msgstr "Le répertoire %1 n'existe pas"
+
+#: textrec.cpp:676
+msgid "File open failed (Filename %1)"
+msgstr "Échec de l'ouverture du fichier %1"
+
+#: textrec.cpp:684
+msgid "No filename"
+msgstr "Aucun nom de fichier"
+
+#: textrec.cpp:697
+msgid "Add &boolean connector"
+msgstr "Ajouter un connecteur &logique"
+
+#: textrec.cpp:698
+msgid "Add &floating point connector"
+msgstr "Ajouter un connecteur virgule &flottante"
+
+#: textrec.cpp:707 textrec.cpp:719
+msgid "Add channel"
+msgstr "Ajout d'un canal"
+
+#: textrec.cpp:738
+msgid "Remove channel"
+msgstr "Suppression d'un canal"
+
+#: textrec.cpp:908
+msgid "File:"
+msgstr "Fichier :"
+
+#: textrec.cpp:917
+msgid "Column separator:"
+msgstr "Séparateur de colonne :"
+
+#: textrec.cpp:921
+msgid "Edit the column separator here."
+msgstr "Changez le séparateur de colonne ici."
+
+#: textrec.cpp:929
+msgid "Switches:"
+msgstr "Paramètres :"
+
+#: textrec.cpp:932
+msgid "Append data to existing file"
+msgstr "Ajouter les données au fichier existant"
+
+#: textrec.cpp:935
+msgid ""
+"If checked an exisiting file will not be deleted before a new simulations is "
+"started."
+msgstr "Si cette option est activée, un fichier existant ne sera pas supprimé avant le démarrage de la simulation."
+
+#: textrec.cpp:939
+msgid "Add date and time at the top"
+msgstr "Ajouter la date et l'heure au début"
+
+#: textrec.cpp:942
+msgid ""
+"If checked the date and time of the simulation start is added top of the new "
+"data."
+msgstr "Si cette option est activée, la date et l'heure du début de la simulation seront ajoutés au début des nouvelles données."
+
+#: textrec.cpp:946
+msgid "Add the connector names at the top"
+msgstr "Ajouter le nom des connecteurs au début"
+
+#: textrec.cpp:949
+msgid "If checked the the connector names are added top of the new data."
+msgstr "Si cette option est activée, le nom des connecteurs sera ajouté au début des nouvelles données."
+
+#: textrec.cpp:954
+msgid "Add line numbers"
+msgstr "Ajouter les numéros de ligne"
+
+#: textrec.cpp:957
+msgid "If checked the lines in the log file are numbered."
+msgstr "Si cette option est activée, les lignes dans le fichier de log seront numérotées."
+
+#: textrec.cpp:961
+msgid "Add time stamp"
+msgstr "Horodatage"
+
+#: textrec.cpp:964
+msgid ""
+"If checked a time stamp is added in front of each line (after the optional "
+"line number)."
+msgstr "Si cette option est activée, un horodatage sera ajouté au début de chaque ligne (après le numéro de ligne optionnel)."
 
 #: zoomwidget.cpp:219
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "%1 Sample/Pixel"
-msgstr "%1 Echantillon/pixel"
+msgstr "%1 échantillon/pixel"
 
 #: zoomwidget.cpp:223
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "%1 s/div"
-msgstr "Enregisteur de données"
+msgstr "%1 s/div"
 
-#: datarecorder.cpp:207 datarecorder.cpp:209
-#, fuzzy
+#: datarecorder.cpp:232
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
 msgstr "Enregisteur de données"
 
-#: datarecorder.cpp:572 datarecorderview.cpp:87
-#, fuzzy
+#: datarecorder.cpp:234
+msgid ""
+"_: DataRecorder-Component\n"
+"Recorder/Data Recorder"
+msgstr "Enreigisteur/Enregisteur de données"
+
+#: datarecorder.cpp:589 datarecorderview.cpp:88
 msgid ""
 "_: DataRecorder\n"
 "&Open graph"
-msgstr "Enregisteur de données"
+msgstr "&Ouvrir le graphe"
 
-#: datarecorder.cpp:573
-#, fuzzy
+#: datarecorder.cpp:590
 msgid ""
 "_: DataRecorder\n"
 "Add &boolean connector"
 msgstr "Ajouter un connecteur &logique"
 
-#: datarecorder.cpp:574
-#, fuzzy
+#: datarecorder.cpp:591
 msgid ""
 "_: DataRecorder\n"
 "Add &floating point connector"
 msgstr "Ajouter un connecteur virgule &flottante"
 
-#: datarecorder.cpp:597 datarecorder.cpp:608
-#, fuzzy
+#: datarecorder.cpp:614 datarecorder.cpp:625
 msgid ""
 "_: DataRecorder\n"
 "Add channel"
-msgstr "Enregisteur de données"
+msgstr "Ajout d'un canal"
 
-#: datarecorder.cpp:624
-#, fuzzy
+#: datarecorder.cpp:641
 msgid ""
 "_: DataRecorder\n"
 "Remove channel"
-msgstr "Supprimer le canal"
+msgstr "Suppression d'un canal"
 
 #: datarecorderchannelfloat.cpp:125
-#, fuzzy
 msgid ""
 "_: DataRecorder-Connector\n"
 "Floating Point"
-msgstr "Enregisteur de données"
+msgstr "Virgule flottante"
 
 #: datarecorderwidget.cpp:182
-#, fuzzy
 msgid ""
 "_: DataRecorder\n"
 "&Zoom:"
-msgstr "Enregisteur de données"
+msgstr "&Zoom :"
 
-#~ msgid "&Offset: "
-#~ msgstr "&Décalage :"
-
-#~ msgid "&Gain: "
-#~ msgstr "&Gain :"
-
-#~ msgid "Boolean"
-#~ msgstr "Logique"
-
-#~ msgid "Channel:"
-#~ msgstr "Canal :"
-
-#~ msgid "%1 s/div"
-#~ msgstr "%1 s/div"
-
-#~ msgid "&Open"
-#~ msgstr "&Ouvrir"
-
-#~ msgid "Add channel"
-#~ msgstr "Ajouer un canal"
-
-#~ msgid "Floating Point"
-#~ msgstr "Virgule flottante"
-
-#~ msgid "&Zoom:"
-#~ msgstr "&Zoom :"
