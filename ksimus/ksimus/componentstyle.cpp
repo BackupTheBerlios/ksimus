@@ -40,7 +40,9 @@
 #define FLAG_ENA_FONT_ADJ       0x0200
 
 const char * sForegroundColor = "Foreground Color";
-const char * sBackgroundColor = "Foreground Color";
+const char * sBackgroundColor = "Background Color";
+const char * sForegroundColorDefault = "Foreground Color Default";
+const char * sBackgroundColorDefault = "Background Color Default";
 const char * sFrameEnabled    = "Frame Enabled";
 const char * sFont            = "Font";
 
@@ -67,11 +69,25 @@ void ComponentStyle::save(KSimData & file) const
 	
 	if (getDefaultForegroundColor() != getForegroundColor())
 	{
-		file.writeEntry(sForegroundColor, getForegroundColor());
+		if(getForegroundColor().isValid())
+		{
+			file.writeEntry(sForegroundColor, getForegroundColor());
+		}
+		else
+		{
+			file.writeEntry(sForegroundColorDefault, true);
+		}
 	}
 	if (getDefaultBackgroundColor() != getBackgroundColor())
 	{
-		file.writeEntry(sBackgroundColor, getBackgroundColor());
+		if(getBackgroundColor().isValid())
+		{
+			file.writeEntry(sBackgroundColor, getBackgroundColor());
+		}
+		else
+		{
+			file.writeEntry(sBackgroundColorDefault, true);
+		}
 	}
 
 	if (!isFrameEnabled())
@@ -90,8 +106,22 @@ bool ComponentStyle::load(KSimData & file, bool copyLoad)
 {
 	if(isColorAdjustmentEnabled())
 	{
-		setForegroundColor(file.readColorEntry(sForegroundColor, &getDefaultForegroundColor()));
-		setBackgroundColor(file.readColorEntry(sBackgroundColor, &getDefaultBackgroundColor()));
+		if(file.hasKey(sForegroundColorDefault))
+		{
+			setForegroundColor(QColor());
+		}
+		else
+		{
+			setForegroundColor(file.readColorEntry(sForegroundColor, &getDefaultForegroundColor()));
+		}
+		if(file.hasKey(sBackgroundColorDefault))
+		{
+			setBackgroundColor(QColor());
+		}
+		else
+		{
+			setBackgroundColor(file.readColorEntry(sBackgroundColor, &getDefaultBackgroundColor()));
+		}
 	}
 
 	if(isFrameAdjustmentEnabled())

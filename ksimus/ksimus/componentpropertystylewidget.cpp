@@ -62,9 +62,9 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	CHECK_PTR(m_colorGroup);
 	
 	// Color Group - Default colors
-	m_defaultColors = new QCheckBox(i18n("Use default colors"), getColorBox(), "Default Colors");
+	m_defaultColors = new QCheckBox(i18n("Use system colors"), getColorBox(), "Default Colors");
 	CHECK_PTR(m_defaultColors);
-	str = i18n("Check the box if the component have to use the default (common) color scheme.");
+	str = i18n("Check the box if the component have to use the color scheme of your system.");
 	addToolTip(str, m_defaultColors);
 	addWhatsThis(str, m_defaultColors);
 	
@@ -129,19 +129,39 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	if (!getCompStyle()->isColorAdjustmentEnabled())
 		getColorBox()->hide();
 	// def color
-	m_defaultColors->setChecked(getCompStyle()->isDefaultColorEnabled());
+	bool useDefaultColor = !(getCompStyle()->getForegroundColor().isValid()
+	                        && getCompStyle()->getBackgroundColor().isValid());
+	
+	m_defaultColors->setChecked(useDefaultColor);
 	// Fore color
-	m_foreGround->setColor(getCompStyle()->getForegroundColor());
-	m_foreGround->setDisabled(getCompStyle()->isDefaultColorEnabled());
+	if (getCompStyle()->getForegroundColor().isValid())
+	{
+		m_foreGround->setColor(getCompStyle()->getForegroundColor());
+	}
+	else
+	{
+		m_foreGround->setColor(palette().color(QPalette::Active, QColorGroup::Foreground));
+	}
+	m_foreGround->setDisabled(useDefaultColor);
 	connect(m_defaultColors, SIGNAL(toggled(bool)), m_foreGround, SLOT(setDisabled(bool)));
 	// Back color
-	m_backGround->setColor(getCompStyle()->getBackgroundColor());
-	m_backGround->setDisabled(getCompStyle()->isDefaultColorEnabled());
+	if (getCompStyle()->getBackgroundColor().isValid())
+	{
+		m_backGround->setColor(getCompStyle()->getBackgroundColor());
+	}
+	else
+	{
+		m_backGround->setColor(palette().color(QPalette::Active, QColorGroup::Background));
+	}
+	m_backGround->setDisabled(useDefaultColor);
 	connect(m_defaultColors, SIGNAL(toggled(bool)), m_backGround, SLOT(setDisabled(bool)));
+	
+	
 	
   //*** frame ***
   // Ena frame box
-	getFrameBox()->setEnabled(getCompStyle()->isFrameAdjustmentEnabled());
+	if (!getCompStyle()->isFrameAdjustmentEnabled())
+		getFrameBox()->hide();
 	// frame ena
 	m_enaFrame->setChecked(getCompStyle()->isFrameEnabled());
 		
@@ -158,9 +178,6 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	m_exampleFont->setFont(m_font);
 	m_exampleFont->setText(m_font.family());
 	connect(m_defaultFont, SIGNAL(toggled(bool)), m_exampleFont, SLOT(setDisabled(bool)));
-	
-
-
 		
 	
 	// Set main layout
@@ -179,25 +196,27 @@ void ComponentPropertyStyleWidget::acceptPressed()
 {
 	ComponentPropertyBaseWidget::acceptPressed();
 
-	if (getCompStyle()->getForegroundColor() != m_foreGround->color())
+	QColor foreColor = m_foreGround->color();
+	QColor backColor = m_backGround->color();
+
+	if (m_defaultColors->isChecked())
+	{
+		foreColor = QColor();
+		backColor = QColor();
+	}
+	
+	if (getCompStyle()->getForegroundColor() != foreColor)
 	{
 		changeData();
-		getCompStyle()->setForegroundColor(m_foreGround->color());
+		getCompStyle()->setForegroundColor(foreColor);
 	}
 
-	if (getCompStyle()->getBackgroundColor() != m_backGround->color())
+	if (getCompStyle()->getBackgroundColor() != backColor)
 	{
 		changeData();
-		getCompStyle()->setBackgroundColor(m_backGround->color());
+		getCompStyle()->setBackgroundColor(backColor);
 	}
-
-	// First set colors and then set
-	if (getCompStyle()->isDefaultColorEnabled() != m_defaultColors->isChecked())
-	{
-		changeData();
-		getCompStyle()->setDefaultColorEnabled(m_defaultColors->isChecked());
-	}
-
+	
 	if (getCompStyle()->isFrameEnabled() != m_enaFrame->isChecked())
 	{
 		changeData();
@@ -223,18 +242,32 @@ void ComponentPropertyStyleWidget::defaultPressed()
 {
 	ComponentPropertyBaseWidget::defaultPressed();
 
-	if(getCompStyle()->getDefaultForegroundColor().isValid()
-		|| getCompStyle()->getDefaultBackgroundColor().isValid())
+	bool useDefaultColor = !(getCompStyle()->getDefaultForegroundColor().isValid()
+	                        && getCompStyle()->getDefaultBackgroundColor().isValid());
+	
+	m_defaultColors->setChecked(useDefaultColor);
+	// Fore color
+	if (getCompStyle()->getDefaultForegroundColor().isValid())
 	{
-		m_defaultColors->setChecked(false);
+		m_foreGround->setColor(getCompStyle()->getDefaultForegroundColor());
 	}
 	else
 	{
-		m_defaultColors->setChecked(true);
+		m_foreGround->setColor(palette().color(QPalette::Active, QColorGroup::Foreground));
 	}
+	m_foreGround->setDisabled(useDefaultColor);
+	// Back color
+	if (getCompStyle()->getDefaultBackgroundColor().isValid())
+	{
+		m_backGround->setColor(getCompStyle()->getDefaultBackgroundColor());
+	}
+	else
+	{
+		m_backGround->setColor(palette().color(QPalette::Active, QColorGroup::Background));
+	}
+	m_backGround->setDisabled(useDefaultColor);
 	
-	m_foreGround->setColor(getCompStyle()->getDefaultForegroundColor());
-	m_backGround->setColor(getCompStyle()->getDefaultBackgroundColor());
+	
 	
 	m_enaFrame->setChecked(getCompStyle()->isFrameAdjustmentEnabled());
 
