@@ -221,9 +221,15 @@ install_location=$$(kde_icondir)/locolor/16x16/apps/datarecorder.png
 type=DATA
 
 [po/Makefile.am]
-files=po/fr.po
+files=po/fr.po,po/de.po
 sub_dirs=
 type=po
+
+[po/de.po]
+dist=false
+install=false
+install_location=
+type=PO
 
 [po/fr.po]
 dist=false

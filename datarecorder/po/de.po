@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-21 22:18+0100\n"
+"PO-Revision-Date: 2002-01-21 22:20GMT\n"
+"Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: channelpositionwidget.cpp:68
+msgid "&Offset: "
+msgstr "&Offset: "
+
+#: channelpositionwidget.cpp:77
+msgid "&Gain: "
+msgstr "&Verstärkung:"
+
+#: datarecorderchannelbase.cpp:174
+msgid "Change Channel Name"
+msgstr "Ändere Kanalname"
+
+#: datarecorderchannelboolean.cpp:126
+msgid "Boolean"
+msgstr "Boolesche"
+
+#: datarecorderchannelboolean.cpp:222 datarecorderwidget.cpp:171
+msgid "Channel:"
+msgstr "Kanal:"
+
+#: zoomwidget.cpp:217
+#, ycp-format
+msgid "%1 Sample/Pixel"
+msgstr "%1 Sample/Pixel"
+
+#: zoomwidget.cpp:221
+#, ycp-format
+msgid "%1 s/div"
+msgstr "%1 s/div"
+
+#: datarecorder.cpp:166 datarecorder.cpp:167
+msgid "Data Recorder"
+msgstr "Datenrecorder"
+
+#: datarecorder.cpp:513
+msgid "&Open"
+msgstr "&Öffne"
+
+#: datarecorder.cpp:514
+msgid "&Add boolean connector"
+msgstr "&Füge boolescher Anschluß hinzu"
+
+#: datarecorder.cpp:538
+msgid "Add channel"
+msgstr "Füge Kanal hinzu"
+
+#: datarecorder.cpp:554
+msgid "Remove channel"
+msgstr "Lösche Kanal"
+
+#: datarecorderwidget.cpp:176
+msgid "&Zoom:"
+msgstr "&Zoom:"
+
