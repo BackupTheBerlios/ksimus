@@ -19,7 +19,7 @@
 //#include "connectorbase.h"
 
 /*ConnectorList::ConnectorList()
-	: QList<ConnectorBase>()
+	: QPtrList<ConnectorBase>()
 {
 } */
 /*ConnectorList::~ConnectorList()

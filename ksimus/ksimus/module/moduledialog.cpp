@@ -32,7 +32,7 @@
 #include <qtooltip.h>
 
 // KDE-Includes
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 #include <kdialog.h>
 
@@ -121,13 +121,13 @@ void ModuleDialog::createView()
 	QSplitter * horiSplitter;
 	
 	horiSplitter = new QSplitter(Horizontal, this);
-	CHECK_PTR(horiSplitter);
+	Q_CHECK_PTR(horiSplitter);
 	
 	leftBox = new QVBox(horiSplitter);
-	CHECK_PTR(leftBox);
+	Q_CHECK_PTR(leftBox);
 	
 	vertSplitter = new QSplitter(Vertical, horiSplitter);
-	CHECK_PTR(vertSplitter);
+	Q_CHECK_PTR(vertSplitter);
 	// Insert type selection widget
 	createTypeSelectionWidget(leftBox);
 	
@@ -158,8 +158,8 @@ void ModuleDialog::initView()
 	}
 	else
 	{
-		connViewItems = new QList<QListViewItem>;
-		CHECK_PTR(connViewItems);
+		connViewItems = new QPtrList<QListViewItem>;
+		Q_CHECK_PTR(connViewItems);
 	}
 	connView->clear();
 	
@@ -169,7 +169,7 @@ void ModuleDialog::initView()
 	{
 		const ExternalConnector * extConn = (ExternalConnector*)it.current();
 		QListViewItem * item = new QListViewItem(connView);
-		CHECK_PTR(item);
+		Q_CHECK_PTR(item);
 		
 		item->setText(1, extConn->getName());
 		item->setText(2, extConn->getExternalConn()->getConnInfo()->getName());
@@ -219,13 +219,13 @@ QWidget * ModuleDialog::createConnSelectionWidget(QWidget * parent)
 	box->setSpacing(KDialog::spacingHint());
 	
 	QGroupBox * widget = new QGroupBox(1,Horizontal,i18n("Connector Selection"),box);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	
 	QFontMetrics metric(widget->font());
 		
 	text = i18n("used");
 	connView = new QListView(widget);
-	CHECK_PTR(connView);
+	Q_CHECK_PTR(connView);
 //	connView->setMinimumSize( 100, 50);
 	connView->addColumn(text,metric.width(text)+metric.width(QString::fromLatin1("  ")));
 	connView->setColumnAlignment(0, AlignHCenter);
@@ -250,12 +250,12 @@ QWidget * ModuleDialog::createEditorWidget(QWidget * parent)
 	box->setSpacing(KDialog::spacingHint());
 	
 	QGroupBox * widget = new QGroupBox(1,Horizontal,i18n("Module Preview"), box);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 
 	m_scrView = new QScrollView(widget);
-	CHECK_PTR(m_scrView);
+	Q_CHECK_PTR(m_scrView);
 	modEdit = new ModuleEditor(this, m_scrView->viewport());
-	CHECK_PTR(modEdit);
+	Q_CHECK_PTR(modEdit);
 	m_scrView->addChild(modEdit);
 	m_scrView->viewport()->setBackgroundColor(white);
 	

@@ -28,7 +28,7 @@
 #include <klocale.h>
 #include <kdialogbase.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Project includes
 #include "library.h"
@@ -130,13 +130,13 @@ KSimIoDeviceOverviewWidget::KSimIoDeviceOverviewWidget(QWidget *parent, const ch
 	addColSpacing(1, KDialog::spacingHint());
 
 	QVBox * leftBox = new QVBox(this, "leftBox");
-	CHECK_PTR(leftBox);
+	Q_CHECK_PTR(leftBox);
 	leftBox->setSpacing(KDialog::spacingHint());
 
 	QLabel * label = new QLabel(i18n("IO Devices known by KSimus:"), leftBox, "label");
 
 	m_list = new QListView(leftBox, "m_list");
-	CHECK_PTR(m_list);
+	Q_CHECK_PTR(m_list);
 	m_list->addColumn(i18n("Name"));
 	m_list->addColumn(i18n("Type"));
 	
@@ -148,19 +148,19 @@ KSimIoDeviceOverviewWidget::KSimIoDeviceOverviewWidget(QWidget *parent, const ch
 	addEmptyCell();
 
 	QVBox * buttonBox = newVBox(0, "buttonBox");
-	CHECK_PTR(buttonBox);
+	Q_CHECK_PTR(buttonBox);
 
 
 	m_buttonConfDev = new QPushButton(i18n("Configure"), buttonBox, "m_buttonConfDev");
-	CHECK_PTR(m_buttonConfDev);
+	Q_CHECK_PTR(m_buttonConfDev);
 	connect(m_buttonConfDev, SIGNAL(clicked()), this, SLOT(slotConfDevice()));
 	
 	m_buttonNewDev = new QPushButton(i18n("New"), buttonBox, "m_buttonNewDev");
-	CHECK_PTR(m_buttonNewDev);
+	Q_CHECK_PTR(m_buttonNewDev);
 	connect(m_buttonNewDev, SIGNAL(clicked()), this, SLOT(slotNewDevice()));
 
 	m_buttonDelDev = new QPushButton(i18n("Delete"), buttonBox, "m_buttonDelDev");
-	CHECK_PTR(m_buttonDelDev);
+	Q_CHECK_PTR(m_buttonDelDev);
 	connect(m_buttonDelDev, SIGNAL(clicked()), this, SLOT(slotDelDevice()));
 
 	connect(m_list, SIGNAL(doubleClicked(QListViewItem*)), m_buttonConfDev, SLOT(animateClick()));
@@ -211,7 +211,7 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 	                                       KDialogBase::Ok,
 	                                       parentWidget(), "Select New IO Device");
 
-	CHECK_PTR(dialog);
+	Q_CHECK_PTR(dialog);
 	QWidget * wid = dialog->plainPage();
 
 	QBoxLayout * horLayout = new QVBoxLayout(wid);
@@ -219,15 +219,15 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 	horLayout->setSpacing(KDialog::spacingHint());
 
 	QLabel * l = new QLabel(i18n("Select a IO Device Type:"), wid, "label");
-	CHECK_PTR(l);
+	Q_CHECK_PTR(l);
 	horLayout->addWidget(l);
 
 
 	QListView * list = new QListView(wid, "new device list");
-	CHECK_PTR(list);
+	Q_CHECK_PTR(list);
 	list->addColumn(i18n("Type"));
 	QPushButton * okButton = dialog->actionButton(KDialogBase::Ok);
-	CHECK_PTR(okButton);
+	Q_CHECK_PTR(okButton);
 	connect(list, SIGNAL(doubleClicked(QListViewItem*)), okButton, SLOT(animateClick()));
 
 	horLayout->addWidget(list);
@@ -237,7 +237,7 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 	//TODO add addToolTip
 	
 	// Create device list items
-	QListIterator<BaseLibraryItem> it(*g_library->getIoDeviceLib()->getList());
+	QPtrListIterator<BaseLibraryItem> it(*g_library->getIoDeviceLib()->getList());
 	for(;it.current();++it)
 	{
 		KSimIoDeviceLibraryItem * item = (KSimIoDeviceLibraryItem *)it.current();
@@ -286,7 +286,7 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 //			dev->addPinsToPool(); Done by device now // TODO remove comment
 			// Add to list view
 			KSimIoDeviceListItem * item = new KSimIoDeviceListItem(m_list, dev);
-			CHECK_PTR(item);
+			Q_CHECK_PTR(item);
 
 			m_list->setCurrentItem(item);
 			
@@ -355,11 +355,11 @@ int KSimIoDeviceOverviewWidget::executeDialog(QWidget *parent, const char *name)
 	                                       parent, name);
 	                                       
 
-	CHECK_PTR(dialog);
+	Q_CHECK_PTR(dialog);
 	QWidget * wid = dialog->plainPage();
 
 	KSimIoDeviceOverviewWidget * child = new KSimIoDeviceOverviewWidget(wid, "KSimIoDeviceOverviewWidget");
-	CHECK_PTR(child);
+	Q_CHECK_PTR(child);
 	child->setMargin(0);//KDialog::marginHint());
 //	child->setSpacing(0);//KDialog::spacingHint());
 

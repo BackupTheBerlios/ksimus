@@ -42,14 +42,14 @@ ComponentPopupMenu::~ComponentPopupMenu()
 
 void ComponentPopupMenu::setupPopupMenu(const ComponentDirectorySubMenu * dir)
 {
-	QListIterator<ComponentDirectoryItem> it(* dir->getDirList());
+	QPtrListIterator<ComponentDirectoryItem> it(* dir->getDirList());
 	
 	for (;it.current();++it)
 	{
 		if(it.current()->isSubMenu())
 		{
 			ComponentPopupMenu * newPm = new ComponentPopupMenu(m_first);
-			CHECK_PTR(newPm);
+			Q_CHECK_PTR(newPm);
 			insertItem(it.current()->textEntry(), newPm, -2);
 			newPm->setupPopupMenu((const ComponentDirectorySubMenu *) it.current());
 		}

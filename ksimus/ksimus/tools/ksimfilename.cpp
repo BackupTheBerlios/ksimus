@@ -79,7 +79,7 @@ KSimFilename::KSimFilename(Component * parent, QString filename, ePathType pathT
 		m_filename(filename),
 		m_pathType(pathType)
 {
-	CHECK_PTR(m_component);
+	Q_CHECK_PTR(m_component);
 }
 	
 KSimFilename::KSimFilename(const KSimFilename & filename)
@@ -137,7 +137,7 @@ void KSimFilename::setFilename(QString newFilename)
 				if (getComponent()->getDoc()->isNamed())
 				{
 					KURL docUrl(getComponent()->getDoc()->URL());
-					ASSERT(!docUrl.isEmpty());
+					Q_ASSERT(!docUrl.isEmpty());
 					m_filename = KSimFile::absolutePath(docUrl.directory(), newFilename);
 				}
 				else
@@ -150,7 +150,7 @@ void KSimFilename::setFilename(QString newFilename)
 		
 			case PATH_RELATIVE_MODULE:
 			{
-				ASSERT(0);
+				Q_ASSERT(0);
 			}
 			break;
 		
@@ -434,7 +434,7 @@ KSimFilenameWidget::KSimFilenameWidget(KSimFilename & fileInfo, int mask, QWidge
 	: QWidget(parent, name)
 {
 	m_p = new KSimFilenameWidgetPrivate(fileInfo);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	
 	QString tip;
@@ -443,14 +443,14 @@ KSimFilenameWidget::KSimFilenameWidget(KSimFilename & fileInfo, int mask, QWidge
 	
 	// File line
 	m_p->m_filenameEdit = new KSimLineEdit(this, "KSimFilenameWidget m_filenameEdit");
-	CHECK_PTR(m_p->m_filenameEdit);	
+	Q_CHECK_PTR(m_p->m_filenameEdit);	
 	tip = i18n("Enter the filename with the absolute or relative path.");
 	QToolTip::add(m_p->m_filenameEdit, tip);
 	QWhatsThis::add(m_p->m_filenameEdit, tip);
 	connect(m_p->m_filenameEdit, SIGNAL(changed()), SLOT(slotFilenameChanged()));
 	
 	m_p->m_filenameDialogButton = new QPushButton(this, "KSimFilenameWidget m_filenameDialogButton");
-	CHECK_PTR(m_p->m_filenameDialogButton);	
+	Q_CHECK_PTR(m_p->m_filenameDialogButton);	
 	m_p->m_filenameDialogButton->setPixmap(KSimIcon::load("fileopen", KIcon::Small));
 	connect(m_p->m_filenameDialogButton, SIGNAL(released()), SLOT(slotOpenFileDialog()));
 	tip = i18n("Opens a file dialog.");
@@ -460,7 +460,7 @@ KSimFilenameWidget::KSimFilenameWidget(KSimFilename & fileInfo, int mask, QWidge
 
 	// Path Type	
 	m_p->m_pathTypeBox = new QComboBox(this, "KSimFilenameWidget m_pathTypeBox");
-	CHECK_PTR(m_p->m_pathTypeBox);	
+	Q_CHECK_PTR(m_p->m_pathTypeBox);	
 	QToolTip::add(m_p->m_pathTypeBox, getPathTypeBoxToolTip());
 	QWhatsThis::add(m_p->m_pathTypeBox, getPathTypeBoxWhatsThis(mask));
 	connect(m_p->m_pathTypeBox, SIGNAL(activated(int)), SLOT(slotPathType(int)));
@@ -509,17 +509,17 @@ KSimFilenameWidget::KSimFilenameWidget(KSimFilename & fileInfo, int mask, QWidge
 		
 	// Layout
 	QVBoxLayout * mainLayout = new QVBoxLayout(this, 0, -1, "KSimFilenameWidget mainlayout");
-	CHECK_PTR(mainLayout);	
+	Q_CHECK_PTR(mainLayout);	
 //	mainLayout->setMargin(KDialog::marginHint());
 //	mainLayout->setSpacing(KDialog::spacingHint());
 	
 	QHBoxLayout * filenameLayout = new QHBoxLayout(mainLayout, 0, "KSimFilenameWidget filenameLayout");
-	CHECK_PTR(filenameLayout);	
+	Q_CHECK_PTR(filenameLayout);	
 	filenameLayout->addWidget(m_p->m_filenameEdit, 1);
 	filenameLayout->addWidget(m_p->m_filenameDialogButton, 0);
 	
 	QHBoxLayout * pathTypeLayout = new QHBoxLayout(mainLayout, 0, "KSimFilenameWidget pathTypeLayout");
-	CHECK_PTR(pathTypeLayout);	
+	Q_CHECK_PTR(pathTypeLayout);	
 	pathTypeLayout->addWidget(m_p->m_pathTypeBox, 0);
 	pathTypeLayout->addStretch(1);
 	

@@ -40,6 +40,6 @@ const QString & ConnectorInfo::getDataType() const
 ConnectorBase * ConnectorInfo::create(Component* comp , const QString & name ,
                                       const QString & i18nName, const QPoint& pos) const
 {
-	CHECK_PTR(m_factory);
+	Q_CHECK_PTR(m_factory);
 	return m_factory(comp, name, i18nName, pos);
 }	

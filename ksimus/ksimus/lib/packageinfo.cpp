@@ -67,7 +67,7 @@ PackageInfo::PackageInfo(const char * packageName,
                          const char * packageVersion)
 {
 	m_p = new Private(QString::fromLatin1(packageName), instance, packageVersion);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 }
 
 PackageInfo::~PackageInfo()
@@ -99,7 +99,7 @@ void PackageInfo::insert(const ComponentInfoList & componentList)
 
 const ComponentInfoList & PackageInfo::getComponentList() const
 {
-	ASSERT(hasComponentList());
+	Q_ASSERT(hasComponentList());
 	return *m_p->componentList;
 }
 
@@ -117,7 +117,7 @@ void PackageInfo::insert(const ConnectorInfoList & connectorList)
 
 const ConnectorInfoList & PackageInfo::getConnectorList() const
 {
-	ASSERT(hasConnectorList());
+	Q_ASSERT(hasConnectorList());
 	return *m_p->connectorList;
 }
 
@@ -135,7 +135,7 @@ void PackageInfo::insert(const WirePropertyInfoList & wirePropertyList)
 
 const WirePropertyInfoList & PackageInfo::getWirePropertyList() const
 {
-	ASSERT(hasWirePropertyList());
+	Q_ASSERT(hasWirePropertyList());
 	return *m_p->wirePropertyList;
 }
 
@@ -153,7 +153,7 @@ void PackageInfo::insert(const ImplicitConverterInfoList & implicitConverterList
 
 const ImplicitConverterInfoList & PackageInfo::getImplicitConverterList() const
 {
-	ASSERT(hasImplicitConverterList());
+	Q_ASSERT(hasImplicitConverterList());
 	return *m_p->implicitConverterList;
 }
 
@@ -170,7 +170,7 @@ void PackageInfo::insert(const KSimIoDeviceInfoList & ioDeviceList)
 
 const KSimIoDeviceInfoList & PackageInfo::getKSimIoDeviceList() const
 {
-	ASSERT(hasKSimIoDeviceList());
+	Q_ASSERT(hasKSimIoDeviceList());
 	return *m_p->ioDeviceList;
 }
 
@@ -188,7 +188,7 @@ void PackageInfo::insert(const KSimIoJoinInfoList & ioJoinList)
 
 const KSimIoJoinInfoList & PackageInfo::getKSimIoJoinList() const
 {
-	ASSERT(hasKSimIoJoinList());
+	Q_ASSERT(hasKSimIoJoinList());
 	return *m_p->ioJoinList;
 }
 

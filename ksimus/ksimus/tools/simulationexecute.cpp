@@ -18,7 +18,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -78,7 +78,7 @@ private:
 
 
 
-class TimedExecuteList : public QList<TimedExecute>
+class TimedExecuteList : public QPtrList<TimedExecute>
 {
 public:
 	TimedExecuteList()
@@ -92,12 +92,12 @@ public:
 
 
 protected:
-	virtual int compareItems(QCollection::Item di1, QCollection::Item di2);
+	virtual int compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2);
 	
 };
 
 // Compares the time
-int TimedExecuteList::compareItems(QCollection::Item cdiA, QCollection::Item cdiB)
+int TimedExecuteList::compareItems(QPtrCollection::Item cdiA, QPtrCollection::Item cdiB)
 {
 	if (((TimedExecute*)cdiA)->getTime() > ((TimedExecute*)cdiB)->getTime())
 	{
@@ -133,7 +133,7 @@ void TimedExecuteList::addTimer(Component * comp, unsigned int timerNo, const KS
 	removeTimer(comp, timerNo);
 	
 	TimedExecute * newItem = new TimedExecute(comp, timerNo, time);
-	CHECK_PTR(newItem);
+	Q_CHECK_PTR(newItem);
 	
 	inSort(newItem);
 }
@@ -147,16 +147,16 @@ SimulationExecute::SimulationExecute(KSimusDoc * parent)
 		m_parent(parent)
 {
 	m_nextComponent = new ComponentList[2];
-	CHECK_PTR(m_nextComponent);
+	Q_CHECK_PTR(m_nextComponent);
 	m_nextComponent[0].setAutoDelete(false);
 	m_nextComponent[1].setAutoDelete(false);
 	
 	m_timedList = new TimedExecuteList();
-	CHECK_PTR(m_timedList);
+	Q_CHECK_PTR(m_timedList);
 	
 	
 	m_wirePropertyList = new WirePropertyList[2];
-	CHECK_PTR(m_wirePropertyList);
+	Q_CHECK_PTR(m_wirePropertyList);
 	
 	
 	// init m_execList, m_addList & m_nextCompIndex

@@ -82,12 +82,12 @@ ConvertFloatBool::ConvertFloatBool(CompContainer * container, const ComponentInf
 	m_input = new ConnectorFloatIn(this,
 	                               QString::fromLatin1("Input"),
 	                               i18n("FloatingPoint-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_output = new ConnectorBoolOut(this,
 	                                QString::fromLatin1("Output"),
 	                                i18n("FloatingPoint-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -200,7 +200,7 @@ ComponentPropertyBaseWidget * ConvertFloatBool::createGeneralProperty(QWidget *p
 {
 	ConvertFloatBoolPropertyGeneralWidget * wid;
 	wid = new ConvertFloatBoolPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -258,10 +258,10 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	QString tip;
 	
 	m_trueThresholdLabel = new QLabel(i18n("FloatingPoint", "True Threshold: "), this, "m_trueThresholdLabel");
-	CHECK_PTR(m_trueThresholdLabel);
+	Q_CHECK_PTR(m_trueThresholdLabel);
 	
 	m_trueThreshold = new KSimDoubleEdit(this, "m_trueThreshold");
-	CHECK_PTR(m_trueThreshold);
+	Q_CHECK_PTR(m_trueThreshold);
 	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to true.");
 	addToolTip(tip, m_trueThreshold, m_trueThresholdLabel);
 	addWhatsThis(tip, m_trueThreshold, m_trueThresholdLabel);
@@ -270,10 +270,10 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	
 	
 	m_falseThresholdLabel = new QLabel(i18n("FloatingPoint", "False Threshold: "), this, "m_falseThresholdLabel");
-	CHECK_PTR(m_falseThresholdLabel);
+	Q_CHECK_PTR(m_falseThresholdLabel);
 	
 	m_falseThreshold = new KSimDoubleEdit(this, "m_falseThreshold");
-	CHECK_PTR(m_falseThreshold);
+	Q_CHECK_PTR(m_falseThreshold);
 	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to false.");
 	addToolTip(tip, m_falseThreshold, m_falseThresholdLabel);
 	addWhatsThis(tip, m_falseThreshold, m_falseThresholdLabel);
@@ -281,9 +281,9 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	
 	// Some label
 	m_levelLabel = new QLabel(i18n("FloatingPoint", "Medium Threshold: "), this, "m_levelLabel");
-	CHECK_PTR(m_levelLabel);
+	Q_CHECK_PTR(m_levelLabel);
 	m_level = new QLabel(QString::null, this, "m_level");
-	CHECK_PTR(m_level);
+	Q_CHECK_PTR(m_level);
 	m_level->setAlignment(AlignRight);
 	tip = i18n("FloatingPoint", "Shows the medium value between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_level, m_levelLabel);
@@ -291,9 +291,9 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	m_levelLabel->setBuddy(m_level);
 	
 	m_hysteresisLabel = new QLabel(i18n("FloatingPoint", "Hysteresis: "), this, "m_hysteresisLabel");
-	CHECK_PTR(m_hysteresisLabel);
+	Q_CHECK_PTR(m_hysteresisLabel);
 	m_hysteresis = new QLabel(QString::null, this, "m_hysteresis");
-	CHECK_PTR(m_hysteresis);
+	Q_CHECK_PTR(m_hysteresis);
 	m_hysteresis->setAlignment(AlignRight);
 	tip = i18n("FloatingPoint", "Shows the hysteresis between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_hysteresis, m_hysteresisLabel);

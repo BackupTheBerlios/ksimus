@@ -141,7 +141,7 @@ KSimDoubleSpinBox::KSimDoubleSpinBox(double value, double min, double max, doubl
 
 void KSimDoubleSpinBox::init()
 {
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	setValidator(0);
 	connect(this,SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
 	KSimSpinBox::setMinValue(QSPINBOX_LOWER_LIMIT);
@@ -427,7 +427,7 @@ KSimExponentStep * KSimDoubleSpinBox::getExponentStep()
 	if (!m_p->m_expSteps)
 	{
 		m_p->m_expSteps = new KSimExponentStep;
-		CHECK_PTR(m_p->m_expSteps);
+		Q_CHECK_PTR(m_p->m_expSteps);
 	}
 	return m_p->m_expSteps;
 }
@@ -558,7 +558,7 @@ bool KSimDoubleSpinBox::eventFilter(QObject * obj, QEvent * ev)
 			if (((QMouseEvent*)ev)->button() == QMouseEvent::RightButton)
 			{
 				QPopupMenu * popup = new QPopupMenu(0,"KSimDoubleSpinBox RMB Popup");
-				CHECK_PTR(popup);
+				Q_CHECK_PTR(popup);
 		
 				initRmbMenu(popup);
 				if (popup->count() != 0)
@@ -642,7 +642,7 @@ public:
 			currentUnitList(QString::fromLatin1(""))
 	{
 		multiUnitList = new KSimMultiUnitList();
-		CHECK_PTR(multiUnitList);
+		Q_CHECK_PTR(multiUnitList);
 	};
 	~Private()
 	{
@@ -670,7 +670,7 @@ KSimDoubleUnitSpinBox::KSimDoubleUnitSpinBox(QWidget * parent, const char * name
 	:	KSimDoubleSpinBox(parent, name),
 		m_p(new Private())
 {
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 }
 
 KSimDoubleUnitSpinBox::KSimDoubleUnitSpinBox(double min, double max, double steps,
@@ -678,7 +678,7 @@ KSimDoubleUnitSpinBox::KSimDoubleUnitSpinBox(double min, double max, double step
 	:	KSimDoubleSpinBox(0.0, min, max, steps, parent, name),
 		m_p(new Private())
 {
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 }
 
 KSimDoubleUnitSpinBox::~KSimDoubleUnitSpinBox()
@@ -901,9 +901,9 @@ void KSimDoubleUnitSpinBox::initRmbMenu(QPopupMenu * popup)
 	//####  Add units
 	
 	KSimDoubleUnitSpinBox::Private::rmbUnitIDList = new QIntDict<QString>;
-	CHECK_PTR(KSimDoubleUnitSpinBox::Private::rmbUnitIDList);
+	Q_CHECK_PTR(KSimDoubleUnitSpinBox::Private::rmbUnitIDList);
 	
-	QListIterator<KSimUnitList> mulitListIt(getMultiUnitList().getList());
+	QPtrListIterator<KSimUnitList> mulitListIt(getMultiUnitList().getList());
 	
 	for (mulitListIt.toFirst(); mulitListIt.current(); ++mulitListIt)
 	{
@@ -916,7 +916,7 @@ void KSimDoubleUnitSpinBox::initRmbMenu(QPopupMenu * popup)
 			case 1:
 			{
 				// Find (first) not hidden unit
-				QListIterator<KSimUnitBase> unitIt(*mulitListIt.current());
+				QPtrListIterator<KSimUnitBase> unitIt(*mulitListIt.current());
 				for (; unitIt.current(); ++unitIt)
 				{
 					if (!unitIt.current()->isHidden())
@@ -937,9 +937,9 @@ void KSimDoubleUnitSpinBox::initRmbMenu(QPopupMenu * popup)
 			{
 				// Create own popup
 				QPopupMenu * unitPopup = new QPopupMenu (popup, mulitListIt.current()->getListName());
-				CHECK_PTR(unitPopup);
+				Q_CHECK_PTR(unitPopup);
 	
-				QListIterator<KSimUnitBase> unitIt(*mulitListIt.current());
+				QPtrListIterator<KSimUnitBase> unitIt(*mulitListIt.current());
 				for (; unitIt.current(); ++unitIt)
 				{
 					if (!unitIt.current()->isHidden())

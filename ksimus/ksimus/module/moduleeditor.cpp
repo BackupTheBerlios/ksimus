@@ -51,7 +51,7 @@ ModuleEditor::ModuleEditor(ModuleDialog * dialog, QWidget * parent, const char *
   	
 	setBackgroundMode (NoBackground);
 	m_drawMap = new QPixmap;
-	CHECK_PTR(m_drawMap);
+	Q_CHECK_PTR(m_drawMap);
 	updateDrawMap();
 }
 ModuleEditor::~ModuleEditor()
@@ -159,7 +159,7 @@ void ModuleEditor::updateDrawMapNow()
 /** redraw the module contents */
 void ModuleEditor::redrawMap()
 {
-	CHECK_PTR(m_drawMap);
+	Q_CHECK_PTR(m_drawMap);
 
 	switch(m_dialog->mdata->getModuleView())
 	{
@@ -247,7 +247,7 @@ void ModuleEditor::updateDrawMapUserView()
 	if (!m_userView)
 	{
 		m_userView = new DisplayWidget(viewList, this);
-		CHECK_PTR(m_userView);
+		Q_CHECK_PTR(m_userView);
 	}
 	
 	m_userView->move(m_viewOffsetX+gridX, m_viewOffsetY+gridY);

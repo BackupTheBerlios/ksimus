@@ -20,6 +20,7 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qgroupbox.h>
+#include <qptrlist.h>
 
 #include <kmimetype.h>
 #include <kfiledialog.h>

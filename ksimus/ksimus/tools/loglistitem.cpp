@@ -34,14 +34,14 @@ LogListItem::LogListItem(const char * text, unsigned int priority)
 {
 	setPriority(priority);
 	m_textList = new QStringList(QStringList::split('\n', getPrioText() + QString::fromLatin1(text)));
-	CHECK_PTR(m_textList);
+	Q_CHECK_PTR(m_textList);
 }
 
 LogListItem::LogListItem(const QString & text, unsigned int priority)
 {
 	setPriority(priority);
 	m_textList = new QStringList(QStringList::split('\n', getPrioText() + text));
-	CHECK_PTR(m_textList);
+	Q_CHECK_PTR(m_textList);
 }
 
 LogListItem::~LogListItem()
@@ -100,7 +100,7 @@ void LogListItem::paint(QPainter * p)
 	int leadingSpace = (m_textList->count() > 1) ? fm.width(getPrioText())+5 : 0;
 
 	// Use default color schema if selected
-	if (QListBoxItem::selected() == false)
+	if (QListBoxItem::isSelected() == false) // TODO  KDE2.x ==> KDE3.2
 	{
 		switch(m_prio)
 		{

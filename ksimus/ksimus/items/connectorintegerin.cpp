@@ -125,7 +125,7 @@ QString ConnectorIntegerIn::getValueText() const
 WatchItemBase * ConnectorIntegerIn::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemIntegerConnector(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

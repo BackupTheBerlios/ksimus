@@ -60,7 +60,7 @@ KSimIoDeviceList * KSimIoDeviceList::getList()
 	if (list == (KSimIoDeviceList *)0)
 	{
 		list = new KSimIoDeviceList();
-		CHECK_PTR(list);
+		Q_CHECK_PTR(list);
 		list->setAutoDelete(true);
 	}
 	return list;

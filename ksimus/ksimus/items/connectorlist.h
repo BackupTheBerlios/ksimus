@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -37,14 +37,14 @@ class ConnectorOutputBase;
   */
 
 
-/*class ConnectorList : public QList<ConnectorBase>
+/*class ConnectorList : public QPtrList<ConnectorBase>
 {
 public: 
 //	ConnectorList();
 //	~ConnectorList();
 };
 
-class ConnectorOutputList : public QList<ConnectorOutputBase>
+class ConnectorOutputList : public QPtrList<ConnectorOutputBase>
 {
 public:
 //	ConnectorOutputList();

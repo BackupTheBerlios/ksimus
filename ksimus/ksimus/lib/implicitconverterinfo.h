@@ -19,7 +19,7 @@
 #define IMPLICITCONVERTERINFO_H
 
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "baseinfo.h"
 
@@ -55,12 +55,12 @@ private:
 	
 };
 
-class ImplicitConverterInfoList : public QList<const ImplicitConverterInfo>
+class ImplicitConverterInfoList : public QPtrList<const ImplicitConverterInfo>
 {
 };
 
 #define FOR_EACH_IMPLICITCONVERTER_INFO(_it_,_ImplicitConverterInfoList_)	\
-		for(QListIterator<const ImplicitConverterInfo> _it_(_ImplicitConverterInfoList_);_it_.current();++_it_)
+		for(QPtrListIterator<const ImplicitConverterInfo> _it_(_ImplicitConverterInfoList_);_it_.current();++_it_)
 
 
 

@@ -41,19 +41,19 @@ WirePropertyMultipleOutput::WirePropertyMultipleOutput(Wire * wire, const WirePr
 		m_masterWP((WirePropertyMultipleOutput *) 0)
 {
 	m_connectorList = new ConnectorTristateList();
-	CHECK_PTR(m_connectorList);
+	Q_CHECK_PTR(m_connectorList);
 	
 	m_connectorInputList = new ConnectorInputList();
-	CHECK_PTR(m_connectorInputList);
+	Q_CHECK_PTR(m_connectorInputList);
 
 	m_executeNextList = new ComponentList();
-	CHECK_PTR(m_executeNextList);
+	Q_CHECK_PTR(m_executeNextList);
 	
 	m_zeroDelayList = new ComponentList();
-	CHECK_PTR(m_zeroDelayList);
+	Q_CHECK_PTR(m_zeroDelayList);
 	
 	m_wirePropertyList = new WirePropertyList();
-	CHECK_PTR(m_wirePropertyList);
+	Q_CHECK_PTR(m_wirePropertyList);
 	
 	
 	connect(getWire()->getDoc(), SIGNAL(signalPreReset()), SLOT(slotPreReset()));
@@ -132,7 +132,7 @@ void WirePropertyMultipleOutput::setupCircuit()
 				{
 					KSIMDEBUG(QString::fromLatin1("ExternalConnector not found Module %1 Connector %2")
 					          .arg(comp->getName()).arg(it.current()->getFullName()));
-					ASSERT(extConn);
+					Q_ASSERT(extConn);
 				}
 			}
 			if (it.current()->inherits("ConnectorInputBase"))
@@ -209,7 +209,7 @@ void WirePropertyMultipleOutput::setupInternal(WirePropertyMultipleOutput * wire
 				{
 					KSIMDEBUG(QString::fromLatin1("ExternalConnector not found Module %1 Connector %2")
 					          .arg(comp->getName()).arg(it.current()->getFullName()));
-					ASSERT(extConn);
+					Q_ASSERT(extConn);
 				}
 			}
 			else if (comp->isExtConn())

@@ -112,10 +112,10 @@ bool WatchItemBooleanBase::testBreak(unsigned int index, unsigned int stepCount)
 
 void WatchItemBooleanBase::createTriggerPropertyWidget(QWidget * parent)
 {
-	ASSERT(m_triggerBox == 0);
+	Q_ASSERT(m_triggerBox == 0);
 	
 	m_triggerBox = new QComboBox(parent, "m_triggerBox");
-	CHECK_PTR(m_triggerBox);
+	Q_CHECK_PTR(m_triggerBox);
 
 	m_triggerBox->insertItem(i18n("Boolean Trigger", "False to True transition"), (int)False2True);
 	m_triggerBox->insertItem(i18n("Boolean Trigger", "True to False transition"), (int)True2False);
@@ -127,7 +127,7 @@ void WatchItemBooleanBase::createTriggerPropertyWidget(QWidget * parent)
 
 void WatchItemBooleanBase::triggerPropertyOkPressed()
 {
-	ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_triggerBox != 0);
 
 	m_triggerType = (eTriggerType)m_triggerBox->currentItem();
 
@@ -135,12 +135,12 @@ void WatchItemBooleanBase::triggerPropertyOkPressed()
 }
 void WatchItemBooleanBase::triggerPropertyDefaultPressed()
 {
-	ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_triggerBox != 0);
 	m_triggerBox->setCurrentItem((int)False2True);
 }
 void WatchItemBooleanBase::triggerPropertyCancelPressed()
 {
-	ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_triggerBox != 0);
 
 	m_triggerBox = 0;    // Will be deleted now
 }

@@ -48,11 +48,11 @@ Float2In1Out::Float2In1Out(CompContainer * container, const ComponentInfo * ci)
 	m_inputA = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input A"),
 	                             i18n("FloatingPoint-Connector", "Input A"));
-	CHECK_PTR(m_inputA);
+	Q_CHECK_PTR(m_inputA);
 	m_inputB = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input B"),
 	                             i18n("FloatingPoint-Connector", "Input B"));
-	CHECK_PTR(m_inputB);
+	Q_CHECK_PTR(m_inputB);
 }
 
 /*Float2In1Out::~Float2In1Out()
@@ -74,7 +74,7 @@ Float2In1OutView::Float2In1OutView(Float2In1Out * comp, eViewType viewType, cons
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 

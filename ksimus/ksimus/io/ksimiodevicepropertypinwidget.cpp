@@ -49,10 +49,10 @@ KSimIoDevicePropertyPinWidget::KSimIoDevicePropertyPinWidget(KSimIoPin * pin, QW
 	// Name edit
 	str = i18n("Change the name of the IO pin here.");
 	label = new QLabel(i18n("Name:"), this,"LineEditLabel");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_nameEdit = new QLineEdit(this,"m_nameEdit");
-	CHECK_PTR(m_nameEdit);
+	Q_CHECK_PTR(m_nameEdit);
 	m_nameEdit->setText(getPin()->getName());
 	
 	label->setBuddy(m_nameEdit);
@@ -63,17 +63,17 @@ KSimIoDevicePropertyPinWidget::KSimIoDevicePropertyPinWidget(KSimIoPin * pin, QW
 	str = i18n("Shows the IO pin type.");
 
 	label = new QLabel(i18n("Type:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 /*	QLabel * label1 = new QLabel(getPin()->getJoinInfoList().getFirst()->getI18nLibName(), this);
-	CHECK_PTR(label1);
+	Q_CHECK_PTR(label1);
 
 	addToolTip(str, label, label1);
 	addWhatsThis(str, label, label1);*/
 
 
 	m_typeSelector = new QComboBox(false, this, "m_typeSelector");
-	CHECK_PTR(m_typeSelector);
+	Q_CHECK_PTR(m_typeSelector);
 	int currentIndex = 0;
 	FOR_EACH_IO_JOIN_INFO(it, getPin()->getJoinInfoList())
 	{

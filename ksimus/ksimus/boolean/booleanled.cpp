@@ -29,7 +29,7 @@
 // KDE-Includes
 #include <klocale.h>
 #include <kled.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 
 // Project-Includes
 #include "ksimdata.h"
@@ -86,7 +86,7 @@ BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
 	                               QString::fromLatin1("Input"),
 	                               i18n("Connector", "Input"),
 	                               QPoint(0,1));
-	CHECK_PTR(m_inConn);
+	Q_CHECK_PTR(m_inConn);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -229,7 +229,7 @@ QWidget * BooleanLedView::createCompViewWidget(QWidget * parent)
 	BooleanLedWidgetView * wid = new BooleanLedWidgetView(this, parent,"Led");
 	
 	KLed * led = wid->m_led;
-	CHECK_PTR(led);
+	Q_CHECK_PTR(led);
 	
 	/* Specific signals */
 	// LED state changed	(Component->Widget)
@@ -340,7 +340,7 @@ BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & tex
 	if (withDefault)
 	{
 		m_defaultColor = new QCheckBox(i18n("Automatic colored"), this);
-		CHECK_PTR(m_defaultColor);
+		Q_CHECK_PTR(m_defaultColor);
 	}
 	else
 	{
@@ -349,20 +349,20 @@ BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & tex
 	
 	
 	m_red = new QRadioButton(i18n("Red"), this);
-	CHECK_PTR(m_red);
+	Q_CHECK_PTR(m_red);
 	m_green = new QRadioButton(i18n("Green"), this);
-	CHECK_PTR(m_green);
+	Q_CHECK_PTR(m_green);
 	m_orange = new QRadioButton(i18n("Orange"), this);
-	CHECK_PTR(m_orange);
+	Q_CHECK_PTR(m_orange);
 	
 	QHBox * userBox = new QHBox(this);
-	CHECK_PTR(userBox);
+	Q_CHECK_PTR(userBox);
 	userBox->setSpacing(KDialog::spacingHint());
 	
 	QLabel * label = new QLabel(i18n("User defined:"),userBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_userColor = new KColorButton(userBox);;
-	CHECK_PTR(m_userColor);
+	Q_CHECK_PTR(m_userColor);
 	label->setBuddy(m_userColor);
 	// TODO add ToolTip
 
@@ -472,28 +472,28 @@ BooleanLedPropertyWidget::BooleanLedPropertyWidget(Component * comp, QWidget *pa
 	:	ComponentPropertyBaseWidget(comp, 1, parent, name)
 {
 	m_onColor = new BooleanLedColorPropertyWidget(i18n("Color On"), false, this);
-	CHECK_PTR(m_onColor);
+	Q_CHECK_PTR(m_onColor);
 	
 	m_offColor = new BooleanLedColorPropertyWidget(i18n("Color Off"), true, this);
-	CHECK_PTR(m_offColor);
+	Q_CHECK_PTR(m_offColor);
 
 	QHBox * exampleBox = new QHBox(this);
-	CHECK_PTR(exampleBox);
+	Q_CHECK_PTR(exampleBox);
 	exampleBox->setSpacing(KDialog::spacingHint());
 	
 	QLabel * label = new QLabel(i18n("Result:"),exampleBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	label = new QLabel(i18n("On"),exampleBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_exampleOn = new KLed(exampleBox);;
 	m_exampleOn->setFixedSize(20,20);
-	CHECK_PTR(m_exampleOn);
+	Q_CHECK_PTR(m_exampleOn);
 	
 	label = new QLabel(i18n("Off"),exampleBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_exampleOff = new KLed(exampleBox);
 	m_exampleOff->setFixedSize(20,20);
-	CHECK_PTR(m_exampleOff);
+	Q_CHECK_PTR(m_exampleOff);
 	
 	connect(m_onColor, SIGNAL(changed(const QColor &)), this, SLOT(slotOnColor(const QColor &)));
 	connect(m_offColor, SIGNAL(changed(const QColor &)), this, SLOT(slotOffColor(const QColor &)));

@@ -108,15 +108,15 @@ void KSimTimeSelectorWidget::initData()
 void KSimTimeSelectorWidget::initView()
 {
 	m_de = new KSimDoubleEdit((double)0, (double)1000000,16,this, "Time Input");
-	CHECK_PTR(m_de);
+	Q_CHECK_PTR(m_de);
 	
 	m_cb = new QComboBox(this, "Unit Select");
-	CHECK_PTR(m_cb);
+	Q_CHECK_PTR(m_cb);
 	
 	insertAllUnit();
 	
 	QBoxLayout * mainLayout = new QHBoxLayout( this );
-	CHECK_PTR(mainLayout);
+	Q_CHECK_PTR(mainLayout);
 	mainLayout->addWidget(m_de,1);
 	mainLayout->addWidget(m_cb,0);
 }

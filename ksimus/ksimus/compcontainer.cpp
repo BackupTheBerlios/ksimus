@@ -87,45 +87,45 @@ CompContainer::CompContainer(KSimusDoc * parent)
 		m_lastSerialNumber(0)
 {
 	m_p = new Private;
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	docParent = true;
 	myParent.doc = parent;
 	
 	sheetMap = new ComponentMap;
-	CHECK_PTR(sheetMap);
+	Q_CHECK_PTR(sheetMap);
 	userMap = new ComponentMap;
-	CHECK_PTR(userMap);
+	Q_CHECK_PTR(userMap);
 	components = new ComponentList;
-	CHECK_PTR(components);
+	Q_CHECK_PTR(components);
 	components->setAutoDelete(true);
 	
 	failedComponents = new ComponentList;
-	CHECK_PTR(failedComponents);
+	Q_CHECK_PTR(failedComponents);
 	failedComponents->setAutoDelete(false);
 
 	calculateComponents = new ComponentList;
-	CHECK_PTR(calculateComponents);
+	Q_CHECK_PTR(calculateComponents);
 	calculateComponents->setAutoDelete(false);
 
 	updateSheetViewComponents = new CompViewList;
-	CHECK_PTR(updateSheetViewComponents);
+	Q_CHECK_PTR(updateSheetViewComponents);
 	updateSheetViewComponents->setAutoDelete(false);
 
 	updateUserViewComponents = new CompViewList;
-	CHECK_PTR(updateUserViewComponents);
+	Q_CHECK_PTR(updateUserViewComponents);
 	updateUserViewComponents->setAutoDelete(false);
 
 	sheetViews = new CompViewList;
-	CHECK_PTR(sheetViews);
+	Q_CHECK_PTR(sheetViews);
 	sheetViews->setAutoDelete(false);
 
 	userViews = new CompViewList;
-	CHECK_PTR(userViews);
+	Q_CHECK_PTR(userViews);
 	userViews->setAutoDelete(false);
 
 	moduleData = new ModuleData(this);
-	CHECK_PTR(moduleData);
+	Q_CHECK_PTR(moduleData);
 	
 	setVisible(true);
 	enableRouting(true);
@@ -141,48 +141,48 @@ CompContainer::CompContainer(Component * parent)
 		m_lastSerialNumber(0)
 {
 	m_p = new Private;
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	docParent = false;
 	myParent.comp = parent;
 	
 	sheetMap = new ComponentMap;
-	CHECK_PTR(sheetMap);
+	Q_CHECK_PTR(sheetMap);
 //	sheetMap = 0;
 	userMap = new ComponentMap;
-	CHECK_PTR(userMap);
+	Q_CHECK_PTR(userMap);
 	components = new ComponentList;
-	CHECK_PTR(components);
+	Q_CHECK_PTR(components);
 	components->setAutoDelete(true);
 	
 //	failedComponents = new ComponentList;
-//	CHECK_PTR(failedComponents);
+//	Q_CHECK_PTR(failedComponents);
 //	failedComponents->setAutoDelete(false);
 	failedComponents = 0;
 	
 	calculateComponents = new ComponentList;
-	CHECK_PTR(calculateComponents);
+	Q_CHECK_PTR(calculateComponents);
 	calculateComponents->setAutoDelete(false);
 
 	updateSheetViewComponents = new CompViewList;
-	CHECK_PTR(updateSheetViewComponents);
+	Q_CHECK_PTR(updateSheetViewComponents);
 	updateSheetViewComponents->setAutoDelete(false);
 
 	updateUserViewComponents = new CompViewList;
-	CHECK_PTR(updateUserViewComponents);
+	Q_CHECK_PTR(updateUserViewComponents);
 	updateUserViewComponents->setAutoDelete(false);
 
 	sheetViews = new CompViewList;
-	CHECK_PTR(sheetViews);
+	Q_CHECK_PTR(sheetViews);
 	sheetViews->setAutoDelete(false);
 //	sheetViews = 0;
 
 	userViews = new CompViewList;
-	CHECK_PTR(userViews);
+	Q_CHECK_PTR(userViews);
 	userViews->setAutoDelete(false);
 
 	moduleData = new ModuleData(this);
-	CHECK_PTR(moduleData);
+	Q_CHECK_PTR(moduleData);
 	
 	setVisible(false);
 	enableRouting(false);
@@ -308,9 +308,9 @@ void CompContainer::insert(Component * comp)
 void CompContainer::addComponent(Component * newComp)
 {
 	// Nullpointer not allowed
-	ASSERT(newComp);
+	Q_ASSERT(newComp);
 	// Insert one component only one time
-	ASSERT(-1 == components->find(newComp));
+	Q_ASSERT(-1 == components->find(newComp));
 
 	// Has valid serial number ?
 	if (newComp->getSerialNumber() == 0)
@@ -350,9 +350,9 @@ void CompContainer::addComponent(Component * newComp)
 void CompContainer::delComponent(Component * delComp)
 {
 	// Nullpointer not allowed
-	ASSERT(delComp);
+	Q_ASSERT(delComp);
 	// Exist component in list
-	ASSERT(-1 != components->find(delComp));
+	Q_ASSERT(-1 != components->find(delComp));
 	
 	emit signalDelete(delComp);
 
@@ -479,11 +479,11 @@ void CompContainer::moveComponent(Component * comp, const QPoint & relMove)
 /** Copies components */
 void CompContainer::copyComponent(ComponentList * compList)
 {
-	CHECK_PTR(getDoc());
+	Q_CHECK_PTR(getDoc());
 	
 	QString fileName = getDoc()->getFiles()->getCopyPastFilename();
 	
-	QListIterator<Component> it(*compList);
+	QPtrListIterator<Component> it(*compList);
 	
 	// If file exists, remove it
 	if (QFile::exists(fileName))
@@ -535,7 +535,7 @@ void CompContainer::copyComponent(CompViewList * compViewList)
 /** Pasts components */
 void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMove)
 {
-	CHECK_PTR(getDoc());
+	Q_CHECK_PTR(getDoc());
 		
 	QString fileName = getDoc()->getFiles()->getCopyPastFilename();
 	// If file doesn't exists, error and abort past
@@ -553,7 +553,7 @@ void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMo
 	container->setSheetSize(getSheetSize());
 	container->setUserSize(getUserSize());
 //	container->getComponentList()->setAutoDelete(false);
-	QListIterator<Component> itNew(*container->getComponentList());
+	QPtrListIterator<Component> itNew(*container->getComponentList());
 	
 	{
 		KSimData file (fileName);
@@ -913,7 +913,7 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 	{
 		// Not for modules !!
 		progress = new QProgressDialog(i18n("Loading..."), QString::null, 2*numOfComp, getApp(), "progress");
-		CHECK_PTR(progress);
+		Q_CHECK_PTR(progress);
 	}
 
 	// First load components (no wires)
@@ -988,7 +988,7 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 					// Insert widget views in editor
 					if (!compExist && isVisible())
 					{
-						CHECK_PTR(getDoc());
+						Q_CHECK_PTR(getDoc());
 						getDoc()->addComponentToEditor(comp);
 					}
 				}
@@ -1217,7 +1217,7 @@ void CompContainer::deleteAll()
 	// "Reset" Module Data
 	delete moduleData;
 	moduleData = new ModuleData(this);
-	CHECK_PTR(moduleData);
+	Q_CHECK_PTR(moduleData);
 	
 	// Reset component number generator
 	m_lastSerialNumber = 0;
@@ -1228,7 +1228,7 @@ void CompContainer::deleteAll()
 /** Returns a new unique number for a component */
 unsigned int CompContainer::newSerialNumber()
 {
-	QListIterator<Component> it(*components);
+	QPtrListIterator<Component> it(*components);
 	bool found;
 	
 	m_lastSerialNumber ++;
@@ -1519,7 +1519,7 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 						break;
 					}
 				}
-				ASSERT(found);
+				Q_ASSERT(found);
 			}
 			while (found && !(add_a||add_b));
 			QPoint * pos;
@@ -1639,7 +1639,7 @@ void CompContainer::setSheetSize(QSize size)
 		
 	if (docParent)
 	{
-		for(QListIterator<KSimusView> it(*getDoc()->getViewList());it.current();++it)
+		for(QPtrListIterator<KSimusView> it(*getDoc()->getViewList());it.current();++it)
 		{
 			KSimEditor * ed = it.current()->getEditor();
 			if (ed->getEditorView() == EV_SHEETVIEW)
@@ -1674,7 +1674,7 @@ void CompContainer::setUserSize(QSize size)
 	
 	if (docParent)
 	{
-		for(QListIterator<KSimusView> it(*getDoc()->getViewList());it.current();++it)
+		for(QPtrListIterator<KSimusView> it(*getDoc()->getViewList());it.current();++it)
 		{
 			KSimEditor * ed = it.current()->getEditor();
 			if (ed->getEditorView() == EV_USERVIEW)
@@ -1794,7 +1794,7 @@ unsigned int CompContainer::getComponentNumber() const
 
 bool CompContainer::registerIoDevice(KSimIoDevice * device)
 {
-	ASSERT(device != 0);
+	Q_ASSERT(device != 0);
 
 	if (isParentDoc())
 	{
@@ -1822,7 +1822,7 @@ bool CompContainer::registerIoDevice(KSimIoDevice * device)
 
 bool CompContainer::unregisterIoDevice(KSimIoDevice * device)
 {
-	ASSERT(device != 0);
+	Q_ASSERT(device != 0);
 	
 	if (isParentDoc())
 	{

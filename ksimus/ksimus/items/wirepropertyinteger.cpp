@@ -38,7 +38,7 @@ WireProperty * WirePropertyInteger::create(Wire * wire)
 {
 	WireProperty * wp;
 	wp = new WirePropertyInteger(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 
@@ -78,7 +78,7 @@ const WireColorScheme & WirePropertyInteger::colorScheme()
 WatchItemBase * WirePropertyInteger::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemIntegerWireProperty(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

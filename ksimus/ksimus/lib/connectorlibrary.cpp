@@ -32,10 +32,10 @@ bool ConnectorLibrary::insert (const ConnectorInfo * ci, const PackageInfo * pac
 {
 	bool res;
 	
-	CHECK_PTR(ci);
+	Q_CHECK_PTR(ci);
 	
 	ConnectorLibraryItem * cli = new ConnectorLibraryItem(ci, packageInfo);
-	CHECK_PTR(cli);
+	Q_CHECK_PTR(cli);
 	
 	res = _insert_(cli);
 	

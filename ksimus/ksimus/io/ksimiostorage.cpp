@@ -21,7 +21,7 @@
 #include <qstring.h>
 
 // KDE includes
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include "ksimpleconfig.h"
 
 // Project includes
@@ -64,12 +64,12 @@ KSimIoStorage::~KSimIoStorage()
 
 bool KSimIoStorage::open(bool readOnly)
 {
-	ASSERT(m_conf == (KSimpleConfig*)0);
+	Q_ASSERT(m_conf == (KSimpleConfig*)0);
 	
 	QString filename(locateLocal(s_type, QString::fromLatin1(s_filename)));
 //	KSIMDEBUG_VAR("", filename);
 	m_conf = new KSimpleConfig(filename, readOnly);
-	CHECK_PTR(m_conf);
+	Q_CHECK_PTR(m_conf);
 	m_conf->setGroup(s_storage);
 	m_readOnly = readOnly;
 	return true;
@@ -77,7 +77,7 @@ bool KSimIoStorage::open(bool readOnly)
 
 void KSimIoStorage::close()
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
 
 	delete m_conf;
 	m_conf = (KSimpleConfig *)0;
@@ -86,7 +86,7 @@ void KSimIoStorage::close()
 
 void KSimIoStorage::loadSerialList()
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
 
 	bool ok = true;
 	m_deviceSerialList.clear();
@@ -108,8 +108,8 @@ void KSimIoStorage::loadSerialList()
 
 void KSimIoStorage::saveSerialList() const
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
-	ASSERT(!isReadOnly());
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(!isReadOnly());
 
 	QStringList serialList;
 	QValueList<unsigned int>::ConstIterator it;
@@ -137,8 +137,8 @@ bool KSimIoStorage::existDeviceSerial(unsigned int lastSerial) const
 
 unsigned int KSimIoStorage::getNextSerial()
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
-	ASSERT(!isReadOnly());
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(!isReadOnly());
 
 	m_conf->setGroup(s_storage);
 	unsigned int lastSerial = m_conf->readUnsignedNumEntry(s_lastSerial, 0);
@@ -162,9 +162,9 @@ unsigned int KSimIoStorage::getNextSerial()
 
 bool KSimIoStorage::load(unsigned int serial, KSimIoDevice * * device)
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
-	ASSERT(device != (KSimIoDevice * *)0);
-	ASSERT(serial != 0);
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(device != (KSimIoDevice * *)0);
+	Q_ASSERT(serial != 0);
 
 	QString group(QString::fromLatin1(s_deviceDir).arg(serial));
 
@@ -188,7 +188,7 @@ bool KSimIoStorage::load(unsigned int serial, KSimIoDevice * * device)
 			KSIMDEBUG_VAR("Create IO Device failed", type);
 			return false;
 		}
-		CHECK_PTR(*device);
+		Q_CHECK_PTR(*device);
 	}
 	else
 	{
@@ -221,8 +221,8 @@ bool KSimIoStorage::load(unsigned int serial, KSimIoDevice * * device)
 
 bool KSimIoStorage::loadAll(KSimIoDeviceList * list)
 {
-	ASSERT(list != (KSimIoDeviceList*)0);
-	ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(list != (KSimIoDeviceList*)0);
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
 
 	loadSerialList();
 
@@ -244,9 +244,9 @@ bool KSimIoStorage::loadAll(KSimIoDeviceList * list)
 
 void KSimIoStorage::save(KSimIoDevice * device)
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
-	ASSERT(device != (KSimIoDevice*)0);
-	ASSERT(!isReadOnly());
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(device != (KSimIoDevice*)0);
+	Q_ASSERT(!isReadOnly());
 
 	if (device->getSerial() == 0)
 	{
@@ -275,9 +275,9 @@ void KSimIoStorage::save(KSimIoDevice * device)
 
 void KSimIoStorage::remove(KSimIoDevice * device)
 {
-	ASSERT(m_conf != (KSimpleConfig*)0);
-	ASSERT(device != (KSimIoDevice*)0);
-	ASSERT(!isReadOnly());
+	Q_ASSERT(m_conf != (KSimpleConfig*)0);
+	Q_ASSERT(device != (KSimIoDevice*)0);
+	Q_ASSERT(!isReadOnly());
 
 	QString devDir = QString::fromLatin1(s_deviceDir).arg(device->getSerial());
 

@@ -64,7 +64,7 @@ ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName,
 	if (!component->m_addonList)
 	{
 		component->m_addonList = new ComponentAddOnList;
-		CHECK_PTR(component->m_addonList);
+		Q_CHECK_PTR(component->m_addonList);
 	}
 	
 	if (unique)
@@ -152,7 +152,7 @@ ComponentAddOn::UIData * ComponentAddOn::getUIData()
 	if (!m_uiData)
 	{
 		m_uiData = new UIData();
-		CHECK_PTR(m_uiData);
+		Q_CHECK_PTR(m_uiData);
 	}
 	return m_uiData;
 }
@@ -205,7 +205,7 @@ QString ComponentAddOn::getWhatsThisText()
 //#################################################################################
 
 ComponentAddOnList::ComponentAddOnList()
-	:	QList<ComponentAddOn>()
+	:	QPtrList<ComponentAddOn>()
 {
 	setAutoDelete(true);
 }

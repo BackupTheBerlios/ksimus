@@ -22,7 +22,7 @@
 
 // QT-Includes
 #include <qvbox.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -93,7 +93,7 @@ private:
 	WatchListView * m_watchListView;
 	unsigned int m_index;
 	unsigned int m_viewIndex;
-	QList<WatchItemBase> m_watchItemList;
+	QPtrList<WatchItemBase> m_watchItemList;
 	unsigned int m_traceSize;
 	unsigned int m_stepCnt;
 	QPushButton * m_stepBegin;

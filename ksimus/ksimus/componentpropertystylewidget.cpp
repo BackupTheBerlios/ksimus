@@ -28,9 +28,9 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 #include <kfontdialog.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Project-Includes
 #include "componentpropertystylewidget.h"
@@ -51,24 +51,24 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	
 	// Color Group	
 	m_colorGroup = new QVGroupBox(i18n("Color:"), this, "Style Color Box");
-	CHECK_PTR(m_colorGroup);
+	Q_CHECK_PTR(m_colorGroup);
 	
 	// Color Group - Default colors
 	m_defaultColors = new QCheckBox(i18n("Use system colors"), getColorBox(), "Default Colors");
-	CHECK_PTR(m_defaultColors);
+	Q_CHECK_PTR(m_defaultColors);
 	str = i18n("Check the box if the component have to use the color scheme of your system.");
 	addToolTip(str, m_defaultColors);
 	addWhatsThis(str, m_defaultColors);
 	
 	// Color Group - Color button group
 	QGrid * colButGrp = new QGrid(2, /*QGrid::Horizontal,*/ getColorBox());
-	CHECK_PTR(colButGrp);
+	Q_CHECK_PTR(colButGrp);
 	
 	// Color Group - Color button group - Foreground color
 	label = new QLabel(i18n("Foreground Color:"), colButGrp);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_foreGround = new KColorButton(colButGrp);
-	CHECK_PTR(m_foreGround);
+	Q_CHECK_PTR(m_foreGround);
 	label->setBuddy(m_foreGround);
 	str = i18n("Select the foreground color.");
 	addToolTip(str, m_foreGround, label);
@@ -76,9 +76,9 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 
 	// Color Group - Color button group - Background color
 	label = new QLabel(i18n("Background Color:"), colButGrp);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_backGround = new KColorButton(colButGrp);
-	CHECK_PTR(m_backGround);
+	Q_CHECK_PTR(m_backGround);
 	label->setBuddy(m_backGround);
 	str = i18n("Select the background color.");
 	addToolTip(str, m_backGround, label);
@@ -87,11 +87,11 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	
 	// Frame Group	
 	m_frameGroup = new QVGroupBox(i18n("Frame:"), this, "Style Frame Box");
-	CHECK_PTR(m_frameGroup);
+	Q_CHECK_PTR(m_frameGroup);
 	
 	// Frame Group - Frame ena
 	m_enaFrame = new QCheckBox(i18n("Enable frame in user interface"), getFrameBox(), "Frame Ena");
-	CHECK_PTR(m_enaFrame);
+	Q_CHECK_PTR(m_enaFrame);
 	str = i18n("Check the box if component have to display a frame.");
 	addToolTip(str, m_enaFrame);
 	addWhatsThis(str, m_enaFrame);
@@ -99,21 +99,21 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	
 	// Font Group	
 	m_fontGroup = new QVGroupBox(i18n("Font:"), this, "Style Font Box");
-	CHECK_PTR(m_fontGroup);
+	Q_CHECK_PTR(m_fontGroup);
 	
 	// Font Group - Default Font
 	m_defaultFont = new QCheckBox(i18n("Use default font"), getFontBox(), "Font default");
-	CHECK_PTR(m_defaultFont);
+	Q_CHECK_PTR(m_defaultFont);
 	str = i18n("Check the box if component have to use the default (the application) font.");
 	addToolTip(str, m_defaultFont);
 	addWhatsThis(str, m_defaultFont);
 	
 	// Font Group - Font Dialog Button
   m_fontButton = new QPushButton(i18n("Select font"), getFontBox(), "Font Button");
-	CHECK_PTR(m_fontButton);
+	Q_CHECK_PTR(m_fontButton);
 	
 	m_exampleFont = new QLabel(getFontBox(), "Font Example");
-	CHECK_PTR(m_fontButton);
+	Q_CHECK_PTR(m_fontButton);
 	
 
 

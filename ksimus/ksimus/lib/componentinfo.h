@@ -22,7 +22,7 @@
 
 // QT-Includes
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -79,11 +79,11 @@ private:
 	ComponentInfo(const ComponentInfo & ci);
 };
 
-class ComponentInfoList : public QList<const ComponentInfo>
+class ComponentInfoList : public QPtrList<const ComponentInfo>
 {
 };
 
 #define FOR_EACH_COMPONENT_INFO(_it_,_compInfoList_)	\
-		for(QListIterator<const ComponentInfo> _it_(_compInfoList_);_it_.current();++_it_)
+		for(QPtrListIterator<const ComponentInfo> _it_(_compInfoList_);_it_.current();++_it_)
 
 #endif

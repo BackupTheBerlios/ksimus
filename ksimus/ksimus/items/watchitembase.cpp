@@ -227,7 +227,7 @@ void WatchItemBase::executePropertyDialog(QWidget * parent)
 PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 {
 	PropertyWidget * wid = new PropertyWidget(1, parent, "Watchpoint Dialog");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 /*	wid->setLeftColStretch(0);
 	wid->setCenterColStretch(0);
@@ -238,7 +238,7 @@ PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 	wid->setBottomRowStretch(1);*/
 
 	m_propertyWidget_enaCheckBox = new QCheckBox(i18n("watchpoint enable trigger", "Enable trigger"), wid, "watchpoint enable trigger");
-	CHECK_PTR(m_propertyWidget_enaCheckBox);
+	Q_CHECK_PTR(m_propertyWidget_enaCheckBox);
 	PropertyWidget::addToolTip(i18n("Enables the trigger function of the watchpoint."),
 	                           m_propertyWidget_enaCheckBox);
 	PropertyWidget::addWhatsThis(i18n("Enables the trigger function of the watchpoint.\n\n"
@@ -249,13 +249,13 @@ PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 	
 
 	QHBox * cntBox = new QHBox(wid);
-	CHECK_PTR(cntBox);
+	Q_CHECK_PTR(cntBox);
 
 	QLabel * cntLabel = new QLabel(i18n("watchpoint trigger count", "Trigger count:"), cntBox, "watchpoint count label");
-	CHECK_PTR(cntLabel);
+	Q_CHECK_PTR(cntLabel);
 	
 	m_propertyWidget_cntSpinBox = new KSimSpinBox(1, INT_MAX, 1, cntBox, "watchpoint count spinbox");
-	CHECK_PTR(m_propertyWidget_cntSpinBox);
+	Q_CHECK_PTR(m_propertyWidget_cntSpinBox);
 	cntLabel->setBuddy(m_propertyWidget_cntSpinBox);
 	PropertyWidget::addToolTip(i18n("Set the count of trigger events until simulation breaks."),
 	                           m_propertyWidget_cntSpinBox, cntLabel);
@@ -266,7 +266,7 @@ PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 
 
 	QVGroupBox * trigBox = new QVGroupBox(i18n("watchpoint trigger condition", "Trigger condition"), wid, "watchpoint trigger condition");
-	CHECK_PTR(trigBox);
+	Q_CHECK_PTR(trigBox);
 
 	connect(wid, SIGNAL(signalAccept()), this, SLOT(slotPropertyOk()));
 	connect(wid, SIGNAL(signalDefault()), this, SLOT(slotPropertyDefault()));

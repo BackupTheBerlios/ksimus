@@ -25,7 +25,7 @@
 
 // KDE-Includes
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Project-Includes
 #include "ksimdialog.h"
@@ -53,10 +53,10 @@ public:
 //######################################################################################
 
 #define FOR_EACH_LISTITEM(_it_,_list_)	\
-		for(QListIterator<ListItem> _it_(_list_);_it_.current();++_it_)
+		for(QPtrListIterator<ListItem> _it_(_list_);_it_.current();++_it_)
 
 
-class KSimDialog::List : public QList<KSimDialog::ListItem>
+class KSimDialog::List : public QPtrList<KSimDialog::ListItem>
 {
 
 	public:
@@ -102,7 +102,7 @@ public:
 		:	m_changed(false)
 	{
 		m_pageList = new List;
-		CHECK_PTR(m_pageList);
+		Q_CHECK_PTR(m_pageList);
 		m_pageList->setAutoDelete(true);
 	}
 
@@ -129,7 +129,7 @@ KSimDialog::KSimDialog(const QString & caption, QWidget *parent, const char *nam
 		            name)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 }
 
 KSimDialog::~KSimDialog()
@@ -161,7 +161,7 @@ QVBox * KSimDialog::addVBoxPage(const QStringList & item)
 	QStringList myItem(makeUniqueName(item));
 	QVBox * box = KDialogBase::addVBoxPage(myItem);
 	ListItem * listItem = new ListItem(myItem, box);
-	CHECK_PTR(listItem);
+	Q_CHECK_PTR(listItem);
 	m_p->m_pageList->append(listItem);
 
 	connect(box,SIGNAL(destroyed()),this,SLOT(pageDeleted()));
@@ -181,7 +181,7 @@ PropertyWidget * KSimDialog::getPage(const QStringList & item)
 			const QObjectList * childList = listItem->m_parentWidget->children();
 			if (childList)
 			{
-				QListIterator<QObject> it(*childList);
+				QPtrListIterator<QObject> it(*childList);
 				for (; it.current(); ++it)
 				{
 					if (it.current()->isWidgetType())
@@ -205,7 +205,7 @@ PropertyWidget * KSimDialog::getPage(const QStringList & item)
 		{
 			PropertyWidget * widget;
 			widget = new PropertyWidget(2, box);
-			CHECK_PTR(widget);
+			Q_CHECK_PTR(widget);
 //			widget->setColStretch(0,0);
 			widget->setColStretch(1,1);
 			widget->setCenterRowStretch(0);
@@ -289,7 +289,7 @@ void KSimDialog::slotDefault()
 {
 	KDialogBase::slotDefault();
 	
-	for(QListIterator<ListItem> it(*m_p->m_pageList);it.current();++it)
+	for(QPtrListIterator<ListItem> it(*m_p->m_pageList);it.current();++it)
 	{
 		if(it.current()->m_propertyWidget)
 		{

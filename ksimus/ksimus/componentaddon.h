@@ -22,7 +22,7 @@
 
 // QT-Includes
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -171,7 +171,7 @@ private:
 };
 
 
-class ComponentAddOnList : public QList<ComponentAddOn>
+class ComponentAddOnList : public QPtrList<ComponentAddOn>
 {
 public:
 	/** Constructs a new Add On list.
@@ -243,7 +243,7 @@ public:
 
 
 #define FOR_EACH_COMPONENT_ADDON(_it_,_addOnList_)	\
-		for(QListIterator<ComponentAddOn> _it_(_addOnList_);_it_.current();++_it_)
+		for(QPtrListIterator<ComponentAddOn> _it_(_addOnList_);_it_.current();++_it_)
 
 
 #endif

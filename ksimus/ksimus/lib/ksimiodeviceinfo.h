@@ -19,7 +19,7 @@
 #define KSIMIODEVICEINFO_H
 
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "baseinfo.h"
 
@@ -61,7 +61,7 @@ private:
 
 
 
-class KSimIoDeviceInfoList : public QList<const KSimIoDeviceInfo>
+class KSimIoDeviceInfoList : public QPtrList<const KSimIoDeviceInfo>
 {
 };
 
@@ -73,7 +73,7 @@ class KSimIoDeviceInfoList : public QList<const KSimIoDeviceInfo>
 
 
 #define FOR_EACH_IO_DEVICE_INFO(_it_,_ioDeviceInfoList_)	\
-		for(QListIterator<const KSimIoDeviceInfo> _it_(_ioDeviceInfoList_);_it_.current();++_it_)
+		for(QPtrListIterator<const KSimIoDeviceInfo> _it_(_ioDeviceInfoList_);_it_.current();++_it_)
 
 #endif
 

@@ -114,7 +114,7 @@ WireSV::WireSV(Component * comp, const char * name)
 {
 	CompView::updateSheetMap(false);
 	routeList = new CPointListList;
-	CHECK_PTR(routeList);
+	Q_CHECK_PTR(routeList);
 	routeList->setAutoDelete(true);
 }
 WireSV::~WireSV()
@@ -305,7 +305,7 @@ eHitType WireSV::isHit(int x, int y) const
 	x /= gridX;
 	y /= gridY;
 	
-	for (QListIterator<CPointList> it(*routeList); it.current(); ++it)
+	for (QPtrListIterator<CPointList> it(*routeList); it.current(); ++it)
 	{
 		if (isWireHit(it.current(),x,y))
 		{
@@ -460,7 +460,7 @@ void Wire::save(KSimData & file) const
 	{
 		QString dir;
 		conn = getConnList()->at(i);
-		ASSERT (conn->getComponent()->getSerialNumber() != 0);
+		Q_ASSERT (conn->getComponent()->getSerialNumber() != 0);
 		dir.sprintf("Connection %u/",i);
 		file.setGroup(connGroup + dir );
 		file.writeEntry("Component", conn->getComponent()->getSerialNumber());
@@ -516,7 +516,7 @@ bool Wire::load(KSimData & file, bool copyLoad)
 		file.setGroup(connGroup + dir );
 		
 		compNo = file.readUnsignedNumEntry("Component", 0);
-		ASSERT (compNo != 0);
+		Q_ASSERT (compNo != 0);
 		
 		connName = file.readEntry("Connector", QString::null);
 
@@ -575,7 +575,7 @@ bool Wire::load(KSimData & file, bool copyLoad)
 		else
 		{
 			KSIMDEBUG("Load Wire faild");
-			ASSERT(0);
+			Q_ASSERT(0);
 			ok = false;
 		}
 	}
@@ -599,7 +599,7 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 	const WirePropertyInfo * wirePropInfo = 0;
 	bool outputFound = false;
 	
-	CHECK_PTR(list);
+	Q_CHECK_PTR(list);
 	
 	//##### 1. All outputs and tristate outputs must be the same data type
 	FOR_EACH_CONNECTOR(it,*list)
@@ -632,7 +632,7 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 	{
 		// No output found
 		// First Input set dataType
-		CHECK_PTR(list->getFirst());
+		Q_CHECK_PTR(list->getFirst());
 		outputType = list->getFirst()->getConnInfo()->getDataType();
 	}
 	
@@ -727,7 +727,7 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorBase * start,
 	}
 	else
 	{
-		ASSERT (0);
+		Q_ASSERT (0);
 		return (const WirePropertyInfo *)0;
 	}
 }

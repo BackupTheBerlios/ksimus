@@ -38,7 +38,7 @@ static WireProperty * create(Wire * wire)
 {
 	WireProperty * wp;
 	wp = new WirePropertyFloatingPoint(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 
@@ -78,7 +78,7 @@ const WireColorScheme & WirePropertyFloatingPoint::colorScheme()
 WatchItemBase * WirePropertyFloatingPoint::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemFloatingPointWireProperty(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

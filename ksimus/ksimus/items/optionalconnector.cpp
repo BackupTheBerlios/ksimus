@@ -88,7 +88,7 @@ void OptionalConnector::init()
 	static const QString pageName(i18n("Component property dialog", "Optional connectors"));
 	
 	m_p = new Private;
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	setDialogPageName(pageName);
 	getAction().setAction(KSimAction::INITPROPERTYDIALOG);
 }

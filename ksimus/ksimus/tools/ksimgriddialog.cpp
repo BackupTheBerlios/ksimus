@@ -22,7 +22,7 @@
 #include <qlayout.h>
 
 #include <klocale.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 #include <knuminput.h>
 
 #include "ksimgriddialog.h"
@@ -34,7 +34,7 @@ KSimGridDialogWidget::KSimGridDialogWidget(KSimGrid * grid, QWidget *parent, con
 {
 	// Copy values
 	m_gridWork = new KSimGrid(*m_gridStart);
-	CHECK_PTR(m_gridWork);
+	Q_CHECK_PTR(m_gridWork);
 	
 	initView();
 	initData();
@@ -49,16 +49,16 @@ KSimGridDialogWidget::~KSimGridDialogWidget()
 void KSimGridDialogWidget::initView()
 {
 	enaGrid = new QCheckBox(i18n("&Enable Grid"), newRowVBox());
-	CHECK_PTR(enaGrid);
+	Q_CHECK_PTR(enaGrid);
 	connect(enaGrid, SIGNAL(toggled(bool)), SLOT(slotEnabled(bool)));
 	
 	addEmptyCell();
 	
 	QLabel * styleLabel = new QLabel(i18n("&Style:") , this);
-	CHECK_PTR(styleLabel);
+	Q_CHECK_PTR(styleLabel);
 
 	styleSel = new QComboBox (this);
-	CHECK_PTR(styleSel);
+	Q_CHECK_PTR(styleSel);
 	styleSel->insertItem(i18n("Dots"), (int) GridDots);
 	styleSel->insertItem(i18n("Dot Line"), (int) GridDotLine);
 	styleSel->insertItem(i18n("Dash Line"), (int) GridDashLine);
@@ -72,10 +72,10 @@ void KSimGridDialogWidget::initView()
 	addEmptyCell();
 	
 	QLabel * colorLabel = new QLabel(i18n("&Color:") , this);
-	CHECK_PTR(colorLabel);
+	Q_CHECK_PTR(colorLabel);
 	
 	colorButton = new KColorButton(m_gridWork->getColor(),this);
-	CHECK_PTR(colorButton);
+	Q_CHECK_PTR(colorButton);
 //	colorButton->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	colorLabel->setBuddy(colorButton);
 	connect(colorButton, SIGNAL(changed(const QColor &)), SLOT(slotColorChanged(const QColor &)));
@@ -83,16 +83,16 @@ void KSimGridDialogWidget::initView()
 	
 	
 	enaGlobalGrid = new QCheckBox(i18n("&User defined grid"), newRowVBox());
-	CHECK_PTR(enaGlobalGrid);
+	Q_CHECK_PTR(enaGlobalGrid);
 	connect(enaGlobalGrid, SIGNAL(toggled(bool)), SLOT(slotGlobalEnabled(bool)));
 	
 	addEmptyCell();
 	
 	QLabel * gridXLabel = new QLabel(i18n("&X:") , this);
-	CHECK_PTR(gridXLabel);
+	Q_CHECK_PTR(gridXLabel);
 
 	gridXEdit = new KIntNumInput (this);
-	CHECK_PTR(gridXEdit);
+	Q_CHECK_PTR(gridXEdit);
 	gridXEdit->setRange(5,100,1,false);
 	gridXLabel->setBuddy(gridXEdit);
 	connect(gridXEdit, SIGNAL(valueChanged(int)), SLOT(slotGridXChanged(int)));
@@ -101,10 +101,10 @@ void KSimGridDialogWidget::initView()
 	addEmptyCell();
 	
 	QLabel * gridYLabel = new QLabel(i18n("&Y:") , this);
-	CHECK_PTR(gridYLabel);
+	Q_CHECK_PTR(gridYLabel);
 	
 	gridYEdit = new KIntNumInput (this);
-	CHECK_PTR(gridYEdit);
+	Q_CHECK_PTR(gridYEdit);
 //	gridYEdit->setFixedWidth(metric.width("00000"));
 	gridYEdit->setRange(5,100,1,false);
 	gridYLabel->setBuddy(gridYEdit);

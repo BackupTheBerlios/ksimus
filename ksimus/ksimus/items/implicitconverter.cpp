@@ -57,7 +57,7 @@ ImplicitConverter::ImplicitConverter(ConnectorBase * connector, const ImplicitCo
 	:	QObject(connector, implicitConverterInfo->getName().latin1())
 {
 	m_p = new Private(implicitConverterInfo);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 //	KSIMDEBUG_VAR("ImplicitConverter::ImplicitConverter", connector->getName());
 	KSIMDEBUG_INSTANCE_INC(ImplicitConverter);
@@ -85,7 +85,7 @@ static ImplicitConverter * createImplicitConverterBoolean2Float(ConnectorBase * 
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterBoolean2Float(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 
@@ -132,7 +132,7 @@ static ImplicitConverter * createImplicitConverterFloat2Boolean(ConnectorBase * 
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterFloat2Boolean(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 

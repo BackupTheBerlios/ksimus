@@ -21,7 +21,7 @@
 
 #include <klocale.h>
 #include <kinstance.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 #include "library.h"
 #include "componentlibrary.h"
@@ -43,7 +43,7 @@ ComponentListView::ComponentListView(QWidget *parent, const char *name )
 	connect(g_library->getComponentLib(),SIGNAL(signalInsert(const ComponentLibraryItem *)),
 					this,SLOT(slotInsert(const ComponentLibraryItem *)));
 	
-	QListIterator<BaseLibraryItem> it(*g_library->getComponentLib()->m_library);
+	QPtrListIterator<BaseLibraryItem> it(*g_library->getComponentLib()->m_library);
 	for(;it.current();++it)	
 	{
 		insert( (ComponentLibraryItem *)it.current(), false );
@@ -67,7 +67,7 @@ ComponentListView::~ComponentListView()
 
 void ComponentListView::setupTreeView(ComponentDirectorySubMenu * dir, ComponentListViewItem * clvi)
 {
-	QListIterator<ComponentDirectoryItem> it(* dir->getDirList());
+	QPtrListIterator<ComponentDirectoryItem> it(* dir->getDirList());
 	
 	for (;it.current();++it)
 	{
@@ -76,14 +76,14 @@ void ComponentListView::setupTreeView(ComponentDirectorySubMenu * dir, Component
 		if(it.current()->isSubMenu())
 		{
 			newClvi = new ComponentListViewItem(clvi, it.current()->textEntry());
-			CHECK_PTR(newClvi);
+			Q_CHECK_PTR(newClvi);
 //			newClvi->setSelectable(false);
 			setupTreeView((ComponentDirectorySubMenu *)it.current(), newClvi);
 		}
 		else
 		{
 			newClvi = new ComponentListViewItem(clvi, it.current()->textEntry(), ((ComponentDirectoryEntry*)it.current())->getComponentInfo());
-			CHECK_PTR(newClvi);
+			Q_CHECK_PTR(newClvi);
 		}
 	}
 }

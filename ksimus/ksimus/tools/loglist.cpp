@@ -235,7 +235,7 @@ LogList::LogList(KSimusApp * app, QWidget *parent, const char *name )
 	:	QListBox(parent,name)
 {
 	m_p = new Private(app);
-	CHECK_PTR(app);
+	Q_CHECK_PTR(app);
 	
 	connect(this, SIGNAL(selected(int)),SLOT(slotSelected(int)));
 	connect(this, SIGNAL(highlighted(int)),SLOT(slotHighlighted(int)));
@@ -269,7 +269,7 @@ void LogList::mousePressEvent(QMouseEvent * ev)
 			                                       KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
 			                                       KDialogBase::Ok,
 			                                       this);
-			CHECK_PTR(dialog);
+			Q_CHECK_PTR(dialog);
 			QWidget * wid = dialog->plainPage();
 			
 			LogListDialogWidget * child = new LogListDialogWidget(this, wid, i18n("Log Window Properties"));
@@ -314,7 +314,7 @@ void LogList::debug(const char * file, int line, const char * text)
 	                                    .arg(line)
 	                                    .arg(QString::fromLatin1(text)),
 	                                    LOG_DEBUG);
-	CHECK_PTR(lli);
+	Q_CHECK_PTR(lli);
 	append(lli);
 }
 
@@ -325,28 +325,28 @@ void LogList::debug(const char * file, int line, const QString & text)
 	                                    .arg(line)
 	                                    .arg(text),
 	                                    LOG_DEBUG);
-	CHECK_PTR(lli);
+	Q_CHECK_PTR(lli);
 	append(lli);
 }
 
 void LogList::info(const QString & s)
 {
 	LogListItem * lli = new LogListItem(s,LOG_INFO);
-	CHECK_PTR(lli);
+	Q_CHECK_PTR(lli);
 	append(lli);
 }
 
 void LogList::warning(const QString & s)
 {
 	LogListItem * lli = new LogListItem(s,LOG_WARNING);
-	CHECK_PTR(lli);
+	Q_CHECK_PTR(lli);
 	append(lli);
 }
 
 void LogList::error(const QString & s)
 {
 	LogListItem * lli = new LogListItem(s,LOG_ERROR);
-	CHECK_PTR(lli);
+	Q_CHECK_PTR(lli);
 	append(lli);
 } 
 

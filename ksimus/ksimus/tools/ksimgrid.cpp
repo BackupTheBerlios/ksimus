@@ -46,7 +46,7 @@ KSimGrid::KSimGrid(GRIDSTYLE style, const QColor & color)
 		m_useGlobalGrid(true)
 {
 	m_color = new QColor(color);
-	CHECK_PTR(m_color);
+	Q_CHECK_PTR(m_color);
 }
 
 
@@ -58,7 +58,7 @@ KSimGrid::KSimGrid(const KSimGrid & grid)
 		m_useGlobalGrid(grid.m_useGlobalGrid)
 {
 	m_color = new QColor(*grid.m_color);
-	CHECK_PTR(m_color);
+	Q_CHECK_PTR(m_color);
 }
 
 const KSimGrid & KSimGrid::operator=(const KSimGrid & grid)

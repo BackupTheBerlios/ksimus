@@ -146,7 +146,7 @@ void WatchItemBoolTristateBase::ActivePropertyWidget::init()
 	QString s;
 
 	m_box = new QComboBox(this, name());
-	CHECK_PTR(m_box);
+	Q_CHECK_PTR(m_box);
 
 	m_box->insertItem(QString::fromLatin1("<"), (int)eLesser);
 
@@ -158,7 +158,7 @@ void WatchItemBoolTristateBase::ActivePropertyWidget::init()
 	m_box->insertItem(s, (int)eDontCareCount);
 
 	m_spin = new KSimSpinBox(this, name());
-	CHECK_PTR(m_spin);
+	Q_CHECK_PTR(m_spin);
 	m_spin->setMinValue(0);
 }
 
@@ -407,11 +407,11 @@ bool WatchItemBoolTristateBase::testBreak(unsigned int index, unsigned int stepC
 PropertyWidget * WatchItemBoolTristateBase::createPropertyWidget(QWidget * parent)
 {
 	PropertyWidget * wid = WatchItemBase::createPropertyWidget(parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	m_detailed = new QCheckBox(i18n("Boolean Tristate Watch", "Show detailed information"),
 	                           wid, "m_detailed");
-	CHECK_PTR(m_detailed);
+	Q_CHECK_PTR(m_detailed);
 	
 	PropertyWidget::addToolTip(i18n("Boolean Tristate Watch", "Shows the number of connectors with state true and false"),
 	                           m_detailed);
@@ -437,23 +437,23 @@ void WatchItemBoolTristateBase::propertyDefaultPressed()
 
 void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 {
-/*	ASSERT(m_triggerOut == 0);*/
+/*	Q_ASSERT(m_triggerOut == 0);*/
 
 /*	m_triggerOut = new OutProperty(parent, *this);
-	CHECK_PTR(m_triggerOut);*/
+	Q_CHECK_PTR(m_triggerOut);*/
 
 	#define FIRST_COL_WIDTH 20
 
-	ASSERT(m_triggerOutStateT1Widget == (StatePropertyWidget*) 0);
-	ASSERT(m_triggerOutStateT0Widget == (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT1Widget == (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT0Widget == (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT1Widget == (ActivePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT0Widget == (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT1Widget == (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT0Widget == (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT1Widget == (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT0Widget == (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT1Widget == (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT0Widget == (ActivePropertyWidget*) 0);
 
 
 	PropertyWidget * mainWid = new PropertyWidget(3, parent);
-	CHECK_PTR(mainWid);
+	Q_CHECK_PTR(mainWid);
 	mainWid->addColSpacing(0, FIRST_COL_WIDTH);
 
 	QLabel * label;
@@ -482,7 +482,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	// ####################          t         ####################
 
 	label = new QLabel(mainWid->newRowHBox(AlignLeft), "InT0Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	if (isConnectorWatch())
 	{
 		label->setText(i18n("Boolean Tristate Watch", "Input(t):"));
@@ -501,10 +501,10 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	mainWid->addEmptyCell();
 	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "InT0LabelState");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_triggerInStateT0Widget = new StatePropertyWidget(m_triggerInStateT0, mainWid, "InT0Property");
-	CHECK_PTR(m_triggerInStateT0Widget);
+	Q_CHECK_PTR(m_triggerInStateT0Widget);
 	label->setBuddy(m_triggerInStateT0Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the signal state at time t.");
@@ -515,10 +515,10 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	mainWid->addEmptyCell();
 	label = new QLabel(i18n("Boolean Tristate Watch", "Active connectors:"),
 	                   mainWid, "InT0LabelCount");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_triggerInActiveT0Widget = new ActivePropertyWidget(m_triggerInActiveT0, getMaxConnectors(), mainWid, "InT0Active");
-	CHECK_PTR(m_triggerInActiveT0Widget);
+	Q_CHECK_PTR(m_triggerInActiveT0Widget);
 	label->setBuddy(m_triggerInActiveT0Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "This trigger depends on the number of active connectors at time t.");
@@ -530,7 +530,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	label = new QLabel(i18n("Boolean Tristate Watch", "Output(t):"),
 	                   mainWid->newRowHBox(AlignLeft), "OutT0Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the trigger condition of the output signal at time t.");
@@ -540,11 +540,11 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	mainWid->addEmptyCell();
 	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "OutT0LabelState");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
 
 	m_triggerOutStateT0Widget = new StatePropertyWidget(m_triggerOutStateT0, mainWid, "OutT0Property");
-	CHECK_PTR(m_triggerOutStateT0Widget);
+	Q_CHECK_PTR(m_triggerOutStateT0Widget);
 	HIDE_IF_WIRE(m_triggerOutStateT0Widget);
 	label->setBuddy(m_triggerOutStateT0Widget);
 	s = i18n("Boolean Tristate Watch",
@@ -556,7 +556,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	// ####################        t - 1       ####################
 
 	label = new QLabel(mainWid->newRowHBox(AlignLeft), "InT1Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	if (isConnectorWatch())
 	{
 		label->setText(i18n("Boolean Tristate Watch", "Input(t-1):"));
@@ -575,10 +575,10 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	mainWid->addEmptyCell();
 	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "InT1LabelState");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_triggerInStateT1Widget = new StatePropertyWidget(m_triggerInStateT1, mainWid, "InT1Property");
-	CHECK_PTR(m_triggerInStateT1Widget);
+	Q_CHECK_PTR(m_triggerInStateT1Widget);
 	label->setBuddy(m_triggerInStateT1Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the signal state at time t-1.");
@@ -588,10 +588,10 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	mainWid->addEmptyCell();
 	label = new QLabel(i18n("Boolean Tristate Watch", "Active connectors:"),
 	                   mainWid, "InT1LabelCount");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_triggerInActiveT1Widget = new ActivePropertyWidget(m_triggerInActiveT1, getMaxConnectors(), mainWid, "InT1Active");
-	CHECK_PTR(m_triggerInActiveT1Widget);
+	Q_CHECK_PTR(m_triggerInActiveT1Widget);
 	label->setBuddy(m_triggerInActiveT1Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "This trigger depends on the number of active connectors at time t-1.");
@@ -603,7 +603,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	label = new QLabel(i18n("Boolean Tristate Watch", "Output(t-1):"),
 	                   mainWid->newRowHBox(AlignLeft), "OutT1Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the trigger condition of the output signal at time t-1.");
@@ -613,11 +613,11 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	mainWid->addEmptyCell();
 	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "OutT1LabelState");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
 
 	m_triggerOutStateT1Widget = new StatePropertyWidget(m_triggerOutStateT1, mainWid, "OutT1Property");
-	CHECK_PTR(m_triggerOutStateT1Widget);
+	Q_CHECK_PTR(m_triggerOutStateT1Widget);
 	HIDE_IF_WIRE(m_triggerOutStateT1Widget);
 	label->setBuddy(m_triggerOutStateT1Widget);
 	s = i18n("Boolean Tristate Watch",
@@ -644,12 +644,12 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 void WatchItemBoolTristateBase::triggerPropertyOkPressed()
 {
-	ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT1Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT0Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT1Widget != (ActivePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT0Widget != (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT1Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT0Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT1Widget != (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT0Widget != (ActivePropertyWidget*) 0);
 
 	m_triggerOutStateT1 = m_triggerOutStateT1Widget->value();
 //	delete m_triggerOutStateT1Widget;
@@ -679,12 +679,12 @@ void WatchItemBoolTristateBase::triggerPropertyOkPressed()
 
 void WatchItemBoolTristateBase::triggerPropertyDefaultPressed()
 {
-	ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT1Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT0Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT1Widget != (ActivePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT0Widget != (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT1Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT0Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT1Widget != (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT0Widget != (ActivePropertyWidget*) 0);
 
 	m_triggerOutStateT1Widget->setValue(DEFAULT_OUT_STATE_T1);
 	m_triggerOutStateT0Widget->setValue(DEFAULT_OUT_STATE_T0);
@@ -696,12 +696,12 @@ void WatchItemBoolTristateBase::triggerPropertyDefaultPressed()
 
 void WatchItemBoolTristateBase::triggerPropertyCancelPressed()
 {
-	ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT1Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInStateT0Widget != (StatePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT1Widget != (ActivePropertyWidget*) 0);
-	ASSERT(m_triggerInActiveT0Widget != (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT1Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInStateT0Widget != (StatePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT1Widget != (ActivePropertyWidget*) 0);
+	Q_ASSERT(m_triggerInActiveT0Widget != (ActivePropertyWidget*) 0);
 
 //	delete m_triggerOutStateT1Widget;
 	m_triggerOutStateT1Widget = (StatePropertyWidget*) 0;

@@ -22,7 +22,7 @@
 
 // QT includes
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE includes
 
@@ -128,7 +128,7 @@ private slots:
 //################################################################################
 
 
-class KSimIoJoin::List : public QList<KSimIoJoin>
+class KSimIoJoin::List : public QPtrList<KSimIoJoin>
 {
 public:
 //	List();
@@ -138,7 +138,7 @@ public:
 
 
 #define FOR_EACH_IO_JOIN(_it_,_ioJoinList_)  \
-        for(QListIterator<KSimIoJoin> _it_(_ioJoinList_);_it_.current();++_it_)
+        for(QPtrListIterator<KSimIoJoin> _it_(_ioJoinList_);_it_.current();++_it_)
 
 
 #endif

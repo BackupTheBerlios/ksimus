@@ -27,15 +27,15 @@
 
 BaseLibrary::BaseLibrary()
 {
-	m_library = new QList<BaseLibraryItem>;
-	CHECK_PTR(m_library);
+	m_library = new QPtrList<BaseLibraryItem>;
+	Q_CHECK_PTR(m_library);
 	m_library->setAutoDelete(true);
 	
 	m_libNames = new QDict<BaseLibraryItem>;
-	CHECK_PTR(m_libNames);
+	Q_CHECK_PTR(m_libNames);
 	
 	m_oldLibNames = new QDict<BaseLibraryItem>;
-	CHECK_PTR(m_oldLibNames);
+	Q_CHECK_PTR(m_oldLibNames);
 	
 }
 
@@ -51,7 +51,7 @@ bool BaseLibrary::insert(const BaseInfo * bi, const PackageInfo * packageInfo)
 	bool res;
 	
 	BaseLibraryItem * bli = new BaseLibraryItem(bi, packageInfo);
-	CHECK_PTR(bli);
+	Q_CHECK_PTR(bli);
 	
 	res = _insert_(bli);
 	
@@ -70,7 +70,7 @@ bool BaseLibrary::insert(const BaseInfo * bi, const PackageInfo * packageInfo)
 
 bool BaseLibrary::_insert_(const BaseLibraryItem * bli)
 {
-	CHECK_PTR(bli);
+	Q_CHECK_PTR(bli);
 	
 	// Unique libName required
 	if ( ! m_libNames->find(bli->getBaseInfo()->getLibName()) )
@@ -240,7 +240,7 @@ const PackageInfo * BaseLibrary::getPackageInfo(const QString & libName) const
 	return (const PackageInfo *)0;
 }
 
-const QList<BaseLibraryItem> * BaseLibrary::getList() const
+const QPtrList<BaseLibraryItem> * BaseLibrary::getList() const
 {
 	return m_library;
 }

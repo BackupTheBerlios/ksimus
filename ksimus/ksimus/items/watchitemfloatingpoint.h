@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qarray.h>
+#include <qmemarray.h>
 
 // KDE-Includes
 
@@ -99,7 +99,7 @@ protected:
 	WatchItemFloatingPointBase(ConnectorBase * connector);
 	WatchItemFloatingPointBase(WireProperty * wireProperty);
 	
-	QArray<double> m_traceBuffer;
+	QMemArray<double> m_traceBuffer;
 
 private:
 	void init();

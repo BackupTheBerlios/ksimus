@@ -123,7 +123,7 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 	m_input = new ConnectorFloatIn(this,
 	                              QString::fromLatin1("Input"),
 	                              i18n("FloatingPoint-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -244,7 +244,7 @@ ComponentPropertyBaseWidget * Delay::createGeneralProperty(QWidget *parent)
 {
 	DelayPropertyGeneralWidget * wid;
 	wid = new DelayPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -261,10 +261,10 @@ DelayPropertyGeneralWidget::DelayPropertyGeneralWidget(Delay * comp, QWidget *pa
 	QString str;
 
 	lab = new QLabel(i18n("FloatingPoint", "Delay time:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_delayTime = new KSimTimeSpinBox(comp->getDelayTime(), this);
-	CHECK_PTR(m_delayTime);
+	Q_CHECK_PTR(m_delayTime);
 	lab->setBuddy(m_delayTime);
 	KSimTime myTime(comp->getDelayTime());
 	myTime.setValue((double)MAX_DEPTH, unit_ticks);
@@ -279,7 +279,7 @@ DelayPropertyGeneralWidget::DelayPropertyGeneralWidget(Delay * comp, QWidget *pa
 	QHBox * hintBox = newRowHBox("hintBox");
 
 	m_delayTimeHint = new QLabel(hintBox, "m_delayTimeHint");
-	CHECK_PTR(m_delayTimeHint);
+	Q_CHECK_PTR(m_delayTimeHint);
 	slotChanged(comp->getDelayTime());
 	connect(m_delayTime, SIGNAL(changed(const KSimTime &)), this, SLOT(slotChanged(const KSimTime &)));
 	

@@ -22,7 +22,7 @@
 
 // QT-Includes
 #include <qwidget.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qvbox.h>
 
 // KDE-Includes
@@ -90,7 +90,7 @@ protected: // Protected methods
 	QListView * connView;
 	/** List of all connectors
 		Same order as connector or position lists in mdata */
-	QList<QListViewItem> * connViewItems;
+	QPtrList<QListViewItem> * connViewItems;
 	/** Last selected connector
 			0, if no connector is selected */
 	ExternalConnector * selectedConn;

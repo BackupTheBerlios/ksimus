@@ -209,6 +209,6 @@ signals:
 	void signalStatusHelpMsg(const QString &);
 };
 
-class KSimEditorList : public QList<KSimEditor> {};
+class KSimEditorList : public QPtrList<KSimEditor> {};
 
 #endif // KSIMEDITOR_H

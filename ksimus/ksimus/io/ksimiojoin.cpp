@@ -78,11 +78,11 @@ KSimIoJoin::KSimIoJoin(KSimIoComponent* ioComp, const KSimIoJoinInfo* info)
 		m_connectorBase((ConnectorBase *)0),
 		m_serialID(0)
 {
-	ASSERT(ioComp != (KSimIoComponent*)0);
-	ASSERT(info != (const KSimIoJoinInfo*)0);
+	Q_ASSERT(ioComp != (KSimIoComponent*)0);
+	Q_ASSERT(info != (const KSimIoJoinInfo*)0);
 
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	KSIMDEBUG("KSimIoJoin::KSimIoJoin");
 }
@@ -132,7 +132,7 @@ void KSimIoJoin::setPin(const QString & deviceName, int pinID)
 void KSimIoJoin::setPin(const KSimIoPin * pin)
 {
 
-	ASSERT(pin != (const KSimIoPin*)0);
+	Q_ASSERT(pin != (const KSimIoPin*)0);
 
 	if(m_pin)
 	{
@@ -148,7 +148,7 @@ void KSimIoJoin::setPin(const KSimIoPin * pin)
 	m_p->ioPinID = getPin()->getPinID();
 
 	m_device = m_pin->getDevice();
-	CHECK_PTR(m_device);
+	Q_CHECK_PTR(m_device);
 	m_device->registerJoin(this);
 	getIoComponent()->getContainer()->registerIoDevice(m_device);
 	m_p->deviceName = getDevice()->getName();
@@ -209,7 +209,7 @@ bool KSimIoJoin::load(KSimData & file)
 
 void KSimIoJoin::setConnector(ConnectorBase * connector)
 {
-	ASSERT(connector != (ConnectorBase *)0);
+	Q_ASSERT(connector != (ConnectorBase *)0);
 	
 	m_connectorBase = connector;
 	getConnector()->setName(m_p->defaultConnectorName, true);
@@ -238,8 +238,8 @@ void KSimIoJoin::calculate() const
 
 void KSimIoJoin::reset()
 {
-	ASSERT(m_pin != (const KSimIoPin*) 0);
-	ASSERT(m_device != (KSimIoDevice*) 0);
+	Q_ASSERT(m_pin != (const KSimIoPin*) 0);
+	Q_ASSERT(m_device != (KSimIoDevice*) 0);
 	// Nothing todo
 }
 

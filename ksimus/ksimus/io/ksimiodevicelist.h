@@ -21,7 +21,7 @@
 // C/C++ includes
 
 // QT includes
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE includes
 
@@ -37,7 +37,7 @@ Includes a static list for all used devices.
   *@author Rasmus Diekenbrock
   */
 
-class KSimIoDeviceList : public QList<KSimIoDevice>
+class KSimIoDeviceList : public QPtrList<KSimIoDevice>
 {
 public: 
 	KSimIoDeviceList();
@@ -54,7 +54,7 @@ public:
 };
 
 #define FOR_EACH_IO_DEVICE(_it_,_ioDeviceList_)  \
-        for(QListIterator<KSimIoDevice> _it_(_ioDeviceList_);_it_.current();++_it_)
+        for(QPtrListIterator<KSimIoDevice> _it_(_ioDeviceList_);_it_.current();++_it_)
 
 
 #endif

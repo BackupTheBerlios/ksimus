@@ -92,61 +92,61 @@ WatchWidget::WatchWidget(KSimusApp * app, QWidget *parent, const char *name )
 		m_stepCnt(0)
 {
 	m_p = new Private;
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	setSpacing(KDialog::spacingHint());
 
 	m_watchListView = new WatchListView(this, this, "WatchListView");
-	CHECK_PTR(m_watchListView);
+	Q_CHECK_PTR(m_watchListView);
 
 	// Button row
 	QHBox * buttonBox = new QHBox(this, "buttonBox");
-	CHECK_PTR(buttonBox);
+	Q_CHECK_PTR(buttonBox);
 
 	m_stepBegin = new QPushButton(QString::null, buttonBox, "button begin");
-	CHECK_PTR(m_stepBegin);
+	Q_CHECK_PTR(m_stepBegin);
 	m_stepBegin->setPixmap(KSimIcon::load("start", KIcon::Small));
 	m_stepBegin->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepBegin, SIGNAL(clicked()), SLOT(slotStepBegin()));
 
 	m_stepBack = new QPushButton(QString::null, buttonBox, "button back");
-	CHECK_PTR(m_stepBack);
+	Q_CHECK_PTR(m_stepBack);
 	m_stepBack->setPixmap(KSimIcon::load("back", KIcon::Small));
 	m_stepBack->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepBack, SIGNAL(clicked()), SLOT(slotStepBack()));
 
 	QWidget * spacer = new QWidget(buttonBox);
-	CHECK_PTR(m_stepBack);
+	Q_CHECK_PTR(m_stepBack);
 	buttonBox->setStretchFactor(spacer,10);
 
 	m_stepForward = new QPushButton(buttonBox, "button forward");
-	CHECK_PTR(m_stepForward);
+	Q_CHECK_PTR(m_stepForward);
 	m_stepForward->setPixmap(KSimIcon::load("forward", KIcon::Small));
 	m_stepForward->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepForward, SIGNAL(clicked()), SLOT(slotStepForward()));
 
 	m_stepEnd = new QPushButton(QString::null, buttonBox, "button end");
-	CHECK_PTR(m_stepEnd);
+	Q_CHECK_PTR(m_stepEnd);
 	m_stepEnd->setPixmap(KSimIcon::load("finish", KIcon::Small));
 	m_stepEnd->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepEnd, SIGNAL(clicked()), SLOT(slotStepEnd()));
 
 	m_p->scrollBar = new QSlider(Qt::Horizontal, this, "Watch scrollbar");
-	CHECK_PTR(m_p->scrollBar);
+	Q_CHECK_PTR(m_p->scrollBar);
 
 
 	// Time and Tick
 	QHBox * timeWid = new QHBox(this, "timeBox");
-	CHECK_PTR(timeWid);
+	Q_CHECK_PTR(timeWid);
 	timeWid->setSpacing(KDialog::spacingHint());
 //	timeWid->setMargin(KDialog::marginHint());
 	
 	QLabel * lab = new QLabel(i18n("Watch List", "Time:"), timeWid);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	lab->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	m_timeLabel = new QLabel(UNKNOWN_TIME, timeWid, "m_timeLabel");
 	
-	CHECK_PTR(m_timeLabel);
+	Q_CHECK_PTR(m_timeLabel);
 	
 	m_watchItemList.setAutoDelete(false);
 	connect(getDoc(), SIGNAL(signalPaused(bool)), SLOT(slotSimPaused(bool)));
@@ -198,7 +198,7 @@ void WatchWidget::reset()
 	m_viewIndex = 0;
 	m_stepCnt = 0;
 
-	QListIterator<WatchItemBase> it(m_watchItemList);
+	QPtrListIterator<WatchItemBase> it(m_watchItemList);
 	for(;it.current();++it)
 	{
 		it.current()->reset();
@@ -217,7 +217,7 @@ void WatchWidget::execute()
 	
 	bool commonBrk = false;
 	if (m_stepCnt < getTraceSize()) m_stepCnt++;
-	QListIterator<WatchItemBase> it(m_watchItemList);
+	QPtrListIterator<WatchItemBase> it(m_watchItemList);
 	for(;it.current();++it)
 	{
 		bool brk = it.current()->execute(m_index, m_stepCnt);
@@ -259,7 +259,7 @@ void WatchWidget::addWatchItem(WatchItemBase * watchItem)
 	{
 		m_watchItemList.append(watchItem);
 		WatchViewItem * wvi = new WatchViewItem(watchItem, getWatchListView());
-		CHECK_PTR(wvi);
+		Q_CHECK_PTR(wvi);
 		watchItem->setWatchViewItem(wvi);
 		watchItem->reset();
 		watchItem->showData(m_index);
@@ -283,7 +283,7 @@ void WatchWidget::setTraceSize(unsigned int size)
 {
 	m_traceSize = size;
 
-	QListIterator<WatchItemBase> it(m_watchItemList);
+	QPtrListIterator<WatchItemBase> it(m_watchItemList);
 	for(;it.current();++it)
 	{
 		it.current()->setTraceSize(size);
@@ -323,7 +323,7 @@ void WatchWidget::slotSimPaused(bool pause)
 	}
 	else
 	{
-		QListIterator<WatchItemBase> it(m_watchItemList);
+		QPtrListIterator<WatchItemBase> it(m_watchItemList);
 		for(;it.current();++it)
 		{
 			if (it.current()->isBreakEnabled() && (it.current()->getBreaksActual() == 0))
@@ -421,7 +421,7 @@ void WatchWidget::slotStepEnd()
 void WatchWidget::showHistory(unsigned int index) const
 {
 	m_timeLabel->setText(m_p->timeList[index]);
-	QListIterator<WatchItemBase> it(m_watchItemList);
+	QPtrListIterator<WatchItemBase> it(m_watchItemList);
 	for(;it.current();++it)
 	{
 		it.current()->showData(index);
@@ -491,7 +491,7 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 		m_watchWidget(watchWidget)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	setCenterRowStretch(0);
 	setBottomRowStretch(1);
@@ -499,10 +499,10 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 	QLabel * label;
 
 	label = new QLabel(i18n("Watch settings", "Trace buffer size:"), this, "history depth label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_p->traceSize = new KSimSpinBox(1, 10000, 10, this, "history depth spinbox");
-	CHECK_PTR(m_p->traceSize);
+	Q_CHECK_PTR(m_p->traceSize);
 	label->setBuddy(m_p->traceSize);
 	addToolTip(i18n("Set the size of the trace buffer."),
 	           m_p->traceSize, label);
@@ -517,9 +517,9 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 
 
 	QWidget * rowWid = newRowHBox("rowWid riseByAdd");
-	CHECK_PTR(rowWid);
+	Q_CHECK_PTR(rowWid);
 	m_p->riseByAdd = new QCheckBox(i18n("Watch settings", "Rise watch view if watchpoint is added"), rowWid, "riseByAdd");
-	CHECK_PTR(m_p->riseByAdd);
+	Q_CHECK_PTR(m_p->riseByAdd);
 	addToolTip(i18n("Rises the watch view if a new watchpoint is added."),
 	           m_p->riseByAdd);
 	addWhatsThis(i18n("Rises the watch view if a new watchpoint is added.\n\n"

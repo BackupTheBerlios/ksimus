@@ -72,7 +72,7 @@ OptionalFunction::OptionalFunction(Component * component, const QString & addOnN
 	static const QString pageName(i18n("Component property dialog", "Optionals"));
 	
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	setDialogPageName(pageName);
 	getAction().setAction(KSimAction::STORAGE | KSimAction::INITPROPERTYDIALOG);
 }
@@ -160,10 +160,10 @@ void OptionalFunction::addToPropertyWidget(PropertyWidget * widget)
 	widget->newRow();
 	
 	m_p->propertyWidgetItem->label = new QLabel(getLabelText(), widget, "OptionalFunction::QLabel");
-	CHECK_PTR(getLabel());
+	Q_CHECK_PTR(getLabel());
 	
 	m_p->propertyWidgetItem->comboBox = new QComboBox(widget, "OptionalFunction::QComboBox");
-	CHECK_PTR(getComboBox());
+	Q_CHECK_PTR(getComboBox());
 	getComboBox()->insertItem(i18n("Disabled"), 0);
 	getComboBox()->insertItem(i18n("Enabled"), 1);
 	getLabel()->setBuddy(getComboBox());

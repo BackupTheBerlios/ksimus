@@ -28,7 +28,7 @@ LLICompViewSel::LLICompViewSel(	const char * text, unsigned int priority,
 		m_doc(doc)
 {
 	m_cvList = new CompViewList(*cvList);
-	CHECK_PTR(m_cvList);
+	Q_CHECK_PTR(m_cvList);
 }
 
 LLICompViewSel::LLICompViewSel(	const char * text, unsigned int priority,
@@ -37,7 +37,7 @@ LLICompViewSel::LLICompViewSel(	const char * text, unsigned int priority,
 		m_doc(doc)
 {
 	m_cvList = new CompViewList();
-	CHECK_PTR(m_cvList);
+	Q_CHECK_PTR(m_cvList);
 	m_cvList->append(cv);
 }
 
@@ -71,7 +71,7 @@ LLICompSel::LLICompSel(	const char * text, unsigned int priority,
 		m_doc(doc)
 {
 	m_compList = new ComponentList(*compList);
-	CHECK_PTR(m_compList);
+	Q_CHECK_PTR(m_compList);
 }
 
 LLICompSel::LLICompSel(	const char * text, unsigned int priority,
@@ -80,7 +80,7 @@ LLICompSel::LLICompSel(	const char * text, unsigned int priority,
 		m_doc(doc)
 {
 	m_compList = new ComponentList();
-	CHECK_PTR(m_compList);
+	Q_CHECK_PTR(m_compList);
 	m_compList->append(comp);
 }
 

@@ -100,10 +100,10 @@ Component::Component(CompContainer * container, const ComponentInfo * ci)
 	  m_myActions(KSimAction::ALL)		//Default
 {
 	m_connList = new ConnectorList;
-	CHECK_PTR(m_connList);
+	Q_CHECK_PTR(m_connList);
 	m_connList->setAutoDelete(true);
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	KSIMDEBUG_INSTANCE_INC(Component);
 }
 	
@@ -379,7 +379,7 @@ void Component::reset()
 			{
 				if (!m_p->addonListCalculate)
 					m_p->addonListCalculate = new ComponentAddOnList();
-				CHECK_PTR(m_p->addonListCalculate);
+				Q_CHECK_PTR(m_p->addonListCalculate);
 				m_p->addonListCalculate->append(it.current());
 			}
 		}
@@ -776,7 +776,7 @@ void Component::addGeneralProperty(ComponentPropertyDialog * dialog)
 ComponentPropertyBaseWidget * Component::createGeneralProperty(QWidget *parent)
 {
 	ComponentPropertyBaseWidget * wid = new ComponentPropertyGeneralWidget(this, parent, "General Settings");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	return wid;
 }
 
@@ -840,7 +840,7 @@ void Component::addInfoProperty(ComponentPropertyDialog * dialog)
 ComponentPropertyBaseWidget * Component::createInfoProperty(QWidget *parent)
 {
 	ComponentPropertyBaseWidget * wid = new ComponentPropertyInfoWidget(this, parent, "Information");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	return wid;
 }
 

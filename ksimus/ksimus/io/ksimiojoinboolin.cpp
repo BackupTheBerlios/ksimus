@@ -57,7 +57,7 @@ const KSimIoJoinInfo * KSimIoJoinBoolIn::getStaticInfo()
 KSimIoJoin * KSimIoJoinBoolIn::create(KSimIoComponent * comp, const KSimIoJoinInfo * info)
 {
 	KSimIoJoin * join = new KSimIoJoinBoolIn(comp, info);
-	CHECK_PTR(join);
+	Q_CHECK_PTR(join);
 	return join;
 }
 
@@ -75,7 +75,7 @@ KSimIoJoinBoolIn::~KSimIoJoinBoolIn()
 ConnectorBase * KSimIoJoinBoolIn::createConnector()
 {
 	ConnectorBoolOut * conn = new ConnectorBoolOut(getComponent(), QString::null, QString::null);
-	CHECK_PTR(conn);
+	Q_CHECK_PTR(conn);
 	conn->setErasable(true);
 	setConnector(conn);
 	return conn;

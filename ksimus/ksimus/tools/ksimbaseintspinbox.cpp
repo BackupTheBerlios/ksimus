@@ -114,7 +114,7 @@ KSimBaseIntSpinBox::KSimBaseIntSpinBox(QWidget * parent, const char * name)
 	: KSimSpinBox(parent, name)
 {
 	m_p = new Private(0, INT_MIN, INT_MAX, 1);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	init();
 }
 
@@ -123,7 +123,7 @@ KSimBaseIntSpinBox::KSimBaseIntSpinBox(const KSimBaseInt & value, int min, int m
 	: KSimSpinBox(parent, name)
 {
 	m_p = new Private(value, min, max, steps);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	init();
 }
 
@@ -364,7 +364,7 @@ bool KSimBaseIntSpinBox::eventFilter(QObject * obj, QEvent * ev)
 			if (((QMouseEvent*)ev)->button() == QMouseEvent::RightButton)
 			{
 				QPopupMenu * popup = new QPopupMenu(0,"KSimBaseIntSpinBox RMB Popup");
-				CHECK_PTR(popup);
+				Q_CHECK_PTR(popup);
 		
 				initRmbMenu(popup);
 				if (popup->count() != 0)
@@ -395,7 +395,7 @@ bool KSimBaseIntSpinBox::eventFilter(QObject * obj, QEvent * ev)
 
 void KSimBaseIntSpinBox::initRmbMenu(QPopupMenu * popup)
 {
-	CHECK_PTR(popup);
+	Q_CHECK_PTR(popup);
 
 	bool ok;
 	int id;
@@ -403,7 +403,7 @@ void KSimBaseIntSpinBox::initRmbMenu(QPopupMenu * popup)
 	KSimBaseInt i = KSimBaseInt::convert(cleanText(), &ok);
 
 	QPopupMenu * convertPopup = new QPopupMenu(popup, "convertPopup");
-	CHECK_PTR(convertPopup);
+	Q_CHECK_PTR(convertPopup);
 
 	id = convertPopup->insertItem(i18n("integer base", "Binary"), this, SLOT(slotConvertToBinary()));
 	convertPopup->setItemEnabled(id, (i.base() != KSimBaseInt::Binary));
@@ -427,7 +427,7 @@ void KSimBaseIntSpinBox::initRmbMenu(QPopupMenu * popup)
 	if (m_p->constantList().count())
 	{
 		QPopupMenu * constantPopup = new QPopupMenu(popup, "constantPopup");
-		CHECK_PTR(constantPopup);
+		Q_CHECK_PTR(constantPopup);
 
 		Private::ConstantList::Iterator it(m_p->constantList().begin());
 

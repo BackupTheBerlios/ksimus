@@ -170,7 +170,7 @@ ComponentPropertyBaseWidget * FloatInputSlider::createGeneralProperty(QWidget *p
 {
 	FloatInputSliderPropertyGeneralWidget * wid;
 	wid = new FloatInputSliderPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -190,10 +190,10 @@ FloatInputSliderView::FloatInputSliderView(FloatInputSlider * comp, eViewType vi
 		setMinSize(5*gridX, 4*gridY);
 
 		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		block->getRight()->addStretch(2);
 		block->getRight()->addConnector(comp->getOutputConnector(),0);
@@ -258,7 +258,7 @@ FloatInputSliderWidgetView::FloatInputSliderWidgetView(FloatInputSliderView * cv
 	:	CompViewVBox(cv,parent,name)
 {
 	m_slider = new QSlider(this);
-	CHECK_PTR(m_slider);
+	Q_CHECK_PTR(m_slider);
 	m_slider->setMinValue(MIN_SLIDER_VAL);
 	m_slider->setMaxValue(MAX_SLIDER_VAL);
 	m_slider->setValue(MIN_SLIDER_VAL);
@@ -309,10 +309,10 @@ FloatInputSliderPropertyGeneralWidget::FloatInputSliderPropertyGeneralWidget(Flo
 	
 	
 	m_maxValueLabel = new QLabel(i18n("FloatingPoint", "Top/Left value: "), this, "MaxValueLabel");
-	CHECK_PTR(m_maxValueLabel);
+	Q_CHECK_PTR(m_maxValueLabel);
 	
 	m_maxValue = new KSimDoubleEdit(this, "MaxValue");
-	CHECK_PTR(m_maxValue);
+	Q_CHECK_PTR(m_maxValue);
 	tip = i18n("FloatingPoint", "The value of the slider at the top or left position.");
 	addToolTip(tip, m_maxValue, m_maxValueLabel);
 	addWhatsThis(tip, m_maxValue, m_maxValueLabel);
@@ -320,10 +320,10 @@ FloatInputSliderPropertyGeneralWidget::FloatInputSliderPropertyGeneralWidget(Flo
 	
 	
 	m_minValueLabel = new QLabel(i18n("FloatingPoint", "Bottom/Right value: "), this, "MinValueLabel");
-	CHECK_PTR(m_minValueLabel);
+	Q_CHECK_PTR(m_minValueLabel);
 	
 	m_minValue = new KSimDoubleEdit(this, "MinValue");
-	CHECK_PTR(m_minValue);
+	Q_CHECK_PTR(m_minValue);
 	tip = i18n("FloatingPoint", "The value of the slider at the bottom or right position.");
 	addToolTip(tip, m_minValue, m_minValueLabel);
 	addWhatsThis(tip, m_minValue, m_minValueLabel);

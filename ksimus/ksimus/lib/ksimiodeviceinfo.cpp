@@ -37,6 +37,6 @@ KSimIoDeviceInfo::KSimIoDeviceInfo(const QString & name,
 
 KSimIoDevice * KSimIoDeviceInfo::create(const KSimIoDeviceInfo * info) const
 {
-	CHECK_PTR(m_factory);
+	Q_CHECK_PTR(m_factory);
 	return m_factory(info);
 }	

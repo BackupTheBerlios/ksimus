@@ -50,7 +50,7 @@ Boolean1Out::Boolean1Out(CompContainer * container, const ComponentInfo * ci)
 	m_out = new ConnectorBoolOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 }
 
@@ -143,7 +143,7 @@ ComponentPropertyBaseWidget * Boolean1Out::createGeneralProperty(QWidget *parent
 {
 	Boolean1OutPropertyGeneralWidget * wid;
 	wid = new Boolean1OutPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -161,7 +161,7 @@ Boolean1OutView::Boolean1OutView(Boolean1Out * comp, eViewType viewType, const Q
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 		
@@ -186,10 +186,10 @@ Boolean1OutPropertyGeneralWidget::Boolean1OutPropertyGeneralWidget(Boolean1Out *
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetStateLabel = new QLabel(i18n("Reset State: "), this, "ResetStateLabel");
-	CHECK_PTR(m_resetStateLabel);
+	Q_CHECK_PTR(m_resetStateLabel);
 	
 	m_resetState = new KSimBooleanBox(getBoolean1Out()->getResetState(), this, "ResetState");
-	CHECK_PTR(m_resetState);
+	Q_CHECK_PTR(m_resetState);
 	
 	m_resetStateLabel->setBuddy(m_resetState);
 	QString tip(i18n("Changes the reset state of the component to true or false."));

@@ -257,7 +257,7 @@ ComponentPropertyBaseWidget * WaveformGenerator::createGeneralProperty(QWidget *
 {
 	WaveformGeneratorPropertyGeneralWidget * wid;
 	wid = new WaveformGeneratorPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -444,27 +444,27 @@ WaveformGeneratorView::WaveformGeneratorView(WaveformGenerator * comp, eViewType
 		if (Private::sinusoidalPix == (QPixmap*)0)
 		{
 			Private::sinusoidalPix = new QPixmap(Private::sinus);
-			CHECK_PTR(Private::sinusoidalPix);
+			Q_CHECK_PTR(Private::sinusoidalPix);
 		}
 		if (Private::squarePix == (QPixmap*)0)
 		{
 			Private::squarePix = new QPixmap(Private::square);
-			CHECK_PTR(Private::squarePix);
+			Q_CHECK_PTR(Private::squarePix);
 		}
 		if (Private::sawtoothPix == (QPixmap*)0)
 		{
 			Private::sawtoothPix = new QPixmap(Private::sawtooth);
-			CHECK_PTR(Private::sawtoothPix);
+			Q_CHECK_PTR(Private::sawtoothPix);
 		}
 		if (Private::triangularPix == (QPixmap*)0)
 		{
 			Private::triangularPix = new QPixmap(Private::triangular);
-			CHECK_PTR(Private::triangularPix);
+			Q_CHECK_PTR(Private::triangularPix);
 		}
 		if (Private::diracPix == (QPixmap*)0)
 		{
 			Private::diracPix = new QPixmap(Private::dirac);
-			CHECK_PTR(Private::diracPix);
+			Q_CHECK_PTR(Private::diracPix);
 		} 	
 		getComponentLayout()->setMinSize(3,3);
 	}
@@ -555,10 +555,10 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	QString tip;
 	
 	m_waveformLabel = new QLabel(i18n("FloatingPoint", "Waveform: "), this, "m_waveformLabel");
-	CHECK_PTR(m_waveformLabel);
+	Q_CHECK_PTR(m_waveformLabel);
 	
 	m_waveform = new QComboBox(this, "m_waveform");
-	CHECK_PTR(m_waveform);
+	Q_CHECK_PTR(m_waveform);
 	m_waveform->insertItem(*WaveformGeneratorView::Private::sinusoidalPix, i18n("FloatingPoint", "Sinusoidal"), (int)WaveformGenerator::eSinusoidal);
 	m_waveform->insertItem(*WaveformGeneratorView::Private::squarePix,     i18n("FloatingPoint", "Square"),     (int)WaveformGenerator::eSquare);
 	m_waveform->insertItem(*WaveformGeneratorView::Private::sawtoothPix,   i18n("FloatingPoint", "Sawtooth"),   (int)WaveformGenerator::eSawtooth);
@@ -574,10 +574,10 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	
 	
 	m_periodLabel = new QLabel(i18n("FloatingPoint", "Period: "), this, "m_periodLabel");
-	CHECK_PTR(m_periodLabel);
+	Q_CHECK_PTR(m_periodLabel);
 	
 	m_period = new KSimTimeSpinBox(comp->getPeriod(), this, "m_period");
-	CHECK_PTR(m_period);
+	Q_CHECK_PTR(m_period);
 	tip = i18n("FloatingPoint", "The period or frequency of the wave.");
 	addToolTip(tip, m_period, m_periodLabel);
 	addWhatsThis(tip, m_period, m_periodLabel);
@@ -586,9 +586,9 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	
 	
 	m_frequencyLabel = new QLabel(i18n("FloatingPoint", "Frequency: "), this, "m_frequencyLabel");
-	CHECK_PTR(m_frequencyLabel);
+	Q_CHECK_PTR(m_frequencyLabel);
 	m_frequency = new QLabel(QString::null, this, "m_frequency");
-	CHECK_PTR(m_frequency);
+	Q_CHECK_PTR(m_frequency);
 	m_frequency->setAlignment(AlignRight);
 	tip = i18n("FloatingPoint", "Shows the frequency (depends on the period).");
 	addToolTip(tip, m_frequency, m_frequencyLabel);
@@ -597,10 +597,10 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	
 	
 	m_phaseLabel = new QLabel(i18n("FloatingPoint", "Phase: "), this, "m_phaseLabel");
-	CHECK_PTR(m_phaseLabel);
+	Q_CHECK_PTR(m_phaseLabel);
 	
 	m_phase = new KSimDoubleEdit(this, "m_phase");
-	CHECK_PTR(m_phase);
+	Q_CHECK_PTR(m_phase);
 	tip = i18n("FloatingPoint", "The phase of the wave. The phase is measured in degree.");
 	addToolTip(tip, m_phase, m_phaseLabel);
 	addWhatsThis(tip, m_phase, m_phaseLabel);
@@ -609,10 +609,10 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	
 	
 	m_amplitudeLabel = new QLabel(i18n("FloatingPoint", "Amplitude: "), this, "m_amplitudeLabel");
-	CHECK_PTR(m_amplitudeLabel);
+	Q_CHECK_PTR(m_amplitudeLabel);
 	
 	m_amplitude = new KSimDoubleEdit(this, "m_amplitude");
-	CHECK_PTR(m_amplitude);
+	Q_CHECK_PTR(m_amplitude);
 	tip = i18n("FloatingPoint", "The amplitude of the wave.");
 	addToolTip(tip, m_amplitude, m_amplitudeLabel);
 	addWhatsThis(tip, m_amplitude, m_amplitudeLabel);
@@ -621,10 +621,10 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	
 	
 	m_offsetLabel = new QLabel(i18n("FloatingPoint", "Offset: "), this, "m_offsetLabel");
-	CHECK_PTR(m_offsetLabel);
+	Q_CHECK_PTR(m_offsetLabel);
 	
 	m_offset = new KSimDoubleEdit(this, "m_offset");
-	CHECK_PTR(m_offset);
+	Q_CHECK_PTR(m_offset);
 	tip = i18n("FloatingPoint", "The offset of the wave.");
 	addToolTip(tip, m_offset, m_offsetLabel);
 	addWhatsThis(tip, m_offset, m_offsetLabel);

@@ -27,7 +27,7 @@
 // KDE-Includes
 #include <klocale.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Project-Includes
 #include "ksimus.h"
@@ -45,7 +45,7 @@ BaseWindow::BaseWindow(KSimusApp *parent, const char *name )
 	:	QWidget(parent,name)
 {
 	m_horiSplitter = new QSplitter(Horizontal, this, "HorizontalSplitter");
-	CHECK_PTR(m_horiSplitter);
+	Q_CHECK_PTR(m_horiSplitter);
 	
 	m_listWidget = new QTabWidget(m_horiSplitter);
 	
@@ -56,27 +56,27 @@ BaseWindow::BaseWindow(KSimusApp *parent, const char *name )
 	m_listWidget->insertTab(m_watchWidget, i18n("KSimus", "Watches"));
 	connect(m_watchWidget, SIGNAL(signalShowMe()), SLOT(showWatchWidget()));
 	
-	CHECK_PTR(m_componentListWidget);
+	Q_CHECK_PTR(m_componentListWidget);
 	connect(m_componentListWidget, SIGNAL(signalSelection(const ComponentInfo *)),
 	        parent, SLOT(slotSelectCI(const ComponentInfo *)));
 	connect(parent, SIGNAL(signalViewChanged(eAppViewType)),
 	        m_componentListWidget, SLOT(slotSetCurrentView(eAppViewType)));
 	
 	m_vertSplitter = new QSplitter(Vertical, m_horiSplitter, "VerticalSplitter");
-	CHECK_PTR(m_vertSplitter);
+	Q_CHECK_PTR(m_vertSplitter);
 
 	m_workingWidget = new QWidget(m_vertSplitter, "WorkingWidget");
-	CHECK_PTR(m_workingWidget);
+	Q_CHECK_PTR(m_workingWidget);
 
 	m_logWidget = new LogList(parent, m_vertSplitter, "LogWidget");
-	CHECK_PTR(m_logWidget);
+	Q_CHECK_PTR(m_logWidget);
 	connect(m_logWidget,SIGNAL(signalShow()),SLOT(showLogWidget()));
 
 
 
 	// Layout
 	QBoxLayout * lay = new QHBoxLayout(this);
-	CHECK_PTR(lay);
+	Q_CHECK_PTR(lay);
 	lay->addWidget(m_horiSplitter);
 }
 

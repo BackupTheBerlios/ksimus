@@ -66,7 +66,7 @@ QString KSimIoDevicePropertyDialog::Private::getTempFileName()
 	if (!tmpFile)
 	{
 		tmpFile = new KTempFile;
-		CHECK_PTR(tmpFile);
+		Q_CHECK_PTR(tmpFile);
 	}
 
 	return tmpFile->name();
@@ -80,7 +80,7 @@ KSimIoDevicePropertyDialog::KSimIoDevicePropertyDialog(KSimIoDevice *device, con
 		m_device(device)
 {
 	m_p = new Private;
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	device->initPropertyDialog(this);
 }
@@ -144,7 +144,7 @@ int KSimIoDevicePropertyDialog::execute(KSimIoDevice *device, const QString & ca
 
 	KSimIoDevicePropertyDialog * dia;
 	dia = new KSimIoDevicePropertyDialog(device, caption, parent, name);
-	CHECK_PTR(dia);
+	Q_CHECK_PTR(dia);
 
 	dia->readSize("IO Devices/Property Dialog");
 

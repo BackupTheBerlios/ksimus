@@ -22,7 +22,7 @@
 #include <qhbox.h>
 #include <qgrid.h>
 #include <qlayout.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -55,7 +55,7 @@ private:
 	int m_align;
 };
 
-class RowLayoutWidget::WidgetInfoList : public QList<RowLayoutWidget::WidgetInfo>
+class RowLayoutWidget::WidgetInfoList : public QPtrList<RowLayoutWidget::WidgetInfo>
 {
 	
 public:
@@ -65,7 +65,7 @@ public:
 
 const RowLayoutWidget::WidgetInfo * RowLayoutWidget::WidgetInfoList::findWidget(const QWidget * widget)
 {
-	for(QListIterator<RowLayoutWidget::WidgetInfo> it(*this);it.current();++it)
+	for(QPtrListIterator<RowLayoutWidget::WidgetInfo> it(*this);it.current();++it)
 	{
 		if (it.current()->getWidget() == widget)
 			return it.current();
@@ -130,12 +130,12 @@ RowLayoutWidget::RowLayoutWidget(int cols, QWidget *parent, const char *name, WF
 	:	QFrame(parent,name,f)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	m_p->masterLayout = new QGridLayout(this, 3, 3, 0, 0, "MainLayout");
-	CHECK_PTR(m_p->masterLayout);
+	Q_CHECK_PTR(m_p->masterLayout);
 	m_p->layout = new QGridLayout(-1, cols, 0, name);
-	CHECK_PTR(m_p->layout);
+	Q_CHECK_PTR(m_p->layout);
 	m_p->masterLayout->addLayout(m_p->layout,1,1);
 
 	m_p->masterLayout->setRowStretch(0,0);
@@ -365,7 +365,7 @@ void RowLayoutWidget::childEvent(QChildEvent * ev)
 			{
 				// A special object
 				RowLayoutWidgetHelperObj * helperObj = (RowLayoutWidgetHelperObj*)ev->child();
-				ASSERT(helperObj);
+				Q_ASSERT(helperObj);
 				
 				switch(helperObj->getType())
 				{
@@ -408,19 +408,19 @@ void RowLayoutWidget::childEvent(QChildEvent * ev)
 void RowLayoutWidget::newRow()
 {
 	RowLayoutWidgetHelperObj * obj = new RowLayoutWidgetHelperObj(this, RowLayoutNewRow);
-	CHECK_PTR(obj);
+	Q_CHECK_PTR(obj);
 }
 
 void RowLayoutWidget::addEmptyCell()
 {
 	RowLayoutWidgetHelperObj * obj = new RowLayoutWidgetHelperObj(this, RowLayoutAddEmptyCell);
-	CHECK_PTR(obj);
+	Q_CHECK_PTR(obj);
 }
 
 void RowLayoutWidget::setRowStretch(int stretch)
 {
 	RowLayoutWidgetHelperRowStretch * obj = new RowLayoutWidgetHelperRowStretch(this, stretch);
-	CHECK_PTR(obj);
+	Q_CHECK_PTR(obj);
 }
 
 
@@ -448,7 +448,7 @@ void RowLayoutWidget::addWidgetInternal(QWidget * widget, int startCol, int endC
 			}
 		}
 		WidgetInfo * info = new WidgetInfo(widget, startCol, endCol, align);
-		CHECK_PTR(info);
+		Q_CHECK_PTR(info);
 		m_p->widgetList.append(info);
 	}
 }
@@ -463,7 +463,7 @@ void RowLayoutWidget::addRowWidgetInternal(QWidget * widget, int align)
 QWidget * RowLayoutWidget::newWidget(int align, const char * name)
 {
 	QWidget * widget = new QWidget(this, name);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, -1, -1, align);
 	
 	return widget;
@@ -472,7 +472,7 @@ QWidget * RowLayoutWidget::newWidget(int align, const char * name)
 QWidget * RowLayoutWidget::newWidget(int startCol, int endCol, int align, const char * name)
 {
 	QWidget * widget = new QWidget(this, name);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, startCol, endCol, align);
 	
 	return widget;
@@ -481,7 +481,7 @@ QWidget * RowLayoutWidget::newWidget(int startCol, int endCol, int align, const 
 QWidget * RowLayoutWidget::newRowWidget(int align, const char * name)
 {
 	QWidget * widget = new QWidget(this, name);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addRowWidgetInternal(widget, align);
 	return widget;
 }
@@ -496,7 +496,7 @@ QWidget * RowLayoutWidget::newRowWidget(const char * name)
 QVBox * RowLayoutWidget::newVBox(int align, const char * name, WFlags f)
 {
 	QVBox * widget = new QVBox(this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, -1, -1, align);
 	
 	return widget;
@@ -505,7 +505,7 @@ QVBox * RowLayoutWidget::newVBox(int align, const char * name, WFlags f)
 QVBox * RowLayoutWidget::newVBox(int startCol, int endCol, int align, const char * name, WFlags f)
 {
 	QVBox * widget = new QVBox(this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, startCol, endCol, align);
 	
 	return widget;
@@ -514,7 +514,7 @@ QVBox * RowLayoutWidget::newVBox(int startCol, int endCol, int align, const char
 QVBox * RowLayoutWidget::newRowVBox(int align, const char * name, WFlags f)
 {
 	QVBox * widget = new QVBox(this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addRowWidgetInternal(widget, align);
 	return widget;
 }
@@ -529,7 +529,7 @@ QVBox * RowLayoutWidget::newRowVBox(const char * name, WFlags f)
 QHBox * RowLayoutWidget::newHBox(int align, const char * name, WFlags f)
 {
 	QHBox * widget = new QHBox(this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, -1, -1, align);
 	
 	return widget;
@@ -538,7 +538,7 @@ QHBox * RowLayoutWidget::newHBox(int align, const char * name, WFlags f)
 QHBox * RowLayoutWidget::newHBox(int startCol, int endCol, int align, const char * name, WFlags f)
 {
 	QHBox * widget = new QHBox(this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, startCol, endCol, align);
 	
 	return widget;
@@ -547,7 +547,7 @@ QHBox * RowLayoutWidget::newHBox(int startCol, int endCol, int align, const char
 QHBox * RowLayoutWidget::newRowHBox(int align, const char * name, WFlags f)
 {
 	QHBox * widget = new QHBox(this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addRowWidgetInternal(widget, align);
 	return widget;
 }
@@ -562,7 +562,7 @@ QHBox * RowLayoutWidget::newRowHBox(const char * name, WFlags f)
 QGrid * RowLayoutWidget::newHGrid(int n, int align, const char * name, WFlags f)
 {
 	QGrid * widget = new QGrid(n, QGrid::Horizontal, this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, -1, -1, align);
 	
 	return widget;
@@ -571,7 +571,7 @@ QGrid * RowLayoutWidget::newHGrid(int n, int align, const char * name, WFlags f)
 QGrid * RowLayoutWidget::newHGrid(int n, int startCol, int endCol, int align, const char * name, WFlags f)
 {
 	QGrid * widget = new QGrid(n, QGrid::Horizontal, this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, startCol, endCol, align);
 	
 	return widget;
@@ -580,7 +580,7 @@ QGrid * RowLayoutWidget::newHGrid(int n, int startCol, int endCol, int align, co
 QGrid * RowLayoutWidget::newRowHGrid(int n, int align, const char * name, WFlags f)
 {
 	QGrid * widget = new QGrid(n, QGrid::Horizontal, this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addRowWidgetInternal(widget, align);
 	return widget;
 }
@@ -595,7 +595,7 @@ QGrid * RowLayoutWidget::newRowHGrid(int n, const char * name, WFlags f)
 QGrid * RowLayoutWidget::newVGrid(int n, int align, const char * name, WFlags f)
 {
 	QGrid * widget = new QGrid(n, QGrid::Vertical, this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, -1, -1, align);
 	
 	return widget;
@@ -604,7 +604,7 @@ QGrid * RowLayoutWidget::newVGrid(int n, int align, const char * name, WFlags f)
 QGrid * RowLayoutWidget::newVGrid(int n, int startCol, int endCol, int align, const char * name, WFlags f)
 {
 	QGrid * widget = new QGrid(n, QGrid::Vertical, this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addWidgetInternal(widget, startCol, endCol, align);
 	
 	return widget;
@@ -613,7 +613,7 @@ QGrid * RowLayoutWidget::newVGrid(int n, int startCol, int endCol, int align, co
 QGrid * RowLayoutWidget::newRowVGrid(int n, int align, const char * name, WFlags f)
 {
 	QGrid * widget = new QGrid(n, QGrid::Vertical, this, name, f);
-	CHECK_PTR(widget);
+	Q_CHECK_PTR(widget);
 	addRowWidgetInternal(widget, align);
 	return widget;
 }

@@ -98,7 +98,7 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	m_latchOutput = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Latch Output"),
 	                             i18n("FloatingPoint-Connector", "Latch Output"));
-	CHECK_PTR(m_latchOutput);
+	Q_CHECK_PTR(m_latchOutput);
 	m_latchOutput->setEdgeSensitive(false,true);
 	// make Output Latch optional
 	new OptionalConnector(m_latchOutput,
@@ -108,7 +108,7 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	m_latchAddress = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Latch Address Input"),
 	                             i18n("FloatingPoint-Connector", "Latch Address Input"));
-	CHECK_PTR(m_latchAddress);
+	Q_CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
 	// make Address Latch optional
 	new OptionalConnector(m_latchAddress,
@@ -120,7 +120,7 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Input %1"),
 	                             getConnectorFloatInInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_inputPack);
+	Q_CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -130,7 +130,7 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Address %1"),
 	                             getConnectorBoolInInfo(),
 	                             MIN_ADRESS, MAX_ADRESS);
-	CHECK_PTR(m_addressPack);
+	Q_CHECK_PTR(m_addressPack);
 	m_addressPack->setConnectorCount(DEFAULT_ADRESS);
 	m_addressPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -178,7 +178,7 @@ void DataSelector::calculate()
 		if (m_addressLatch < getInputPack()->getConnectorCount())
 		{
 			ConnectorFloatIn * in = (ConnectorFloatIn *)getInputPack()->getConnList()->at(m_addressLatch);
-			ASSERT(in != 0);
+			Q_ASSERT(in != 0);
 			setValue(in->getInput());
 		}
 		else
@@ -216,7 +216,7 @@ ComponentPropertyBaseWidget * DataSelector::createGeneralProperty(QWidget *paren
 {
 	DataSelectorPropertyGeneralWidget * wid;
 	wid = new DataSelectorPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -250,7 +250,7 @@ void DataSelector::setChannelCount(unsigned int count)
 		getAddressPack()->setConnectorCount(4);
 	else
 	{
-		ASSERT(count <= 16);
+		Q_ASSERT(count <= 16);
 	}
 }
 
@@ -270,7 +270,7 @@ unsigned int DataSelector::getMinChannelCount() const
 		case 2: i = 3; break;
 		case 3: i = 5; break;
 		case 4: i = 9; break;
-		default: ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
+		default: Q_ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
 	}
 	
 	return QMAX(getInputPack()->getNumberOfNotDeletableConnectors(), i);
@@ -309,7 +309,7 @@ DataSelectorView::DataSelectorView(DataSelector * comp, eViewType viewType, cons
 	{
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchOutput());
@@ -369,10 +369,10 @@ DataSelectorPropertyGeneralWidget::DataSelectorPropertyGeneralWidget(DataSelecto
 	QString tip;
 	
 	m_channelsLabel = new QLabel(i18n("FloatingPoint", "Number of channels: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new KSimSpinBox(comp->getMinChannelCount(), MAX_CHANNELS, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("FloatingPoint", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
@@ -380,10 +380,10 @@ DataSelectorPropertyGeneralWidget::DataSelectorPropertyGeneralWidget(DataSelecto
 	
 	
 	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), this, "m_resetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimDoubleEdit(this, "m_resetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	tip = i18n("FloatingPoint", "Change the reset value of the channels here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);

@@ -543,7 +543,7 @@ KSimEmbFont::KSimEmbFont(enum eFont font)
 	for (unsigned int i = 0; i < fontInfo->glyphListLength; i++)
 	{
 		QBitmap * pBitmap = new QBitmap();
-		CHECK_PTR(pBitmap);
+		Q_CHECK_PTR(pBitmap);
 		*pBitmap = QImage(fontInfo->glyphList[i].xpm);
 		pBitmap->setMask(*pBitmap); // selfMask 
 		m_glyphDict.insert(fontInfo->glyphList[i].unicode, pBitmap);

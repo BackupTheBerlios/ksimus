@@ -1,3 +1,5 @@
+	16.3.2004
+* Drop KDE2 compatibility
 	8.3.2004
 * Remove unnecessary include componentinfo.h
 * Add missing "QLabel->setBuddy(QWidget*)" calls

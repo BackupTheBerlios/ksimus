@@ -40,6 +40,6 @@ const QString & WirePropertyInfo::getDataType() const
 
 WireProperty * WirePropertyInfo::create(Wire * wire) const
 {
-	CHECK_PTR(m_factory);
+	Q_CHECK_PTR(m_factory);
 	return m_factory(wire);
 }	

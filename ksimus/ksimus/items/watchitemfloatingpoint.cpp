@@ -118,11 +118,11 @@ bool WatchItemFloatingPointBase::testBreak(unsigned int index, unsigned int step
 
 void WatchItemFloatingPointBase::createTriggerPropertyWidget(QWidget * parent)
 {
-	ASSERT(m_triggerBox == 0);
-	ASSERT(m_limitEdit == 0);
+	Q_ASSERT(m_triggerBox == 0);
+	Q_ASSERT(m_limitEdit == 0);
 	
 	m_triggerBox = new QComboBox(parent, "m_triggerBox");
-	CHECK_PTR(m_triggerBox);
+	Q_CHECK_PTR(m_triggerBox);
 
 	m_triggerBox->insertItem(i18n("Floating Point Trigger", "Rising edge"), (int)eRising);
 	m_triggerBox->insertItem(i18n("Floating Point Trigger", "Falling edge"), (int)eFalling);
@@ -133,13 +133,13 @@ void WatchItemFloatingPointBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerBox->setCurrentItem((int)m_triggerType);
 
 	QHBox * limitBox = new QHBox(parent);
-	CHECK_PTR(limitBox);
+	Q_CHECK_PTR(limitBox);
 
 	QLabel * limiLabel = new QLabel(i18n("Floating Point Trigger", "Threshold:"), limitBox, "watchpoint treshold label");
-	CHECK_PTR(limiLabel);
+	Q_CHECK_PTR(limiLabel);
 
 	m_limitEdit = new KSimDoubleEdit(limitBox, "m_limitEdit");
-	CHECK_PTR(m_limitEdit);
+	Q_CHECK_PTR(m_limitEdit);
 	m_limitEdit->setValue(m_limit);
 
 	limiLabel->setBuddy(m_limitEdit);
@@ -153,8 +153,8 @@ void WatchItemFloatingPointBase::createTriggerPropertyWidget(QWidget * parent)
 
 void WatchItemFloatingPointBase::slotTriggerBoxChanged()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 
 	switch((eTriggerType)m_triggerBox->currentItem())
 	{
@@ -172,8 +172,8 @@ void WatchItemFloatingPointBase::slotTriggerBoxChanged()
 
 void WatchItemFloatingPointBase::triggerPropertyOkPressed()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 
 	m_triggerType = (eTriggerType)m_triggerBox->currentItem();
 	m_limit = m_limitEdit->value();
@@ -183,15 +183,15 @@ void WatchItemFloatingPointBase::triggerPropertyOkPressed()
 }
 void WatchItemFloatingPointBase::triggerPropertyDefaultPressed()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 	m_triggerBox->setCurrentItem((int)eRising);
 	m_limitEdit->setValue(0.0);
 }
 void WatchItemFloatingPointBase::triggerPropertyCancelPressed()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 
 	m_triggerBox = (QComboBox *) 0;    // Will be deleted now
 	m_limitEdit = (KSimDoubleEdit *) 0;

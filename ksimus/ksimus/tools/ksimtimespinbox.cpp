@@ -58,32 +58,32 @@ void KSimTimeSpinBox::init()
 	if (m_time.hasTimeServer())
 	{
 		KSimUnitList * tickList = new KSimUnitList(QString::fromLatin1("Ticks"));
-		CHECK_PTR(tickList);
+		Q_CHECK_PTR(tickList);
 		
 		// Add some ticks
 		KSimUnitTicks * ticks;
 		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("ticks"));
-		CHECK_PTR(ticks);
+		Q_CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
 		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("Ticks"), true);
-		CHECK_PTR(ticks);
+		Q_CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
 		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("tick"), true);
-		CHECK_PTR(ticks);
+		Q_CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
 		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("Tick"), true);
-		CHECK_PTR(ticks);
+		Q_CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
 		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("T"), true);
-		CHECK_PTR(ticks);
+		Q_CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
 		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("t"), true);
-		CHECK_PTR(ticks);
+		Q_CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
 		getMultiUnitList().append(*tickList);

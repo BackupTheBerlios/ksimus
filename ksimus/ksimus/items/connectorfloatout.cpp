@@ -138,7 +138,7 @@ QString ConnectorFloatOut::getValueText() const
 WatchItemBase * ConnectorFloatOut::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemFloatingPointConnector(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

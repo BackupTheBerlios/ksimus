@@ -22,7 +22,7 @@
 
 // QT includes
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE includes
 #include "ksimiojoininfo.h"
@@ -82,7 +82,7 @@ private:
 //################################################################################
 
 
-class KSimIoPin::List : public QList<KSimIoPin>
+class KSimIoPin::List : public QPtrList<KSimIoPin>
 {
 public:
 //	List();
@@ -93,7 +93,7 @@ public:
 
 
 #define FOR_EACH_IO_PIN(_it_,_ioPinList_)  \
-        for(QListIterator<KSimIoPin> _it_(_ioPinList_);_it_.current();++_it_)
+        for(QPtrListIterator<KSimIoPin> _it_(_ioPinList_);_it_.current();++_it_)
 
 
 //################################################################################

@@ -51,7 +51,7 @@ CompViewWidget::CompViewWidget(CompView * cv, QWidget *parent, const char *name 
 		m_compView(cv)
 {
 //	m_p = new CompViewWidgetPrivate(cv, parent);
-//	CHECK_PTR(m_p);
+//	Q_CHECK_PTR(m_p);
 	
 	cv->getWidgetList()->addWidget(this);
 	

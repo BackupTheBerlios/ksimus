@@ -23,7 +23,7 @@
 // QT-Includes
 #include <qobject.h>
 #include <qbitarray.h>
-#include <qarray.h>
+#include <qmemarray.h>
 
 // KDE-Includes
 
@@ -216,7 +216,7 @@ private:
 	unsigned int m_breaksActual;
 	bool m_breakEnabled;
 	QBitArray m_traceSet;
-	QArray<int> m_traceBreakCnt;
+	QMemArray<int> m_traceBreakCnt;
 	KSimSpinBox * m_propertyWidget_cntSpinBox;
 	QCheckBox * m_propertyWidget_enaCheckBox;
 

@@ -70,7 +70,7 @@ FloatLineOutput::FloatLineOutput(CompContainer * container, const ComponentInfo 
 	m_input = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("FloatingPoint-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	setColorAdjustmentEnabled(true);
 	setFrameAdjustmentEnabled(true);
@@ -177,7 +177,7 @@ FloatLineOutputWidgetView::FloatLineOutputWidgetView(FloatLineOutputView * cv, Q
 	:	CompViewVBox(cv,parent,name)
 {
 	m_label = new QLabel(this);
-	CHECK_PTR(m_label);
+	Q_CHECK_PTR(m_label);
 	m_label->setAlignment(AlignRight | AlignVCenter);
 	m_label->setNum(0.0);
 	

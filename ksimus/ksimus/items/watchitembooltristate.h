@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qarray.h>
+#include <qmemarray.h>
 
 // KDE-Includes
 
@@ -152,8 +152,8 @@ protected:
 	WatchItemBoolTristateBase(ConnectorBase * connector, bool inOnly);
 	WatchItemBoolTristateBase(WireProperty * wireProperty, bool inOnly);
 	
-	QArray<WireStateBoolTristate> m_traceInBuffer;
-	QArray<WireStateBoolTristate> m_traceOutBuffer;
+	QMemArray<WireStateBoolTristate> m_traceInBuffer;
+	QMemArray<WireStateBoolTristate> m_traceOutBuffer;
 
 	struct
 	{

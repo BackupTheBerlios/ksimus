@@ -56,7 +56,7 @@ Float1Out::Float1Out(CompContainer * container, const ComponentInfo * ci)
 	m_out = new ConnectorFloatOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("FloatingPoint-Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 }
 
@@ -122,7 +122,7 @@ ComponentPropertyBaseWidget * Float1Out::createGeneralProperty(QWidget *parent)
 {
 	Float1OutPropertyGeneralWidget * wid;
 	wid = new Float1OutPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -140,7 +140,7 @@ Float1OutView::Float1OutView(Float1Out * comp, eViewType viewType, const QString
 	if (viewType == SHEET_VIEW)
 	{
 		m_layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 	
 		m_layout->getRight()->addStretch(2);
 		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
@@ -167,10 +167,10 @@ Float1OutPropertyGeneralWidget::Float1OutPropertyGeneralWidget(Float1Out * comp,
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), this, "ResetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimDoubleEdit(this, "ResetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	QString tip(i18n("FloatingPoint", "Change the reset value of the component here."));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);

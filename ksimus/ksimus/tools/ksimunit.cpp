@@ -209,7 +209,7 @@ const QString & KSimUnitList::getDefaultUnit() const
 
 const KSimUnitBase * KSimUnitList::findPrefered(double reference) const
 {
-	QListIterator<KSimUnitBase> it(*this);
+	QPtrListIterator<KSimUnitBase> it(*this);
 	
 	for (; it.current(); ++it)
 	{
@@ -230,7 +230,7 @@ const KSimUnitBase * KSimUnitList::findPrefered(double reference) const
 
 const KSimUnitBase * KSimUnitList::findUnit(const QString & unitStr) const
 {
-	QListIterator<KSimUnitBase> it(*this);
+	QPtrListIterator<KSimUnitBase> it(*this);
 	
 	while (it.current() && (unitStr != it.current()->getUnitString()))
 	{
@@ -245,7 +245,7 @@ bool KSimUnitList::isStatic() const
 	return m_isStatic;
 }
 
-int KSimUnitList::compareItems(QCollection::Item di1, QCollection::Item di2)
+int KSimUnitList::compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2)
 {
 	double res1 = ((KSimUnitBase *)di1)->fromUnit(1);
 	double res2 = ((KSimUnitBase *)di2)->fromUnit(1);
@@ -273,7 +273,7 @@ const QString & KSimUnitList::getListName() const
 
 unsigned int KSimUnitList::countHidden() const
 {
-	QListIterator<KSimUnitBase> it(*this);
+	QPtrListIterator<KSimUnitBase> it(*this);
 	unsigned int count = 0;
 	
 	while (it.current())
@@ -289,7 +289,7 @@ unsigned int KSimUnitList::countHidden() const
 
 unsigned int KSimUnitList::countVisible() const
 {
-	QListIterator<KSimUnitBase> it(*this);
+	QPtrListIterator<KSimUnitBase> it(*this);
 	unsigned int count = 0;
 	
 	while (it.current())
@@ -380,7 +380,7 @@ KSimMultiUnitList::~KSimMultiUnitList()
 	
 void KSimMultiUnitList::clear()
 {
-	QListIterator<KSimUnitList> it(m_list);
+	QPtrListIterator<KSimUnitList> it(m_list);
 	
 	for (; it.current(); ++it)
 	{
@@ -397,7 +397,7 @@ void KSimMultiUnitList::clear()
 
 const KSimUnitList * KSimMultiUnitList::findUnitList(const QString & listName) const
 {
-	QListIterator<KSimUnitList> it(m_list);
+	QPtrListIterator<KSimUnitList> it(m_list);
 	
 	while (it.current() && (it.current()->getListName() != listName))
 	{
@@ -411,7 +411,7 @@ const KSimUnitBase * KSimMultiUnitList::findUnit(const QString & unitStr, QStrin
 {
 	const KSimUnitBase * unit = 0;
 	const KSimUnitList * list = 0;
-	QListIterator<KSimUnitList> it(m_list);
+	QPtrListIterator<KSimUnitList> it(m_list);
 	
 	for (; it.current(); ++it)
 	{
@@ -454,7 +454,7 @@ const KSimUnitBase * KSimMultiUnitList::findPrefered(double reference, QString *
 	
 	if(!unit)
 	{
-		QListIterator<KSimUnitList> it(m_list);
+		QPtrListIterator<KSimUnitList> it(m_list);
 	
 		for (; it.current(); ++it)
 		{

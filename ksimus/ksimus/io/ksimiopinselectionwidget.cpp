@@ -149,12 +149,12 @@ KSimIoPinSelectionWidget::KSimIoPinSelectionWidget(const KSimIoPin::List & pinLi
 	:	PropertyWidget(1, parent,name)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	QLabel * label = new QLabel(i18n("IO Pins:"), this);
 
 	m_p->list = new QListView(this, "m_list");
-	CHECK_PTR(m_p->list);
+	Q_CHECK_PTR(m_p->list);
 	m_p->list->addColumn(i18n("Name"));
 	m_p->list->addColumn(i18n("Type"));
 	m_p->list->setRootIsDecorated(true);
@@ -166,7 +166,7 @@ KSimIoPinSelectionWidget::KSimIoPinSelectionWidget(const KSimIoPin::List & pinLi
 	connect(m_p->list, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(slotDoubleClicked(QListViewItem *)));
 
 	m_p->deviceDict = new QDict<DeviceListItem>();
-	CHECK_PTR(m_p->deviceDict);
+	Q_CHECK_PTR(m_p->deviceDict);
 
 	FOR_EACH_IO_PIN(it, pinList)
 	{
@@ -176,7 +176,7 @@ KSimIoPinSelectionWidget::KSimIoPinSelectionWidget(const KSimIoPin::List & pinLi
 		if (!devItem)
 		{
 			devItem = new DeviceListItem(m_p->list, it.current()->getDevice());
-			CHECK_PTR(devItem);
+			Q_CHECK_PTR(devItem);
 			m_p->deviceDict->insert(devName, devItem);
 			devItem->setSelectable(false);
 		}

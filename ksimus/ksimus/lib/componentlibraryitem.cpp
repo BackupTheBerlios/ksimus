@@ -26,7 +26,7 @@ ComponentLibraryItem::ComponentLibraryItem(const ComponentInfo * ci, const Packa
 	if (!ci->getAdditionalI18nLibNames().isEmpty())
 	{
 		m_additionalI18nLibNames = new QStringList(QStringList::split(';', ci->getAdditionalI18nLibNames()));
-		CHECK_PTR(m_additionalI18nLibNames);
+		Q_CHECK_PTR(m_additionalI18nLibNames);
 	}
 	else
 	{

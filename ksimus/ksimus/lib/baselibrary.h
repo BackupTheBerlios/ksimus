@@ -18,7 +18,7 @@
 #ifndef BASELIBRARY_H
 #define BASELIBRARY_H
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qdict.h>
 #include <qobject.h>
 
@@ -53,7 +53,7 @@ public:
 	BaseLibraryItem * getItem(const QString & libName) const;
 	const PackageInfo * getPackageInfo(const QString & libName) const;
 
-	const QList<BaseLibraryItem> * getList() const;
+	const QPtrList<BaseLibraryItem> * getList() const;
 
 	
 	
@@ -67,7 +67,7 @@ protected:
 	
 	bool _insert_(const BaseLibraryItem * bli);
 	
-	QList<BaseLibraryItem> * m_library;
+	QPtrList<BaseLibraryItem> * m_library;
 	QDict<BaseLibraryItem> * m_libNames;
 	QDict<BaseLibraryItem> * m_oldLibNames;
 	

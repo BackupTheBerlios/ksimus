@@ -70,19 +70,19 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	}
 		
 	QGroupBox * schematicBox1 = new QGroupBox(1, Qt::Horizontal, i18n("Schematic size:"), this, "Schematic size");
-	CHECK_PTR(schematicBox1);
+	Q_CHECK_PTR(schematicBox1);
 	RowLayoutWidget * schematicBox = new RowLayoutWidget(2,schematicBox1);
 	
 	schematicBox->setSpacing(KDialog::spacingHint());
 	
 	// Schematic Width
 	label = new QLabel(i18n("Width:"), schematicBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_schematicWidth = new KSimSpinBox(minWidth, 10000, gridX, schematicBox, "m_schematicWidth");
-	CHECK_PTR(m_schematicWidth);
+	Q_CHECK_PTR(m_schematicWidth);
 	vali = new QIntValidator(minWidth, 10000, m_schematicWidth, "m_schematicWidthValidator");
-	CHECK_PTR(vali);
+	Q_CHECK_PTR(vali);
 	m_schematicWidth->setValidator(vali);
 	label->setBuddy(m_schematicWidth);
 	str = i18n("Adjusts the width of the Schematic.");
@@ -92,12 +92,12 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	
 	// Schematic Height
 	label = new QLabel(i18n("Height:"), schematicBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_schematicHeight = new KSimSpinBox(minHeight, 10000, gridY, schematicBox, "m_schematicHeight");
-	CHECK_PTR(m_schematicHeight);
+	Q_CHECK_PTR(m_schematicHeight);
 	vali = new QIntValidator(minHeight, 10000, m_schematicHeight, "m_schematicHeightValidator");
-	CHECK_PTR(vali);
+	Q_CHECK_PTR(vali);
 	m_schematicHeight->setValidator(vali);
 	label->setBuddy(m_schematicHeight);
 	str = i18n("Adjusts the height of the Schematic.");
@@ -122,20 +122,20 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	}
 		
 	QGroupBox * userBox1 = new QGroupBox(2, Qt::Horizontal, i18n("User interface size:"), this, "User size");
-	CHECK_PTR(userBox1);
+	Q_CHECK_PTR(userBox1);
 	
 	// User Interface Width
 	RowLayoutWidget * userBox = new RowLayoutWidget(2,userBox1);
-	CHECK_PTR(userBox);
+	Q_CHECK_PTR(userBox);
 	userBox->setSpacing(KDialog::spacingHint());
 	
 	label = new QLabel(i18n("Width:"), userBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_userWidth = new KSimSpinBox(minWidth, 10000, gridX, userBox, "m_userWidth");
-	CHECK_PTR(m_userWidth);
+	Q_CHECK_PTR(m_userWidth);
 	vali = new QIntValidator(minWidth, 10000, m_userWidth, "m_userWidthValidator");
-	CHECK_PTR(vali);
+	Q_CHECK_PTR(vali);
 	m_userWidth->setValidator(vali);
 	label->setBuddy(m_userWidth);
 	str = i18n("Adjusts the width of the User Interface.");
@@ -145,12 +145,12 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	// User Interface Height
 //	userBox = new QHBox(this);
 	label = new QLabel(i18n("Height:"), userBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_userHeight = new KSimSpinBox(minHeight, 10000, gridY, userBox, "m_userHeight");
-	CHECK_PTR(m_userHeight);
+	Q_CHECK_PTR(m_userHeight);
 	vali = new QIntValidator(minHeight, 10000, m_userHeight, "m_userHeightValidator");
-	CHECK_PTR(vali);
+	Q_CHECK_PTR(vali);
 	m_userHeight->setValidator(vali);
 	label->setBuddy(m_userHeight);
 	str = i18n("Adjusts the height of the User Interface.");

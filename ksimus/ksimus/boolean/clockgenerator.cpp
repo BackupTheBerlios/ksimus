@@ -124,7 +124,7 @@ ClockGenerator::ClockGenerator(CompContainer * container, const ComponentInfo * 
 	                              QString::fromLatin1("Output"),
 	                              i18n("Connector", "Output"),
 	                              QPoint(3,1));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -276,10 +276,10 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	QString str;	
 	
 	lab = new QLabel(i18n("Start delay: "), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_startDelay = new KSimTimeSpinBox(getClockGen()->m_startDelay, this, "StartDelay");
-	CHECK_PTR(m_startDelay);
+	Q_CHECK_PTR(m_startDelay);
 	m_startDelay->setExtraZeroAllowed(true);
 	m_startDelay->setValue(getClockGen()->m_startDelay);
 	lab->setBuddy(m_startDelay);
@@ -288,18 +288,18 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	addWhatsThis(str, lab, m_startDelay);
 
 	lab = new QLabel(i18n("High time: "), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_highTime = new KSimTimeSpinBox(getClockGen()->m_highTime, this, "HighTime");
-	CHECK_PTR(m_highTime);
+	Q_CHECK_PTR(m_highTime);
 	lab->setBuddy(m_highTime);
 	str = i18n("Time of high level.");
 	addToolTip(str, lab, m_highTime);
 	addWhatsThis(str, lab, m_highTime);
 
 	lab = new QLabel(i18n("Low time: "), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_lowTime = new KSimTimeSpinBox(getClockGen()->m_lowTime, this, "LowTime");
-	CHECK_PTR(m_lowTime);
+	Q_CHECK_PTR(m_lowTime);
 	lab->setBuddy(m_lowTime);
 	str = i18n("Time of low level.");
 	addToolTip(str, lab, m_lowTime);

@@ -148,12 +148,12 @@ WirePropertySingleOutput::WirePropertySingleOutput(Wire * wire, const WireProper
 		m_outConnector(0)
 {
 	m_inConnectorList = new ConnectorList();
-	CHECK_PTR(m_inConnectorList);
+	Q_CHECK_PTR(m_inConnectorList);
 	m_inZeroDelayConnectorList = new ConnectorList();
-	CHECK_PTR(m_inZeroDelayConnectorList);
+	Q_CHECK_PTR(m_inZeroDelayConnectorList);
 	
 	m_zeroDelayList = new ComponentList();
-	CHECK_PTR(m_zeroDelayList);
+	Q_CHECK_PTR(m_zeroDelayList);
 }
 
 WirePropertySingleOutput::~WirePropertySingleOutput()
@@ -218,7 +218,7 @@ void WirePropertySingleOutput::setupCircuit()
 				else
 				{
 					KSIMDEBUG("ExternalConnector not found");
-					ASSERT(extConn);
+					Q_ASSERT(extConn);
 				}
 			}
 			else if (it.current()->getComponent()->isZeroDelayComponent())
@@ -246,7 +246,7 @@ void WirePropertySingleOutput::setupCircuit()
 		}
 	}
 	
-	ASSERT(m_outConnector);
+	Q_ASSERT(m_outConnector);
 }
 
 const void * WirePropertySingleOutput::readoutData() const
@@ -323,7 +323,7 @@ static WireProperty * createWirePropertyInvalidDifferentOutputs(Wire * wire)
 {
 	WireProperty * wp;
 	wp = new WirePropertyInvalidDifferentOutputs(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 
@@ -382,7 +382,7 @@ static WireProperty * createWirePropertyInvalidIncompatibleInputs(Wire * wire)
 {
 	WireProperty * wp;
 	wp = new WirePropertyInvalidIncompatibleInputs(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 
@@ -441,7 +441,7 @@ static WireProperty * createWirePropertyInvalidDifferentInputsNoOutput(Wire * wi
 {
 	WireProperty * wp;
 	wp = new WirePropertyInvalidDifferentInputsNoOutput(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 

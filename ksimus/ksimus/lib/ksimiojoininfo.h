@@ -19,7 +19,7 @@
 #define KSIMIOJOININFO_H
 
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "baseinfo.h"
 
@@ -63,7 +63,7 @@ private:
 
 
 
-class KSimIoJoinInfoList : public QList<const KSimIoJoinInfo>
+class KSimIoJoinInfoList : public QPtrList<const KSimIoJoinInfo>
 {
 };
 
@@ -75,7 +75,7 @@ class KSimIoJoinInfoList : public QList<const KSimIoJoinInfo>
 
 
 #define FOR_EACH_IO_JOIN_INFO(_it_,_ioJoinInfoList_)	\
-		for(QListIterator<const KSimIoJoinInfo> _it_(_ioJoinInfoList_);_it_.current();++_it_)
+		for(QPtrListIterator<const KSimIoJoinInfo> _it_(_ioJoinInfoList_);_it_.current();++_it_)
 
 #endif
 

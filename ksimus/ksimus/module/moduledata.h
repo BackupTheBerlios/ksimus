@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qrect.h>
 
 // KDE-Includes
@@ -58,8 +58,8 @@ enum ModulePixmapStoreType {
                            };
 
 
-typedef QList<QPoint> PointList;
-typedef QList<ConnOrientationType> OrientList;
+typedef QPtrList<QPoint> PointList;
+typedef QPtrList<ConnOrientationType> OrientList;
 
 class ModuleData
 {

@@ -142,7 +142,7 @@ QString ConnectorBoolOut::getValueText() const
 WatchItemBase * ConnectorBoolOut::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemBooleanConnector(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

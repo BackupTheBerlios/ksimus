@@ -73,14 +73,14 @@ ExtConnFloatIn::ExtConnFloatIn(CompContainer * container, const ComponentInfo * 
 	                             QString::fromLatin1("Output"),
 	                             i18n("FloatingPoint-Connector", "Output"),
 	                             QPoint(4,1));
-	CHECK_PTR(out);
+	Q_CHECK_PTR(out);
 	setInternalConn(out);
 	
 	in = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("FloatingPoint-Connector", "Input"),
 	                             QPoint(0,1));
-	CHECK_PTR(in);
+	Q_CHECK_PTR(in);
 	setExternalConn(in);
 	
 }
@@ -148,7 +148,7 @@ ComponentPropertyBaseWidget * ExtConnFloatIn::createGeneralProperty(QWidget *par
 {
 	ExtConnFloatInPropertyGeneralWidget * wid;
 	wid = new ExtConnFloatInPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -161,10 +161,10 @@ ExtConnFloatInPropertyGeneralWidget::ExtConnFloatInPropertyGeneralWidget(ExtConn
 	:	ExternalConnectorPropertyGeneralWidget(comp, parent, name)
 {
 	m_defaultValueLabel = new QLabel(i18n("FloatingPoint", "Default value:"), this, "m_defaultValueLabel");
-	CHECK_PTR(m_defaultValueLabel);
+	Q_CHECK_PTR(m_defaultValueLabel);
 
 	m_defaultValue = new KSimDoubleEdit(this, "m_defaultValue");
-	CHECK_PTR(m_defaultValue);
+	Q_CHECK_PTR(m_defaultValue);
 	QString tip(i18n("FloatingPoint", "Sets the value state of the external connector.\n"
 	                                   "This value is used if the external connector is not connected."));
 	addToolTip(tip, m_defaultValue, m_defaultValueLabel);

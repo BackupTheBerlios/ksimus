@@ -32,10 +32,10 @@ bool KSimIoJoinLibrary::insert (const KSimIoJoinInfo * ji, const PackageInfo * p
 {
 	bool res;
 	
-	CHECK_PTR(ji);
+	Q_CHECK_PTR(ji);
 	
 	KSimIoJoinLibraryItem * jli = new KSimIoJoinLibraryItem(ji, packageInfo);
-	CHECK_PTR(jli);
+	Q_CHECK_PTR(jli);
 	
 	res = _insert_(jli);
 	

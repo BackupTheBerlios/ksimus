@@ -184,12 +184,12 @@ ExternalConnector::ExternalConnector(CompContainer * container, const ComponentI
 		if (multiOutput)
 		{
 			CompView * cv = new ExternalConnectorMultipleOutputSV(this, "ExternalConnectorMultipleOutputSV");
-			CHECK_PTR(cv);
+			Q_CHECK_PTR(cv);
 		}
 		else
 		{
 			CompView * cv = new ExternalConnectorSV(this, "ExternalConnectorSV");
-			CHECK_PTR(cv);
+			Q_CHECK_PTR(cv);
 		}
 	}
 }
@@ -320,7 +320,7 @@ ComponentPropertyBaseWidget * ExternalConnector::createGeneralProperty(QWidget *
 {
 	ExternalConnectorPropertyGeneralWidget * wid;
 	wid = new ExternalConnectorPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -402,16 +402,16 @@ ExternalConnectorPropertyGeneralWidget::ExternalConnectorPropertyGeneralWidget(E
 
 	m_optionalbox = new QGroupBox(1, Qt::Horizontal,
 	         i18n("Component property dialog", "Optional connector:"), newRowVBox(), "optionConnBox");
-	CHECK_PTR(m_optionalbox);
+	Q_CHECK_PTR(m_optionalbox);
 
 	m_optionalConn = new QCheckBox(i18n("Component property dialog", "External connector is optional"), m_optionalbox, "optionConn");
-	CHECK_PTR(m_optionalConn);
+	Q_CHECK_PTR(m_optionalConn);
 	str = i18n("An external connector may be optional. Optional means the connector may be visible or hidden.");
 	addToolTip(str, m_optionalConn);
 	addWhatsThis(str, m_optionalConn);
 
 	m_optionalConnEna = new QCheckBox(i18n("Component property dialog", "Default is visible"), m_optionalbox, "optionConnEna");
-	CHECK_PTR(m_optionalConnEna);
+	Q_CHECK_PTR(m_optionalConnEna);
 	str = i18n("An optional external connector may be visible or hidden by default.");
 	addToolTip(str, m_optionalConnEna);
 	addWhatsThis(str, m_optionalConnEna);

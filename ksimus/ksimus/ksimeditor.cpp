@@ -32,7 +32,7 @@
 
 // include files for KDE
 #include <kinstance.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kprinter.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -116,7 +116,7 @@ KSimEditor::Cursor::Cursor(KSimEditor * editor)
 	QBitmap bitmap(wire_width, wire_height, wire_bits, true);
 	QBitmap bitmapMask(wire_mask_width, wire_mask_height, wire_mask_bits, true);
 	m_wireCursor = new QCursor(bitmap, bitmapMask, wire_x_hot, wire_y_hot);
-	CHECK_PTR(m_wireCursor);
+	Q_CHECK_PTR(m_wireCursor);
 
 	setNow(arrowCursor);
 };
@@ -179,10 +179,10 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	g_editorList->append(this);
 	
 	drawMap = new QPixmap;
-	CHECK_PTR(drawMap);
+	Q_CHECK_PTR(drawMap);
 	
 	m_myCursor = new KSimEditor::Cursor(this);
-	CHECK_PTR(m_myCursor);
+	Q_CHECK_PTR(m_myCursor);
 	
 	setMouseTracking(true);
 	setEditorMode(EM_SELECT);
@@ -342,7 +342,7 @@ void KSimEditor::print(KPrinter *pPrinter)
 	updateDrawMap() doesn't update the widget. update() will do that.*/
 void KSimEditor::updateDrawMap()
 {
-	CHECK_PTR(drawMap);
+	Q_CHECK_PTR(drawMap);
 
 	QPainter p (drawMap);
 	switch (editorView)
@@ -644,7 +644,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 						if (((Module*)newComp)->getModuleFile().isEmpty())
 						{
 							// Set module file name
-							ASSERT(!getApp()->getModuleFile().isEmpty());
+							Q_ASSERT(!getApp()->getModuleFile().isEmpty());
 						
 							const ModuleInfo * mi =	ModuleData::makeModuleInfo(getApp()->getModuleFile());
 							if (!mi)
@@ -790,7 +790,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 					break;
 			
 				default:
-					ASSERT(0);
+					Q_ASSERT(0);
 					break;
 			}
 		}
@@ -1475,7 +1475,7 @@ void KSimEditor::setSize(const QSize & newSize)
 	size = newSize;
 /*	delete drawMap;
 	drawMap = new QPixmap(size);
-	CHECK_PTR(drawMap);*/
+	Q_CHECK_PTR(drawMap);*/
 
 	drawMap->resize(size);
 	setFixedSize(size);
@@ -1632,7 +1632,7 @@ QPoint KSimEditor::resizingMap(const QPoint & mousePos, bool increaseOnly)
 void KSimEditor::backgroundPopup()
 {
 	QPopupMenu * menu = new QPopupMenu(0, "backgroundPopup");
-	CHECK_PTR(menu);
+	Q_CHECK_PTR(menu);
 	int res;
 	
 	ComponentPopupMenu * compMenu = new ComponentPopupMenu(menu);
@@ -1664,9 +1664,9 @@ void KSimEditor::componentPopup(bool connectorHit)
 	int rot270Idx = 0;
 	int addWatchItemIdx = 0;
 	KSimUndo * undo = getDoc()->getUndo();
-	CHECK_PTR(undo);
+	Q_CHECK_PTR(undo);
 	QPopupMenu * menu = new QPopupMenu(0, "componentPopup");
-	CHECK_PTR(menu);
+	Q_CHECK_PTR(menu);
 	int res;
 	
 	if ((!selected.containsRef(getContainer()->getFirstCompView())) || connectorHit)
@@ -1693,7 +1693,7 @@ void KSimEditor::componentPopup(bool connectorHit)
 		if(compView && compView->isNormalRotationEnabled())
 		{
 			QPopupMenu * rotMenu = new QPopupMenu(menu, "RotationMenu");
-			CHECK_PTR(rotMenu);
+			Q_CHECK_PTR(rotMenu);
 			
 			menu->insertSeparator();
 			menu->insertItem(i18n("Ro&tation"), rotMenu);
@@ -1824,9 +1824,9 @@ void KSimEditor::componentPopup(bool connectorHit)
 void KSimEditor::wirePopup(const QPoint & pos)
 {
 	QPopupMenu * menu = new QPopupMenu(0, "wirePopup");
-	CHECK_PTR(menu);
+	Q_CHECK_PTR(menu);
 	KSimUndo * undo = getDoc()->getUndo();
-	CHECK_PTR(undo);
+	Q_CHECK_PTR(undo);
 	Wire * wire = (Wire*)getContainer()->getFirstCompView()->getComponent();
 	int res,idDelete, idTruncate, idProperty, addWatchItemIdx;
 	WireProperty * wp = wire->getWireProperty();

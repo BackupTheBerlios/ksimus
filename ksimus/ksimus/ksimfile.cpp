@@ -16,12 +16,12 @@
  ***************************************************************************/
 
 #include <qstring.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <qfileinfo.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include <klocale.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include "ksimfile.h"
 #include "ksimdebug.h"

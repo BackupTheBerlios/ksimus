@@ -86,7 +86,7 @@ ComponentInfo::ComponentInfo(const ComponentInfo & ci)
 	:	BaseInfo(ci)
 {
 	// Copies are not allowed because there are some pointer comparisons !!!
-	ASSERT(0);
+	Q_ASSERT(0);
 }
 
 const QString & ComponentInfo::getI18nLibName() const
@@ -106,7 +106,7 @@ ViewAttribute ComponentInfo::getViewAttr() const
 
 Component * ComponentInfo::createComponent(CompContainer * container) const
 {
-	CHECK_PTR(m_factory);
+	Q_CHECK_PTR(m_factory);
 	return m_factory(container, this);
 }
 

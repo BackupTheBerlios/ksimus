@@ -19,7 +19,7 @@
 #define CONNECTORINFO_H
 
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "baseinfo.h"
 
@@ -51,12 +51,12 @@ private:
 	ConnectorBase * (*m_factory)(Component* , const QString & , const QString & , const QPoint&);
 };
 
-class ConnectorInfoList : public QList<const ConnectorInfo>
+class ConnectorInfoList : public QPtrList<const ConnectorInfo>
 {
 };
 
 #define FOR_EACH_CONNECTOR_INFO(_it_,_connectorInfoList_)	\
-		for(QListIterator<const ConnectorInfo> _it_(_connectorInfoList_);_it_.current();++_it_)
+		for(QPtrListIterator<const ConnectorInfo> _it_(_connectorInfoList_);_it_.current();++_it_)
 
 #endif
 

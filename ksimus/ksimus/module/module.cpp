@@ -72,7 +72,7 @@ ModuleSV::ModuleSV(Component * comp, eViewType viewType)
 	: CompView(comp, viewType, "ModuleSV")
 {
 	widgetList = new KSimWidgetList();
-	CHECK_PTR(widgetList);
+	Q_CHECK_PTR(widgetList);
 
 	if(viewType == SHEET_VIEW)
 	{
@@ -200,7 +200,7 @@ QWidget * ModuleSV::createCompViewWidget(QWidget * parent)
 //	KSIMDEBUG_VAR("ModuleSV::createCompViewWidget", getComponent()->getName());
 	CompViewList * viewList = module->getModuleContainer()->getUserViewList();
 	ModuleWidget * display = new ModuleWidget(module, viewList, parent, module->getName());
-	CHECK_PTR(display);
+	Q_CHECK_PTR(display);
 	widgetList->addWidget(display);
 	
 	/* General signals */
@@ -251,10 +251,10 @@ void ModuleSV::drawBound(QPainter * p)
 
 void ModuleSV::reload()
 {
-	QList<QWidget> * list = widgetList->getWidgetList();
+	QPtrList<QWidget> * list = widgetList->getWidgetList();
 //	KSIMDEBUG_VAR("ModuleSV::reload()", list->count());
 
-	for(QListIterator<QWidget> it(*list);it.current();++it)
+	for(QPtrListIterator<QWidget> it(*list);it.current();++it)
 	{
 		((ModuleWidget*)it.current())->reload();
 	}
@@ -385,13 +385,13 @@ Module::Module(CompContainer * _container, const ComponentInfo * ci)
 	setComponentType(eModule);
 	
 	m_moduleContainer = new CompContainer(this);
-	CHECK_PTR(m_moduleContainer);
+	Q_CHECK_PTR(m_moduleContainer);
 	
 	new ModuleSV(this, SHEET_VIEW);
 	new ModuleSV(this, USER_VIEW);
 	
 	extList = new ComponentList;
-	CHECK_PTR(extList);
+	Q_CHECK_PTR(extList);
 }
 Module::~Module()
 {
@@ -438,7 +438,7 @@ void Module::reloadModule()
 	// remove optional connector if exist
 	if (getAddOnList())
 	{
-		QListIterator<ComponentAddOn> it(*getAddOnList());
+		QPtrListIterator<ComponentAddOn> it(*getAddOnList());
 		while(it.current())
 		{
 			if(it.current()->inherits("OptionalConnector"))
@@ -638,7 +638,7 @@ void Module::reloadModule()
 			break;
 	}
 	
-	CHECK_PTR(posList);
+	Q_CHECK_PTR(posList);
 	for	(i=0; i < posList->count(); i++)
 	{
 		ExternalConnector * extConn = (ExternalConnector *)mdata->getExternalList()->at(i);
@@ -674,7 +674,7 @@ void Module::reloadModule()
 				OptionalConnector * oc;
 				oc = new OptionalConnector(conn, QString::fromLatin1("OptionalExtCon ")+conn->getName(),
 				                           conn->getName());
-				CHECK_PTR(oc);
+				Q_CHECK_PTR(oc);
 				oc->setEnabled(extConn->isOptionalConnEnabled() || conn->isConnected());
 				
 			}

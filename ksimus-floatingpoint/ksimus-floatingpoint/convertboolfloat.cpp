@@ -91,12 +91,12 @@ ConvertBoolFloat::ConvertBoolFloat(CompContainer * container, const ComponentInf
 	m_input = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("FloatingPoint-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_output = new ConnectorFloatOut(this,
 	                                 QString::fromLatin1("Output"),
 	                                 i18n("FloatingPoint-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -167,7 +167,7 @@ ComponentPropertyBaseWidget * ConvertBoolFloat::createGeneralProperty(QWidget *p
 {
 	ConvertBoolFloatPropertyGeneralWidget * wid;
 	wid = new ConvertBoolFloatPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -234,10 +234,10 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	QString tip;
 	
 	m_trueValueLabel = new QLabel(i18n("FloatingPoint", "True Value: "), this, "m_trueValueLabel");
-	CHECK_PTR(m_trueValueLabel);
+	Q_CHECK_PTR(m_trueValueLabel);
 	
 	m_trueValue = new KSimDoubleEdit(this, "m_trueValue");
-	CHECK_PTR(m_trueValue);
+	Q_CHECK_PTR(m_trueValue);
 	tip = i18n("FloatingPoint", "Sets the value which represents the true level.");
 	addToolTip(tip, m_trueValue, m_trueValueLabel);
 	addWhatsThis(tip, m_trueValue, m_trueValueLabel);
@@ -245,10 +245,10 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	
 	
 	m_falseValueLabel = new QLabel(i18n("FloatingPoint", "False Value: "), this, "m_falseValueLabel");
-	CHECK_PTR(m_falseValueLabel);
+	Q_CHECK_PTR(m_falseValueLabel);
 	
 	m_falseValue = new KSimDoubleEdit(this, "m_falseValue");
-	CHECK_PTR(m_falseValue);
+	Q_CHECK_PTR(m_falseValue);
 	tip = i18n("FloatingPoint", "Sets the value which represents the false level.");
 	addToolTip(tip, m_falseValue, m_falseValueLabel);
 	addWhatsThis(tip, m_falseValue, m_falseValueLabel);

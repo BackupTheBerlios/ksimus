@@ -90,7 +90,7 @@ BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci
 	m_out = new ConnectorBoolOut (this,
 	                              QString::fromLatin1("Output"),
 	                              i18n("Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -241,7 +241,7 @@ ComponentPropertyBaseWidget * BooleanButton::createGeneralProperty(QWidget *pare
 {
 	BooleanButtonPropertyGeneralWidget * wid;
 	wid = new BooleanButtonPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -359,7 +359,7 @@ QWidget * BooleanButtonView::createCompViewWidget(QWidget * parent)
 	BooleanButtonWidgetView * wid = new BooleanButtonWidgetView(this, parent,"Button");
 	
 	QPushButton * button = wid->m_buttonWidget;
-	CHECK_PTR(button);
+	Q_CHECK_PTR(button);
 	
 	/* Specific signals */
 	// Button pressed signal (Widget->Button)
@@ -404,13 +404,13 @@ BooleanButtonWidgetView::BooleanButtonWidgetView(BooleanButtonView * cv, QWidget
 	:	CompViewWidget(cv,parent,name)
 {
 	m_buttonWidget = new QPushButton(this);
-	CHECK_PTR(m_buttonWidget);
+	Q_CHECK_PTR(m_buttonWidget);
 	m_buttonWidget->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum));
 	slotSetText(getButton()->getName());  // Set real name
 	
 
 	QHBoxLayout * lay = new QHBoxLayout(this,0);
-	CHECK_PTR(lay);
+	Q_CHECK_PTR(lay);
 
 	lay->addWidget(m_buttonWidget);
 }
@@ -468,10 +468,10 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	QString str;	
 
 	lab = new QLabel(i18n("Reset State: "), this, "ResetStateLabel");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_resetState = new KSimBooleanBox(comp->getResetState(), this, "ResetState");
-	CHECK_PTR(m_resetState);
+	Q_CHECK_PTR(m_resetState);
 	m_resetState->setEnabled(comp->isToggleButton());
 	
 	lab->setBuddy(m_resetState);
@@ -481,10 +481,10 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	
 
 	lab = new QLabel(i18n("Toggle Function:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_toggle = new KSimBooleanBox(comp->isToggleButton(), this);
-	CHECK_PTR(m_toggle);
+	Q_CHECK_PTR(m_toggle);
 	
 	m_toggle->setTrueText(i18n("On"));
 	m_toggle->setFalseText(i18n("Off"));

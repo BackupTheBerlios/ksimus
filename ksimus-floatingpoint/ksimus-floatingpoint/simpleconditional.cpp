@@ -132,12 +132,12 @@ SimpleConditional::SimpleConditional(CompContainer * container, const ComponentI
 	m_inputA = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input A"),
 	                             i18n("FloatingPoint-Connector", "Input A"));
-	CHECK_PTR(m_inputA);
+	Q_CHECK_PTR(m_inputA);
 	
 	m_inputB = new ConnectorFloatIn(this,
 	                             QString::fromLatin1("Input B"),
 	                             i18n("FloatingPoint-Connector", "Input B"));
-	CHECK_PTR(m_inputB);
+	Q_CHECK_PTR(m_inputB);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -235,7 +235,7 @@ ComponentPropertyBaseWidget * SimpleConditional::createGeneralProperty(QWidget *
 {
 	SimpleConditionalPropertyGeneralWidget * wid;
 	wid = new SimpleConditionalPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -319,10 +319,10 @@ SimpleConditionalPropertyGeneralWidget::SimpleConditionalPropertyGeneralWidget(S
 	QString tip, s;
 	
 	m_conditionalLabel = new QLabel(i18n("FloatingPoint", "Conditional: "), this, "m_conditionalLabel");
-	CHECK_PTR(m_conditionalLabel);
+	Q_CHECK_PTR(m_conditionalLabel);
 	
 	m_conditional = new QComboBox(this, "m_conditional");
-	CHECK_PTR(m_conditional);
+	Q_CHECK_PTR(m_conditional);
 	
 	m_conditional->insertItem(QString::fromLatin1("A < B"),  (int)eLesser);
 	if (fontMetrics().inFont(QChar(0x2264)))

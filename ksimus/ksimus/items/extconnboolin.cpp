@@ -72,14 +72,14 @@ ExtConnBoolIn::ExtConnBoolIn(CompContainer * container, const ComponentInfo * ci
 	                           QString::fromLatin1("Output"),
 	                           i18n("Connector", "Output"),
 	                           QPoint(4,1));
-	CHECK_PTR(out);
+	Q_CHECK_PTR(out);
 	setInternalConn(out);
 	
 	in = new ConnectorBoolIn(this,
 	                         QString::fromLatin1("Input"),
 	                         i18n("Connector", "Input"),
 	                         QPoint(0,1));
-	CHECK_PTR(in);
+	Q_CHECK_PTR(in);
 	setExternalConn(in);
 }
 
@@ -146,7 +146,7 @@ ComponentPropertyBaseWidget * ExtConnBoolIn::createGeneralProperty(QWidget *pare
 {
 	ExtConnBoolInPropertyGeneralWidget * wid;
 	wid = new ExtConnBoolInPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -161,10 +161,10 @@ ExtConnBoolInPropertyGeneralWidget::ExtConnBoolInPropertyGeneralWidget(ExtConnBo
 	QString str;
 
 	QLabel * label = new QLabel(i18n("Default State:"), this, "m_defaultStateLabel"); 
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_defaultState = new KSimBooleanBox(this, "m_defaultState");
-	CHECK_PTR(m_defaultState);
+	Q_CHECK_PTR(m_defaultState);
 
 	label->setBuddy(m_defaultState);
 	str = i18n("Sets the default state of the external connector.\n"

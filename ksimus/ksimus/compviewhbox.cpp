@@ -65,7 +65,7 @@ CompViewHBox::CompViewHBox(bool horizontal, CompView * cv, QWidget *parent, cons
 void CompViewHBox::init()
 {
 //	m_p = new CompViewHBoxPrivate();
-//	CHECK_PTR(m_p);
+//	Q_CHECK_PTR(m_p);
 	
 	getCompView()->getWidgetList()->addWidget(this);
 	

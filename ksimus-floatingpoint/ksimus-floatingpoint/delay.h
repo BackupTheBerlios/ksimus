@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qarray.h>
+#include <qmemarray.h>
 
 // KDE-Includes
 
@@ -84,7 +84,7 @@ private:
 	double m_lastValue;
 	unsigned int m_counter;
 	unsigned int m_index;
-	QArray<double> m_list;
+	QMemArray<double> m_list;
 	static const char * const sDelayTime;
 };
 

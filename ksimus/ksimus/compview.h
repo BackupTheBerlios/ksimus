@@ -24,7 +24,7 @@
 #include <qobject.h>
 #include <qpoint.h>
 #include <qrect.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qpixmap.h>
 
 // KDE-Includes
@@ -397,7 +397,7 @@ private:
 //#############################################################################
 //#############################################################################
 
-class CompViewList : public QList<CompView>
+class CompViewList : public QPtrList<CompView>
 {
 public:
 	/** Returns the rect which contains all component views (excluding wires). */
@@ -409,7 +409,7 @@ public:
 
 
 #define FOR_EACH_COMPVIEW(_it_,_viewList_)	\
-		for(QListIterator<CompView> _it_(_viewList_);_it_.current();++_it_)
+		for(QPtrListIterator<CompView> _it_(_viewList_);_it_.current();++_it_)
 
 
 #endif

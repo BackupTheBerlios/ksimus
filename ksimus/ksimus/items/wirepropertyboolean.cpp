@@ -27,7 +27,7 @@ static WireProperty * create(Wire * wire)
 {
 	WireProperty * wp;
 	wp = new WirePropertyBoolean(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 
@@ -77,7 +77,7 @@ const QString & WirePropertyBoolean::getI18nTextFalse()
 WatchItemBase * WirePropertyBoolean::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemBooleanWireProperty(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

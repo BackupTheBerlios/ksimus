@@ -22,7 +22,7 @@
 
 
 // QT-Includes
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -56,7 +56,7 @@ public:
 	const ImplicitConverterLibrary * getImplicitConverterLib() const;
 	const KSimIoDeviceLibrary * getIoDeviceLib() const;
 	const KSimIoJoinLibrary * getIoJoinLib() const;
-	const QList<PackageInfo> * getPackageList() const;
+	const QPtrList<PackageInfo> * getPackageList() const;
 	const QStringList & getInfoMessages() const;
 	const QStringList & getErrorMessages() const;
 	void clearMessageLists();
@@ -85,7 +85,7 @@ private:
 	ImplicitConverterLibrary * m_implicitConverterLibrary;
 	KSimIoDeviceLibrary * m_ioDeviceLibrary;
 	KSimIoJoinLibrary * m_ioJoinLibrary;
-	QList<PackageInfo> * m_packageList;
+	QPtrList<PackageInfo> * m_packageList;
 };
 
 extern Library * g_library;

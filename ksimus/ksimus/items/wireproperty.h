@@ -22,7 +22,7 @@
 
 // QT includes
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE includes
 
@@ -269,7 +269,7 @@ private:
 //##################################################################################
 
 
-class WirePropertyList : public QList<WireProperty>
+class WirePropertyList : public QPtrList<WireProperty>
 {
 public:
 //	WirePropertyList();
@@ -277,7 +277,7 @@ public:
 };
 
 #define FOR_EACH_WIREPROPERTY(_it_,_wirePropertyList_)	\
-		for(QListIterator<WireProperty> _it_(_wirePropertyList_);_it_.current();++_it_)
+		for(QPtrListIterator<WireProperty> _it_(_wirePropertyList_);_it_.current();++_it_)
 
 
 #endif

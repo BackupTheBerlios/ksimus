@@ -38,7 +38,7 @@ TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char
 	QString tooltip;
 	
 	m_rbNoView = new QRadioButton(i18n("&No Module"), this);
-	CHECK_PTR(m_rbNoView);
+	Q_CHECK_PTR(m_rbNoView);
  	m_rbNoView->setFocusPolicy(ClickFocus);
 	insert(m_rbNoView,(int)MV_NONE);
 	tooltip = i18n("Check, if this is not a module.");
@@ -47,7 +47,7 @@ TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char
 
 	
 	m_rbGeneric = new QRadioButton(i18n("&Generic View"), this);
-	CHECK_PTR(m_rbGeneric);
+	Q_CHECK_PTR(m_rbGeneric);
  	m_rbGeneric->setFocusPolicy(ClickFocus);
 	insert(m_rbGeneric,(int)MV_GENERIC);
 	tooltip = i18n("Check, if this is a module with a default view.");
@@ -55,7 +55,7 @@ TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char
   QWhatsThis::add(m_rbGeneric,tooltip);
 	
 	m_rbUserView = new QRadioButton(i18n("&User View"), this);
-	CHECK_PTR(m_rbUserView);
+	Q_CHECK_PTR(m_rbUserView);
  	m_rbUserView->setFocusPolicy(ClickFocus);
 	insert(m_rbUserView,(int)MV_USERVIEW);
 	tooltip = i18n("Check, if the module should have a view like the user interface.");
@@ -63,7 +63,7 @@ TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char
   QWhatsThis::add(m_rbUserView,tooltip);
 	
 	m_rbPixmap = new QRadioButton(i18n("&Image"), this);
-	CHECK_PTR(m_rbPixmap);
+	Q_CHECK_PTR(m_rbPixmap);
  	m_rbPixmap->setFocusPolicy(ClickFocus);
 	insert(m_rbPixmap,(int)MV_PIXMAP);
 	tooltip = i18n("Check, if this is a module with a image view.");

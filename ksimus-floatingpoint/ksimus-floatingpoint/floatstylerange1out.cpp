@@ -163,7 +163,7 @@ ComponentPropertyBaseWidget * FloatStyleRange1Out::createGeneralProperty(QWidget
 {
 	FloatStyleRange1OutPropertyGeneralWidget * wid;
 	wid = new FloatStyleRange1OutPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -175,10 +175,10 @@ FloatStyleRange1OutPropertyGeneralWidget::FloatStyleRange1OutPropertyGeneralWidg
 	:	FloatStyle1OutPropertyGeneralWidget(comp, parent, name)
 {
 	m_maxValueLabel = new QLabel(i18n("Maximum value: "), this, "MaxValueLabel");
-	CHECK_PTR(m_maxValueLabel);
+	Q_CHECK_PTR(m_maxValueLabel);
 	
 	m_maxValue = new KSimDoubleEdit(this, "MaxValue");
-	CHECK_PTR(m_maxValue);
+	Q_CHECK_PTR(m_maxValue);
 	QString tip(i18n("The maximum value of the component."));
 	addToolTip(tip, m_maxValue, m_maxValueLabel);
 	addWhatsThis(tip, m_maxValue, m_maxValueLabel);
@@ -186,10 +186,10 @@ FloatStyleRange1OutPropertyGeneralWidget::FloatStyleRange1OutPropertyGeneralWidg
 	
 	
 	m_minValueLabel = new QLabel(i18n("Minimum value: "), this, "MinValueLabel");
-	CHECK_PTR(m_minValueLabel);
+	Q_CHECK_PTR(m_minValueLabel);
 	
 	m_minValue = new KSimDoubleEdit(this, "MinValue");
-	CHECK_PTR(m_minValue);
+	Q_CHECK_PTR(m_minValue);
 	tip = i18n("The minimum value of the component.");
 	addToolTip(tip, m_minValue, m_minValueLabel);
 	addWhatsThis(tip, m_minValue, m_minValueLabel);

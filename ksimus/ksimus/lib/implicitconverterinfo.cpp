@@ -47,6 +47,6 @@ const QString & ImplicitConverterInfo::getOutDataType() const
 
 ImplicitConverter * ImplicitConverterInfo::create(ConnectorBase * connector) const
 {
-	CHECK_PTR(m_factory);
+	Q_CHECK_PTR(m_factory);
 	return m_factory(connector);
 }

@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-//#include <qlist.h>
+//#include <qptrlist.h>
 
 // KDE-Includes
 

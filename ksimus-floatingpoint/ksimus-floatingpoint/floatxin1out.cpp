@@ -51,7 +51,7 @@ FloatXIn1Out::FloatXIn1Out(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Input %1"),
 	                             getConnectorFloatInInfo(),
 	                             2, 10);
-	CHECK_PTR(m_inPack);
+	Q_CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
 }
 
@@ -74,7 +74,7 @@ FloatXIn1OutView::FloatXIn1OutView(FloatXIn1Out * comp, eViewType viewType, cons
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 

@@ -47,21 +47,21 @@ SimulationTiming::SimulationTiming(KSimusDoc *parent, const char *name )
 		m_doc(parent)
 {
 	m_execTimer = new QTimer(this);
-	CHECK_PTR(m_execTimer);
+	Q_CHECK_PTR(m_execTimer);
 	connect(m_execTimer, SIGNAL(timeout()), this, SLOT(slotExecute()));
 	m_updateTimer = new QTimer(this);
-	CHECK_PTR(m_updateTimer);
+	Q_CHECK_PTR(m_updateTimer);
 	connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(slotUpdate()));
 	
 	m_execTime = new KSimTimeBase();
-	CHECK_PTR(m_execTime);
+	Q_CHECK_PTR(m_execTime);
 	m_updateTime = new KSimTimeBase();
-	CHECK_PTR(m_updateTime);
+	Q_CHECK_PTR(m_updateTime);
 	m_tickTime = new KSimTimeBase();
-	CHECK_PTR(m_tickTime);
+	Q_CHECK_PTR(m_tickTime);
 
 	m_simulationTime = new KSimTimeServer();
-	CHECK_PTR(m_simulationTime);
+	Q_CHECK_PTR(m_simulationTime);
 
 	setDefault();
 }

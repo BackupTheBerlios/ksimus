@@ -56,14 +56,14 @@ ExtConnBoolOut::ExtConnBoolOut(CompContainer * container, const ComponentInfo * 
 	                           QString::fromLatin1("Output"),
 	                           i18n("Connector", "Output"),
 	                           QPoint(4,1));
-	CHECK_PTR(out);
+	Q_CHECK_PTR(out);
 	setExternalConn(out);
 	
 	in = new ConnectorBoolIn(this,
 	                         QString::fromLatin1("Input"),
 	                         i18n("Connector", "Input"),
 	                         QPoint(0,1));
-	CHECK_PTR(in);
+	Q_CHECK_PTR(in);
 	setInternalConn(in);
 
 }

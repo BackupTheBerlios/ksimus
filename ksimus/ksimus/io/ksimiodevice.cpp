@@ -169,7 +169,7 @@ KSimIoDevice::KSimIoDevice(const KSimIoDeviceInfo * info)
 		m_mySerial(0)
 {
 	m_p = new Private;
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 //	m_pinList.setAutoDelete(true); Are object childs from device!
 }
 
@@ -192,7 +192,7 @@ void KSimIoDevice::setDescription(const QString & newDescription)
 
 void KSimIoDevice::addPin(const KSimIoPin * ioPin)
 {
-	ASSERT(ioPin);
+	Q_ASSERT(ioPin);
 	
 	getPinList().append(ioPin);
 	KSimIoPin::Pool::get().append(ioPin);
@@ -329,7 +329,7 @@ bool KSimIoDevice::load(KConfigBase & config)
 
 void KSimIoDevice::setSerial(unsigned int serial)
 {
-	ASSERT(serial != 0);
+	Q_ASSERT(serial != 0);
 
 	m_mySerial = serial;
 }
@@ -346,7 +346,7 @@ void KSimIoDevice::setExclusive(bool exclusive)
 
 void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgList)
 {
-	ASSERT(doc != (const KSimusDoc *)0);
+	Q_ASSERT(doc != (const KSimusDoc *)0);
 
 	KSIMDEBUG_VAR("KSimIoDevice::checkCircuit", getName());
 	// Device used by this doc?
@@ -394,7 +394,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 	}
 
 	// Check pins
-	QListIterator<KSimIoPin> itPin(getPinList());
+	QPtrListIterator<KSimIoPin> itPin(getPinList());
 	for (; itPin.current(); ++itPin)
 	{
 		unsigned int usedCnt = 0;
@@ -456,7 +456,7 @@ bool KSimIoDevice::openDevice(QString & /*errorMsg*/)
 
 void KSimIoDevice::closeDevice()
 {
-	ASSERT(m_p->openCnt > 0);
+	Q_ASSERT(m_p->openCnt > 0);
 	m_p->openCnt--;
 }
 
@@ -488,7 +488,7 @@ const KSimIoPin * KSimIoDevice::findPinByID(int ioPinID) const
 
 void KSimIoDevice::registerJoin(KSimIoJoin * join)
 {
-	ASSERT(join != (KSimIoJoin *)0);
+	Q_ASSERT(join != (KSimIoJoin *)0);
 	
 	if ( -1 == m_p->joinList.findIndexByJoin(join))
 	{
@@ -502,7 +502,7 @@ void KSimIoDevice::registerJoin(KSimIoJoin * join)
 
 bool KSimIoDevice::unregisterJoin(KSimIoJoin * join)
 {
-	ASSERT(join != (KSimIoJoin *)0);
+	Q_ASSERT(join != (KSimIoJoin *)0);
 
 	int idx = m_p->joinList.findIndexByJoin(join);
 	if (idx != -1)
@@ -538,7 +538,7 @@ void KSimIoDevice::addGeneralProperty(KSimIoDevicePropertyDialog * dialog)
 KSimIoDevicePropertyBaseWidget * KSimIoDevice::createGeneralProperty(QWidget *parent)
 {
 	KSimIoDevicePropertyBaseWidget * wid = new KSimIoDevicePropertyGeneralWidget(this, parent, "General Settings");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	return wid;
 }
 
@@ -587,7 +587,7 @@ void KSimIoDevice::addAllPinProperties(KSimIoDevicePropertyDialog * dialog)
 KSimIoDevicePropertyBaseWidget * KSimIoDevice::addPinProperty(KSimIoPin * pin, QWidget *parent)
 {
 	KSimIoDevicePropertyPinWidget * wid = new KSimIoDevicePropertyPinWidget(pin, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	return wid;
 }
 
@@ -673,13 +673,13 @@ KSimIoDeviceTest::KSimIoDeviceTest(const KSimIoDeviceInfo * info)
 {
 	KSimIoPin * pin;
 	pin = new KSimIoPin(this, 0, QString::fromLatin1("PA 1"), i18n("PA 1"));
-	CHECK_PTR(pin);
+	Q_CHECK_PTR(pin);
 	pin->addPinInfo(KSimIoJoinBoolIn::getStaticInfo());
 	pin->addPinInfo(KSimIoJoinBoolOut::getStaticInfo());
 	addPin(pin);
 
 	pin = new KSimIoPin(this, 1, QString::fromLatin1("PA 2"), i18n("PA 2"));
-	CHECK_PTR(pin);
+	Q_CHECK_PTR(pin);
 	pin->addPinInfo(KSimIoJoinBoolOut::getStaticInfo());
 	addPin(pin);
 
@@ -688,7 +688,7 @@ KSimIoDeviceTest::KSimIoDeviceTest(const KSimIoDeviceInfo * info)
 
 void KSimIoDeviceTest::setIO(int ioPinID, const void * pValue)
 {
-	ASSERT(pValue != (const void *)0);
+	Q_ASSERT(pValue != (const void *)0);
 
 	switch(ioPinID)
 	{
@@ -705,7 +705,7 @@ void KSimIoDeviceTest::setIO(int ioPinID, const void * pValue)
 
 void KSimIoDeviceTest::getIO(int ioPinID, void * pValue) const
 {
-	ASSERT(pValue != (void *)0);
+	Q_ASSERT(pValue != (void *)0);
 
 	switch(ioPinID)
 	{

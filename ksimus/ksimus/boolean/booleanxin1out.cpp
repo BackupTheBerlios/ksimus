@@ -48,7 +48,7 @@ BooleanXIn1Out::BooleanXIn1Out(CompContainer * container, const ComponentInfo * 
 	                             i18n("Connector", "Input %1"),
 	                             getConnectorBoolInInfo(),
 	                             2, 26);
-	CHECK_PTR(m_inPack);
+	Q_CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
 }
 
@@ -71,7 +71,7 @@ BooleanXIn1OutView::BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 

@@ -28,7 +28,7 @@ EnumBaseDict::EnumBaseDict(const tData * pData, int size, bool caseSensitive, bo
 	: m_data(pData)
 {
 	m_dict = new QAsciiDict<int>(size, caseSensitive, copyKeys);
-	CHECK_PTR(m_dict);
+	Q_CHECK_PTR(m_dict);
 	int i = 0;
 	const tData * pCount = pData;
 	while (pCount->name != 0)

@@ -123,10 +123,10 @@ PropertyWidget * WatchItemIntegerBase::createPropertyWidget(QWidget * parent)
 	PropertyWidget * wid = WatchItemBase::createPropertyWidget(parent);
 
 	QVGroupBox * baseBox = new QVGroupBox(i18n("INT base", "Base selection"), wid, "Base selection");
-	CHECK_PTR(baseBox);
+	Q_CHECK_PTR(baseBox);
 
 	m_baseSelector = new KSimBaseIntBaseSelection(m_viewBase, baseBox, "m_baseSelector");
-	CHECK_PTR(m_baseSelector);
+	Q_CHECK_PTR(m_baseSelector);
 	
 	return wid;
 }
@@ -150,11 +150,11 @@ void WatchItemIntegerBase::propertyCancelPressed()
 
 void WatchItemIntegerBase::createTriggerPropertyWidget(QWidget * parent)
 {
-	ASSERT(m_triggerBox == 0);
-	ASSERT(m_limitEdit == 0);
+	Q_ASSERT(m_triggerBox == 0);
+	Q_ASSERT(m_limitEdit == 0);
 	
 	m_triggerBox = new QComboBox(parent, "m_triggerBox");
-	CHECK_PTR(m_triggerBox);
+	Q_CHECK_PTR(m_triggerBox);
 
 	m_triggerBox->insertItem(i18n("Integer Trigger", "Rising edge"), (int)eRising);
 	m_triggerBox->insertItem(i18n("Integer Trigger", "Falling edge"), (int)eFalling);
@@ -165,13 +165,13 @@ void WatchItemIntegerBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerBox->setCurrentItem((int)m_triggerType);
 
 	QHBox * limitBox = new QHBox(parent);
-	CHECK_PTR(limitBox);
+	Q_CHECK_PTR(limitBox);
 
 	QLabel * limiLabel = new QLabel(i18n("Integer Trigger", "Threshold:"), limitBox, "watchpoint treshold label");
-	CHECK_PTR(limiLabel);
+	Q_CHECK_PTR(limiLabel);
 
 	m_limitEdit = new KSimBaseIntEdit(limitBox, "m_limitEdit");
-	CHECK_PTR(m_limitEdit);
+	Q_CHECK_PTR(m_limitEdit);
 	m_limitEdit->setValue(m_limit);
 	
 	limiLabel->setBuddy(m_limitEdit);
@@ -186,8 +186,8 @@ void WatchItemIntegerBase::createTriggerPropertyWidget(QWidget * parent)
 
 void WatchItemIntegerBase::slotTriggerBoxChanged()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 
 	switch((eTriggerType)m_triggerBox->currentItem())
 	{
@@ -205,8 +205,8 @@ void WatchItemIntegerBase::slotTriggerBoxChanged()
 
 void WatchItemIntegerBase::triggerPropertyOkPressed()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 
 	m_triggerType = (eTriggerType)m_triggerBox->currentItem();
 	m_limit = m_limitEdit->value();
@@ -216,15 +216,15 @@ void WatchItemIntegerBase::triggerPropertyOkPressed()
 }
 void WatchItemIntegerBase::triggerPropertyDefaultPressed()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 	m_triggerBox->setCurrentItem((int)eRising);
 	m_limitEdit->setValue(0);
 }
 void WatchItemIntegerBase::triggerPropertyCancelPressed()
 {
-	ASSERT(m_triggerBox != 0);
-	ASSERT(m_limitEdit != 0);
+	Q_ASSERT(m_triggerBox != 0);
+	Q_ASSERT(m_limitEdit != 0);
 
 	m_triggerBox = (QComboBox *) 0;    // Will be deleted now
 	m_limitEdit = (KSimBaseIntEdit *) 0;

@@ -24,7 +24,7 @@
 // QT-Includes
 
 // KDE-Includes
-#include <kapp.h>
+#include <kapplication.h>
 #include <kmainwindow.h>
 #include <kaccel.h>
 #include <kaction.h>
@@ -330,6 +330,6 @@ signals:
 	void signalViewChanged(eAppViewType currentView);
 };
 
-class KSimusAppList : public QList<KSimusApp> {};
+class KSimusAppList : public QPtrList<KSimusApp> {};
 
 #endif // KSIMUS_H

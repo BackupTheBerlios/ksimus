@@ -34,7 +34,7 @@
 #include <klocale.h>
 #include <kconfig.h>
 #include <kstdaction.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kstatusbar.h>
 
 // application specific includes
@@ -165,16 +165,16 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 	}	
 	
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	m_p->messageTimer = new QTimer(this, "KSimusApp::messageTimer");
-	CHECK_PTR(m_p->messageTimer);
+	Q_CHECK_PTR(m_p->messageTimer);
 	connect(m_p->messageTimer, SIGNAL(timeout()), this, SLOT(slotStatusMsgDefault()));
                                                                                     	
 	if (!g_appList)
 	{
 		g_appList = new KSimusAppList();
-		CHECK_PTR(g_appList);
+		Q_CHECK_PTR(g_appList);
 	}
 	g_appList->append(this);
 	
@@ -185,7 +185,7 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 	if (!g_library)
 	{
 		g_library = new Library();
-		CHECK_PTR(g_library);
+		Q_CHECK_PTR(g_library);
 		loadLib = true;
 		KSimIoDeviceList::getList()->loadActive();
 	}
@@ -280,7 +280,7 @@ void KSimusApp::initActions()
 	executePause = new KToggleAction(i18n("&Pause"), QString::fromLatin1("player_pause"), 0, this, SLOT(slotExecutePause()), actionCollection(), "execute_pause");
 	
 	QStringList list;
-	QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
+	QPtrListIterator<PackageInfo> packageIt(*g_library->getPackageList());
 	for (packageIt.toFirst(); packageIt.current(); ++packageIt)
 	{
 		// Add if not KSimus handbook
@@ -1290,7 +1290,7 @@ void KSimusApp::slotHelpPackages()
 
 	int item = helpPackages->currentItem();
 
-	QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
+	QPtrListIterator<PackageInfo> packageIt(*g_library->getPackageList());
 	const PackageInfo * pi = (packageIt += item);
 	if (pi)
 	{
@@ -1299,7 +1299,7 @@ void KSimusApp::slotHelpPackages()
 
 /*	if (item < g_library->getPackageList()->count())
 	{
-		QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
+		QPtrListIterator<PackageInfo> packageIt(*g_library->getPackageList());
 		while(item)
 		{
 			item--;

@@ -20,7 +20,7 @@
 
 // Include KDE Header
 #include <klocale.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Include KSimus Header
 #include "componentstyle.h"
@@ -322,7 +322,7 @@ void ComponentStyle::addStyleProperty(ComponentPropertyDialog * dialog)
 ComponentPropertyBaseWidget * ComponentStyle::createStyleProperty(ComponentStyle * comp, QWidget *parent)
 {
 	ComponentPropertyBaseWidget * wid = new ComponentPropertyStyleWidget(comp, parent, "Style Settings");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	return wid;
 }
 

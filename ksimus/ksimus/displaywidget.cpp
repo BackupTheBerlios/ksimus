@@ -26,7 +26,7 @@ DisplayWidget::DisplayWidget(CompViewList * viewList, QWidget *parent, const cha
 		drawMap(new QPixmap),
 		displayList(viewList)
 {
-	CHECK_PTR(drawMap);
+	Q_CHECK_PTR(drawMap);
 }
 
 DisplayWidget::~DisplayWidget()
@@ -40,7 +40,7 @@ DisplayWidget::~DisplayWidget()
 	updateDrawMap() doesn't update the widget. update() will do that.*/
 void DisplayWidget::updateDrawMap()
 {
-	CHECK_PTR(drawMap);
+	Q_CHECK_PTR(drawMap);
 
 	QPainter p (drawMap);
 	drawMap->fill(backgroundColor()/*lightGray*/);

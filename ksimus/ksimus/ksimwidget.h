@@ -19,7 +19,7 @@
 #define KSIMWIDGET_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include <qpushbutton.h>
 
@@ -39,12 +39,12 @@ public:
 	void removeWidget(const QWidget * widget);
 	QWidget * getWidget(int index);
 	QWidget * getFirstWidget() const;
-	QList<QWidget> * getWidgetList() { return &widgetList; };
+	QPtrList<QWidget> * getWidgetList() { return &widgetList; };
 	
 	QWidget * getActiveWidget();
 
 protected:
-	QList<QWidget> widgetList;
+	QPtrList<QWidget> widgetList;
 	
 public slots:
 	void slotRemoveWidget(const QWidget * widget);

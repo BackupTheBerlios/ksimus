@@ -58,7 +58,7 @@ class KSimExponentStep::Private
 KSimExponentStep::KSimExponentStep()
 {
 	m_p = new Private(10.0);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	m_p->list.append(1.0);
 	m_p->list.append(2.0);
 	m_p->list.append(5.0);

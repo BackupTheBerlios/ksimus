@@ -191,9 +191,9 @@ ModuleData::ModuleData(CompContainer * parent)
 		m_moduleLibNames(),
 		m_shortDescr()
 {
-	CHECK_PTR(m_inList);
-	CHECK_PTR(m_outList);
-	CHECK_PTR(m_externalList);
+	Q_CHECK_PTR(m_inList);
+	Q_CHECK_PTR(m_outList);
+	Q_CHECK_PTR(m_externalList);
 }
 
 ModuleData::~ModuleData()
@@ -226,7 +226,7 @@ PointList * ModuleData::getGenericConnPos()
 	if (!m_connPosGeneric)
 	{
 		m_connPosGeneric = new PointList;
-		CHECK_PTR(m_connPosGeneric);
+		Q_CHECK_PTR(m_connPosGeneric);
 		m_connPosGeneric->setAutoDelete(true);
 	}
 	return m_connPosGeneric;
@@ -242,7 +242,7 @@ PointList * ModuleData::getPixmapConnPos()
 	if (!m_connPosPixmap)
 	{
 		m_connPosPixmap = new PointList;
-		CHECK_PTR(m_connPosPixmap);
+		Q_CHECK_PTR(m_connPosPixmap);
 		m_connPosPixmap->setAutoDelete(true);
 	}
 	return m_connPosPixmap;
@@ -253,7 +253,7 @@ OrientList * ModuleData::getPixmapConnOrient()
 	if (!m_connOrientPixmap)
 	{
 		m_connOrientPixmap = new OrientList;
-		CHECK_PTR(m_connOrientPixmap);
+		Q_CHECK_PTR(m_connOrientPixmap);
 		m_connOrientPixmap->setAutoDelete(true);
 	}
 	return m_connOrientPixmap;
@@ -266,7 +266,7 @@ QPixmap * ModuleData::getPixmap()
 	if (!m_pixmap)
 	{
 		m_pixmap = new QPixmap;
-		CHECK_PTR(m_pixmap);
+		Q_CHECK_PTR(m_pixmap);
 	}
 	return m_pixmap;
 }
@@ -302,7 +302,7 @@ bool ModuleData::loadPixmap()
 	
 	bool res;
 	QPixmap * newPixmap = new QPixmap;
-	CHECK_PTR(newPixmap);
+	Q_CHECK_PTR(newPixmap);
 	res = newPixmap->load(m_pixmapFile);
 	
 	if (res)
@@ -347,7 +347,7 @@ PointList * ModuleData::getUserViewConnPos()
 	if (!m_connPosUserView)
 	{
 		m_connPosUserView = new PointList;
-		CHECK_PTR(m_connPosUserView);
+		Q_CHECK_PTR(m_connPosUserView);
 		m_connPosUserView->setAutoDelete(true);
 	}
 	return m_connPosUserView;
@@ -358,7 +358,7 @@ OrientList * ModuleData::getUserViewConnOrient()
 	if (!m_connOrientUserView)
 	{
 		m_connOrientUserView = new OrientList;
-		CHECK_PTR(m_connOrientUserView);
+		Q_CHECK_PTR(m_connOrientUserView);
 		m_connOrientUserView->setAutoDelete(true);
 	}
 	return m_connOrientUserView;
@@ -441,7 +441,7 @@ void ModuleData::setupGenericData()
 	{
 		// Create position list
 		m_connPosGeneric = new PointList;
-		CHECK_PTR(m_connPosGeneric);
+		Q_CHECK_PTR(m_connPosGeneric);
 		m_connPosGeneric->setAutoDelete(true);
 	}
 
@@ -468,7 +468,7 @@ void ModuleData::setupGenericData()
 	for (i = 0; i < m_outList->count(); i++)
 	{
 		QPoint * pos = new QPoint(x-1, offset+i*(space+1));
-		CHECK_PTR(pos);
+		Q_CHECK_PTR(pos);
 		m_connPosGeneric->append(pos);
 	}
 	// Space between In-Connectors
@@ -481,7 +481,7 @@ void ModuleData::setupGenericData()
 	for (i = 0; i < m_inList->count(); i++)
 	{
 		QPoint * pos = new QPoint(0, offset+i*(space+1));
-		CHECK_PTR(pos);
+		Q_CHECK_PTR(pos);
 		m_connPosGeneric->append(pos);
 	}
 }	
@@ -498,7 +498,7 @@ void ModuleData::setupPixmapData()
 	{
 		// Create position list
 		m_connPosPixmap = new PointList;
-		CHECK_PTR(m_connPosPixmap);
+		Q_CHECK_PTR(m_connPosPixmap);
 		m_connPosPixmap->setAutoDelete(true);
 	}
 	
@@ -510,7 +510,7 @@ void ModuleData::setupPixmapData()
 	{
 		// Create position list
 		m_connOrientPixmap = new OrientList;
-		CHECK_PTR(m_connOrientPixmap);
+		Q_CHECK_PTR(m_connOrientPixmap);
 		m_connOrientPixmap->setAutoDelete(true);
 	}
 	
@@ -518,12 +518,12 @@ void ModuleData::setupPixmapData()
 	FOR_EACH_COMP(it,*m_externalList)
 	{
 		QPoint * pos = new QPoint(((ExternalConnector*)it.current())->getPixmapPos());
-		CHECK_PTR(pos);
+		Q_CHECK_PTR(pos);
 		m_connPosPixmap->append(pos);
 		
 		ConnOrientationType * orient = new ConnOrientationType(((ExternalConnector*)it.current())
 		                                                          ->getPixmapOrientation());
-		CHECK_PTR(orient);
+		Q_CHECK_PTR(orient);
 		m_connOrientPixmap->append(orient);
 	}
 }
@@ -540,7 +540,7 @@ void ModuleData::setupUserViewData()
 	{
 		// Create position list
 		m_connPosUserView = new PointList;
-		CHECK_PTR(m_connPosUserView);
+		Q_CHECK_PTR(m_connPosUserView);
 		m_connPosUserView->setAutoDelete(true);
 	}
 	
@@ -552,7 +552,7 @@ void ModuleData::setupUserViewData()
 	{
 		// Create position list
 		m_connOrientUserView = new OrientList;
-		CHECK_PTR(m_connOrientUserView);
+		Q_CHECK_PTR(m_connOrientUserView);
 		m_connOrientUserView->setAutoDelete(true);
 	}
 	
@@ -560,12 +560,12 @@ void ModuleData::setupUserViewData()
 	FOR_EACH_COMP(it,*m_externalList)
 	{
 		QPoint * pos = new QPoint(((ExternalConnector*)it.current())->getUserViewPos());
-		CHECK_PTR(pos);
+		Q_CHECK_PTR(pos);
 		m_connPosUserView->append(pos);
 		
 		ConnOrientationType * orient = new ConnOrientationType(((ExternalConnector*)it.current())
 		                                                          ->getUserViewOrientation());
-		CHECK_PTR(orient);
+		Q_CHECK_PTR(orient);
 		m_connOrientUserView->append(orient);
 	}
 }
@@ -637,7 +637,7 @@ bool ModuleData::load(KSimData & file)
 				if (!m_pixmap)
 				{
 					m_pixmap = new QPixmap;
-					CHECK_PTR(m_pixmap);
+					Q_CHECK_PTR(m_pixmap);
 				}
 				*m_pixmap = file.readPixmapEntry(Private::sPixmapData);
 				// Round up to next valid size and add connector space
@@ -697,7 +697,7 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 	
 		default:
 			KSIMDEBUG_VAR("Unknown module view", moduleView);
-			ASSERT(0);
+			Q_ASSERT(0);
 			break;
 	}	
 	
@@ -890,7 +890,7 @@ bool ModuleData::checkConnectorPosition(bool showMessage)
 	QRect leftArea  (             0,               1,              1, size.height()-2);
 	QRect rightArea (size.width()-1,               1,              1, size.height()-2);
 
-	for (QListIterator<QPoint> it(*connPosList);it.current();++it)
+	for (QPtrListIterator<QPoint> it(*connPosList);it.current();++it)
 	{
 		// not hidden?
 		if (it.current()->x() != -1)

@@ -182,7 +182,7 @@ QString ConnectorBoolTristate::getValueText() const
 WatchItemBase * ConnectorBoolTristate::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemBoolTristateConnector(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 
@@ -234,7 +234,7 @@ void ConnectorBoolTristateSpecial::init()
 WatchItemBase * ConnectorBoolTristateSpecial::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemBoolTristateConnectorSpecial(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

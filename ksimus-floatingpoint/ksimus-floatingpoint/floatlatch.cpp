@@ -92,7 +92,7 @@ FloatLatch::FloatLatch(CompContainer * container, const ComponentInfo * ci)
 	m_inputReset = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Reset"),
 	                             i18n("FloatingPoint-Connector", "Reset"));
-	CHECK_PTR(m_inputReset);
+	Q_CHECK_PTR(m_inputReset);
 	m_inputReset->setEdgeSensitive(false,true);
 	// make Reset optional
 	new OptionalConnector(m_inputReset,
@@ -102,14 +102,14 @@ FloatLatch::FloatLatch(CompContainer * container, const ComponentInfo * ci)
 	m_inputEnable = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable"),
 	                             i18n("FloatingPoint-Connector", "Enable"));
-	CHECK_PTR(m_inputEnable);
+	Q_CHECK_PTR(m_inputEnable);
 	
 	m_inputPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Connector", "Input %1"),
 	                             getConnectorFloatInInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_inputPack);
+	Q_CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -119,7 +119,7 @@ FloatLatch::FloatLatch(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Output %1"),
 	                             getConnectorFloatOutInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_outputPack);
+	Q_CHECK_PTR(m_outputPack);
 	m_outputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_outputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -144,7 +144,7 @@ void FloatLatch::calculate()
 	}
 	else if (getInputEnable()->getInput())
 	{
-		QListIterator<ConnectorBase> it(*getInputPack()->getConnList());
+		QPtrListIterator<ConnectorBase> it(*getInputPack()->getConnList());
 		int i = 0;
 		while(it.current())
 		{
@@ -157,7 +157,7 @@ void FloatLatch::calculate()
 
 void FloatLatch::setOutput()
 {
-	QListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
+	QPtrListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
 	int i = 0;
 	while(it.current())
 	{
@@ -226,7 +226,7 @@ ComponentPropertyBaseWidget * FloatLatch::createGeneralProperty(QWidget *parent)
 {
 	FloatLatchPropertyGeneralWidget * wid;
 	wid = new FloatLatchPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -304,7 +304,7 @@ FloatLatch::View::View(FloatLatch * comp, eViewType viewType, const char * name)
 	{
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getInputReset());
@@ -339,10 +339,10 @@ FloatLatchPropertyGeneralWidget::FloatLatchPropertyGeneralWidget(FloatLatch * co
 
 	
 	m_channelsLabel = new QLabel(i18n("FloatingPoint", "Number of channels: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new KSimSpinBox(m_min, MAX_CHANNELS, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("FloatingPoint", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
@@ -350,10 +350,10 @@ FloatLatchPropertyGeneralWidget::FloatLatchPropertyGeneralWidget(FloatLatch * co
 	
 	
 	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), this, "m_resetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimDoubleEdit(this, "m_resetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	tip = i18n("FloatingPoint", "Change the reset value of the channels here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);

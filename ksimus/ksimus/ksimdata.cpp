@@ -102,7 +102,7 @@ KSimData::eVersionType KSimData::convertVersionType(const char * versionType, KS
 KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bReadOnly)
 {
 	m_p = new Private(pFileName, versionType, bReadOnly);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	pushGroup("/");
 	writeEntry(sKSimusKey, "KSimus"); // Set always
 	

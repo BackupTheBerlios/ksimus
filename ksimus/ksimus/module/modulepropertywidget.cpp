@@ -28,7 +28,7 @@
 // KDE-Includes
 #include <klocale.h>
 #include <kdialog.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kfiledialog.h>
 
 // Project-Includes
@@ -58,9 +58,9 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 
 	// Module name
 	label = new QLabel(i18n("Module Name:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_leModuleName = 	new KSimLineEdit(this);
-	CHECK_PTR(m_leModuleName);
+	Q_CHECK_PTR(m_leModuleName);
 	label->setBuddy(m_leModuleName);
 	tooltip = i18n("Enter the module name here.");
 	PropertyWidget::addToolTip(tooltip, label, m_leModuleName);
@@ -69,9 +69,9 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	
 	// Library names
 	label = new QLabel(i18n("Library Names:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_leModuleLibNames = 	new KSimLineEdit(this);
-	CHECK_PTR(m_leModuleLibNames);
+	Q_CHECK_PTR(m_leModuleLibNames);
 	label->setBuddy(m_leModuleLibNames);
 	tooltip = i18n("Describes the entry of the module at the component supplier.\nSeparate subdirecotries by a slash\"/\".\nSeparate library names by a semicolon \";\".");
 	PropertyWidget::addToolTip(tooltip, label, m_leModuleLibNames);
@@ -80,9 +80,9 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 
 	// Short Description
 	label = new QLabel(i18n("Short Description:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_leShortDescr = 	new KSimLineEdit(this);
-	CHECK_PTR(m_leShortDescr);
+	Q_CHECK_PTR(m_leShortDescr);
 	label->setBuddy(m_leShortDescr);
 	tooltip = i18n("Enter a short description of the module.");
 	PropertyWidget::addToolTip(tooltip, label, m_leShortDescr);
@@ -92,7 +92,7 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 
 	// Pixmap file
 	label = new QLabel(i18n("Image &File:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	widget = createPixmapFileWidget();
 	label->setBuddy(widget);
 	tooltip = i18n("Enter the path to image file (Image view only).");
@@ -107,7 +107,7 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
 
 	m_storeAbsolute = new QRadioButton(i18n("Absolute path"), m_storeBox);
-	CHECK_PTR(m_storeAbsolute);
+	Q_CHECK_PTR(m_storeAbsolute);
 	m_storeAbsolute->setFocusPolicy(ClickFocus);
 	tooltip = i18n("Stores the absolute path of the pixmap (Image view only).");
 	PropertyWidget::addToolTip(tooltip, m_storeAbsolute);
@@ -115,7 +115,7 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	connect(m_storeAbsolute, SIGNAL(clicked()), SLOT(slotStoreAbsoluteChanged()));
 
 	m_storeRelative = new QRadioButton(i18n("Relative path"), m_storeBox);
-	CHECK_PTR(m_storeRelative);
+	Q_CHECK_PTR(m_storeRelative);
 	m_storeRelative->setFocusPolicy(ClickFocus);
 	tooltip = i18n("Stores the path of the pixmap relative to module file (Image view only).");
 	PropertyWidget::addToolTip(tooltip, m_storeRelative);
@@ -123,7 +123,7 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	connect(m_storeRelative, SIGNAL(clicked()), SLOT(slotStoreRelativeChanged()));
 
 	m_storeInternal = new QRadioButton(i18n("Internal"), m_storeBox);
-	CHECK_PTR(m_storeInternal);
+	Q_CHECK_PTR(m_storeInternal);
 	m_storeInternal->setFocusPolicy(ClickFocus);
 	tooltip = i18n("Stores the pixmap into the module file (Image view only).");
 	PropertyWidget::addToolTip(tooltip, m_storeInternal);
@@ -246,15 +246,15 @@ void ModulePropertyWidget::slotPixmapFileChanged()
 QWidget * ModulePropertyWidget::createPixmapFileWidget()
 {
 	m_fileBox = new QHBox(this);
-	CHECK_PTR(m_fileBox);
+	Q_CHECK_PTR(m_fileBox);
 //	m_fileBox->setMargin(KDialog::marginHint());
 //	m_fileBox->setSpacing(KDialog::spacingHint());
 
 	m_lePixmapFile = new KSimLineEdit(m_fileBox);
-	CHECK_PTR(m_lePixmapFile);
+	Q_CHECK_PTR(m_lePixmapFile);
 
 	QPushButton * openFileDia = new QPushButton(m_fileBox);
-	CHECK_PTR(openFileDia);
+	Q_CHECK_PTR(openFileDia);
 	openFileDia->setPixmap(KSimIcon::load("fileopen", KIcon::Small));
 	connect(openFileDia, SIGNAL(released()), SLOT(slotPixmapOpenFileDialog()));
 

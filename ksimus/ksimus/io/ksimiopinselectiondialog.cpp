@@ -25,7 +25,7 @@
 #include <klocale.h>
 #include <kdialogbase.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Project-Includes
 #include "ksimiopinselectiondialog.h"
@@ -47,11 +47,11 @@ KSimIoPinSelectionDialog::KSimIoPinSelectionDialog(const KSimIoPin::List & pinLi
 	QWidget * wid = plainPage();
 
 	m_selWid = new KSimIoPinSelectionWidget(pinList, wid, "KSimIoPinSelectionWidget");
-	CHECK_PTR(m_selWid);
+	Q_CHECK_PTR(m_selWid);
 	m_selWid->setMargin(0);
 
 	QBoxLayout * horLayout = new QHBoxLayout(wid);
-	CHECK_PTR(horLayout);
+	Q_CHECK_PTR(horLayout);
 	horLayout->addWidget(m_selWid);
 
 	connect(this, SIGNAL(okClicked()), m_selWid, SLOT(slotAccept()));
@@ -60,7 +60,7 @@ KSimIoPinSelectionDialog::KSimIoPinSelectionDialog(const KSimIoPin::List & pinLi
 
 
 	QPushButton * okButton = actionButton(KDialogBase::Ok);
-	CHECK_PTR(okButton);
+	Q_CHECK_PTR(okButton);
 	connect(m_selWid, SIGNAL(signalValidDoubleClicked()), okButton, SLOT(animateClick()));
 }
 
@@ -81,7 +81,7 @@ const KSimIoPin * KSimIoPinSelectionDialog::execute(const QString & caption,
                                                     const char *name)
 {
 	KSimIoPinSelectionDialog * dialog = new KSimIoPinSelectionDialog(KSimIoPin::Pool::get(), caption, parent, name);
-	CHECK_PTR(dialog);
+	Q_CHECK_PTR(dialog);
 
 
 	// Load last size

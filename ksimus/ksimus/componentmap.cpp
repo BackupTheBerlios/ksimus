@@ -38,8 +38,8 @@ ComponentMap::ComponentMap()
 		costComponent(1000),
 		costWire(100)
 {
-	map = new QArray<mapItem>;
-	costMap = new QArray<mapItem>;
+	map = new QMemArray<mapItem>;
+	costMap = new QMemArray<mapItem>;
 }
 ComponentMap::~ComponentMap()
 {
@@ -338,7 +338,7 @@ int ComponentMap::searchCommonRoute(const CPointListList & routeList, CPointList
 	
 	if (routeList.count() > 0)
 	{
-		QListIterator<CPointList> it(routeList);
+		QPtrListIterator<CPointList> it(routeList);
 
 		// Test points beginning last
 		for (int i = (int)actRoute->count()-1; i>=0 && !found; i--)

@@ -16,14 +16,14 @@
  ***************************************************************************/
 
 #include <qstringlist.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qdir.h>
 
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 #include "config.h"
 #include "library.h"
@@ -89,7 +89,7 @@ public:
 		m_handleList.setAutoDelete(true);
 	};
 
-	QList<KSimPackageHandle> m_handleList;
+	QPtrList<KSimPackageHandle> m_handleList;
 	QStringList m_moduleList;
 	QStringList m_infoMessages;
 	QStringList m_errorMessages;
@@ -104,7 +104,7 @@ public:
 };
 
 #define FOR_EACH_HANDLE(_it_,_handleList_)	\
-		for(QListIterator<KSimPackageHandle> _it_(_handleList_);_it_.current();++_it_)
+		for(QPtrListIterator<KSimPackageHandle> _it_(_handleList_);_it_.current();++_it_)
 
 
 //#############################################################################
@@ -119,7 +119,7 @@ const ComponentInfoList & Library::Private::getDistComponents()
 	{
 		// Initialize
 		pDistComponents = new ComponentInfoList;
-		CHECK_PTR(pDistComponents);
+		Q_CHECK_PTR(pDistComponents);
 		
 		// Add your component info here
 		pDistComponents->append(BooleanAnd::getStaticAndInfo());
@@ -150,7 +150,7 @@ const ConnectorInfoList & Library::Private::getDistConnector()
 	{
 		// Initialize
 		pDistConnector = new ConnectorInfoList;
-		CHECK_PTR(pDistConnector);
+		Q_CHECK_PTR(pDistConnector);
 		
 		// Add your connector info here
 		pDistConnector->append(getConnectorBoolInInfo());
@@ -176,7 +176,7 @@ const WirePropertyInfoList & Library::Private::getDistWireProperty()
 	{
 		// Initialize
 		pDistWireProp = new WirePropertyInfoList;
-		CHECK_PTR(pDistWireProp);
+		Q_CHECK_PTR(pDistWireProp);
 		
 		// Add your wireproperty info here
 		pDistWireProp->append(getWirePropertyBooleanInfo());
@@ -201,7 +201,7 @@ const ImplicitConverterInfoList & Library::Private::getDistImplicitConverter()
 	{
 		// Initialize
 		pImplicitConverterProp = new ImplicitConverterInfoList;
-		CHECK_PTR(pImplicitConverterProp);
+		Q_CHECK_PTR(pImplicitConverterProp);
 
 		// Add your implicit converter info here
 		pImplicitConverterProp->append(getImplicitConverterBoolean2FloatInfo());
@@ -219,7 +219,7 @@ const KSimIoDeviceInfoList & Library::Private::getDistIoDevice()
 	{
 		// Initialize
 		pIoDevice = new KSimIoDeviceInfoList;
-		CHECK_PTR(pIoDevice);
+		Q_CHECK_PTR(pIoDevice);
 
 		// Add your io devices info here
 		pIoDevice->append(KSimIoDeviceTest::getStaticInfo());
@@ -236,7 +236,7 @@ const KSimIoJoinInfoList & Library::Private::getDistIoJoin()
 	{
 		// Initialize
 		pIoJoin = new KSimIoJoinInfoList;
-		CHECK_PTR(pIoJoin);
+		Q_CHECK_PTR(pIoJoin);
 
 		// Add your io join info here
 		pIoJoin->append(KSimIoJoinBoolIn::getStaticInfo());
@@ -255,10 +255,10 @@ Library * g_library = (Library *)0;
 Library::Library()
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	m_ksimusPackageInfo = new PackageInfo("KSimus", KGlobal::instance(), VERSION);
-	CHECK_PTR(m_ksimusPackageInfo);
+	Q_CHECK_PTR(m_ksimusPackageInfo);
 	m_ksimusPackageInfo->insert(Library::Private::getDistComponents());
 	m_ksimusPackageInfo->insert(Library::Private::getDistConnector());
 	m_ksimusPackageInfo->insert(Library::Private::getDistWireProperty());
@@ -267,7 +267,7 @@ Library::Library()
 	m_ksimusPackageInfo->insert(Library::Private::getDistIoJoin());
 
 	m_componentLibrary = new ComponentLibrary;
-	CHECK_PTR(m_componentLibrary);
+	Q_CHECK_PTR(m_componentLibrary);
 
 	
 	m_componentLibrary->insertInternal(getWireInfo());
@@ -275,22 +275,22 @@ Library::Library()
 
 	
 	m_connectorLibrary = new ConnectorLibrary;
-	CHECK_PTR(m_connectorLibrary);
+	Q_CHECK_PTR(m_connectorLibrary);
 	
 	m_wirePropertyLibrary = new WirePropertyLibrary;
-	CHECK_PTR(m_wirePropertyLibrary);
+	Q_CHECK_PTR(m_wirePropertyLibrary);
 	
 	m_implicitConverterLibrary = new ImplicitConverterLibrary;
-	CHECK_PTR(m_implicitConverterLibrary);
+	Q_CHECK_PTR(m_implicitConverterLibrary);
 
 	m_ioDeviceLibrary = new KSimIoDeviceLibrary;
-	CHECK_PTR(m_ioDeviceLibrary);
+	Q_CHECK_PTR(m_ioDeviceLibrary);
 
 	m_ioJoinLibrary = new KSimIoJoinLibrary;
-	CHECK_PTR(m_ioJoinLibrary);
+	Q_CHECK_PTR(m_ioJoinLibrary);
 
-	m_packageList = new QList<PackageInfo>;
-	CHECK_PTR(m_packageList);
+	m_packageList = new QPtrList<PackageInfo>;
+	Q_CHECK_PTR(m_packageList);
 
 	insertPackage(m_ksimusPackageInfo);
 
@@ -351,7 +351,7 @@ const KSimIoJoinLibrary * Library::getIoJoinLib() const
 	return m_ioJoinLibrary;
 }
 
-const QList<PackageInfo> * Library::getPackageList() const
+const QPtrList<PackageInfo> * Library::getPackageList() const
 {
 	return m_packageList;
 }
@@ -469,7 +469,7 @@ void Library::loadPackageFiles()
 	}
 	while (!end);
 	
-	for(QListIterator<KSimPackageHandle> it1(m_p->m_handleList);it1.current();)
+	for(QPtrListIterator<KSimPackageHandle> it1(m_p->m_handleList);it1.current();)
 	{
 		if (!it1.current()->isOpened())
 		{
@@ -522,7 +522,7 @@ void Library::scanPackageDir(const QString & dirname)
 		}
 		
 		const QFileInfoList * infoList = dir.entryInfoList(QDir::Files | QDir::Readable);
-		for(QListIterator<QFileInfo> it(*infoList);it.current();++it)
+		for(QPtrListIterator<QFileInfo> it(*infoList);it.current();++it)
 		{
 //			makeHandle(dirname + it.current()->baseName());
 			makeHandle(QString::fromLatin1("%1/%2").arg(dirname).arg(it.current()->baseName()));
@@ -591,7 +591,7 @@ void Library::makeHandle(const QString & filename)
 		KSIMDEBUG(msg);
 		m_p->m_infoMessages.append(msg);*/
 		KSimPackageHandle * package = new KSimPackageHandle(filename);
-		CHECK_PTR(package);
+		Q_CHECK_PTR(package);
 		m_p->m_handleList.append(package);
 	}
 }
@@ -644,7 +644,7 @@ void Library::scanModuleDir(const QString & dirname)
 
 		dir.setNameFilter(QString::fromLatin1("*.sim"));
 		const QFileInfoList * infoList = dir.entryInfoList(QDir::Files | QDir::Readable);
-		for(QListIterator<QFileInfo> it(*infoList);it.current();++it)
+		for(QPtrListIterator<QFileInfo> it(*infoList);it.current();++it)
 		{
 			loadModule(QString::fromLatin1("%1/%2.sim").arg(dirname).arg(it.current()->baseName()));
 		}

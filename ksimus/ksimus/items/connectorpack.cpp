@@ -62,7 +62,7 @@ ConnectorPack::ConnectorPack(Component * comp,
 		m_flags(USE_LETTER | DELETE_LAST_ONLY)
 {
 	m_connList = new ConnectorList();
-	CHECK_PTR(m_connList);
+	Q_CHECK_PTR(m_connList);
 //	m_connList->setAutoDelete(true);   ConnectorList of the Component deletes it
 	getAction().setAction(KSimAction::eAction(KSimAction::STORAGE | KSimAction::INITPOPUPMENU));
 }
@@ -240,7 +240,7 @@ void ConnectorPack::createNewName(ConnectorBase * conn)
 
 ConnectorBase * ConnectorPack::getDeletableConnector() const
 {
-	QListIterator<ConnectorBase> it(*getConnList());
+	QPtrListIterator<ConnectorBase> it(*getConnList());
 	
 	ConnectorBase * conn = it.toLast();
 	
@@ -272,7 +272,7 @@ unsigned int ConnectorPack::getNumberOfDeletableConnectors() const
 {
 	unsigned int cnt = 0;
 	
-	QListIterator<ConnectorBase> it(*getConnList());
+	QPtrListIterator<ConnectorBase> it(*getConnList());
 	
 	for(it.toLast(); it.current() != 0; --it)
 	{

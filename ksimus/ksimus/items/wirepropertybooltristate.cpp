@@ -64,7 +64,7 @@ static WireProperty * create(Wire * wire)
 {
 	WireProperty * wp;
 	wp = new WirePropertyBoolTristate(wire);
-	CHECK_PTR(wp);
+	Q_CHECK_PTR(wp);
 	return wp;
 }
 
@@ -175,7 +175,7 @@ const void * WirePropertyBoolTristate::readoutData() const
 WatchItemBase * WirePropertyBoolTristate::makeWatchItem()
 {
 	WatchItemBase * wi = new WatchItemBoolTristateWireProperty(this);
-	CHECK_PTR(wi);
+	Q_CHECK_PTR(wi);
 	return wi;
 }
 

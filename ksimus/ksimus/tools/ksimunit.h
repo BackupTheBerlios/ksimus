@@ -22,7 +22,7 @@
 
 // QT-Includes
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE-Includes
 
@@ -206,7 +206,7 @@ private:
   */
 
 
-class KSimUnitList : public QList<KSimUnitBase>
+class KSimUnitList : public QPtrList<KSimUnitBase>
 {
 public:
 	/** The constructor. */
@@ -253,7 +253,7 @@ public:
 protected:
 	
 	/** Internal function. Sorts the unit objects. */
-	virtual int compareItems(QCollection::Item di1, QCollection::Item di2);
+	virtual int compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2);
 	
 	/** Internal function. Sets the unit list static.
 			The object will not be deleted during deleting a multi unit list (@ref KSimMultiUnitList).*/
@@ -368,14 +368,14 @@ public:
 	void append(const KSimUnitList & unitList);
 	
 	/** Returns a list of all unit lists. */
-	QList<KSimUnitList> & getList() { return m_list; };
+	QPtrList<KSimUnitList> & getList() { return m_list; };
 	/** Returns a list of all unit lists. */
-	const QList<KSimUnitList> & getList() const { return m_list; };
+	const QPtrList<KSimUnitList> & getList() const { return m_list; };
 	
 	
 protected:
 	/** Internal */
-	QList<KSimUnitList> m_list;
+	QPtrList<KSimUnitList> m_list;
 
 };
 

@@ -90,15 +90,13 @@ private:
 };
 
 
-#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+#if !defined(NDEBUG) && !defined(NO_KSIMDEBUG)
 	#define __KSIMDEBUG__DEBUG_INFO__    __FILE__ << "(" << __LINE__ << ") "
 	#define KSIMDEBUG(str)               {kdDebug() << __kSimDebugIndent__.print() << __KSIMDEBUG__DEBUG_INFO__ << str << endl;}
 	#define KSIMDEBUG_VAR(str,x)         {kdDebug() << __kSimDebugIndent__.print() << __KSIMDEBUG__DEBUG_INFO__ << str << " " << #x << " = " << x << endl;}
 	#define KSIMDEBUG_FUNCTION           {kdDebug() << __kSimDebugIndent__.print() << k_funcinfo << endl;}
 	#define KSIMASSERT(x)                Q_ASSERT(x)
 	#define KSIMASSERT_VAR(test, var)    { if (!(test)) {kdDebug() << __kSimDebugIndent__.print() << #var << " = " << var << endl; Q_ASSERT(test); } }
-	#define KSIMVERIFY(x)                Q_ASSERT(x)
-	#define KSIMVERIFY_VAR(test, var)    { if (!(test)) {kdDebug() << __kSimDebugIndent__.print() << #var << " = " << var << endl; Q_ASSERT(test); } }
 	
 	#if defined(__GNUC__) && !defined(NO_KSIMDEBUG_ENTRYEXIT)
 		#define KSIMDEBUG_ENTRYEXIT KSimDebugFuncEntryExit __kSimDebugFuncEntryExit__(__PRETTY_FUNCTION__);
@@ -115,8 +113,6 @@ private:
 	#define KSIMDEBUG_FUNCTION
 	#define KSIMASSERT(x)
 	#define KSIMASSERT_VAR(test, var)
-	#define KSIMVERIFY(x)                Q_ASSERT(x)
-	#define KSIMVERIFY_VAR(test, var)    { if (!(test)) {kdDebug() << __kSimDebugIndent__.print() << #var << " = " << var << endl; Q_ASSERT(test); } }
 #endif // defined(DEBUG) && !defined(NO_KSIMDEBUG)
 
 #ifndef KSIMDEBUG_ENTRYEXIT

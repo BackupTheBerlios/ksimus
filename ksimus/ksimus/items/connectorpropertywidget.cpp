@@ -24,7 +24,7 @@
 #include <qcheckbox.h>
 #include <qgrid.h>
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qobjectlist.h>
 #include <qbuttongroup.h>
 #include <qtooltip.h>
@@ -78,31 +78,31 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	QString str;
 	
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	m_p->rowWidget = new QGrid(1, QGrid::Horizontal, this, "rowWidget");
-	CHECK_PTR(m_p->rowWidget);
+	Q_CHECK_PTR(m_p->rowWidget);
 	m_p->rowWidget->setMargin(KDialog::marginHint());
 	m_p->rowWidget->setSpacing(KDialog::spacingHint());
 	m_p->boxWidget = new QGrid(2, QGrid::Horizontal, this, "boxWidget");
-	CHECK_PTR(m_p->boxWidget);
+	Q_CHECK_PTR(m_p->boxWidget);
 	m_p->boxWidget->setSpacing(KDialog::spacingHint());
 	
 	m_p->settingWidget = new QGroupBox(1, Qt::Horizontal, i18n("Settings"), boxWidget(), "boxWidget");
-	CHECK_PTR(m_p->settingWidget);
+	Q_CHECK_PTR(m_p->settingWidget);
 	
 	grid = new QGrid(2, /*QGrid::Horizontal,*/ rowWidget());
-	CHECK_PTR(grid);
+	Q_CHECK_PTR(grid);
 	grid->setSpacing(KDialog::spacingHint());
 	
 	
 	// Name edit
 	str = i18n("Change the name of the connector here");
 	label = new QLabel(i18n("Name:"), grid,"LineEditLabel");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_p->nameEdit = new QLineEdit(grid,"LineEdit");
-	CHECK_PTR(m_p->nameEdit);
+	Q_CHECK_PTR(m_p->nameEdit);
 	m_p->nameEdit->setText(m_conn->getName());
 	label->setBuddy(m_p->nameEdit);
 	PropertyWidget::addToolTip(str, label, m_p->nameEdit);
@@ -112,10 +112,10 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	// Shows connector type
 	str = i18n("The shows the connector type.");
 	label = new QLabel(i18n("Type:"), grid,"TypeLabel");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	QLabel * label1 = new QLabel(m_conn->getConnInfo()->getName(), grid,"Type");
-	CHECK_PTR(label1);
+	Q_CHECK_PTR(label1);
 	label->setBuddy(label1);
 	PropertyWidget::addToolTip(str, label, label1);
 	PropertyWidget::addWhatsThis(str, label, label1);
@@ -124,7 +124,7 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	if (m_conn->isHideEnabled())
 	{
 		m_p->hide = new QCheckBox(i18n("Hidden"),settingWidget(),"HiddenCheck");
-		CHECK_PTR(m_p->hide);
+		Q_CHECK_PTR(m_p->hide);
 		str = i18n("Hide the connector");
 		PropertyWidget::addToolTip(str, m_p->hide);
 		PropertyWidget::addWhatsThis(str, m_p->hide);
@@ -214,7 +214,7 @@ void ConnectorPropertyWidget::polish()
 	const QObjectList * list = m_p->settingWidget->children();
 	if (list)
 	{
-		QListIterator<QObject> it(*list);
+		QPtrListIterator<QObject> it(*list);
 		for (; it.current(); ++it)
 		{
 			if (it.current()->isWidgetType())
@@ -243,7 +243,7 @@ static void setGlobalTabOrder(QWidget * main, QWidget ** last)
 	
 	if (list)
 	{
-		QListIterator<QObject> it(*list);
+		QPtrListIterator<QObject> it(*list);
 		for (; it.current(); ++it)
 		{
 			if (it.current()->isWidgetType())

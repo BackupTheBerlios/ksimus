@@ -67,7 +67,7 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Summand %1"),
 	                             getConnectorFloatInInfo(),
 	                             2, 10);
-	CHECK_PTR(m_inPack);
+	Q_CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
 	m_inPack->setStoreName(QString::fromLatin1("Input"));
 	

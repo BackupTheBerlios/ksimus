@@ -23,7 +23,7 @@
 WirePropertyLibrary::WirePropertyLibrary()
 {
 	m_dataTypes = new QDict<WirePropertyLibraryItem>;
-	CHECK_PTR(m_dataTypes);
+	Q_CHECK_PTR(m_dataTypes);
 }
 
 WirePropertyLibrary::~WirePropertyLibrary()
@@ -34,10 +34,10 @@ bool WirePropertyLibrary::insert (const WirePropertyInfo * wireInfo, const Packa
 {
 	bool res;
 	
-	CHECK_PTR(wireInfo);
+	Q_CHECK_PTR(wireInfo);
 	
 	WirePropertyLibraryItem * wli = new WirePropertyLibraryItem(wireInfo, packageInfo);
-	CHECK_PTR(wli);
+	Q_CHECK_PTR(wli);
 	
 	res = _insert_(wli);
 	

@@ -91,31 +91,31 @@ KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 		m_simPaused(false)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	if (!g_docList)
 		g_docList = new KSimusDocList;
 	g_docList->append(this);
 		
-	m_pViewList = new QList<KSimusView>();
-	CHECK_PTR(m_pViewList);
+	m_pViewList = new QPtrList<KSimusView>();
+	Q_CHECK_PTR(m_pViewList);
 	m_pViewList->setAutoDelete(true);
 
 	m_activeView = (KSimusView *)0;
 	m_container = new CompContainer(this);
-	CHECK_PTR(m_container);
+	Q_CHECK_PTR(m_container);
 	m_undo = new KSimUndo(this);
-	CHECK_PTR(m_undo);
+	Q_CHECK_PTR(m_undo);
 	
 	m_sheetGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
-	CHECK_PTR(m_sheetGrid);
+	Q_CHECK_PTR(m_sheetGrid);
 	m_userGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
-	CHECK_PTR(m_userGrid);
+	Q_CHECK_PTR(m_userGrid);
 	
 	m_timing = new SimulationTiming(this);
-	CHECK_PTR(m_timing);
+	Q_CHECK_PTR(m_timing);
 	m_execute = new SimulationExecute(this);
-	CHECK_PTR(m_execute);
+	Q_CHECK_PTR(m_execute);
 }
 
 KSimusDoc::~KSimusDoc()
@@ -183,7 +183,7 @@ KSimEditor * KSimusDoc::getActiveEditor() const
 void KSimusDoc::addComponentToEditor(Component * comp)
 {
 	// Add widgets to all editors
-	for(QListIterator<KSimusView> it(*m_pViewList);it.current();++it)
+	for(QPtrListIterator<KSimusView> it(*m_pViewList);it.current();++it)
 	{
 		KSimEditor * ed = it.current()->getEditor();
 		switch (ed->getEditorView())

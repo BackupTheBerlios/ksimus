@@ -78,7 +78,7 @@ ControlPause::ControlPause(CompContainer * container, const ComponentInfo * ci)
 	m_trigger = new ConnectorBoolInEdge(this,
 	                               QString::fromLatin1("Trigger"),
 	                               i18n("Connector", "Trigger"));
-	CHECK_PTR(m_trigger);
+	Q_CHECK_PTR(m_trigger);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -145,7 +145,7 @@ ComponentPropertyBaseWidget * ControlPause::createGeneralProperty(QWidget *paren
 {
 	ControlPausePropertyWidget * wid;
 	wid = new ControlPausePropertyWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -168,7 +168,7 @@ ControlPauseView::ControlPauseView(ControlPause * comp, eViewType viewType, cons
 	if (!pIcon)
 	{
 		pIcon = new QPixmap(KSimIcon::load("player_pause", KIcon::Small));
-		CHECK_PTR(pIcon);
+		Q_CHECK_PTR(pIcon);
 		
 		width  = ((pIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;
 		height = ((pIcon->height() + 4 + gridY - 1) / gridY ) * gridY;
@@ -215,10 +215,10 @@ ControlPausePropertyWidget::ControlPausePropertyWidget(ControlPause * comp, QWid
 	QString tip;
 	
 	m_counterLabel = new QLabel(i18n("Number of edges: "), this, "m_counterLabel");
-	CHECK_PTR(m_counterLabel);
+	Q_CHECK_PTR(m_counterLabel);
 	
 	m_counter = new KSimSpinBox(1, INT_MAX, 1, this, "m_counter");
-	CHECK_PTR(m_counter);
+	Q_CHECK_PTR(m_counter);
 	m_counterLabel->setBuddy(m_counter);
 	tip = i18n("Set number of required edges until the simulation is paused here.");
 	addToolTip(tip, m_counter, m_counterLabel);

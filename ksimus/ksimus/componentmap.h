@@ -21,9 +21,9 @@
 // C-Includes
 
 // QT-Includes
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qsize.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qpoint.h>
 
 // KDE-Includes
@@ -40,10 +40,10 @@ class ConnectorList;
   */
 
 typedef int mapItem;
-//typedef QList<QPoint> tPointList;
+//typedef QPtrList<QPoint> tPointList;
 
-class CPointList     : public QList<QPoint> {};
-class CPointListList : public QList<CPointList> {};
+class CPointList     : public QPtrList<QPoint> {};
+class CPointListList : public QPtrList<CPointList> {};
 
 
 
@@ -93,8 +93,8 @@ public:
 
 protected: // Protected methods
 	int getIndex(int x, int y) const { return y * mapSize.width() + x; };
-	QArray<mapItem> * costMap;
-	QArray<mapItem> * map;
+	QMemArray<mapItem> * costMap;
+	QMemArray<mapItem> * map;
 	QSize mapSize;
 	/** Determine the route back */
 	void findBackRoute(const QPoint & from, const QPoint & to, CPointList * route);

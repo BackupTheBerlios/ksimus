@@ -24,7 +24,7 @@
 
 
 // KDE-Includes
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 
 // KSimus-Includes
@@ -98,13 +98,13 @@ Random::Random(CompContainer * container, const ComponentInfo * ci)
 	m_out = new ConnectorFloatOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("FloatingPoint-Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 
 	m_enable = new ConnectorBoolInEdge(this,
 	                                   QString::fromLatin1("Enable"),
 	                                   i18n("FloatingPoint-Connector", "Enable"),
 	                                   QString::fromLatin1("E"));
-	CHECK_PTR(m_enable);
+	Q_CHECK_PTR(m_enable);
 	// make Enable optional
 	new OptionalConnector(m_enable,
 	                      QString::fromLatin1("Enable input"),
@@ -185,7 +185,7 @@ ComponentPropertyBaseWidget * Random::createGeneralProperty(QWidget *parent)
 {
 	RandomPropertyGeneralWidget * wid;
 	wid = new RandomPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -243,9 +243,9 @@ RandomPropertyGeneralWidget::RandomPropertyGeneralWidget(Random * comp, QWidget 
 
 	/********  Maximum  ********/
 	lab = new QLabel(i18n("FloatingPoint", "Maximum:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_max = new KSimDoubleEdit(this, "RndF-Maximum");
-	CHECK_PTR(m_max);
+	Q_CHECK_PTR(m_max);
 	lab->setBuddy(m_max);
 	
 	str = i18n("FloatingPoint", "Set here the maximum value (exclusive).");
@@ -254,9 +254,9 @@ RandomPropertyGeneralWidget::RandomPropertyGeneralWidget(Random * comp, QWidget 
 	
 	/********  Minimum  ********/
 	lab = new QLabel(i18n("FloatingPoint", "Minimum:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_min = new KSimDoubleEdit(this, "RndF-Minimum");
-	CHECK_PTR(m_min);
+	Q_CHECK_PTR(m_min);
 	lab->setBuddy(m_min);
 
 	str = i18n("FloatingPoint", "Set here the minimum value (inclusive).");
@@ -265,16 +265,16 @@ RandomPropertyGeneralWidget::RandomPropertyGeneralWidget(Random * comp, QWidget 
 
 	/********  Use individual seed  ********/
 	lab = new QLabel(i18n("FloatingPoint", "Seed:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_useSeed = new KSimBooleanBox(this, "Seed-Use");
-	CHECK_PTR(m_useSeed);
+	Q_CHECK_PTR(m_useSeed);
 	lab->setBuddy(m_useSeed);
 	m_useSeed->setFalseText(i18n("FloatingPoint - Random", "Random seed"));
 	m_useSeed->setTrueText(i18n("FloatingPoint - Random", "Individual seed"));
 
 	addEmptyCell();
 	m_seed = new KSimSpinBox(this, "RndF-Seed");
-	CHECK_PTR(m_seed);
+	Q_CHECK_PTR(m_seed);
 	m_seed->setMinValue(MIN_SEED);
 	m_seed->setMaxValue(MAX_SEED);
 	

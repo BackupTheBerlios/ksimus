@@ -21,7 +21,7 @@
 // include files for QT
 #include <qobject.h>
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // include files for KDE
 #include <kurl.h>
@@ -112,7 +112,7 @@ public:
 	/** Set active view */
 	void setActiveView(KSimusView * view);
 	/** Returns a list of all views */
-	QList<KSimusView> * getViewList() const { return m_pViewList; };
+	QPtrList<KSimusView> * getViewList() const { return m_pViewList; };
 	
 	void addComponentToEditor(Component * comp);
 	void undo();
@@ -185,7 +185,7 @@ private:
 	KSimFile * m_files;
 	KSimusView * m_activeView;
 	/** the list of the views currently connected to the document */
-	QList<KSimusView> *m_pViewList;
+	QPtrList<KSimusView> *m_pViewList;
 	KSimGrid * m_sheetGrid;
 	KSimGrid * m_userGrid;
 	SimulationTiming * m_timing;
@@ -217,6 +217,6 @@ signals:
 	void signalPolish();
 };
 
-class KSimusDocList : public QList<KSimusDoc> {};
+class KSimusDocList : public QPtrList<KSimusDoc> {};
 
 #endif // KSIMUSDOC_H

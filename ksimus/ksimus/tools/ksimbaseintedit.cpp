@@ -57,7 +57,7 @@ QValidator::State KSimBaseIntValidator::validate(QString & str, int & /*pos*/) c
 	// Copied from QT and modifed
 	
 	QRegExp empty( QString::fromLatin1("^ *-?0?[bBoOxX]?$") );
-	if ( empty.match( str ) >= 0 )
+	if ( empty.exactMatch( str ) )  // TODO in kde2 source was empty.match(str). 
 		return QValidator::Intermediate;
 	bool ok;
 	int tmp = KSimBaseInt::convert(str, &ok);
@@ -147,10 +147,10 @@ KSimBaseIntEdit::~KSimBaseIntEdit()
 void KSimBaseIntEdit::init(int bottom, int top)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	m_p->validator = new KSimBaseIntValidator(bottom, top, this);
-	CHECK_PTR(m_p->validator);
+	Q_CHECK_PTR(m_p->validator);
 
 	setAlignment(AlignRight);
 	setValidator(m_p->validator);
@@ -292,7 +292,7 @@ void KSimBaseIntEdit::slotReady()
 
 void KSimBaseIntEdit::slotAboutToShowContextMenu(QPopupMenu* popup)
 {
-	CHECK_PTR(popup);
+	Q_CHECK_PTR(popup);
 
 	bool ok;
 	int id;
@@ -300,7 +300,7 @@ void KSimBaseIntEdit::slotAboutToShowContextMenu(QPopupMenu* popup)
 	KSimBaseInt i = KSimBaseInt::convert(text(), &ok);
 
 	QPopupMenu * convertPopup = new QPopupMenu(popup, "convertPopup");
-	CHECK_PTR(convertPopup);
+	Q_CHECK_PTR(convertPopup);
 	
 	id = convertPopup->insertItem(i18n("integer base", "Binary"), this, SLOT(slotConvertToBinary()));
 	convertPopup->setItemEnabled(id, (i.base() != KSimBaseInt::Binary));

@@ -50,10 +50,10 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	// Name edit	
 	str = i18n("Change the name of the IO device here.");
 	label = new QLabel(i18n("Name:"), this,"LineEditLabel");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	m_nameEdit = new QLineEdit(this,"m_nameEdit");
-	CHECK_PTR(m_nameEdit);
+	Q_CHECK_PTR(m_nameEdit);
 	m_nameEdit->setText(getDevice()->getName());
 
 	label->setBuddy(m_nameEdit);
@@ -64,10 +64,10 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	str = i18n("Shows the IO device type.");
 	
 	label = new QLabel(i18n("Type:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	QLabel * label1 = new QLabel(getDevice()->getInfo()->getName(), this);
-	CHECK_PTR(label1);
+	Q_CHECK_PTR(label1);
 	
 	label->setBuddy(label1);
 	addToolTip(str, label, label1);
@@ -78,10 +78,10 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	str = i18n("Enter a description for the IO device here.");
 
 	label = new QLabel(i18n("Description:"), descBox);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	m_descriptionEdit = new QMultiLineEdit(descBox, "m_descriptionEdit");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_descriptionEdit->setText(getDevice()->getDescription());
 	m_descriptionEdit->setMaxLines(-1);
 

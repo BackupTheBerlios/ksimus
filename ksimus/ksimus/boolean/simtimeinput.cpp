@@ -91,7 +91,7 @@ SimTimeInput::SimTimeInput(CompContainer * container, const ComponentInfo * ci)
 	                               QString::fromLatin1("Output"),
 	                               i18n("Connector", "Output"),
 	                               QPoint(4,2));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -176,7 +176,7 @@ TickTimeInput::TickTimeInput(CompContainer * container, const ComponentInfo * ci
 	                               QString::fromLatin1("Output"),
 	                               i18n("Connector", "Output"),
 	                               QPoint(4,2));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
 	if (getSheetMap())

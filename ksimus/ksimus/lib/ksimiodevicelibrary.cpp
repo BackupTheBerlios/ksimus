@@ -32,10 +32,10 @@ bool KSimIoDeviceLibrary::insert (const KSimIoDeviceInfo * di, const PackageInfo
 {
 	bool res;
 	
-	CHECK_PTR(di);
+	Q_CHECK_PTR(di);
 	
 	KSimIoDeviceLibraryItem * dli = new KSimIoDeviceLibraryItem(di, packageInfo);
-	CHECK_PTR(dli);
+	Q_CHECK_PTR(dli);
 	
 	res = _insert_(dli);
 	

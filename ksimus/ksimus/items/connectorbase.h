@@ -21,7 +21,7 @@
 
 // QT includes
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 // KDE includes
 
@@ -486,28 +486,28 @@ private:
 };
 
 
-class ConnectorList : public QList<ConnectorBase>
+class ConnectorList : public QPtrList<ConnectorBase>
 {
 public:
 //	ConnectorList();
 //	~ConnectorList();
 };
 
-class ConnectorOutputList : public QList<ConnectorOutputBase>
+class ConnectorOutputList : public QPtrList<ConnectorOutputBase>
 {
 public:
 //	ConnectorOutputList();
 //	~ConnectorOutputList();
 };
 
-class ConnectorInputList : public QList<ConnectorInputBase>
+class ConnectorInputList : public QPtrList<ConnectorInputBase>
 {
 public:
 //	ConnectorOutputList();
 //	~ConnectorOutputList();
 };
 
-class ConnectorTristateList : public QList<ConnectorTristateBase>
+class ConnectorTristateList : public QPtrList<ConnectorTristateBase>
 {
 public:
 //	ConnectorOutputList();
@@ -515,15 +515,15 @@ public:
 };
 
 #define FOR_EACH_CONNECTOR(_it_,_connList_)	\
-		for(QListIterator<ConnectorBase> _it_(_connList_);_it_.current();++_it_)
+		for(QPtrListIterator<ConnectorBase> _it_(_connList_);_it_.current();++_it_)
 
 #define FOR_EACH_CONNECTOROUTPUT(_it_,_connList_)	\
-		for(QListIterator<ConnectorOutputBase> _it_(_connList_);_it_.current();++_it_)
+		for(QPtrListIterator<ConnectorOutputBase> _it_(_connList_);_it_.current();++_it_)
 
 #define FOR_EACH_CONNECTORINPUT(_it_,_connList_)	\
-		for(QListIterator<ConnectorInputBase> _it_(_connList_);_it_.current();++_it_)
+		for(QPtrListIterator<ConnectorInputBase> _it_(_connList_);_it_.current();++_it_)
 
 #define FOR_EACH_CONNECTORTRISTATE(_it_,_connList_)	\
-		for(QListIterator<ConnectorTristateBase> _it_(_connList_);_it_.current();++_it_)
+		for(QPtrListIterator<ConnectorTristateBase> _it_(_connList_);_it_.current();++_it_)
 
 #endif

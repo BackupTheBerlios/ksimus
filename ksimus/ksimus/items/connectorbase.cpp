@@ -173,7 +173,7 @@ ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QStri
 		m_implicitConverter((ImplicitConverter *)0)
 {
 	m_p = new ConnectorBasePrivate();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	m_p->initName = i18nName;
 	m_p->wireName = name;      // Not translated
 	m_p->connInfo = ci;
@@ -560,7 +560,7 @@ void ConnectorBase::setWireProperty(WireProperty * wireProperty)
 				KSIMDEBUG("Different dataTypes");
 				KSIMDEBUG_VAR("",m_wireProperty->getInfo()->getDataType());
 				KSIMDEBUG_VAR("",getConnInfo()->getDataType());
-				ASSERT(0);
+				Q_ASSERT(0);
 			}
 			const ImplicitConverterInfo * ici = g_library->getImplicitConverterLib()
 			     ->findDataType(m_wireProperty->getInfo()->getDataType(), getConnInfo()->getDataType());
@@ -570,17 +570,17 @@ void ConnectorBase::setWireProperty(WireProperty * wireProperty)
 				KSIMDEBUG("Impicit Convert not found");
 				KSIMDEBUG_VAR("",m_wireProperty->getInfo()->getDataType());
 				KSIMDEBUG_VAR("",getConnInfo()->getDataType());
-				ASSERT(0);
+				Q_ASSERT(0);
 			}
 			m_implicitConverter = ici->create(this);
-			CHECK_PTR(m_implicitConverter);
+			Q_CHECK_PTR(m_implicitConverter);
 			if (!m_implicitConverter)
 			{
 				// This should not be happend if output or tristate connector
 				KSIMDEBUG("Impicit Convert not found");
 				KSIMDEBUG_VAR("",m_wireProperty->getInfo()->getDataType());
 				KSIMDEBUG_VAR("",getConnInfo()->getDataType());
-				ASSERT(0);
+				Q_ASSERT(0);
 			}
 		}
 	}

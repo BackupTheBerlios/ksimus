@@ -115,7 +115,7 @@ ComponentPropertyBaseWidget * FloatConstInput::createGeneralProperty(QWidget *pa
 {
 	FloatConstInputPropertyGeneralWidget * wid;
 	wid = new FloatConstInputPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -188,7 +188,7 @@ FloatConstInputWidgetView::FloatConstInputWidgetView(FloatConstInputView * cv, Q
 	setFrameEnabled(true);
 	
 	m_label = new QLabel(this);
-	CHECK_PTR(m_label);
+	Q_CHECK_PTR(m_label);
 	m_label->setAlignment(AlignRight | AlignVCenter);
 	m_label->setNum(getComponent()->getResetValue());
 	

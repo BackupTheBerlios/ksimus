@@ -27,7 +27,7 @@ BaseLibraryItem::BaseLibraryItem(const BaseInfo * bi, const PackageInfo * packag
 	if (!bi->getOldLibNames().isEmpty())
 	{
 		m_oldLibNames = new QStringList(QStringList::split(';',bi->getOldLibNames()));
-		CHECK_PTR(m_oldLibNames);
+		Q_CHECK_PTR(m_oldLibNames);
 	}
 	else
 	{

@@ -248,7 +248,7 @@ CompView::CompView(Component * comp, eViewType viewType, const char * name)
 		m_viewChanged(false)
 {
 	m_p = new CompViewPrivate(viewType);
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	switch(viewType)
 	{
@@ -814,7 +814,7 @@ void CompView::setHide(bool hide)
 			// set hidden;
 			m_p->flags |= FLAGS_HIDDEN;
 			// Unselect view
-			for(QListIterator<KSimusView> it(*getComponent()->getDoc()->getViewList());it.current();++it)
+			for(QPtrListIterator<KSimusView> it(*getComponent()->getDoc()->getViewList());it.current();++it)
 			{
 				KSimEditor * ed = it.current()->getEditor();
 				if (ed) ed->select(this, false);
@@ -842,7 +842,7 @@ void CompView::setHide(bool hide)
 void CompView::slotToggleHide()
 {
 	KSimusDoc * doc = getComponent()->getDoc();
-	CHECK_PTR(doc);
+	Q_CHECK_PTR(doc);
 
 	doc->getUndo()->changeProperty(this, i18n("Hide User View"));
 	setHide(!isHidden());
@@ -1192,7 +1192,7 @@ CompViewSize::CompViewSize(Component * comp, eViewType viewType, const char * na
 	: 	CompView(comp, viewType, name)
 {
 	m_ps = new CompViewSizePrivate();
-	CHECK_PTR(m_ps);
+	Q_CHECK_PTR(m_ps);
 	setResizeable(true);
 }
 
@@ -1246,7 +1246,7 @@ void CompViewSize::mouseMove(QMouseEvent *ev, QPainter *p)
 	if (m_ps->lmbDown)
 	{
 		KSimusDoc * doc = getComponent()->getDoc();
-		CHECK_PTR(doc);
+		Q_CHECK_PTR(doc);
 		const QSize maxSize = doc->getActiveEditor()->getSize();
 		
 		QRect newPlace = getPlace();
@@ -1312,7 +1312,7 @@ void CompViewSize::mouseRelease(QMouseEvent *, QPainter *)
 		if (getPlace() != m_ps->oldPlace)
 		{
 			KSimusDoc * doc = getComponent()->getDoc();
-			CHECK_PTR(doc);
+			Q_CHECK_PTR(doc);
 		
 			QRect helpPlace = getPlace();
 			m_p->place = m_ps->oldPlace;

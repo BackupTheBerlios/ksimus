@@ -23,7 +23,7 @@
   */
 
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 class ComponentInfo;
 class ComponentDirectoryList;
@@ -77,10 +77,10 @@ protected:
 //###################################################################################
 //###################################################################################
 
-class ComponentDirectoryList : public QList<ComponentDirectoryItem>
+class ComponentDirectoryList : public QPtrList<ComponentDirectoryItem>
 {
 protected:
-	virtual int compareItems(QCollection::Item di1, QCollection::Item di2);
+	virtual int compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2);
 };
 	
 #endif

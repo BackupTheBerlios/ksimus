@@ -35,6 +35,6 @@ KSimIoJoinInfo::KSimIoJoinInfo(const QString & name,
 
 KSimIoJoin * KSimIoJoinInfo::create(KSimIoComponent * comp, const KSimIoJoinInfo * info) const
 {
-	CHECK_PTR(m_factory);
+	Q_CHECK_PTR(m_factory);
 	return m_factory(comp, info);
 }	

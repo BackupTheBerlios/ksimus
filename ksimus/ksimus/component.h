@@ -19,7 +19,7 @@
 #define COMPONENT_H
 
 // Include QT-Header
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qobject.h>
 
 // Include KDE-Header
@@ -367,7 +367,7 @@ signals:
 
 };
 
-class ComponentList : public QList<Component>
+class ComponentList : public QPtrList<Component>
 {
 	public:
 	
@@ -377,7 +377,7 @@ class ComponentList : public QList<Component>
 
 
 #define FOR_EACH_COMP(_it_,_compList_)	\
-		for(QListIterator<Component> _it_(_compList_);_it_.current();++_it_)
+		for(QPtrListIterator<Component> _it_(_compList_);_it_.current();++_it_)
 
 
 	

@@ -100,7 +100,7 @@ KSimIoComponent::KSimIoComponent(CompContainer * container, const ComponentInfo 
 	:	Component(container, ci)
 {
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	KSIMDEBUG_VAR("KSimIoComponent::KSimIoComponent", getName());
 	// Initializes the sheet view
@@ -173,9 +173,9 @@ bool KSimIoComponent::load(KSimData & file, bool copyLoad)
 			file.pushGroupRel(QString::fromLatin1(Private::sJoinDir).arg(i));
 
 			joinType = file.readEntry(Private::sJoinType, QString::null);
-			ASSERT(joinType != QString::null);
+			Q_ASSERT(joinType != QString::null);
 			serial = file.readUnsignedNumEntry(Private::sJoinSerial, 0);
-			ASSERT(serial != 0);
+			Q_ASSERT(serial != 0);
 
 			// Join exists ?
 			join = m_p->joinList.findBySerial(serial);
@@ -304,7 +304,7 @@ bool KSimIoComponent::initPopupMenu(QPopupMenu * popup)
 
 void KSimIoComponent::removeJoin(KSimIoJoin * delJoin)
 {
-	ASSERT(delJoin != (KSimIoJoin *)0);
+	Q_ASSERT(delJoin != (KSimIoJoin *)0);
 	
 	if (!m_p->joinList.removeRef(delJoin))
 	{
@@ -329,7 +329,7 @@ void KSimIoComponent::slotPinSelection()
 
 		const KSimIoJoinInfo * info = pin->getSelectedJoinInfo();
 		KSimIoJoin * join = info->create(this, info);
-		CHECK_PTR(join);
+		Q_CHECK_PTR(join);
 		join->setSerialID(getNextSerial());
 		join->setPin(pin);
 		join->createConnector();

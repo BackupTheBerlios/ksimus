@@ -223,7 +223,7 @@ ComponentPropertyBaseWidget * FloatLineInput::createGeneralProperty(QWidget *par
 {
 	FloatLineInputPropertyGeneralWidget * wid;
 	wid = new FloatLineInputPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -242,10 +242,10 @@ FloatLineInputView::FloatLineInputView(FloatLineInput * comp, eViewType viewType
 		setMinSize(5*gridX, 3*gridY);
 
 		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		block->getRight()->addStretch(2);
 		block->getRight()->addConnector(comp->getOutputConnector(),0);
@@ -295,7 +295,7 @@ FloatLineInputWidgetView::FloatLineInputWidgetView(FloatLineInputView * cv, QWid
 	:	CompViewHBox(cv,parent,name)
 {
 	m_edit = new KSimDoubleEdit(this);
-	CHECK_PTR(m_edit);
+	Q_CHECK_PTR(m_edit);
 	m_edit->setBottom(getComponent()->getMinValue());
 	m_edit->setTop(getComponent()->getMaxValue());
 	m_edit->setTrackingEnabled(getComponent()->isTrackingEnabled());
@@ -363,10 +363,10 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	QString tip, precTip;
 	
 	m_convertTypeLabel = new QLabel(i18n("FloatingPoint", "Notation: "), this, "m_convertTypeLabel");
-	CHECK_PTR(m_convertTypeLabel);
+	Q_CHECK_PTR(m_convertTypeLabel);
 	
 	m_convertType = new QComboBox(this, "m_convertType");
-	CHECK_PTR(m_convertType);
+	Q_CHECK_PTR(m_convertType);
 	m_convertType->insertItem(i18n("FloatingPoint", "Fixed Point"), convertType2Idx('f'));
 	m_convertType->insertItem(i18n("FloatingPoint", "Exponential"), convertType2Idx('e'));
 	m_convertType->insertItem(i18n("FloatingPoint", "Automatic"), convertType2Idx('g'));
@@ -388,10 +388,10 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	
 	
 	m_decimalsLabel = new QLabel(i18n("FloatingPoint", "Precision: "), this, "DecimalLabel");
-	CHECK_PTR(m_decimalsLabel);
+	Q_CHECK_PTR(m_decimalsLabel);
 	
 	m_decimals = new KSimSpinBox(0, 100, 1, this, "Decimals");
-	CHECK_PTR(m_decimals);
+	Q_CHECK_PTR(m_decimals);
 	tip = i18n("FloatingPoint", "Sets the 'Precision' of the input.");
 	addToolTip(tip, m_decimals, m_decimalsLabel);
 	addWhatsThis(tip + precTip, m_decimals, m_decimalsLabel);
@@ -399,7 +399,7 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	
 	
 	m_tracking = new QCheckBox(i18n("FloatingPoint", "Tracking"), this, "Tracking");
-	CHECK_PTR(m_tracking);
+	Q_CHECK_PTR(m_tracking);
 	tip = i18n("Enables the value tracking.\n"
 	           "If enabled the output will be updated after each inserted digit.\n"
 	           "If disabled the output will be updated after the user press return or select another input field.");

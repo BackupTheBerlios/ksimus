@@ -36,7 +36,7 @@
 // KDE-Includes
 #include <klocale.h>
 #include <kconfig.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 // Project-Includes
 #include "componentpropertygeneralwidget.h"
@@ -86,19 +86,19 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	QLabel * label;
 
 	m_p = new Private();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 	
 	// Name edit	
 	label = new QLabel(i18n("Name:"), this,"m_p->nameEdit Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 
 	QHBox * nameBox = new QHBox(this, "nameBox");
-	CHECK_PTR(nameBox);
+	Q_CHECK_PTR(nameBox);
 	nameBox->setSpacing(0);
 	nameBox->setMargin(0);
 	
 	m_p->nameEdit = new QLineEdit(nameBox,"m_p->nameEdit");
-	CHECK_PTR(m_p->nameEdit);
+	Q_CHECK_PTR(m_p->nameEdit);
 	m_p->nameEdit->setText(getComponent()->getName());
 	label->setBuddy(m_p->nameEdit);
 	str = i18n("Change the name of the component here");
@@ -107,7 +107,7 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 
 	str = i18n("Deletes the name input line.");
 	m_p->clearNameButton = new QPushButton(nameBox, "m_p->clearNameButton");
-	CHECK_PTR(m_p->clearNameButton);
+	Q_CHECK_PTR(m_p->clearNameButton);
 	QPixmap clearNamePix(KSimIcon::load("clear_left", KIcon::Small));
 	m_p->clearNameButton->setPixmap(clearNamePix);
 	connect(m_p->clearNameButton, SIGNAL(clicked()), SLOT(slotClearName()));
@@ -116,7 +116,7 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 
 	str = i18n("Gives a name suggestion.");
 	m_p->suggestionButton = new QPushButton(nameBox, "m_p->suggestionButton");
-	CHECK_PTR(m_p->suggestionButton);
+	Q_CHECK_PTR(m_p->suggestionButton);
 	QPixmap suggestionPix(KSimIcon::load("1rightarrow", KIcon::Small));
 	m_p->suggestionButton->setPixmap(suggestionPix);
 	addToolTip(str, m_p->suggestionButton);
@@ -127,10 +127,10 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	str = i18n("Shows the component type.");
 	
 	label = new QLabel(i18n("Type:"), this);
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	
 	QLabel * label1 = new QLabel(getComponent()->getInfo()->getName(), this);
-	CHECK_PTR(label1);
+	Q_CHECK_PTR(label1);
 	addToolTip(str, label1, label);
 	addWhatsThis(str, label1, label);
 }
@@ -163,7 +163,7 @@ void ComponentPropertyGeneralWidget::slotOpenSuggestionName()
 	delete m_p->suggestionMenu;
 	{
 		m_p->suggestionMenu = new QPopupMenu(this);
-		CHECK_PTR(m_p->suggestionMenu);
+		Q_CHECK_PTR(m_p->suggestionMenu);
 		connect(m_p->suggestionMenu, SIGNAL(activated(int)), SLOT(slotSuggestionName(int)));
 
 		// Add recently used names
@@ -176,7 +176,7 @@ void ComponentPropertyGeneralWidget::slotOpenSuggestionName()
 			if (m_p->suggestRecentList.count() != 0)
 			{
 				QPopupMenu * recentMenu = new QPopupMenu(m_p->suggestionMenu);
-				CHECK_PTR(recentMenu);
+				Q_CHECK_PTR(recentMenu);
 				m_p->suggestionMenu->insertItem(i18n("Recently used"), recentMenu);
 				connect(recentMenu, SIGNAL(activated(int)), SLOT(slotSuggestionName(int)));
 				
@@ -213,7 +213,7 @@ void ComponentPropertyGeneralWidget::slotOpenSuggestionName()
 		if (connMenuList.count() != 0)
 		{
 			QPopupMenu * connMenu = new QPopupMenu(m_p->suggestionMenu);
-			CHECK_PTR(connMenu);
+			Q_CHECK_PTR(connMenu);
 			m_p->suggestionMenu->insertItem(i18n("Connectors"), connMenu);
 			connect(connMenu, SIGNAL(activated(int)), SLOT(slotSuggestionName(int)));
 			QStringList::ConstIterator it;
@@ -227,7 +227,7 @@ void ComponentPropertyGeneralWidget::slotOpenSuggestionName()
 		if (wireMenuList.count() != 0)
 		{
 			QPopupMenu * wireMenu = new QPopupMenu(m_p->suggestionMenu);
-			CHECK_PTR(wireMenu);
+			Q_CHECK_PTR(wireMenu);
 			m_p->suggestionMenu->insertItem(i18n("Wires"), wireMenu);
 			connect(wireMenu, SIGNAL(activated(int)), SLOT(slotSuggestionName(int)));
 			QStringList::ConstIterator it;

@@ -76,7 +76,7 @@ ComponentDirectorySubMenu::ComponentDirectorySubMenu(const QString & menuName)
 	m_isMenu = true;
 	
 	m_dirList = new ComponentDirectoryList();
-	CHECK_PTR(m_dirList);
+	Q_CHECK_PTR(m_dirList);
 }
 
 ComponentDirectorySubMenu::~ComponentDirectorySubMenu()
@@ -93,7 +93,7 @@ void ComponentDirectorySubMenu::insert(const QString & longMenuEntry, const Comp
 	{
 		// No further sub menu
 		ComponentDirectoryEntry * cde = new ComponentDirectoryEntry(longMenuEntry, ci);
-		CHECK_PTR(cde);
+		Q_CHECK_PTR(cde);
 		if (-1 == m_dirList->find(cde))
 		{
 			m_dirList->inSort(cde);
@@ -111,7 +111,7 @@ void ComponentDirectorySubMenu::insert(const QString & longMenuEntry, const Comp
 		lme = lme.right(lme.length()-idx-1);
 		
 		ComponentDirectorySubMenu * cds = new ComponentDirectorySubMenu(dir);
-		CHECK_PTR(cds);
+		Q_CHECK_PTR(cds);
 		int ref = m_dirList->find(cds);
 		if(-1 == ref)
 		{
@@ -135,7 +135,7 @@ const ComponentDirectoryList * ComponentDirectorySubMenu::getDirList() const
 //###############################################################################	
 //###############################################################################	
 	
-int ComponentDirectoryList::compareItems(QCollection::Item cdiA, QCollection::Item cdiB)
+int ComponentDirectoryList::compareItems(QPtrCollection::Item cdiA, QPtrCollection::Item cdiB)
 {
 	int res;
 	

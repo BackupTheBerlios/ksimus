@@ -47,30 +47,30 @@ SimulationTimingWidget::SimulationTimingWidget(SimulationTiming & timing, QWidge
 	QVGroupBox * box;
 	
 	box = new QVGroupBox(i18n("Execution speed:"), this);
-	CHECK_PTR(box);
+	Q_CHECK_PTR(box);
 	m_execFastest = new QCheckBox(i18n("Fast as possible"), box);
-	CHECK_PTR(m_execFastest);
+	Q_CHECK_PTR(m_execFastest);
 	m_execFastest->setChecked(m_timing.m_execFastest);
 	m_execTime = new KSimTimeSpinBox(*m_timing.m_execTime, 1e-3, 1e0, 1e-2, box);
-	CHECK_PTR(m_execTime);
+	Q_CHECK_PTR(m_execTime);
 	connect(m_execFastest, SIGNAL(toggled(bool)), this, SLOT(slotCheckBoxToggled()));
 	
 	box = new QVGroupBox(i18n("Simulation time per tick:"), this);
-	CHECK_PTR(box);
+	Q_CHECK_PTR(box);
 	m_tickSynchronized = new QCheckBox(i18n("Sychronized to execution speed"), box);
-	CHECK_PTR(m_tickSynchronized);
+	Q_CHECK_PTR(m_tickSynchronized);
 	m_tickSynchronized->setChecked(m_timing.m_tickSynchronized);
 	m_tickTime = new KSimTimeSpinBox(*m_timing.m_tickTime, 1e-10, 1e0, 1e-2, box);
-	CHECK_PTR(m_tickTime);
+	Q_CHECK_PTR(m_tickTime);
 	connect(m_tickSynchronized, SIGNAL(toggled(bool)), this, SLOT(slotCheckBoxToggled()));
 
 	box = new QVGroupBox(i18n("View update speed:"), this);
-	CHECK_PTR(box);
+	Q_CHECK_PTR(box);
 	m_updateSynchronized = new QCheckBox(i18n("Sychronized to execution speed"), box);
-	CHECK_PTR(m_updateSynchronized);
+	Q_CHECK_PTR(m_updateSynchronized);
 	m_updateSynchronized->setChecked(m_timing.m_updateSynchronized);
 	m_updateTime = new KSimTimeSpinBox(*m_timing.m_updateTime, 1e-3, 1e0, 1e-2, box);
-	CHECK_PTR(m_updateTime);
+	Q_CHECK_PTR(m_updateTime);
 	connect(m_updateSynchronized, SIGNAL(toggled(bool)), this, SLOT(slotCheckBoxToggled()));
 
 	// Fixes a problem with the truncated layout on the right side! Why? TODO

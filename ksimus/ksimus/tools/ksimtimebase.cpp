@@ -375,7 +375,7 @@ double KSimTimeBase::getValue(eTimeUnit unit) const
 			break;
 	
 		default:
-			ASSERT(0);
+			Q_ASSERT(0);
 			value = (double)raw();
 			break;
 	}
@@ -436,7 +436,7 @@ void KSimTimeBase::setValue(double time, eTimeUnit unit)
 			break;
 	
 		default:
-			ASSERT(0);
+			Q_ASSERT(0);
 			m_time = (KSimTimeType)(time);
 			break;
 	}

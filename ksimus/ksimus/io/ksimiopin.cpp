@@ -80,7 +80,7 @@ QString KSimIoPin::getName() const
 
 void KSimIoPin::setSelectedJoinInfo(const KSimIoJoinInfo * joinInfo)
 {
-	ASSERT(joinInfo != 0);
+	Q_ASSERT(joinInfo != 0);
 	if (getJoinInfoList().containsRef(joinInfo))
 	{
 		m_selectedJoinInfo = joinInfo;

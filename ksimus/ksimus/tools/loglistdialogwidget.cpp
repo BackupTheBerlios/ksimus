@@ -23,7 +23,7 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 
 // Project-Includes
 #include "loglistdialogwidget.h"
@@ -53,59 +53,59 @@ void LogListDialogWidget::initView()
 		
 	
 	m_debugEnableCheck = new QCheckBox(i18n("Debug"), this);
-	CHECK_PTR(m_debugEnableCheck);
+	Q_CHECK_PTR(m_debugEnableCheck);
 	m_debugEnableCheck->setMinimumSize(m_debugEnableCheck->sizeHint());
 	connect(m_debugEnableCheck, SIGNAL(toggled(bool)), SLOT(slotDebugEnableToogled(bool)));
 	
 	m_debugPopupCheck = new QCheckBox(i18n("Debug"), this);
-	CHECK_PTR(m_debugPopupCheck);
+	Q_CHECK_PTR(m_debugPopupCheck);
 	m_debugPopupCheck->setMinimumSize(m_debugPopupCheck->sizeHint());
 	connect(m_debugPopupCheck, SIGNAL(toggled(bool)), SLOT(slotDebugPopupToogled(bool)));
 
 	m_debugColor = new KColorButton(this);
-	CHECK_PTR(m_debugColor);
+	Q_CHECK_PTR(m_debugColor);
 	connect(m_debugColor, SIGNAL(changed(const QColor &)), SLOT(slotDebugColorChanged(const QColor &)));
 
 	m_infoEnableCheck = new QCheckBox(i18n("Infos"), this);
-	CHECK_PTR(m_infoEnableCheck);
+	Q_CHECK_PTR(m_infoEnableCheck);
 	m_infoEnableCheck->setMinimumSize(m_infoEnableCheck->sizeHint());
 	connect(m_infoEnableCheck, SIGNAL(toggled(bool)), SLOT(slotInfoEnableToogled(bool)));
 	
 	m_infoPopupCheck = new QCheckBox(i18n("Infos"), this);
-	CHECK_PTR(m_infoPopupCheck);
+	Q_CHECK_PTR(m_infoPopupCheck);
 	m_infoPopupCheck->setMinimumSize(m_infoPopupCheck->sizeHint());
 	connect(m_infoPopupCheck, SIGNAL(toggled(bool)), SLOT(slotInfoPopupToogled(bool)));
 	
 	m_infoColor = new KColorButton(this);
-	CHECK_PTR(m_infoColor);
+	Q_CHECK_PTR(m_infoColor);
 	connect(m_infoColor, SIGNAL(changed(const QColor &)), SLOT(slotInfoColorChanged(const QColor &)));
 
 	m_warningEnableCheck = new QCheckBox(i18n("Warnings"), this);
-	CHECK_PTR(m_warningEnableCheck);
+	Q_CHECK_PTR(m_warningEnableCheck);
 	m_warningEnableCheck->setMinimumSize(m_warningEnableCheck->sizeHint());
 	connect(m_warningEnableCheck, SIGNAL(toggled(bool)), SLOT(slotWarningEnableToogled(bool)));
 	
 	m_warningPopupCheck = new QCheckBox(i18n("Warnings"), this);
-	CHECK_PTR(m_warningPopupCheck);
+	Q_CHECK_PTR(m_warningPopupCheck);
 	m_warningPopupCheck->setMinimumSize(m_warningPopupCheck->sizeHint());
 	connect(m_warningPopupCheck, SIGNAL(toggled(bool)), SLOT(slotWarningPopupToogled(bool)));
 	
 	m_warningColor = new KColorButton(this);
-	CHECK_PTR(m_warningColor);
+	Q_CHECK_PTR(m_warningColor);
 	connect(m_warningColor, SIGNAL(changed(const QColor &)), SLOT(slotWarningColorChanged(const QColor &)));
 
 	m_errorEnableCheck = new QCheckBox(i18n("Errors"), this);
-	CHECK_PTR(m_errorEnableCheck);
+	Q_CHECK_PTR(m_errorEnableCheck);
 	m_errorEnableCheck->setMinimumSize(m_errorEnableCheck->sizeHint());
 	connect(m_errorEnableCheck, SIGNAL(toggled(bool)), SLOT(slotErrorEnableToogled(bool)));
 	
 	m_errorPopupCheck = new QCheckBox(i18n("Errors"), this);
-	CHECK_PTR(m_errorPopupCheck);
+	Q_CHECK_PTR(m_errorPopupCheck);
 	m_errorPopupCheck->setMinimumSize(m_errorPopupCheck->sizeHint());
 	connect(m_errorPopupCheck, SIGNAL(toggled(bool)), SLOT(slotErrorPopupToogled(bool)));
 
 	m_errorColor = new KColorButton(this);
-	CHECK_PTR(m_errorColor);
+	Q_CHECK_PTR(m_errorColor);
 	connect(m_errorColor, SIGNAL(changed(const QColor &)), SLOT(slotErrorColorChanged(const QColor &)));
 	
 	//TODO add addToolTip

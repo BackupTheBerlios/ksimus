@@ -23,7 +23,7 @@
 ImplicitConverterLibrary::ImplicitConverterLibrary()
 {
 	m_dataTypes = new QDict<ImplicitConverterLibraryItem>;
-	CHECK_PTR(m_dataTypes);
+	Q_CHECK_PTR(m_dataTypes);
 	m_dataTypes->setAutoDelete(true);
 }
 
@@ -36,10 +36,10 @@ bool ImplicitConverterLibrary::insert (const ImplicitConverterInfo * implicitCon
 {
 	bool res;
 	
-	CHECK_PTR(implicitConverterInfo);
+	Q_CHECK_PTR(implicitConverterInfo);
 	
 	ImplicitConverterLibraryItem * icli = new ImplicitConverterLibraryItem(implicitConverterInfo, packageInfo);
-	CHECK_PTR(icli);
+	Q_CHECK_PTR(icli);
 	
 	res = _insert_(icli);
 	

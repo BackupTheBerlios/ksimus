@@ -27,10 +27,10 @@
 ComponentLibrary::ComponentLibrary()
 {
 	m_additionalLibNames = new QDict<ComponentLibraryItem>;
-	CHECK_PTR(m_additionalLibNames);
+	Q_CHECK_PTR(m_additionalLibNames);
 
 	m_dirBase = new ComponentDirectorySubMenu(QString::fromLatin1("Root"));
-	CHECK_PTR(m_dirBase);
+	Q_CHECK_PTR(m_dirBase);
 }
 
 ComponentLibrary::~ComponentLibrary()
@@ -44,7 +44,7 @@ bool ComponentLibrary::insert (const ComponentInfo * ci, const PackageInfo * pac
 	bool res;
 	
 	ComponentLibraryItem * cli = new ComponentLibraryItem(ci, packageInfo, addToMenu);
-	CHECK_PTR(cli);
+	Q_CHECK_PTR(cli);
 	
 	res = _insert_(cli);
 	
