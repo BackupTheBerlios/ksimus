@@ -35,6 +35,7 @@
 // Project-Includes
 #include "types.h"
 #include "componentitem.h"
+#include "component.h"
 
 // Forward declaration
 class QStringList;
@@ -127,7 +128,7 @@ public:
 	
 	/** Returns true, if last simulation changes the view */
 	bool isViewChanged() const { return m_viewChanged; };
-	void setViewChanged(bool changed) { m_viewChanged = changed;};
+	void setViewChanged(bool changed);
 	
 	/** Creates a new compView widget
 		Overload this function if the component uses a widget as view
@@ -205,6 +206,10 @@ public:
 	/** Enables the grid snap functionality.
 		If enabled, the component position and size are fixed to the grid positions */
 	bool isGridSnapEnabled() const;
+	
+	/** Returns the component type.
+	  * @see eComponentType */
+	Component::eComponentType getComponentType() const;
 	
 	//#####   Rotation   ######
 	
@@ -343,15 +348,14 @@ class CompViewList : public QList<CompView>
 public:
 	/** Returns the rect which contains all component views (excluding wires). */
 	QRect getRect() const;
-
+	/** Insert the view according to the component type.
+	  * @see eComponentType */
+	void insertCompView(CompView * cv);
 };
 
 
 #define FOR_EACH_COMPVIEW(_it_,_viewList_)	\
 		for(QListIterator<CompView> _it_(_viewList_);_it_.current();++_it_)
-
-//#define REMOVE_ALL_COMPVIEW(_viewList_) while ((_viewList_)->removeFirst ());
-		
 
 
 #endif

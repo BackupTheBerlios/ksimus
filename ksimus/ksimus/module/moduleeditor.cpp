@@ -56,8 +56,7 @@ ModuleEditor::ModuleEditor(ModuleDialog * dialog, QWidget * parent, const char *
 ModuleEditor::~ModuleEditor()
 {
 	delete m_drawMap;
-	if (m_userView)
-		delete m_userView;
+	delete m_userView;
 }
 
 

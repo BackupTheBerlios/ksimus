@@ -50,12 +50,12 @@
 
 #include "ksimgrid.h"
 
-static const char * sPropertyGrp  = "Property/";
-static const char * sModuleGrp    = "Module/";
-static const char * sSheetSize    = "Sheetsize";
-static const char * sUserSize     = "Usersize";
-static const char * sSerialNumber = "Last Serial Number";
-
+static const char * sPropertyGrp    = "Property/";
+static const char * sModuleGrp      = "Module/";
+static const char * sRequirementGrp = "Requirement/";
+static const char * sSheetSize      = "Sheetsize";
+static const char * sUserSize       = "Usersize";
+static const char * sSerialNumber   = "Last Serial Number";
 
 class WirePropertyInfo;
 
@@ -82,10 +82,6 @@ CompContainer::CompContainer(KSimusDoc * parent)
 	CHECK_PTR(calculateComponents);
 	calculateComponents->setAutoDelete(false);
 
-	updateOutputComponents = new ComponentList;
-	CHECK_PTR(updateOutputComponents);
-	updateOutputComponents->setAutoDelete(false);
-
 	updateSheetViewComponents = new CompViewList;
 	CHECK_PTR(updateSheetViewComponents);
 	updateSheetViewComponents->setAutoDelete(false);
@@ -104,7 +100,7 @@ CompContainer::CompContainer(KSimusDoc * parent)
 
 	moduleData = new ModuleData(this);
 	CHECK_PTR(moduleData);
-		
+	
 	setVisible(true);
 	enableRouting(true);
 	setRefreshEnabled(true);
@@ -139,10 +135,6 @@ CompContainer::CompContainer(Component * parent)
 	CHECK_PTR(calculateComponents);
 	calculateComponents->setAutoDelete(false);
 
-	updateOutputComponents = new ComponentList;
-	CHECK_PTR(updateOutputComponents);
-	updateOutputComponents->setAutoDelete(false);
-
 	updateSheetViewComponents = new CompViewList;
 	CHECK_PTR(updateSheetViewComponents);
 	updateSheetViewComponents->setAutoDelete(false);
@@ -174,28 +166,16 @@ CompContainer::CompContainer(Component * parent)
 
 CompContainer::~CompContainer()
 {
-	if (components)
-		delete components;
-	if (sheetMap)
-		delete sheetMap;
-	if (userMap)
-		delete userMap;
-	if (failedComponents)
-		delete failedComponents;
-	if (calculateComponents)
-		delete calculateComponents;
-	if (updateOutputComponents)
-		delete updateOutputComponents;
-	if (updateSheetViewComponents)
-		delete updateSheetViewComponents;
-	if (updateUserViewComponents)
-		delete updateUserViewComponents;
-	if (sheetViews)
-		delete sheetViews;
-	if (userViews)
-		delete userViews;
-	if (moduleData)
-		delete moduleData;
+	delete components;
+	delete sheetMap;
+	delete userMap;
+	delete failedComponents;
+	delete calculateComponents;
+	delete updateSheetViewComponents;
+	delete updateUserViewComponents;
+	delete sheetViews;
+	delete userViews;
+	delete moduleData;
 }
 	
 /** Returns a pointer to the document */
@@ -244,6 +224,12 @@ LogList * CompContainer::getLogList() const
 	return getApp()->getLogList();
 }
 
+/** Returns a pointer to the watch widget */	
+WatchWidget * CompContainer::getWatchWidget() const
+{
+	return getApp()->getWatchWidget();
+}
+
 const KSimTimeServer & CompContainer::getTimeServer() const
 {
 	return getDoc()->getTimeServer();
@@ -270,72 +256,20 @@ void CompContainer::undoReload(Component * comp)
 
 /** Inserts a component to the component list
 	Sort components:
-	1. Groups
-	2. Normal components / Moduls
-	3. Wires
+	see Component::eComponentType
 */
 void CompContainer::insert(Component * comp)
 {
-	unsigned int i;
-	
-	// Todo Add Group
-	
-	if (!comp->isWire())
-	{
-		// Add component in front of wires
-		// Todo: Optimize search function
-		i = 0;
-		while ((i<components->count()) && (!components->at(i)->isWire()))
-		{
-			i++;
-		}
-		components->insert(i,comp);
-	}
-	else
-	{
-		// Add wire at the end
-		components->append(comp);
-	}	
-		
+	components->insertComponent(comp);
 	
 	// Add component views
 	if (comp->getSheetView())
 	{
-		insertView (sheetViews, comp->getSheetView());
+		sheetViews->insertCompView(comp->getSheetView());
 	}
 	if (comp->getUserView())
 	{
-		insertView (userViews, comp->getUserView());
-	}
-}
-	
-/** Insert a view to the given viewList
-	Sort component views:
-	1. Groups
-	2. Normal components / Moduls
-	3. Wires
-*/
-void CompContainer::insertView(CompViewList* cvList, CompView * cv)
-{
-	unsigned int i;
-	
-	// Todo: Add Group view
-	
-	if (!cv->getComponent()->isWire())
-	{
-		// Add component view in front of the first wire view
-		// Todo: Optimize search function
-		i = 0;
-		while ((i<cvList->count()) && (!cvList->at(i)->getComponent()->isWire()))
-		{
-			i++;
-		}
-		cvList->insert(i,cv);
-	}
-	else
-	{
-		// Insert Wire view at the end
-		cvList->append(cv);
+		userViews->insertCompView(comp->getUserView());
 	}
 }
 
@@ -411,18 +345,18 @@ void CompContainer::delComponent(Component * delComp)
 	
 	if (delComp->getSheetView())
 	{
-	    sheetViews->removeRef(delComp->getSheetView());
+		sheetViews->removeRef(delComp->getSheetView());
 	}
 	if (delComp->getUserView())
 	{
-	    userViews->removeRef(delComp->getUserView());
+		userViews->removeRef(delComp->getUserView());
 	}
 
 	// remove connections (do not if wire)
 	if (!delComp->isWire())
 	{
 		for (conn = delComp->getConnList()->first(); conn;
-			 conn = delComp->getConnList()->next())
+		     conn = delComp->getConnList()->next())
 		{
 			if (0 != conn->getWire())
 			{
@@ -496,11 +430,11 @@ void CompContainer::moveComponent(Component * comp, const QPoint & relMove)
 {
 	CompView * cv;
 	if (getDoc()->getActiveEditor()->getEditorView() == EV_SHEETVIEW)
-	{	
+	{
 		cv = comp->getSheetView();
 	}
 	else
-	{	
+	{
 		cv = comp->getUserView();
 	}
 	
@@ -642,9 +576,6 @@ void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMo
 /** Add a connection */
 void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 {
-	Wire * wire;
-	const WirePropertyInfo * wirePropInfo;
-	
 	// Do nothing, if start and end the same connector
 	if (start == end)
 	{
@@ -658,7 +589,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 		return;
 	}
 	
-	wirePropInfo = Wire::findWireProperty(start,end);
+	const WirePropertyInfo * wirePropInfo = Wire::findWirePropertyInfo(start,end);
 	if (!wirePropInfo)
 	{
 		getLogList()->error("Data types do not match");
@@ -668,13 +599,14 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 	// create new wire, if both connectors not wired
 	if ((start->getWire() == 0) && (end->getWire() == 0))
 	{
-		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, WireInfo.getLibName()))
+		Wire * wire;
+		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, getWireInfo()->getLibName()))
 		{
 			addComponent(wire);
 			wire->addConnector(start);
 			wire->addConnector(end);
 			// Set new wire property
-			wire->setProperty(wirePropInfo);
+			wire->setPropertyInfo(wirePropInfo);
 		}
 		else
 		{
@@ -685,6 +617,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 	else if ((start->getWire() != 0) && (end->getWire() != 0))
 	{
 		ConnectorBase * conn;
+		Wire * wire;
 		//Same wire
 		if (start->getWire() == end->getWire())
 		{
@@ -694,7 +627,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 		// Differnet wires
 		// move all connections to the new
 		// remove old wires
-		else if (g_library->getComponentLib()->createComponent((Component **)&wire, this, WireInfo.getLibName()))
+		else if (g_library->getComponentLib()->createComponent((Component **)&wire, this, getWireInfo()->getLibName()))
 		{
 //			KSIMDEBUG("Both connectors are wired");
 			Wire * startWire = start->getWire();
@@ -713,7 +646,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 				wire->addConnector(conn);
 			}
 			// Set new wire property
-			wire->setProperty(wirePropInfo);
+			wire->setPropertyInfo(wirePropInfo);
 			
 			// Remove old wires
 			delComponent(startWire);
@@ -734,7 +667,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 		// add end connector to start wire
 		start->getWire()->addConnector(end);
 		// Set new wire property
-		start->getWire()->setProperty(wirePropInfo);
+		start->getWire()->setPropertyInfo(wirePropInfo);
 	}
 	// Only "end" connector wired
 	else if ((start->getWire() == 0) && (end->getWire() != 0))
@@ -746,7 +679,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 		// add end connector to start wire
 		end->getWire()->addConnector(start);
 		// Set new wire property
-		end->getWire()->setProperty(wirePropInfo);
+		end->getWire()->setPropertyInfo(wirePropInfo);
 	}
 	else
 	{
@@ -792,75 +725,43 @@ Component * CompContainer::searchComponentBySerialNumber(unsigned int number)
 void CompContainer::drawSheetView(QPainter * p) const
 {
 	p->save();
-	QFont newFont("helvetica",12);
-	p->setFont(newFont);
 
 	// Draw grid
 	getDoc()->getSheetGrid()->draw(p, getSheetSize());
-	
+
 	if (isCostMapVisible())
 	{
 		sheetMap->draw(p);
 	}
-	
-	FOR_EACH_COMPVIEW(it, *sheetViews)
-	{
-		p->save();
-		
-		if (it.current()->isNormalRotationEnabled())
-		{
-			double rot = it.current()->getRotation();
-			QRect rect(it.current()->getPlace());
-			
-			if((rot < 45.0) || (rot >= 315.0))
-			{
-				p->translate(rect.left(), rect.top());
-//				p->rotate(0.0);
-			}
-			else if(rot < 135.0)
-			{
-				p->translate(rect.left() + rect.width(), rect.top());
-				p->rotate(90.0);
-			}
-			else if(rot < 225.0)
-			{
-				p->translate(rect.right() + 1, rect.bottom() + 1);
-				p->rotate(180.0);
-			}
-			else
-			{
-				p->translate(rect.left(), rect.top() + rect.height());
-				p->rotate(270.0);
-			}
-		}
-		else
-		{
-			QPoint pos(it.current()->getPos());
-			p->translate(pos.x(), pos.y());
-		}
-		
-		it.current()->draw(p);
-		
-		p->restore();
-	}
+
+	drawComponents(p, sheetViews);
+
 	p->restore();
 }
 
 void CompContainer::drawUserView(QPainter * p) const
 {
 	p->save();
-	QFont newFont("helvetica",12);
-	p->setFont(newFont);
-	
+
 	// Draw grid
 	getDoc()->getUserGrid()->draw(p, getUserSize());
-	
+
 	if (isCostMapVisible())
 	{
 		userMap->draw(p);
 	}
+
+	drawComponents(p, userViews);
+
+	p->restore();
+}
+
+void CompContainer::drawComponents(QPainter * p, CompViewList * cvList) const
+{
+	QFont newFont(QString::fromLatin1("helvetica"),12);
+	p->setFont(newFont);
 	
-	FOR_EACH_COMPVIEW(it, *userViews)
+	FOR_EACH_COMPVIEW(it, *cvList)
 	{
 		if (!it.current()->isHidden())
 		{
@@ -902,7 +803,6 @@ void CompContainer::drawUserView(QPainter * p) const
 			p->restore();
 		}
 	}
-	p->restore();
 }
 
 eHitType CompContainer::isCompViewHit(const QPoint & pos, const CompViewList * viewList)
@@ -972,8 +872,10 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		file.setGroup(baseGroup + grp);
 		id = file.readEntry(Component::sType);
 		serialNo = file.readUnsignedNumEntry(Component::sSerialNumber, 0);
+		err = 0;
+		
 		// No Wire ?
-		if (id != WireInfo.getLibName())
+		if (id != getWireInfo()->getLibName())
 		{
 			loadedCompCounter++;
 			bool compExist = false;
@@ -981,49 +883,54 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 			{
 				if (serialNo == it.current()->getSerialNumber())
 				{
-					if (id == it.current()->getType())
+					if (it.current()->isProperReloadType(id))
 					{
 						comp = it.current();
 						compExist = true;
 					}
 					else
 					{
-						KSIMDEBUG("ERROR compNo exists, different ID");
+						KSIMDEBUG_VAR("ERROR compNo exists, different ID", serialNo);
 						KSIMDEBUG_VAR("ID", id);
 						KSIMDEBUG_VAR("Typ", it.current()->getType());
 						err = 1;
 					}
+					break;
 				}
-			}						
-			if (!compExist)
+				
+			}
+			if (!err)
 			{
-				if (g_library->getComponentLib()->createComponent(&comp, this, id))
+				if (!compExist)
 				{
-					insert(comp);
-					undoRemove(comp);
+					if (g_library->getComponentLib()->createComponent(&comp, this, id))
+					{
+						comp->setSerialNumber(serialNo);
+						insert(comp);
+						undoRemove(comp);
+					}
+					else
+					{
+						getLogList()->error(i18n("Unknown Component %1").arg(id));
+						KSIMDEBUG("Create component failed");
+					}
 				}
 				else
 				{
-					getLogList()->error(i18n("Unknown Component %1").arg(id));
-					KSIMDEBUG("Create component failed");
-					err = 2;
+					undoReload(comp);
 				}
-			}
-			else
-			{
-				undoReload(comp);
-			}
-
-			if (comp)
-			{
-				// Load component properties
-				comp->load(file, copyLoad);						
-			
-			    // Insert widget views in editor
-		    	if (!compExist && isVisible())
-			    {
-					CHECK_PTR(getDoc());
-					getDoc()->addComponentToEditor(comp);
+				
+				if (comp)
+				{
+					// Load component properties
+					comp->load(file, copyLoad);
+				
+					// Insert widget views in editor
+					if (!compExist && isVisible())
+					{
+						CHECK_PTR(getDoc());
+						getDoc()->addComponentToEditor(comp);
+					}
 				}
 			}
 		}
@@ -1045,10 +952,12 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		QString grp;
 		grp.sprintf("Component %u/", i);
 		file.setGroup(baseGroup + grp);
-		id = file.readEntry(Component::sType, 0);
+		id = file.readEntry(Component::sType, QString::null);
 		serialNo = file.readUnsignedNumEntry(Component::sSerialNumber, 0);
+		err = 0;
+
 		// Wire ?
-		if (id == WireInfo.getLibName())
+		if (id == getWireInfo()->getLibName())
 		{
 			loadedCompCounter++;
 			bool compExist = false;
@@ -1056,7 +965,7 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 			{
 				if (serialNo == it.current()->getSerialNumber())
 				{
-					if (id == it.current()->getType())
+					if (it.current()->isProperReloadType(id))
 					{
 						comp = it.current();
 						compExist = true;
@@ -1068,34 +977,38 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 						KSIMDEBUG_VAR("Typ", it.current()->getType());
 						err = 1;
 					}
+					break;
 				}
-			}						
-			if (!compExist)
+			}
+			if (!err)
 			{
-				if (g_library->getComponentLib()->createComponent(&comp, this, id))
+				if (!compExist)
 				{
-					insert(comp);
-					undoRemove(comp);
+					if (g_library->getComponentLib()->createComponent(&comp, this, id))
+					{
+						comp->setSerialNumber(serialNo);
+							insert(comp);
+						undoRemove(comp);
+					}
+					else
+					{
+						getLogList()->error(i18n("Unknown Component %1").arg(id));
+						KSIMDEBUG("Create component failed");
+					}
 				}
 				else
 				{
-					getLogList()->error(i18n("Unknown Component %1").arg(id));
-					KSIMDEBUG("Create component failed");
-					err = 2;
+					undoReload(comp);
 				}
-			}
-			else
-			{
-				undoReload(comp);
-			}
 			
-			if (comp)
-			{
-				comp->load(file, copyLoad);
-				// Remove wires with none or one connectors
-				if (comp->getConnList()->count() < 2)
+				if (comp)
 				{
-					delComponent(comp);
+					comp->load(file, copyLoad);
+					// Remove wires with none or one connectors
+					if (comp->getConnList()->count() < 2)
+					{
+						delComponent(comp);
+					}
 				}
 			}
 		}
@@ -1163,9 +1076,10 @@ bool CompContainer::save(KSimData & file) const
 /** Saves the properties */
 bool CompContainer::saveProperty(KSimData & file) const
 {
-	QString group;
-	QString oldGrp = file.group();
-	file.setGroup(oldGrp + sPropertyGrp);
+//	QString group;
+//	QString oldGrp = file.group();
+//	file.setGroup(oldGrp + sPropertyGrp);
+	file.pushGroupRel(sPropertyGrp);
 	
 	file.writeEntry(sSheetSize, getSheetSize());
 	file.writeEntry(sUserSize, getUserSize());
@@ -1173,14 +1087,17 @@ bool CompContainer::saveProperty(KSimData & file) const
 	// Save serial number
 	file.writeEntry(sSerialNumber, m_lastSerialNumber);
 	
-	group = file.group();
-	file.setGroup(group + sModuleGrp);
+//	group = file.group();
+//	file.setGroup(group + sModuleGrp);
+	file.pushGroupRel(sModuleGrp);
 	moduleData->save(file);
-	file.setGroup(group);
+//	file.setGroup(group);
+	file.popGroup();
 
 	// TODO: Add more gerneral setings
 
-	file.setGroup(oldGrp);
+//	file.setGroup(oldGrp);
+	file.popGroup();
 	return true;
 }
 
@@ -1189,7 +1106,8 @@ bool CompContainer::loadProperty(KSimData & file)
 {
 	QString oldGrp = file.group();
 	
-	if (file.hasGroup(oldGrp + sPropertyGrp))
+//	if (file.hasGroup(oldGrp + sPropertyGrp))
+	if (file.hasGroupRel(sPropertyGrp))
 	{
 		if (docParent)
 		{
@@ -1197,7 +1115,8 @@ bool CompContainer::loadProperty(KSimData & file)
 			getDoc()->getUndo()->reloadContainerProperty();
 		}
 		
-		file.setGroup(oldGrp + sPropertyGrp);
+//		file.setGroup(oldGrp + sPropertyGrp);
+		file.pushGroupRel(sPropertyGrp);
 		
 		QString group;
 		QSize defaultSize (1000,504);
@@ -1210,16 +1129,20 @@ bool CompContainer::loadProperty(KSimData & file)
 		m_lastSerialNumber = file.readUnsignedNumEntry(sSerialNumber, 0);
 		
 		group = file.group();
-		if (file.hasGroup(group + sModuleGrp))
+//		if (file.hasGroup(group + sModuleGrp))
+		if (file.hasGroupRel(sModuleGrp))
 		{
-			file.setGroup(group + sModuleGrp);
+//			file.setGroup(group + sModuleGrp);
+			file.pushGroupRel(sModuleGrp);
 			moduleData->load(file);
-			file.setGroup(group);
+//			file.setGroup(group);
+			file.popGroup();
 		}
 		
 		// TODO: Add more gerneral setings
 
-		file.setGroup(oldGrp);
+//		file.setGroup(oldGrp);
+		file.popGroup();
 	}
 	return true;
 }
@@ -1334,6 +1257,15 @@ void CompContainer::resetComponents()
 	}
 }
 
+/** Setup the circuit before a new simulation. */
+void CompContainer::setupCircuit()
+{
+	FOR_EACH_COMP(it, *components)
+	{
+		it.current()->setupCircuit();
+	}
+}
+
 /** Checks the circuit and returns the result
  */
 int CompContainer::checkCircuit()
@@ -1374,7 +1306,7 @@ void CompContainer::truncateWire(Wire * wire, const QPoint & pos)
 void CompContainer::truncateWire(Wire * wire, int x, int y)
 {
 	CPointListList routes;
-	CPointListList orgRoutes;	
+	CPointListList orgRoutes;
 	CPointListList breakRoutes;
 	CPointList a,b;
 	int breakRoute=-1;
@@ -1549,7 +1481,7 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 	// Create new wire A, if required
 	if (a.count()>1)
 	{
-		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, WireInfo.getLibName()))
+		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, getWireInfo()->getLibName()))
 		{
 			addComponent(wire);
 			// Add connectors
@@ -1570,10 +1502,10 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 					KSIMDEBUG("connector not found (A)");
 				}
 			}
-			const WirePropertyInfo * info = Wire::findWireProperty(wire->getConnList());
+			const WirePropertyInfo * info = Wire::findWirePropertyInfo(wire->getConnList());
 			if (info)
 			{
-				wire->setProperty(info);
+				wire->setPropertyInfo(info);
 			}
 			else
 			{
@@ -1589,7 +1521,7 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 	// Create new wire B, if required
 	if (b.count()>1)
 	{
-		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, WireInfo.getLibName()))
+		if (g_library->getComponentLib()->createComponent((Component **)&wire, this, getWireInfo()->getLibName()))
 		{
 			addComponent(wire);
 			// Add connectors
@@ -1610,10 +1542,10 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 					KSIMDEBUG("connector not found (B)");
 				}
 			}
-			const WirePropertyInfo * info = Wire::findWireProperty(wire->getConnList());
+			const WirePropertyInfo * info = Wire::findWirePropertyInfo(wire->getConnList());
 			if (info)
 			{
-				wire->setProperty(info);
+				wire->setPropertyInfo(info);
 			}
 			else
 			{
@@ -1639,7 +1571,7 @@ void CompContainer::setSheetSize(QSize size)
 	size.setHeight(((size.height()+gridY-1)/gridY)*gridY);
 	
 	sheetSize = size;
-	sheetMap->setSize(QSize(size.width()/gridX, size.height()/gridY));	
+	sheetMap->setSize(QSize(size.width()/gridX, size.height()/gridY));
 	
 	// Update map
 	FOR_EACH_COMPVIEW(it, *sheetViews)
@@ -1674,7 +1606,7 @@ void CompContainer::setUserSize(QSize size)
 	size.setHeight(((size.height()+gridY-1)/gridY)*gridY);
 	
 	userSize = size;
-	userMap->setSize(QSize(size.width()/gridX, size.height()/gridY));	
+	userMap->setSize(QSize(size.width()/gridX, size.height()/gridY));
 	
 	// Update map
 	FOR_EACH_COMPVIEW(it, *userViews)
@@ -1755,12 +1687,11 @@ void CompContainer::setModified(bool modified)
 	getDoc()->setModified(modified);
 }
 
-/** Setup the component lists for calculation, updateOutput, updateView.
+/** Setup the component lists for calculation, updateView.
 	* Call during simulation start. */
 void CompContainer::setupSimulationList()
 {
 	calculateComponents->clear();
-	updateOutputComponents->clear();
 	updateSheetViewComponents->clear();
 	updateUserViewComponents->clear();
 	
@@ -1769,10 +1700,6 @@ void CompContainer::setupSimulationList()
 		if (it.current()->getAction().isCalculateEnabled())
 		{
 			calculateComponents->append(it.current());
-		}
-		if (it.current()->getAction().isUpdateOutputEnabled())
-		{
-			updateOutputComponents->append(it.current());
 		}
 		if (it.current()->getAction().isUpdateViewEnabled())
 		{

@@ -30,9 +30,9 @@
 
 // Project-Includes
 #include "ksimdata.h"
+#include "ksimdebug.h"
 #include "clockgenerator.h"
 #include "resource.h"
-//#include "connectorboolin.h"
 #include "connectorboolout.h"
 #include "componentinfo.h"
 #include "ksimtime.h"
@@ -54,15 +54,18 @@ static Component * create2(CompContainer * container, const ComponentInfo * ci)
 	return new ClockGenerator(container, ci);
 }
 
-const ComponentInfo ClockGeneratorInfo
-								(	
-									I18N_NOOP("Clock Generator"),
-									I18N_NOOP("Boolean/Gates/Clock Generator"),
-									QString::null,
-									VA_SHEETVIEW,
-									create2,	
-                  QString::null,
-                  "component-clock-generator");
+const ComponentInfo * getClockGeneratorInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Clock Generator"),
+	                                QString::fromLatin1("Boolean/Gates/Clock Generator"),
+	                                i18n("Component", "Boolean/Gates/Clock Generator"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create2,
+	                                QString::null,
+	                                QString::fromLatin1("component-clock-generator"));
+	return &Info;
+}
 
 //###############################################################
 //###############################################################
@@ -118,7 +121,10 @@ ClockGenerator::ClockGenerator(CompContainer * container, const ComponentInfo * 
 		m_lowTime(getTimeServer()),
 		m_time(getTimeServer())
 {
-	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"), QPoint(3,1));
+	m_out = new ConnectorBoolOut (this,
+	                              QString::fromLatin1("Output"),
+	                              i18n("Connector", "Output"),
+	                              QPoint(3,1));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
@@ -139,6 +145,7 @@ ClockGenerator::~ClockGenerator()
 }
 
 /** Executes the simulation of this component */
+
 void ClockGenerator::calculate()
 {
 	Component::calculate();
@@ -154,15 +161,13 @@ void ClockGenerator::calculate()
 			m_result = true;
 			m_time += m_highTime;
 		}
+		m_out->setOutput(m_result);
 	}
+	executeAt(0, m_time);
+//	KSIMDEBUG_VAR("executeAt", m_time.getValue(unit_msec));
+//	executeNext();
 }
 
-/** Shift the result of calculation to output */
-void ClockGenerator::updateOutput()
-{
-	Component::updateOutput();
-	m_out->setOutput(m_result);
-}
 /** Reset all simulation variables */
 void ClockGenerator::reset()
 {
@@ -186,7 +191,7 @@ void ClockGenerator::initPropertyDialog(ComponentPropertyDialog * dialog)
 	
 	QVBox * page;
 	ClockGeneratorPropertyWidget * wid;
-	page = dialog->addVBoxPage(i18n("Timing"));
+	page = dialog->addVBoxPage(i18n("Component property dialog","Timing"));
 	wid = new ClockGeneratorPropertyWidget(this, page, "Timing");
 	dialog->connectSlots(wid);
 }
@@ -198,13 +203,13 @@ void ClockGenerator::save(KSimData & file) const
 	
 	QString oldGroup(file.group());
 	
-	file.setGroup(oldGroup + sStartDelay);
+	file.setGroup(oldGroup + QString::fromLatin1(sStartDelay));
 	m_startDelay.save(file);
 
-	file.setGroup(oldGroup + sHighTime);
+	file.setGroup(oldGroup + QString::fromLatin1(sHighTime));
 	m_highTime.save(file);
 
-	file.setGroup(oldGroup + sLowTime);
+	file.setGroup(oldGroup + QString::fromLatin1(sLowTime));
 	m_lowTime.save(file);
 
 	file.setGroup(oldGroup);
@@ -219,7 +224,7 @@ bool ClockGenerator::load(KSimData & file, bool copyLoad)
 	
 	ok = Component::load(file, copyLoad);
 	
-	newGroup = oldGroup + sStartDelay;
+	newGroup = oldGroup + QString::fromLatin1(sStartDelay);
 	if (file.hasGroup(newGroup))
 	{
 		file.setGroup(newGroup);
@@ -230,7 +235,7 @@ bool ClockGenerator::load(KSimData & file, bool copyLoad)
 		m_startDelay.setValue(0.0, unit_msec);
 	}
 		
-	newGroup = oldGroup + sHighTime;
+	newGroup = oldGroup + QString::fromLatin1(sHighTime);
 	if (file.hasGroup(newGroup))
 	{
 		file.setGroup(newGroup);
@@ -241,7 +246,7 @@ bool ClockGenerator::load(KSimData & file, bool copyLoad)
 		m_highTime.setValue(500.0, unit_msec);
 	}
 		
-	newGroup = oldGroup + sLowTime;
+	newGroup = oldGroup + QString::fromLatin1(sLowTime);
 	if (file.hasGroup(newGroup))
 	{
 		file.setGroup(newGroup);
@@ -263,21 +268,18 @@ bool ClockGenerator::load(KSimData & file, bool copyLoad)
 
 
 ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp, QWidget *parent, const char *name)
-	:	ComponentPropertyBaseWidget(comp, parent, name)
+	:	ComponentPropertyBaseWidget(comp, 2, parent, name)
 {
-	QGridLayout * layout;
+//	setColStretch(0,0);
+	setColStretch(1,1);
+	
 	QLabel * lab;
 	QString str;	
 	
-	QGrid * m_grid = new QGrid(2, /*QGrid::Horizontal,*/ this);
-	CHECK_PTR(m_grid);
-	m_grid->setMargin(KDialog::marginHint());
-	m_grid->setSpacing(KDialog::spacingHint());
-	
-	lab = new QLabel(i18n("Start delay: "), m_grid);
+	lab = new QLabel(i18n("Start delay: "), this);
 	CHECK_PTR(lab);
 	
-	m_startDelay = new KSimTimeSpinBox(getClockGen()->m_startDelay, m_grid, "StartDelay");
+	m_startDelay = new KSimTimeSpinBox(getClockGen()->m_startDelay, this, "StartDelay");
 	CHECK_PTR(m_startDelay);
 	m_startDelay->setExtraZeroAllowed(true);
 	m_startDelay->setValue(getClockGen()->m_startDelay);
@@ -285,26 +287,21 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	addToolTip(str, lab, m_startDelay);
 	addWhatsThis(str, lab, m_startDelay);
 
-	lab = new QLabel(i18n("High time: "), m_grid);
+	lab = new QLabel(i18n("High time: "), this);
 	CHECK_PTR(lab);
-	m_highTime = new KSimTimeSpinBox(getClockGen()->m_highTime, m_grid, "HighTime");
+	m_highTime = new KSimTimeSpinBox(getClockGen()->m_highTime, this, "HighTime");
 	CHECK_PTR(m_highTime);
 	str = i18n("Time of high level.");
 	addToolTip(str, lab, m_highTime);
 	addWhatsThis(str, lab, m_highTime);
 
-	lab = new QLabel(i18n("Low time: "), m_grid);
+	lab = new QLabel(i18n("Low time: "), this);
 	CHECK_PTR(lab);
-	m_lowTime = new KSimTimeSpinBox(getClockGen()->m_lowTime, m_grid, "LowTime");
+	m_lowTime = new KSimTimeSpinBox(getClockGen()->m_lowTime, this, "LowTime");
 	CHECK_PTR(m_lowTime);
 	str = i18n("Time of low level.");
 	addToolTip(str, lab, m_lowTime);
 	addWhatsThis(str, lab, m_lowTime);
-
-	// Set main layout
-	layout = new QGridLayout(this,2,1);
-	layout->addWidget(m_grid,0,0);
-	layout->setRowStretch(1,1);
 }
 
 ClockGeneratorPropertyWidget::~ClockGeneratorPropertyWidget()

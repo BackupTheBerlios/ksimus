@@ -29,6 +29,7 @@
 #include "wire.h"
 #include "loglist.h"
 #include "wirepropertyinfo.h"
+#include "watchitemfloatingpoint.h"
 
 // Forward declaration
 
@@ -42,16 +43,18 @@ static WireProperty * create(Wire * wire)
 }
 
 
-const WirePropertyInfo wirePropertyFloatingPointInfo("Wire Property Floating Point",
-                                                     "wire/property/floating point",
-                                                     "Floating Point",
-                                                     create
-                                                     );
-												
+const WirePropertyInfo * getPropertyFloatingPointInfo()
+{
+	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Floating Point"),
+	                                   QString::fromLatin1("wire/property/floating point"),
+	                                   QString::fromLatin1("Floating Point"),
+	                                   create );
+	return &Info;
+}
 
 
 WirePropertyFloatingPoint::WirePropertyFloatingPoint(Wire * wire)
-	:	WirePropertySingleOutput(wire, &wirePropertyFloatingPointInfo)
+	:	WirePropertySingleOutput(wire, getPropertyFloatingPointInfo())
 {
 }
 
@@ -59,31 +62,22 @@ WirePropertyFloatingPoint::~WirePropertyFloatingPoint()
 {
 }
 	
-/** Returns a pointer to the current data */	
-const void * WirePropertyFloatingPoint::getCurrentData() const
+	/** Get the colors for the wire property. */
+const WireColorScheme & WirePropertyFloatingPoint::getColorScheme() const
 {
-	ConnectorBase * conn = getWire()->getConnList()->at(0);
-	
-	if (conn)
-	{
-		return ((ConnectorFloatOut*)conn)->getData();
-	}
-	else
-	{
-		getWire()->getLogList()->logDebug(QString("Wire %1 returns <NULL> connector").arg(getWire()->getName()));
-		return 0;
-	}
-}
-
-// Setup the colors, brushs, and fills for the connector
-void WirePropertyFloatingPoint::setupColorScheme(QPainter * p) const
-{
-	colorScheme(p);
+	return colorScheme();
 }
 											
-void WirePropertyFloatingPoint::colorScheme(QPainter * p)
+const WireColorScheme & WirePropertyFloatingPoint::colorScheme()
 {
-	p->setPen(QPen(red, 2));
-	p->setBrush(red);
+	static WireColorScheme colorScheme(red);
+	
+	return colorScheme;
 }
-
+                           
+WatchItemBase * WirePropertyFloatingPoint::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemFloatingPointWireProperty(this);
+	CHECK_PTR(wi);
+	return wi;
+}

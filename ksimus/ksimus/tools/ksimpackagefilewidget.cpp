@@ -35,23 +35,18 @@
 // Forward declaration
 
 KSimPackageFileWidget::KSimPackageFileWidget(QWidget *parent, const char *name )
-	:	PropertyWidget(parent,name)
+	:	PropertyWidget(1, parent,name)
 {
-	QVBoxLayout * layout = new QVBoxLayout(this);
-	layout->setMargin(KDialog::marginHint());
-	layout->setSpacing(KDialog::spacingHint());
-	
+	setMargin(0);
 	
 	m_directories = new KSimDirectorySelector(this, "Package directories");
 	m_directories->setTitle(i18n("Package directories:"));
-	m_directories->setStartDir(":<KSimPackageFile>");
-	layout->addWidget(m_directories);
+	m_directories->setStartDir(QString::fromLatin1(":<KSimPackageFile>"));
 	
 	m_files = new KSimFileListSelector(this, "Package files");
 	m_files->setTitle(i18n("Package files:"));
 	m_files->setFilter(i18n("*.so|Package files (*.so)\n*|All files (*)"));
-	m_files->setStartDir(":<KSimPackageFile>");
-	layout->addWidget(m_files);
+	m_files->setStartDir(QString::fromLatin1(":<KSimPackageFile>"));
 
 	// Setup data
 	
@@ -95,10 +90,10 @@ void KSimPackageFileWidget::acceptPressed()
 		config->sync();
 		
 		KMessageBox::information(0,i18n("KSimus packages are configured only during the application start."
-																		"You have to restart ksimus if you want to apply the changes.\n"
-																		"This will be changed in a future version. Sorry!"),
-															 i18n("Restart required"),
-															 "Package changed - Restart Application");
+		                                 "You have to restart ksimus if you want to apply the changes.\n"
+		                                 "This will be changed in a future version. Sorry!"),
+		                           i18n("Restart required"),
+		                           QString::fromLatin1("Package changed - Restart Application"));
 	}
 }
 
@@ -107,11 +102,11 @@ void KSimPackageFileWidget::defaultPressed()
 	KStandardDirs dirs;
 	QStringList libList;
 
-  m_files->setFileList(libList);		// Empty list!!!
+	m_files->setFileList(libList);   // Empty list!!!
 
-	libList = dirs.findDirs("lib","ksimus");
+	libList = dirs.findDirs(QString::fromLatin1("lib"),QString::fromLatin1("ksimus"));
 	
- 	m_directories->setFileList(libList);
+	m_directories->setFileList(libList);
 }
 
 
@@ -119,18 +114,18 @@ void KSimPackageFileWidget::defaultPressed()
 
 KSimPackageFileDialog::KSimPackageFileDialog(QWidget *parent, const char * name)
 	:	KDialogBase(KDialogBase::Plain,
-								i18n("Package Files"),
-								KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
- 								KDialogBase::Ok,
- 								parent, name)
+		            i18n("Package Files"),
+		            KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
+		            KDialogBase::Ok,
+		            parent, name)
 {
 	QWidget * wid = plainPage();
 			
 	KSimPackageFileWidget * child = new KSimPackageFileWidget(wid, i18n("Package Files"));
 			
 	QBoxLayout * horLayout = new QHBoxLayout(wid);
-	horLayout->setMargin(KDialog::marginHint());
-	horLayout->setSpacing(KDialog::spacingHint());
+/*	horLayout->setMargin(KDialog::marginHint());
+	horLayout->setSpacing(KDialog::spacingHint());*/
 	horLayout->addWidget(child);
 			
 	connect(this, SIGNAL(okClicked()), child, SLOT(slotAccept()));

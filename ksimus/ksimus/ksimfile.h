@@ -41,10 +41,14 @@ public:
 	
 	const QString & getErrorText() const;
 
-	/** Returns a relative file name (including path) form relPath to filename.
+	/** Returns a relative file name (including path) from relPath to filename.
 			filename contains the file name and the absolute path to the target.
 			relPath contains the absolute path to the source location. */	
 	static QString relativePath (const QString & filename, const QString & relPath);
+	/** Returns the connected path absPath with the filename relFilename.
+			absPath contains a absolute path with no filename.
+			relFilename contains the filename with an relative path. */	
+	static QString absolutePath (const QString & absPath, const QString & relFilename);
 
 		
 protected: // Protected attributes

@@ -50,23 +50,28 @@
 
 Boolean1Out::Boolean1Out(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
-		m_state(false),
 		m_flags(0)
 {
 	
-	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"));
+	m_out = new ConnectorBoolOut(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("Connector", "Output"));
 	CHECK_PTR(m_out);
 	
 }
 
-/*BooleanXIn1Out::~BooleanXIn1Out()
+Boolean1Out::~Boolean1Out()
 {
-} */
+}
 
-void Boolean1Out::updateOutput()
+void Boolean1Out::setState(bool newState)
 {
-	Component::updateOutput();
-	getOutputConnector()->setOutput(getState());
+	getOutputConnector()->setOutput(newState);
+}
+	
+bool Boolean1Out::getState() const
+{
+	return getOutputConnector()->getOutput();
 }
 
 void Boolean1Out::setResetState(bool resetState, bool init)
@@ -106,7 +111,7 @@ void Boolean1Out::reset()
 	Component::reset();
 	
 	setState( getResetState() );
-	getOutputConnector()->setOutput(getState());
+//	getOutputConnector()->setOutput(getState());
 }
 
 /** save component properties */
@@ -135,7 +140,7 @@ bool Boolean1Out::load(KSimData & file, bool copyLoad)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * Boolean1Out::createGeneralProperty(Component * /*comp*/, QWidget *parent)
+ComponentPropertyBaseWidget * Boolean1Out::createGeneralProperty(QWidget *parent)
 {
 	Boolean1OutPropertyGeneralWidget * wid;
 	wid = new Boolean1OutPropertyGeneralWidget(this, parent);
@@ -191,10 +196,10 @@ void Boolean1OutView::draw(QPainter * p)
 Boolean1OutPropertyGeneralWidget::Boolean1OutPropertyGeneralWidget(Boolean1Out * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
-	m_resetStateLabel = new QLabel(i18n("Reset State: "), getGrid(), "ResetStateLabel");
+	m_resetStateLabel = new QLabel(i18n("Reset State: "), this, "ResetStateLabel");
 	CHECK_PTR(m_resetStateLabel);
 	
-	m_resetState = new KSimBooleanBox(getBoolean1Out()->getResetState(), getGrid(), "ResetState");
+	m_resetState = new KSimBooleanBox(getBoolean1Out()->getResetState(), this, "ResetState");
 	CHECK_PTR(m_resetState);
 	
 	QString tip(i18n("Changes the reset state of the component to true or false."));

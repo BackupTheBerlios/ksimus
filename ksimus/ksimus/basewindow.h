@@ -18,13 +18,24 @@
 #ifndef BASEWINDOW_H
 #define BASEWINDOW_H
 
+// C-Includes
+
+// QT-Includes
 #include <qwidget.h>
+
+// KDE-Includes
+
+// Project-Includes
+
+// Forward declaration
 
 
 class QSplitter;
 class LogList;
 class ComponentListView;
 class KSimusApp;
+class QTabWidget;
+class WatchWidget;
 
 /**This is the base window for KSimus.
 The widget is splitted in 3 child widgets:
@@ -46,29 +57,35 @@ public:
 
 	QWidget * getWorkingWidget() { return m_workingWidget; };
 	LogList * getLogWidget() { return m_logWidget; };
-	ComponentListView * getTreeWidget() { return m_treeWidget; };
+	ComponentListView * getComponentListWidget() { return m_componentListWidget; };
+	WatchWidget * getWatchWidget() { return m_watchWidget; };
 
 
 	bool isWorkingWidgetHidden() const;
 	bool isLogWidgetHidden() const;
-	bool isTreeWidgetHidden() const;
+	bool isListWidgetHidden() const;
 
 
 public slots:
 	void hideWorkingWidget();
 	void hideLogWidget();
-	void hideTreeWidget();
+	void hideListWidget();
 	void showWorkingWidget();
 	void showLogWidget();
-	void showTreeWidget();
+	void showListWidget();
 	void toggleWorkingWidget();
 	void toggleLogWidget();
-	void toggleTreeWidget();
+	void toggleListWidget();
+
+	void showWatchWidget();
+	void showComponentListWidget();
 
 
 private:
-	ComponentListView * m_treeWidget;
+	QTabWidget * m_listWidget;
+	ComponentListView * m_componentListWidget;
 	LogList * m_logWidget;
+	WatchWidget * m_watchWidget;
 	QWidget * m_workingWidget;
 	QSplitter * m_vertSplitter;
 	QSplitter * m_horiSplitter;

@@ -44,6 +44,7 @@ class BaseWindow;
 class LogList;
 class KSimEditor;
 class ComponentInfo;
+class WatchWidget;
 
 
 /**
@@ -81,17 +82,20 @@ public:
 		*/
 	void executeDocumentFile(const KURL& url);
 	/** returns a pointer to the current document connected to the KTMainWindow instance and is used by
-		* the View class to access the document object's methods
+		* the View class to access the document object's methods.
 		*/	
 	KSimusDoc *getDocument() const; 	
-	/** returns a pointer to the active editor
+	/** returns a pointer to the active editor.
 		*/	
 	KSimEditor * getActiveEditor() const;
-	/** returns a pointer to the log list widget
+	/** Returns a pointer to the log list widget.
 		*/	
 	LogList * getLogList() const;
-
-	/** Returns the file name of the last selceted module
+	
+	/** Returns a pointer to the watch widget. */
+	WatchWidget * getWatchWidget() const;
+	
+	/** Returns the file name of the last selceted module.
 		*/
 	const QString & getModuleFile() const;
 
@@ -202,8 +206,8 @@ public slots:
 	void slotViewToolBar();
 	void slotViewToggleLog();
 	void slotViewHideLog();
-	void slotViewToggleTree();
-	void slotViewHideTree();
+	void slotViewToggleList();
+	void slotViewHideList();
 	void slotViewFoldTree();
 	void slotViewUnfoldTree();
 	void slotViewToggleCostmap();
@@ -211,6 +215,7 @@ public slots:
 	void slotSettingTiming();
 	void slotSettingGrid();
 	void slotSettingPackageFiles();
+	void slotSettingWatchWidget();
 
 	/** toggles the statusbar
 	 */
@@ -293,6 +298,7 @@ private:
 	KAction* settingTiming;
 	KAction* settingGrid;
 	KAction* settingPackageFiles;
+	KAction* settingWatchWidget;
 	
 	KAction* executeReset;
 	KAction* executeStart;

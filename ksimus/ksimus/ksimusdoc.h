@@ -42,6 +42,7 @@ class KSimTimeServer;
 class CompContainer;
 class Component;
 class SimulationTiming;
+class SimulationExecute;
 
 /**	KSimusDoc provides a document object for a document-view model.
   *
@@ -75,7 +76,7 @@ class KSimusDoc : public QObject
     /** returns if the document is named or not. Use this to determine if your document needs the dialog "save as".*/
     bool isNamed() const;
     /** "save modified" - asks the user for saving if the document is modified */
-    bool saveModified();	
+    bool saveModified();
     /** deletes the document's contents */
     void deleteContents();
     /** initializes the document generally */
@@ -139,6 +140,9 @@ class KSimusDoc : public QObject
 	/** Returns true, if simulation is active.
 		*/
 	bool isSimulationRunning() const { return m_simRunning; };
+	/** Returns true, if simulation is paused.
+		*/
+	bool isSimulationPaused() const { return m_simPaused; };
 	/** Starts the circuit check. Returns true if no error is found */
 	bool simulationCheckCirciut();
 	
@@ -150,6 +154,7 @@ class KSimusDoc : public QObject
 	const KSimTimeServer & getTimeServer() const;
 		
 	SimulationTiming & getTiming() { return *m_timing; };
+	SimulationExecute & getExecute() { return *m_execute; };
 
 	/** Sets the schematic size. */
 	void setSheetSize(const QSize & newSize);
@@ -159,6 +164,11 @@ class KSimusDoc : public QObject
 	void setUserSize(const QSize & newSize);
 	/** Returns the user size. */
 	QSize getUserSize() const;
+
+	/** Simulates one step */
+	void simulateExecute();
+	/** Update component views during simulation */
+	void simulateUpdate();
 	
 	
 public slots:
@@ -166,9 +176,6 @@ public slots:
 	 * As this view normally repaints itself, it is excluded from the paintEvent.
 	 */
 	void slotUpdateAllViews(KSimusView *sender);
-	/** Simulates one step */
-	void slotSimulateExecute();
-	void slotSimulateUpdate();
  	
 private:
 	/** the modified flag of the current document */
@@ -183,10 +190,29 @@ private:
 	KSimGrid * m_sheetGrid;
 	KSimGrid * m_userGrid;
 	SimulationTiming * m_timing;
+	SimulationExecute * m_execute;
 	bool m_named;
 	bool m_simRunning;
+	bool m_simPaused;
 
+signals:
+	/** The signal is emitted if the document is cleared. */
+	void signalNewDoc();
+	/** The signal is emitted immediatly before the simulation starts (and before components are resetted). */
+	void signalStart();
+	/** The signal is emitted immediatly after the simulation stops. */
+	void signalStop();
+	/** The signal is emitted immediatly after the simulation is paused or restartet. */
+	void signalPaused(bool paused);
 	
+	/** The signal is emmited before all Components (and Wires) are reseted (@ref Component::reset). */
+	void signalPreReset();
+	/** The signal is emmited after all Components (and Wires) are reseted (@ref Component::reset). */
+	void signalPostReset();
+	/** The signal equivalent to @ref Component::calculate(). */
+	void signalCalculate();
+	/** The signal is emitted if the component view should be updated. */
+	void signalUpdateView();
 };
 
 class KSimusDocList : public QList<KSimusDoc> {};

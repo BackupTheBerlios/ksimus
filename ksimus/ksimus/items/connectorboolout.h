@@ -34,7 +34,7 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const ConnectorInfo ConnectorBoolOutInfo;
+const ConnectorInfo * getConnectorBoolOutInfo();
 
 class ConnectorBoolOut : public ConnectorOutputBase
 {
@@ -42,75 +42,98 @@ class ConnectorBoolOut : public ConnectorOutputBase
 
 friend class WirePropertyBoolean;
 
-public:	
+public:
 	/**
 	 * Constructs a boolean output connector.
 	 *
-	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
-	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolOut(	Component * comp,
-						const QString & name,
-						const QPoint & pos = QPoint()	);
+	ConnectorBoolOut(Component * comp,
+	                 const QString & name,
+	                 const QString & i18nName,
+	                 const QPoint & pos = QPoint());
 	
 	/**
 	 * Constructs a boolean output connector. Like the constructor above, but creates also a
 	 * connector label (@ref ConnectorLabel).
 	 *
-	 * @param comp  Component which contains this connector.
-	 * @param name  The name of the connector. This name is shown at the property view
-	 *              or the status bar.
-	 * @param descr Sets the description of the connector label.
-	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param descr     Sets the description of the connector label.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolOut(	Component * comp,
-						const QString & name,
-						const QString & descr,
-						const QPoint & pos = QPoint()	);
+	ConnectorBoolOut(Component * comp,
+	                 const QString & name,
+	                 const QString & i18nName,
+	                 const QString & descr,
+	                 const QPoint & pos = QPoint());
 	
 	
 	
-	void setOutput(bool out);
-						
-	// Setup the colors, brushs, and fills for the connector
-	virtual void setupColorScheme (QPainter * p) const;
+/** Set the current output.
+	* @param out                      The new output value.
+	* @param executeWirePropertyNext  If set the wire property is execute next. The parameter is used
+	*                                 with zero delay components.
+	*/
+	void setOutput(bool out, bool executeWirePropertyNext = true);
+/** Return the current output */
+	bool getOutput() const;
+	
+	// Get the colors for the connector
+	virtual const WireColorScheme & getColorScheme() const;
 	
 
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
 	/** Creates the property widget */
-	virtual QWidget* propertyWidget(QWidget * parent);
+	virtual PropertyWidget* propertyWidget(QWidget * parent);
 
 	/** Returns a text which represents the current value. */
 	virtual QString getValueText() const;
+
+	/** Resets the connector.
+	  */
+	virtual void reset();
+	
+	/** The function copyData() has to copy data to the output variable
+	  * The default implementation doest nothing
+	  * Reimplementations is required for all output connectors  */
+	virtual void copyData(const void * pData);
+	
+	/** Returns a pointer to the data that's read from the component. */
+	virtual const void * readoutData() const;
+	
+	/** Returns a @ref WatchItemBooleanConnector object. */
+	virtual WatchItemBase * makeWatchItem();
 
 protected:
 	/**
 	 * Constructs a boolean output connector. Use this constructor if you derive this class.
 	 *
-	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
-	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
-	 * @param orient Sets the orientation of the connector.
-	 * @param ci     Sets the connector info (@ref ConnectorInfo):
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient    Sets the orientation of the connector.
+	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
-	ConnectorBoolOut(	Component * comp,
-						const QString & name,
-						const QPoint & pos,
-						ConnOrientationType orient,
-						const ConnectorInfo * ci);
-						
-	/** The function copyData() has to copy data to the output variable
-	  * The default implementation doest nothing
-	  * Reimplementations is required for all output connectors  */
-	virtual void copyData(const void * pData);
-    /** Returns a pointer to the data of this output connector */
-	virtual const void * getData() const;
+	ConnectorBoolOut(Component * comp,
+	                 const QString & name,
+	                 const QString & i18nName,
+	                 const QPoint & pos,
+	                 ConnOrientationType orient,
+	                 const ConnectorInfo * ci);
 	
-	bool m_data;
 
 private slots:
 	/** Display a status help message for popup menu entries, if highlighted */
@@ -124,6 +147,7 @@ private:
 	void init();
 	
 	int idNegate;
+	bool m_data;
 };
 
 #endif

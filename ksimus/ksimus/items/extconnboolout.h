@@ -24,24 +24,19 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const ComponentInfo ExtConnBoolOutInfo;
-
-class ConnectorBoolOut;
-class ConnectorBoolIn;
-
+const ComponentInfo * getExtConnBoolOutInfo();
 
 
 class ExtConnBoolOut : public ExternalConnector  {
 public: 
 	ExtConnBoolOut(CompContainer * container, const ComponentInfo * ci);
 	~ExtConnBoolOut();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
+	
+	/** Executes the simulation of this component */
+	virtual void calculate();
 
 protected:
-	ConnectorBoolOut * out;
-	ConnectorBoolIn * in;
-	
+
 };
 
 #endif

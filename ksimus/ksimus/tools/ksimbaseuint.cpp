@@ -70,7 +70,7 @@ QString KSimBaseUInt::text() const
 
 		default:
 			KSIMDEBUG_VAR("Unknown base", base());
-			return QString("0");
+			return QString::fromLatin1("0");
 	}
 }
 
@@ -86,7 +86,7 @@ unsigned int KSimBaseUInt::convert(const QString & text, eKSimBaseTypes * base, 
 		str = str.right(str.length()-1); // Remove first
 	}
 	
-	switch((QChar)str[0])
+	switch(str[0].latin1())
 	{
 		case 'b':
 		case 'B':

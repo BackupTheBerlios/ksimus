@@ -71,8 +71,7 @@ ConnectorLabel::ConnectorLabel(ConnectorBoolInEdge * conn, const QString & descr
 
 void ConnectorLabel::init()
 {
-	getAction().disable(KSimAction::ALL);
-	getAction().enable(KSimAction::DRAWSHEETVIEW);
+	getAction().setAction(KSimAction::DRAWSHEETVIEW);
 	
 	connect(m_conn, SIGNAL(destroyed()), SLOT(slotConnDeleted()));
 }
@@ -106,7 +105,7 @@ void ConnectorLabel::drawSheetView (QPainter *p) const
 	bool edgeIn = (isBoolInEdge() && getBoolInEdgeConn()->isEdgeSensitive());
 		
 	p->save();
-	QFont newFont("helvetica",8);
+	QFont newFont(QString::fromLatin1("helvetica"),8);
 	p->setFont(newFont);
 	p->setPen(black);
 	int height = p->fontMetrics().height();

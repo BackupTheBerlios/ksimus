@@ -47,14 +47,11 @@ class QLabel;
 
 class Boolean1Out : public Component
 {
-//friend class Boolean1OutPropertyGeneralWidget;
 
 	Q_OBJECT
 
 public:
-//	~Boolean1Out();
-	/** Shifts the current component state (@ref setState) to output connector. */
-	virtual void updateOutput();
+	~Boolean1Out();
 	/** Resets the component state. */
 	virtual void reset();
 
@@ -71,10 +68,10 @@ public:
 
 
 	/** Sets the current component state. */
-	void setState(bool newState) { m_state = newState; };
+	void setState(bool newState);
 	
 	/** Returns the current component state. */
-	bool getState() const { return m_state; };
+	bool getState() const;
 	
 	/** Sets the reset state. The component gets this state each call @ref reset.
 	 *  If init is true, the reset State is used as init value. The resetState is
@@ -90,7 +87,7 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref Boolean1OutPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
 protected:
 	/** Creates a component with one boolean output.
@@ -98,7 +95,6 @@ protected:
 	  */
 	Boolean1Out(CompContainer * container, const ComponentInfo * ci);
 	
-	bool m_state;
 	Q_UINT32 m_flags;
 	ConnectorBoolOut * m_out;
 

@@ -19,13 +19,13 @@
 #define PROPERTYWIDGET_H
 
 // C-Includes
-#include <qwidget.h>
 
 // QT-Includes
 
 // KDE-Includes
 
 // Project-Includes
+#include "rowlayoutwidget.h"
 
 // Forward declaration
 
@@ -34,14 +34,15 @@
   *@author Rasmus Diekenbrock
   */
 
-class PropertyWidget : public QWidget
+class PropertyWidget : public RowLayoutWidget
 {
    Q_OBJECT
 public: 
 	/** Creates the widget
 	*/
-	PropertyWidget(QWidget *parent=0, const char *name=0);
+	PropertyWidget(int cols, QWidget *parent=0, const char *name=0, WFlags f=0);
 	~PropertyWidget();
+
 
 
 	/** The function acceptPressed() is called, if changes are accepted.
@@ -85,13 +86,13 @@ public slots:
 	 */
 	void slotCancel();
 	
-
-
-protected:
 	/** This should called from function acceptPressed() before the data is changed.
 		It manages to the undo functionality.
 	*/
 	void changeData();
+
+
+protected:
 	
 private:	
 
@@ -103,6 +104,18 @@ signals:
 		Call function changeData(), this prevents unnecessary signals
 	 */
 	void signalChangeData();
+	
+	/** The signal signalAccept() is emitted if user press the accept button.
+	 */
+	void signalAccept();
+	
+	/** The signal signalDefault() is emitted if user press the default button.
+	 */
+	void signalDefault();
+	
+	/** The signal signalCancel() is emitted if user press the cancel button.
+	 */
+	void signalCancel();
 };
 
 #endif

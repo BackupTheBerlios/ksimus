@@ -24,7 +24,6 @@
 // Project-Includes
 
 // Forward declaration
-class QStrList;
 class KSimusDocList;
 class KSimusAppList;
 class KSimEditorList;
@@ -37,10 +36,7 @@ extern KSimEditorList * g_editorList;
 
 // Global Functions
 
-/** The function split splits up the text.
-	The parts of text are stored in strList (strList have to exist!).
-*/
-//int split (QStrList * strList, const char * text, char delimiter);
-
 /** The function returns a prim number that's greater than number.  */
 int getGreaterPrim(int number);
+
+

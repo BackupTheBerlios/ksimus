@@ -29,7 +29,7 @@ public:
 enum eAction  {	NO 									= 0x0000,		// No actions to do
 								CALCULATE 					= 0x0001,		// execute calculation step
 								UPDATEVIEW					= 0x0002,		// update view during simulation
-								UPDATEOUTPUT	 			= 0x0004,		// execute update output step
+// obsolet								UPDATEOUTPUT	 			= 0x0004,		// execute update output step
 								DRAWSHEETVIEW				= 0x0008,		// draws user view
 								DRAWUSERVIEW				= 0x0010,		// draws sheet view
 								RESET  							= 0x0020,		// execute reset step
@@ -43,7 +43,7 @@ enum eAction  {	NO 									= 0x0000,		// No actions to do
 								ALL									= ~0L,			// enables all Actions
 
 								// Some useful combinations
-								SIMULATION				= CALCULATE | UPDATEOUTPUT | RESET,
+								SIMULATION				= CALCULATE | RESET,
 								STORAGE						= LOAD | SAVE
 							};
 	
@@ -56,14 +56,19 @@ enum eAction  {	NO 									= 0x0000,		// No actions to do
 
 	/** Set actions. */
 	void setAction(eAction newAction)  { m_action = newAction; };
+	void setAction(int newAction)  { m_action = (eAction)newAction; };
 	
 	/** Returns the current enabled actions. */
 	eAction getAction() const  { return m_action; };
 
 	/** Enables one or more actions. Other actions are not  influenced. */
 	void enable(eAction newAction)  { m_action = (eAction)(m_action | newAction); };
+	/** Enables one or more actions. Other actions are not  influenced. */
+	void enable(int newAction)  { m_action = (eAction)(m_action | newAction); };
 	/** Disables one or more actions. Other actions are not  influenced. */
 	void disable(eAction newAction) { m_action = (eAction)(m_action & ~newAction); };
+	/** Disables one or more actions. Other actions are not  influenced. */
+	void disable(int newAction) { m_action = (eAction)(m_action & ~newAction); };
 	/** Returns true, if the selected action is enabled. If you select more than one action,
 	  * the funtion returns true, if one or more of these actions are enabled. */
 	bool isEnabled(eAction action) const { return (bool)(m_action & action); };
@@ -74,8 +79,6 @@ enum eAction  {	NO 									= 0x0000,		// No actions to do
 	bool isCalculateEnabled() const { return isEnabled(CALCULATE); };
 	/** Returns true, if the view update during simulation is enabled. */
 	bool isUpdateViewEnabled() const { return isEnabled(UPDATEVIEW); };
-	/** Returns true, if the update output step is enabled. */
-	bool isUpdateOutputEnabled() const { return isEnabled(UPDATEOUTPUT); };
 	/** Returns true, if the sheet view drawing is enabled. */
 	bool isDrawSheetViewEnabled() const { return isEnabled(DRAWSHEETVIEW); };
 	/** Returns true, if the user view drawing is enabled. */

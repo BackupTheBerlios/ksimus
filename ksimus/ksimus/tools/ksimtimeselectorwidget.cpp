@@ -82,7 +82,7 @@ int KSimTimeSelectorWidget::searchCbIdx(const QString & unitString)
 
 void KSimTimeSelectorWidget::setUnit(eTimeUnit unit)
 {
-	setUnit(KSimTimeBase::convertUnit(unit));
+	setUnit(QString::fromLatin1(KSimTimeBase::convertUnit(unit)));
 }
 
 void KSimTimeSelectorWidget::setUnit(const QString & unitString)
@@ -140,7 +140,7 @@ void KSimTimeSelectorWidget::insertUnit(eTimeUnit unit)
 {
 	if ((unit != unit_ticks) || (m_time->hasTimeServer()))
 	{
-		m_cb->insertItem(KSimTimeBase::convertUnit(unit));
+		m_cb->insertItem(QString::fromLatin1(KSimTimeBase::convertUnit(unit)));
 	}
 }
 
@@ -158,7 +158,7 @@ void KSimTimeSelectorWidget::insertAllUnit()
 void KSimTimeSelectorWidget::removeUnit(eTimeUnit unit)
 {
 	int idx;
-	idx = searchCbIdx(KSimTimeBase::convertUnit(unit));
+	idx = searchCbIdx(QString::fromLatin1(KSimTimeBase::convertUnit(unit)));
 	if (idx != -1)
 		m_cb->removeItem(idx);
 }

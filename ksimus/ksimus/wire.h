@@ -25,6 +25,7 @@
 // include QT-Header
 #include <qlist.h>
 #include <qpoint.h>
+#include <qcolor.h>
 
 
 // include Project-Header
@@ -43,7 +44,35 @@ class CPointListList;
   *@author Rasmus Diekenbrock
   */
 
-extern const ComponentInfo WireInfo;
+const ComponentInfo * getWireInfo();
+
+
+//##################################################################
+//##################################################################
+
+class WireColorScheme
+{
+public:
+	WireColorScheme();
+	WireColorScheme(QColor wireColor);
+	WireColorScheme(QColor wireForegroundColor, QColor wireBackgroundColor);
+	
+	bool isDualColor() const;
+	const QColor & getColor() const;
+	const QColor & getForegroundColor() const;
+	const QColor & getBackgroundColor() const;
+
+private:
+	QColor m_foreground;
+	QColor m_background;
+};
+
+
+
+
+//##################################################################
+//##################################################################
+
 
 class WireSV: public CompView  {
 public:
@@ -81,6 +110,9 @@ protected:
 };
 
 
+//##################################################################
+//##################################################################
+
 class Wire : public Component
 {
 
@@ -97,6 +129,13 @@ public:
 	*   Returns the number of errors
 	*/
 	int checkCircuit();
+	/** Checks the component property. The functions is called after the
+	*   property dialog.
+	*   The implementation checks nothing.
+	*
+	*   Append the message to errorMsg.
+	*/
+	virtual void checkProperty(QStringList & errorMsg);
 	
 	void addConnector(ConnectorBase * conn);
 	void delConnector(ConnectorBase * conn);
@@ -108,34 +147,32 @@ public:
 	*	Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
 
-	/** Shift the result of calculation to output
-	*		The implementaion clears the data cache */
-	virtual void updateOutput();
+	/** Setup the Component for a new circuit execution.
+	  * Calls the setup functions of wire properties.
+	  */
+	virtual void setupCircuit();
+	
 	/** Reset all simulation variables */
 	virtual void reset();
 	
-	/** Returns a pointer to the current data */	
-	const void * getCurrentData();
+	/** Set a new wire property info. */
+	void setPropertyInfo(const WirePropertyInfo * wirePropInfo);
 	
-	/** Set a new wire property */
-	void setProperty(const WirePropertyInfo * wirePropInfo);
+	/** Returns the current wire property info. */
+	const WirePropertyInfo * getPropertyInfo() const;
 	
-	/** Returns the current wire property */
-	const WirePropertyInfo * getProperty() const;
-	
+	/** Returns the current wire property. */
+	WireProperty * Wire::getWireProperty();
 	
 	/** Find the suitable wire property class for the given connectors
 	*   Returns a null pointer, if no suitable wire property class is found
 	*/
-	static const WirePropertyInfo * findWireProperty(const ConnectorList * list);
+	static const WirePropertyInfo * findWirePropertyInfo(const ConnectorList * list);
 	/** Wrapper function for const WirePropertyInfo * Wire::findWireProperty(const ConnectorList * list) */
-	static const WirePropertyInfo * findWireProperty(const ConnectorBase * start, const ConnectorBase * end);
+	static const WirePropertyInfo * findWirePropertyInfo(const ConnectorBase * start, const ConnectorBase * end);
 	
 protected: // Protected attributes
 	WireProperty * m_wireProperty;
-	const void * m_dataCache;	
-
-
 };
 
 #endif

@@ -53,15 +53,22 @@ KSimPackageHandle::KSimPackageHandle(const QString & filename)
 
 KSimPackageHandle::~KSimPackageHandle()
 {
-	
 #ifdef USE_DLFCN
 	if (m_fileHandle)
 		dlclose(m_fileHandle);
 #else
-	if (m_fileHandle)
-		lt_dlclose(m_fileHandle);
-	int res = lt_dlexit();
+	int res;
 	
+	if (m_fileHandle)
+	{
+		res = lt_dlclose(m_fileHandle);
+		if (res != 0)
+		{
+			KSIMDEBUG_VAR("ERROR: lt_dlclose()",lt_dlerror());
+		}
+	}
+	
+	res = lt_dlexit();
 	if (res != 0)
 	{
 		KSIMDEBUG_VAR("ERROR: lt_dlexit()",lt_dlerror());
@@ -105,7 +112,7 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 		#else
 			m_fileHandle = lt_dlopenext(getFilename());
 		#endif
-		KSIMDEBUG_VAR("",getFilename());
+		//KSIMDEBUG_VAR("",getFilename());
 		if (m_fileHandle == 0)
 		{
 			#ifdef USE_DLFCN
@@ -122,36 +129,34 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 			#else
 				void *sym = lt_dlsym(m_fileHandle, getInitFunctionName());
 			#endif
-	  		
-	    if (sym)
-	    {
-//    		KSIMDEBUG("Exec init function 1");
-		    typedef const PackageInfo * (*t_func)();
-  		  t_func func = (t_func)sym;
-    		m_packageInfo = func();
-//    		KSIMDEBUG_VAR("Exec init function",getFilename());
-    	}
-    	else
-    	{
-    		KSIMDEBUG_VAR("No init function",getFilename());
-    	}
-			
-//			m_packageInfo = (const PackageInfo *) dlsym(m_fileHandle, "packageInfo");
-			
-			if (!m_packageInfo)
+				
+			if (sym)
 			{
+//				KSIMDEBUG("Exec init function 1");
+				typedef const PackageInfo * (*t_func)();
+				t_func func = (t_func)sym;
+				m_packageInfo = func();
+//				KSIMDEBUG_VAR("Exec init function",getFilename());
+				if (!m_packageInfo)
+				{
+				m_error = TRY_AGAIN;
+				}
+				else
+				{
+					// Successful
+					m_opened = true;
+					m_error = OPENED;
+				}
+			}
+			else
+			{
+				KSIMDEBUG_VAR("No init function",getFilename());
 				#ifdef USE_DLFCN
-  				m_errorMsg = dlerror();
+				m_errorMsg = dlerror();
 				#else
-	  			m_errorMsg = lt_dlerror();
+				m_errorMsg = lt_dlerror();
 				#endif
 				m_error = TRY_AGAIN;
-		  }
-		  else
-		  {
-				// Successful
-				m_opened = true;
-				m_error = OPENED;
 			}
 		}
 	}
@@ -195,10 +200,19 @@ const PackageInfo * KSimPackageHandle::getPackageInfo() const
 
 QCString KSimPackageHandle::getInitFunctionName() const
 {
+	int i;
 	QCString funcname;
 	QFileInfo fi(getFilename());
+	QString filename(fi.baseName());
 	
-	funcname.sprintf("init_%s", fi.baseName().latin1());
+	// Relaces "-" with "_"
+	while (-1 != (i = filename.find(QString::fromLatin1("-"))))
+	{
+		filename.replace(i, 1, QString::fromLatin1("_"));
+	}
+	
+	
+	funcname.sprintf("init_%s", filename.latin1());
 	
 	return funcname;
 }

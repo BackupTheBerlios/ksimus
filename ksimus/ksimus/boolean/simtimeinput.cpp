@@ -42,15 +42,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new SimTimeInput(container, ci);
 }
 
-const ComponentInfo SimTimeInputInfo
-								(	
-									I18N_NOOP("Simulation time"),
-									I18N_NOOP("Control/Simulation Time"),
-									QString::null,
-									VA_SHEETVIEW,
-									create,
-									QString::null,
-									"component-sim-time");
+const ComponentInfo * getSimTimeInputInfo()
+{
+	static const ComponentInfo Info(i18n("Simulation time"),
+	                                QString::fromLatin1("Control/Simulation Time"),
+	                                i18n("Component", "Control/Simulation Time"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-sim-time"));
+	return &Info;
+}
 
 //###############################################################
 //###############################################################
@@ -73,9 +76,9 @@ void SimTimeInputView::draw(QPainter * p)
 	
 	drawFrame(p);
 
-	QFont newFont("helvetica",10);
+	QFont newFont(QString::fromLatin1("helvetica"),10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Sim\nTime");
+	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Sim\nTime"));
 }
 
 
@@ -84,7 +87,10 @@ void SimTimeInputView::draw(QPainter * p)
 SimTimeInput::SimTimeInput(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
-	m_out = new ConnectorFloatOut (this, I18N_NOOP("Output"), QPoint(4,2));
+	m_out = new ConnectorFloatOut (this,
+	                               QString::fromLatin1("Output"),
+	                               i18n("Connector", "Output"),
+	                               QPoint(4,2));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
@@ -101,11 +107,11 @@ SimTimeInput::~SimTimeInput()
 {
 }
 
-/** Shift the result of calculation to output */
-void SimTimeInput::updateOutput()
+void SimTimeInput::calculate()
 {
-	Component::updateOutput();
+	Component::calculate();
 	m_out->setOutput(getTimeServer().getTime().getValue(unit_sec));
+	executeNext();
 }
 /** Reset all simulation variables */
 void SimTimeInput::reset()
@@ -123,15 +129,18 @@ static Component * createTick(CompContainer * container, const ComponentInfo * c
 }
 
 
-const ComponentInfo TickTimeInputInfo
-								(	
-									I18N_NOOP("Tick time"),
-									I18N_NOOP("Control/Tick Time"),
-									QString::null,
-									VA_SHEETVIEW,
-									createTick,
-									QString::null,
-									"component-tick-time");
+const ComponentInfo * getTickTimeInputInfo()
+{
+	static const ComponentInfo Info(i18n("Tick time"),
+	                                QString::fromLatin1("Control/Tick Time"),
+	                                i18n("Component", "Control/Tick Time"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createTick,
+	                                QString::null,
+	                                QString::fromLatin1("component-tick-time"));
+	return &Info;
+}
 
 //###############################################################
 //###############################################################
@@ -154,9 +163,9 @@ void TickTimeInputView::draw(QPainter * p)
 	
 	drawFrame(p);
 
-	QFont newFont("helvetica",10);
+	QFont newFont(QString::fromLatin1("helvetica"),10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Tick\nTime");
+	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Tick\nTime"));
 }
 
 
@@ -165,7 +174,10 @@ void TickTimeInputView::draw(QPainter * p)
 TickTimeInput::TickTimeInput(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
-	m_out = new ConnectorFloatOut (this, I18N_NOOP("Output"), QPoint(4,2));
+	m_out = new ConnectorFloatOut (this,
+	                               QString::fromLatin1("Output"),
+	                               i18n("Connector", "Output"),
+	                               QPoint(4,2));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
@@ -174,7 +186,6 @@ TickTimeInput::TickTimeInput(CompContainer * container, const ComponentInfo * ci
 		new TickTimeInputView(this, SHEET_VIEW);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
-	getAction().disable(KSimAction::UPDATEOUTPUT);
 	getAction().disable(KSimAction::CALCULATE);
 	
 }

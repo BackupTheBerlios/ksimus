@@ -31,7 +31,6 @@
 //##########################################################
 //##########################################################
 
-static EnumDict<ViewAttribute> viewAttributeDict;
 
 EnumDict<ViewAttribute>::tData EnumDict<ViewAttribute>::data[]
 			= { {"VA_SHEETVIEW", 			VA_SHEETVIEW},
@@ -41,14 +40,21 @@ EnumDict<ViewAttribute>::tData EnumDict<ViewAttribute>::data[]
 					{"VA_WINDOWVIEW",			VA_WINDOWVIEW},
           {0,(ViewAttribute)0}};
 
+static const EnumDict<ViewAttribute> & getViewAttributeDict()
+{
+	static EnumDict<ViewAttribute> viewAttributeDict;
+	return viewAttributeDict;
+}
+
+
 
 const char * ComponentInfo::convertViewAttribute(ViewAttribute viewAttribute)
 {
-	return viewAttributeDict.find(viewAttribute);
+	return getViewAttributeDict().find(viewAttribute);
 }
 ViewAttribute ComponentInfo::convertViewAttribute(const char * viewAttribute, ViewAttribute defaultViewAttrib)
 {
-	return viewAttributeDict.find(viewAttribute, defaultViewAttrib);
+	return getViewAttributeDict().find(viewAttribute, defaultViewAttrib);
 }
 
 
@@ -58,24 +64,31 @@ ViewAttribute ComponentInfo::convertViewAttribute(const char * viewAttribute, Vi
 // ComponentInfo
 	
 ComponentInfo::ComponentInfo(
-				const QString & name,
-				const QString & libName,
-				const QString & additionalLibNames,
-				ViewAttribute viewAttr,
-				Component * (*factory)(CompContainer *, const ComponentInfo *),
-				const QString & shortDescr,
-				const QString & HTMLDescr,
-				const QString & oldLibNames)
+                             const QString & name,
+                             const QString & libName,
+                             const QString & i18nLibName,
+                             const QString & additionalI18nLibNames,
+                             ViewAttribute viewAttr,
+                             Component * (*factory)(CompContainer *, const ComponentInfo *),
+                             const QString & shortDescr,
+                             const QString & HTMLDescr,
+                             const QString & oldLibNames)
 	:	BaseInfo(INFO_COMPONENT, name, libName, shortDescr, HTMLDescr, oldLibNames ),
-		m_additionalLibNames(additionalLibNames),
+		m_i18nLibName(i18nLibName),
+		m_additionalI18nLibNames(additionalI18nLibNames),
 		m_viewAttr(viewAttr),
 		m_factory(factory)
 {
 }
 	
-const QString & ComponentInfo::getAdditionalLibNames() const
+const QString & ComponentInfo::getI18nLibName() const
 {
-	return m_additionalLibNames;
+	return m_i18nLibName;
+}
+
+const QString & ComponentInfo::getAdditionalI18nLibNames() const
+{
+	return m_additionalI18nLibNames;
 }
 
 ViewAttribute ComponentInfo::getViewAttr() const

@@ -15,9 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-static const char * sPixPos = "PixPos";
-static const char * sPixOrient = "PixOrient";
-static const char * sUserPos = "UserPos";
+static const char * sPixPos     = "PixPos";
+static const char * sPixOrient  = "PixOrient";
+static const char * sUserPos    = "UserPos";
 static const char * sUserOrient = "UserOrient";
 
 // QT-Includes
@@ -55,46 +55,170 @@ void ExternalConnectorSV::draw(QPainter * p)
 	QPointArray ar;
 	if (((ExternalConnector*)getComponent())->isInput())
 	{
-		ar.setPoints(4, gridX*1, gridY, gridX*5/2, gridY*3/2, gridX*1, gridY*2, gridX*1, gridY);
+		ar.setPoints(4, gridX*1,   gridY,
+		                gridX*5/2, gridY*3/2,
+		                gridX*1,   gridY*2,
+		                gridX*1,   gridY);
 	}
 	else
 	{
-		ar.setPoints(4, gridX*5/2, gridY, gridX*4, gridY*3/2, gridX*5/2, gridY*2, gridX*5/2, gridY);
+		ar.setPoints(4, gridX*5/2, gridY,
+		                gridX*4,   gridY*3/2,
+		                gridX*5/2, gridY*2,
+		                gridX*5/2, gridY);
 	}
 	p->setPen(QPen(black, 1));
 	p->setBrush(SolidPattern);
 	p->drawPolygon( ar );
 	
-	
 	CompView::draw(p);
 }
 
 
+
 //###############################################################
 
-ExternalConnector::ExternalConnector(CompContainer * container, const ComponentInfo * ci)
-	: Component(container, ci),
-	  input(false)
+ExternalConnectorMultipleOutputSV::ExternalConnectorMultipleOutputSV(Component * comp)
+	: CompView(comp, SHEET_VIEW)
 {
-	m_isExtConn = true;
+	setPlace( QRect(0, 0, 5*gridX, 3*gridY) );
+	enableRotation(true);
+}
+ExternalConnectorMultipleOutputSV::~ExternalConnectorMultipleOutputSV()
+{
+}
+
+void ExternalConnectorMultipleOutputSV::draw(QPainter * p)
+{
+	p->setPen(QPen(black, 2));
+	p->setBrush(NoBrush);
+	p->drawEllipse(gridX*1, 0, gridX*3, gridY*3);
+	p->drawLine(gridX*1, gridX*3/2, gridX*4, gridX*3/2 );
+	
+	p->setPen(QPen(black, 1));
+	p->setBrush(SolidPattern);
+
+	if (((ExternalConnector*)getComponent())->isInput())
+	{
+		#define LEFT   (gridX*1)
+		#define RIGHT  (gridX*3)
+		#define LR_MID ((LEFT+RIGHT)/2)
+		#define TOP    (gridY*1)
+		#define BOTTOM (gridY*2)
+		#define TB_MID ((TOP+BOTTOM)/2)
+		
+		QPointArray ar;
+		
+		ar.setPoints(4, LEFT,     TB_MID,
+		                LR_MID-1, TOP,
+		                LR_MID-1, BOTTOM,
+		                LEFT,     TB_MID);
+		p->drawPolygon( ar );
+		
+		ar.setPoints(4, LR_MID+1, TOP,
+		                RIGHT,    TB_MID,
+		                LR_MID+1, BOTTOM,
+		                LR_MID+1, TOP);
+		p->drawPolygon( ar );
+		
+		#undef LEFT
+		#undef RIGHT
+		#undef LR_MID
+		#undef TOP
+		#undef BOTTOM
+		#undef TB_MID
+	}
+	else
+	{
+		#define LEFT   (gridX*2-1)
+		#define RIGHT  (gridX*4-1)
+		#define LR_MID ((LEFT+RIGHT)/2)
+		#define TOP    (gridY*1)
+		#define BOTTOM (gridY*2)
+		#define TB_MID ((TOP+BOTTOM)/2)
+		
+		QPointArray ar;
+		ar.setPoints(4, LEFT,     TB_MID,
+		                LR_MID-1, TOP,
+		                LR_MID-1, BOTTOM,
+		                LEFT,     TB_MID);
+		p->drawPolygon( ar );
+		
+		ar.setPoints(4, LR_MID+1, TOP,
+		                RIGHT,    TB_MID,
+		                LR_MID+1, BOTTOM,
+		                LR_MID+1, TOP);
+		p->drawPolygon( ar );
+		
+		#undef LEFT
+		#undef RIGHT
+		#undef LR_MID
+		#undef TOP
+		#undef BOTTOM
+		#undef TB_MID
+	}
+	
+	CompView::draw(p);
+}
+
+//###############################################################
+
+#define DEFAULT_CO (isInput() ? CO_LEFT : CO_RIGHT)
+
+ExternalConnector::ExternalConnector(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput)
+	: Component(container, ci),
+	  m_input(input),
+	  m_recursionLocked(false)
+{
+	init();
 	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ExternalConnectorSV(this);
+		if (multiOutput)
+		{
+			new ExternalConnectorMultipleOutputSV(this);
+		}
+		else
+		{
+			new ExternalConnectorSV(this);
+		}
 	}
-	// set to invalid
-	pixmapPos.setX(-1);
-	setPixmapOrientation(CO_LEFT);
-	userViewPos.setX(-1);
-	setUserViewOrientation(CO_LEFT);
-	
+}
+
+ExternalConnector::ExternalConnector(CompContainer * container, const ComponentInfo * ci)
+	: Component(container, ci),
+	  m_input(false),
+	  m_recursionLocked(false)
+{
+	init();
 }
 
 ExternalConnector::~ExternalConnector()
 {
 }
+
+void ExternalConnector::init()
+{
+	setComponentType(eExternalConnector);
+	setZeroDelayComponent(true);
 	
+	// set to invalid
+	m_pixmapPos.setX(-1);
+	setPixmapOrientation(DEFAULT_CO);
+	m_userViewPos.setX(-1);
+	setUserViewOrientation(DEFAULT_CO);
+}
+
+
+
+void ExternalConnector::reset()
+{
+	Component::reset();
+	
+	setRecursionLocked(false);
+}
+
 int ExternalConnector::checkCircuit()
 {
 	int error;
@@ -110,7 +234,7 @@ int ExternalConnector::checkCircuit()
 	return error;
 }
 
-void ExternalConnector::checkProperty(QStringList & errorMsg)
+/*void ExternalConnector::checkProperty(QStringList & errorMsg)
 {
 	bool nameUnique(true);
 	
@@ -131,7 +255,7 @@ void ExternalConnector::checkProperty(QStringList & errorMsg)
 	}
 	
 	Component::checkProperty(errorMsg);
-}
+} */
 
 /** Save ExternalConnector properties */
 void ExternalConnector::save(KSimData & file) const
@@ -139,22 +263,20 @@ void ExternalConnector::save(KSimData & file) const
 	Component::save(file);	
 	
 	// Pixmap view
-	if (pixmapPos.x() != -1)
+	if (m_pixmapPos.x() != -1)
 	{
-		file.writeEntry(sPixPos, pixmapPos);
+		file.writeEntry(sPixPos, m_pixmapPos);
 		
-//		if (pixmapOrient != (getConnType() & CON_ORIENT_MASK))
-		if (pixmapOrient != (getExternalConn()->getOrientation()))
-			file.writeEntry(sPixOrient, (int)pixmapOrient);
+		if (m_pixmapOrient != DEFAULT_CO)
+			file.writeEntry(sPixOrient, (int)m_pixmapOrient);
 	}
 	// User view
-	if (userViewPos.x() != -1)
+	if (m_userViewPos.x() != -1)
 	{
-		file.writeEntry(sUserPos, userViewPos);
+		file.writeEntry(sUserPos, m_userViewPos);
 		
-//		if (userViewOrient != (getConnType() & CON_ORIENT_MASK))
-		if (userViewOrient != (getExternalConn()->getOrientation()))
-			file.writeEntry(sUserOrient, (int)userViewOrient);
+		if (m_userViewOrient != DEFAULT_CO)
+			file.writeEntry(sUserOrient, (int)m_userViewOrient);
 	}
 }
 
@@ -172,19 +294,19 @@ bool ExternalConnector::load(KSimData & file, bool copyLoad)
 	if (copyLoad)
 	{
 		// set to invalid
-		pixmapPos.setX(-1);
-		pixmapOrient = CO_LEFT;
+		m_pixmapPos.setX(-1);
+		m_pixmapOrient = CO_LEFT;
 	
-		userViewPos.setX(-1);
-		userViewOrient = CO_LEFT;
+		m_userViewPos.setX(-1);
+		m_userViewOrient = CO_LEFT;
 	}
 	else
 	{
 		// Pixmap view
-		pixmapPos = file.readPointEntry(sPixPos, &defaultPos);
+		m_pixmapPos = file.readPointEntry(sPixPos, &defaultPos);
 		setPixmapOrientation((ConnOrientationType)file.readNumEntry(sPixOrient, (getExternalConn()->getOrientation())));
 		// User view
-		userViewPos = file.readPointEntry(sUserPos, &defaultPos);
+		m_userViewPos = file.readPointEntry(sUserPos, &defaultPos);
 		setUserViewOrientation((ConnOrientationType)file.readNumEntry(sUserOrient, (getExternalConn()->getOrientation())));
 	}
 
@@ -194,19 +316,25 @@ bool ExternalConnector::load(KSimData & file, bool copyLoad)
 /** Returns the *external* connector */
 ConnectorBase * ExternalConnector::getExternalConn() const
 {
-	if (isInput())
-		return getConnList()->at(1);
-	else
-		return getConnList()->at(0);
+	return m_externalConn;
 }
 
 /** Returns the *internal* connector */
 ConnectorBase * ExternalConnector::getInternalConn() const
 {
-	if (isInput())
-		return getConnList()->at(0);
-	else
-		return getConnList()->at(1);
+	return m_internalConn;
+}
+
+/** Sets the *external* connector */
+void ExternalConnector::setExternalConn(ConnectorBase * extConn)
+{
+	m_externalConn = extConn;
+}
+
+/** Sets the *internal* connector */
+void ExternalConnector::setInternalConn(ConnectorBase * inConn)
+{
+	m_internalConn = inConn;
 }
 
 /** Removes the wire of the test connector */
@@ -215,14 +343,14 @@ void ExternalConnector::removeTestConnector()
 	if (isInput())
 	{
 		// Remove input connection
-    	if (getConnList()->at(1)->getWire())
-	    	getContainer()->delConnection(getConnList()->at(1));
+			if (getConnList()->at(1)->getWire())
+				getContainer()->delConnection(getConnList()->at(1));
 	}
 	else
 	{
 		// Remove output connection
-    	if (getConnList()->at(0)->getWire())
-	    	getContainer()->delConnection(getConnList()->at(0));
+			if (getConnList()->at(0)->getWire())
+				getContainer()->delConnection(getConnList()->at(0));
 	}
 }
 
@@ -230,12 +358,12 @@ void ExternalConnector::removeTestConnector()
 /** Sets the orientation of the connector in pixmap mode. */
 void ExternalConnector::setPixmapOrientation(ConnOrientationType orientation)
 {
-	pixmapOrient = orientation;
+	m_pixmapOrient = orientation;
 };
 		
 /** Sets the orientation of the connector in user view mode. */
 void ExternalConnector::setUserViewOrientation(ConnOrientationType orientation)
 {
-	userViewOrient = orientation;
+	m_userViewOrient = orientation;
 };
 		

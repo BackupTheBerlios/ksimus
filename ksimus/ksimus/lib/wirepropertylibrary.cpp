@@ -59,15 +59,12 @@ bool WirePropertyLibrary::insert (const WirePropertyInfo * wireInfo, const Packa
 	return res;
 }
 
-bool WirePropertyLibrary::insert (const WirePropertyInfoList wirePropertyInfoList, const PackageInfo * packageInfo)
+bool WirePropertyLibrary::insert(const WirePropertyInfoList & wirePropertyInfoList, const PackageInfo * packageInfo)
 {
 	bool res = true;
-	const WirePropertyInfo * wi;
-	int idx = 0;
-	
-	while ((wi = wirePropertyInfoList[idx++]))
+	FOR_EACH_WIREPROPERTY_INFO(it, wirePropertyInfoList)
 	{
-		res &= insert(wi, packageInfo);
+		res &= insert(it.current(), packageInfo);
 	}
 	return res;
 }

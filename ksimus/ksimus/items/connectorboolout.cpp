@@ -16,55 +16,59 @@
  ***************************************************************************/
 
 // QT includes
-#include <qpainter.h>
-#include <qdict.h>
 #include <qpopupmenu.h>
 
 // KDE includes
 #include <klocale.h>
 
 // Project includes
-#include "ksimdata.h"
 #include "connectorinfo.h"
 #include "connectorboolout.h"
 #include "connectorbooloutpropertywidget.h"
 #include "connectorlabel.h"
 #include "ksimdebug.h"
 #include "component.h"
-#include "enumdict.h"
+#include "wirepropertyboolean.h"
+#include "wire.h"
+#include "watchitemboolean.h"
 
 // Forward declaration
-class ConnectorBoolOutWidget;
 
 
-static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
+static ConnectorBase * create(Component * comp, const QString & name, const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorBoolOut(comp, name, pos);
+	return new ConnectorBoolOut(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo ConnectorBoolOutInfo (	"Boolean Output",
-											"booleanOutput",
-											"Boolean",
-											create );
+const ConnectorInfo * getConnectorBoolOutInfo()
+{
+	static const ConnectorInfo Info(QString::fromLatin1("Boolean Output"),
+	                                QString::fromLatin1("Boolean Output"),
+	                                QString::fromLatin1("Boolean"),
+	                                create );
+	return &Info;
+}
 
-ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name, const QPoint & pos)
-	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
+ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name,
+                                   const QString & i18nName, const QPoint & pos)
+	:	ConnectorOutputBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolOutInfo()),
 		m_data(false)
 {
 	init();
 }
 											
-ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name, const QString & descr, const QPoint & pos)
-	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorBoolOutInfo),
+ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name, const QString & i18nName,
+                                   const QString & descr, const QPoint & pos)
+	:	ConnectorOutputBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolOutInfo()),
 		m_data(false)
 {
 	init();
 	new ConnectorLabel(this, descr);
 }
 
-ConnectorBoolOut::ConnectorBoolOut( Component * comp, const QString & name, const QPoint & pos,
-                                    ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorOutputBase(comp, name, pos, orient, ci)
+ConnectorBoolOut::ConnectorBoolOut(Component * comp, const QString & name, const QString & i18nName,
+                                   const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorOutputBase(comp, name, i18nName, pos, orient, ci)
 {
 	init();
 }
@@ -74,39 +78,57 @@ void ConnectorBoolOut::init()
 	setNegateEnabled(true);
 }
 
-// Setup the colors, brushs, and fills for the connector
-void ConnectorBoolOut::setupColorScheme (QPainter * p) const
+// Get the colors for the connector
+const WireColorScheme & ConnectorBoolOut::getColorScheme() const
 {
-	p->setPen(QPen(darkGreen, 2));
-	p->setBrush(darkGreen);
+	static WireColorScheme colorScheme(darkGreen);
+	
+	return colorScheme;
 }
-											
-											
+	
+/** Resets the connector
+*/
+void ConnectorBoolOut::reset()
+{
+	ConnectorBase::reset();
+	
+	m_data = isNegated();
+}
+
 /** The function copyData() has to copy data to the output variable
   * The default implementation does nothing
   * Reimplementations is required for all output connectors  */
 void ConnectorBoolOut::copyData(const void * pData)
 {
-	m_data = *(bool*)pData ^ isNegated();
+	setOutput(*(bool*)pData);
 }
 
 /** Set the current output */
-void ConnectorBoolOut::setOutput(bool out)
+void ConnectorBoolOut::setOutput(bool out, bool exeWirePropNext)
 {
-	m_data = out ^ isNegated();
+	bool tmpData = out ^ isNegated();
+	if (tmpData != m_data)
+	{
+		// Value changed
+		m_data = tmpData;
+		if (exeWirePropNext) executeWirePropertyNext();
+	}
 }
 
+/** Return the current output */
+bool ConnectorBoolOut::getOutput() const
+{
+	return m_data ^ isNegated();
+}
 
-/** Returns a pointer to the data of this output connector */
-const void * ConnectorBoolOut::getData() const
+/** Returns a pointer to the data that's read from the component. */
+const void * ConnectorBoolOut::readoutData() const
 {
 	return &m_data;
-}											
-																						
-	
+}
 
 /** Creates the property widget */
-QWidget* ConnectorBoolOut::propertyWidget(QWidget * parent)
+PropertyWidget* ConnectorBoolOut::propertyWidget(QWidget * parent)
 {
 	return new ConnectorBoolOutPropertyWidget(this, parent, getName());
 }
@@ -119,7 +141,7 @@ bool ConnectorBoolOut::initPopupMenu(QPopupMenu * popup)
 	
 	if (isNegateEnabled())
 	{
-		idNegate = popup->insertItem((const char*)i18n("&Negate connector"), this,SLOT(slotToggleNegType()));
+		idNegate = popup->insertItem(i18n("&Negate connector"), this,SLOT(slotToggleNegType()));
 		popup->setItemChecked(idNegate, isNegated());
 	}
 	
@@ -150,10 +172,12 @@ void ConnectorBoolOut::slotToggleNegType()
 /** Returns a text which represents the current value. */
 QString ConnectorBoolOut::getValueText() const
 {
-	if (m_data == true)
-	{
-		return i18n("True");
-	}
-	
-	return i18n("False");
+	return WirePropertyBoolean::getI18nTextValue(m_data);
+}
+
+WatchItemBase * ConnectorBoolOut::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemBooleanConnector(this);
+	CHECK_PTR(wi);
+	return wi;
 }

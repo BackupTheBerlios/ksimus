@@ -37,7 +37,7 @@ class ConnectorFloatOut;
   */
 
 
-extern const ComponentInfo SimTimeInputInfo;
+const ComponentInfo * getSimTimeInputInfo();
 
 class SimTimeInput : public Component
 {
@@ -47,8 +47,8 @@ Q_OBJECT
 public:
 	SimTimeInput(CompContainer * container, const ComponentInfo * ci);
 	~SimTimeInput();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
+	/** Executes the simulation of this component */
+	virtual void calculate();
 	/** Reset all simulation variables */
 	virtual void reset();
 	
@@ -76,7 +76,7 @@ public:
   */
 
 
-extern const ComponentInfo TickTimeInputInfo;
+const ComponentInfo * getTickTimeInputInfo();
 
 class TickTimeInput : public Component
 {

@@ -51,13 +51,18 @@ static Component * createBooleanButton(CompContainer * container, const Componen
 	return new BooleanButton(container, ci);
 }
 
-const ComponentInfo BooleanButtonInfo(I18N_NOOP("Button"),
-                                      I18N_NOOP("Boolean/Input/Button"),
-                                      QString::null,
-                                      VA_SHEET_AND_USER,
-                                      createBooleanButton,	
-                                      QString::null,
-                                      "component-button");
+const ComponentInfo * getBooleanButtonInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Button"),
+	                                QString::fromLatin1("Boolean/Input/Button"),
+	                                i18n("Component", "Boolean/Input/Button"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                createBooleanButton,	
+	                                QString::null,
+	                                QString::fromLatin1("component-button"));
+	return &Info;
+}
 
 //###############################################################
 //###############################################################
@@ -67,16 +72,20 @@ static Component * createBooleanToggleButton(CompContainer * container, const Co
 	return new BooleanButton(container, ci);
 }
 
-const ComponentInfo BooleanToggleButtonInfo(I18N_NOOP("TButton"),
-                                            I18N_NOOP("Boolean/Input/Toggle Button"),
-                                            QString::null,//"Toggle Button",
-                                            VA_SHEET_AND_USER,
-                                            createBooleanToggleButton,	
-                                            QString::null,
-                                            "component-button");
+const ComponentInfo * getBooleanToggleButtonInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "TButton"),
+	                                QString::fromLatin1("Boolean/Input/Toggle Button"),
+	                                i18n("Component", "Boolean/Input/Toggle Button"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                createBooleanToggleButton,	
+	                                QString::null,
+	                                QString::fromLatin1("component-button"));
+	return &Info;
+}
 
-const ComponentInfoList BooleanButtonList = { &BooleanButtonInfo, &BooleanToggleButtonInfo, 0 };
-										
+
 //###############################################################
 //###############################################################
 
@@ -90,18 +99,18 @@ const ComponentInfoList BooleanButtonList = { &BooleanButtonInfo, &BooleanToggle
 
 BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci)
 	:	ComponentStyle(container, ci),
-		m_state(false),
 		m_flags(0),
 		m_toggleButton(false)
 {
-	
 //	setColorAdjustmentEnabled(true);
 //	setFrameAdjustmentEnabled(true);
 	setFontAdjustmentEnabled(true);
 	
 	setFrameEnabled(false);
 	
-	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"));
+	m_out = new ConnectorBoolOut (this,
+	                              QString::fromLatin1("Output"),
+	                              i18n("Connector", "Output"));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
@@ -115,7 +124,7 @@ BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci
 		new BooleanButtonView(this, USER_VIEW);
 	}
 
-	if(ci == &BooleanToggleButtonInfo)
+	if(ci == getBooleanToggleButtonInfo())
 	{
 		m_toggleButton = true;
 	}
@@ -129,10 +138,20 @@ BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci
 {
 }*/
 
-void BooleanButton::updateOutput()
+void BooleanButton::calculate()
 {
-	ComponentStyle::updateOutput();
-	getOutputConnector()->setOutput(getState());
+	ComponentStyle::calculate();
+//	getOutputConnector()->setOutput(getState());
+}
+
+void BooleanButton::setState(bool newState)
+{
+	getOutputConnector()->setOutput(newState);
+}
+	
+bool BooleanButton::getState() const
+{
+	return getOutputConnector()->getOutput();
 }
 
 void BooleanButton::setResetState(bool resetState, bool init)
@@ -174,7 +193,7 @@ void BooleanButton::reset()
 	if (isToggleButton())
 	{
 		setState(getResetState());
-		getOutputConnector()->setOutput(getState());
+//		getOutputConnector()->setOutput(getState());
 	
 		toggled(getState());
 		emit buttonChanged(getState());
@@ -206,16 +225,33 @@ void BooleanButton::save(KSimData & file) const
 bool BooleanButton::load(KSimData & file, bool copyLoad)
 {
 	setResetState( file.readBoolEntry("Reset State", getResetStateInit()) );
+	QString id = file.readEntry(Component::sType);
 	
-	return ComponentStyle::load(file, copyLoad);
+	bool res = ComponentStyle::load(file, copyLoad);
+
+	if (id == getBooleanButtonInfo()->getLibName())
+	{
+		setToggleButton(false);
+	}
+	else
+	{
+		setToggleButton(true);
+	}
+
+	return res;
 }
 
+bool BooleanButton::isProperReloadType(const QString & type) const
+{
+	return (type == getBooleanButtonInfo()->getLibName())
+	    || (type == getBooleanToggleButtonInfo()->getLibName());
+}
 
 /** Creates the general property page for the property dialog.
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * BooleanButton::createGeneralProperty(Component * /*comp*/, QWidget *parent)
+ComponentPropertyBaseWidget * BooleanButton::createGeneralProperty(QWidget *parent)
 {
 	BooleanButtonPropertyGeneralWidget * wid;
 	wid = new BooleanButtonPropertyGeneralWidget(this, parent);
@@ -231,6 +267,7 @@ void BooleanButton::toggled(bool pressed)
 	{
 		setState(pressed);
 		emit buttonChanged(getState());
+//		executeNext();
 	}
 }
 
@@ -246,13 +283,18 @@ void BooleanButton::setToggleButton(bool toggleButton)
 		m_toggleButton = toggleButton;
 		if(m_toggleButton)
 		{
-			setInfo(&BooleanToggleButtonInfo);
+			setInfo(getBooleanToggleButtonInfo());
 		}
 		else
 		{
-			setInfo(&BooleanButtonInfo);
+			setInfo(getBooleanButtonInfo());
 		}
 		emit signalSetToggleButton(m_toggleButton);
+		if (hasDefaultName())
+		{
+			// Set new default name if required
+			setName(getDefaultName());
+		}
 	}
 }
 
@@ -263,6 +305,7 @@ void BooleanButton::slotPressed()
 	{
 		setState(true);
 		emit buttonChanged(true);
+		executeNext();
 	}
 }
 void BooleanButton::slotReleased()
@@ -271,14 +314,34 @@ void BooleanButton::slotReleased()
 	{
 		setState(false);
 		emit buttonChanged(false);
+		executeNext();
 	}
 }
 
+const QString & BooleanButton::getDefaultButtonText() const
+{
+	static const QString i18nText(i18n(
+	       "The default text of the button. Use an abbreviation if the text is too long for the button",
+	       "Button"));
+
+	static const QString i18nTextToggle(i18n(
+	       "The default text of the toggle button. Use an abbreviation if the text is too long for the button",
+	       "TButton"));
+	       
+	if (isToggleButton())
+	{
+		return i18nTextToggle;
+	}
+	else
+	{
+		return i18nText;
+	}
+}
 
 //##########################################################################################
 //##########################################################################################
 
-BooleanButtonView::BooleanButtonView(Component * comp, eViewType viewType)
+BooleanButtonView::BooleanButtonView(BooleanButton * comp, eViewType viewType)
 	: CompViewSize(comp, viewType)
 {
 	if(viewType == SHEET_VIEW)
@@ -309,7 +372,7 @@ QWidget * BooleanButtonView::createCompViewWidget(QWidget * parent)
 {
 	BooleanButtonWidgetView * wid = new BooleanButtonWidgetView(this, parent,"Button");
 	
-	QPushButton * button = wid->m_button;
+	QPushButton * button = wid->m_buttonWidget;
 	CHECK_PTR(button);
 	
 	/* Specific signals */
@@ -351,47 +414,61 @@ void BooleanButtonView::resize()
 //##########################################################################################
 //##########################################################################################
 
-BooleanButtonWidgetView::BooleanButtonWidgetView(CompView * cv, QWidget *parent, const char *name)
+BooleanButtonWidgetView::BooleanButtonWidgetView(BooleanButtonView * cv, QWidget *parent, const char *name)
 	:	CompViewWidget(cv,parent,name)
 {
-	m_button = new QPushButton(cv->getComponent()->getName(), this);
-	CHECK_PTR(m_button);
-	m_button->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum));
+	m_buttonWidget = new QPushButton(this);
+	CHECK_PTR(m_buttonWidget);
+	m_buttonWidget->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum));
+	slotSetText(getButton()->getName());  // Set real name
 	
 
 	QHBoxLayout * lay = new QHBoxLayout(this,0);
 	CHECK_PTR(lay);
 
-	lay->addWidget(m_button);
+	lay->addWidget(m_buttonWidget);
 }
 
 /*BooleanButtonWidgetView::~BooleanButtonWidgetView()
 {
 } */
 
+BooleanButton * BooleanButtonWidgetView::getButton()
+{
+	return (BooleanButton *) getComponent();
+}
+
+
 
 /** This slot rename the button */
 void BooleanButtonWidgetView::slotSetText(const QString & newName)
 {
-	m_button->setText(newName);
+	if (getButton()->hasDefaultName())
+	{
+		m_buttonWidget->setText(getButton()->getDefaultButtonText());
+	}
+	else
+	{
+		m_buttonWidget->setText(newName);
+	}
 }
 
 /** Enables/Disables toggle functionality */
 void BooleanButtonWidgetView::slotSetToggleButton(bool toggle)
 {
-	m_button->setToggleButton(toggle);
+	m_buttonWidget->setToggleButton(toggle);
 }
 
 void BooleanButtonWidgetView::slotReleaseButton()
 {
 	// Force to release a sticking key
-	m_button->setToggleButton(true);
-	m_button->setOn(false);
-	m_button->setOn(true);
-	m_button->setOn(false);
-	m_button->setToggleButton(false);
-	m_button->setDown(true);
-	m_button->setDown(false);
+	m_buttonWidget->setToggleButton(true);
+	m_buttonWidget->setOn(false);
+	m_buttonWidget->setOn(true);
+	m_buttonWidget->setOn(false);
+	m_buttonWidget->setToggleButton(false);
+	m_buttonWidget->setDown(true);
+	m_buttonWidget->setDown(false);
 }
 
 //##########################################################################################
@@ -404,10 +481,10 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Reset State: "), getGrid(), "ResetStateLabel");
+	lab = new QLabel(i18n("Reset State: "), this, "ResetStateLabel");
 	CHECK_PTR(lab);
 	
-	m_resetState = new KSimBooleanBox(comp->getResetState(), getGrid(), "ResetState");
+	m_resetState = new KSimBooleanBox(comp->getResetState(), this, "ResetState");
 	CHECK_PTR(m_resetState);
 	m_resetState->setEnabled(comp->isToggleButton());
 	
@@ -416,10 +493,10 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	addWhatsThis(str, lab, m_resetState);
 	
 
-	lab = new QLabel(i18n("Toggle Function:"), getGrid());
+	lab = new QLabel(i18n("Toggle Function:"), this);
 	CHECK_PTR(lab);
 	
-	m_toggle = new KSimBooleanBox(comp->isToggleButton(), getGrid());
+	m_toggle = new KSimBooleanBox(comp->isToggleButton(), this);
 	CHECK_PTR(m_toggle);
 	
 	m_toggle->setTrueText(i18n("On"));
@@ -459,7 +536,7 @@ void BooleanButtonPropertyGeneralWidget::defaultPressed()
 
 	m_resetState->setValue(false);
 
-	if(getComponent()->getInfo() == &BooleanToggleButtonInfo)
+	if(getComponent()->getInfo() == getBooleanToggleButtonInfo())
 	{
 		m_toggle->setValue(true);
 	}

@@ -29,6 +29,7 @@
 
 class QString;
 class Component;
+class WatchWidget;
 
 
 class ComponentItem
@@ -47,6 +48,8 @@ public:
 	void logWarning(const QString & msg) const;	
 	/** Appends a error to the log list. */
 	void logError(const QString & msg) const;	
+	/** Returns a pointer to the watch widget. */
+	WatchWidget * getWatchWidget() const;
 
 protected: // Protected attributes
 	Component * m_component;

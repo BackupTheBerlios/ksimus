@@ -22,6 +22,7 @@
 
 // QT-Includes
 #include <qobject.h>
+#include <qdatetime.h>
 
 // KDE-Includes
 
@@ -51,6 +52,7 @@ public:
 	KSimTimeServer & getTimeServer() { return *m_simulationTime; };
 	bool running() const { return m_running; };
 	void reset();
+	void setDefault();
 
 	void load(KSimData & config);
 	void save(KSimData & config) const;
@@ -79,6 +81,9 @@ private:
 	bool m_updateNow;
 	bool m_updateSynchronized;
 	bool m_tickSynchronized;
+	int m_execTimeTick;
+	int m_timeSum;
+	QTime m_startTime;
 	
 signals:
 	

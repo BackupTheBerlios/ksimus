@@ -29,7 +29,8 @@
 
 // Forward declaration
 
-extern const ComponentInfoList BooleanAndList;
+const ComponentInfo * getBooleanAndInfo();
+const ComponentInfo * getBooleanNandInfo();
 
 
 //###############################################################

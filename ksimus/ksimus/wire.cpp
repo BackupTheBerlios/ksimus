@@ -44,11 +44,57 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new Wire(container, ci);
 }
 
-const ComponentInfo WireInfo(I18N_NOOP("Wire"),
-                             "Wire/Wire",
-                             QString::null,
-                             VA_SHEETVIEW,
-                             create);
+const ComponentInfo * getWireInfo()
+{
+	static const ComponentInfo Info(QString::fromLatin1("Wire"),
+	                                QString::fromLatin1("Wire/Wire"),
+	                                QString::fromLatin1("Wire/Wire"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create);
+	return &Info;
+}
+
+//###############################################################
+
+
+
+WireColorScheme::WireColorScheme()
+	:	m_foreground(),
+		m_background()
+{
+}
+
+WireColorScheme::WireColorScheme(QColor wireColor)
+	:	m_foreground(wireColor),
+		m_background()
+{
+}
+
+WireColorScheme::WireColorScheme(QColor wireForegroundColor, QColor wireBackgroundColor)
+	:	m_foreground(wireForegroundColor),
+		m_background(wireBackgroundColor)
+{
+}
+	
+bool WireColorScheme::isDualColor() const
+{
+	return m_background.isValid();
+}
+
+const QColor & WireColorScheme::getColor() const
+{
+	return m_foreground;
+}
+const QColor & WireColorScheme::getForegroundColor() const
+{
+	return m_foreground;
+}
+const QColor & WireColorScheme::getBackgroundColor() const
+{
+	return m_background;
+}
+
 
 //###############################################################
 
@@ -56,7 +102,8 @@ WireSV::WireSV(Component * comp)
 	: CompView(comp, SHEET_VIEW)
 {
 	CompView::updateSheetMap(false);
-	routeList = new CPointListList;	
+	routeList = new CPointListList;
+	CHECK_PTR(routeList);
 	routeList->setAutoDelete(true);
 }
 WireSV::~WireSV()
@@ -70,37 +117,71 @@ void WireSV::draw(QPainter * p)
 {
 	CPointList * list;
 	QPoint * first;
+	int step = 0;
+	bool ready = false;
 	
 	Wire * wire = (Wire*)getComponent();
 	
-	if (wire->m_wireProperty)
-	{
-		wire->m_wireProperty->setupColorScheme(p);
-	}
-	else
-	{
-		KSIMDEBUG("wireProperty is NULL");
-		wire->getConnList()->at(0)->setupColorScheme(p);
-	}
+	const WireColorScheme & colorScheme = (wire->m_wireProperty)
+	                             ? wire->m_wireProperty->getColorScheme()
+	                             : wire->getConnList()->at(0)->getColorScheme();
 	
-	for (unsigned int j = 0; j < routeList->count(); j++)
+	p->setPen(QPen(colorScheme.getColor(), 2));
+	p->setBrush(colorScheme.getColor());
+	
+	do
 	{
-        list = routeList->at(j);
-        first = list->at(0);
+		switch(step)
+		{
+			case 0:
+				if (colorScheme.isDualColor())
+				{
+					p->setPen(QPen(colorScheme.getBackgroundColor(), 2));
+					p->setBrush(colorScheme.getBackgroundColor());
+				}
+				else
+				{
+					p->setPen(QPen(colorScheme.getColor(), 2));
+					p->setBrush(colorScheme.getColor());
+					ready = true;
+				}
+				break;
+				
+			case 1:
+				ready = true;
+				if (colorScheme.isDualColor())
+				{
+					p->setPen(QPen(colorScheme.getForegroundColor(), 2, /*DashLine*/ DotLine));
+					p->setBrush(colorScheme.getForegroundColor());
+				}
+				break;
+				
+			default:
+				ready = true;
+				break;
+		}
+		step++;
 		
-		if (j != 0)
+		for (unsigned int j = 0; j < routeList->count(); j++)
 		{
-			p->drawEllipse(first->x()*gridX+gridX/2-3, first->y()*gridY+gridY/2-3, 6 , 6);
-		}			
-		for (unsigned int i = 1; i < list->count(); i++)
-		{
-			QPoint * pos = list->at(i);
-			p->drawLine(first->x()*gridX+gridX/2, first->y()*gridY+gridY/2,
-			 			pos->x()*gridX+gridX/2, pos->y()*gridY+gridY/2);
-			 			
-			first = pos;
+			list = routeList->at(j);
+			first = list->at(0);
+		
+			if (j != 0)
+			{
+				p->drawEllipse(first->x()*gridX+gridX/2-3, first->y()*gridY+gridY/2-3, 6 , 6);
+			}
+			for (unsigned int i = 1; i < list->count(); i++)
+			{
+				QPoint * pos = list->at(i);
+				p->drawLine(first->x()*gridX+gridX/2, first->y()*gridY+gridY/2,
+				            pos->x()*gridX+gridX/2, pos->y()*gridY+gridY/2);
+			
+				first = pos;
+			}
 		}
 	}
+	while(!ready);
 }
 
 void WireSV::drawBound(QPainter *)
@@ -146,11 +227,10 @@ eHitType WireSV::isHit(int x, int y) const
 	x /= gridX;
 	y /= gridY;
 	
-	
 	for (QListIterator<CPointList> it(*routeList); it.current(); ++it)
 	{
-        if (isWireHit(it.current(),x,y))
-        {
+		if (isWireHit(it.current(),x,y))
+		{
 			// Remember "a" connector
 			CompView::lastHitConnector = getComponent()->getConnList()->first();
 			return WIRE_HIT;        	
@@ -221,10 +301,10 @@ const CPointListList * WireSV::getRouteList() const
 
 Wire::Wire(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci),
-		m_wireProperty(0),
-		m_dataCache(0)
+		m_wireProperty(0)
 {
-	m_isWire = true;
+//	m_isWire = true;
+	setComponentType(eWire);
 	new WireSV(this);
 	getConnList()->setAutoDelete (false);
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -239,8 +319,7 @@ Wire::~Wire()
 	{
 		delConnector(conn);
 	}
-	if (m_wireProperty)
-		delete m_wireProperty;
+	delete m_wireProperty;
 }
 
 void Wire::addConnector(ConnectorBase * conn)
@@ -296,7 +375,7 @@ void Wire::save(KSimData & file) const
 	baseGroup = file.group();
 	
 	// Save connections
-	file.setGroup(baseGroup + "Connections/");
+	file.setGroup(baseGroup + QString::fromLatin1("Connections/"));
 	file.writeEntry("Number", getConnList()->count());
 	connGroup = file.group();
 	for (unsigned int i=0; i < getConnList()->count(); i++)
@@ -314,7 +393,7 @@ void Wire::save(KSimData & file) const
 	if(m_wireProperty)
 	{
 		
-		file.setGroup(baseGroup + "Property/");
+		file.setGroup(baseGroup + QString::fromLatin1("Property/"));
 		file.writeEntry("Type", m_wireProperty->getInfo()->getLibName());
 		
 		m_wireProperty->save(file);
@@ -342,15 +421,15 @@ bool Wire::load(KSimData & file, bool copyLoad)
 	QString connGroup;
 	QString dir;
 
-#define LOAD_DEBUG	
+//#define LOAD_DEBUG	
 	
 	
 	ok = Component::load(file, copyLoad);
-    	
-    baseGroup = file.group();
-
+	
+	baseGroup = file.group();
+	
 	// Load connections
-	file.setGroup(baseGroup + "Connections/");
+	file.setGroup(baseGroup + QString::fromLatin1("Connections/"));
 	count = file.readUnsignedNumEntry("Number", 0);
 	connGroup = file.group();
 	for (unsigned int i=0; i < count; i++)
@@ -361,7 +440,7 @@ bool Wire::load(KSimData & file, bool copyLoad)
 		compNo = file.readUnsignedNumEntry("Component", 0);
 		ASSERT (compNo != 0);
 		
-		connName = file.readEntry("Connector", 0);
+		connName = file.readEntry("Connector", QString::null);
 
 		// Search component
 		found = false;
@@ -395,7 +474,7 @@ bool Wire::load(KSimData & file, bool copyLoad)
 	}		
 		
 	// (re)load wire property
-	file.setGroup(baseGroup + "Property/");
+	file.setGroup(baseGroup + QString::fromLatin1("Property/"));
 		
 	WireProperty * newWireProperty;
 	QString type = file.readEntry("Type");
@@ -409,7 +488,7 @@ bool Wire::load(KSimData & file, bool copyLoad)
 	else
 	{
 		KSIMDEBUG_VAR("Create WireProperty failed", type);
-		const WirePropertyInfo * info = findWireProperty(getConnList());
+		const WirePropertyInfo * info = findWirePropertyInfo(getConnList());
 		if (info)
 		{
 			newWireProperty = info->create(this);
@@ -436,7 +515,7 @@ bool Wire::load(KSimData & file, bool copyLoad)
 /** Find the suitable wire property class for the given connectors
 *   Returns a null pointer, if no suitable wire property class is found
 */
-const WirePropertyInfo * Wire::findWireProperty(const ConnectorList * list)
+const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 {
 	const char * outputType = 0;
 	const WirePropertyInfo * wirePropInfo = 0;
@@ -499,7 +578,7 @@ const WirePropertyInfo * Wire::findWireProperty(const ConnectorList * list)
 	if (outputType && !searchFailed)
 	{
 		// Output found
-		wirePropInfo = g_library->getWirePropertyLib()->findDataType(outputType);
+		wirePropInfo = g_library->getWirePropertyLib()->findDataType(QString::fromLatin1(outputType));
 		
 		if (!wirePropInfo)
 		{
@@ -511,19 +590,19 @@ const WirePropertyInfo * Wire::findWireProperty(const ConnectorList * list)
 	
 
 /** Wrapper function for const WirePropertyInfo * Wire::findWireProperty(const ConnectorList * list) */
-const WirePropertyInfo * Wire::findWireProperty(const ConnectorBase * start, const ConnectorBase * end)
+const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorBase * start, const ConnectorBase * end)
 {
-	// both connectors not wired
 	if ((start->getWire() == 0) && (end->getWire() == 0))
 	{
+		// Both connectors not wired
 		ConnectorList list;
 		list.append(start);
 		list.append(end);
-		return Wire::findWireProperty(&list);
+		return Wire::findWirePropertyInfo(&list);
 	}
-	// Both connectors are wired
 	else if ((start->getWire() != 0) && (end->getWire() != 0))
 	{
+		// Both connectors are wired
 		if (start->getWire()->getConnList()->count() < end->getWire()->getConnList()->count())
 		{
 			// swap start and end
@@ -537,21 +616,21 @@ const WirePropertyInfo * Wire::findWireProperty(const ConnectorBase * start, con
 		{
 			list.append(it.current());
 		}
-		return Wire::findWireProperty(&list);
+		return Wire::findWirePropertyInfo(&list);
 	}
-	// Only "start" connector wired
 	else if ((start->getWire() != 0) && (end->getWire() == 0))
 	{
+		// Only "start" connector wired
 		ConnectorList list(*start->getWire()->getConnList());
 		list.append(end);
-		return Wire::findWireProperty(&list);
+		return Wire::findWirePropertyInfo(&list);
 	}
-	// Only "end" connector wired
 	else if ((start->getWire() == 0) && (end->getWire() != 0))
 	{
+		// Only "end" connector wired
 		ConnectorList list(*end->getWire()->getConnList());
 		list.append(start);
-		return Wire::findWireProperty(&list);
+		return Wire::findWirePropertyInfo(&list);
 	}
 	else
 	{
@@ -560,28 +639,8 @@ const WirePropertyInfo * Wire::findWireProperty(const ConnectorBase * start, con
 	}
 }
 
-/** Returns a pointer to the current data */	
-const void * Wire::getCurrentData()
-{
-	if(m_dataCache)
-	{
-		// Data is cached
-		return m_dataCache;
-	}
-		
-	if(m_wireProperty)
-	{
-		m_dataCache = m_wireProperty->getCurrentData();
-		return m_dataCache;
-	}
-	
-	// Failed !!
-	KSIMDEBUG_VAR("Wire has no wire property", getName());
-	return 0;
-}
-
-/** Set a new wire property */
-void Wire::setProperty(const WirePropertyInfo * wirePropInfo)
+/** Set a new wire property info. */
+void Wire::setPropertyInfo(const WirePropertyInfo * wirePropInfo)
 {
 	if (!m_wireProperty)
 	{
@@ -599,10 +658,16 @@ void Wire::setProperty(const WirePropertyInfo * wirePropInfo)
 }
 		
 
-/** Returns the current wire property */
-const WirePropertyInfo * Wire::getProperty() const
+/** Returns the current wire property info. */
+const WirePropertyInfo * Wire::getPropertyInfo() const
 {
 	return m_wireProperty->getInfo();
+}
+
+/** Returns the current wire property. */
+WireProperty * Wire::getWireProperty()
+{
+	return m_wireProperty;
 }
 
 /** Checks the component
@@ -622,14 +687,20 @@ int Wire::checkCircuit()
 		QString msg;
 		logError(i18n("INTERNAL ERROR *** Wire has no property ***"));
 		return 1;
-	}		
+	}
 }
 
-/** Shift the result of calculation to output
-*		The implementaion clears the data cache */
-void Wire::updateOutput()
+void Wire::checkProperty(QStringList & /*errorMsg*/)
 {
-	m_dataCache = 0;
+	// Check nothing
+}
+
+void Wire::setupCircuit()
+{
+	if (m_wireProperty)
+	{
+		m_wireProperty->setupCircuit();
+	}
 }
 
 /** Reset all simulation variables
@@ -637,5 +708,4 @@ void Wire::updateOutput()
 void Wire::reset()
 {
 	Component::reset();
-	m_dataCache = 0;
 }

@@ -31,7 +31,7 @@ ModuleInfo::ModuleInfo(			const QString & moduleFile,
 														const QString & shortDescr,
 														const QString & HTMLDescr,
 														const QString & oldLibNames)
-	: ComponentInfo(name, libName, additionalLibNames, viewAttr, moduleInfoFactory,
+	: ComponentInfo(name, libName, libName, additionalLibNames, viewAttr, moduleInfoFactory,
 									shortDescr, HTMLDescr, oldLibNames),
 		m_moduleFile(moduleFile)
 {
@@ -53,7 +53,7 @@ static Component * moduleInfoFactory(CompContainer * container, const ComponentI
 	Module * module;
 	ModuleInfo * mi = (ModuleInfo*) ci;
 	
-	module = (Module*)ModuleBaseInfo.createComponent(container);
+	module = (Module*)getModuleBaseInfo()->createComponent(container);
 	module->setModuleFile(mi->getModuleFile());
 	
 	return module;

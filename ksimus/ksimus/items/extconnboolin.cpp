@@ -23,40 +23,75 @@
 #include "connectorboolin.h"
 #include "connectorboolout.h"
 #include "componentinfo.h"
+#include "wireproperty.h"
+
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ExtConnBoolIn(container, ci);
 }
 
-const ComponentInfo ExtConnBoolInInfo (	I18N_NOOP("External Connector Boolean Input"),
-																				I18N_NOOP("External Connector/Bool Input"),
-																				QString::null,
-																				VA_SHEETVIEW,
-																				create,
-											                  QString::null,
-											                  "component-ext-conn-bool-in");
+const ComponentInfo * getExtConnBoolInInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "External Connector Boolean Input"),
+	                                QString::fromLatin1("External Connector/Bool Input"),
+	                                i18n("Component", "External Connector/Bool Input"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-ext-conn-bool-in"));
+	
+	return &Info;
+}
 
 //###############################################################
 
 ExtConnBoolIn::ExtConnBoolIn(CompContainer * container, const ComponentInfo * ci)
-	: ExternalConnector(container, ci)
+	: ExternalConnector(container, ci, true)
 {
-	input = true;
+	ConnectorBoolOut * out;
+	ConnectorBoolIn * in;
 	
-	out = new ConnectorBoolOut(this, I18N_NOOP("Output"), QPoint(4,1));
+	out = new ConnectorBoolOut(this,
+	                           QString::fromLatin1("Output"),
+	                           i18n("Connector", "Output"),
+	                           QPoint(4,1));
 	CHECK_PTR(out);
-	in = new ConnectorBoolIn(this, I18N_NOOP("Input"), QPoint(0,1));
-	CHECK_PTR(in);
+	setInternalConn(out);
 	
+	in = new ConnectorBoolIn(this,
+	                         QString::fromLatin1("Input"),
+	                         i18n("Connector", "Input"),
+	                         QPoint(0,1));
+	CHECK_PTR(in);
+	setExternalConn(in);
 }
+
 ExtConnBoolIn::~ExtConnBoolIn()
 {
 }
 
-/** Shift the result of calculation to output */
-void ExtConnBoolIn::updateOutput()
+void ExtConnBoolIn::calculate()
 {
-	ExternalConnector::updateOutput();
-	out->setOutput(in->getInput());
+	ConnectorBoolOut * out = (ConnectorBoolOut *)getInternalConn();
+	ConnectorBoolIn * in = (ConnectorBoolIn *)getExternalConn();
+	
+	// Protect against infinite recursion
+	if (!isRecursionLocked())
+	{
+		setRecursionLocked(true);
+		//ExternalConnector::calculate();
+	
+		out->setOutput(in->getInput(), false);
+		if (out->getWireProperty())
+		{
+			out->getWireProperty()->execute();
+		}
+		setRecursionLocked(false);
+	}
+	else
+	{
+		out->setOutput(in->getInput());
+	}
 }

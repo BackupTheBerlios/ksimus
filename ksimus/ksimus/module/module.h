@@ -34,7 +34,7 @@ class KSimWidgetList;
   *@author Rasmus Diekenbrock
   */
 
-extern const ComponentInfo ModuleBaseInfo;
+const ComponentInfo * getModuleBaseInfo();
 
 //###############################################################
 
@@ -90,10 +90,10 @@ public:
 	*	Returns the number of errors
 	*/
 	virtual int checkCircuit();
-	/** Executes the simulation of this component */
-	virtual void calculate();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
+	/** Setup the Component for a new circuit execution.
+	  * Calls the default implementation and the setup function of all containing components.
+	  */
+	virtual void setupCircuit();
 	/** Reset all simulation variables */
 	virtual void reset();
 	/** Set the module file and load it */
@@ -107,16 +107,25 @@ public:
 	
 	/** reloads the module and recreates the view */
 	void reloadModule();
+	
+	/** Check if this module file is already a part of the schematic.
+	  * Returns true, if a parent or any module above this module has the same name.
+	  */
+	bool checkRecursion() const;
 
-  /** Setup the component lists for calculation, updateOutput, updateView.
-  	* Call during simulation start. */
-  void setupSimulationList();
+	/** Setup the component lists for calculation, updateView.
+		* Call during simulation start. */
+	void setupSimulationList();
 
 	/** Returns the component container of this module. */
 	CompContainer * getModuleContainer() { return m_moduleContainer; };
 
 	/** Returns the component container of this module. */
 	const CompContainer * getModuleContainer() const { return m_moduleContainer; };
+
+	/** Searches the external connector which is represented by the given connector.
+	  * Returns 0 if no external connector will be found. */
+	ExternalConnector * searchExtConn(const ConnectorBase * conn) const;
 
 protected:
 	CompContainer * m_moduleContainer;

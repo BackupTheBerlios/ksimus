@@ -42,6 +42,9 @@
 #include "library.h"
 #include "componentlibrary.h"
 #include "packageinfo.h"
+#include "simulationexecute.h"
+#include "module.h"
+#include "propertywidget.h"
 
 
 
@@ -53,35 +56,54 @@ const char * Component::sType = "Type";
 const char * Component::sName = "Name";
 
 
+//#######################################################################
+//#######################################################################
+
+class Component::Private
+{
+public:
+	Private()
+	{
+		flags.zeroDelay = 0;
+	};
+	
+	struct
+	{
+		unsigned int zeroDelay :1;
+	} flags;
+};
+
+
+//#######################################################################
+//#######################################################################
+
+
 Component::Component(CompContainer * container, const ComponentInfo * ci)
 	: QObject(0, ci->getName()),
 	  m_sheetView(0),
 	  m_userView(0),
 	  m_container(container),
-	  m_name(i18n(ci->getName().latin1())),
+	  m_name(),
 	  m_serialNumber(0),
 	  m_info(ci),
-	  m_isWire(false),
-	  m_isModule(false),
-	  m_isExtConn(false),
-	  m_isGroup(false),
+	  m_componentType(ci->getViewAttr() & VA_USERVIEW ? eGuiComponent : eComponent),
 	  m_addonList(0),
 	  m_myActions(KSimAction::ALL)		//Default
 {
 	m_connList = new ConnectorList;
+	CHECK_PTR(m_connList);
 	m_connList->setAutoDelete(true);
+	m_p = new Private();
+	CHECK_PTR(m_p);
 }
 	
 Component::~Component()
 {
-	if (m_addonList)
-		delete m_addonList;
-	if (m_connList)
-		delete m_connList;
-	if (m_sheetView)
-		delete m_sheetView;
-	if (m_userView)
-		delete m_userView;
+	delete m_addonList;
+	delete m_connList;
+	delete m_sheetView;
+	delete m_userView;
+	delete m_p;
 }
 
 /** Returns the name of the component.
@@ -120,11 +142,15 @@ Component * Component::getTopLevelComponent()
 
 	
 /** Returns the component type */
-const char * Component::getType() const
+const QString & Component::getType() const
 {
 	return getInfo()->getLibName();
 }	
 
+bool Component::isProperReloadType(const QString & type) const
+{
+	return (type == getType());
+}
 
 /** Add a connector to the connector list and set the serial ID of the connector (if required). */
 void Component::addConnector(ConnectorBase * conn)
@@ -142,7 +168,7 @@ void Component::save(KSimData & file) const
 	
 	file.writeEntry(sType, getType());
 	
-	if (getName() != i18n(getInfo()->getName().latin1()))
+	if (!m_name.isEmpty())
 	{
 		file.writeEntry(sName, getName());
 	}
@@ -202,8 +228,16 @@ bool Component::load(KSimData & file, bool)
 	QString group;
 	bool ok = true;
 	
-	setName(file.readEntry(sName, i18n(getInfo()->getName().latin1())));
-	setSerialNumber(file.readUnsignedNumEntry(sSerialNumber, getSerialNumber()));
+	if (file.hasKey(sName))
+	{
+		setName(file.readEntry(sName, m_name));
+	}
+	else
+	{
+		setName(QString::null);
+	}
+//	Set in compContainer !!!
+//	setSerialNumber(file.readUnsignedNumEntry(sSerialNumber, getSerialNumber()));
 	
 	group = file.group();
 	
@@ -252,28 +286,54 @@ bool Component::load(KSimData & file, bool)
 	return ok;
 }
 	
+
+Component::eComponentType Component::getComponentType() const
+{
+	return m_componentType;
+}
+
+void Component::setComponentType(Component::eComponentType newType)
+{
+	m_componentType = newType;
+}
+
 /** Returns true, if component is a wire  */
 bool Component::isWire() const
 {
-	return m_isWire;
+	return (getComponentType() == eWire);
 }
 
 /** Returns true, if component is a module  */
 bool Component::isModule() const
 {
-	return m_isModule;
+	return (getComponentType() == eModule);
 }
 
 /** Returns true, if component is an external connector  */
 bool Component::isExtConn() const
 {
-	return m_isExtConn;
+	return (getComponentType() == eExternalConnector);
 }
 
 /** Returns true, if component is a group container  */
 bool Component::isGroup() const
 {
-	return m_isGroup;
+	return (getComponentType() == eGroup);
+}
+
+/** Returns true, if component is a GUI component.  */
+bool Component::isGuiComp() const
+{
+	return (getComponentType() == eGuiComponent);
+}
+
+void Component::setZeroDelayComponent(bool zeroDelay)
+{
+	m_p->flags.zeroDelay = zeroDelay;
+}
+bool Component::isZeroDelayComponent() const
+{
+	return m_p->flags.zeroDelay;
 }
 
 /** Returns true, if simulation is running. */
@@ -285,17 +345,35 @@ bool Component::isRunning() const
 /** Reset all simulation variables */
 void Component::reset()
 {
-	FOR_EACH_CONNECTOR(it,*getConnList())
+	if (!isWire())
 	{
-		if (it.current()->getAction().isResetEnabled())
+		FOR_EACH_CONNECTOR(it,*getConnList())
 		{
-			it.current()->reset();
+			if (it.current()->getAction().isResetEnabled())
+			{
+				it.current()->reset();
+			}
 		}
 	}
 	if(m_addonList)
 	{
 		m_addonList->reset();
 	}
+}
+
+void Component::executeNext()
+{
+	getDoc()->getExecute().executeComponentNext(this);
+}
+
+void Component::executeAt(unsigned int timerNo, const KSimTime & time)
+{
+	getDoc()->getExecute().executeComponentAt(this, timerNo, time);
+}
+
+void Component::executeAfter(unsigned int timerNo, const KSimTime & diffTime)
+{
+	getDoc()->getExecute().executeComponentAfter(this, timerNo, diffTime);
 }
 
 int Component::checkCircuit()
@@ -317,17 +395,30 @@ int Component::checkCircuit()
 	return errors;
 }
 
+void Component::setupCircuit()
+{
+	FOR_EACH_CONNECTOR(it,*getConnList())
+	{
+		it.current()->setupCircuit();
+	}
+	if(m_addonList)
+	{
+		m_addonList->setupCircuit();
+	}
+}
+
 void Component::checkProperty(QStringList & errorMsg)
 {
 	unsigned int i,j;
 	// Check unique connector names
-  for(i=0; i < getConnList()->count(); i++)
-  {
-	  for(j=i+1; j < getConnList()->count(); j++)
-  	{
-			if (getConnList()->at(i)->getName() == getConnList()->at(j)->getName())
+	for(i=0; i < getConnList()->count(); i++)
+	{
+		QString connName(getConnList()->at(i)->getName());
+		for(j=i+1; j < getConnList()->count(); j++)
+		{
+			if (connName == getConnList()->at(j)->getName())
 			{
-				errorMsg.append(i18n("Connector names must be unique (%1).").arg(getConnList()->at(j)->getName()));
+				errorMsg.append(i18n("Connector names must be unique (%1).").arg(connName));
 			}
 		}
 	}
@@ -356,7 +447,7 @@ unsigned int Component::executePropertyCheck()
 	{	
 		// Error detected
 		QString errText(i18n("Property Errors"));
-		errText += ":\n\n" + errMsg.join("\n");
+		errText += ":\n\n" + errMsg.join(QString::fromLatin1("\n"));
 		
 		logError(errText);
 
@@ -380,16 +471,6 @@ void Component::calculate()
 	}
 }
 
-/** Shift the result of calculation to output */
-void Component::updateOutput()
-{
-	if(m_addonList)
-	{
-		m_addonList->updateOutput();
-	}
-}
-
-
 void Component::setContainer(CompContainer * parent)
 {
 	m_container = parent;
@@ -401,11 +482,44 @@ void Component::setContainer(CompContainer * parent)
 		getUserView()->setComponentMap(getUserMap());*/
 }
 
+QString Component::getName() const
+{
+	if (m_name.isEmpty())
+	{
+		//return getInfo()->getName();
+		return getDefaultName();
+	}
+	return m_name;
+};
+
 void Component::setName(const QString & newName)
 {
-	m_name = newName.simplifyWhiteSpace();
-	emit signalSetName(m_name);
+	if (newName == m_name) return;
+	
+	if (newName == getDefaultName())
+	{
+		m_name = QString::null;
+	}
+	else
+	{
+		m_name = newName.simplifyWhiteSpace();
+	}
+	emit signalSetName(getName());
 };
+
+QString Component::getDefaultName() const
+{
+	return QString::fromLatin1("%1 %2")
+	                           .arg(getInfo()->getName())
+	                           .arg(getSerialNumber());
+};
+
+bool Component::hasDefaultName() const
+{
+	return m_name.isEmpty();
+}
+
+
 
 /** Returns the related document */
 KSimusDoc * Component::getDoc() const
@@ -414,10 +528,33 @@ KSimusDoc * Component::getDoc() const
 }
 	
 
+/** Returns the module depth. This means how many modules are 'between' this
+  * component and the top level document.
+  * Returns 0 if the component is not a member of  module.*/
+unsigned int Component::getModuleDepth() const
+{
+	unsigned int u = 0;
+	const CompContainer * container = getContainer();
+	while (container->isParentComponent())
+	{
+		const Module * module = (const Module *)container->getParentComponent();
+		container = module->getModuleContainer();
+		u ++;
+	};
+	return u;
+}
+
+
 /** Returns the log window */
 LogList * Component::getLogList() const
 {
 	return getContainer()->getLogList();
+}
+
+/** Returns a pointer to the watch widget */	
+WatchWidget * Component::getWatchWidget() const
+{
+	return getContainer()->getWatchWidget();
 }
 
 const KSimTimeServer & Component::getTimeServer() const
@@ -518,7 +655,7 @@ KInstance * Component::getInstance() const
 
 static void addLog(Component * comp, unsigned int priority, const QString & msg)
 {
-	QString str = comp->requestTopLevelName() + " - " + msg;
+	QString str = comp->requestTopLevelName() + QString::fromLatin1(" - ") + msg;
 	LLICompSel * lli;
 	if(comp->isWire() && comp->getContainer()->isParentDoc())
 	{
@@ -585,10 +722,10 @@ void Component::initPropertyDialog(ComponentPropertyDialog * dialog)
 	This function is called by initPropertyDialog()*/
 void Component::addGeneralProperty(ComponentPropertyDialog * dialog)
 {
-	QVBox * page;
-	ComponentPropertyBaseWidget * wid;
-	page = dialog->addVBoxPage(i18n("General"));
-	wid = createGeneralProperty(this, page);
+	static const QString i18nTitel(i18n("Component property dialog", "General"));
+	
+	QVBox * page = dialog->addVBoxPage(i18nTitel);
+	ComponentPropertyBaseWidget * wid = createGeneralProperty(page);
 	dialog->connectSlots(wid);
 }
 
@@ -596,9 +733,9 @@ void Component::addGeneralProperty(ComponentPropertyDialog * dialog)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * Component::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * Component::createGeneralProperty(QWidget *parent)
 {
-	ComponentPropertyBaseWidget * wid = new ComponentPropertyGeneralWidget(comp, parent, "General Settings");
+	ComponentPropertyBaseWidget * wid = new ComponentPropertyGeneralWidget(this, parent, "General Settings");
 	CHECK_PTR(wid);
 	return wid;
 }
@@ -607,12 +744,14 @@ ComponentPropertyBaseWidget * Component::createGeneralProperty(Component * comp,
 	This function is called by initPropertyDialog()*/
 void Component::addConnectorProperty(ComponentPropertyDialog * dialog)
 {
+	static const QString i18nTitel(i18n("Component property dialog", "Connectors"));
+	
 	if (getConnList()->count())
 	{
 		QStringList nameList;
 		QStringList strList;
-		strList.append(i18n("Connectors"));
-		strList.append("");
+		strList.append(i18nTitel);
+		strList.append(QString::fromLatin1(""));
 		unsigned int i,j,c;
 		
 		FOR_EACH_CONNECTOR(it, *getConnList())
@@ -630,19 +769,17 @@ void Component::addConnectorProperty(ComponentPropertyDialog * dialog)
 					if (nameList[i] == nameList[j])
 					{
 						c++;
-						nameList[j] = nameList[j]+ QString("[%1]").arg(c);
+						nameList[j] = nameList[j]+ QString::fromLatin1("[%1]").arg(c);
 					}
 				}
 				if (c != 1)
 				{
 					nameList[i] = nameList[i]+ "[1]";
 				}
-	
+				
 				strList[1] = nameList[i];
-				QVBox * page;
-				QWidget * wid;
-				page = dialog->addVBoxPage(strList);
-				wid = getConnList()->at(i)->propertyWidget(page);
+				QVBox * page = dialog->addVBoxPage(strList);
+				PropertyWidget * wid = getConnList()->at(i)->propertyWidget(page);
 				dialog->connectSlots(wid);
 			}
 		}
@@ -653,20 +790,21 @@ void Component::addConnectorProperty(ComponentPropertyDialog * dialog)
 	This function is called by initPropertyDialog()*/
 void Component::addInfoProperty(ComponentPropertyDialog * dialog)
 {
-	QVBox * page;
-	ComponentPropertyBaseWidget * wid;
-	page = dialog->addVBoxPage(i18n("Information"));
-	wid = createInfoProperty(this, page);
+	static const QString i18nTitel(i18n("Component property dialog", "Information"));
+	
+	QVBox * page = dialog->addVBoxPage(i18nTitel);
+	ComponentPropertyBaseWidget * wid = createInfoProperty(page);
 	dialog->connectSlots(wid);
 }
 	
-ComponentPropertyBaseWidget * Component::createInfoProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * Component::createInfoProperty(QWidget *parent)
 {
-	ComponentPropertyBaseWidget * wid = new ComponentPropertyInfoWidget(comp, parent, "Information");
+	ComponentPropertyBaseWidget * wid = new ComponentPropertyInfoWidget(this, parent, "Information");
 	CHECK_PTR(wid);
 	return wid;
 }
-		
+
+
 //##########################################################
 // Component Popup
 
@@ -695,4 +833,56 @@ bool Component::initPopupMenu(QPopupMenu * popup)
 	return insertSep;
 }
 
+//##########################################################
+// Component List
+
+void ComponentList::insertComponent(Component * comp)
+{
+	Component::eComponentType type = comp->getComponentType();
+//	static unsigned int max = 0;
+	unsigned int step = count() / 2;
+	unsigned int i = step;
+//	unsigned int cnt = 0, sum = 0;
+	
+//	KSIMDEBUG(QString::fromLatin1("#### %1  step=%2").arg(count()).arg(step));
+	
+	// Step fast to the position
+	while(step >= 2)
+	{
+		step /= 2;
+		if (type < at(i)->getComponentType())
+		{
+			i -= step;
+		}
+		else
+		{
+			i += step;
+		}
+//		cnt++;
+	}
+//	sum += cnt;
+//	KSIMDEBUG(QString::fromLatin1("Step while %1  i=%2").arg(cnt).arg(i));
+//	cnt = 0;
+	
+	while((i > 0) && (type < at(i)->getComponentType()))
+	{
+		i --;
+//		cnt ++;
+	}
+//	sum += cnt;
+//	KSIMDEBUG(QString::fromLatin1("Back while %1  i=%2").arg(cnt).arg(i));
+//	cnt = 0;
+	
+	while((i < count()) && !(type < at(i)->getComponentType()))
+	{
+		i ++;
+//		cnt ++;
+	}
+//	sum += cnt;
+//	if (max<sum) max=sum;
+//	KSIMDEBUG(QString::fromLatin1("Forward while %1  i=%2").arg(cnt).arg(i));
+//	KSIMDEBUG(QString::fromLatin1("Summe %1  max=%2").arg(sum).arg(max));
+	
+	insert(i,comp);
+}
 

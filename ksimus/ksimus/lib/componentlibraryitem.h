@@ -35,14 +35,15 @@ public:
 	const ComponentInfo * getComponentInfo() const;
 	ViewAttribute getViewAttr() const;
 	
-	QStringList * getAdditionalLibNames() const;
+	const QString & getI18nLibName() const;
+	QStringList * getAdditionalI18nLibNames() const;
 	/** Returns true, if name is a old library name */
 	bool isAdditionalLibName(const QString & name) const;
 	
 	bool isAddToMenu() const;
 
 protected:
-	QStringList * m_additionalLibNames;
+	QStringList * m_additionalI18nLibNames;
 	bool m_addToMenu;
 
 };

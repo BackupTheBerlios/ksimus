@@ -29,7 +29,6 @@
 #include "componentstyle.h"
 
 // Forward declaration
-class QVBox;
 class QVGroupBox;
 class QCheckBox;
 class KColorButton;
@@ -56,11 +55,6 @@ public:
 	 */
 	virtual void defaultPressed();
 
-	/** Returns the widget which is used as layout for this dialog widget.
-	  * Add additional items to this widget.
-	  */
-	QVBox * getVBox() const { return m_vBox; };
-
 	/** Returns the widget which is used as layout for the color properties.
 	  * Add additional color items to this widget.
 	  */
@@ -84,7 +78,6 @@ protected slots:
 
 
 protected:
-	QVBox * m_vBox;
 	
 	QVGroupBox * m_colorGroup;
 	QCheckBox * m_defaultColors;

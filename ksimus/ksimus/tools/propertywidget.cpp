@@ -22,15 +22,18 @@
 #include <qwhatsthis.h>
 
 // KDE-Includes
+#include <kdialog.h>
 
 // Project-Includes
 #include "propertywidget.h"
 
 // Forward declaration
 
-PropertyWidget::PropertyWidget(QWidget *parent, const char *name )
-	:	QWidget(parent,name)
+PropertyWidget::PropertyWidget(int cols, QWidget *parent, const char *name, WFlags f)
+	:	RowLayoutWidget(cols, parent, name, f)
 {
+	setMargin(KDialog::marginHint());
+	setSpacing(KDialog::spacingHint());
 }
 
 PropertyWidget::~PropertyWidget()
@@ -51,21 +54,34 @@ void PropertyWidget::cancelPressed()
 }
 
 
-
-
 void PropertyWidget::slotAccept()
 {
+	// generate a focus out event for the child windows
+	if (!hasFocus())
+		setFocus();
+		
 	acceptPressed();
+	emit signalAccept();
 }
 
 void PropertyWidget::slotDefault()
 {
+	// generate a focus out event for the child windows
+	if (!hasFocus())
+		setFocus();
+		
 	defaultPressed();
+	emit signalDefault();
 }
 	
 void PropertyWidget::slotCancel()
 {
+	// generate a focus out event for the child windows
+	if (!hasFocus())
+		setFocus();
+		
 	cancelPressed();
+	emit signalCancel();
 }
 
 void PropertyWidget::changeData()

@@ -1,10 +1,9 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
+noinst_LIBRARIES = liblib.a
 
-INCLUDES = $(all_includes)
+## INCLUDES were found outside kdevelop specific part
 
 liblib_a_METASOURCES = AUTO
-
-noinst_LIBRARIES = liblib.a
 
 liblib_a_SOURCES = packageinfo.cpp ksimpackage.cpp moduleinfo.cpp wirepropertylibraryitem.cpp wirepropertylibrary.cpp wirepropertyinfo.cpp connectorlibraryitem.cpp connectorlibrary.cpp connectorinfo.cpp componentpopupmenu.cpp componentlistviewitem.cpp componentlistview.cpp componentlibraryitem.cpp componentlibrary.cpp componentinfo.cpp componentdirectory.cpp baselibraryitem.cpp baselibrary.cpp baseinfo.cpp 
 

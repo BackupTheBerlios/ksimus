@@ -23,14 +23,14 @@ ComponentLibraryItem::ComponentLibraryItem(const ComponentInfo * ci, const Packa
 	:	BaseLibraryItem(ci, packageInfo),
 	  m_addToMenu(addToMenu)
 {
-	if (!ci->getAdditionalLibNames().isEmpty())
+	if (!ci->getAdditionalI18nLibNames().isEmpty())
 	{
-		m_additionalLibNames = new QStringList(QStringList::split(';', ci->getAdditionalLibNames()));
-		CHECK_PTR(m_additionalLibNames);
+		m_additionalI18nLibNames = new QStringList(QStringList::split(';', ci->getAdditionalI18nLibNames()));
+		CHECK_PTR(m_additionalI18nLibNames);
 	}
 	else
 	{
-		m_additionalLibNames = 0;
+		m_additionalI18nLibNames = 0;
 	}
 }
 
@@ -38,9 +38,14 @@ ComponentLibraryItem::~ComponentLibraryItem()
 {
 }
 
-QStringList * ComponentLibraryItem::getAdditionalLibNames() const
+const QString & ComponentLibraryItem::getI18nLibName() const
 {
-	return m_additionalLibNames;
+	return getComponentInfo()->getI18nLibName();
+}
+
+QStringList * ComponentLibraryItem::getAdditionalI18nLibNames() const
+{
+	return m_additionalI18nLibNames;
 }
 	
 /** Returns true, if name is a additional library name */
@@ -48,9 +53,9 @@ bool ComponentLibraryItem::isAdditionalLibName(const QString & name) const
 {
 	bool found = false;
 	
-	if (m_additionalLibNames)
+	if (m_additionalI18nLibNames)
 	{
-		for (QStringList::Iterator it = m_additionalLibNames->begin(); it != m_additionalLibNames->end(); ++it)
+		for (QStringList::Iterator it = m_additionalI18nLibNames->begin(); it != m_additionalI18nLibNames->end(); ++it)
 		{
 			if (name == *it)
 			{

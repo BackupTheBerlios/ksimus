@@ -34,7 +34,7 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const WirePropertyInfo wirePropertyFloatingPointInfo;
+const WirePropertyInfo * getPropertyFloatingPointInfo();
 
 class WirePropertyFloatingPoint : public WirePropertySingleOutput
 {
@@ -45,14 +45,14 @@ public:
 	WirePropertyFloatingPoint(Wire * wire);
 	virtual ~WirePropertyFloatingPoint();
 
-	/** Returns a pointer to the current data */	
-	virtual const void * getCurrentData() const;
-	
-	// Setup the colors, brushs, and fills for the connector
-	virtual void setupColorScheme (QPainter * p) const;
+	/** Get the colors for the wire property. */
+	virtual const WireColorScheme & getColorScheme() const;
 
 
-	static void colorScheme(QPainter * p);
+	static const WireColorScheme & colorScheme();
+
+	/** Returns a @ref WatchItemFloatingPointWireProperty object. */
+	virtual WatchItemBase * makeWatchItem();
 
 };
 

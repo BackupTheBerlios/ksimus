@@ -328,7 +328,7 @@ void CompLayoutBase::addLayout(CompLayoutBase * layout)
 	{
 		layout->setOrientation(getOrientation());
 		
-		getBaseLayout()->logError("CompLayoutBase::addLayout Orientation missmatch!");
+		getBaseLayout()->logError(QString::fromLatin1("CompLayoutBase::addLayout Orientation missmatch!"));
 	}
 	
 	getItemList()->append(layout);
@@ -453,7 +453,7 @@ void CompLayoutBase::addPosition(QPoint & pos, unsigned int add)
 
 
 ComponentLayout::ComponentLayout(CompView * sheetView)
-	:	ComponentAddOn(sheetView->getComponent(), QString("Component Layout")),
+	:	ComponentAddOn(sheetView->getComponent(), QString::fromLatin1("Component Layout")),
 		m_sheetView(sheetView),
 		m_minSize(QSize(5,5)),
 		m_currentSize(QSize()),
@@ -464,13 +464,13 @@ ComponentLayout::ComponentLayout(CompView * sheetView)
 		// Should only useful during development!
 		if (sheetView == 0)
 		{
-			KSIMDEBUG(QString("Add a layout to a compView == NULL"));
+			KSIMDEBUG(QString::fromLatin1("Add a layout to a compView == NULL"));
 			ASSERT(sheetView != 0);
 		}
 	
 		if (sheetView->getViewType() != SHEET_VIEW)
 		{
-			KSIMDEBUG(QString("Add a layout to a compView which is not a SHEET_VIEW! (Component %1)").arg(sheetView->getComponent()->getName()));
+			KSIMDEBUG(QString::fromLatin1("Add a layout to a compView which is not a SHEET_VIEW! (Component %1)").arg(sheetView->getComponent()->getName()));
 		}
 	#endif // DEBUG
 	

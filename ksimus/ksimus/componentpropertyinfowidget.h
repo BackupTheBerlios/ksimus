@@ -42,13 +42,7 @@ public:
 	ComponentPropertyInfoWidget(Component * comp, QWidget *parent=0, const char *name=0);
 	~ComponentPropertyInfoWidget();
 
-	/** Returns the grid which is used as layout for this dialog widget. The gris has two columns. Add
-	  * The additional items to this layout.
-	  */
-	QGrid * getGrid() const { return m_grid; };
-
 protected:
-	QGrid * m_grid;
 
 };
 

@@ -80,7 +80,7 @@ private:
 class ComponentControlBlock : public ComponentBlockLayout
 {
 public:
-	ComponentControlBlock(CompView * sheetView, ComponentLayout * compLayout, QString blockName = QString("Control Block"));
+	ComponentControlBlock(CompView * sheetView, ComponentLayout * compLayout, QString blockName = QString::fromLatin1("Control Block"));
 	~ComponentControlBlock();
 
 	/** Draws a control block and a text.

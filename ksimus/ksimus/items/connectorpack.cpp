@@ -46,22 +46,25 @@ static const char * sConn           = "Conn%1/";
 
 
 
-ConnectorPack::ConnectorPack(Component * comp, const QString & name, const ConnectorInfo * connInfo,
-                              unsigned int minConn = 1, unsigned int maxConn = 10)
+ConnectorPack::ConnectorPack(Component * comp,
+	                           const QString & name,
+	                           const QString & i18nConnName,
+	                           const ConnectorInfo * connInfo,
+	                           unsigned int minConn, unsigned int maxConn)
 	:	ComponentAddOn(comp, name),
 		m_name(name),
+		m_i18nConnName(i18nConnName),
 		m_connInfo(connInfo),
 		m_minConn(minConn),
 		m_maxConn(maxConn),
-		m_connName(),
+		m_storeName(name),
 		m_orientation(CO_LEFT),
 		m_flags(USE_LETTER | DELETE_LAST_ONLY)
 {
 	m_connList = new ConnectorList();
 	CHECK_PTR(m_connList);
 //	m_connList->setAutoDelete(true);   ConnectorList of the Component deletes it
-	getAction().disable(KSimAction::ALL);
-	getAction().enable(KSimAction::eAction(KSimAction::STORAGE | KSimAction::INITPOPUPMENU));
+	getAction().setAction(KSimAction::eAction(KSimAction::STORAGE | KSimAction::INITPOPUPMENU));
 }
 
 ConnectorPack::~ConnectorPack()
@@ -74,7 +77,8 @@ ConnectorBase * ConnectorPack::internalAddConnector()
 	
 	if(getConnectorMaximum() > getConnectorCount())
 	{
-		conn = getConnectorInfo()->create(getComponent(), "dummy", QPoint());
+		QString dummyStr(QString::fromLatin1("dummy"));  // only a dummy string. Not used!
+		conn = getConnectorInfo()->create(getComponent(), dummyStr, dummyStr, QPoint());
 		createNewName(conn);
 		conn->getAction().disable(KSimAction::STORAGE);
 		conn->setOrientation(getOrientation());
@@ -120,13 +124,13 @@ void ConnectorPack::setConnectorCount(unsigned int connCount)
 	// Limit connector count
 	if (connCount > getConnectorMaximum())
 	{
-		KSIMDEBUG(QString("ConnectorPack::setConnectorCount greater than max (%1>%2)")
+		KSIMDEBUG(QString::fromLatin1("ConnectorPack::setConnectorCount greater than max (%1>%2)")
 								.arg(connCount).arg(getConnectorMaximum()));
 		connCount = getConnectorMaximum();
 	}
 	if (connCount < getConnectorMinimum())
 	{
-		KSIMDEBUG(QString("ConnectorPack::setConnectorCount lesser than min (%1<%2)")
+		KSIMDEBUG(QString::fromLatin1("ConnectorPack::setConnectorCount lesser than min (%1<%2)")
 								.arg(connCount).arg(getConnectorMinimum()));
 		connCount = getConnectorMinimum();
 	}
@@ -148,7 +152,7 @@ unsigned int  ConnectorPack::getConnectorCount() const
 {
 	return getConnList()->count();
 }
-	
+
 void ConnectorPack::setConnectorMinimum(unsigned int minConn)
 {
 	m_minConn = minConn;	
@@ -183,41 +187,33 @@ void ConnectorPack::slotDeleteConnector(ConnectorBase * conn)
 		getComponent()->undoChangeProperty(i18n("Delete connector"));
 		internalDeleteConnector();
 		getComponent()->refresh();
-	}		
+	}
 }
-	
+
 void ConnectorPack::createNewName(ConnectorBase * conn)
 {
 	unsigned int i = 0;
 	bool found;
-	QString name;
 	QString wireName;
 	QString i18nName;
+	
+	QString wireNameTemplate(getName() + " %1");
 	
 	do
 	{
 		found = false;
 		i++;
 		
-		if (getConnectorName().isEmpty())
-		{
-			name = getName() + " %1";
-		}
-		else
-		{
-			name = getConnectorName();
-		}
-		
-		
 		if (isLetter())
 		{
-			wireName = name.arg(QChar((char)i + 'A' - 1));
-			i18nName = i18n(name.latin1()).arg(QChar((char)i + 'A' - 1));
+			QChar c ((char)i + 'A' - 1);
+			wireName = wireNameTemplate.arg(c);
+			i18nName = getConnectorName().arg(c);
 		}
 		else
 		{
-			wireName = name.arg(i);
-			i18nName = i18n(name.latin1()).arg(i);
+			wireName = wireNameTemplate.arg(i);
+			i18nName = getConnectorName().arg(i);
 		}
 		
 		
@@ -319,7 +315,7 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 void ConnectorPack::save(KSimData & file) const
 {
 	QString oldGroup(file.group());
-	QString group((oldGroup + sGroup).arg(getName()));	
+	QString group((oldGroup + QString::fromLatin1(sGroup)).arg(getStoreName()));	
 	file.setGroup(group);
 	
 	file.writeEntry(sConnectorCount,getConnectorCount());
@@ -327,7 +323,7 @@ void ConnectorPack::save(KSimData & file) const
 	unsigned int c = 0;
 	FOR_EACH_CONNECTOR(it, *getConnList())
 	{
-		QString connGroup(QString(sConn).arg(c));
+		QString connGroup(QString::fromLatin1(sConn).arg(c));
 		
 		connGroup = group + connGroup;
 		file.setGroup(connGroup);
@@ -342,7 +338,7 @@ bool ConnectorPack::load(KSimData & file)
 {
 	unsigned int c;
 	QString oldGroup(file.group());
-	QString group((oldGroup + sGroup).arg(getName()));	
+	QString group((oldGroup + QString::fromLatin1(sGroup)).arg(getStoreName()));	
 	file.setGroup(group);
 	
 	c = file.readUnsignedNumEntry(sConnectorCount);
@@ -351,7 +347,7 @@ bool ConnectorPack::load(KSimData & file)
 	c = 0;
 	FOR_EACH_CONNECTOR(it, *getConnList())
 	{
-		QString connGroup(QString(sConn).arg(c));
+		QString connGroup(QString::fromLatin1(sConn).arg(c));
 		
 		connGroup = group + connGroup;
 		file.setGroup(connGroup);
@@ -366,7 +362,7 @@ bool ConnectorPack::load(KSimData & file)
 
 void ConnectorPack::setConnectorName(const QString & connName)
 {
-	m_connName = connName;
+	m_i18nConnName = connName;
 
 	// #### rename connectors
 
@@ -386,7 +382,7 @@ void ConnectorPack::setConnectorName(const QString & connName)
 
 QString ConnectorPack::getConnectorName() const
 {
-	return m_connName;
+	return m_i18nConnName;
 }
 
 void ConnectorPack::setLetter(bool letter)
@@ -435,4 +431,8 @@ bool ConnectorPack::isDeleteLastOnly() const
 	return m_flags & DELETE_LAST_ONLY;
 }
 
+void ConnectorPack::setStoreName(const QString & name)
+{
+	m_storeName = name;
+}
 

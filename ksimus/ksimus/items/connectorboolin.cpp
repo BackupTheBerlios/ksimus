@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 // QT includes
-#include <qpainter.h>
 #include <qpopupmenu.h>
 
 // KDE includes
@@ -29,38 +28,45 @@
 #include "connectorlabel.h"
 #include "component.h"
 #include "ksimdebug.h"
+#include "wirepropertyboolean.h"
+#include "wire.h"
+#include "watchitemboolean.h"
 
 
-static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
+static ConnectorBase * create(Component * comp, const QString & name, const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorBoolIn(comp, name, pos);
+	return new ConnectorBoolIn(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo ConnectorBoolInInfo (	"Boolean Input",
-											"booleanInput",
-											"Boolean",
-											create );
-	
+const ConnectorInfo * getConnectorBoolInInfo()
+{
+	static const ConnectorInfo Info(QString::fromLatin1("Boolean Input"),
+	                                QString::fromLatin1("Boolean Input"),
+	                                QString::fromLatin1("Boolean"),
+	                                create );
+	return &Info;
+}
 
 
-ConnectorBoolIn::ConnectorBoolIn(Component * comp, const QString & name, const QPoint & pos)
-	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorBoolInInfo)
+ConnectorBoolIn::ConnectorBoolIn(Component * comp, const QString & name,
+                                 const QString & i18nName, const QPoint & pos)
+	:	ConnectorInputBase(comp, name, i18nName, pos, CO_LEFT, getConnectorBoolInInfo())
 {
 	init();
 }
 
-ConnectorBoolIn::ConnectorBoolIn(	Component * comp,	const QString & name,
+ConnectorBoolIn::ConnectorBoolIn(	Component * comp,	const QString & name, const QString & i18nName,
                                   const QString & descr, const QPoint & pos)
-	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorBoolInInfo)
+	:	ConnectorInputBase(comp, name, i18nName, pos, CO_LEFT, getConnectorBoolInInfo())
 {
 	init();
 	new ConnectorLabel(this, descr);
 }
 
 
-ConnectorBoolIn::ConnectorBoolIn( Component * comp, const QString & name, const QPoint & pos,
-                                  ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorInputBase(comp, name, pos, orient, ci)
+ConnectorBoolIn::ConnectorBoolIn( Component * comp, const QString & name, const QString & i18nName,
+                                  const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorInputBase(comp, name, i18nName, pos, orient, ci)
 {
 	init();
 }
@@ -69,41 +75,53 @@ ConnectorBoolIn::ConnectorBoolIn( Component * comp, const QString & name, const 
 void ConnectorBoolIn::init()
 {
 	setNegateEnabled(true);
+	m_data = false;
 }
 
-// Setup the colors, brushs, and fills for the connector
-void ConnectorBoolIn::setupColorScheme (QPainter * p) const
+// Get the colors for the connector
+const WireColorScheme & ConnectorBoolIn::getColorScheme() const
 {
-	p->setPen(QPen(darkGreen, 2));
-	p->setBrush(darkGreen);
+	static WireColorScheme colorScheme(darkGreen);
+	
+	return colorScheme;
+}
+
+
+/** Resets the connector
+*/
+void ConnectorBoolIn::reset()
+{
+	ConnectorBase::reset();
+	
+	m_data = false;
 }
 
 /** Returns a pointer to the data that's read from the component
-  * The default implementation calls the function getWireData()
   * Reimplementations is required if the connector has to modify ths data (e.g. a neg. boolean input */
 const void * ConnectorBoolIn::readoutData() const
 {
-	static bool out;
-	bool * pBool = (bool*)getWireData();
-	if (pBool)
+	return &m_data;
+}
+	
+	/** Copies the data where the p points to into a local variable.
+	  * The function must be implemented by a sub class. */
+void ConnectorBoolIn::copyData(const void * p)
+{
+	bool tmp = *(const bool *)p;
+	if (tmp != m_data)
 	{
-		out = *pBool ^ isNegated();
+		m_data = tmp;
 	}
-	else
-	{
-		out = isNegated();
-	}
-	return &out;
 }
 
 /** Returns the input data */
 bool ConnectorBoolIn::getInput() const
 {
-	return *(bool*)readoutData();
+	return m_data ^ isNegated();
 }
 
 /** Creates the property widget */
-QWidget* ConnectorBoolIn::propertyWidget(QWidget * parent)
+PropertyWidget* ConnectorBoolIn::propertyWidget(QWidget * parent)
 {
 	return new ConnectorBoolInPropertyWidget(this, parent, getName());
 }
@@ -150,10 +168,13 @@ void ConnectorBoolIn::slotToggleNegType()
 /** Returns a text which represents the current value. */
 QString ConnectorBoolIn::getValueText() const
 {
-	if (getInput() == true)
-	{
-		return i18n("True");
-	}
-	
-	return i18n("False");
+	return WirePropertyBoolean::getI18nTextValue(getInput());
 }
+
+WatchItemBase * ConnectorBoolIn::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemBooleanConnector(this);
+	CHECK_PTR(wi);
+	return wi;
+}
+

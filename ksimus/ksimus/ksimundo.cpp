@@ -21,6 +21,7 @@
 #include <qdir.h>
 #include <qfile.h>
 #include <qsize.h>
+#include <qstringlist.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -51,10 +52,22 @@ static const char * sModi      = "Modified";
 static const char * sSelect    = "Select";
 static const char * sUserSize  = "UserSize";
 static const char * sSheetSize = "SheetSize";
-static const char * sLastView    = "Last View";
+static const char * sLastView  = "Last View";
 
 #define SHEET_VIEW	0
 #define USER_VIEW	1
+
+
+//#define KSIMUNDODEBUG_ENABLE 1
+
+#ifdef KSIMUNDODEBUG_ENABLE
+#define KSIMUNDODEBUG(a)       KSIMDEBUG(a)
+#define KSIMUNDODEBUG_VAR(a,b) KSIMDEBUG_VAR(a,b)
+#else
+#define KSIMUNDODEBUG(a)
+#define KSIMUNDODEBUG_VAR(a,b)
+#endif
+
 
 
 #define parentDoc	((KSimusDoc*)parent())
@@ -71,8 +84,6 @@ public:
 			redoFileCounter(0),
 			paused(false)
 	{
-		undoFileList.setAutoDelete(true);
-		redoFileList.setAutoDelete(true);
 	};
 
 	~KSimUndoPrivate() {};
@@ -83,10 +94,10 @@ public:
 	unsigned int redoDepth;
 	unsigned int undoFileCounter;
 	unsigned int redoFileCounter;
-	QStrList undoFileList;
-	QStrList redoFileList;
+	QStringList undoFileList;
+	QStringList redoFileList;
 	ComponentList reloadList;
-	ComponentList removeList;
+	QStringList removeList;
 	bool paused;
 };
 
@@ -110,6 +121,7 @@ void KSimUndo::begin(const QString & description)
 	removeRedoHistory();
 	emit redoAllowed(false);
 	begin_(description);
+	KSIMUNDODEBUG("Begin");
 }
 	
 void KSimUndo::begin_(const QString & description)
@@ -118,12 +130,12 @@ void KSimUndo::begin_(const QString & description)
 	emit undoAllowed(true);
 	// Create new undo file name
 	QDir dir = parentDoc->getFiles()->getSessionDir();
-	QString * filename = new QString;
-	filename->sprintf("/undo%04u.sim", m_p->undoFileCounter++);
-	*filename = dir.absPath() + *filename;
+	QString filename;
+	filename.sprintf("/undo%04u.sim", m_p->undoFileCounter++);
+	filename = dir.absPath() + filename;
 	
 	// Append file name to list
-	m_p->undoFileList.append (*filename);
+	m_p->undoFileList.append (filename);
 	
 	// Remove old undo files
 	while (m_p->undoFileList.count() > m_p->undoDepth)
@@ -132,7 +144,7 @@ void KSimUndo::begin_(const QString & description)
 		{
 			KSIMDEBUG("Remove old files failed");
 		}
-		m_p->undoFileList.removeFirst();
+		m_p->undoFileList.remove(m_p->undoFileList.first());
 	}
 	
 	// Write last undo file
@@ -143,20 +155,17 @@ void KSimUndo::begin_(const QString & description)
 	}
 		
 	// Create new undo file
-	m_p->file = new KSimData(*filename);
+	m_p->file = new KSimData(filename);
 	m_p->file->setGroup(sUndoGrp);
 	m_p->file->writeEntry(sDesc, description);
 	m_p->file->writeEntry(sModi, parentDoc->isModified());
 
 	// Save selected components (The IDs!)
 	const CompViewList * cvList = &parentDoc->getActiveEditor()->selected;
-	QStrList numList;
-	numList.setAutoDelete(true);
+	QStringList numList;
 	FOR_EACH_COMPVIEW(it, *cvList)
 	{
-			QString * num = new QString();
-			num->setNum(it.current()->getComponent()->getSerialNumber());
-			numList.append(*num);
+		numList.append(QString::number(it.current()->getComponent()->getSerialNumber()));
 	}
 	m_p->file->writeEntry(sSelect, numList);
 	
@@ -169,12 +178,12 @@ void KSimUndo::beginRedo(const QString & description)
 	m_p->paused = false;
 	// Create new redo file name
 	QDir dir = parentDoc->getFiles()->getSessionDir();
-	QString * filename = new QString;
-	filename->sprintf("/redo%04u.sim", m_p->redoFileCounter++);
-	*filename = dir.absPath() + *filename;
+	QString filename;
+	filename.sprintf("/redo%04u.sim", m_p->redoFileCounter++);
+	filename = dir.absPath() + filename;
 	
 	// Append redo file name to list
-	m_p->redoFileList.append (*filename);
+	m_p->redoFileList.append (filename);
 	
 	// Remove old redo files
 	while (m_p->redoFileList.count() > m_p->redoDepth)
@@ -183,7 +192,7 @@ void KSimUndo::beginRedo(const QString & description)
 		{
 			KSIMDEBUG("Remove old files failed");
 		}
-		m_p->redoFileList.removeFirst();
+		m_p->redoFileList.remove(m_p->redoFileList.first());
 	}
 	
 	// Write last undo/redo file
@@ -194,20 +203,18 @@ void KSimUndo::beginRedo(const QString & description)
 	}
 		
 	// Create new redo file
-	m_p->file = new KSimData(*filename);
+	m_p->file = new KSimData(filename);
 	m_p->file->setGroup(sUndoGrp);
 	m_p->file->writeEntry(sDesc, description);
 	
 	// Save selected components (The IDs!)
 	const CompViewList * cvList = &parentDoc->getActiveEditor()->selected;
-	QStrList numList;
-	numList.setAutoDelete(true);
+	QStringList numList;
 	FOR_EACH_COMPVIEW(it, *cvList)
 	{
-			QString * num = new QString();
-			num->setNum(it.current()->getComponent()->getSerialNumber());
-			numList.append(*num);
+			numList.append(QString::number(it.current()->getComponent()->getSerialNumber()));
 	}
+	KSIMUNDODEBUG_VAR("selectList", numList.join(QString::fromLatin1(";")));
 	m_p->file->writeEntry(sSelect, numList);
 	
 	m_p->file->writeEntry(sLastView,parentDoc->getApp()->getCurrentViewString());
@@ -219,17 +226,10 @@ void KSimUndo::end()
 	if (m_p->file)
 	{
 		// Save remove components
-		QStrList numList;
-		numList.setAutoDelete(true);
-		while(m_p->removeList.count())
-		{
-			QString * num = new QString();
-			num->setNum(m_p->removeList.first()->getSerialNumber());
-			numList.append(*num);
-			m_p->removeList.removeFirst();
-		}
+		KSIMUNDODEBUG_VAR("removeList", m_p->removeList.join(QString::fromLatin1(";")));
 		m_p->file->setGroup(sUndoGrp);
-		m_p->file->writeEntry(sRemove, numList);
+		m_p->file->writeEntry(sRemove, m_p->removeList);
+		m_p->removeList.clear();
 		
 		// Clear list
 		m_p->reloadList.clear();
@@ -242,6 +242,8 @@ void KSimUndo::end()
 	{
 		KSIMDEBUG("undo file not exist");
 	}
+	KSIMUNDODEBUG("End");
+
 }
 
 void KSimUndo::pause(bool pause)
@@ -277,16 +279,17 @@ bool KSimUndo::isActive()
 
 void KSimUndo::reload(const Component * comp)
 {
-	ComponentList dummyList;
 	// Do only if function called between KSimUndo::begin() and KSimUndo::end()
 	if (isActive())
 	{
 		if (comp && (m_p->reloadList.findRef(comp) == -1))
 		{
 			m_p->reloadList.append(comp);
-			dummyList.append(comp);
 			// Save component
+			ComponentList dummyList;
+			dummyList.append(comp);
 			parentDoc->getContainer()->saveComponents(*m_p->file, &dummyList);
+			KSIMUNDODEBUG(QString::fromLatin1("Reload %1 (%2)").arg(comp->getName()).arg(comp->getSerialNumber()));
 		}
 	}
 }
@@ -318,11 +321,13 @@ void KSimUndo::reload(const CompViewList * cvList)
 void KSimUndo::remove(const Component * comp)
 {
 	// Do only if function called between KSimUndo::begin() and KSimUndo::end()
-	if (isActive())
+	if (isActive() && comp)
 	{
-		if (comp && (m_p->removeList.findRef(comp) == -1))
+		QString id(QString::number(comp->getSerialNumber()));
+		if (m_p->removeList.findIndex(id) == -1)
 		{
-			m_p->removeList.append(comp);
+			m_p->removeList.append(id);
+			KSIMUNDODEBUG(QString::fromLatin1("Remove %1 (%2)").arg(comp->getName()).arg(id));
 		}
 	}
 }
@@ -363,7 +368,7 @@ void KSimUndo::undo()
 		KSimData * file = new KSimData(m_p->undoFileList.last());
 	
 		file->setGroup(sUndoGrp);
-		QString desc = file->readEntry(sDesc, sNoDesc);
+		QString desc = file->readEntry(sDesc, QString::fromLatin1(sNoDesc));
 		parentDoc->getApp()->slotStatusHelpMsg(i18n("Undo: %1").arg(desc));
 		beginRedo(desc);
 
@@ -378,8 +383,8 @@ void KSimUndo::undo()
 		{
 			KSIMDEBUG("Remove old file failed");
 		}
-		m_p->undoFileList.removeLast();
-
+		m_p->undoFileList.remove(m_p->undoFileList.last());
+		
 		if (m_p->undoFileList.count() == 0)
 		{
 			emit undoAllowed(false);
@@ -410,8 +415,8 @@ void KSimUndo::hiddenUndo()
 		{
 			KSIMDEBUG("Remove old file failed");
 		}
-		m_p->undoFileList.removeLast();
-
+		m_p->undoFileList.remove(m_p->undoFileList.last());
+		
 		if (m_p->undoFileList.count() == 0)
 		{
 			emit undoAllowed(false);
@@ -434,7 +439,7 @@ void KSimUndo::redo()
 	
 		file->setGroup(sUndoGrp);
 		
-		QString desc(file->readEntry(sDesc, sNoDesc));
+		QString desc(file->readEntry(sDesc, QString::fromLatin1(sNoDesc)));
 		parentDoc->getApp()->slotStatusHelpMsg(i18n("Redo: %1").arg(desc));
 
 		begin_(desc);
@@ -450,7 +455,7 @@ void KSimUndo::redo()
 		{
 			KSIMDEBUG("Remove old file failed");
 		}
-		m_p->redoFileList.removeLast();
+		m_p->redoFileList.remove(m_p->redoFileList.last());
         	
 		if (m_p->redoFileList.count() == 0)
 		{
@@ -462,7 +467,8 @@ void KSimUndo::redo()
 /** Executes the common parts of undo and redo */
 void KSimUndo::doCommon(KSimData * file)
 {
-	QStrList numList;
+	QStringList numList;
+	unsigned int idx;
 	QSize newSheetSize, newUserSize, size;
 	parentDoc->getActiveEditor()->unselectAll();
 	
@@ -495,19 +501,19 @@ void KSimUndo::doCommon(KSimData * file)
 		container->setUserSize(size);
 	}
 	
-	file->readListEntry(sRemove, numList);
-	while (numList.count())
+	numList = file->readListEntry(sRemove);
+	for(idx = 0; idx < numList.count(); idx++)
 	{
-		QString num(numList.getLast());
 		bool ok = false;
 		unsigned int id;
-		id = num.toUInt(&ok);
+		id = numList[idx].toUInt(&ok);
 		if (ok)
 		{
 			FOR_EACH_COMP(it, *container->getComponentList())
 			{
 				if (it.current()->getSerialNumber() == id)
 				{
+					KSIMUNDODEBUG_VAR("Delete", it.current()->getName());
 					container->delComponent(it.current());
 					break;
 				}
@@ -515,10 +521,10 @@ void KSimUndo::doCommon(KSimData * file)
 		}
 		else
 		{
-			KSIMDEBUG("not a uint");
+			KSIMDEBUG_VAR("not a uint", numList[idx]);
 		}
-		numList.removeLast();
 	}
+	numList.clear();
 	
 	
 	file->setGroup("/");
@@ -545,13 +551,12 @@ void KSimUndo::doCommon(KSimData * file)
 /*	parentDoc->getActiveEditor()->setEditorView(
 			(EditorViewType)(file->readNumEntry(sView)));		*/
 	
-	file->readListEntry(sSelect, numList);
-	while (numList.count())
+	numList = file->readListEntry(sSelect);
+	for(idx = 0; idx < numList.count(); idx++)
 	{
-		QString num(numList.getLast());
 		bool ok = false;
 		unsigned int id;
-		id = num.toUInt(&ok);
+		id = numList[idx].toUInt(&ok);
 		if (ok)
 		{
 			FOR_EACH_COMP(it, *container->getComponentList())
@@ -565,10 +570,10 @@ void KSimUndo::doCommon(KSimData * file)
 		}
 		else
 		{
-			KSIMDEBUG("not a uint");
+			KSIMDEBUG_VAR("not a uint", numList[idx]);
 		}
-		numList.removeLast();
 	}
+	numList.clear();
 
 	file->setGroup("/");
 }
@@ -582,7 +587,7 @@ void KSimUndo::removeUndoHistory()
 		{
 			KSIMDEBUG_VAR("Remove files failed", m_p->undoFileList.first());
 		}
-		m_p->undoFileList.removeFirst();
+		m_p->undoFileList.remove(m_p->undoFileList.begin());
 	}
 	m_p->undoFileCounter = 0;
 	emit undoAllowed(false);
@@ -597,7 +602,7 @@ void KSimUndo::removeRedoHistory()
 		{
 			KSIMDEBUG_VAR("Remove files failed", m_p->undoFileList.first());
 		}
-		m_p->redoFileList.removeFirst();
+		m_p->redoFileList.remove(m_p->redoFileList.begin());
 	}
 	m_p->redoFileCounter = 0;
 	emit redoAllowed(false);

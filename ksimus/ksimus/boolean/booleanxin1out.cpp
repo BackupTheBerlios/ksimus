@@ -42,9 +42,12 @@
 BooleanXIn1Out::BooleanXIn1Out(CompContainer * container, const ComponentInfo * ci)
 	:	Boolean1Out(container, ci)
 {
-	m_inPack = new ConnectorPack(this, I18N_NOOP("Input"), &ConnectorBoolInInfo, 2, 26);
+	m_inPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("Connector", "Input %1"),
+	                             getConnectorBoolInInfo(),
+	                             2, 26);
 	CHECK_PTR(m_inPack);
-	m_inPack->setConnectorName(I18N_NOOP("Input %1"));
 	m_inPack->setConnectorCount(2);
 }
 

@@ -52,8 +52,8 @@ KSimBooleanBox::KSimBooleanBox(bool value, QWidget *parent, const char *name )
 
 void KSimBooleanBox::init()
 {
-	insertItem(i18n("False"), ID_FALSE);
-	insertItem(i18n("True"), ID_TRUE);
+	insertItem(i18n("Text for false in a combo box", "False"), ID_FALSE);
+	insertItem(i18n("Text for true in a combo box", "True"), ID_TRUE);
 
 	
 	connect(this,SIGNAL(activated(int)),this,SLOT(slotActivated(int)));
@@ -100,7 +100,7 @@ void KSimBooleanBox::slotActivated(int i)
 	else
 	{
 		// Unknown
-		KSIMDEBUG(QString("Unkown input %1").arg(i));
+		KSIMDEBUG(QString::fromLatin1("Unkown input %1").arg(i));
 	}
 	
 }
@@ -118,7 +118,7 @@ void KSimBooleanBox::slotHighlighted(int i)
 	else
 	{
 		// Unknown
-		KSIMDEBUG(QString("Unkown input %1").arg(i));
+		KSIMDEBUG(QString::fromLatin1("Unkown input %1").arg(i));
 	}
 	
 }

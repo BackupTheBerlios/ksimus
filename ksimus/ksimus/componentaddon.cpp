@@ -30,11 +30,34 @@
 
 // Forward declaration
 
+
+class ComponentAddOn::UIData
+{
+public:
+	UIData()
+		: i18nLabelText(QString::null),
+		  i18nWhatsThisText(QString::null),
+		  i18nToolTipText(QString::null),
+		  propertyDialogPageName(QString::null)
+	{
+	};
+	
+	QString i18nLabelText;
+	QString i18nWhatsThisText;
+	QString i18nToolTipText;
+	QStringList propertyDialogPageName;
+};
+
+//########################################################################
+//########################################################################
+
+
 ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName, bool unique)
 	: QObject(component),
 		ComponentItem(component),
 		m_myActions(KSimAction::ALL),
-		m_addOnName(addOnName)
+		m_addOnName(addOnName),
+		m_uiData((UIData *)0)
 {
 	if (!component->m_addonList)
 	{
@@ -64,6 +87,7 @@ ComponentAddOn::~ComponentAddOn()
 		// Remove from list
 		getComponent()->m_addonList->take();
 	}
+	delete m_uiData;
 }
 	
 void ComponentAddOn::save(KSimData & ) const
@@ -88,15 +112,15 @@ int ComponentAddOn::checkCircuit()
 	return 0;
 }
 
+void ComponentAddOn::setupCircuit()
+{
+}
+
 void ComponentAddOn::checkProperty(QStringList & )
 {
 }
 
 void ComponentAddOn::calculate()
-{
-}
-
-void ComponentAddOn::updateOutput()
 {
 }
 
@@ -116,6 +140,61 @@ bool ComponentAddOn::initPopupMenu(QPopupMenu * )
 {
 	return false;
 }
+
+
+ComponentAddOn::UIData * ComponentAddOn::getUIData()
+{
+	if (!m_uiData)
+	{
+		m_uiData = new UIData();
+		CHECK_PTR(m_uiData);
+	}
+	return m_uiData;
+}
+
+void ComponentAddOn::setDialogPageName(const QStringList & dialogPageName)
+{
+	getUIData()->propertyDialogPageName = dialogPageName;
+}
+void ComponentAddOn::setDialogPageName(const QString & dialogPageName)
+{
+	setDialogPageName(QStringList::split('/', dialogPageName));
+}
+QStringList ComponentAddOn::getDialogPageName()
+{
+	return	getUIData()->propertyDialogPageName;
+}
+
+void ComponentAddOn::setLabelText(const QString & i18nLabelText)
+{
+	getUIData()->i18nLabelText = i18nLabelText;
+}
+QString ComponentAddOn::getLabelText()
+{
+	return getUIData()->i18nLabelText;
+}
+
+
+void ComponentAddOn::setToolTipText(const QString & i18nToolTipText)
+{
+	getUIData()->i18nLabelText = i18nToolTipText;
+}
+QString ComponentAddOn::getToolTipText()
+{
+	return getUIData()->i18nToolTipText;
+}
+
+
+void ComponentAddOn::setWhatsThisText(const QString & i18nWhatsThisText)
+{
+	getUIData()->i18nLabelText = i18nWhatsThisText;
+}
+QString ComponentAddOn::getWhatsThisText()
+{
+	return getUIData()->i18nWhatsThisText;
+}
+
+
 
 //#################################################################################
 //#################################################################################
@@ -210,6 +289,16 @@ int ComponentAddOnList::checkCircuit()
 	return error;
 }
 
+void ComponentAddOnList::setupCircuit()
+{
+	FOR_EACH_COMPONENT_ADDON(it, *this)
+	{
+		it.current()->setupCircuit();
+	}
+}
+
+
+
 /** Checks  all component property. The functions is called after the
 	*	property dialog.
 	*/
@@ -233,19 +322,6 @@ void ComponentAddOnList::calculate()
 		if (it.current()->getAction().isCalculateEnabled())
 		{
 			it.current()->calculate();
-		}
-	}
-}
-
-/** Shift the result of calculation to output.
-	*/
-void ComponentAddOnList::updateOutput()
-{
-	FOR_EACH_COMPONENT_ADDON(it, *this)
-	{
-		if (it.current()->getAction().isUpdateOutputEnabled())
-		{
-			it.current()->updateOutput();
 		}
 	}
 }
@@ -313,3 +389,4 @@ KSimAction ComponentAddOnList::getAction() const
 	}
 	return KSimAction::componentAddOnFilter(KSimAction(action));
 }
+

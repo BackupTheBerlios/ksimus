@@ -30,7 +30,7 @@
 
 LogListItem::LogListItem(const char * text, unsigned int priority)
 {
-	QString base(text);
+	QString base(QString::fromLatin1(text));
 	
 	if ((priority == LOG_DEBUG)		||
 		(priority == LOG_INFO)		||

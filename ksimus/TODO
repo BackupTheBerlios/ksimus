@@ -1,8 +1,23 @@
   Editor - add key control
   A probe tool
-  A watch window
+
   A multi type connector
+
+  check temp dir after creating
 
   And so many things.
 
- createGeneralProperty(Component * comp, QWidget *parent) - remove comp ???
+  Add library help files to help menu
+
+  Check unused connectors - Error if component does not work without this unwired connector.
+
+  Highlight wire if mouse above
+
+  Spare place around the wires
+
+  More than one optimization cycles after changing wire positions
+
+  Changeable default values at external connectors inputs
+
+
+

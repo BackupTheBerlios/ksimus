@@ -18,51 +18,37 @@
 // C-Includes
 
 // QT-Includes
-#include <qstringlist.h>
+#include <qtimer.h>
 
 // KDE-Includes
 #include <klocale.h>
-#include <kmessagebox.h>
 
 // Project-Includes
 #include "componentpropertydialog.h"
 #include "component.h"
 #include "ksimundo.h"
-#include "loglist.h"
-#include "loglistitem.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
 
 
-ComponentPropertyDialog::ComponentPropertyDialog(Component * comp, QString * caption, QWidget *parent, const char *name )
-	:	KDialogBase(TreeList,
-					caption ? *caption : i18n("Component Properties"),
-					Default | Ok | Cancel,
- 					Ok,
- 					parent,
- 					name),
-		ComponentItem(comp),
-		m_dataChanged(false)		
+//#########################################################################
+//#########################################################################
+
+ComponentPropertyDialog::ComponentPropertyDialog(Component * comp, const QString & caption, QWidget *parent, const char *name )
+	:	KSimDialog(caption, parent, name),
+		ComponentItem(comp)
 {
 }
 
 ComponentPropertyDialog::~ComponentPropertyDialog()
 {
-	if (m_dataChanged)
+	if (isChanged())
 	{
 		getComponent()->refresh();
 	}
 }
-
-void ComponentPropertyDialog::connectSlots(QWidget * wid)
-{
-	connect(this, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
-	connect(this, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
-	connect(this, SIGNAL(cancelClicked()), wid, SLOT(slotCancel()));
-	connect(wid, SIGNAL(signalChangeData()), this, SLOT(slotDataChanged()));
-}
-
 
 void ComponentPropertyDialog::slotOk()
 {
@@ -70,14 +56,14 @@ void ComponentPropertyDialog::slotOk()
 	
 	emit okClicked();
 	
-	if (m_dataChanged)
+	if (isChanged())
 	{
 		// Only if something changed	
 		errors = getComponent()->executePropertyCheck();
 	
 		if(errors)
-		{	
-	    m_dataChanged = false;
+		{
+			setChanged(false);
 		}
 		else
 		{
@@ -95,10 +81,10 @@ void ComponentPropertyDialog::slotOk()
 
 void ComponentPropertyDialog::slotDataChanged()
 {
-	if (!m_dataChanged)
+	if (!isChanged())
 	{
 		getComponent()->undoChangeProperty(i18n("Change Component Properties"));
-		m_dataChanged = true;
+		setChanged(true);
 		getComponent()->setModified();
 	}
 }

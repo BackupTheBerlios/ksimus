@@ -38,7 +38,7 @@
 #include "externalconnector.h"
 
 static const char * sModFile = "ModuleFile";
-//static const char * sConnector = "Connector";
+
 #define minX	8
 #define minY	7
 
@@ -50,11 +50,16 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new Module(container, ci);
 }
 
-const ComponentInfo ModuleBaseInfo (	"Module",
-									"Module",
-									0,
-									VA_SHEET_AND_USER,
-									create );
+const ComponentInfo * getModuleBaseInfo()
+{
+	static const ComponentInfo Info(QString::fromLatin1("Module"),
+	                                QString::fromLatin1("Module"),
+	                                i18n("Component", "Module"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                create);
+	return &Info;
+}
 
 //###############################################################
 
@@ -67,12 +72,13 @@ ModuleSV::ModuleSV(Component * comp, eViewType viewType)
 }
 ModuleSV::~ModuleSV()
 {
-	if (widgetList)
-		delete widgetList;
+	delete widgetList;
 }
 
 void ModuleSV::draw(QPainter * p)
 {
+	CompView::draw(p);
+	
 	Module * mod = (Module *) getComponent();
 	QSize size(getPlace().size());
 		
@@ -94,8 +100,6 @@ void ModuleSV::draw(QPainter * p)
 			KSIMDEBUG_VAR("Unknown module view",(int)mod->getModuleContainer()->getModuleData()->getModuleView());
 			break;
 	}
-	
-	CompView::draw(p);
 }
 
 void ModuleSV::drawGeneric(QPainter * p, QRect & place)
@@ -105,9 +109,9 @@ void ModuleSV::drawGeneric(QPainter * p, QRect & place)
 	p->setBrush(NoBrush);
 	p->drawRect(place.x() + gridX+1, place.y() + gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1);
 	p->drawText(place.x() + gridX+1, place.y() + gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1,
-	            AlignCenter, "Module");
+	            AlignCenter, QString::fromLatin1("Module"));
 	p->restore();
-}	
+}
 
 void ModuleSV::drawGeneric(QPainter * p, QSize & size)
 {
@@ -119,7 +123,7 @@ void ModuleSV::print(QPainter * paint)
 {
 	draw(paint);
 
-  QWidget * pWid;
+	QWidget * pWid;
 	if (widgetList && (pWid = widgetList->getFirstWidget()))
 	{
 		// Reset the compView translation (a little bit ugly :)
@@ -214,7 +218,8 @@ Module::Module(CompContainer * _container, const ComponentInfo * ci)
 	: Component(_container, ci),
 		moduleFile()
 {
-	m_isModule = true;
+//	m_isModule = true;
+	setComponentType(eModule);
 	
 	m_moduleContainer = new CompContainer(this);
 	CHECK_PTR(m_moduleContainer);
@@ -263,12 +268,12 @@ bool Module::load(KSimData & file, bool copyLoad)
 	reloadModule();
 	
 	return Component::load(file, copyLoad);
-
 }
 	
 /** reloads the module and recreates the view */
 void Module::reloadModule()
 {
+	static PointList emptyPosList;
 	PointList * posList = 0;
 	unsigned int i;
 	ModuleData * mdata;
@@ -280,21 +285,41 @@ void Module::reloadModule()
 	mdata = m_moduleContainer->getModuleData();
 	
 	// First remove old connectors
-	getConnList()->setAutoDelete(false);	//Do not delete connectors
-	getConnList()->clear();								//Clear list
+	getConnList()->setAutoDelete(false);  //Do not delete connectors
+	getConnList()->clear();               //Clear list
 	getConnList()->setAutoDelete(true);
 	extList->clear();
 	
+	QFileInfo fileInfo(getModuleFile());
 	
-	// open file
-	KSimData file(moduleFile);
+	if (!fileInfo.exists())
+	{
+		logError(i18n("Module file %1 does not exist.").arg(getModuleFile()));
+	}
+	else if (!fileInfo.isReadable())
+	{
+		logError(i18n("Module file %1 is not readable.").arg(getModuleFile()));
+	}
+	else if (fileInfo.isDir())
+	{
+		logError(i18n("Module file %1 seems to be a directory.").arg(getModuleFile()));
+	}
+	else if (checkRecursion())
+	{
+		logError(i18n("Recursion detected in module file %1.\nRecursive modules are not allowed.").arg(getModuleFile()));
+	}
+	else
+	{
+		// open file read only
+		KSimData file(getModuleFile(), KSimData::versionAsIs, true);
 
-	// Load all components from file
-	file.setGroup("/");
-	getModuleContainer()->loadProperty(file);
-	getModuleContainer()->loadComponents(file);
+		// Load all components from file
+		file.setGroup("/");
+		getModuleContainer()->loadProperty(file);
+		getModuleContainer()->loadComponents(file);
 
-	setName(mdata->getModuleName());
+		setName(mdata->getModuleName());
+	}
 	
 	if ((mdata->getModuleView() == MV_PIXMAP) && (!mdata->isPixmapFileValid()))
 	{
@@ -315,9 +340,9 @@ void Module::reloadModule()
 	{
 		case MV_GENERIC:
 		{
-		    // Calculate and set module size
+			// Calculate and set module size
 			mdata->setupGenericData();
-	
+			
 			// set view size
 			if (getSheetView())
 			{
@@ -332,7 +357,7 @@ void Module::reloadModule()
 				emit getUserView()->signalHide();
 				getUserView()->setPlace(QRect(getUserView()->getPos(), mdata->getGenericSize()));
 			}
-	
+			
 			// Create Connectors
 			posList = mdata->getGenericConnPos();
 		}
@@ -340,10 +365,10 @@ void Module::reloadModule()
 		
 		case MV_PIXMAP:
 		{
-		    // Calculate and set module size
+			// Calculate and set module size
 			mdata->setupPixmapData();
 			mdata->loadPixmap();
-	
+			
 			// set view size
 			if (getSheetView())
 			{
@@ -357,7 +382,7 @@ void Module::reloadModule()
 				emit getUserView()->signalHide();
 				getUserView()->setPlace(QRect(getUserView()->getPos(), mdata->getPixmapSize()));
 			}
-	
+			
 			// Create Connectors
 			posList = mdata->getPixmapConnPos();
 		}
@@ -365,9 +390,9 @@ void Module::reloadModule()
 		
 		case MV_USERVIEW:
 		{
-		    // Calculate and set module size
+			// Calculate and set module size
 			mdata->setupUserViewData();
-	
+			
 			// set view size
 			if (getSheetView())
 			{
@@ -397,9 +422,10 @@ void Module::reloadModule()
 		
 		default:
 			KSIMDEBUG_VAR("Unknown module view",(int)mdata->getModuleView());
+			posList = &emptyPosList;
 			break;
 	}
-
+	
 	CHECK_PTR(posList);
 	for	(i=0; i < posList->count(); i++)
 	{
@@ -412,26 +438,27 @@ void Module::reloadModule()
 			{
 				// The connector exist
 				oldConnList->removeRef(conn);
-//				getConnList()->append(conn);
 				addConnector(conn);
 			}
 			else
 			{
 				// The connector doesn't exist. Create it
-/*				conn = extConn->getExternalConn()->getConnInfo()->create(this, "", QPoint(0,0));
-				conn->setName(extConn->getName());
-				conn->setNegate(extConn->getExternalConn()->isNegated(),true);*/
-				conn = extConn->getExternalConn()->getConnInfo()->create(this, extConn->getName(), QPoint(0,0));
-				conn->setWireName(QString("(extConn) %1").arg(extConn->getSerialNumber()));
-				conn->setNegate(extConn->getExternalConn()->isNegated(),true);
+				conn = extConn->getExternalConn()->getConnInfo()
+				        ->create(this,
+				                 QString::fromLatin1("(extConn) %1").arg(extConn->getSerialNumber()),
+				                 extConn->getName(),
+				                 QPoint(0,0));
 			}
-	
+			conn->setNegate(extConn->getExternalConn()->isNegated(),true);
+			
 			extList->append(extConn);
-	
+			
 			conn->setGridPos(*(posList->at(i)));
-	    	
+				
 			if (mdata->getModuleView() == MV_PIXMAP)
 				conn->setOrientation(*mdata->getPixmapConnOrient()->at(i));
+			else if (mdata->getModuleView() == MV_USERVIEW)
+				conn->setOrientation(*mdata->getUserViewConnOrient()->at(i));
 		}
 		else
 		{
@@ -443,7 +470,6 @@ void Module::reloadModule()
 				delete conn;
 			}
 		}
-	    	
 	}
 	
 	// Remove unused connecetors
@@ -457,18 +483,45 @@ void Module::reloadModule()
 	delete oldConnList;
 }
 
+bool Module::checkRecursion() const
+{
+	CompContainer * parentContainer = getContainer();
+	
+	while(parentContainer && parentContainer->isParentComponent())
+	{
+		Component * comp = parentContainer->getParentComponent();
+		if (!comp)
+		{
+			KSIMDEBUG("parentContainer->getParentComponent() returns a null pointer!")
+			break;
+		}
+		
+		if (!comp->inherits("Module"))
+		{
+			KSIMDEBUG_VAR("Component should be a module but is not", comp->getName());
+			break;
+		}
+		
+		if (((Module *)comp)->getModuleFile() == getModuleFile())
+		{
+			// Same module file !!!!
+			return true;
+		}
+		parentContainer = comp->getContainer();
+	}
+	return false;
+}
+
 /** search the connector
 	returns 0,if no connector is found */
 ConnectorBase * Module::searchConn(ExternalConnector * extConn, ConnectorList * connList)
 {
 	const ConnectorInfo * extConnInfo = extConn->getExternalConn()->getConnInfo();
-//	QString extName = extConn->getName();
-	QString connWireName = QString("(extConn) %1").arg(extConn->getSerialNumber());
+	QString connWireName = QString::fromLatin1("(extConn) %1").arg(extConn->getSerialNumber());
 	FOR_EACH_CONNECTOR(it, *connList)
 	{
 		// Compare connector type and name
-			if ((it.current()->getConnInfo() == extConnInfo)
-//			  &&(extName == it.current()->getName()))
+		if ((it.current()->getConnInfo() == extConnInfo)
 			  &&(connWireName == it.current()->getWireName()))
 		{
 			// Both have same type and connector name have the correct wire name
@@ -476,6 +529,22 @@ ConnectorBase * Module::searchConn(ExternalConnector * extConn, ConnectorList * 
 		}
 	}
 	return (ConnectorBase*)0;
+}
+
+
+/** Searches the external connector which is represented by the given connector.
+  * Returns 0 if no external connector will be found. */
+ExternalConnector * Module::searchExtConn(const ConnectorBase * conn) const
+{
+	for(unsigned int i = 0; i < getConnList()->count(); i++)
+	{
+		if (getConnList()->at(i) == conn)
+		{
+			return (ExternalConnector*) extList->at(i);
+		}
+	}
+	
+	return  (ExternalConnector*) 0;
 }
 
 
@@ -493,73 +562,16 @@ int Module::checkCircuit()
 	return errors;
 }
 
-/** Executes the simulation of this component */
-void Module::calculate()
+/** Setup the Component for a new circuit execution.
+  * Calls the default implementation and the setup function of all containing components.
+  */
+void Module::setupCircuit()
 {
-	Component::calculate();
+	Component::setupCircuit();
 	
-	// First get all input signals
-	for(unsigned int i = 0; i < extList->count(); i++)
-	{
-   		ExternalConnector * extConn = (ExternalConnector*) extList->at(i);
-		// Input ?
-		if (extConn->isInput())
-		{
-    		ConnectorInputBase * inExternal = (ConnectorInputBase*) getConnList()->at(i);
-    		ConnectorOutputBase * outInternal = (ConnectorOutputBase*) extConn->getInternalConn();
-    		
-    		// Set data to wire
-    		const void * pData;
-    		pData = inExternal->readoutData();
-    		outInternal->copyData(pData);
-    	}
-    }
-    // Calculate components
-    FOR_EACH_COMP(it, *getModuleContainer()->getCalculateComponentList())
-    {
-    	it.current()->calculate();
-		
-			if (it.current()->getSheetView())
-			{
-				if (it.current()->getSheetView()->isViewChanged())
-				{
-					getSheetView()->setViewChanged(true);
-				}
-			}
-    }
+	m_moduleContainer->setupCircuit();
 }
 
-/** Shift the result of calculation to output */
-void Module::updateOutput()
-{
-	Component::updateOutput();
-
-	// update outputs components
-	FOR_EACH_COMP(it, *m_moduleContainer->getUpdateOutputComponentList())
-	{
-		if (!it.current()->isExtConn())
-		{
-			it.current()->updateOutput();
-		}
-	}
-
-	// At last set all output signals
-	for(unsigned int i = 0; i < extList->count(); i++)
-	{
-   		ExternalConnector * extConn = (ExternalConnector*) extList->at(i);
-		// Output ?
-		if (!extConn->isInput())
-		{
-    		ConnectorInputBase * inInternal = (ConnectorInputBase*)extConn->getInternalConn();
-    		ConnectorOutputBase * outExternal = (ConnectorOutputBase*) getConnList()->at(i);
-    		
-    		// Set data to wire
-    		const void * pData;
-    		pData = inInternal->readoutData();
-    		outExternal->copyData(pData);
-    	}
-    }
-}
 /** Reset all simulation variables */
 void Module::reset()
 {
@@ -578,7 +590,7 @@ bool Module::initPopupMenu(QPopupMenu * popup)
 	bool insert = Component::initPopupMenu(popup);
 	if (!insert)
 		popup->insertSeparator();
-	popup->insertItem((const char*)i18n("&Reload module"), this, SLOT(slotReload()));
+	popup->insertItem(i18n("&Reload module"), this, SLOT(slotReload()));
 	return true;
 }
 
@@ -587,11 +599,9 @@ void Module::slotReload()
 {
 	reloadModule();
 	refresh();
-//	getContainer()->routeComponents();
-//	getDoc()->slotUpdateAllViews(0);
 }
 
-/** Setup the component lists for calculation, updateOutput, updateView.
+/** Setup the component lists for calculation, updateView.
  	* Call during simulation start. */
 void Module::setupSimulationList()
 {
@@ -627,11 +637,11 @@ bool ModuleWidget::eventFilter( QObject * obj, QEvent * ev)
 			case QEvent::MouseButtonDblClick:
 			case QEvent::MouseMove:
 			{
-				QMouseEvent mouseEv = QMouseEvent(  ev->type(),
-								 	 				((QWidget*)obj)->mapToParent(((QMouseEvent*)ev)->pos()),
-								  					((QMouseEvent*)ev)->button(),
-								  					((QMouseEvent*)ev)->state()
-								  				 );
+				QMouseEvent mouseEv = QMouseEvent(ev->type(),
+				                  ((QWidget*)obj)->mapToParent(((QMouseEvent*)ev)->pos()),
+				                  ((QMouseEvent*)ev)->button(),
+				                  ((QMouseEvent*)ev)->state()
+				                  );
 				return event(&mouseEv);
 			}
 			

@@ -55,14 +55,8 @@ public:
 	 */
 	virtual void defaultPressed();
 
-	/** Returns the grid which is used as layout for this dialog widget. The grid has two columns.
-	  * Add additional items to this widget.
-	  */
-	QGrid * getGrid() const { return m_grid; };
-
 
 protected:
-	QGrid * m_grid;
 	QLineEdit * m_nameEdit;
 
 };

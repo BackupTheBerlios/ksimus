@@ -24,7 +24,7 @@
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="view_toggle_log"/>
-    <Action name="view_toggle_tree"/>
+    <Action name="view_toggle_list"/>
     <Action name="view_tree_fold"/>
     <Action name="view_tree_unfold"/>
     <Action name="view_toggle_costmap"/>
@@ -33,11 +33,13 @@
     <Action name="setting_timing"/>
     <Action name="setting_grid"/>
     <Action name="setting_packageFiles"/>
+    <Action name="setting_watchWidget"/>
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar" position="left">
   <Separator/>
   <Action name="execute_start"/>
   <Action name="execute_stop"/>
+  <Action name="execute_pause"/>
 </ToolBar>
 </kpartgui>

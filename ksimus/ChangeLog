@@ -1,3 +1,85 @@
+	05.08.2002
+* Fix: undo problem with button if toggled <-> not toggled is changed
+* New: Watch view, watchpoints, breakpoints
+	14.07.2002
+* New: Pause simulation function
+* New: Component 'Pause simulation'
+* Change: Remove root entry 'Component' from Component supplier.
+	07.07.2002
+* New: Class WirePropertyMultipleOutput - supports wire with more than one controlling output (bus signals)
+* New: Class ConnectorTriStateBase - supports connectors bus signals
+* Fix: Class Module - Prevent recursive module loading
+* Fix: Class Module - Prevent crash if module file is not valid
+* Fix: Class KSimusApp - add missing disable/enable code for some menu items
+* New: Class KSimusDoc - add signalPreReset() and signalPostReset()
+* Fix: Class Wire - Remove default checkProperty()
+	28.06.2002
+* New: Add dual color support for wires and connectors
+* Change: Modules are opened read only now
+* New: Add label texts for dialogs to class ComponentAddOn
+	26.06.2002
+* New: function reset() for connectors
+* Change: optional wire property execution in output connectors
+* New: Zero delay components
+* New: External Connectors have zero delay now
+* New: Class WirePropertySingleOutput supports zero delay components
+* Change: KSimTimeBase uses correct abbreviation for time units
+* Fix: Reset execution timings if the user gets a new document
+* Fix: A bug in the undo algorithm removes sometimes noninvolved components and wires
+	17.06.2002
+* Fix: ClockGenerator uses timed execution
+* Change: PropertyWidget* ConnectorBase::propertyWidget(QWidget * parent) returns a PropertyWidget
+  instead of a QWidget (derived classes also).
+* Change: class ConnectorPropertyDialog inherits ComponentPropertyDialog instead of KDialogBase.
+* New: class OptionalFunction and OptionalConnector
+* New: class KSimDialog (base class for KSimus dialogs)
+* Change: member function PropertyWidget::changeData is public now (was protected)
+* Fix: Timed execution of components works now.
+* Change: Rearrange main windows of KSimus.
+* Change: class ComponentPropertyDialog inherits KSimDialog instead of KDialogBase.
+	27.05.2002
+* New: Class RowLayoutWidget supports an easy layout management like QGrid but with flexible layout adjustments
+* Change: Remove some unusable header files from installation
+* New: Language selection with command line option
+* New: Multiple files in command line
+	20.05.2002
+* Fix: Add missing undo code at ConnectorBoolInEdge
+* Fix: Some rounding problems in KSimTimeBase
+	19.05.2002
+* Change: Data transport layer redesigned. Faster execution, easier component
+  implementation, no delay for external connectors (up to now the delay was 0
+  or 1 cycle)
+	02.05.2002
+* Change: Imporve class KSimFilename
+* Fix: some dialog issues (unrecognized changes)
+* New: KSimFile::absolutePath()
+* Fix: Open document read only
+* Change: Set new URL before saving document
+	25.04.2002
+* New: Class KSimFilename
+	24.04.2002
+* Change: component type variables
+* New: KSimData stores also QPixmap
+* New: Components 'Stop' simulation and 'Close' window
+* Change: New sorting function for components and compViews
+	21.04.2002
+* Change: Remove unused parameter comp from Component::createGeneralProperty(Component * comp, QWidget *parent)
+* Change: Remove unused parameter comp from Component::createInfoProperty(Component * comp, QWidget *parent)
+	20.04.2002
+* New: Improve package loading code
+* New: Signals for component execution
+* Fix: Directory setting during first startup (Thanks Aurelien)
+* Fix: Unload code of bad package files
+	14.04.2002
+* Change: Improve internationalization of components and connectors
+* Change: Use compiler flag -DQT_NO_CAST_ASCII
+* Change: Use singleton patterns instead of static objects
+* Fix: Wrong connector direction in user view modules
+	02.04.2002
+* New: Version 0.3.5-cvs
+* New: Component execution is event triggered now (earlier versions are cycle based)
+* New: Write document with network transparent support now
+* New: Improve KSimData API
 	02.04.2002
 * Fix sticking Button and ToggleButton
 * Fix search algorithm for relative paths (empty path)

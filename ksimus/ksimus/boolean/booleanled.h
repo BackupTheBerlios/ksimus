@@ -46,7 +46,7 @@ class QCheckBox;
   *@author Rasmus Diekenbrock
   */
 
-extern const ComponentInfo BooleanLedInfo;
+const ComponentInfo * getBooleanLedInfo();
 
 class BooleanLed : public ComponentStyle
 {
@@ -140,12 +140,10 @@ class BooleanLedColorPropertyWidget : public QVButtonGroup
 	Q_OBJECT
 
 public:
-	BooleanLedColorPropertyWidget(const QString & text, QWidget *parent=0, const char *name=0);
+	BooleanLedColorPropertyWidget(const QString & text, bool withDefault, QWidget *parent=0, const char *name=0);
 	~BooleanLedColorPropertyWidget();
 
 	QColor color() const;
-	
-	void setEnableDefault(bool ena);
 	
 	bool isDefault() const;
 	

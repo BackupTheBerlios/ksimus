@@ -18,16 +18,15 @@
 // C-Includes
 
 // QT-Includes
-#include <qlayout.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qgroupbox.h>
 #include <qvalidator.h>
-
+#include <qhbox.h>
+#include <qvbox.h>
 
 // KDE-Includes
 #include <klocale.h>
-#include <kdialog.h>
 
 // Project-Includes
 #include "mapsizeswidget.h"
@@ -36,20 +35,21 @@
 #include "compcontainer.h"
 #include "compview.h"
 #include "ksimundo.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
+#include <kdialog.h>
 
 
 MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *name)
-	:	PropertyWidget(parent, name),
+	:	PropertyWidget(1, parent, name),
 		m_doc(doc)
 {
-	QGroupBox * schematicBox;
-	QGroupBox * userBox;
+/*	QGroupBox * schematicBox;
+	QGroupBox * userBox;*/
 	QLabel * label;
 	QIntValidator * vali;
-	QGridLayout * layout;
 	QString str;
 	
 	QRect allViews;
@@ -69,8 +69,11 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 		minHeight = allViews.bottom();
 	}
 		
-	schematicBox = new QGroupBox(2, Horizontal, i18n("Schematic size:"), this, "Schematic size");
-	CHECK_PTR(schematicBox);
+	QGroupBox * schematicBox1 = new QGroupBox(1, Qt::Horizontal, i18n("Schematic size:"), this, "Schematic size");
+	CHECK_PTR(schematicBox1);
+	RowLayoutWidget * schematicBox = new RowLayoutWidget(2,schematicBox1);
+	
+	schematicBox->setSpacing(KDialog::spacingHint());
 	
 	// Schematic Width
 	label = new QLabel(i18n("Width:"), schematicBox);
@@ -99,6 +102,9 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	addToolTip(str, label, m_schematicHeight);
 	addWhatsThis(str, label, m_schematicHeight);
 	
+//	schematicBox->setColStretch(0,0);
+	schematicBox->setColStretch(1,1);
+	
 	// ##### User Interface #####
 	
 	allViews = m_doc->getContainer()->getUserViewList()->getRect();
@@ -113,10 +119,14 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 		minHeight = allViews.bottom();
 	}
 		
-	userBox = new QGroupBox(2, Horizontal, i18n("User interface size:"), this, "User size");
-	CHECK_PTR(userBox);
+	QGroupBox * userBox1 = new QGroupBox(2, Qt::Horizontal, i18n("User interface size:"), this, "User size");
+	CHECK_PTR(userBox1);
 	
 	// User Interface Width
+	RowLayoutWidget * userBox = new RowLayoutWidget(2,userBox1);
+	CHECK_PTR(userBox);
+	userBox->setSpacing(KDialog::spacingHint());
+	
 	label = new QLabel(i18n("Width:"), userBox);
 	CHECK_PTR(label);
 	
@@ -130,6 +140,7 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	addWhatsThis(str, label, m_userWidth);
 	
 	// User Interface Height
+//	userBox = new QHBox(this);
 	label = new QLabel(i18n("Height:"), userBox);
 	CHECK_PTR(label);
 	
@@ -142,21 +153,11 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	addToolTip(str, label, m_userHeight);
 	addWhatsThis(str, label, m_userHeight);
 	
+//	userBox->setColStretch(0,0);
+	userBox->setColStretch(1,1);
 	
-	layout = new QGridLayout(this,3,2);	
-	CHECK_PTR(vali);
-	layout->setMargin(KDialog::marginHint());
-	layout->setSpacing(KDialog::spacingHint());
-	layout->colStretch(1);
-
-	layout->addWidget(schematicBox,0,0);
-	layout->addWidget(userBox,1,0);
-
-/*	layout->addWidget(tickLabel,2,0);
-	layout->addWidget(m_tickSynchronized,2,1);
-	layout->addWidget(m_tickTime,3,1);*/
-
-	layout->colStretch(2);
+	// Fixes a problem with the truncated layout on the right side! Why? TODO
+	setRightColSpacing(6 * margin());
 	
 	// Setup values
 	defaultPressed();

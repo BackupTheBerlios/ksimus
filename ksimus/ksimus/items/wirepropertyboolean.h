@@ -24,7 +24,7 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const WirePropertyInfo wirePropertyBooleanInfo;
+const WirePropertyInfo * getWirePropertyBooleanInfo();
 
 class WirePropertyBoolean : public WirePropertySingleOutput
 {
@@ -35,11 +35,15 @@ public:
 	WirePropertyBoolean(Wire * wire);
 	virtual ~WirePropertyBoolean();
 
-	/** Returns a pointer to the current data */	
-	virtual const void * getCurrentData() const;
-	
-	// Setup the colors, brushs, and fills for the connector
-	virtual void setupColorScheme (QPainter * p) const;
+	/** Get the colors for the wire property. */
+	virtual const WireColorScheme & getColorScheme() const;
+
+	static const QString & getI18nTextValue(bool value);
+	static const QString & getI18nTextTrue();
+	static const QString & getI18nTextFalse();
+
+	/** Returns a @ref WatchItemBooleanWireProperty object. */
+	virtual WatchItemBase * makeWatchItem();
 
 };
 

@@ -19,6 +19,7 @@
 #define WIREINFO_H
 
 #include <qstring.h>
+#include <qlist.h>
 
 #include "baseinfo.h"
 
@@ -26,7 +27,6 @@
   *@author Rasmus Diekenbrock
   */
 class Wire;
-class WireInfo;
 class WireProperty;
 
 
@@ -52,8 +52,12 @@ private:
 	
 };
 
-typedef const WirePropertyInfo * WirePropertyInfoPtr;
-typedef WirePropertyInfoPtr WirePropertyInfoList[];
+class WirePropertyInfoList : public QList<const WirePropertyInfo>
+{
+};
+
+#define FOR_EACH_WIREPROPERTY_INFO(_it_,_propertyInfoList_)	\
+		for(QListIterator<const WirePropertyInfo> _it_(_propertyInfoList_);_it_.current();++_it_)
 
 
 

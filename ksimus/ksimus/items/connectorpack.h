@@ -47,14 +47,19 @@ public:
 	
 	/** Constructs a new connector pack.
 		*
-		* @param comp     The parent component.
-		* @param name     The name is used for the storages of the connector pack. It is also used as default
-		*                 connector name.
-		* @param connInfo The info (means type) of the connector to add by this connector pack.
-		* @param minConn  The minimum count of connectors. The default is one connector.
-		* @param maxConn  The maximum count of connectors. The default are ten connecotrs.
+		* @param comp         The parent component.
+		* @param name         The name is used for the storages of the connector pack. It is also used as default
+		*                     connector name.
+		* @param i18nConnName The i18nConnName is used for the connector naming. This name should be translated.
+		*                     Don't forget the %1.
+		* @param connInfo     The info (means type) of the connector to add by this connector pack.
+		* @param minConn      The minimum count of connectors. The default is one connector.
+		* @param maxConn      The maximum count of connectors. The default are ten connecotrs.
 		*/
-	ConnectorPack(Component * comp, const QString & name, const ConnectorInfo * connInfo,
+	ConnectorPack(Component * comp,
+	              const QString & name,
+	              const QString & i18nConnName,
+	              const ConnectorInfo * connInfo,
 	              unsigned int minConn = 1, unsigned int maxConn = 10);
 	/** The destructor.
 	 */
@@ -85,12 +90,17 @@ public:
 	 */
 	unsigned int getConnectorMaximum() const { return m_maxConn; };
 	
-  /** Returns the info (means type) of the connector.
-   */
-  const ConnectorInfo * getConnectorInfo() const { return m_connInfo; };
-  /** Returns the name of this connector pack. It is also used as default connector name. */
+	/** Returns the info (means type) of the connector.
+	 */
+	const ConnectorInfo * getConnectorInfo() const { return m_connInfo; };
+	/** Returns the name of this connector pack. It is also used as default connector name. */
 	QString getName() const { return m_name; };
 
+	/** Returns the relative name of the group where the data is stored. Don't use this function in new components! */
+	QString getStoreName() const { return m_storeName; };
+	/** Sets the relative name of the group where the data is stored. Don't use this function in new components! */
+	void setStoreName(const QString & name);
+	
 	/** Initialize the component popup menu.
 	  *	Return true, if items are added.
 		* This function takes care about the KSimAction information.
@@ -104,11 +114,11 @@ public:
 		*/
 	virtual bool load(KSimData & file);
 	
-	/** Set the connector name here. The set connector name before calling first @ref setConnectorCount
-	  * Don't forget the following %1.
+	/** Set the translated connector name template. The set connector name before calling first @ref setConnectorCount.
+	  * Don't forget the %1.
 	  */
 	void setConnectorName(const QString & connName);
-	/** Returns the current connector name.
+	/** Returns the translated connector name template.
 	  */
 	QString getConnectorName() const;
 	
@@ -117,20 +127,20 @@ public:
 	/** Returns ture if the connector are named with letter, or false if named with numbers. */
 	bool isLetter() const;
 	/** Sets the orientation of the connectors. */
-  void setOrientation(ConnOrientationType orient);
-  /** Returns the orientations of the connectors. */
-  ConnOrientationType getOrientation() const { return m_orientation; };
+	void setOrientation(ConnOrientationType orient);
+	/** Returns the orientations of the connectors. */
+	ConnOrientationType getOrientation() const { return m_orientation; };
 
-  /** Set true, if only the last of all connector shall be deleted. If false, the last unwired connector
-    * will delete. The default is delete last only.
-    *
-    * TODO: Do not use it! Works not properly!
-    */
-  void setDeleteLastOnly(bool lastOnly);
-  /** Returns true, if only the last of all connector shall be deleted. If false, the last unwired connector
-    * will delete.
-    */
-  bool isDeleteLastOnly() const;
+	/** Set true, if only the last of all connector shall be deleted. If false, the last unwired connector
+	  * will delete. The default is delete last only.
+	  *
+	  * TODO: Do not use it! Works not properly!
+	  */
+	void setDeleteLastOnly(bool lastOnly);
+	/** Returns true, if only the last of all connector shall be deleted. If false, the last unwired connector
+	  * will delete.
+	  */
+	bool isDeleteLastOnly() const;
 
 	/** Return the number of deletable connectors. The number depends on the minimum connetor count and
 	  * the number of unwired connectors.*/
@@ -160,8 +170,8 @@ protected:
 	/** Returns the next connector to delete or zero if all connector are connected.
 	  */
 	ConnectorBase * getDeletableConnector() const;
-		
-private: 		//functions
+
+private: //functions
 	/** This internal function adds a new connector.
 	  *
 	  * It tests the maximum connector count (set by @ref setConnectorMaximum) and if the maximum is
@@ -181,11 +191,12 @@ private: 		//functions
 
 private:
 	QString m_name;
+	QString m_i18nConnName;
 	ConnectorList * m_connList;
 	const ConnectorInfo * m_connInfo;
 	unsigned int m_minConn;
 	unsigned int m_maxConn;
-	QString m_connName;
+	QString m_storeName;
 	ConnOrientationType m_orientation;
 	Q_UINT32 m_flags;
 	

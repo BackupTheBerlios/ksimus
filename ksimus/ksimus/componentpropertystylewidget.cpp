@@ -21,15 +21,12 @@
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qtooltip.h>
-#include <qvbox.h>
 #include <qvgroupbox.h>
-#include <qlayout.h>
 #include <qgrid.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 
 // KDE-Includes
-#include <kdialog.h>
 #include <klocale.h>
 #include <kcolorbtn.h>
 #include <kfontdialog.h>
@@ -45,21 +42,16 @@
 
 
 ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp, QWidget *parent, const char *name)
-	:	ComponentPropertyBaseWidget(comp, parent, name)
+	:	ComponentPropertyBaseWidget(comp, 1, parent, name)
 {
-	QGridLayout * layout;
+	setCenterColStretch(0);
+	setRightColStretch(1);
+	
 	QString str;
 	QLabel * label;
 	
-	m_vBox = new QVBox(this, "Style VBox");
-	CHECK_PTR(m_vBox);
-	
-	m_vBox->setMargin(KDialog::marginHint());
-	m_vBox->setSpacing(KDialog::spacingHint());
-	
-	
 	// Color Group	
-	m_colorGroup = new QVGroupBox(i18n("Color:"), getVBox(), "Style Color Box");
+	m_colorGroup = new QVGroupBox(i18n("Color:"), this, "Style Color Box");
 	CHECK_PTR(m_colorGroup);
 	
 	// Color Group - Default colors
@@ -93,7 +85,7 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 
 	
 	// Frame Group	
-	m_frameGroup = new QVGroupBox(i18n("Frame:"), getVBox(), "Style Frame Box");
+	m_frameGroup = new QVGroupBox(i18n("Frame:"), this, "Style Frame Box");
 	CHECK_PTR(m_frameGroup);
 	
 	// Frame Group - Frame ena
@@ -105,7 +97,7 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	
 	
 	// Font Group	
-	m_fontGroup = new QVGroupBox(i18n("Font:"), getVBox(), "Style Font Box");
+	m_fontGroup = new QVGroupBox(i18n("Font:"), this, "Style Font Box");
 	CHECK_PTR(m_fontGroup);
 	
 	// Font Group - Default Font
@@ -180,13 +172,6 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	m_exampleFont->setText(m_font.family());
 	connect(m_defaultFont, SIGNAL(toggled(bool)), m_exampleFont, SLOT(setDisabled(bool)));
 		
-	
-	// Set main layout
-	layout = new QGridLayout(this,2,1);
-	layout->addWidget(getVBox(),0,0);
-	layout->setRowStretch(1,1);
-	
-
 }
 
 ComponentPropertyStyleWidget::~ComponentPropertyStyleWidget()

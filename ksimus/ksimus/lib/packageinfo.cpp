@@ -31,9 +31,9 @@
 PackageInfo::PackageInfo(const QString packageName,
                          KInstance * instance,
                          const char * packageVersion,
-                         const ComponentInfoPtr * componentList,
-                         const ConnectorInfoPtr * connectorList,
-                         const WirePropertyInfoPtr * wirePropertyList)
+                         const ComponentInfoList & componentList,
+                         const ConnectorInfoList & connectorList,
+                         const WirePropertyInfoList & wirePropertyList)
 	:	m_packageName(packageName),
 		m_instance(instance),
 		m_packageVersion(packageVersion),
@@ -61,17 +61,17 @@ const char * PackageInfo::getPackageVersion() const
 	return m_packageVersion;
 };
 
-const ComponentInfoPtr * PackageInfo::getComponentList() const
+const ComponentInfoList & PackageInfo::getComponentList() const
 {
 	return m_componentList;
 };
 
-const ConnectorInfoPtr * PackageInfo::getConnectorList() const
+const ConnectorInfoList & PackageInfo::getConnectorList() const
 {
 	return m_connectorList;
 };
 
-const WirePropertyInfoPtr * PackageInfo::getWirePropertyList() const
+const WirePropertyInfoList & PackageInfo::getWirePropertyList() const
 {
 	return m_wirePropertyList;
 };

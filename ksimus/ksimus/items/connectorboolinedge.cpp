@@ -38,39 +38,46 @@
 #define CHANGE_SENSITIVE_ENA  0x0002
 
 
-static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
+static ConnectorBase * create(Component * comp, const QString & name,
+                              const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorBoolIn(comp, name, pos);
+	return new ConnectorBoolIn(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo ConnectorBoolInEdgeInfo (	"Boolean Input Edge",
-											"booleanInputEdge",
-											"Boolean",
-											create );
-	
+const ConnectorInfo * getConnectorBoolInEdgeInfo()
+{
+	static const ConnectorInfo Info(QString::fromLatin1("Boolean Input Edge"),
+	                                QString::fromLatin1("Boolean Input Edge"),
+	                                QString::fromLatin1("Boolean"),
+	                                create );
+	return &Info;
+}
+
+
 int ConnectorBoolInEdge::s_idSensitive;
 static const char * sSensitive = "Edge sensitive";
 
 
-ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name, const QPoint & pos)
-	:	ConnectorBoolIn(comp, name, pos, CO_LEFT, &ConnectorBoolInEdgeInfo),
+ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name,
+                                         const QString & i18nName, const QPoint & pos)
+	:	ConnectorBoolIn(comp, name, i18nName, pos, CO_LEFT, getConnectorBoolInEdgeInfo()),
 		m_edgeSensitive(true),
 		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
 {
 }
 
-ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name,
+ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name, const QString & i18nName,
 						                             const QString & descr, const QPoint & pos)
-	:	ConnectorBoolIn(comp, name, pos, CO_LEFT, &ConnectorBoolInEdgeInfo),
+	:	ConnectorBoolIn(comp, name, i18nName, pos, CO_LEFT, getConnectorBoolInEdgeInfo()),
 		m_edgeSensitive(true),
 		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
 {
 	new ConnectorLabel(this, descr);
 }
 						
-ConnectorBoolInEdge::ConnectorBoolInEdge( Component * comp, const QString & name, const QPoint & pos,
-                                           ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorBoolIn(comp, name, pos, orient, ci),
+ConnectorBoolInEdge::ConnectorBoolInEdge( Component * comp, const QString & name, const QString & i18nName,
+                                          const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorBoolIn(comp, name, i18nName, pos, orient, ci),
 		m_edgeSensitive(true),
 		m_flags(INIT_SENSITIVE | CHANGE_SENSITIVE_ENA)
 {
@@ -136,6 +143,8 @@ bool ConnectorBoolInEdge::getInput()
 		// rising edge ?
 		res = (!m_last && current);
 		m_last = current;
+		// Execute the next cycle because the input is than low !!!
+		getComponent()->executeNext();
 	}
 	else
 	{
@@ -149,11 +158,13 @@ bool ConnectorBoolInEdge::getInput()
   */
 void ConnectorBoolInEdge::reset()
 {
+	ConnectorBoolIn::reset();
+	
 	m_last = isNegated();
 }
 
 /** Creates the property widget */
-QWidget* ConnectorBoolInEdge::propertyWidget(QWidget * parent)
+PropertyWidget* ConnectorBoolInEdge::propertyWidget(QWidget * parent)
 {
 	return new ConnectorBoolInEdgePropertyWidget(this, parent, getName());
 }
@@ -190,7 +201,9 @@ void ConnectorBoolInEdge::popupMenuHighlighted(int msg) const
 /** Toggles the sensitive type */
 void ConnectorBoolInEdge::slotToggleEdgeSensitive()
 {
+	getComponent()->undoChangeProperty(i18n("Change Connector Properties"));
 	setEdgeSensitive(!isEdgeSensitive());
+	getComponent()->setModified();
 }
 
 /** Load properties

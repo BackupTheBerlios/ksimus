@@ -23,14 +23,13 @@
 // QT-Includes
 
 // KDE-Includes
-#include <kdialogbase.h>
 
 // Project-Includes
+#include "componentpropertydialog.h"
 #include "componentitem.h"
 
 // Forward declaration
 class QString;
-class Component;
 class ConnectorList;
 class ConnectorBase;
 
@@ -38,21 +37,14 @@ class ConnectorBase;
   *@author Rasmus Diekenbrock
   */
 
-class ConnectorPropertyDialog : public KDialogBase, public ComponentItem
+class ConnectorPropertyDialog : public ComponentPropertyDialog
 {
    Q_OBJECT
-public: 
-	ConnectorPropertyDialog(ConnectorList * connList, ConnectorBase * activeConn = 0,
-	                        QString * caption = 0, QWidget *parent=0, const char *name=0);
+public:
+	ConnectorPropertyDialog(ConnectorList * connList, ConnectorBase * activeConn,
+	                        const QString & caption, QWidget *parent=0, const char *name=0);
 	~ConnectorPropertyDialog();
-
-protected slots:
-	void slotDataChanged();
-	virtual void slotOk();
-
-private:
-	bool m_dataChanged;
-
 };
+
 
 #endif

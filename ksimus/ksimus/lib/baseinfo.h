@@ -57,7 +57,4 @@ private:
 	const QString m_oldLibNames;
 };
 
-typedef const BaseInfo * BaseInfoPtr;
-typedef BaseInfoPtr BaseInfoList[];
-
 #endif

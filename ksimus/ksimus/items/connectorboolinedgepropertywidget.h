@@ -40,7 +40,7 @@ class ConnectorBoolInEdgePropertyWidget : public ConnectorBoolInPropertyWidget
    Q_OBJECT
 public: 
 	ConnectorBoolInEdgePropertyWidget(ConnectorBoolInEdge * connector, QWidget *parent=0, const char *name=0);
-//	~ConnectorBoolInEdgePropertyWidget();
+	~ConnectorBoolInEdgePropertyWidget();
 
 	/** The function acceptPressed() is called, if changes are accepted.
 		You have to reimplement this function, if you add new properties.

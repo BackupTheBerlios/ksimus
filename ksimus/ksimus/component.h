@@ -50,9 +50,11 @@ class ConnectorBase;
 class ComponentPropertyDialog;
 class ComponentPropertyBaseWidget;
 class KSimTimeServer;
+class KSimTime;
 class ComponentAddOnList;
 class KInstance;
 class PackageInfo;
+class WatchWidget;
 
 /**Base class for all components
   *@author Rasmus Diekenbrock
@@ -65,14 +67,34 @@ class Component : public QObject
 friend class CompView;
 friend class ComponentAddOn;
 
+class Private;
+
 // Public attributes
 public:
 
+	// Type definition.
+	// Gives also the sorting order of components and views
+	enum eComponentType {
+	                       eGroup             = 0x1000,  // is a group
+	                       eComponent         = 0x2000,  // is a simple component
+	                       eExternalConnector = 0x3000,  // is a external connector
+	                       eModule            = 0x4000,  // is a module
+	                       eGuiComponent      = 0x5000,  // is a GUI component
+	                       eWire              = 0x6000   // is a wire
+	                    };
+	
+	
 	Component(CompContainer * container, const ComponentInfo * ci);
 	virtual ~Component();
 	
 	/** Returns the component type */
-	const char * getType() const;
+	const QString & getType() const;
+	/** Returns true, if the parameter type is a proper reload type. This is useful if a component
+	  * supports more than one types and the type decides the different functionality (e.g.
+	  * @ref BooleanButton). The default implementation returns true, if type is equal to the current
+	  * component type.*/
+	virtual bool isProperReloadType(const QString & type) const;
+	
 	/** save component properties */
 	virtual void save(KSimData & file) const;
 	/** load component properties
@@ -108,8 +130,15 @@ public:
 	/** Returns the related document */
 	KSimusDoc * getDoc() const;
 	
+	/** Returns the module depth. This means how many modules are 'between' this
+	  * component and the top level document.
+	  * Returns 0 if the component is not a member of  module.*/
+	 unsigned int getModuleDepth() const;
+		
 	/** Returns the log window */
 	LogList * getLogList() const;
+	/** Returns a pointer to the watch widget. */
+	WatchWidget * getWatchWidget() const;
 	/** Returns the undo object */
 	KSimUndo * getUndo() const;
 	/** Returns the simulation timer */
@@ -135,6 +164,9 @@ public:
 	bool isExtConn() const;
 	/** Returns true, if component is a group container.  */
 	bool isGroup() const;
+	/** Returns true, if component is a GUI component.  */
+	bool isGuiComp() const;
+	
 	/** Returns true, if simulation is running. */
 	bool isRunning() const;
 	
@@ -144,6 +176,11 @@ public:
 	*   Returns the number of errors.
 	*/
 	virtual int checkCircuit();
+	
+	/** Setup the Component for a new circuit execution.
+	  * Calls the setup functions of the connectors.
+	  */
+	virtual void setupCircuit();
 	
 	/** Checks the component property. The functions is called after the
 	*		property dialog.
@@ -168,15 +205,29 @@ public:
 		
 	/** Executes the simulation of this component */
 	virtual void calculate();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
 	/** Reset all simulation variables */
 	virtual void reset();
 
-	/** Returns the name of the component */
-	const QString & getName() const { return m_name; };
-	void setName(const QString & newName);
+	/** Adds the component in the list for execute next cycle. */
+	void executeNext();
+	/** Adds the component in the timed list. timerNo is any magic number to differentiate between different timers.
+	    In this way you can manage more than one timer. */
+	void executeAt(unsigned int timerNo, const KSimTime & time);
+	/** Adds the component in the timed list. timerNo is any magic number to differentiate between different timers.
+	    In this way you can manage more than one timer. */
+	void executeAfter(unsigned int timerNo, const KSimTime & diffTime);
 	
+	
+	/** Returns the name of the component */
+	QString getName() const;
+	/** Sets the name of the component. The default name is used if newName is empty */
+	void setName(const QString & newName);
+	/** Returns the default name of the component.
+	  * This is: "initName serialNumber"
+	  */
+	QString Component::getDefaultName() const;
+	/** Returns true, if the component uses the default name .*/
+	bool hasDefaultName() const;
 	/** Returns the name of the component.
 	* If component is member of a module, the returned name includes the module name. */
 	QString requestTopLevelName() const;
@@ -198,7 +249,7 @@ public:
 	  * Overload this function if you want to use a modified General Propery Page. Use as base class
 	  * @ref ComponentPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 	/** Add the info page to the property dialog.
 		This function is called by @ref initPropertyDialog.*/
 	void addInfoProperty(ComponentPropertyDialog * dialog);
@@ -206,8 +257,8 @@ public:
 	  * Overload this function if you want to use a modified Info Propery Page. Use as base class
 	  * @ref ComponentPropertyGeneralWidget.
 	  * This function is called by @ref addInfoProperty*/
-	virtual ComponentPropertyBaseWidget * createInfoProperty(Component * comp, QWidget *parent);
-
+	virtual ComponentPropertyBaseWidget * createInfoProperty(QWidget *parent);
+	
 	/** Initialize the component popup menu
 	  *	Return true, if items are added */
 	virtual bool initPopupMenu(QPopupMenu * popup);
@@ -259,12 +310,33 @@ public:
   /** Returns the actions object. In this object describes all of this addon required actions. */
 	KSimAction & getAction() { return m_myActions; };
 	
+	/** Returns the component type.
+	  * @see eComponentType */
+	eComponentType getComponentType() const;
+	
+	/** Returns true, if this is a "Zero Delay" component.
+	  * @see setComponentType. */
+	bool isZeroDelayComponent() const;
+
+		
 	static const char * sSerialNumber;
 	static const char * sType;
 	static const char * sName;
 
 // Protected attributes
 protected:
+	/** Sets the component type.
+	  * @see eComponentType */
+	void setComponentType(eComponentType newType);
+	
+	/** Declare this component as a "Zero Delay" component.
+	  * Zero Delay components have no internal delay like a @ref ExternalConnector or
+	  * a converter.
+	  * Regular components are no zero delay components. So use this function only if
+	  * you know what are are doing. */
+	void setZeroDelayComponent(bool zeroDelay);
+	
+private:
 	/** The sheet view of the component */
 	CompView * m_sheetView;
 	/** The user view of the component */
@@ -277,22 +349,18 @@ protected:
 	unsigned int m_serialNumber;
 	/** List of all connectors of the conponent */
 	ConnectorList * m_connList;
-	
 	/** Pointer to the info object */
 	const ComponentInfo * m_info;
 	
-	/** True, if component is a wire */
-	bool m_isWire;
-	/** True, if component is a module */
-	bool m_isModule;
-	/** True, if component is a external connector */
-	bool m_isExtConn;
-	/** True, if component is a group */
-	bool m_isGroup;
-	
-private:
+	/** The component type. */
+	eComponentType m_componentType;
+	/** The list of all component add ons. */
 	ComponentAddOnList * m_addonList;
+	/** The available actions of this component. */
 	KSimAction m_myActions;
+	
+	/** Private attributes. */
+	Private * m_p;
 
 signals:
 	void signalSetName(const QString & newName);
@@ -302,6 +370,9 @@ signals:
 
 class ComponentList : public QList<Component>
 {
+	public:
+	
+	void insertComponent(Component * comp);
 };
 
 

@@ -41,27 +41,25 @@ bool ConnectorLibrary::insert (const ConnectorInfo * ci, const PackageInfo * pac
 	return res;
 }
 	
-bool ConnectorLibrary::insert (const ConnectorInfoList cil, const PackageInfo * packageInfo)
+bool ConnectorLibrary::insert (const ConnectorInfoList & cil, const PackageInfo * packageInfo)
 {
 	bool res = true;
-	const ConnectorInfo * ci;
-	int idx = 0;
-	
-	while ((ci = cil[idx++]))
+	FOR_EACH_CONNECTOR_INFO(it, cil)
 	{
-		res &= insert(ci, packageInfo);
+		res &= insert(it.current(), packageInfo);
 	}
 	return res;
 }
 
 
-bool ConnectorLibrary::create(ConnectorBase * * conn, Component * comp, const QString & name, const QPoint & pos,const char * libName) const
+bool ConnectorLibrary::create(ConnectorBase * * conn, Component * comp, const QString & name,
+                              const QString & i18nName, const QPoint & pos,const char * libName) const
 {
-	const ConnectorInfo * ci = (ConnectorInfo *) findLibName(libName);
+	const ConnectorInfo * ci = (ConnectorInfo *) findLibName(QString::fromLatin1(libName));
 	
 	if (ci)
 	{
-		*conn = ci->create(comp, name, pos);
+		*conn = ci->create(comp, name, i18nName, pos);
 		return true;
 	}
 	else

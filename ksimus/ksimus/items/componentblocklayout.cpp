@@ -90,7 +90,7 @@ void ComponentBlockLayout::drawSheetView (QPainter *p) const
 		rect.rTop() --;
 		if (!getText().isEmpty())
 		{
-			QFont newFont("helvetica",8);
+			QFont newFont(QString::fromLatin1("helvetica"),8);
 			p->setFont(newFont);
 			p->setPen(black);
 			p->drawText(rect, getAlign(), getText());
@@ -142,7 +142,7 @@ void ComponentControlBlock::drawSheetView(QPainter *p) const
 		rect.rTop() --;
 		if (!getText().isEmpty())
 		{
-			QFont newFont("helvetica",8);
+			QFont newFont(QString::fromLatin1("helvetica"),8);
 			p->setFont(newFont);
 			p->setPen(black);
 			p->drawText(rect, getAlign(), getText());

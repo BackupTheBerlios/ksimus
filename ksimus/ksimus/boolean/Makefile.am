@@ -1,15 +1,14 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
+noinst_LIBRARIES = libboolean.a
 
-INCLUDES = $(all_includes)
+## INCLUDES were found outside kdevelop specific part
 
 libboolean_a_METASOURCES = AUTO
 
-noinst_LIBRARIES = libboolean.a
-
-libboolean_a_SOURCES = simtimeinput.cpp booleanxin1out.cpp boolean1out.cpp clockgenerator.cpp booleanled.cpp booleanbutton.cpp booleanand.cpp 
+libboolean_a_SOURCES = controlpause.cpp controlstop.cpp controlclose.cpp simtimeinput.cpp booleanxin1out.cpp boolean1out.cpp clockgenerator.cpp booleanled.cpp booleanbutton.cpp booleanand.cpp 
 
 
-EXTRA_DIST = booleanand.cpp booleanand.h booleanbutton.cpp booleanbutton.h booleanled.cpp booleanled.h clockgenerator.cpp clockgenerator.h boolean1out.cpp boolean1out.h booleanxin1out.cpp booleanxin1out.h simtimeinput.cpp simtimeinput.h 
+EXTRA_DIST = booleanand.cpp booleanand.h booleanbutton.cpp booleanbutton.h booleanled.cpp booleanled.h clockgenerator.cpp clockgenerator.h boolean1out.cpp boolean1out.h booleanxin1out.cpp booleanxin1out.h simtimeinput.cpp simtimeinput.h controlclose.cpp controlclose.h controlstop.cpp controlstop.h controlpause.cpp controlpause.h 
 
 install-data-local:
 	$(mkinstalldirs) $(pkgincludedir)/

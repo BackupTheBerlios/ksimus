@@ -22,7 +22,7 @@
 ConnectorInfo::ConnectorInfo(	const QString & name,
 								const QString & libName,
 								const QString & dataType,
-								ConnectorBase * (*factory)(Component* , const QString & , const QPoint&),
+								ConnectorBase * (*factory)(Component* , const QString & , const QString & , const QPoint&),
 								const QString & shortDescr,
 								const QString & HTMLDescr,
 								const QString & oldLibNames)
@@ -37,8 +37,9 @@ const QString & ConnectorInfo::getDataType() const
 	return m_dataType;
 }
 
-ConnectorBase * ConnectorInfo::create(Component* comp , const QString & name , const QPoint& pos) const
+ConnectorBase * ConnectorInfo::create(Component* comp , const QString & name ,
+                                      const QString & i18nName, const QPoint& pos) const
 {
 	CHECK_PTR(m_factory);
-	return m_factory(comp, name, pos);
+	return m_factory(comp, name, i18nName, pos);
 }	

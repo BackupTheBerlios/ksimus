@@ -23,37 +23,50 @@
 #include <qdict.h>
 #include <qstring.h>
 
+#include "klocale.h"
+
 #include "ksimdata.h"
 #include "ksimtime.h"
 #include "ksimdebug.h"
 #include "ksimtimeserver.h"
 #include "enumdict.h"
 
-static EnumDict<eTimeUnit> timeUnitDict;
-
 EnumDict<eTimeUnit>::tData EnumDict<eTimeUnit>::data[]
-			= { {"Ticks",    unit_ticks},
+      = { {"Ticks",    unit_ticks},
+          {"1/10ns",   unit_tenth_nsec},
           {"1/10nsec", unit_tenth_nsec},
-					{"nsec",     unit_nsec},
-					{"usec",     unit_usec},
-					{"µsec",     unit_usec},
-					{"msec",     unit_msec},
-					{"sec",      unit_sec},
-					{"min",      unit_min},
-					{"hour",     unit_hour},
-					{"day",      unit_day},
+          {"ns",       unit_nsec},
+          {"nsec",     unit_nsec},
+          {"µs",       unit_usec},
+          {"µsec",     unit_usec},
+          {"usec",     unit_usec},
+          {"ms",       unit_msec},
+          {"msec",     unit_msec},
+          {"s",        unit_sec},
+          {"sec",      unit_sec},
+          {"min",      unit_min},
+          {"h",        unit_hour},
+          {"hour",     unit_hour},
+          {"a",        unit_day},
+          {"day",      unit_day},
           {0,         (eTimeUnit)0}};
 
+static const EnumDict<eTimeUnit> & getTimeUnitDict()
+{
+	static EnumDict<eTimeUnit> timeUnitDict;
+	return timeUnitDict;
+}
 
 eTimeUnit KSimTimeBase::convertUnit(const char * unitString)
 {
-	return timeUnitDict.find(unitString, unit_msec);
+	return getTimeUnitDict().find(unitString, unit_msec);
 }
 
 const char * KSimTimeBase::convertUnit(eTimeUnit unit)
 {
-	return timeUnitDict.find(unit);
+	return getTimeUnitDict().find(unit);
 }
+
 
 KSimTimeBase::KSimTimeBase(const KSimTimeServer & timeServer)
 	:	m_time(0),
@@ -118,7 +131,7 @@ bool KSimTimeBase::load(KSimData & config)
 	sprintf(currentTime,"%lli",m_time);
 	
 	// Load time (the number)
-	QString tmp = config.readEntry("Time",currentTime);
+	QString tmp = config.readEntry("Time",QString::fromLatin1(currentTime));
 	int res = sscanf(tmp,"%lli", &newTime);
 	if (1 == res)
 	{
@@ -131,7 +144,7 @@ bool KSimTimeBase::load(KSimData & config)
 	}
 
 	// Load unit
-	const eTimeUnit * pUnit = timeUnitDict.load(config, "Unit");
+	const eTimeUnit * pUnit = getTimeUnitDict().load(config, "Unit");
 	if (pUnit)
 	{
 		m_unit = *pUnit;
@@ -156,7 +169,7 @@ void KSimTimeBase::save(KSimData & config) const
 	sprintf(tmp,"%lli",m_time);
 	config.writeEntry("Time",tmp);
 
-	timeUnitDict.save(config, "Unit", m_unit);
+	getTimeUnitDict().save(config, "Unit", m_unit);
 }
 
 eTimeUnit KSimTimeBase::getUnit() const
@@ -173,7 +186,16 @@ void KSimTimeBase::setUnit(eTimeUnit unit)
 		if(hasTimeServer())
 		{
 			// Time server exist
-			m_time /= getTimeServer().getTick().raw();
+			// Calculate the mumber of ticks (rounded)
+			KSimTimeType tickTime = getTimeServer().getTick().raw();
+			if (m_time > 0)
+			{
+				m_time = (m_time + (tickTime/2)) / tickTime;
+			}
+			else
+			{
+				m_time = (m_time - (tickTime/2)) / tickTime;
+			}
 		}
 		else
 		{
@@ -199,40 +221,67 @@ void KSimTimeBase::setUnit(eTimeUnit unit)
 
 void KSimTimeBase::setUnit(const char * unitStr)
 {
-	const eTimeUnit * pUnit(timeUnitDict.find(unitStr));
+	const eTimeUnit * pUnit(getTimeUnitDict().find(unitStr));
 	if (pUnit)
 	{
 		setUnit(*pUnit);
 	}
 	else
 	{
-		KSIMDEBUG(QString("Unknown unit %1. Skip!").arg(unitStr));
+		KSIMDEBUG(QString::fromLatin1("Unknown unit %1. Skip!").arg(QString::fromLatin1(unitStr)));
 	}
 }
 
 const char * KSimTimeBase::getUnitStr() const
 {
-	return timeUnitDict.find(m_unit);
+	return getTimeUnitDict().find(m_unit);
 }
 
-const QString KSimTimeBase::getValueString(eTimeUnit unit, int precision) const
+QString KSimTimeBase::getValueString(eTimeUnit unit, int precision) const
 {
+	if(unit == unit_ticks)
+	{
+		if(hasTimeServer())
+		{
+			char tmp[40];
+			sprintf(tmp,"%lli",raw() / m_timeServer->getTick().raw());
+			return QString::fromLatin1(tmp);
+		}
+		else
+		{
+			KSIMDEBUG("Unit ticks is not allowed without a timeserver");
+			return QString::null;
+		}
+	}
+	
 	if (unit == unit_tenth_nsec) unit = unit_nsec;
 	
-	QString str;
-	str.sprintf("%.*f %s",precision ,getValue(unit),convertUnit(unit));
-	return str;
+	return QString::fromLatin1("%1 %2")
+	            .arg(getValue(unit), precision, 'f', precision)
+	            .arg(QString::fromLatin1(convertUnit(unit)));
 }
 
-const QString KSimTimeBase::getAdjustValueString(int precision) const
+QString KSimTimeBase::getAdjustValueString(int precision) const
 {
-	eTimeUnit unit = m_unit;
+	eTimeUnit unit;
+	KSimTimeType time;
 	
-	if (m_time < KSIMTIME_SEC)
+	if (m_unit != unit_ticks)
 	{
-		if (m_time < KSIMTIME_MSEC)
+		unit = m_unit;
+		time = m_time;
+	}
+	else
+	{
+		unit = unit_nsec;
+		time = (KSimTimeType)getValue(unit_nsec);
+	}
+	
+	if (time < KSIMTIME_SEC)
+	{
+		if (time < KSIMTIME_MSEC)
 		{
-			if (m_time < KSIMTIME_USEC)
+			if (time < KSIMTIME_USEC)
 			{
 				unit = unit_nsec;
 			}
@@ -248,9 +297,9 @@ const QString KSimTimeBase::getAdjustValueString(int precision) const
 	}
 	else
 	{
-		if (m_time < KSIMTIME_HOUR)
+		if (time < KSIMTIME_HOUR)
 		{
-			if (m_time < KSIMTIME_MIN)
+			if (time < KSIMTIME_MIN)
 			{
 				unit = unit_sec;
 			}
@@ -261,7 +310,7 @@ const QString KSimTimeBase::getAdjustValueString(int precision) const
 		}
 		else
 		{
-			if (m_time < KSIMTIME_DAY)
+			if (time < KSIMTIME_DAY)
 			{
 				unit = unit_hour;
 			}
@@ -341,7 +390,10 @@ void KSimTimeBase::setValue(double time, eTimeUnit unit)
 		case unit_ticks:
 			if (hasTimeServer())
 			{
-				m_time = (KSimTimeType)time;
+				if (time > 0)
+					m_time = (KSimTimeType)(time + 0.5);
+				else
+					m_time = (KSimTimeType)(time - 0.5);
 			}
 			else
 			{
@@ -392,14 +444,14 @@ void KSimTimeBase::setValue(double time, eTimeUnit unit)
 
 void KSimTimeBase::setValue(double time, const char * unitStr)
 {
-	const eTimeUnit * pUnit(timeUnitDict.find(unitStr));
+	const eTimeUnit * pUnit(getTimeUnitDict().find(unitStr));
 	if (pUnit)
 	{
 		setValue(time, *pUnit);
 	}
 	else
 	{
-		KSIMDEBUG(QString("Unknown unit %1. Skip!").arg(unitStr));
+		KSIMDEBUG(QString::fromLatin1("Unknown unit %1. Skip!").arg(QString::fromLatin1(unitStr)));
 	}
 }
 
@@ -506,7 +558,16 @@ void KSimTimeBase::setRaw(const KSimTimeType & time)
 	{
 		if (hasTimeServer())
 		{
-			m_time = time / getTimeServer().getTick().raw();
+			// Calculate the mumber of ticks (rounded)
+			KSimTimeType tickTime = getTimeServer().getTick().raw();
+			if (m_time > 0)
+			{
+				m_time = (time + (tickTime/2)) / tickTime;
+			}
+			else
+			{
+				m_time = (time - (tickTime/2)) / tickTime;
+			}
 		}
 		else
 		{

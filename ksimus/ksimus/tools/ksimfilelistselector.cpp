@@ -32,7 +32,7 @@ KSimFileListSelector::KSimFileListSelector(QWidget *parent, const char *name )
 		m_filter(),
 		m_mode(KFile::File),
 		m_fileDialogCaption(i18n("Select File")),
-		m_startDir(":<File>")
+		m_startDir(QString::fromLatin1(":<File>"))
 {
 	fileList->clear();
 	
@@ -64,7 +64,7 @@ void KSimFileListSelector::slotAdd()
 		if (!found)
 		{
 			fileList->insertItem(fileName->text());
-			fileName->setText("");	
+			fileName->setText(QString::fromLatin1(""));	
 		}
 	}
 
@@ -175,12 +175,12 @@ KSimPackageSelector::KSimPackageSelector(QWidget *parent, const char *name)
 {
 	m_directories = new KSimDirectorySelector(this, "Package directories");
 	m_directories->setTitle(i18n("Package directoires:"));
-	m_directories->setStartDir(":<KSimPackageFile>");
+	m_directories->setStartDir(QString::fromLatin1(":<KSimPackageFile>"));
 	
 	m_files = new KSimFileListSelector(this, "Package files");
 	m_files->setTitle(i18n("Package files:"));
 	m_files->setFilter(i18n("*.so|Package files (*.so)\n*|All files (*)"));
-	m_files->setStartDir(":<KSimPackageFile>");
+	m_files->setStartDir(QString::fromLatin1(":<KSimPackageFile>"));
 }
 
 KSimPackageSelector::~KSimPackageSelector()

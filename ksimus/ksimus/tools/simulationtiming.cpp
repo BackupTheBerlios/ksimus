@@ -16,16 +16,20 @@
  ***************************************************************************/
 
 // C-Includes
+#include <stdlib.h>
 
 // QT-Includes
 #include <qtimer.h>
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "ksimdata.h"
 #include "simulationtiming.h"
 #include "ksimusdoc.h"
+#include "ksimus.h"
+#include "loglist.h"
 #include "ksimtimebase.h"
 #include "ksimtimeserver.h"
 #include "ksimdebug.h"
@@ -40,28 +44,26 @@ static const char * sSynchronized   = "Sychronized";
 
 SimulationTiming::SimulationTiming(KSimusDoc *parent, const char *name )
 	:	QObject(parent,name),
-		m_doc(parent),
-		m_execFastest(false),
-		m_running(false),
-		m_updateNow(false),
-		m_updateSynchronized(false),
-		m_tickSynchronized(true)
+		m_doc(parent)
 {
 	m_execTimer = new QTimer(this);
-	connect(m_execTimer,SIGNAL(timeout()),
-					this,SLOT(slotExecute()));
+	CHECK_PTR(m_execTimer);
+	connect(m_execTimer, SIGNAL(timeout()), this, SLOT(slotExecute()));
 	m_updateTimer = new QTimer(this);
-	connect(m_updateTimer,SIGNAL(timeout()),
-					this,SLOT(slotUpdate()));
+	CHECK_PTR(m_updateTimer);
+	connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(slotUpdate()));
 	
-	
-	m_execTime = new KSimTimeBase(10.0, unit_msec);
-	m_updateTime = new KSimTimeBase(50.0, unit_msec);
-	m_tickTime = new KSimTimeBase(10.0, unit_msec);
+	m_execTime = new KSimTimeBase();
+	CHECK_PTR(m_execTime);
+	m_updateTime = new KSimTimeBase();
+	CHECK_PTR(m_updateTime);
+	m_tickTime = new KSimTimeBase();
+	CHECK_PTR(m_tickTime);
 
 	m_simulationTime = new KSimTimeServer();
+	CHECK_PTR(m_simulationTime);
 
-  updateTickTime();
+	setDefault();
 }
 
 SimulationTiming::~SimulationTiming()
@@ -72,6 +74,21 @@ SimulationTiming::~SimulationTiming()
 	delete m_execTime;
 }
 
+void SimulationTiming::setDefault()
+{
+	m_execTime->setValue(10.0, unit_msec);
+	m_updateTime->setValue(50.0, unit_msec);
+	m_tickTime->setValue(10.0, unit_msec);
+	m_execFastest = false;
+	m_running = false;
+	m_updateNow = false;
+	m_updateSynchronized = false;
+	m_tickSynchronized = true;
+	updateTickTime();
+	reset();
+}
+
+
 void SimulationTiming::reset()
 {
 	m_simulationTime->reset();
@@ -79,59 +96,53 @@ void SimulationTiming::reset()
 
 void SimulationTiming::load(KSimData & config)
 {
-	QString group;
-
-  group = config.group();
-
-	if (config.hasGroup(group + sExecTime))
+	if (config.hasGroupRel(sExecTime))
 	{
-	  config.setGroup(group + sExecTime);
+	  config.pushGroupRel(sExecTime);
   	m_execTime->load(config);
 		m_execFastest = config.readBoolEntry(sFastest,false);
+	  config.popGroup();
 	}
 
-	if (config.hasGroup(group + sSimulationTime))
+	if (config.hasGroupRel(sSimulationTime))
 	{
-	  config.setGroup(group + sSimulationTime);
+	  config.pushGroupRel(sSimulationTime);
   	m_tickTime->load(config);
 		m_tickSynchronized = config.readBoolEntry(sSynchronized,false);
+	  config.popGroup();
 	}
 
-	if (config.hasGroup(group + sUpdateTime))
+	if (config.hasGroupRel(sUpdateTime))
 	{
-	  config.setGroup(group + sUpdateTime);
+	  config.pushGroupRel(sUpdateTime);
   	m_updateTime->load(config);
 		m_updateSynchronized = config.readBoolEntry(sSynchronized,false);
+	  config.popGroup();
 	}
-
-  config.setGroup(group);
 
   updateTickTime();
 }
 
 void SimulationTiming::save(KSimData & config) const
 {
-	QString group;
-
-  group = config.group();
-
-  config.setGroup(group + sExecTime);
+  config.pushGroupRel(sExecTime);
   m_execTime->save(config);
   if(m_execFastest)
   	config.writeEntry(sFastest,true);
+  config.popGroup();
 
-  config.setGroup(group + sSimulationTime);
+  config.pushGroupRel(sSimulationTime);
   m_tickTime->save(config);
   if(m_tickSynchronized)
   	config.writeEntry(sSynchronized,true);
+  config.popGroup();
 
-  config.setGroup(group + sUpdateTime);
+  config.pushGroupRel(sUpdateTime);
   m_updateTime->save(config);
   if(m_updateSynchronized)
   	config.writeEntry(sSynchronized,true);
+  config.popGroup();
 
-  config.setGroup(group);
-  	
 }
 
 
@@ -142,13 +153,16 @@ void SimulationTiming::slotStart()
 	m_running = true;
 	if(m_execFastest)
 	{
-		m_execTimer->start(0);
+		m_execTimer->start(0, true);
 	}
 	else
 	{
-		time = (int)m_execTime->getValue(unit_msec);
-		m_execTimer->start(time);
-//		KSIMDEBUG_VAR("m_execTimer->start(time)", time);
+		m_execTimeTick = (int)m_execTime->getValue(unit_msec);
+//		KSIMDEBUG_VAR("m_execTimer->start(m_execTimeTick)", m_execTimeTick);
+		
+		m_execTimer->start(m_execTimeTick, true);
+		m_startTime.start();
+		m_timeSum = m_execTimeTick;		// Set to next tick
 	}
 	
   updateTickTime();
@@ -166,18 +180,59 @@ void SimulationTiming::slotStop()
 	m_running = false;
 	m_execTimer->stop();
 	m_updateTimer->stop();
-	m_doc->slotSimulateUpdate();
+	m_doc->simulateUpdate();
 }
 
 void SimulationTiming::slotExecute()
 {
-	m_doc->slotSimulateExecute();
+	m_doc->simulateExecute();
 	if(m_updateNow || m_updateSynchronized)
 	{
 		m_updateNow = false;
-		m_doc->slotSimulateUpdate();
+		m_doc->simulateUpdate();
 	}
 	m_simulationTime->addTick();
+
+	m_timeSum += m_execTimeTick;
+	int next = m_timeSum - m_startTime.elapsed();
+	
+	if(m_execFastest)
+	{
+		m_execTimer->start(0, true);
+	}
+	else
+	{
+		// Limit values
+		if (abs(next) > 1000)
+		{
+			if (abs(next) > 2000)
+			{
+				// Difference > 2 sec
+				// Drop the difference (warp a round or time adjust)
+				next = m_execTimeTick;
+				m_timeSum = m_startTime.elapsed();
+	
+			}
+			else
+			{
+				m_doc->getApp()->getLogList()->error(i18n("Timing difference simulation time - real time = %1 ms").arg(next));
+			}
+		}
+		
+		
+		if (next > (m_execTimeTick * 2))
+		{
+			// Upper Limit
+			next = (m_execTimeTick * 2);
+		}
+		else if (next < 0)
+		{
+			// Lower Limit
+			next = 0;
+		}
+		
+		m_execTimer->start(next, true);
+	}
 }
 
 void SimulationTiming::slotUpdate()

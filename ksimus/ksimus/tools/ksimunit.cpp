@@ -175,7 +175,7 @@ double KSimUnitTicks::fromUnit(double value_with_unit) const
 	
 	double d =  time.getValue(unit_sec);
 	
-//	KSIMDEBUG(QString("fromUnit d = %1").arg(d));
+//	KSIMDEBUG(QString::fromLatin1("fromUnit %1 = %2").arg(value_with_unit).arg(d));
 	
 	return d;
 }
@@ -188,7 +188,7 @@ double KSimUnitTicks::toUnit(double value_without_unit) const
 	
 	double d = time.getValue(unit_ticks);
 	
-//	KSIMDEBUG(QString("toUnit d = %1").arg(d));
+//	KSIMDEBUG(QString::fromLatin1("toUnit %1 ==> %2").arg(value_without_unit).arg(d));
 	
 	return d;
 }
@@ -337,16 +337,16 @@ const KSimUnitListStatic & KSimUnitListStatic::getTimeUnitList()
 		timeUnitList = new KSimUnitListStatic(i18n("Time Units"));
 		
 		*timeUnitList
-									<< new KSimProportionalUnit("ps",  1e-12, 1.0, 1000.0)
-									<< new KSimProportionalUnit("ns",  1e-9, 1.0, 1000.0)
-									<< new KSimProportionalUnit("µs",  1e-6, 1.0, 1000.0)
-									<< new KSimProportionalUnit("us",  1e-6, true)
-									<< new KSimProportionalUnit("ms",  1e-3, 1.0, 1000.0)
-									<< new KSimProportionalUnit("s",   1e0, 1.0, DBL_MAX)
-									<< new KSimProportionalUnit("min", 60, true)
-									<< new KSimProportionalUnit("h",   60*60, true)
-									<< new KSimProportionalUnit("a",   24*60*60, true);
-		timeUnitList->setDefaultUnit("s");
+									<< new KSimProportionalUnit(QString::fromLatin1("ps"),  1e-12, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("ns"),  1e-9, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("µs"),  1e-6, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("us"),  1e-6, true)
+									<< new KSimProportionalUnit(QString::fromLatin1("ms"),  1e-3, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("s"),   1e0, 1.0, DBL_MAX)
+									<< new KSimProportionalUnit(QString::fromLatin1("min"), 60, true)
+									<< new KSimProportionalUnit(QString::fromLatin1("h"),   60*60, true)
+									<< new KSimProportionalUnit(QString::fromLatin1("a"),   24*60*60, true);
+		timeUnitList->setDefaultUnit(QString::fromLatin1("s"));
 	}
 	
 	return *timeUnitList;
@@ -360,21 +360,21 @@ const KSimUnitListStatic & KSimUnitListStatic::getLengthUnitList()
 		lengthUnitList = new KSimUnitListStatic(i18n("Length Units"));
 		
 		*lengthUnitList
-									<< new KSimProportionalUnit("am", 1e-18, 1.0, 1000.0)
-									<< new KSimProportionalUnit("fm", 1e-15, 1.0, 1000.0)
-									<< new KSimProportionalUnit("pm", 1e-12, 1.0, 1000.0)
-									<< new KSimProportionalUnit("nm", 1e-9, 1.0, 1000.0)
-									<< new KSimProportionalUnit("µm", 1e-6, 1.0, 1000.0)
-									<< new KSimProportionalUnit("um", 1e-6, true)
-									<< new KSimProportionalUnit("mm", 1e-3, 1.0, 1000.0)
-									<< new KSimProportionalUnit("cm", 1e-2, true)
-									<< new KSimProportionalUnit("dm", 1e-1, true)
-									<< new KSimProportionalUnit("m",  1e0, 1.0, 1000.0)
-									<< new KSimProportionalUnit("km", 1e3, 1.0, 1000.0)
-									<< new KSimProportionalUnit("Mm", 1e6, 1.0, 1000.0)
-									<< new KSimProportionalUnit("Gm", 1e9, 1.0, 1000.0)
-									<< new KSimProportionalUnit("Tm", 1e12, 1.0, DBL_MAX/1e12);
-		lengthUnitList->setDefaultUnit("m");
+									<< new KSimProportionalUnit(QString::fromLatin1("am"), 1e-18, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("fm"), 1e-15, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("pm"), 1e-12, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("nm"), 1e-9, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("µm"), 1e-6, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("um"), 1e-6, true)
+									<< new KSimProportionalUnit(QString::fromLatin1("mm"), 1e-3, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("cm"), 1e-2, true)
+									<< new KSimProportionalUnit(QString::fromLatin1("dm"), 1e-1, true)
+									<< new KSimProportionalUnit(QString::fromLatin1("m"),  1e0, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("km"), 1e3, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("Mm"), 1e6, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("Gm"), 1e9, 1.0, 1000.0)
+									<< new KSimProportionalUnit(QString::fromLatin1("Tm"), 1e12, 1.0, DBL_MAX/1e12);
+		lengthUnitList->setDefaultUnit(QString::fromLatin1("m"));
 	}
 	
 	return *lengthUnitList;
@@ -439,7 +439,7 @@ const KSimUnitBase * KSimMultiUnitList::findUnit(const QString & unitStr, QStrin
 	
 	if (listName)
 	{
-		*listName = list ? list->getListName() : QString("");
+		*listName = list ? list->getListName() : QString::fromLatin1("");
 	}
 	
 	return unit;
@@ -483,7 +483,7 @@ const KSimUnitBase * KSimMultiUnitList::findPrefered(double reference, QString *
 	
 	if (listName)
 	{
-		*listName = list ? list->getListName() : QString("");
+		*listName = list ? list->getListName() : QString::fromLatin1("");
 	}
 	
 	return unit;

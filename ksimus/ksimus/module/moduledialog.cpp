@@ -72,8 +72,7 @@ ModuleDialog::ModuleDialog(CompContainer * container, QWidget *parent, const cha
 
 ModuleDialog::~ModuleDialog()
 {
-	if (connViewItems)
-		delete connViewItems;
+	delete connViewItems;
 }
 
 /** Setup module data and refreshs view */
@@ -228,7 +227,7 @@ QWidget * ModuleDialog::createConnSelectionWidget(QWidget * parent)
 	connView = new QListView(widget);
 	CHECK_PTR(connView);
 //	connView->setMinimumSize( 100, 50);
-	connView->addColumn(text,metric.width(text)+metric.width("  "));
+	connView->addColumn(text,metric.width(text)+metric.width(QString::fromLatin1("  ")));
 	connView->setColumnAlignment(0, AlignHCenter);
 	connView->addColumn(i18n("Connector Name"));
 	connView->addColumn(i18n("Connector Type"));
@@ -440,11 +439,11 @@ void ModuleDialog::setupUsedData()
 		
 		if (x == -1)
 		{
-			connViewItems->at(i)->setText(0,"");
+			connViewItems->at(i)->setText(0,QString::fromLatin1(""));
 		}
 		else
 		{
-			connViewItems->at(i)->setText(0,"X");
+			connViewItems->at(i)->setText(0,QString::fromLatin1("X"));
 		}
 	}
 }

@@ -45,6 +45,8 @@ class QPainter;
 
 class ComponentAddOn : public QObject, public ComponentItem
 {
+class UIData;
+
    Q_OBJECT
 public: 
 	virtual ~ComponentAddOn();
@@ -54,7 +56,7 @@ public:
 		*/
 	virtual void save(KSimData & file) const;
 	/** Load component add on's properties.
-		*	Returns true if successful.
+		* Returns true if successful.
 		* The default implementation does nothing.
 		*/
 	virtual bool load(KSimData & file);
@@ -72,6 +74,10 @@ public:
 		* The default implementation does nothing.
 		*/
 	virtual int checkCircuit();
+	/** Setup the component add on before simulation.
+		* The default implementation does nothing.
+		*/
+	virtual void setupCircuit();
 	/** Checks the component property. The functions is called after the
 		*	property dialog.
 		* The default implementation does nothing.
@@ -83,10 +89,6 @@ public:
 		* The default implementation does nothing.
 		*/
 	virtual void calculate();
-	/** Shift the result of calculation to output.
-		* The default implementation does nothing.
-		*/
-	virtual void updateOutput();
 	/** Reset all simulation variables.
 		* The default implementation does nothing.
 		*/
@@ -120,6 +122,36 @@ public:
   /** Returns the name of the add on. */
   const QString & getName() const { return m_addOnName; };
 	
+
+	
+	/** Sets the dialog page where the item is added to.
+	  * Use @ref getAction() to disable this automatism. */
+	void setDialogPageName(const QStringList & dialogPageName);
+	/** Sets the dialog page where the item is added to.
+	  * Use @ref getAction() to disable this automatism. */
+	void setDialogPageName(const QString & dialogPageName);
+	/** Returns the dialog page where the item is added to.*/
+	QStringList getDialogPageName();
+
+	
+	/** Sets the text of the label in the property widget.*/
+	void setLabelText(const QString & i18nLabelText);
+	/** Returns the current label text. */
+	QString getLabelText();
+	
+	/** Sets the text of the tool tip in the property widget.*/
+	void setToolTipText(const QString & i18nToolTipText);
+	/** Returns the current tool tip text. */
+	QString getToolTipText();
+	
+	/** Sets the text of the what's this in the property widget.*/
+	void setWhatsThisText(const QString & i18nWhatsThisText);
+	/** Returns the current what's this text. */
+	QString getWhatsThisText();
+
+
+
+
 protected:
 	/** Constructs a new add on.
 	  *
@@ -130,8 +162,12 @@ protected:
 	ComponentAddOn(Component * component, const QString & addOnName, bool unique = true);
 
 private:
+	UIData * getUIData();
+	
 	KSimAction m_myActions;
 	QString m_addOnName;
+	UIData * m_uiData;
+	
 };
 
 
@@ -168,6 +204,9 @@ public:
 		* This function takes care about the KSimAction information.
 		*/
 	int checkCircuit();
+	/** Set up all component add on before simulation.
+		*/
+	void setupCircuit();
 	/** Checks  all component property. The functions is called after the
 		*	property dialog.
 		* This function takes care about the KSimAction information.
@@ -177,10 +216,6 @@ public:
 		* This function takes care about the KSimAction information.
 		*/
 	void calculate();
-	/** Shift the result of calculation to output.
-		* This function takes care about the KSimAction information.
-		*/
-	void updateOutput();
 	/** Reset all simulation variables.
 		* This function takes care about the KSimAction information.
 		*/

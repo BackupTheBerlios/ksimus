@@ -34,7 +34,7 @@ public:
 	~WirePropertyLibrary();
 
 	bool insert (const WirePropertyInfo * wireInfo, const PackageInfo * packageInfo);
-	bool insert (const WirePropertyInfoList wireInfoList, const PackageInfo * packageInfo);
+	bool insert (const WirePropertyInfoList & wireInfoList, const PackageInfo * packageInfo);
 	
 	bool create(WireProperty * * wireProperty, Wire * wire, const QString & libName) const;
 	

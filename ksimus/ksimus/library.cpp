@@ -54,31 +54,90 @@
 #include "boolean/booleanand.h"
 #include "boolean/clockgenerator.h"
 #include "boolean/simtimeinput.h"
+#include "boolean/controlclose.h"
+#include "boolean/controlstop.h"
+#include "boolean/controlpause.h"
+
 #include "ksimdebug.h"
 
 
 //#############################################################################
 //#############################################################################
 
-ComponentInfoList distComponent = { &ExtConnBoolInInfo,
-                                    &ExtConnBoolOutInfo,
-                                    &BooleanLedInfo,
-                                    &ClockGeneratorInfo,
-                                    &SimTimeInputInfo,
-                                    &TickTimeInputInfo,
-                                    0 };
 
-ConnectorInfoList distConnector = { &ConnectorBoolInInfo,
-                                    &ConnectorBoolInEdgeInfo,
-                                    &ConnectorBoolOutInfo,
-                                    &ConnectorFloatInInfo,
-                                    &ConnectorFloatOutInfo,
-                                    0 };
+static const ComponentInfoList & getDistComponents()
+{
+	static ComponentInfoList * pDistComponents = 0;
 	
+	if (pDistComponents == 0)
+	{
+		// Initialize
+		pDistComponents = new ComponentInfoList;
+		CHECK_PTR(pDistComponents);
+		
+		// Add your component info here
+		pDistComponents->append(getBooleanAndInfo());
+		pDistComponents->append(getBooleanNandInfo());
+		pDistComponents->append(getBooleanButtonInfo());
+		pDistComponents->append(getBooleanToggleButtonInfo());
+		pDistComponents->append(getExtConnBoolInInfo());
+		pDistComponents->append(getExtConnBoolOutInfo());
+		pDistComponents->append(getBooleanLedInfo());
+		pDistComponents->append(getClockGeneratorInfo());
+		pDistComponents->append(getSimTimeInputInfo());
+		pDistComponents->append(getTickTimeInputInfo());
+		pDistComponents->append(getControlCloseInfo());
+		pDistComponents->append(getControlStopInfo());
+		pDistComponents->append(getControlPauseInfo());
+	}
 	
-WirePropertyInfoList distWireProp = { &wirePropertyBooleanInfo,
-                                      &wirePropertyFloatingPointInfo,
-                                      0 };
+	return *pDistComponents;
+}
+
+
+
+
+static const ConnectorInfoList & getDistConnector()
+{
+	static ConnectorInfoList * pDistConnector = 0;
+	
+	if (pDistConnector == 0)
+	{
+		// Initialize
+		pDistConnector = new ConnectorInfoList;
+		CHECK_PTR(pDistConnector);
+		
+		// Add your connector info here
+		pDistConnector->append(getConnectorBoolInInfo());
+		pDistConnector->append(getConnectorBoolInEdgeInfo());
+		pDistConnector->append(getConnectorBoolOutInfo());
+		pDistConnector->append(getConnectorFloatInInfo());
+		pDistConnector->append(getConnectorFloatOutInfo());
+	}
+	
+	return *pDistConnector;
+}
+
+
+	
+static const WirePropertyInfoList & getDistWireProperty()
+{
+	static WirePropertyInfoList * pDistWireProp = 0;
+	
+	if (pDistWireProp == 0)
+	{
+		// Initialize
+		pDistWireProp = new WirePropertyInfoList;
+		CHECK_PTR(pDistWireProp);
+		
+		// Add your wireproperty info here
+		pDistWireProp->append(getWirePropertyBooleanInfo());
+		pDistWireProp->append(getPropertyFloatingPointInfo());
+	}
+	
+	return *pDistWireProp;
+}
+
 	
 
 Library * g_library = 0;
@@ -109,7 +168,7 @@ public:
 Library::Library()
 {
 	PackageInfo * KSimusPackageInfo =
-		new PackageInfo("KSimus", KGlobal::instance(), VERSION, distComponent, distConnector, distWireProp);
+		new PackageInfo(QString::fromLatin1("KSimus"), KGlobal::instance(), VERSION, getDistComponents(), getDistConnector(), getDistWireProperty());
 	
 	m_p = new LibraryPrivate;
 	
@@ -119,13 +178,9 @@ Library::Library()
 	m_componentLibrary = new ComponentLibrary;
 	CHECK_PTR(m_componentLibrary);
 
-	m_componentLibrary->insert(BooleanButtonList, KSimusPackageInfo);
-	m_componentLibrary->insert(BooleanAndList, KSimusPackageInfo);
 	
-	
-	
-	m_componentLibrary->insertInternal(&WireInfo);
-	m_componentLibrary->insertInternal(&ModuleBaseInfo);
+	m_componentLibrary->insertInternal(getWireInfo());
+	m_componentLibrary->insertInternal(getModuleBaseInfo());
 
 	
 	m_connectorLibrary = new ConnectorLibrary;
@@ -167,38 +222,11 @@ const WirePropertyLibrary * Library::getWirePropertyLib() const
 
 void Library::insertPackage(const PackageInfo * packageInfo)
 {
-	if (packageInfo->getComponentList() != 0)
-	{
-		const ComponentInfoPtr * comp = packageInfo->getComponentList();
-		
-		while (*comp)
-		{
-			m_componentLibrary->insert(*comp, packageInfo);
-			comp++;
-		};
-	}
+	m_componentLibrary->insert(packageInfo->getComponentList(), packageInfo);
 	
-	if (packageInfo->getConnectorList() != 0)
-	{
-		const ConnectorInfoPtr * conn = packageInfo->getConnectorList();
-		
-		while (*conn)
-		{
-			m_connectorLibrary->insert(*conn, packageInfo);
-			conn++;
-		};
-	}
+	m_connectorLibrary->insert(packageInfo->getConnectorList(), packageInfo);
 	
-	if (packageInfo->getWirePropertyList() != 0)
-	{
-		const WirePropertyInfoPtr * wireProp = packageInfo->getWirePropertyList();
-		
-		while (*wireProp)
-		{
-			m_wirePropertyLibrary->insert(*wireProp, packageInfo);
-			wireProp++;
-		};
-	}
+	m_wirePropertyLibrary->insert(packageInfo->getWirePropertyList(), packageInfo);
 }
 
 
@@ -228,7 +256,7 @@ void Library::loadPackageFiles()
 				switch(result)
 				{
 					case KSimPackageHandle::NEW:
-						KSIMDEBUG(QString("ERROR: Package %1 returns NEW.").arg(package->getFilename()));
+						KSIMDEBUG(QString::fromLatin1("ERROR: Package %1 returns NEW.").arg(package->getFilename()));
 						m_p->m_handleList.remove(package);
 						break;
 						
@@ -236,7 +264,7 @@ void Library::loadPackageFiles()
 						if (package->isPackage())
 						{
 							msg = i18n ("Load package %1 %2").arg(package->getPackageInfo()->getPackageName())
-							                                 .arg(package->getPackageInfo()->getPackageVersion());
+							                                 .arg(QString::fromLatin1(package->getPackageInfo()->getPackageVersion()));
 							msg += " (" + package->getFilename() + ")";
 							m_messages->append(msg);
 							KSIMDEBUG(msg);
@@ -280,24 +308,24 @@ void Library::loadPackageFiles()
 	}
 	while (!end);
 	
-	FOR_EACH_HANDLE(it, m_p->m_handleList)
+	for(QListIterator<KSimPackageHandle> it1(m_p->m_handleList);it1.current();)
 	{
-		if (!it.current()->isOpened())
+		if (!it1.current()->isOpened())
 		{
-			msg = i18n ("Package %1: %2").arg(it.current()->getFilename()).arg(it.current()->errorMsg());
+			msg = i18n ("Package %1: %2").arg(it1.current()->getFilename()).arg(it1.current()->errorMsg());
 			m_messages->append(msg);
 			KSIMDEBUG(msg);
-			m_p->m_handleList.remove(it.current());
+			m_p->m_handleList.remove(it1.current());
+		}
+		else
+		{
+			++it1;
 		}
 	}
 	
 	m_componentLibrary->resize();
 	m_connectorLibrary->resize();
 	m_wirePropertyLibrary->resize();
-//	KGlobal::locale()->setLanguage("de");
-
-
-
 }
 
 void Library::addPackageDirs()
@@ -336,7 +364,7 @@ void Library::scanPackageDir(const QString & dirname)
 		
 		for (u = 0; u < list.count(); u++)
 		{
-			if ((list[u] != ".") && (list[u] != ".."))
+			if ((list[u] != QString::fromLatin1(".")) && (list[u] != QString::fromLatin1("..")))
 			{
 				scanPackageDir(dirname + list[u]);
 			}

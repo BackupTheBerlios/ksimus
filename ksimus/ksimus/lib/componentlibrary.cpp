@@ -28,7 +28,7 @@ ComponentLibrary::ComponentLibrary()
 	m_additionalLibNames = new QDict<ComponentLibraryItem>;
 	CHECK_PTR(m_additionalLibNames);
 
-	m_dirBase = new ComponentDirectorySubMenu("Root");
+	m_dirBase = new ComponentDirectorySubMenu(QString::fromLatin1("Root"));
 	CHECK_PTR(m_dirBase);
 }
 
@@ -52,9 +52,9 @@ bool ComponentLibrary::insert (const ComponentInfo * ci, const PackageInfo * pac
 		if (addToMenu)
 			m_dirBase->insert(ci->getLibName(), ci);
 		
-		if (cli->getAdditionalLibNames())
+		if (cli->getAdditionalI18nLibNames())
 		{
-			for (QStringList::Iterator it = cli->getAdditionalLibNames()->begin(); it != cli->getAdditionalLibNames()->end(); ++it)
+			for (QStringList::Iterator it = cli->getAdditionalI18nLibNames()->begin(); it != cli->getAdditionalI18nLibNames()->end(); ++it)
 			{
 				if (!m_oldLibNames->find(*it))
 				{
@@ -90,27 +90,21 @@ bool ComponentLibrary::insertInternal (const ComponentInfo * ci)
 	return insert(ci, (const PackageInfo *)0, false);
 }
 
-bool ComponentLibrary::insert (const ComponentInfoList cil, const PackageInfo * packageInfo)
+bool ComponentLibrary::insert (const ComponentInfoList & cil, const PackageInfo * packageInfo)
 {
 	bool res = true;
-	const ComponentInfo * ci;
-	int idx = 0;
-	
-	while ((ci = cil[idx++]))
+	FOR_EACH_COMPONENT_INFO(it, cil)
 	{
-		res &= insert(ci, packageInfo);
+		res &= insert(it.current(), packageInfo);
 	}
 	return res;
 }
-bool ComponentLibrary::insertInternal (const ComponentInfoList cil)
+bool ComponentLibrary::insertInternal (const ComponentInfoList & cil)
 {
 	bool res = true;
-	const ComponentInfo * ci;
-	int idx = 0;
-	
-	while ((ci = cil[idx++]))
+	FOR_EACH_COMPONENT_INFO(it, cil)
 	{
-		res &= insertInternal(ci);
+		res &= insertInternal(it.current());
 	}
 	return res;
 }
@@ -124,9 +118,9 @@ bool ComponentLibrary::remove(const QString & libName)
 	{
 		signalRemove(cli);
 		
-		if (cli->getAdditionalLibNames())
+		if (cli->getAdditionalI18nLibNames())
 		{
-			for (QStringList::Iterator it = cli->getAdditionalLibNames()->begin(); it != cli->getAdditionalLibNames()->end(); ++it)
+			for (QStringList::Iterator it = cli->getAdditionalI18nLibNames()->begin(); it != cli->getAdditionalI18nLibNames()->end(); ++it)
 			{
 				if (cli == m_additionalLibNames->find(*it))
 				{

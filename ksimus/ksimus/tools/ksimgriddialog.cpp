@@ -18,6 +18,7 @@
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
+#include <qvbox.h>
 #include <qlayout.h>
 
 #include <klocale.h>
@@ -28,7 +29,7 @@
 #include "ksimgrid.h"
 
 KSimGridDialogWidget::KSimGridDialogWidget(KSimGrid * grid, QWidget *parent, const char * name)
-	:	PropertyWidget(parent, name),
+	:	PropertyWidget(3, parent, name),
 		m_gridStart(grid)
 {
 	// Copy values
@@ -47,10 +48,15 @@ KSimGridDialogWidget::~KSimGridDialogWidget()
 
 void KSimGridDialogWidget::initView()
 {
-	enaGrid = new QCheckBox(i18n("&Enable Grid"), this);
+	enaGrid = new QCheckBox(i18n("&Enable Grid"), newRowVBox());
 	CHECK_PTR(enaGrid);
 	connect(enaGrid, SIGNAL(toggled(bool)), SLOT(slotEnabled(bool)));
 	
+	addEmptyCell();
+	
+	QLabel * styleLabel = new QLabel(i18n("&Style:") , this);
+	CHECK_PTR(styleLabel);
+
 	styleSel = new QComboBox (this);
 	CHECK_PTR(styleSel);
 	styleSel->insertItem(i18n("Dots"), (int) GridDots);
@@ -59,67 +65,50 @@ void KSimGridDialogWidget::initView()
 	styleSel->insertItem(i18n("Dash Dot Line"), (int) GridDashDotLine);
 	styleSel->insertItem(i18n("Dash Dot Dot Line"), (int) GridDashDotDotLine);
 	styleSel->insertItem(i18n("Solid Line"), (int) GridSolidLine);
+	styleLabel->setBuddy(styleSel);
 	connect(styleSel, SIGNAL(activated(int)), SLOT(slotStyleSel(int)));
 	
-	QLabel * styleLabel = new QLabel(styleSel, i18n("&Style:") , this);
-	CHECK_PTR(styleLabel);
-
+	addEmptyCell();
+	
+	QLabel * colorLabel = new QLabel(i18n("&Color:") , this);
+	CHECK_PTR(colorLabel);
+	
 	colorButton = new KColorButton(m_gridWork->getColor(),this);
 	CHECK_PTR(colorButton);
 //	colorButton->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+	colorLabel->setBuddy(colorButton);
 	connect(colorButton, SIGNAL(changed(const QColor &)), SLOT(slotColorChanged(const QColor &)));
 	
-	QLabel * colorLabel = new QLabel(styleSel, i18n("&Color:") , this);
-	CHECK_PTR(colorLabel);
-	
-	enaGlobalGrid = new QCheckBox(i18n("&User defined grid"), this);
+	enaGlobalGrid = new QCheckBox(i18n("&User defined grid"), newRowVBox());
 	CHECK_PTR(enaGlobalGrid);
 	connect(enaGlobalGrid, SIGNAL(toggled(bool)), SLOT(slotGlobalEnabled(bool)));
 	
+	addEmptyCell();
+	
+	QLabel * gridXLabel = new QLabel(i18n("&X:") , this);
+	CHECK_PTR(gridXLabel);
+
 	gridXEdit = new KIntNumInput (this);
 	CHECK_PTR(gridXEdit);
 	gridXEdit->setRange(5,100,1,false);
+	gridXLabel->setBuddy(gridXEdit);
 	connect(gridXEdit, SIGNAL(valueChanged(int)), SLOT(slotGridXChanged(int)));
 	
-	QLabel * gridXLabel = new QLabel(gridXEdit, i18n("&X:") , this);
-	CHECK_PTR(gridXLabel);
-
+	addEmptyCell();
+	
+	QLabel * gridYLabel = new QLabel(i18n("&Y:") , this);
+	CHECK_PTR(gridYLabel);
+	
 	gridYEdit = new KIntNumInput (this);
 	CHECK_PTR(gridYEdit);
 //	gridYEdit->setFixedWidth(metric.width("00000"));
 	gridYEdit->setRange(5,100,1,false);
+	gridYLabel->setBuddy(gridYEdit);
 	connect(gridYEdit, SIGNAL(valueChanged(int)), SLOT(slotGridYChanged(int)));
 	
-	QLabel * gridYLabel = new QLabel(gridYEdit, i18n("&Y:") , this);
-	CHECK_PTR(gridYLabel);
-	
-	// Layout
-	QBoxLayout * layout = new QVBoxLayout(this);
-	CHECK_PTR(layout);
-	
-	layout->setMargin(KDialog::marginHint());
-	layout->setSpacing(KDialog::spacingHint());
-	layout->addWidget(enaGrid);
-	layout->addWidget(styleLabel);
-	layout->addWidget(styleSel, 0, AlignLeft);
-	layout->addWidget(colorLabel);
-	layout->addWidget(colorButton, 0, AlignLeft);
-	layout->addWidget(enaGlobalGrid);
-	
-	QBoxLayout * gridLayout = new QHBoxLayout(layout);
-	CHECK_PTR(gridLayout);
-//	layout->addLayout(gridLayout);
-	
-	gridLayout->setMargin(KDialog::marginHint());
-	gridLayout->setSpacing(KDialog::spacingHint());
-	gridLayout->addSpacing(10);
-	gridLayout->addWidget(gridXLabel);
-	gridLayout->addWidget(gridXEdit);
-	gridLayout->addWidget(gridYLabel);
-	gridLayout->addWidget(gridYEdit);
-	gridLayout->addStretch(1);
-	
-	layout->addStretch(1);
+//	setColStretch(0,0);
+	setColStretch(2,1);
+	addColSpacing(0,16);
 }
 
 void KSimGridDialogWidget::initData()

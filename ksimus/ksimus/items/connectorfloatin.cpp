@@ -26,38 +26,44 @@
 #include "connectorlabel.h"
 #include "ksimdebug.h"
 #include "wirepropertyfloatingpoint.h"
+#include "watchitemfloatingpoint.h"
 
 
-static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
+static ConnectorBase * create(Component * comp, const QString & name,
+                              const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorFloatIn(comp, name, pos);
+	return new ConnectorFloatIn(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo ConnectorFloatInInfo("Floating Point Input",
-                                         "Floating Point Input",
-                                         "Floating Point",
-                                         create );
-	
+const ConnectorInfo * getConnectorFloatInInfo()
+{
+	static const ConnectorInfo Info(QString::fromLatin1("Floating Point Input"),
+	                                QString::fromLatin1("Floating Point Input"),
+	                                QString::fromLatin1("Floating Point"),
+	                                create );
+	return &Info;
+}
 
 
-ConnectorFloatIn::ConnectorFloatIn(Component * comp, const QString & name, const QPoint & pos)
-	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorFloatInInfo)
+ConnectorFloatIn::ConnectorFloatIn(Component * comp, const QString & name,
+                                   const QString & i18nName, const QPoint & pos)
+	:	ConnectorInputBase(comp, name, i18nName, pos, CO_LEFT, getConnectorFloatInInfo())
 {
 	init();
 }
 
-ConnectorFloatIn::ConnectorFloatIn(	Component * comp,	const QString & name,
+ConnectorFloatIn::ConnectorFloatIn(	Component * comp,	const QString & name, const QString & i18nName,
                                   const QString & descr, const QPoint & pos)
-	:	ConnectorInputBase(comp, name, pos, CO_LEFT, &ConnectorFloatInInfo)
+	:	ConnectorInputBase(comp, name, i18nName, pos, CO_LEFT, getConnectorFloatInInfo())
 {
 	init();
 	new ConnectorLabel(this, descr);
 }
 
 
-ConnectorFloatIn::ConnectorFloatIn( Component * comp, const QString & name, const QPoint & pos,
-                                  ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorInputBase(comp, name, pos, orient, ci)
+ConnectorFloatIn::ConnectorFloatIn(Component * comp, const QString & name, const QString & i18nName,
+                                   const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorInputBase(comp, name, i18nName, pos, orient, ci)
 {
 	init();
 }
@@ -66,22 +72,47 @@ ConnectorFloatIn::ConnectorFloatIn( Component * comp, const QString & name, cons
 void ConnectorFloatIn::init()
 {
 	setNegateEnabled(true);
+	m_data = 0.0;
 }
 
-// Setup the colors, brushs, and fills for the connector
-void ConnectorFloatIn::setupColorScheme (QPainter * p) const
+// Get the colors for the connector
+const WireColorScheme & ConnectorFloatIn::getColorScheme() const
 {
-	WirePropertyFloatingPoint::colorScheme(p);
-/*	p->setPen(QPen(red, 2));
-	p->setBrush(red);*/
+	return WirePropertyFloatingPoint::colorScheme();
+}
+
+/** Resets the connector
+*/
+void ConnectorFloatIn::reset()
+{
+	ConnectorBase::reset();
+	
+	m_data = 0.0;
+}
+
+/** Returns a pointer to the data that's read from the component
+  * Reimplementations is required if the connector has to modify ths data (e.g. a neg. boolean input */
+const void * ConnectorFloatIn::readoutData() const
+{
+	return &m_data;
+}
+	
+	/** Copies the data where the p points to into a local variable.
+	  * The function must be implemented by a sub class. */
+void ConnectorFloatIn::copyData(const void * p)
+{
+	double tmp = *(const double *)p;
+	if (tmp != m_data)
+	{
+		m_data = tmp;
+		executeComponentNext();
+	}
 }
 
 /** Returns the input data */
 double ConnectorFloatIn::getInput() const
 {
-	double * pData = (double *)readoutData();
-	
-	return pData ? *(double*)pData : 0.0;
+	return m_data;
 }
 
 /** Returns a text which represents the current value. */
@@ -90,4 +121,11 @@ QString ConnectorFloatIn::getValueText() const
 	return QString::number(getInput());
 }
 
+
+WatchItemBase * ConnectorFloatIn::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemFloatingPointConnector(this);
+	CHECK_PTR(wi);
+	return wi;
+}
 

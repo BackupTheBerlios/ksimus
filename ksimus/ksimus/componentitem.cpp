@@ -41,3 +41,10 @@ void ComponentItem::logError(const QString & msg) const
 {
 	getComponent()->logError(msg);
 }
+
+/** Returns a pointer to the watch widget */	
+WatchWidget * ComponentItem::getWatchWidget() const
+{
+	return getComponent()->getWatchWidget();
+}
+

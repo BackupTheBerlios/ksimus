@@ -46,9 +46,9 @@ public:
 	PackageInfo(const QString m_packageName,
 	            KInstance * instance,
 	            const char * packageVersion,
-	            const ComponentInfoPtr * componentList,
-	            const ConnectorInfoPtr * connectorList,
-	            const WirePropertyInfoPtr * wirePropertyList
+	            const ComponentInfoList & componentList,
+	            const ConnectorInfoList & connectorList,
+	            const WirePropertyInfoList & wirePropertyList
 );
 
 
@@ -58,9 +58,9 @@ public:
 	const QString & getPackageName() const;
 	KInstance * getInstance() const;
 	const char * getPackageVersion() const;
-	const ComponentInfoPtr * getComponentList() const;
-	const ConnectorInfoPtr * getConnectorList() const;
-	const WirePropertyInfoPtr * getWirePropertyList() const;
+	const ComponentInfoList & getComponentList() const;
+	const ConnectorInfoList & getConnectorList() const;
+	const WirePropertyInfoList & getWirePropertyList() const;
 	
 	
 	
@@ -69,9 +69,9 @@ private:
 	const QString m_packageName;
 	KInstance * m_instance;
 	const char * m_packageVersion;
-	const ComponentInfoPtr * m_componentList;
-	const ConnectorInfoPtr * m_connectorList;
-	const WirePropertyInfoPtr * m_wirePropertyList;
+	const ComponentInfoList & m_componentList;
+	const ConnectorInfoList & m_connectorList;
+	const WirePropertyInfoList & m_wirePropertyList;
 };
 
 #endif

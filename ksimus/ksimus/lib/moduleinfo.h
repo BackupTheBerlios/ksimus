@@ -18,9 +18,10 @@
 #ifndef MODULEINFO_H
 #define MODULEINFO_H
 
+#include <qstring.h>
+
 #include "componentinfo.h"
 
-class QString;
 
 /**Info class for modules
   *@author Rasmus Diekenbrock
@@ -34,9 +35,9 @@ public:
 									const QString & libName,
 									const QString & additionalLibNames,
 									ViewAttribute viewAttr,
-									const QString & shortDescr = 0,
-									const QString & HTMLDescr = 0,
-									const QString & oldLibNames = 0 );
+									const QString & shortDescr = QString::null,
+									const QString & HTMLDescr = QString::null,
+									const QString & oldLibNames = QString::null );
 	~ModuleInfo();
   const QString & getModuleFile() const;
 

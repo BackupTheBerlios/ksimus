@@ -29,7 +29,6 @@
 // Project-Includes
 #include "ksimdata.h"
 #include "compview.h"
-#include "component.h"
 #include "componentaddon.h"
 #include "compcontainer.h"
 #include "connectorbase.h"
@@ -42,6 +41,7 @@
 #include "ksimundo.h"
 #include "ksimdebug.h"
 #include "resource.h"
+#include "module.h"
 
 // Forward declaration
 
@@ -184,7 +184,7 @@ static void setGlobalMouseTracking(QWidget * main, bool tracking)
 	}
 }	
 
-ConnectorBase * CompView::lastHitConnector;
+ConnectorBase * CompView::lastHitConnector = 0;
 
 
 //############################################################################
@@ -210,9 +210,7 @@ public:
 	};
 	~CompViewPrivate()
 	{
-		if (widgetList)
-			delete widgetList;
-		
+		delete widgetList;
 	};
 	
 	/** Position and dimension of the component view */
@@ -239,6 +237,7 @@ CompView::CompView(Component * comp, eViewType viewType)
 		m_viewChanged(false)
 {
 	m_p = new CompViewPrivate(viewType);
+	CHECK_PTR(m_p);
 	
 	switch(viewType)
 	{
@@ -681,6 +680,26 @@ void CompView::updateSheetMap(bool insert)
 									: -getComponentMap()->costComponent );
 	}
 }
+
+void CompView::setViewChanged(bool changed)
+{
+	m_viewChanged = changed;
+	if (changed && getComponent()->getContainer()->isParentComponent())
+	{
+		// Module !!!
+		Module * module((Module *)getComponent()->getContainer()->getParentComponent());
+		if (module->getSheetView())
+		{
+			module->getSheetView()->setViewChanged(true);
+		}
+		if (module->getUserView())
+		{
+			module->getUserView()->setViewChanged(true);
+		}
+	}
+};
+
+
 /** Creates a new Widget  */
 QWidget * CompView::createCompViewWidget(QWidget *)
 {
@@ -929,6 +948,12 @@ bool CompView::isGridSnapEnabled() const
 	return m_p->flags & FLAGS_ENABLE_GRID_SNAP;
 }
 
+Component::eComponentType CompView::getComponentType() const
+{
+	return getComponent()->getComponentType();
+}
+
+	
 /** Returns a list of all widgets of the component */
 KSimWidgetList * CompView::getWidgetList()
 {
@@ -1267,13 +1292,6 @@ void CompViewSize::drawBound(QPainter * p)
 {
 	CompView::drawBound(p);
 	p->setRasterOp(NotROP);
-//	p->setPen(NoPen);
-//	p->setBrush(SolidPattern);
-	
-//	p->drawRect(getPlace().left(), getPlace().top(), HANDLE_SIZE, HANDLE_SIZE);
-//	p->drawRect(getPlace().left(), getPlace().bottom(), HANDLE_SIZE, -HANDLE_SIZE);
-//	p->drawRect(getPlace().right(), getPlace().top(), -HANDLE_SIZE, HANDLE_SIZE);
-//	p->drawRect(getPlace().right(), getPlace().bottom(), -HANDLE_SIZE, -HANDLE_SIZE);
 
   #define HANDLE_THICK 2
 	
@@ -1396,6 +1414,42 @@ QRect CompViewList::getRect() const
 	else		
 		return QRect(QPoint(minX,minY),QPoint(maxX,maxY));
 }
+
+
+void CompViewList::insertCompView(CompView * cv)
+{
+	Component::eComponentType type = cv->getComponentType();
+	unsigned int step = count() / 2;
+	unsigned int i = step;
+	
+	// Step fast to the position
+	while(step >= 2)
+	{
+		step /= 2;
+		if (type < at(i)->getComponentType())
+		{
+			i -= step;
+		}
+		else
+		{
+			i += step;
+		}
+	}
+	
+	while((i > 0) && (type < at(i)->getComponentType()))
+	{
+		i --;
+	}
+	
+	while((i < count()) && !(type < at(i)->getComponentType()))
+	{
+		i ++;
+	}
+	insert(i,cv);
+}
+
+
+
 
 //#############################################################################
 //#############################################################################

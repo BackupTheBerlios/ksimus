@@ -30,6 +30,7 @@
 #include <kmessagebox.h>
 #include <kio/job.h>
 #include <kio/netaccess.h>
+#include <ktempfile.h>
 
 // application specific includes
 #include "ksimdata.h"
@@ -47,6 +48,9 @@
 #include "ksimtimeserver.h"
 #include "simulationtiming.h"
 #include "loglist.h"
+#include "watchwidget.h"
+
+#include "simulationexecute.h"
 
 static const char * sDocProperty = "Document Property/";
 static const char * sTiming      = "Timing/";
@@ -64,9 +68,11 @@ static const char * sUserPos     = "User Pos";
 
 KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	:	QObject(parent, name),
+		m_modified(false),
 		m_files(0),
 		m_named(false),
-		m_simRunning(false)
+		m_simRunning(false),
+		m_simPaused(false)
 {
 	if (!g_docList)
 		g_docList = new KSimusDocList;
@@ -83,6 +89,7 @@ KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	m_userGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
 	
 	m_timing = new SimulationTiming(this);
+	m_execute = new SimulationExecute(this);
 }
 
 KSimusDoc::~KSimusDoc()
@@ -199,48 +206,51 @@ void KSimusDoc::slotUpdateAllViews(KSimusView *sender)
 
 bool KSimusDoc::saveModified()
 {
-  bool completed=true;
+	bool completed=true;
 
-  if(isModified())
-  {
-    KSimusApp *win = getApp();
-    int want_save = KMessageBox::warningYesNoCancel(win,
-                                         i18n("The current file has been modified.\n"
-                                              "Do you want to save it?"),
-                                         i18n("Warning"));
-    switch(want_save)
-    {
-      case KMessageBox::Cancel:
-           completed = false;
-           break;
+	if(isModified())
+	{
+		KSimusApp *win = getApp();
+		int want_save = KMessageBox::warningYesNoCancel(win,
+		                          i18n("The current file has been modified.\n"
+		                               "Do you want to save it?"),
+		                          i18n("Warning"));
+		switch(want_save)
+		{
+			case KMessageBox::Cancel:
+				completed = false;
+				break;
 
-      case KMessageBox::Yes:
-           if (doc_url.fileName() == i18n("Untitled"))
-           {
-             win->slotFileSaveAs();
-           }
-           else
-           {
-             saveDocument(URL());
-       	   };
+			case KMessageBox::Yes:
+				if (doc_url.fileName() == i18n("Untitled"))
+					{
+						win->slotFileSaveAs();
+					}
+					else
+					{
+						saveDocument(URL());
+					}
+					deleteContents();
+					completed = true;
+					break;
 
-       	   deleteContents();
-           completed = true;
-           break;
+			case KMessageBox::No:
+				setModified(false);
+				deleteContents();
+				completed = true;
+				break;	
 
-      case KMessageBox::No:
-           setModified(false);
-           deleteContents();
-           completed = true;
-           break;	
+			default:
+				completed = false;
+				break;
+		}
+	}
+	else
+	{
+		deleteContents();
+	}
 
-      default:
-           completed = false;
-           break;
-    }
-  }
-
-  return completed;
+	return completed;
 }
 
 void KSimusDoc::closeDocument()
@@ -251,9 +261,9 @@ void KSimusDoc::closeDocument()
 
 bool KSimusDoc::newDocument()
 {
-  /////////////////////////////////////////////////
-  // TODO: Add your document initialization code here
-  /////////////////////////////////////////////////
+	/////////////////////////////////////////////////
+	// TODO: Add your document initialization code here
+	/////////////////////////////////////////////////
 
 	deleteContents();
 
@@ -268,12 +278,15 @@ bool KSimusDoc::newDocument()
 		w->getEditor()->setEditorView(w->getEditor()->getEditorView());
 	}
 	slotUpdateAllViews(0);
+	m_timing->setDefault();
 
 	
 	setModified(false);
 	setNamed(false);
 
 	doc_url.setFileName(i18n("Untitled"));
+
+	emit signalNewDoc();
 
 	return true;
 }
@@ -283,22 +296,19 @@ bool KSimusDoc::openDocument(const KURL& url, const char */*format =0*/)
 	QString tmpfile;
 	if(KIO::NetAccess::download( url, tmpfile ))
 	{
-		/////////////////////////////////////////////////
-		// TODO: Add your document opening code here
-		/////////////////////////////////////////////////
 		deleteContents();
 
-		if (url.isLocalFile())
-		{
+/*		if (url.isLocalFile())
+		{*/
 			setNamed(true);
 			setURL(url);
-		}
+/*		}
 		else
 		{
 			setNamed(false);
-		}
+		}*/
 		
-		KSimData file(tmpfile);
+		KSimData file(tmpfile, KSimData::versionAsIs, true);   // Read only
 		file.setGroup("/");
 		getContainer()->load(file);
 		loadProperty(file);
@@ -313,18 +323,18 @@ bool KSimusDoc::openDocument(const KURL& url, const char */*format =0*/)
 	}
 	else
 	{
-		KSIMDEBUG_VAR("",KIO::NetAccess::lastErrorString())
-		KMessageBox::sorry(0,i18n("File is not readable"),i18n("Open Document"));
+		KMessageBox::error(0,i18n("File access failed!\n\n").arg(KIO::NetAccess::lastErrorString()),i18n("Open Document"));
 		return false;
 	}
 }
 
 bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 {
-	/////////////////////////////////////////////////
-	// TODO: Add your document saving code here
-	/////////////////////////////////////////////////
-
+	bool res = true;
+	KURL oldUrl(URL()); // Store old URL
+	setURL(url);
+	
+	
 	if (url.isLocalFile())
 	{
 		QFileInfo file(url.path());
@@ -333,6 +343,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 		{
 			// File is not writable
 			KMessageBox::sorry(0,i18n("File is not writable"),i18n("Save Document"));
+			res = false;
 		}
 		else
 		{
@@ -347,35 +358,69 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 				QFile::remove(url.path());
 			}
 			
-			setURL(url);
 			{
+				// see also below
 				KSimData file(url.path());
 				file.setGroup("/");
 				saveProperty(file);
 				getContainer()->save(file);
-//			file.sync();
 			}
 			chmod(url.path(), oldMode);
 			
-			setModified(false);
-			setNamed(true);
+			if (!file.exists())
+			{
+				// Ups, file does not exist
+				KMessageBox::error(0,i18n("Ups, file does not exist after writing it!"),i18n("Save Document"));
+				setURL(oldUrl); // Resore old name
+				res = false;
+			}
+			else
+			{
+				setModified(false);
+				setNamed(true);
+			}
 		}
 	}
 	else
 	{
-		KMessageBox::sorry(0,i18n("No network access allowed"),i18n("Save Document"));
+/*		KMessageBox::sorry(0,i18n("No network access allowed"),i18n("Save Document"));
+		res = false;*/
+		KTempFile tmpFile;
+		
+		{
+			// see also above
+			KSimData file(tmpFile.name());
+			file.setGroup("/");
+			saveProperty(file);
+			getContainer()->save(file);
+		}
+				
+		if(!KIO::NetAccess::upload( tmpFile.name(), url ))
+		{
+			KMessageBox::error(0,i18n("File not writen!\n\n").arg(KIO::NetAccess::lastErrorString()),i18n("Save Document"));
+			setURL(oldUrl); // Resore old name
+			res = false;
+		}
+		else
+		{
+			setModified(false);
+			setNamed(true);
+		}
+		
+		tmpFile.unlink();
 	}
-	return true;
+	return res;
 }
 
 /** Load document property */
 void KSimusDoc::loadProperty(KSimData & config)
 {
-	QString baseGroup = config.group();
-	QString tmp = baseGroup + sDocProperty;
-	if (config.hasGroup(tmp))
+	if (config.hasGroupRel(sDocProperty))
 	{
-		config.setGroup(tmp);
+		// Add to undo (if required)
+		getUndo()->reloadDocumentProperty();
+		
+		config.pushGroupRel(sDocProperty);
 		
 		getApp()->setCurrentView(config.readEntry(sLastView));
 		
@@ -402,33 +447,29 @@ void KSimusDoc::loadProperty(KSimData & config)
 			}
 		}
 		
-		QString group = config.group();
-		if (config.hasGroup(group + sTiming))
+		if (config.hasGroupRel(sTiming))
 		{
-			config.setGroup(group + sTiming);
+			config.pushGroupRel(sTiming);
 			m_timing->load(config);
-			config.setGroup(group);
+			config.popGroup();
 		}
 			
-		config.setGroup(group + sSheetGrid);
+		config.pushGroupRel(sSheetGrid);
 		getSheetGrid()->load(config);
-		config.setGroup(group);
+		config.popGroup();
 			
-		config.setGroup(group + sUserGrid);
+		config.pushGroupRel(sUserGrid);
 		getUserGrid()->load(config);
-		config.setGroup(group);
+		config.popGroup();
 		
-		config.setGroup(baseGroup);
+		config.popGroup();
 	}
 }
 
 /** Save document property */
 void KSimusDoc::saveProperty(KSimData & config) const
 {
-	QString baseGroup = config.group();
-	QString group;
-	
-	config.setGroup(baseGroup + sDocProperty);
+	config.pushGroupRel(sDocProperty);
 	// Add properties
 	config.writeEntry(sLastView,getApp()->getCurrentViewString());
 	
@@ -454,23 +495,21 @@ void KSimusDoc::saveProperty(KSimData & config) const
 	}
 	config.writeEntry(sUserPos, pos);
 	
-	group = config.group();
-	config.setGroup(group + sTiming);
+	config.pushGroupRel(sTiming);
 	config.writeEntry("Dummy",true);	// Need for group creation
 	m_timing->save(config);
-	config.setGroup(group);
+	config.popGroup();
 	
 	
-	config.setGroup(group + sSheetGrid);
+	config.pushGroupRel(sSheetGrid);
 	getSheetGrid()->save(config);
+	config.popGroup();
 	
-	config.setGroup(group + sUserGrid);
+	config.pushGroupRel(sUserGrid);
 	getUserGrid()->save(config);
+	config.popGroup();
 	
-
-	
-		
-	config.setGroup(baseGroup);
+	config.popGroup();
 }
 
 /** sets the modified flag for the document after a modifying action on the view connected to the document.*/
@@ -571,7 +610,7 @@ bool KSimusDoc::simulationCheckCirciut()
 	if (!errorCounter)
 	{
 		getApp()->getLogList()->info(i18n("Circuit check OK"));
-		getApp()->getLogList()->info(i18n("Simulate %1 components").arg(getContainer()->getComponentNumber()));
+//		getApp()->getLogList()->info(i18n("Simulate %1 components").arg(getContainer()->getComponentNumber()));
 	}
 	else
 	{
@@ -584,27 +623,39 @@ bool KSimusDoc::simulationCheckCirciut()
 /** Resets simulation */
 void KSimusDoc::simulationReset(void)
 {
+	m_simPaused = false;
 	m_timing->reset();
 	getApp()->slotSimulationTimeChanged();
 	getContainer()->setupSimulationList();
+	emit signalPreReset();
+	getContainer()->setupCircuit();
 	getContainer()->resetComponents();
+	emit signalPostReset();
 }
 
 /** Starts simulation */
 void KSimusDoc::simulationStart(void)
 {
+	m_simPaused = false;
 	getActiveView()->getEditor()->setEditorMode(EM_SELECT);
 	m_timing->reset();
+	m_execute->reset();
+	
 	getApp()->slotSimulationTimeChanged();
   m_simRunning = true;
 
 	// Check circiut
 	if (simulationCheckCirciut())
 	{
+		emit signalPreReset();
 		getContainer()->setupSimulationList();
+		getContainer()->setupCircuit();
 		getContainer()->resetComponents();
+		emit signalPostReset();
 		slotUpdateAllViews(0);
+		emit signalStart();
 		m_timing->slotStart();
+		getApp()->getLogList()->info(i18n("KSimus", "Running..."));
 	}
 	else
 	{
@@ -616,35 +667,44 @@ void KSimusDoc::simulationStart(void)
 /** Stops simulation */
 void KSimusDoc::simulationStop(void)
 {
-  m_simRunning = false;
+	m_simRunning = false;
+	m_simPaused = false;
 	m_timing->slotStop();
+	emit signalStop();
 	slotUpdateAllViews(0);
+	getApp()->getLogList()->info(i18n("KSimus", "Stopped!"));
 }
 
 /** Pause simulation if "pause" is set, or restart simulation if not set */
-void KSimusDoc::simulationPause(bool /*pause*/)
+void KSimusDoc::simulationPause(bool pause)
 {
+	if (pause)
+	{
+		m_timing->slotStop();
+		getApp()->getLogList()->info(i18n("KSimus", "Paused..."));
+	}
+	else
+	{
+		m_timing->slotStart();
+		getApp()->getLogList()->info(i18n("KSimus", "Running..."));
+	}
+	m_simPaused = pause;
+	emit signalPaused(pause);
 }
 
 /** Simulates one step */
-void KSimusDoc::slotSimulateExecute()
+void KSimusDoc::simulateExecute()
 {
 	getApp()->slotSimulationTimeChanged();
 	
 	// Calulate
-	FOR_EACH_COMP(it,*getContainer()->getCalculateComponentList())
-	{
-		it.current()->calculate();
-	}
-	
-	// Set outputs
-	FOR_EACH_COMP(it,*getContainer()->getUpdateOutputComponentList())
-	{
-		it.current()->updateOutput();
-	}
+	emit signalCalculate();
+	m_execute->execute();
+	getApp()->getWatchWidget()->execute();
+
 }
 
-void KSimusDoc::slotSimulateUpdate()
+void KSimusDoc::simulateUpdate()
 {
 	// Update views
 	KSimusView *w;
@@ -653,19 +713,11 @@ void KSimusDoc::slotSimulateUpdate()
 		for(w=m_pViewList->first(); w!=0; w=m_pViewList->next())
 		{
 			w->getEditor()->refreshSimMode(getContainer()->getUpdateSheetViewComponentList(),
-																		 getContainer()->getUpdateUserViewComponentList());
+			                               getContainer()->getUpdateUserViewComponentList());
 		}
 	}
-
-	// Reset view changed
-	FOR_EACH_COMPVIEW(it,*getContainer()->getUpdateSheetViewComponentList())
-	{
-		it.current()->setViewChanged(false);
-	}
-	FOR_EACH_COMPVIEW(it,*getContainer()->getUpdateUserViewComponentList())
-	{
-		it.current()->setViewChanged(false);
-	}
+	
+	emit signalUpdateView();
 }
 	
 const QString KSimusDoc::getTimeString() const

@@ -26,38 +26,46 @@
 #include "connectorlabel.h"
 #include "ksimdebug.h"
 #include "wirepropertyfloatingpoint.h"
+#include "watchitemfloatingpoint.h"
 
 // Forward declaration
 
 
-static ConnectorBase * create(Component * comp, const QString & name, const QPoint & pos)
+static ConnectorBase * create(Component * comp, const QString & name,
+                              const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorFloatOut(comp, name, pos);
+	return new ConnectorFloatOut(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo ConnectorFloatOutInfo("Floating Point Output",
-                                          "Floating Point Output",
-                                          "Floating Point",
-                                          create );
+const ConnectorInfo * getConnectorFloatOutInfo()
+{
+	static const ConnectorInfo Info(QString::fromLatin1("Floating Point Output"),
+	                                QString::fromLatin1("Floating Point Output"),
+	                                QString::fromLatin1("Floating Point"),
+	                                create );
+	return &Info;
+}
 
-ConnectorFloatOut::ConnectorFloatOut(Component * comp, const QString & name, const QPoint & pos)
-	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorFloatOutInfo),
+ConnectorFloatOut::ConnectorFloatOut(Component * comp, const QString & name,
+                                     const QString & i18nName, const QPoint & pos)
+	:	ConnectorOutputBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorFloatOutInfo()),
 		m_data(false)
 {
 	init();
 }
-											
-ConnectorFloatOut::ConnectorFloatOut(Component * comp, const QString & name, const QString & descr, const QPoint & pos)
-	:	ConnectorOutputBase(comp, name, pos, CO_RIGHT, &ConnectorFloatOutInfo),
+
+ConnectorFloatOut::ConnectorFloatOut(Component * comp, const QString & name, const QString & i18nName,
+                                     const QString & descr, const QPoint & pos)
+	:	ConnectorOutputBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorFloatOutInfo()),
 		m_data(false)
 {
 	init();
 	new ConnectorLabel(this, descr);
 }
 
-ConnectorFloatOut::ConnectorFloatOut( Component * comp, const QString & name, const QPoint & pos,
-                                    ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorOutputBase(comp, name, pos, orient, ci)
+ConnectorFloatOut::ConnectorFloatOut(Component * comp, const QString & name, const QString & i18nName,
+                                     const QPoint & pos,ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorOutputBase(comp, name, i18nName, pos, orient, ci)
 {
 	init();
 }
@@ -67,40 +75,70 @@ void ConnectorFloatOut::init()
 	setNegateEnabled(true);
 }
 
-// Setup the colors, brushs, and fills for the connector
-void ConnectorFloatOut::setupColorScheme (QPainter * p) const
+// Get the colors for the connector
+const WireColorScheme & ConnectorFloatOut::getColorScheme() const
 {
-	WirePropertyFloatingPoint::colorScheme(p);
-/*	p->setPen(QPen(red, 2));
-	p->setBrush(red);*/
+	return WirePropertyFloatingPoint::colorScheme();
 }
-											
-											
+
+
+/** Resets the connector
+*/
+void ConnectorFloatOut::reset()
+{
+	ConnectorBase::reset();
+	
+	m_data = 0.0;
+}
+
 /** The function copyData() has to copy data to the output variable
   * The default implementation does nothing
   * Reimplementations is required for all output connectors  */
 void ConnectorFloatOut::copyData(const void * pData)
 {
-	m_data = *(double*)pData;
+	setOutput(*(double*)pData);
+}
+
+/** Returns a pointer to the data that's read from the component. */
+const void * ConnectorFloatOut::readoutData() const
+{
+	return &m_data;
 }
 
 /** Set the current output */
-void ConnectorFloatOut::setOutput(double out)
+void ConnectorFloatOut::setOutput(double out, bool exeWirePropNext)
 {
-	m_data = out;
+	if (out != m_data)
+	{
+		// Value changed
+		m_data = out;
+		if (exeWirePropNext) executeWirePropertyNext();
+	}
 }
 
+/** Return the current output */
+double ConnectorFloatOut::getOutput() const
+{
+	return m_data;
+}
 
 /** Returns a pointer to the data of this output connector */
 const void * ConnectorFloatOut::getData() const
 {
 	return &m_data;
-}											
-																						
-	
+}
+
+
 /** Returns a text which represents the current value. */
 QString ConnectorFloatOut::getValueText() const
 {
 	return QString::number(m_data);
+}
+
+WatchItemBase * ConnectorFloatOut::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemFloatingPointConnector(this);
+	CHECK_PTR(wi);
+	return wi;
 }
 

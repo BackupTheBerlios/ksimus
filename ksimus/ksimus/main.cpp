@@ -27,17 +27,17 @@
 
 // INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
 static const char *description =
-	I18N_NOOP("KSimus is an application for simulating networks with boolean data type.\n"
-						"Analog, string and some more data types are planned. Currently there exists only a few boolean\n"
-						"components, but because of the modular character of KSimus extensions are easy to develop.");
+	I18N_NOOP("KSimus is an application for simulating networks with boolean and floating point data type.\n"
+	          "String and some more data types are planned.");
 	
 	
 static KCmdLineOptions options[] =
 {
-  { "+[File]", I18N_NOOP("file to open"), 0 },
-  { "execute", I18N_NOOP("starts the execution of the given file"), 0 },
-  { 0, 0, 0 }
-  // INSERT YOUR COMMANDLINE OPTIONS HERE
+	{ "+[File]", I18N_NOOP("file to open"), 0 },
+	{ "execute", I18N_NOOP("start the execution of the given file"), 0 },
+	{ "language ", I18N_NOOP("use the given language (for testing purpose)"), 0 },
+	{ 0, 0, 0 }
+	// INSERT YOUR COMMANDLINE OPTIONS HERE
 };
 
 int main(int argc, char *argv[])
@@ -50,34 +50,53 @@ int main(int argc, char *argv[])
 	KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
-  KApplication app;
+	KApplication app;
  
-  if (app.isRestored())
-  {
-    RESTORE(KSimusApp);
-  }
-  else 
-  {
-
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+	if (app.isRestored())
+	{
+		RESTORE(KSimusApp);
+	}
+	else
+	{
+	
+		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 		
-    KSimusApp *ksimus = new KSimusApp();
-    ksimus->show();
-
+		// Set language
+		QCString language = args->getOption("language");
+		if (!language.isEmpty())
+		{
+			KGlobal::locale()->setLanguage(language);
+		}
+		
 		if (args->count())
 		{
 			if (args->isSet("execute"))
 			{
-				ksimus->executeDocumentFile(args->url(0));
+				for (int i = 0; i < args->count(); i++)
+				{
+					KSimusApp *ksimus = new KSimusApp();
+					ksimus->executeDocumentFile(args->url(i));
+					ksimus->show();
+				}
 			}
 			else
 			{
-				ksimus->openDocumentFile(args->url(0));
+				for (int i = 0; i < args->count(); i++)
+				{
+					KSimusApp *ksimus = new KSimusApp();
+					ksimus->openDocumentFile(args->url(i));
+					ksimus->show();
+				}
 			}
 		}
-
+		else
+		{
+			KSimusApp *ksimus = new KSimusApp();
+			ksimus->show();
+		}
+		
 		args->clear();
-  }
-
-  return app.exec();
+	}
+	
+	return app.exec();
 }  

@@ -15,44 +15,69 @@
  *                                                                         *
  ***************************************************************************/
 
+// C-Includes
+
+// QT-Includes
 #include <qsplitter.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qmultilineedit.h>
+#include <qtabwidget.h>
 
+// KDE-Includes
+#include <klocale.h>
 
+// Project-Includes
 #include "ksimus.h"
 #include "basewindow.h"
 #include "loglist.h"
 #include "componentlistview.h"
+#include "watchwidget.h"
+
+// Forward declaration
+
+
 
 BaseWindow::BaseWindow(KSimusApp *parent, const char *name )
 	:	QWidget(parent,name)
 {
-	m_vertSplitter = new QSplitter(Vertical, this, "VerticalSplitter");
-	CHECK_PTR(m_vertSplitter);
-	m_horiSplitter = new QSplitter(Horizontal, m_vertSplitter, "HorizontalSplitter");
+	m_horiSplitter = new QSplitter(Horizontal, this, "HorizontalSplitter");
 	CHECK_PTR(m_horiSplitter);
+	
+	m_listWidget = new QTabWidget(m_horiSplitter);
+	
+	m_componentListWidget = new ComponentListView(m_listWidget, "TreeWidget");
+	m_listWidget->insertTab(m_componentListWidget, i18n("KSimus", "Components"));
+	
+	m_watchWidget = new WatchWidget(parent, m_listWidget, "WatchWidget");
+	m_listWidget->insertTab(m_watchWidget, i18n("KSimus", "Watches"));
+	connect(m_watchWidget, SIGNAL(signalShowMe()), SLOT(showWatchWidget()));
+	
+	CHECK_PTR(m_componentListWidget);
+	connect(m_componentListWidget, SIGNAL(signalSelection(const ComponentInfo *)),
+	        parent, SLOT(slotSelectCI(const ComponentInfo *)));
+	connect(parent, SIGNAL(signalViewChanged(eAppViewType)),
+	        m_componentListWidget, SLOT(slotSetCurrentView(eAppViewType)));
+	
+	m_vertSplitter = new QSplitter(Vertical, m_horiSplitter, "VerticalSplitter");
+	CHECK_PTR(m_vertSplitter);
+
+	m_workingWidget = new QWidget(m_vertSplitter, "WorkingWidget");
+	CHECK_PTR(m_workingWidget);
 
 	m_logWidget = new LogList(parent, m_vertSplitter, "LogWidget");
 	CHECK_PTR(m_logWidget);
 	connect(m_logWidget,SIGNAL(signalShow()),SLOT(showLogWidget()));
 	
-	m_treeWidget = new ComponentListView(m_horiSplitter, "TreeWidget");
-	CHECK_PTR(m_treeWidget);
-	connect(m_treeWidget, SIGNAL(signalSelection(const ComponentInfo *)),
-			parent, SLOT(slotSelectCI(const ComponentInfo *)));
-	connect(parent, SIGNAL(signalViewChanged(eAppViewType)),
-			m_treeWidget, SLOT(slotSetCurrentView(eAppViewType)));
 
 
-	m_workingWidget = new QWidget(m_horiSplitter, "WorkingWidget");
-	CHECK_PTR(m_workingWidget);
-
-    // Layout
+	// Layout
 	QBoxLayout * lay = new QHBoxLayout(this);
 	CHECK_PTR(lay);
-	lay->addWidget(m_vertSplitter);
+	lay->addWidget(m_horiSplitter);
+
+/*	QBoxLayout * layleft = new QHBoxLayout(m_horiSplitter);
+	layleft->addWidget(m_listWidget);*/
 
 	// Widget sizes
 	QValueList<int> sizeList;
@@ -61,9 +86,8 @@ BaseWindow::BaseWindow(KSimusApp *parent, const char *name )
 	sizeList.append(80);
 	m_horiSplitter->setSizes(sizeList);
 
-	sizeList.clear();
-	sizeList.append(80);
-	sizeList.append(20);
+	sizeList[0] = 80;
+	sizeList[1] = 20;
 	m_vertSplitter->setSizes(sizeList);
 }
 
@@ -79,9 +103,9 @@ void BaseWindow::hideLogWidget()
 {
 	m_logWidget->hide();
 }
-void BaseWindow::hideTreeWidget()
+void BaseWindow::hideListWidget()
 {
-	m_treeWidget->hide();
+	m_listWidget->hide();
 }
 
 
@@ -93,9 +117,9 @@ void BaseWindow::showLogWidget()
 {
 	m_logWidget->show();
 }
-void BaseWindow::showTreeWidget()
+void BaseWindow::showListWidget()
 {
-	m_treeWidget->show();
+	m_listWidget->show();
 }
 
 void BaseWindow::toggleWorkingWidget()
@@ -107,7 +131,7 @@ void BaseWindow::toggleWorkingWidget()
 	else
 	{
 		hideWorkingWidget();
-	}		
+	}
 }
 void BaseWindow::toggleLogWidget()
 {
@@ -118,18 +142,18 @@ void BaseWindow::toggleLogWidget()
 	else
 	{
 		hideLogWidget();
-	}		
+	}
 }
-void BaseWindow::toggleTreeWidget()
+void BaseWindow::toggleListWidget()
 {
-	if (isTreeWidgetHidden())
+	if (isListWidgetHidden())
 	{
-		showTreeWidget();
+		showListWidget();
 	}
 	else
 	{
-		hideTreeWidget();
-	}		
+		hideListWidget();
+	}
 }
 
 
@@ -141,7 +165,31 @@ bool BaseWindow::isLogWidgetHidden() const
 {
 	return m_logWidget->isHidden();
 }
-bool BaseWindow::isTreeWidgetHidden() const
+bool BaseWindow::isListWidgetHidden() const
 {
-	return m_treeWidget->isHidden();
+	return m_listWidget->isHidden();
 }
+
+void BaseWindow::showWatchWidget()
+{
+	if (isListWidgetHidden())
+	{
+		showListWidget();
+	}
+	if (m_listWidget->currentPage() != getWatchWidget())
+	{
+		m_listWidget->showPage(getWatchWidget());
+	}
+}
+void BaseWindow::showComponentListWidget()
+{
+	if (isListWidgetHidden())
+	{
+		showListWidget();
+	}
+	if (m_listWidget->currentPage() != getComponentListWidget())
+	{
+		m_listWidget->showPage(getComponentListWidget());
+	}
+}
+

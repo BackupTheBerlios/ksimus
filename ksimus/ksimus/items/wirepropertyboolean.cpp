@@ -15,17 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qpainter.h>
-
 #include <klocale.h>
 
 #include "wirepropertyboolean.h"
 #include "wirepropertyinfo.h"
-#include "connectorboolout.h"
-#include "connectorlist.h"
+#include "watchitemboolean.h"
 
 #include "wire.h"
-#include "loglist.h"
 
 static WireProperty * create(Wire * wire)
 {
@@ -36,16 +32,18 @@ static WireProperty * create(Wire * wire)
 }
 
 
-const WirePropertyInfo wirePropertyBooleanInfo(	"Wire Property Boolean",
-												"wire/property/boolean",
-												"Boolean",
-												create
-											   );
-												
+const WirePropertyInfo * getWirePropertyBooleanInfo()
+{
+	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Boolean"),
+	                                   QString::fromLatin1("wire/property/boolean"),
+	                                   QString::fromLatin1("Boolean"),
+	                                   create );
+	return &Info;
+}
 
 
 WirePropertyBoolean::WirePropertyBoolean(Wire * wire)
-	:	WirePropertySingleOutput(wire, &wirePropertyBooleanInfo)
+	:	WirePropertySingleOutput(wire, getWirePropertyBooleanInfo())
 {
 }
 
@@ -53,26 +51,32 @@ WirePropertyBoolean::~WirePropertyBoolean()
 {
 }
 	
-/** Returns a pointer to the current data */	
-const void * WirePropertyBoolean::getCurrentData() const
+	/** Get the colors for the wire property. */
+const WireColorScheme & WirePropertyBoolean::getColorScheme() const
 {
-	ConnectorBase * conn = getWire()->getConnList()->at(0);
+	static WireColorScheme colorScheme(darkGreen);
 	
-	if (conn)
-	{
-		return ((ConnectorBoolOut*)conn)->getData();
-	}
-	else
-	{
-		getWire()->getLogList()->logDebug(QString("Wire %1 returns <NULL> connector").arg(getWire()->getName()));
-		return 0;
-	}
+	return colorScheme;
 }
 
-// Setup the colors, brushs, and fills for the connector
-void WirePropertyBoolean::setupColorScheme (QPainter * p) const
+const QString & WirePropertyBoolean::getI18nTextValue(bool value)
 {
-	p->setPen(QPen(darkGreen, 2));
-	p->setBrush(darkGreen);
+	return value ? getI18nTextTrue() : getI18nTextFalse();
 }
-											
+const QString & WirePropertyBoolean::getI18nTextTrue()
+{
+	static QString text(i18n("Text for boolean data", "True"));
+	return text;
+}
+const QString & WirePropertyBoolean::getI18nTextFalse()
+{
+	static QString text(i18n("Text for boolean data", "False"));
+	return text;
+}
+
+WatchItemBase * WirePropertyBoolean::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemBooleanWireProperty(this);
+	CHECK_PTR(wi);
+	return wi;
+}

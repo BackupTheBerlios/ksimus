@@ -24,7 +24,7 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const ConnectorInfo ConnectorBoolInInfo;
+const ConnectorInfo * getConnectorBoolInInfo();
 
 
 class ConnectorBoolIn : public ConnectorInputBase
@@ -36,39 +36,56 @@ public:
 	/**
 	 * Constructs a boolean input connector.
 	 *
-	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
-	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos        Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolIn(	Component * comp,
-						const QString & name,
-						const QPoint & pos = QPoint()	);
+	ConnectorBoolIn(Component * comp,
+	                const QString & name,
+	                const QString & i18nName,
+	                const QPoint & pos = QPoint());
 	
 	/**
 	 * Constructs a boolean input connector. Like the constructor above, but creates also a
 	 * connector label (@ref ConnectorLabel).
 	 *
-	 * @param comp  Component which contains this connector.
-	 * @param name  The name of the connector. This name is shown at the property view
-	 *              or the status bar.
-	 * @param descr Sets the description of the connector label.
-	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param descr     Sets the description of the connector label.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolIn(	Component * comp,
-						const QString & name,
-						const QString & descr,
-						const QPoint & pos = QPoint()	);
+	ConnectorBoolIn(Component * comp,
+	                const QString & name,
+	                const QString & i18nName,
+	                const QString & descr,
+	                const QPoint & pos = QPoint());
 	
 	
-	// Setup the colors, brushs, and fills for the connector
-	virtual void setupColorScheme (QPainter * p) const;
+	// Get the colors for the connector
+	virtual const WireColorScheme & getColorScheme() const;
+
+	/** Resets the connector.
+	  */
+	virtual void reset();
+	
+	/** Returns a pointer to the data that's read from the component. */
+	virtual const void * readoutData() const;
+	
+	/** Copies the data where the p points to into a local variable.
+	  * The function must be implemented by a sub class. */
+	virtual void copyData(const void * p);
 
 	/** Returns the input data */
 	bool getInput() const;
 	
 	/** Creates the property widget */
-	virtual QWidget* propertyWidget(QWidget * parent);
+	virtual PropertyWidget* propertyWidget(QWidget * parent);
 
 	/** Add menu items depend on connetor properties */
 	virtual bool initPopupMenu(QPopupMenu * popup);
@@ -76,30 +93,31 @@ public:
 	/** Returns a text which represents the current value. */
 	virtual QString getValueText() const;
 
+	/** Returns a @ref WatchItemBooleanConnector object. */
+	virtual WatchItemBase * makeWatchItem();
+
 protected:
 	/**
 	 * Constructs a boolean input connector. Use this constructor if you derive this class.
 	 *
-	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
-	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
-	 * @param orient Sets the orientation of the connector.
-	 * @param ci     Sets the connector info (@ref ConnectorInfo):
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient    Sets the orientation of the connector.
+	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
-	ConnectorBoolIn(	Component * comp,
-						const QString & name,
-						const QPoint & pos,
-						ConnOrientationType orient,
-						const ConnectorInfo * ci);
+	ConnectorBoolIn(Component * comp,
+	                const QString & name,
+	                const QString & i18nName,
+	                const QPoint & pos,
+	                ConnOrientationType orient,
+	                const ConnectorInfo * ci);
 	
 	
 	
-	/** Returns a pointer to the data that's read from the component
-	  * The default implementation calls the function getWireData()
-	  * Reimplementations is required if the connector has to modify this data (e.g. a neg. boolean input */
-	virtual const void * readoutData() const;
-
 protected slots:
 	/** Display a status help message for popup menu entries, if highlighted */
 	virtual void popupMenuHighlighted(int msg) const;
@@ -112,7 +130,7 @@ private:
 	/** Internal init function. */
 	void init();
 
-
+	bool m_data;
 	int idNegate;
 };
 

@@ -27,6 +27,7 @@ EnumBaseDict::EnumBaseDict(const tData * pData)
 	: m_data(pData)
 {
 	m_dict = new QDict<int>;
+	CHECK_PTR(m_dict);
 	int i = 0;
 	const tData * pCount = pData;
 	while (pCount->name != 0)
@@ -39,7 +40,7 @@ EnumBaseDict::EnumBaseDict(const tData * pData)
 	
 	while (pData->name != 0)
 	{
-		m_dict->insert(pData->name, &pData->value);
+		m_dict->insert(QString::fromLatin1(pData->name), &pData->value);
 		pData ++;
 	};
 }
@@ -51,7 +52,7 @@ EnumBaseDict::~EnumBaseDict()
 
 const int * EnumBaseDict::find(const char * name) const
 {
-	return m_dict->find(name);
+	return m_dict->find(QString::fromLatin1(name));
 }
 
 int EnumBaseDict::find(const char * name, int defaultValue) const
@@ -62,7 +63,7 @@ int EnumBaseDict::find(const char * name, int defaultValue) const
 	
 	const int * pI;
 	
-	pI = m_dict->find(name);
+	pI = m_dict->find(QString::fromLatin1(name));
 	if (pI)
 		return *pI;
 	return defaultValue;

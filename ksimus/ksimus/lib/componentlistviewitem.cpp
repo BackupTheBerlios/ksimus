@@ -31,18 +31,6 @@
 
 // Forward declaration
 
-
-
-class ComponentListViewItem::Private
-{
-public:
-	Private(){};
-	~Private(){};
-
-
-};
-
-
 ComponentListViewItem::ComponentListViewItem(ComponentListViewItem * clvi, const QString & name, const ComponentInfo * ci)
 	:	QListViewItem(clvi, name),
 		m_compInfo(ci)

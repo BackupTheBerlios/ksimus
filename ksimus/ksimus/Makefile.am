@@ -1,11 +1,14 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 bin_PROGRAMS = ksimus
+
+## INCLUDES were found outside kdevelop specific part
+
 ksimus_SOURCES = componentpropertystylewidget.cpp componentstyle.cpp compviewvbox.cpp compviewhbox.cpp ksimdata.cpp ksimaction.cpp componentaddon.cpp compcontainer.cpp library.cpp componentpropertyinfowidget.cpp componentpropertydialog.cpp componentpropertygeneralwidget.cpp componentpropertybasewidget.cpp compviewwidget.cpp ksimeditor.cpp ksimwidget.cpp wire.cpp ksimundo.cpp ksimfile.cpp globals.cpp displaywidget.cpp compview.cpp componentmap.cpp componentitem.cpp component.cpp basewindow.cpp ksimusview.cpp ksimusdoc.cpp ksimus.cpp main.cpp 
 ksimus_LDADD   = ./module/libmodule.a ./boolean/libboolean.a ./tools/libtools.a ./lib/liblib.a ./items/libitems.a -lltdl -lkdeprint $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT) $(LIBSOCKET)
 
 SUBDIRS = tools module boolean lib items 
 
-EXTRA_DIST = main.cpp ksimus.cpp ksimus.h ksimusdoc.cpp ksimusdoc.h ksimusview.cpp ksimusview.h ksimusui.rc ksimus.desktop ksimus.xpm mini-ksimus.xpm basewindow.cpp basewindow.h compcontainer.h component.cpp component.h componentitem.cpp componentitem.h componentmap.cpp componentmap.h compview.cpp compview.h displaywidget.cpp displaywidget.h globals.cpp globals.h ksimfile.cpp ksimfile.h ksimundo.cpp ksimundo.h types.h wire.cpp wire.h resource.h ksimwidget.cpp ksimwidget.h ksimeditor.cpp ksimeditor.h compviewwidget.cpp compviewwidget.h ksimdebug.h componentpropertybasewidget.cpp componentpropertybasewidget.h componentpropertygeneralwidget.cpp componentpropertygeneralwidget.h componentpropertydialog.cpp componentpropertydialog.h componentpropertyinfowidget.cpp componentpropertyinfowidget.h library.cpp library.h compcontainer.cpp componentaddon.cpp componentaddon.h ksimaction.cpp ksimaction.h ksimdata.cpp ksimdata.h compviewhbox.cpp compviewhbox.h compviewvbox.cpp compviewvbox.h componentstyle.cpp componentstyle.h componentpropertystylewidget.cpp componentpropertystylewidget.h wire.cur wire_mask.cur lo16-app-ksimus.png lo32-app-ksimus.png hi16-app-ksimus.png hi32-app-ksimus.png x-ksimus.desktop 
+EXTRA_DIST = main.cpp ksimus.cpp ksimus.h ksimusdoc.cpp ksimusdoc.h ksimusview.cpp ksimusview.h ksimusui.rc ksimus.desktop ksimus.xpm mini-ksimus.xpm basewindow.cpp basewindow.h compcontainer.h component.cpp component.h componentitem.cpp componentitem.h componentmap.cpp componentmap.h compview.cpp compview.h displaywidget.cpp displaywidget.h globals.cpp globals.h ksimfile.cpp ksimfile.h ksimundo.cpp ksimundo.h types.h wire.cpp wire.h resource.h ksimwidget.cpp ksimwidget.h ksimeditor.cpp ksimeditor.h compviewwidget.cpp compviewwidget.h ksimdebug.h componentpropertybasewidget.cpp componentpropertybasewidget.h componentpropertygeneralwidget.cpp componentpropertygeneralwidget.h componentpropertydialog.cpp componentpropertydialog.h componentpropertyinfowidget.cpp componentpropertyinfowidget.h library.cpp library.h compcontainer.cpp componentaddon.cpp componentaddon.h ksimaction.cpp ksimaction.h ksimdata.cpp ksimdata.h compviewhbox.cpp compviewhbox.h compviewvbox.cpp compviewvbox.h componentstyle.cpp componentstyle.h componentpropertystylewidget.cpp componentpropertystylewidget.h wire.cur wire_mask.cur lo16-app-ksimus.png lo32-app-ksimus.png hi16-app-ksimus.png hi32-app-ksimus.png x-ksimus.desktop ksimus-execute.desktop 
 
 install-data-local:
 	$(mkinstalldirs) $(pkgincludedir)/
@@ -84,6 +87,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hi32-app-ksimus.png $(kde_icondir)/hicolor/32x32/apps/ksimus.png
 	$(mkinstalldirs) $(kde_mimedir)/application/
 	$(INSTALL_DATA) $(srcdir)/x-ksimus.desktop $(kde_mimedir)/application/x-ksimus.desktop
+	$(mkinstalldirs) $(kde_appsdir)/Applications/
+	$(INSTALL_DATA) $(srcdir)/ksimus-execute.desktop $(kde_appsdir)/Applications/ksimus-execute.desktop
 
 uninstall-local:
 	-rm -f $(pkgincludedir)/ksimus.h
@@ -124,6 +129,7 @@ uninstall-local:
 	-rm -f $(kde_icondir)/hicolor/16x16/apps/ksimus.png
 	-rm -f $(kde_icondir)/hicolor/32x32/apps/ksimus.png
 	-rm -f $(kde_mimedir)/application/x-ksimus.desktop
+	-rm -f $(kde_appsdir)/Applications/ksimus-execute.desktop
 
 ####### kdevelop will overwrite this part!!! (end)############
 # this 10 paths are KDE specific. Use them:
@@ -140,7 +146,7 @@ uninstall-local:
 # kde_wallpaperdir  Where general wallpapers should go to.
 
 # set the include path for X, qt and KDE
-INCLUDES= $(all_includes) -Iitems -Ilib -Imodule -Itools
+INCLUDES= $(all_includes) -I./items -I./lib -I./module -I./tools
 
 METASOURCES = AUTO
 

@@ -67,22 +67,31 @@ static const char * sViewAttribUserView	= "View Attribute User View";
 static const char * sPixmapStore	= "Pixmap Store";
 static const char * sPixmapData = "Pixmap Data";
 
-static EnumDict<ModuleViewType> moduleViewDict;
-
 EnumDict<ModuleViewType>::tData EnumDict<ModuleViewType>::data[]
-			= { {"Generic", MV_GENERIC},
+      = { {"Generic",    MV_GENERIC},
           {"User View",  MV_USERVIEW},
-					{"Pixmap", MV_PIXMAP},
-					{"None", MV_NONE},
-          {0,(ModuleViewType)0}};
+          {"Pixmap",     MV_PIXMAP},
+          {"None",       MV_NONE},
+          {0,           (ModuleViewType)0}};
 
-static EnumDict<ModulePixmapStoreType> modulePixmapStoreDict;
+static const EnumDict<ModuleViewType> & getModuleViewDict()
+{
+	static EnumDict<ModuleViewType> moduleViewDict;
+	return moduleViewDict;
+}
+
 
 EnumDict<ModulePixmapStoreType>::tData EnumDict<ModulePixmapStoreType>::data[]
-			= { {"Absolute", MPS_ABSOLTUE},
+      = { {"Absolute",         MPS_ABSOLTUE},
           {"Relative Module",  MPS_RELATIVE_MODULE},
-					{"Internal", MPS_INTERNAL},
-          {0,(ModulePixmapStoreType)0}};
+          {"Internal",         MPS_INTERNAL},
+          {0,                 (ModulePixmapStoreType)0}};
+
+static const EnumDict<ModulePixmapStoreType> & getModulePixmapStoreDict()
+{
+	static EnumDict<ModulePixmapStoreType> modulePixmapStoreDict;
+	return modulePixmapStoreDict;
+}
 
 
 
@@ -123,15 +132,10 @@ ModuleData::~ModuleData()
 	delete m_outList;
 	delete m_externalList;
 	
-	if (m_connPosGeneric)
-		delete m_connPosGeneric;
-	if (m_connPosPixmap)
-		delete m_connPosPixmap;
-	if (m_connOrientPixmap)
-		delete m_connOrientPixmap;
-		
-	if (m_pixmap)
-		delete m_pixmap;
+	delete m_connPosGeneric;
+	delete m_connPosPixmap;
+	delete m_connOrientPixmap;
+	delete m_pixmap;
 
 }
 	
@@ -327,7 +331,7 @@ void ModuleData::searchExternals(const ComponentList * compList)
 	{
 		unsigned int i = 0;
 		QPoint a,b;
-    	
+		
 		if (it.current()->isExtConn())
 		{
 			ExternalConnector * extConn = (ExternalConnector *) it.current();
@@ -468,9 +472,9 @@ void ModuleData::setupPixmapData()
 		QPoint * pos = new QPoint(((ExternalConnector*)it.current())->getPixmapPos());
 		CHECK_PTR(pos);
 		m_connPosPixmap->append(pos);
-
+		
 		ConnOrientationType * orient = new ConnOrientationType(((ExternalConnector*)it.current())
-																			->getPixmapOrientation());
+		                                                          ->getPixmapOrientation());
 		CHECK_PTR(orient);
 		m_connOrientPixmap->append(orient);
 	}
@@ -510,9 +514,9 @@ void ModuleData::setupUserViewData()
 		QPoint * pos = new QPoint(((ExternalConnector*)it.current())->getUserViewPos());
 		CHECK_PTR(pos);
 		m_connPosUserView->append(pos);
-
+		
 		ConnOrientationType * orient = new ConnOrientationType(((ExternalConnector*)it.current())
-																					->getUserViewOrientation());
+		                                                          ->getUserViewOrientation());
 		CHECK_PTR(orient);
 		m_connOrientUserView->append(orient);
 	}
@@ -521,7 +525,7 @@ void ModuleData::setupUserViewData()
 /** save module properties */
 void ModuleData::save(KSimData & file)
 {
-	moduleViewDict.save(file, sViewType, m_moduleView);
+	getModuleViewDict().save(file, sViewType, m_moduleView);
 		
 	switch(m_pixmapStore)
 	{
@@ -538,20 +542,7 @@ void ModuleData::save(KSimData & file)
 			{
 				if(m_pixmap)
 				{
-					QByteArray array;
-					QDataStream stream(array, IO_WriteOnly);
-					QStringList strList;
-					unsigned int i;
-					
-					stream << *m_pixmap;
-					
-					strList.append(QString::number(array.size(),16));
-					
-					for (i = 0; i < array.size(); i++)
-					{
-						strList.append(QString::number((unsigned char)array[i],16));
-					}
-					file.writeEntry(sPixmapData, strList);
+					file.writeEntry(sPixmapData, *m_pixmap);
 				}
 				if(!m_pixmapFile.isEmpty())
 					file.writeEntry(sPixmapFile, m_pixmapFile);
@@ -562,7 +553,7 @@ void ModuleData::save(KSimData & file)
 			break;
 	}
 
-	modulePixmapStoreDict.save(file, sPixmapStore, m_pixmapStore);
+	getModulePixmapStoreDict().save(file, sPixmapStore, m_pixmapStore);
 	
 	if(!m_moduleName.isEmpty())
 		file.writeEntry(sModuleName, m_moduleName);
@@ -584,9 +575,9 @@ void ModuleData::save(KSimData & file)
 	Returns true if successful */
 bool ModuleData::load(KSimData & file)
 {
-	m_moduleView = moduleViewDict.load(file, sViewType, MV_GENERIC);
+	m_moduleView = getModuleViewDict().load(file, sViewType, MV_GENERIC);
 	
-	m_pixmapStore = modulePixmapStoreDict.load(file, sPixmapStore, MPS_ABSOLTUE);
+	m_pixmapStore = getModulePixmapStoreDict().load(file, sPixmapStore, MPS_ABSOLTUE);
 	
 	switch(m_pixmapStore)
 	{
@@ -601,23 +592,14 @@ bool ModuleData::load(KSimData & file)
 		case MPS_INTERNAL:
 			{
 				m_pixmapFile = file.readEntry(sPixmapFile);
-				QStringList strList(file.readListEntry(sPixmapData));
-			
-				unsigned int size,i;
-				size = strList[0].toUInt(0,16);
-				QByteArray array(size);
-			
-				for (i = 0; i < size; i++)
-				{
-					array[i] = (char) strList[i+1].toUInt(0,16);
-				}
-			
-				QDataStream stream(array, IO_ReadOnly);
 				if (!m_pixmap)
+				{
 					m_pixmap = new QPixmap;
-				stream >> *m_pixmap;
+					CHECK_PTR(m_pixmap);
+				}
+				*m_pixmap = file.readPixmapEntry(sPixmapData);
 				m_pixmapSize = QSize( (((m_pixmap->width()  + 3*gridX - 1)/gridX)*gridX),
-															(((m_pixmap->height() + 3*gridY - 1)/gridY)*gridY) );
+				                      (((m_pixmap->height() + 3*gridY - 1)/gridY)*gridY) );
 			}
 			break;
 		
@@ -644,7 +626,7 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 	KSimData file(filename);
 	file.setGroup("/Property/Module/");
 	
-	ModuleViewType moduleView = moduleViewDict.load(file, sViewType, MV_NONE);
+	ModuleViewType moduleView = getModuleViewDict().load(file, sViewType, MV_NONE);
 	if(moduleView == MV_NONE)
 	{
 		// No module
@@ -692,14 +674,14 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 	{
 		libName = moduleLibNameList[0];
 		moduleLibNameList.remove(libName);
-		addLibNames = moduleLibNameList.join(";");
+		addLibNames = moduleLibNameList.join(QString::fromLatin1(";"));
 	}
 	
 	return new ModuleInfo( filename,
-												 moduleName,
-												 libName,
-												 addLibNames,
-												 viewAttrib);
+	                       moduleName,
+	                       libName,
+	                       addLibNames,
+	                       viewAttrib);
 
 }
 
@@ -710,7 +692,7 @@ KURL ModuleData::getUrl() const
 	{
 		// Module data is part of document
 		const KURL & url = m_container->getDoc()->URL();
-		KSIMDEBUG_VAR("Document Path",url.path());
+//		KSIMDEBUG_VAR("Document Path",url.path());
 		return url;
 	}
 	else
@@ -718,7 +700,7 @@ KURL ModuleData::getUrl() const
 		// Module data is part of a module
 		Module * module = (Module*) m_container->getParentComponent();
 		KURL url(module->getModuleFile());
-		KSIMDEBUG_VAR("Module Path",url.path());
+//		KSIMDEBUG_VAR("Module Path",url.path());
 		return url;
 	}
 }
@@ -758,7 +740,7 @@ QString ModuleData::getRelativePath()
 	if(valid)
 	{
 		QString result(KSimFile::relativePath(m_pixmapFile,fileInfo.dirPath(true)));
-		KSIMDEBUG_VAR("Relative file name",result);
+//		KSIMDEBUG_VAR("Relative file name",result);
 		
 		return result;
 	}
@@ -776,7 +758,7 @@ void ModuleData::setRelativePath(QString relPath)
 	KURL url(getUrl());
 	QString path(url.path());
 	QFileInfo fileInfo(path);
-	QDir dir(fileInfo.dirPath(true));	
+//	QDir dir(fileInfo.dirPath(true));	
 	
 	bool valid(true);
 
@@ -806,9 +788,12 @@ void ModuleData::setRelativePath(QString relPath)
 	
 	if(valid)
 	{
-		KSIMDEBUG_VAR("File path",dir.path());
+		KSIMDEBUG_VAR("File path",url.directory(false, true));
 		KSIMDEBUG_VAR("Pixmap relative file",relPath);
-		int lastSlash(relPath.find('/',-1));
+		QFileInfo fi(url.directory(false, true) + relPath);
+		m_pixmapFile = fi.absFilePath();
+		
+/*		int lastSlash(relPath.find('/',-1));
 		if(-1 != lastSlash)
 		{
 			// relPath contains directories
@@ -819,7 +804,7 @@ void ModuleData::setRelativePath(QString relPath)
 		{
 			// relPath contains no directories
 			m_pixmapFile = dir.absPath() + '/' + relPath.right(lastSlash);
-		}
+		}*/
 		
 		KSIMDEBUG_VAR("Pixmap file",m_pixmapFile);
 	}

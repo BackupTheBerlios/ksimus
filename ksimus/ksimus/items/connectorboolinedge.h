@@ -33,7 +33,7 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const ConnectorInfo ConnectorBoolInEdgeInfo;
+const ConnectorInfo * getConnectorBoolInEdgeInfo();
 
 
 class ConnectorBoolInEdge : public ConnectorBoolIn
@@ -45,25 +45,33 @@ public:
 	/**
 	 * Constructs a edge sensitive boolean input connector.
 	 *
-	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
-	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolInEdge(Component * comp, const QString & name, const QPoint & pos = QPoint());
+	ConnectorBoolInEdge(Component * comp,
+	                    const QString & name,
+	                    const QString & i18nName,
+	                    const QPoint & pos = QPoint());
 
 	/**
 	 * Constructs a edge sensitive boolean input connector. Like the constructor above, but creates also a
 	 * connector label (@ref ConnectorLabel).
 	 *
-	 * @param comp  Component which contains this connector.
-	 * @param name  The name of the connector. This name is shown at the property view
-	 *              or the status bar.
-	 * @param descr Sets the description of the connector label.
-	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param descr     Sets the description of the connector label.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
 	ConnectorBoolInEdge(Component * comp,
 	                    const QString & name,
+	                    const QString & i18nName,
 	                    const QString & descr,
 	                    const QPoint & pos = QPoint()	);
 	
@@ -99,7 +107,7 @@ public:
 	virtual void reset();
 
 	/** Creates the property widget */
-	virtual QWidget* propertyWidget(QWidget * parent);
+	virtual PropertyWidget* propertyWidget(QWidget * parent);
 
 	/** Add menu items depend on connetor properties */
 	virtual bool initPopupMenu(QPopupMenu * popup);
@@ -115,14 +123,17 @@ protected:
 	 * Constructs a boolean input connector. Use this constructor if you derive this class.
 	 *
 	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
 	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
 	 * @param orient Sets the orientation of the connector.
 	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorBoolInEdge(Component * comp,
 	                    const QString & name,
+	                    const QString & i18nName,
 	                    const QPoint & pos,
 	                    ConnOrientationType orient,
 	                    const ConnectorInfo * ci);

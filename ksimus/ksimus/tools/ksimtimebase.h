@@ -19,6 +19,7 @@
 #define KSIMTIMEBASE_H
 
 #include <qstring.h>
+#include <qstringlist.h>
 
 /**Base class for all timing classes
   *@author Rasmus Diekenbrock
@@ -93,9 +94,9 @@ public:
 	void setUnit(eTimeUnit unit);
 	void setUnit(const char * unitStr);
 	
-	const QString getValueString(eTimeUnit unit, int precision = 2) const;
-	const QString getValueString(int precision = 2) const { return getValueString(m_unit, precision); };
-	const QString getAdjustValueString(int precision = 2) const;
+	QString getValueString(eTimeUnit unit, int precision = 2) const;
+	QString getValueString(int precision = 2) const { return getValueString(m_unit, precision); };
+	QString getAdjustValueString(int precision = 2) const;
 	double getValue(eTimeUnit unit) const;
 	double getValue() const { return getValue(m_unit);};
 	void setValue(double time, eTimeUnit unit);
@@ -113,7 +114,7 @@ public:
 	static const char * convertUnit(eTimeUnit unit);
 	
 protected:
-	KSimTimeType m_time;		
+	KSimTimeType m_time;
 	eTimeUnit m_unit;
 	const KSimTimeServer * m_timeServer;
 };

@@ -18,14 +18,27 @@
 #ifndef WIREPROPERTY_H
 #define WIREPROPERTY_H
 
+// C includes
+
+// QT includes
 #include <qobject.h>
+#include <qlist.h>
+
+// KDE includes
+
+// Project includes
 #include "componentitem.h"
 
 class Wire;
 class WirePropertyInfo;
+class WireColorScheme;
 class QPopupMenu;
 class KSimData;
 class QPainter;
+class ConnectorBase;
+class ConnectorList;
+class ComponentList;
+class WatchItemBase;
 
 /**Base class for all wire properties
   *@author Rasmus Diekenbrock
@@ -50,10 +63,20 @@ public:
 	*   Returns the number of errors.
 	*/
 	virtual int checkCircuit();
-	/** Returns a pointer to the current data.
-	*   Returns null, if no output is active (TRISTATE).
-	*/	
-	virtual const void * getCurrentData() const = 0;
+	
+	/** Setup the Wire property for a new circuit execution.
+	  * The sub class has to implement this function.
+	  */
+	virtual void setupCircuit() = 0;
+	
+	/** Executes the WireProperty. This means copies the data from the output connector
+	  * to the input connector.
+	  * The sub class has to implement this function. */
+	virtual void execute() = 0;
+	
+	/** Returns a pointer to the data that's read from the wire.
+	  * Reimplementations is required. */
+	virtual const void * readoutData() const = 0;
 	
 	/** Add menu items depend on wire properties.
 	  *	Return true, if items are added. */
@@ -65,8 +88,13 @@ public:
 	/** Returns the wire. */
 	Wire * getWire() const { return (Wire *)getComponent(); };
 		
-	/** Setup the colors, brushs, and fills for the connector. */
-	virtual void setupColorScheme (QPainter * p) const = 0;
+	/** Get the colors for the wire property. */
+	virtual const WireColorScheme & getColorScheme() const = 0;
+
+	/** Returns a watch item.
+	*   The default implementation return a null pointer. Must reimplemented in a sub class.
+	*/
+	virtual WatchItemBase * makeWatchItem();
 
 protected:	
 	WireProperty(Wire * wire, const WirePropertyInfo * wirePropertyInfo);
@@ -78,21 +106,62 @@ protected:
 	
 };
 
+//##################################################################################
+//##################################################################################
+
+
 class WirePropertySingleOutput : public WireProperty
 {
 
 	Q_OBJECT
 
 public:	
+	virtual ~WirePropertySingleOutput();
+	
 	/** Checks the connected component.
 		eg. No output connected or more than one connected.
 		Returns the number of errors.
 	*/
 	virtual int checkCircuit();
+	
+	/** Setup the Wire property for a new circuit execution.
+	  * Copies this wire property into the connected connectors.
+	  */
+	virtual void setupCircuit();
+	
+	/** Executes the WireProperty. This means copies the data from the output connector
+	  * to the input connector. */
+	virtual void execute();
+	
+	/** Returns a pointer to the data that's read from the wire.
+	  * Reads the data of the output. If no output connector is present a null pointer is returned. */
+	virtual const void * readoutData() const;
+
 
 protected:	
 	WirePropertySingleOutput(Wire * wire, const WirePropertyInfo * wirePropertyInfo);
 
+	ConnectorBase * m_outConnector;
+	ConnectorList * m_inConnectorList;
+	ConnectorList * m_inZeroDelayConnectorList;
+	ComponentList * m_zeroDelayList;
+
 };
+
+
+//##################################################################################
+//##################################################################################
+
+
+class WirePropertyList : public QList<WireProperty>
+{
+public:
+//	WirePropertyList();
+//	~WirePropertyList();
+};
+
+#define FOR_EACH_WIREPROPERTY(_it_,_wirePropertyList_)	\
+		for(QListIterator<WireProperty> _it_(_wirePropertyList_);_it_.current();++_it_)
+
 
 #endif

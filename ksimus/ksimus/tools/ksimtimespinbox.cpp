@@ -24,6 +24,7 @@
 // Project-Includes
 #include "ksimtimespinbox.h"
 #include "ksimtimeserver.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
@@ -56,32 +57,32 @@ void KSimTimeSpinBox::init()
 		
 	if (m_time.hasTimeServer())
 	{
-		KSimUnitList * tickList = new KSimUnitList("Ticks");
+		KSimUnitList * tickList = new KSimUnitList(QString::fromLatin1("Ticks"));
 		CHECK_PTR(tickList);
 		
 		// Add some ticks
 		KSimUnitTicks * ticks;
-		ticks = new KSimUnitTicks(m_time.getTimeServer(), "ticks");
+		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("ticks"));
 		CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
-		ticks = new KSimUnitTicks(m_time.getTimeServer(), "Ticks", true);
+		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("Ticks"), true);
 		CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
-		ticks = new KSimUnitTicks(m_time.getTimeServer(), "tick", true);
+		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("tick"), true);
 		CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
-		ticks = new KSimUnitTicks(m_time.getTimeServer(), "Tick", true);
+		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("Tick"), true);
 		CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
-		ticks = new KSimUnitTicks(m_time.getTimeServer(), "T", true);
+		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("T"), true);
 		CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
-		ticks = new KSimUnitTicks(m_time.getTimeServer(), "t", true);
+		ticks = new KSimUnitTicks(m_time.getTimeServer(), QString::fromLatin1("t"), true);
 		CHECK_PTR(ticks);
 		tickList->add(ticks);
 		
@@ -102,7 +103,7 @@ void KSimTimeSpinBox::setValue(const KSimTimeBase & time)
 	{
 		if (time.getUnit() == unit_ticks)
 		{
-			setUnitListString("Ticks");
+			setUnitListString(QString::fromLatin1("Ticks"));
 		}
 		else
 		{
@@ -119,7 +120,7 @@ void KSimTimeSpinBox::slotChanged(double sec)
 {
 	m_time.setValue(sec, unit_sec);
 	
-	if (getUnitListString() == QString("Ticks"))
+	if (getUnitListString() == QString::fromLatin1("Ticks"))
 	{
 		m_time.setUnit(unit_ticks);
 	}

@@ -56,11 +56,9 @@ protected:
 	void setupTreeView(ComponentDirectorySubMenu * dir, ComponentListViewItem * clvi);
 	void insert(const QString & libName, const ComponentInfo * ci, bool open);
 	void insert(const ComponentLibraryItem * cli, bool open);
+	ComponentListViewItem * findChild(const QString & childName);
 	
 	ComponentListViewItem * m_leastSelected;
-
-	virtual void contentsMousePressEvent(QMouseEvent * ev);
-
 
 
 public slots:
@@ -69,7 +67,7 @@ public slots:
 	void slotInsert(const ComponentLibraryItem *);
 	void slotFoldTree();
 	void slotUnfoldTree();
-	
+
 private slots:
 	void slotSelection(QListViewItem * lvi);
 	void slotHideMe();
@@ -77,7 +75,6 @@ private slots:
 	
 private:
 	eAppViewType m_currentView;
-	ComponentListViewItem * componentRoot;
 	
 signals:
 	void signalSelection(const ComponentInfo * ci);

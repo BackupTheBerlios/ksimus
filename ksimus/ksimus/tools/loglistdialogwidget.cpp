@@ -15,20 +15,26 @@
  *                                                                         *
  ***************************************************************************/
 
+// C-Includes
+
+// QT-Includes
 #include <qvgroupbox.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
-#include <qlayout.h>
 #include <qlabel.h>
 
+// KDE-Includes
 #include <klocale.h>
-#include <kdialogbase.h>
 
-
+// Project-Includes
 #include "loglistdialogwidget.h"
 
+// Forward declaration
+
+
+
 LogListDialogWidget::LogListDialogWidget(LogList * logList, QWidget *parent, const char *name )
-	:	PropertyWidget(parent,name),
+	:	PropertyWidget(1, parent,name),
 		m_logList(logList),
 		m_property(*(LogListProperty*)logList)
 {
@@ -42,14 +48,7 @@ LogListDialogWidget::~LogListDialogWidget()
 
 void LogListDialogWidget::initView()
 {
-	QButtonGroup * box = new QButtonGroup(2,Horizontal,name(),this);
-	
-	QGridLayout * mainLayout = new QGridLayout( this, 1, 1 );
-	CHECK_PTR(mainLayout);
-	mainLayout->setMargin(KDialog::marginHint());
-	mainLayout->setSpacing(KDialog::spacingHint());
-	mainLayout->addWidget(box,0,0);
-
+	QButtonGroup * box = new QButtonGroup(2,Qt::Horizontal,QString::fromLatin1(name()),this);
 	
 	new QLabel(i18n("Show:"),box);
 	new QLabel(i18n("Popup at:"),box);

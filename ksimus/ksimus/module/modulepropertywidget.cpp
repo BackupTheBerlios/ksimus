@@ -64,11 +64,11 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	m_leModuleName = 	new KSimLineEdit(this);
 	CHECK_PTR(m_leModuleName);
 	label->setBuddy(m_leModuleName);
-  QToolTip::add(label,tooltip);
-  QWhatsThis::add(label,tooltip);
-  QToolTip::add(m_leModuleName,tooltip);
-  QWhatsThis::add(m_leModuleName,tooltip);
-  connect(m_leModuleName, SIGNAL(changed()), SLOT(slotModuleNameChanged()));
+	QToolTip::add(label,tooltip);
+	QWhatsThis::add(label,tooltip);
+	QToolTip::add(m_leModuleName,tooltip);
+	QWhatsThis::add(m_leModuleName,tooltip);
+	connect(m_leModuleName, SIGNAL(changed()), SLOT(slotModuleNameChanged()));
 	
 	// Library names
 	tooltip = i18n("Describes the entry of the module at the component supplier.\nSeparate subdirecotries by a slash\"/\".\nSeparate library names by a semicolon \";\".");
@@ -77,11 +77,11 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	m_leModuleLibNames = 	new KSimLineEdit(this);
 	CHECK_PTR(m_leModuleLibNames);
 	label->setBuddy(m_leModuleLibNames);
-  QToolTip::add(label,tooltip);
-  QWhatsThis::add(label,tooltip);
-  QToolTip::add(m_leModuleLibNames,tooltip);
-  QWhatsThis::add(m_leModuleLibNames,tooltip);
-  connect(m_leModuleLibNames, SIGNAL(changed()), SLOT(slotModuleLibNamesChanged()));
+	QToolTip::add(label,tooltip);
+	QWhatsThis::add(label,tooltip);
+	QToolTip::add(m_leModuleLibNames,tooltip);
+	QWhatsThis::add(m_leModuleLibNames,tooltip);
+	connect(m_leModuleLibNames, SIGNAL(changed()), SLOT(slotModuleLibNamesChanged()));
 
 	// Short Description
 	tooltip = i18n("Enter a short description of the module.");
@@ -90,61 +90,61 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	m_leShortDescr = 	new KSimLineEdit(this);
 	CHECK_PTR(m_leShortDescr);
 	label->setBuddy(m_leShortDescr);
-  QToolTip::add(label,tooltip);
-  QWhatsThis::add(label,tooltip);
-  QToolTip::add(m_leShortDescr,tooltip);
-  QWhatsThis::add(m_leShortDescr,tooltip);
-  connect(m_leShortDescr, SIGNAL(changed()), SLOT(slotShortDescrChanged()));
+	QToolTip::add(label,tooltip);
+	QWhatsThis::add(label,tooltip);
+	QToolTip::add(m_leShortDescr,tooltip);
+	QWhatsThis::add(m_leShortDescr,tooltip);
+	connect(m_leShortDescr, SIGNAL(changed()), SLOT(slotShortDescrChanged()));
 
 
-  // Pixmap file
+	// Pixmap file
 	tooltip = i18n("Enter the path to image file (Image view only).");
 	label = new QLabel(i18n("Image &File:"), this);
 	CHECK_PTR(label);
 	widget = createPixmapFileWidget();
 	label->setBuddy(widget);
-  QToolTip::add(label,tooltip);
-  QWhatsThis::add(label,tooltip);
-  QToolTip::add(widget,tooltip);
-  QWhatsThis::add(widget,tooltip);
-  connect(m_lePixmapFile, SIGNAL(changed()), SLOT(slotPixmapFileChanged()));
+	QToolTip::add(label,tooltip);
+	QWhatsThis::add(label,tooltip);
+	QToolTip::add(widget,tooltip);
+	QWhatsThis::add(widget,tooltip);
+	connect(m_lePixmapFile, SIGNAL(changed()), SLOT(slotPixmapFileChanged()));
 
 	
 	// User View Attribute
 	tooltip = i18n("Check the box, if your module should also have a view in user interface (User view only).");
 	m_userViewAtrriute = new QCheckBox(i18n("User Interface"),this);
 	CHECK_PTR(m_userViewAtrriute);
- 	m_userViewAtrriute->setFocusPolicy(ClickFocus);
-  QToolTip::add(m_userViewAtrriute,tooltip);
-  QWhatsThis::add(m_userViewAtrriute,tooltip);
-  connect(m_userViewAtrriute, SIGNAL(clicked()), SLOT(slotUserViewAtrriuteChanged()));
+	m_userViewAtrriute->setFocusPolicy(ClickFocus);
+	QToolTip::add(m_userViewAtrriute,tooltip);
+	QWhatsThis::add(m_userViewAtrriute,tooltip);
+	connect(m_userViewAtrriute, SIGNAL(clicked()), SLOT(slotUserViewAtrriuteChanged()));
 
-  // Store selection
-  m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
+	// Store selection
+	m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
 
 	tooltip = i18n("Stores the absolute path of the pixmap (Image view only).");
-  m_storeAbsolute = new QRadioButton(i18n("Absolute path"), m_storeBox);
+	m_storeAbsolute = new QRadioButton(i18n("Absolute path"), m_storeBox);
 	CHECK_PTR(m_storeAbsolute);
- 	m_storeAbsolute->setFocusPolicy(ClickFocus);
-  QToolTip::add(m_storeAbsolute,tooltip);
-  QWhatsThis::add(m_storeAbsolute,tooltip);
-  connect(m_storeAbsolute, SIGNAL(clicked()), SLOT(slotStoreAbsoluteChanged()));
+	m_storeAbsolute->setFocusPolicy(ClickFocus);
+	QToolTip::add(m_storeAbsolute,tooltip);
+	QWhatsThis::add(m_storeAbsolute,tooltip);
+	connect(m_storeAbsolute, SIGNAL(clicked()), SLOT(slotStoreAbsoluteChanged()));
 
 	tooltip = i18n("Stores the path of the pixmap relative to module file (Image view only).");
-  m_storeRelative = new QRadioButton(i18n("Relative path"), m_storeBox);
+	m_storeRelative = new QRadioButton(i18n("Relative path"), m_storeBox);
 	CHECK_PTR(m_storeRelative);
- 	m_storeRelative->setFocusPolicy(ClickFocus);
-  QToolTip::add(m_storeRelative,tooltip);
-  QWhatsThis::add(m_storeRelative,tooltip);
-  connect(m_storeRelative, SIGNAL(clicked()), SLOT(slotStoreRelativeChanged()));
+	m_storeRelative->setFocusPolicy(ClickFocus);
+	QToolTip::add(m_storeRelative,tooltip);
+	QWhatsThis::add(m_storeRelative,tooltip);
+	connect(m_storeRelative, SIGNAL(clicked()), SLOT(slotStoreRelativeChanged()));
 
 	tooltip = i18n("Stores the pixmap into the module file (Image view only).");
-  m_storeInternal = new QRadioButton(i18n("Internal"), m_storeBox);
+	m_storeInternal = new QRadioButton(i18n("Internal"), m_storeBox);
 	CHECK_PTR(m_storeInternal);
- 	m_storeInternal->setFocusPolicy(ClickFocus);
-  QToolTip::add(m_storeInternal,tooltip);
-  QWhatsThis::add(m_storeInternal,tooltip);
-  connect(m_storeInternal, SIGNAL(clicked()), SLOT(slotStoreInternalChanged()));
+	m_storeInternal->setFocusPolicy(ClickFocus);
+	QToolTip::add(m_storeInternal,tooltip);
+	QWhatsThis::add(m_storeInternal,tooltip);
+	connect(m_storeInternal, SIGNAL(clicked()), SLOT(slotStoreInternalChanged()));
 }
 
 ModulePropertyWidget::~ModulePropertyWidget()
@@ -177,12 +177,12 @@ void ModulePropertyWidget::setup()
 	setPixmapFile(data->getPixmapFile());
 	data->loadPixmap(getPixmalFile());
 
-  if ((data->getUserViewAttrib() == VA_SHEET_AND_USER) && (data->getModuleView() == MV_USERVIEW))
-  {
+	if ((data->getUserViewAttrib() == VA_SHEET_AND_USER) && (data->getModuleView() == MV_USERVIEW))
+	{
 		m_userViewAtrriute->setChecked(true);
 	}
 	else
-  {
+	{
 		m_userViewAtrriute->setChecked(false);
 	}
 		
@@ -192,25 +192,25 @@ void ModulePropertyWidget::setup()
 	m_fileBox->setEnabled(data->getModuleView() == MV_PIXMAP);
 	m_userViewAtrriute->setEnabled(data->getModuleView() == MV_USERVIEW);
 	
-  switch(data->getPixmapStore())
-  {
-  	case MPS_ABSOLTUE:
-  		m_storeAbsolute->setChecked(true);
-  		break;
-  		
-  	case MPS_RELATIVE_MODULE:
-  		m_storeRelative->setChecked(true);
-  		break;
-  		
-  	case MPS_INTERNAL:
-  		m_storeInternal->setChecked(true);
-  		break;
-  	
-  	default:
-  		KSIMDEBUG_VAR("Unknown store type",data->getPixmapStore());
-  }
-
-  m_storeBox->setEnabled(data->getModuleView() == MV_PIXMAP);
+	switch(data->getPixmapStore())
+	{
+		case MPS_ABSOLTUE:
+			m_storeAbsolute->setChecked(true);
+			break;
+			
+		case MPS_RELATIVE_MODULE:
+			m_storeRelative->setChecked(true);
+			break;
+			
+		case MPS_INTERNAL:
+			m_storeInternal->setChecked(true);
+			break;
+		
+		default:
+			KSIMDEBUG_VAR("Unknown store type",data->getPixmapStore());
+	}
+	
+	m_storeBox->setEnabled(data->getModuleView() == MV_PIXMAP);
 }
 
 void ModulePropertyWidget::setModuleName(const QString & name)
@@ -268,18 +268,18 @@ void ModulePropertyWidget::slotPixmapFileChanged()
 
 QWidget * ModulePropertyWidget::createPixmapFileWidget()
 {
-  m_fileBox = new QHBox(this);
+	m_fileBox = new QHBox(this);
 	CHECK_PTR(m_fileBox);
 //	m_fileBox->setMargin(KDialog::marginHint());
 //	m_fileBox->setSpacing(KDialog::spacingHint());
 
-  m_lePixmapFile = new KSimLineEdit(m_fileBox);
+	m_lePixmapFile = new KSimLineEdit(m_fileBox);
 	CHECK_PTR(m_lePixmapFile);
 
 	QPushButton * openFileDia = new QPushButton(m_fileBox);
 	CHECK_PTR(openFileDia);
 	QPixmap pix;
-	pix = KGlobal::iconLoader()->loadIcon("fileopen.png",KIcon::Toolbar);
+	pix = KGlobal::iconLoader()->loadIcon(QString::fromLatin1("fileopen.png"),KIcon::Toolbar);
 	openFileDia->setPixmap(pix);
 	connect(openFileDia, SIGNAL(released()), SLOT(slotPixmapOpenFileDialog()));
 
@@ -291,8 +291,8 @@ void ModulePropertyWidget::slotPixmapOpenFileDialog()
 	QString file;
 	
 	file=KFileDialog::getOpenFileName(QDir::currentDirPath(),
-                                      i18n("*|All files"),
-                                      this, i18n("Load Image File..."));
+	                                    i18n("*|All files"),
+	                                    this, i18n("Load Image File..."));
 	
 	if(!file.isEmpty())
 	{

@@ -18,46 +18,136 @@
 // C-Includes
 
 // QT-Includes
+#include <qstringlist.h>
+#include <qpixmap.h>
 
 // KDE-Includes
 #include <ksimpleconfig.h>
 
 // Project-Includes
 #include "ksimdata.h"
+#include "ksimdebug.h"
+#include "enumdict.h"
 
 // Forward declaration
 
 class KSimDataPrivate
 {
 	public:
-	
-	KSimDataPrivate(const QString &pFileName, bool bReadOnly = false)
-		: simpleFile(pFileName, bReadOnly)
+
+	KSimDataPrivate(const QString &filename, KSimData::eVersionType versionType, bool bReadOnly)
+		: m_simpleFile(filename, bReadOnly),
+			m_versionType(versionType),
+			m_filename(filename)
 	{
 	};
 
-	KSimpleConfig simpleFile;
+	KSimpleConfig m_simpleFile;
+	KSimData::eVersionType m_versionType;
+	QStringList m_groupStack;
+	QString m_filename;
+};
+
+//#########################################################################################
+
+typedef struct
+{
+	const char * docVersion;
+	const char * firstKSimusVersion;
+	const char * lastKSimusVersion;
+} tVersionList;
+
+static const tVersionList versionList[] =
+{
+	{ "KSimus <0.3.5", "0.0.0", "0.3.4" },
+	{ "KSimus 0.3.5", "0.3.5", (const char *)0 }
 };
 
 
-
-//#########################################################################################
-
-#define data (m_p->simpleFile)
+static const char * sVersionTypeKey = "Document Version";
+static const char * sKSimusKey =      "Document Type";
 
 
 //#########################################################################################
 
+EnumDict<KSimData::eVersionType>::tData EnumDict<KSimData::eVersionType>::data[]
+      = { {"error",        KSimData::versionError},
+          {"as is",        KSimData::versionAsIs},
+          {"unknown",      KSimData::versionUnknown},
+          {"KSimus 0.3.5", KSimData::version0_3_5},
+          {"topical",      KSimData::versionTopical},
+          {0,              (KSimData::eVersionType)0}};
 
-
-KSimData::KSimData(const QString &pFileName, bool bReadOnly)
+static const EnumDict<KSimData::eVersionType> & getVersionTypeDict()
 {
-	m_p = new KSimDataPrivate(pFileName, bReadOnly);
+	static EnumDict<KSimData::eVersionType> versionTypeDict;
+	return versionTypeDict;
+}
+
+const char * KSimData::convertVersionType(KSimData::eVersionType versionType)
+{
+	return getVersionTypeDict().find(versionType);
+}
+
+KSimData::eVersionType KSimData::convertVersionType(const char * versionType, KSimData::eVersionType defaultVersionType)
+{
+	return getVersionTypeDict().find(versionType, defaultVersionType);
+}
+
+
+//#########################################################################################
+
+#define data       (m_p->m_simpleFile)
+#define groupStack (m_p->m_groupStack)
+
+
+//#########################################################################################
+
+
+
+KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bReadOnly)
+{
+	m_p = new KSimDataPrivate(pFileName, versionType, bReadOnly);
+	CHECK_PTR(m_p);
+	pushGroup("/");
+	writeEntry(sKSimusKey, "KSimus"); // Set always
+	
+	switch(versionType)
+	{
+		case versionError:
+			KSIMDEBUG("Fix me: call KSimData::KSimData with versionType == versionError");
+			break;
+			
+		case versionAsIs:
+			m_p->m_versionType = convertVersionType(data.readEntry(sVersionTypeKey), versionUnknown);
+			break;
+			
+		case versionUnknown:
+			KSIMDEBUG("Fix me: call KSimData::KSimData with versionType == versionUnknown");
+			break;
+			
+		default:
+			m_p->m_versionType = versionType;
+			data.writeEntry(sVersionTypeKey, convertVersionType(m_p->m_versionType));
+			break;
+	}
+	
+	popGroup();
 }
 
 KSimData::~KSimData()
 {
+	if (groupStack.count() != 0)
+	{
+		KSIMDEBUG(QString::fromLatin1("close file while stack is not empty (File %1, current group %2").arg(m_p->m_filename).arg(group()));
+	}
+	
 	delete m_p;
+}
+
+KSimData::eVersionType KSimData::getVersionType() const
+{
+	return m_p->m_versionType;
 }
 
 void KSimData::setGroup( const QString& pGroup )
@@ -65,14 +155,82 @@ void KSimData::setGroup( const QString& pGroup )
 	data.setGroup( pGroup );	
 }
 
+void KSimData::setGroupRel( const QString& groupRel )
+{
+	data.setGroup(data.group() + groupRel);
+}
+
+void KSimData::setGroup( const char * pGroup )
+{
+	data.setGroup( pGroup );	
+}
+
+void KSimData::setGroupRel( const char * groupRel )
+{
+	data.setGroup(data.group() + groupRel);
+}
+
 QString KSimData::group() const
 {
 	return data.group();	
 }
 
-bool KSimData::hasGroup(const QString &_pGroup) const
+void KSimData::pushGroup( const QString& newGroup )
 {
-	return data.hasGroup(_pGroup);	
+	groupStack.append(group());
+	setGroup(newGroup);
+}
+	
+void KSimData::pushGroup( const char * newGroup )
+{
+	pushGroup(QString::fromLatin1(newGroup));
+}
+
+void KSimData::pushGroupRel( const QString& groupRel )
+{
+	groupStack.append(group());
+	setGroupRel(groupRel);
+}
+	
+void KSimData::pushGroupRel( const char * groupRel )
+{
+	pushGroupRel(QString::fromLatin1(groupRel));
+}
+	
+void KSimData::popGroup(void)
+{
+	if (groupStack.count())
+	{
+		QStringList::Iterator it(groupStack.end());
+		it--;
+		
+		setGroup(*it);
+		groupStack.remove(it);
+	}
+	else
+	{
+		KSIMDEBUG(QString::fromLatin1("pop group from an empty stack (File %1, current group %2").arg(m_p->m_filename).arg(group()));
+	}
+}
+
+bool KSimData::hasGroup(const QString &group) const
+{
+	return data.hasGroup(group);	
+}
+
+bool KSimData::hasGroup(const char * group) const
+{
+	return data.hasGroup(group);	
+}
+
+bool KSimData::hasGroupRel(const QString &groupRel) const
+{
+	return data.hasGroup(data.group() + groupRel);	
+}
+
+bool KSimData::hasGroupRel(const char * groupRel) const
+{
+	return data.hasGroup(data.group() + groupRel);	
 }
 
 bool KSimData::hasKey(const char *pKey) const
@@ -165,6 +323,35 @@ QDateTime KSimData::readDateTimeEntry( const char *pKey, const QDateTime* pDefau
 	return data.readDateTimeEntry(pKey, pDefault);	
 }
 
+QPixmap KSimData::readPixmapEntry( const char *pKey, const QPixmap* pDefault ) const
+{
+	if (hasKey(pKey))
+	{
+		QStringList strList(readListEntry(pKey));
+		unsigned int size,i;
+		size = strList[0].toUInt(0,16);
+		QByteArray array(size);
+		
+		for (i = 0; i < size; i++)
+		{
+			array[i] = (char) strList[i+1].toUInt(0,16);
+		}
+		
+		QDataStream stream(array, IO_ReadOnly);
+		QPixmap pixmap;
+		stream >> pixmap;
+		return pixmap;
+	}
+	else if (pDefault)
+	{
+		return *pDefault;
+	}
+	else
+	{
+		return QPixmap();
+	}
+}
+
 void KSimData::writeEntry( const char *pKey, const QString& pValue)
 {
 	data.writeEntry(pKey, pValue);	
@@ -250,5 +437,22 @@ void KSimData::writeEntry( const char *pKey, const QSize& rValue )
 	data.writeEntry(pKey, rValue);	
 }
 
+void KSimData::writeEntry( const char *pKey, const QPixmap& rPixmap )
+{
+	QByteArray array;
+	QDataStream stream(array, IO_WriteOnly);
+	QStringList strList;
+	unsigned int i;
+	
+	stream << rPixmap;
+	
+	strList.append(QString::number(array.size(),16));
+	
+	for (i = 0; i < array.size(); i++)
+	{
+		strList.append(QString::number((unsigned char)array[i],16));
+	}
+	writeEntry(pKey, strList);	
+}
 
 

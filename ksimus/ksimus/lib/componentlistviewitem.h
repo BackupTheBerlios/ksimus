@@ -29,8 +29,6 @@ class ComponentInfo;
 
 class ComponentListViewItem : public QListViewItem
 {
-class Private;
-
 
 public:
 	ComponentListViewItem(ComponentListViewItem * clvi, const QString & name, const ComponentInfo * ci = 0);
@@ -48,9 +46,6 @@ public:
 
 protected:
 	const ComponentInfo * m_compInfo;
-
-private:
-	Private * m_p;
 
 };
 

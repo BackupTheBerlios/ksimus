@@ -46,8 +46,8 @@ public:
 	
 	bool insert (const ComponentInfo * ci, const PackageInfo * packageInfo);
 	bool insertInternal (const ComponentInfo * ci);
-	bool insert (const ComponentInfoList cil, const PackageInfo * packageInfo);
-	bool insertInternal (const ComponentInfoList cil);
+	bool insert (const ComponentInfoList & cil, const PackageInfo * packageInfo);
+	bool insertInternal (const ComponentInfoList & cil);
 	bool remove(const QString & libName);
 	bool remove(const ComponentInfo * ci);
 

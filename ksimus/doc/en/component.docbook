@@ -425,6 +425,8 @@ The external connector is rotatable.
 <simplelist>
 <member><link linkend="component-sim-time">Simulation Time</link></member>
 <member><link linkend="component-tick-time">Tick Time</link></member>
+<member><link linkend="component-stop">Stop</link></member>
+<member><link linkend="component-close">Close</link></member>
 </simplelist>
 
 
@@ -449,7 +451,7 @@ The time is measured in seconds.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The external connector is rotatable.
+The component is rotatable.
 </para></listitem><listitem><para>
 The component is not very useful without the KSimus Floating Point package.
 </para></listitem></itemizedlist></sect3>
@@ -489,7 +491,7 @@ This value will not be changed during the simulation.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The external connector is rotatable.
+The component is rotatable.
 </para></listitem><listitem><para>
 The component is not very useful without the KSimus Floating Point package.
 </para></listitem></itemizedlist></sect3>
@@ -503,6 +505,91 @@ The component is not very useful without the KSimus Floating Point package.
 <!-- ################################## Location ################################### -->
 <sect3><title>Location</title>
 <para>Control -> Tick Time</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################              Stop             ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-stop">
+<title>Stop</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Stop stops the simulation if the input connector detects
+an adjustable number of edges (rising or falling edge).
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+The edge which stops the simulation is selectable.
+</para></listitem><listitem><para>
+The number of required edges is adjustable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_stop.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Control -> Stop</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################              Close            ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-close">
+<title>Close</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Close stops the simulation and closes the window if the input connector detects
+an adjustable number of edges (rising or falling edge).
+KSimus will be terminated if the window is the last window.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+The edge which close the window is selectable.
+</para></listitem><listitem><para>
+The number of required edges is adjustable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_close.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Control -> Close</para>
 </sect3>
 
 </sect2>

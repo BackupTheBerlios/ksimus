@@ -21,6 +21,7 @@
 
 // KDE includes
 #include <klocale.h>
+#include <kmessagebox.h>
 
 // Project includes
 #include "ksimdata.h"
@@ -30,8 +31,13 @@
 #include "compview.h"
 #include "wire.h"
 #include "ksimundo.h"
+#include "ksimusdoc.h"
 #include "connectorinfo.h"
 #include "connectorbase.h"
+#include "simulationexecute.h"
+#include "wireproperty.h"
+#include "wirepropertymultipleoutput.h"
+#include "watchwidget.h"
 
 #include "connectorpropertywidget.h"
 #include "ksimdebug.h"
@@ -51,11 +57,11 @@ static const char * sHideType = "Hide";
 #define ERASABLE					0x0020
 
 
-class ConnectorBasePrivate
+class ConnectorBase::ConnectorBasePrivate
 {
 public:	
 	ConnectorBasePrivate()
-	:	flag(0/*HIDDEN_TYPE_ENA*/),
+	:	flag(0),
 		initName(),
 		name(),
 		wireName(),
@@ -128,19 +134,20 @@ public:
 
 
 
-ConnectorBase::ConnectorBase(Component * comp, const QString & name,/* const QString & wireName,*/
+ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QString & i18nName,
                              const QPoint & pos, ConnOrientationType orient,
                              ConnDirType dir, const ConnectorInfo * ci)
 	:	QObject(comp, name),
 		ComponentItem(comp),
 		m_wire(0),
 		m_negType(false),
-		m_myActions(KSimAction::ALL)
+		m_myActions(KSimAction::ALL),
+		m_wireProperty(0)
 {
 	m_p = new ConnectorBasePrivate();
 	CHECK_PTR(m_p);
-	m_p->initName = i18n(name.latin1());
-	m_p->wireName = name;		// Not translated
+	m_p->initName = i18nName;
+	m_p->wireName = name;      // Not translated
 	m_p->connInfo = ci;
 	m_p->connectorPos = pos;
 	m_p->orientation = orient;
@@ -222,6 +229,12 @@ const QString & ConnectorBase::getName() const
 	{
 		return m_p->name;
 	}
+}
+
+/** Returns the connected name componentName::connectorName. */
+QString ConnectorBase::getFullName() const
+{
+	return getComponent()->getName() + QString::fromLatin1("::") + getName();
 }
 
 /** Returns connector init name */
@@ -480,31 +493,51 @@ Wire * ConnectorBase::getWire() const
 {
 	return m_wire;
 }
-
-/** True, if data of the wire is valid */
-bool ConnectorBase::isInputDataValid() const
+	
+/** Returns true if the connector is connected to a wire. */
+bool ConnectorBase::isConnected() const
 {
-	if (getWire())
-	{
-		return (getWire()->getCurrentData() != 0);
-	}
-	return false;
+	return getWire() != 0;
 }
 
-/** Returns a generic pointer to the current wire data
-  * Returns null, if no wire connected or no valid data
-  */
-const void * ConnectorBase::getWireData() const
+
+/** Returns the @ref WireProperty of the wire to where the connector is connected.
+  * Returns zero if the connector is not connected. Is valid after proceeding all
+  * @ref checkCircuit functions. */
+WireProperty * ConnectorBase::getWireProperty() const
 {
-//	if (isInputDataValid())
-	if (getWire())
+	return m_wireProperty;
+}
+
+/** Sets the @ref WireProperty of the wire to where the connector is connected.
+  * In most cases this function is without any interest. */
+void ConnectorBase::setWireProperty(WireProperty * wireProperty)
+{
+	m_wireProperty = wireProperty;
+}
+
+/** Adds the component in the list for execute next cycle. */
+void ConnectorBase::executeComponentNext()
+{
+	getDoc()->getExecute().executeComponentNext(getComponent());
+}
+
+/** Adds the @ref WireProperty in the list for execute next cycle. */
+void ConnectorBase::executeWirePropertyNext()
+{
+	if (getWireProperty())
 	{
-		return getWire()->getCurrentData();
+		getDoc()->getExecute().executeWirePropertyNext(getWireProperty());
 	}
-	else
-	{
-		return 0;
-	}
+}
+
+WatchItemBase * ConnectorBase::makeWatchItem()
+{
+	KMessageBox::sorry( (QWidget *)0,
+	                    i18n("The watch functionality is not implementated yet.\n"
+	                         "Connector Type: %1")
+	                         .arg(this->getConnInfo()->getName()));
+	return (WatchItemBase *)0;
 }
 
 /** Load properties
@@ -559,7 +592,7 @@ bool ConnectorBase::initPopupMenu(QPopupMenu * popup)
 	{
 		m_p->idErase = 0;
 	}
-		
+	
 	connect(popup, SIGNAL(highlighted(int)), SLOT(popupMenuHighlighted(int)));
 
 	emit signalInitPopupMenu(popup);
@@ -568,7 +601,7 @@ bool ConnectorBase::initPopupMenu(QPopupMenu * popup)
 }	
 
 /** Creates the property widget */
-QWidget* ConnectorBase::propertyWidget(QWidget * parent)
+PropertyWidget* ConnectorBase::propertyWidget(QWidget * parent)
 {
 	return new ConnectorPropertyWidget(this, parent, getName());
 }
@@ -580,10 +613,9 @@ void ConnectorBase::popupMenuHighlighted(int msg) const
 	{
 		getComponent()->statusHelpMsg(i18n("Disconnect the wire"));
 	}
-
-	if (msg == m_p->idErase)
+	else if (msg == m_p->idErase)
 	{
-		getComponent()->statusHelpMsg(i18n("Erase connector"));
+		getComponent()->statusHelpMsg(i18n("Erase the connector"));
 	}
 }
 
@@ -618,9 +650,17 @@ int ConnectorBase::checkCircuit()
 	return 0;
 }
 	
+/** Setup the connector for a new circuit execution.
+*   The default implementation resets the @ref WireProperty pointer.
+*/
+void ConnectorBase::setupCircuit()
+{
+	setWireProperty((WireProperty *)0);
+}
+
 void ConnectorBase::checkProperty(QStringList & /*errorMsg*/)
 {
-	// Nothing todo yet
+	// Nothing to do yet
 }
 
 /** Resets the connector
@@ -647,84 +687,124 @@ void ConnectorBase::draw (QPainter * p) const
 /** Draws the connector on/in the given place and orientation */
 void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int y) const
 {
+	int step = 0;
+	bool ready = false;
+	const WireColorScheme & colorScheme = getColorScheme();
+	
 	p->save();
 	
-	setupColorScheme(p);
+	p->setPen(QPen(colorScheme.getColor(), 2));
+	p->setBrush(colorScheme.getColor());
 	
-	switch (orient)
+	do
 	{
-		case CO_TOP:
+		switch(step)
 		{
-			if (isNegated())
-			{
-				p->drawEllipse(x-3, y-2, 6 , 6);
-			}
-			if (getWire()) //wired?
-			{
-				p->drawLine(x, y-gridY, x, y+gridY/2);
-			}
-			else
-			{
-				p->drawLine(x, y-gridY/2, x, y+gridY/2);
-			}
+			case 0:
+				if (colorScheme.isDualColor())
+				{
+					p->setPen(QPen(colorScheme.getBackgroundColor(), 2));
+					p->setBrush(colorScheme.getBackgroundColor());
+				}
+				else
+				{
+					p->setPen(QPen(colorScheme.getColor(), 2));
+					p->setBrush(colorScheme.getColor());
+					ready = true;
+				}
+				break;
+				
+			case 1:
+				ready = true;
+				if (colorScheme.isDualColor())
+				{
+					p->setPen(QPen(colorScheme.getForegroundColor(), 2, /*DashLine*/ DotLine));
+					p->setBrush(colorScheme.getForegroundColor());
+				}
+				break;
+				
+			default:
+				ready = true;
+				break;
 		}
-		break;
-			
-		case CO_RIGHT:
-		{
-			if (isNegated())
-			{
-				p->drawEllipse(x-gridX/2, y-3, 6 , 6);
-			}
-			if (getWire()) //wired?
-			{
-				p->drawLine(x-gridX/2, y, x+gridX, y);
-			}
-			else
-			{
-				p->drawLine(x-gridX/2, y, x+gridX/2, y);
-			}
-		}
-		break;
+		step++;
 		
-		case CO_BOTTOM:
+		switch (orient)
 		{
-			if (isNegated())
+			case CO_TOP:
 			{
-				p->drawEllipse(x-3, y-4, 6 , 6);
+				if (isNegated())
+				{
+					p->drawEllipse(x-3, y-2, 6 , 6);
+				}
+				if (getWire()) //wired?
+				{
+					p->drawLine(x, y-gridY, x, y+gridY/2);
+				}
+				else
+				{
+					p->drawLine(x, y-gridY/2, x, y+gridY/2);
+				}
 			}
-			if (getWire()) //wired?
-			{
-				p->drawLine(x, y-gridY/2, x, y+gridY);
-			}
-			else
-			{
-				p->drawLine(x, y-gridY/2, x, y+gridY/2);
-			}
-		}
-		break;
-		
-		case CO_LEFT:
-		{
-			if (isNegated())
-			{
-				p->drawEllipse(x-2, y-3, 6 , 6);
-			}
-			if (getWire()) //wired?
-			{
-				p->drawLine(x-gridX, y, x+gridX/2, y);
-			}
-			else
-			{
-				p->drawLine(x-gridX/2, y, x+gridX/2, y);
-			}
-		}
-		break;
-
-		default:
-			KSIMDEBUG_VAR("Unknown orientation", (int)orient)
 			break;
+				
+			case CO_RIGHT:
+			{
+				if (isNegated())
+				{
+					p->drawEllipse(x-gridX/2, y-3, 6 , 6);
+				}
+				if (getWire()) //wired?
+				{
+					p->drawLine(x-gridX/2, y, x+gridX, y);
+				}
+				else
+				{
+					p->drawLine(x-gridX/2, y, x+gridX/2, y);
+				}
+			}
+			break;
+			
+			case CO_BOTTOM:
+			{
+				if (isNegated())
+				{
+					p->drawEllipse(x-3, y-4, 6 , 6);
+				}
+				if (getWire()) //wired?
+				{
+					p->drawLine(x, y-gridY/2, x, y+gridY);
+				}
+				else
+				{
+					p->drawLine(x, y-gridY/2, x, y+gridY/2);
+				}
+			}
+			break;
+			
+			case CO_LEFT:
+			{
+				if (isNegated())
+				{
+					p->drawEllipse(x-2, y-3, 6 , 6);
+				}
+				if (getWire()) //wired?
+				{
+					p->drawLine(x-gridX, y, x+gridX/2, y);
+				}
+				else
+				{
+					p->drawLine(x-gridX/2, y, x+gridX/2, y);
+				}
+			}
+			break;
+			
+			default:
+				KSIMDEBUG_VAR("Unknown orientation", (int)orient)
+				break;
+		}
 	}
+	while(!ready);
 	p->restore();
 }
 
@@ -733,24 +813,16 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 // *** class ConnectorInputBase ***
 	
 ConnectorInputBase::ConnectorInputBase(	
-	Component * comp, const QString & name, const QPoint & pos,
-	ConnOrientationType orient,	const ConnectorInfo * ci)
-	:	ConnectorBase (comp,name,pos,orient,CD_INPUT,ci)
+	Component * comp, const QString & name, const QString & i18nName,
+	const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorBase (comp,name,i18nName,pos,orient,CD_INPUT,ci)
 {
 };
-
-/** Returns a pointer to the data that's read from the component
-  * The default implementation calls the function getWireData()
-  * Reimplementations is required if the connector has to modify ths data (e.g. a neg. boolean input */
-const void * ConnectorInputBase::readoutData() const
-{
-	return getWireData();
-}
 
 /** Checks the connector
 *   eg. if input is connected.
 *   The implementation returns false if the connector is not connected.
-*	Returns the number of errors
+*   Returns the number of errors
 */
 int ConnectorInputBase::checkCircuit()
 {
@@ -770,23 +842,63 @@ int ConnectorInputBase::checkCircuit()
 	
 
 ConnectorOutputBase::ConnectorOutputBase(	
-	Component * comp, const QString & name, const QPoint & pos,
-	ConnOrientationType orient,	const ConnectorInfo * ci)
-	:	ConnectorBase (comp,name,pos,orient,CD_OUTPUT,ci),
-		dataValid(true)
+			Component * comp, const QString & name, const QString & i18nName,
+			const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorBase (comp,name,i18nName,pos,orient,CD_OUTPUT,ci)
 {
 };
 
-/** Set the data of *this* connector valid / not valid */
-void ConnectorOutputBase::setOutputDataValid(bool valid)
+//**************************************************************************	
+// *** class ConnectorTriStateBase ***
+	
+
+ConnectorTriStateBase::ConnectorTriStateBase(	
+			Component * comp, const QString & name, const QString & i18nName,
+			const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorBase (comp,name,i18nName,pos,orient,CD_TRISTATE,ci),
+		m_outActive(false)
 {
-	dataValid = valid;
+};
+
+void ConnectorTriStateBase::reset()
+{
+	ConnectorBase::reset();
+	
+	setOutputActive(false);
 }
 
-/** True, if data of *this* connector is valid */
-bool ConnectorOutputBase::isOutputDataValid() const
+void ConnectorTriStateBase::setOutputActive(bool active)
 {
-	return dataValid;
+	if (m_outActive != active)
+	{
+		m_outActive = active;
+		//executeWirePropertyNext();
+	}
+}
+
+int ConnectorTriStateBase::checkCircuit()
+{
+	int errors = ConnectorBase::checkCircuit();
+	
+	if (getWire()
+	  && getWire()->getWireProperty()
+	  && !getWire()->getWireProperty()->inherits("WirePropertyMultipleOutput"))
+	{
+		// Not connected
+		logError(QString::fromLatin1("Internal Error: WireProperty of wire %1 doesn't inherit WirePropertyMultipleOutput")
+		                             .arg(getWire()->getName()));
+		errors += 1;
+	}
+	return errors;
+}
+
+bool ConnectorTriStateBase::isActive() const
+{
+	if  (getWire() && getWire()->getWireProperty())
+	{
+		return ((WirePropertyMultipleOutput*)getWire()->getWireProperty())->getActiveConnectorCount() != 0;
+	}
+	return false;
 }
 
 

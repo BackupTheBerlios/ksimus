@@ -48,17 +48,25 @@ class QStrList;
 class KSimData {
 public: 
 
+  enum eVersionType { versionError,   // Use this in @ref convertVersionType to detect an error. It is not used elsewhere.
+                      versionAsIs,    // Leaves the doc version unchanged
+                      versionUnknown, // The doc version is pre 0.3.5
+                      version0_3_5,   // The current version
+                      versionTopical = version0_3_5 // Points to the current versions  ***Last item***
+                    };
+
   /**
    * Construct a KSimData object and make it either read-write
    * or read-only.
    *
-   * @param pFileName The file used for saving the config data. Either
-   *                  a full path can be specified or just the filename.
-   *                  If only a flename is specified, the default
-   *                  directory for "config" files is used.
-   * @param bReadOnly Whether the object should be read-only.
-   */	
-   KSimData(const QString &pFileName, bool bReadOnly = false);
+   * @param pFileName   The file used for saving the config data. Either
+   *                    a full path can be specified or just the filename.
+   *                    If only a flename is specified, the default
+   *                    directory for "config" files is used.
+   * @param versionType The document version to use.
+   * @param bReadOnly   Whether the object should be read-only.
+   */
+   KSimData(const QString &pFileName, eVersionType versionType = versionTopical, bool bReadOnly = false);
 
   /**
    * Destructor.
@@ -69,6 +77,26 @@ public:
 
 
   /**
+   * Returns the document version. See @ref eVersionType.
+   */
+  eVersionType getVersionType() const;
+
+  /**
+   * Converts a docType to a const char *.
+   *
+   * @param docType        The eDcoType to convert.
+   */
+  static const char * convertVersionType(KSimData::eVersionType versionType);
+
+  /**
+   * Converts a const char * to a docType.
+   *
+   * @param versionType        The string to convert.
+   * @param defaultVersionType Used if versionType is not valid.
+   */
+  static KSimData::eVersionType convertVersionType(const char * versionType, KSimData::eVersionType defaultVersionType);
+
+  /**
    * Specify the group in which keys will be searched.
    *
    *  Subsequent
@@ -76,9 +104,42 @@ public:
    * activated group.
    *
    * Switch back to the default group by passing an empty string.
-   * @param pGroup The name of the new group.
+   * @param group The name of the new group.
    */
-  void setGroup( const QString& pGroup );
+  void setGroup( const QString& group );
+
+  /**
+   * Specify the group in which keys will be searched.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param group The name of the new group.
+   */
+  void setGroup( const char * group );
+
+  /**
+   * Specify the group in which keys will be searched.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param groupRel The group relative to the current group.
+   */
+  void setGroupRel( const QString& groupRel );
+
+  /**
+   * Specify the group in which keys will be searched.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param groupRel The group relative to the current group.
+   */
+  void setGroupRel( const char * groupRel );
 
   /**
    * Retrieve the name of the group in which we are
@@ -88,14 +149,92 @@ public:
    */
   QString group() const;
 
+  /**
+   * Specify the group in which keys will be searched and push the current group onto the stack.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param group The name of the new group.
+   */
+  void pushGroup( const QString& group );
+	
+  /**
+   * Specify the group in which keys will be searched and push the current group onto the stack.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param group The name of the new group.
+   */
+  void pushGroup( const char * group );
+	
+  /**
+   * Specify the group in which keys will be searched and push the current group onto the stack.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param groupRel The name of the new group relative to the current group.
+   */
+  void pushGroupRel( const QString& groupRel );
+	
+  /**
+   * Specify the group in which keys will be searched and push the current group onto the stack.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   * @param groupRel The name of the new group relative to the current group.
+   */
+  void pushGroupRel( const char * groupRel );
+	
+  /**
+   * Pop the last pushed group from the stack.
+   *
+   *  Subsequent
+   * calls to @ref readEntry() will look only for keys in the currently
+   * activated group.
+   *
+   */
+  void popGroup(void);
+
 
   /**
    * Returns @p true if the specified group is known about.
    *
-   * @param _pGroup The group to search for.
+   * @param group The group to search for.
    * @returns Whether the group exists.
    */
-  bool hasGroup(const QString &_pGroup) const;
+  bool hasGroup(const QString &group) const;
+
+  /**
+   * Returns @p true if the specified group is known about.
+   *
+   * @param group The group to search for.
+   * @returns Whether the group exists.
+   */
+  bool hasGroup(const char * group) const;
+
+  /**
+   * Returns @p true if the specified group is known about.
+   *
+   * @param groupRel The group relative to he current group to search for.
+   * @returns Whether the group exists.
+   */
+  bool hasGroupRel(const QString &groupRel) const;
+
+  /**
+   * Returns @p true if the specified group is known about.
+   *
+   * @param groupRel The group relative to he current group to search for.
+   * @returns Whether the group exists.
+   */
+  bool hasGroupRel(const char * groupRel) const;
 
   /**
    * Returns @p true if the specified key is known about.
@@ -319,6 +458,19 @@ public:
   QDateTime readDateTimeEntry( const char *pKey, const QDateTime* pDefault = 0L ) const;
 
   /**
+   * Read a @ref QPixmap.
+   *
+   * Read the value of an entry specified by @p pKey in the current group
+   * and interpret it as a pixmap.
+   *
+   * @param pKey        The key to search for.
+   * @param pDefault    A default value returned if the key was not found.
+   * @return The value for this key or a a dafault pixmap
+   *   if no value was found.
+   */
+  QPixmap readPixmapEntry( const char *pKey, const QPixmap* pDefault = 0L ) const;
+
+  /**
    * Write the key/value pair.
    *
    * This is stored in the most specific config file when destroying the
@@ -494,7 +646,14 @@ public:
    */
   void writeEntry( const char *pKey, const QSize& rValue );
 
-
+  /**
+   * Write the key value pair.
+   * Same as above, but write a pixmap.
+   *
+   * @param pKey The key to write.
+   * @param rPixmap The pixmap to write.
+   */
+  void writeEntry( const char *pKey, const QPixmap& rPixmap );
 
 
 private:

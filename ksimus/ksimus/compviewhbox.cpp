@@ -163,7 +163,6 @@ void CompViewHBox::setFrameEnabled(bool enaFrame)
 {
 	if (enaFrame || (getCompView()->getViewType() == SHEET_VIEW))
 	{
-//		setFrameStyle(QFrame::Box | QFrame::Raised);
 		setFrameStyle(QFrame::WinPanel | QFrame::Raised);
 	}
 	else

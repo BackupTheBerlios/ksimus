@@ -63,8 +63,7 @@ class KSimDoubleSpinBoxPrivate
 	
 	~KSimDoubleSpinBoxPrivate()
 	{
-		if (m_expSteps)
-			delete m_expSteps;
+		delete m_expSteps;
 	};
 		
 	double value() const { return m_value; };
@@ -145,10 +144,10 @@ void KSimDoubleSpinBox::init()
 {
 	CHECK_PTR(m_p);
 	setValidator(0);
-  connect(this,SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
-  QSpinBox::setMinValue(QSPINBOX_LOWER_LIMIT);
-  QSpinBox::setMaxValue(QSPINBOX_UPPER_LIMIT);
-  setFocusPolicy(QWidget::WheelFocus);
+	connect(this,SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
+	QSpinBox::setMinValue(QSPINBOX_LOWER_LIMIT);
+	QSpinBox::setMaxValue(QSPINBOX_UPPER_LIMIT);
+	setFocusPolicy(QWidget::WheelFocus);
 	setAlignment(AlignRight);
 }
 
@@ -389,7 +388,7 @@ void KSimDoubleSpinBox::stepDown()
 
 QString KSimDoubleSpinBox::mapValueToText(int)
 {
-	return QString("%1").arg(value(),fieldwidth(),format(),precision());
+	return QString::fromLatin1("%1").arg(value(),fieldwidth(),format(),precision());
 }
 
 int KSimDoubleSpinBox::mapTextToValue(bool *)
@@ -652,7 +651,7 @@ class KSimDoubleUnitSpinBoxPrivate
 		: currentUnit(0),
 			lastUnit(0),
 			fixedUnit(0),
-			currentUnitList("")
+			currentUnitList(QString::fromLatin1(""))
 	{
 		multiUnitList = new KSimMultiUnitList();
 		CHECK_PTR(multiUnitList);
@@ -716,15 +715,15 @@ int KSimDoubleUnitSpinBox::setValueInternal(double newValue)
 		const KSimUnitBase * unit;
 		
 		res = KSimDoubleSpinBox::setValueInternal(newValue);
-
-    // Find prefered Unit
-    if ((m_p->currentUnit && m_p->currentUnit->isPrefered(value())) || (m_p->fixedUnit))
-    {
-    	unit = m_p->currentUnit;
+		
+		// Find prefered Unit
+		if ((m_p->currentUnit && m_p->currentUnit->isPrefered(value())) || (m_p->fixedUnit))
+		{
+			unit = m_p->currentUnit;
 //			KSIMDEBUG("unit = m_p->currentUnit");
-    }
-    else
-    {
+		}
+		else
+		{
 //			KSIMDEBUG_VAR("",m_p->currentUnitList);
 			unit = getMultiUnitList().findPrefered(value(), &m_p->currentUnitList);
 //			KSIMDEBUG("unit = getMultiUnitList().findPrefered(value(), &m_p->currentUnitList)");
@@ -734,13 +733,13 @@ int KSimDoubleUnitSpinBox::setValueInternal(double newValue)
 //			KSIMDEBUG_VAR("", value());
 //			KSIMDEBUG_VAR("", unit->getUnitString());
 			m_p->currentUnit = unit;
-			setSuffix(QString(" ") + m_p->currentUnit->getUnitString());
+			setSuffix(QString::fromLatin1(" ") + m_p->currentUnit->getUnitString());
 		}
 		else
 		{
 			// No unit found
 			KSIMDEBUG("No prefered unit found.");
-			setSuffix(QString(" "));
+			setSuffix(QString::fromLatin1(" "));
 		}
 		m_p->lastUnit = unit;
 	}
@@ -759,7 +758,7 @@ QString KSimDoubleUnitSpinBox::mapValueToText(int newValue)
 	{
 //		KSIMDEBUG_VAR("mapValueToText",value());
 //		KSIMDEBUG_VAR("mapValueToText",m_p->currentUnit->toUnit(value()));
-		return QString("%1").arg(m_p->currentUnit->toUnit(value()),fieldwidth(),format(),precision());
+		return QString::fromLatin1("%1").arg(m_p->currentUnit->toUnit(value()),fieldwidth(),format(),precision());
 	}
 	return KSimDoubleSpinBox::mapValueToText(newValue);
 }
@@ -975,7 +974,7 @@ void KSimDoubleUnitSpinBox::execRmbMenu(int ID)
 	{
 		if (fixedUnit())
 		{
-			setFixedUnit("");
+			setFixedUnit(QString::fromLatin1(""));
 		}
 		else
 		{

@@ -41,23 +41,32 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanAnd(container, ci);
 }
 
-const ComponentInfo BooleanAndInfo(I18N_NOOP("Boolean AND"),
-                                   I18N_NOOP("Boolean/Gates/AND"),
-                                   QString::null,
-                                   VA_SHEETVIEW,
-                                   create,	
-                                   QString::null,
-                                   "component-boolean-and");
+const ComponentInfo * getBooleanAndInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean AND"),
+	                                QString::fromLatin1("Boolean/Gates/AND"),
+	                                i18n("Component", "Boolean/Gates/AND"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-and"));
+	return &Info;
+}
 
-const ComponentInfo BooleanNandInfo(I18N_NOOP("Boolean NAND"),
-                                    I18N_NOOP("Boolean/Gates/NAND"),
-                                    QString::null,
-                                    VA_SHEETVIEW,
-                                    create,	
-                                    QString::null,
-                                    "component-boolean-nand");
+const ComponentInfo * getBooleanNandInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean NAND"),
+	                                QString::fromLatin1("Boolean/Gates/NAND"),
+	                                i18n("Component", "Boolean/Gates/NAND"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-nand"));
+	return &Info;
+}
 
-const ComponentInfoList BooleanAndList = { &BooleanAndInfo, &BooleanNandInfo, 0 };
 
 
 
@@ -69,7 +78,7 @@ void BooleanAndView::draw(QPainter * p)
 {
 	BooleanXIn1OutView::draw(p);
 	
-	p->drawText(getDrawingPlace(), AlignCenter, "&");
+	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("&"));
 }
 
 
@@ -81,7 +90,7 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 {
 	
 	// make NAND
-	if (ci == &BooleanNandInfo)
+	if (ci == getBooleanNandInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}

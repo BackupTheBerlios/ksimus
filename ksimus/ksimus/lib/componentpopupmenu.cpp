@@ -14,7 +14,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "globals.h"
 
 #include "componentpopupmenu.h"
 #include "componentdirectory.h"

@@ -64,7 +64,7 @@ bool KSimFile::setupDir()
 
 bool KSimFile::setTmpDir()
 {
-	QString tmpName = locateLocal("tmp",QString("ksimus/"));
+	QString tmpName = locateLocal("tmp",QString::fromLatin1("ksimus/"));
 	if ( !tmpDir.cd(tmpName) )
 	{
 		errorText = i18n("Can't find directory %1").arg(tmpName);
@@ -109,7 +109,7 @@ void KSimFile::removeDir(QDir & dir)
 	for (; fileInfoIt.current(); ++fileInfoIt)
 	{
 		file = fileInfoIt.current();
-		if ((file->fileName() != ".") && (file->fileName() != ".."))
+		if ((file->fileName() != QString::fromLatin1(".")) && (file->fileName() != QString::fromLatin1("..")))
 		{
 			if (file->isFile())
 			{
@@ -147,7 +147,7 @@ bool KSimFile::existCopyPastFile()
 }
 
 
-QString KSimFile::relativePath (const QString & filename, const QString & relPath)
+QString KSimFile::relativePath(const QString & filename, const QString & relPath)
 {
 	QStringList fl(QStringList::split('/',filename));
 	QStringList rl(QStringList::split('/',relPath));
@@ -159,7 +159,7 @@ QString KSimFile::relativePath (const QString & filename, const QString & relPat
 	// Find common part
 	while ((common < (int)fl.count()) && (common < (int)rl.count()) && (fl[common] == rl[common]))
 	{
-		kdDebug() << fl[common] << endl;
+//		kdDebug() << fl[common] << endl;
 		common++;
 	};
 
@@ -167,7 +167,7 @@ QString KSimFile::relativePath (const QString & filename, const QString & relPat
 	i = common;
 	while (i < (int)rl.count())
 	{
-		result += "../";
+		result += QString::fromLatin1("../");
 		i++;
 	};
 
@@ -184,4 +184,21 @@ QString KSimFile::relativePath (const QString & filename, const QString & relPat
 	};
 
 	return result;
+}
+	
+QString KSimFile::absolutePath(const QString & absPath, const QString & relFilename)
+{
+	if (QDir::isRelativePath(absPath))
+	{
+		KSIMDEBUG_VAR("should be absolute (Terminate function)", absPath);
+		return QString::null;
+	}
+	
+	if (!QDir::isRelativePath(relFilename))
+	{
+		KSIMDEBUG_VAR("should be relative (Terminate function)", relFilename);
+		return QString::null;
+	}
+	
+	return QDir::cleanDirPath(absPath + QString::fromLatin1("/") + relFilename);
 }

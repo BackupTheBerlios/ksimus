@@ -1,10 +1,9 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
+noinst_LIBRARIES = libmodule.a
 
-INCLUDES = $(all_includes)
+## INCLUDES were found outside kdevelop specific part
 
 libmodule_a_METASOURCES = AUTO
-
-noinst_LIBRARIES = libmodule.a
 
 libmodule_a_SOURCES = modulepropertywidget.cpp typeselection.cpp moduleeditor.cpp moduledialog.cpp moduledata.cpp module.cpp 
 
@@ -16,22 +15,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/module.h $(pkgincludedir)/module.h
 	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/moduledata.h $(pkgincludedir)/moduledata.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/moduledialog.h $(pkgincludedir)/moduledialog.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/moduleeditor.h $(pkgincludedir)/moduleeditor.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/typeselection.h $(pkgincludedir)/typeselection.h
-	$(mkinstalldirs) $(pkgincludedir)/
-	$(INSTALL_DATA) $(srcdir)/modulepropertywidget.h $(pkgincludedir)/modulepropertywidget.h
 
 uninstall-local:
 	-rm -f $(pkgincludedir)/module.h
 	-rm -f $(pkgincludedir)/moduledata.h
-	-rm -f $(pkgincludedir)/moduledialog.h
-	-rm -f $(pkgincludedir)/moduleeditor.h
-	-rm -f $(pkgincludedir)/typeselection.h
-	-rm -f $(pkgincludedir)/modulepropertywidget.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 

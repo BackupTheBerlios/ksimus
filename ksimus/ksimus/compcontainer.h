@@ -47,6 +47,7 @@ class ComponentList;
 class CompView;
 class CompViewList;
 class KSimTimeServer;
+class WatchWidget;
 
 /**
   *@author Rasmus Diekenbrock
@@ -101,7 +102,6 @@ public:
 	
 	ComponentList * getComponentList() const { return components; };
 	ComponentList * getCalculateComponentList() const { return calculateComponents; };
-	ComponentList * getUpdateOutputComponentList() const { return updateOutputComponents; };
 	CompViewList * getUpdateSheetViewComponentList() const { return updateSheetViewComponents; };
 	CompViewList * getUpdateUserViewComponentList() const { return updateUserViewComponents; };
 	CompViewList * getSheetViewList() const { return sheetViews; };
@@ -129,11 +129,14 @@ public:
 	KSimusApp * getApp() const;
 	/** Returns a pointer to the log list */
 	LogList * getLogList() const;
+	/** Returns a pointer to the watch widget. */
+	WatchWidget * getWatchWidget() const;
 	/** Returns the simulation timer */
 	const KSimTimeServer & getTimeServer() const;
 	/* Draw the components */
 	void drawSheetView(QPainter * p) const;
 	void drawUserView(QPainter * p) const;
+	void drawComponents(QPainter * p, CompViewList * cvList) const;
 	/** Load components from file
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
@@ -142,12 +145,12 @@ public:
 	bool saveComponents(KSimData & file, ComponentList * compList) const;
 	/** Loads the complete sheet */
 	bool load(KSimData & filename);
+	/** Saves the complete sheet */
+	bool save(KSimData & filename) const;
 	/** Saves the properties */
 	bool saveProperty(KSimData & filename) const;
 	/** Loads the properties */
 	bool loadProperty(KSimData & filename);
-	/** Saves the complete sheet */
-	bool save(KSimData & filename) const;
 	/** Deletes all components */
 	void deleteAll();
 	/** Seareches for new routes */
@@ -178,6 +181,8 @@ public:
 	
 	/** Checks the circuit and returns the result. Returns the number of errors. */
 	int checkCircuit();
+	/** Setup the circuit before a new simulation. */
+	void setupCircuit();
 	/** Resets all components */
 	void resetComponents();
 	/** Truncate the wire at the given position  */
@@ -202,7 +207,7 @@ public:
 	void statusHelpMsg(const QString &text) const;
 	/** sets the modified flag for the document after a modifying action on the view connected to the document.*/
 	void setModified(bool modified =true);
-  /** Setup the component lists for calculation, updateOutput, updateView.
+  /** Setup the component lists for calculation, updateView.
   	* Call during simulation start. */
   void setupSimulationList();
 	
@@ -221,10 +226,9 @@ protected:
 	
 	ComponentList * failedComponents;
 	ComponentList * calculateComponents;
-	ComponentList * updateOutputComponents;
 	CompViewList * updateSheetViewComponents;
 	CompViewList * updateUserViewComponents;
-	
+
 	CompViewList * sheetViews;
 	CompViewList * userViews;
 	/** Size of the sheet view */
@@ -241,13 +245,6 @@ protected:
 		3. Wires
 	*/
 	void insert(Component * comp);
-    /** Insert a view to the given viewList
-		Sort component views:
-		1. Groups
-		2. Normal components / Moduls
-		3. Wires
-	*/
-	static void insertView(CompViewList* cvList, CompView * cv);
 
 
 	union

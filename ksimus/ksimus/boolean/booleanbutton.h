@@ -41,7 +41,9 @@ class KSimBooleanBox;
   *@author Rasmus Diekenbrock
   */
 
-extern const ComponentInfoList BooleanButtonList;
+const ComponentInfo * getBooleanButtonInfo();
+const ComponentInfo * getBooleanToggleButtonInfo();
+
 
 //###############################################################
 //###############################################################
@@ -64,10 +66,14 @@ public:
 	*   copyLoad is true, if the load function is used as a copy function
 	*	  Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
-	/** Shifts the current component state (@ref setState) to output connector. */
-	virtual void updateOutput();
+	/** Returns true, if the parameter type is a proper reload type. This is useful if a component
+	  * supports more than one types and the type decides the different functionality (e.g.
+	  * @ref BooleanButton). The implementation returns true, if type is a button or a toggle button.*/
+	virtual bool isProperReloadType(const QString & type) const;
 	/** Reset all simulation variables */
 	virtual void reset();
+	/** Executes the simulation of this component */
+	virtual void calculate();
 	
 	/** Returns the output connector.
 	  */
@@ -75,10 +81,9 @@ public:
 
 
 	/** Sets the current component state. */
-	void setState(bool newState) { m_state = newState; };
-	
+	void setState(bool newState);
 	/** Returns the current component state. */
-	bool getState() const { return m_state; };
+	bool getState() const;
 	
 	/** Sets the reset state. The component gets this state each call @ref reset.
 	 *  If init is true, the reset State is used as init value. The resetState is
@@ -93,19 +98,22 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creates a @ref BooleanButtonPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
 	bool isToggleButton() const;
 
+	void setToggleButton(bool toggleButton);
+
+	/** Returns the default button text.
+	  * The text depends on the current language and the button type (toogle). */
+	const QString & getDefaultButtonText() const;
 
 public slots: // Public slots
 	void toggled(bool pressed);
-	void setToggleButton(bool toggleButton);
 	void slotPressed();
 	void slotReleased();
 
 protected: // Protected attributes
-	bool m_state;
 	Q_UINT32 m_flags;
 	ConnectorBoolOut * m_out;
 	bool m_toggleButton;
@@ -126,7 +134,7 @@ class BooleanButtonView : public CompViewSize
 {
 
 public:	
-	BooleanButtonView(Component * comp, eViewType viewType);
+	BooleanButtonView(BooleanButton * comp, eViewType viewType);
 //	virtual ~BooleanButtonView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);
@@ -146,8 +154,11 @@ class BooleanButtonWidgetView : public CompViewWidget
 friend class BooleanButtonView;
 	
 public:
-	BooleanButtonWidgetView(CompView * cv, QWidget *parent=0, const char *name=0);
+	BooleanButtonWidgetView(BooleanButtonView * cv, QWidget *parent=0, const char *name=0);
 //	~BooleanButtonWidgetView();
+
+
+	BooleanButton * getButton();
 
 public slots:
 	/** This slot rename the button */
@@ -158,7 +169,7 @@ public slots:
 	void slotReleaseButton();	
 
 protected:
-	QPushButton * m_button;
+	QPushButton * m_buttonWidget;
 
 };
 

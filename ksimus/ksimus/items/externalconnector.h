@@ -38,11 +38,23 @@ public:
 
 //###############################################################
 
+class ExternalConnectorMultipleOutputSV : public CompView
+{
+public:
+	ExternalConnectorMultipleOutputSV(Component * comp);
+	~ExternalConnectorMultipleOutputSV();
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
 
 class ExternalConnector : public Component  {
 public: 
-	ExternalConnector(CompContainer * container, const ComponentInfo * ci);
 	~ExternalConnector();
+	
+	/** Resets the component state. */
+	virtual void reset();
 	
 	/** Checks the component.
 	*   eg. all required inputs are connected.
@@ -59,9 +71,9 @@ public:
 	*
 	*   Append the message to errorMsg.
 	*/
-	virtual void checkProperty(QStringList & errorMsg);
+//	virtual void checkProperty(QStringList & errorMsg);
 	
-	bool isInput() const { return input; };
+	bool isInput() const { return m_input; };
 	
 	/** save component properties */
 	virtual void save(KSimData & file) const;
@@ -74,6 +86,10 @@ public:
 	ConnectorBase * getExternalConn() const;
 	/** Returns the *internal* connector */
 	ConnectorBase * getInternalConn() const;
+	/** Sets the *external* connector */
+	void setExternalConn(ConnectorBase * extConn);
+	/** Sets the *internal* connector */
+	void setInternalConn(ConnectorBase * inConn);
 
 	/** Removes the wire of the test connector */
 	void removeTestConnector();
@@ -81,32 +97,53 @@ public:
 
 	/** Returns the relative connector position in pixmap mode.
 	 *  The position is measured in gridX / gridY. */
-	QPoint getPixmapPos() const { return pixmapPos; };
+	QPoint getPixmapPos() const { return m_pixmapPos; };
 	/** Sets the relative connector position in pixmap mode.
 	 *  The position is measured in gridX / gridY. */
-	void setPixmapPos(QPoint pos) { pixmapPos = pos; };
+	void setPixmapPos(QPoint pos) { m_pixmapPos = pos; };
 	/** Returns the orientation of the connector in pixmap mode. */
-	ConnOrientationType getPixmapOrientation() const { return pixmapOrient; };
+	ConnOrientationType getPixmapOrientation() const { return m_pixmapOrient; };
 	/** Sets the orientation of the connector in pixmap mode.*/
 	void setPixmapOrientation(ConnOrientationType orientation);
 	
 	/** Returns the relative connector position in user view mode.
 	 *  The position is measured in gridX / gridY. */
-	QPoint getUserViewPos() const { return userViewPos; };
+	QPoint getUserViewPos() const { return m_userViewPos; };
 	/** Sets the relative connector position in user view mode.
 	 *  The position is measured in gridX / gridY. */
-	void setUserViewPos(QPoint pos) { userViewPos = pos; };
+	void setUserViewPos(QPoint pos) { m_userViewPos = pos; };
 	/** Returns the orientation of the connector in user view mode.*/
-	ConnOrientationType getUserViewOrientation() const { return userViewOrient; };
+	ConnOrientationType getUserViewOrientation() const { return m_userViewOrient; };
 	/** Sets the orientation of the connector in user view mode. */
 	void setUserViewOrientation(ConnOrientationType orientation);
-	
+
+	/** Sets the recursion lock bit. Use it in the function @ref calculate. */
+	void setRecursionLocked(bool locked) { m_recursionLocked = locked; };
+	/** Returns the value of the recursion lock bit. Use it in the function @ref calculate. */
+	bool isRecursionLocked() const { return m_recursionLocked; };
+		
 protected:
-	bool input;
-	QPoint pixmapPos;
-	ConnOrientationType pixmapOrient;
-	QPoint userViewPos;
-	ConnOrientationType userViewOrient;
+	/** Creates an external connector.
+	  * @param input       True, if the external connector is an input (on the left side of the module)
+	  * @param multiOutput True, if the data type of the external connector supports multiple outputs
+	  */
+	ExternalConnector(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput = false);
+	/** Creates an external connector without a view.
+	  * You have to set the input type and you have to create a view.
+	  */
+	ExternalConnector(CompContainer * container, const ComponentInfo * ci);
+	
+	bool m_input;
+	QPoint m_pixmapPos;
+	ConnOrientationType m_pixmapOrient;
+	QPoint m_userViewPos;
+	ConnOrientationType m_userViewOrient;
+	ConnectorBase * m_internalConn;
+	ConnectorBase * m_externalConn;
+	bool m_recursionLocked;
+	
+private:
+	void init();
 	
 };
 

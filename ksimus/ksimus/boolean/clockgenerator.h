@@ -41,7 +41,7 @@ class KSimTimeSpinBox;
   */
 
 
-extern const ComponentInfo ClockGeneratorInfo;
+const ComponentInfo * getClockGeneratorInfo();
 
 class ClockGenerator : public Component
 {
@@ -55,8 +55,6 @@ public:
 	~ClockGenerator();
 	/** Executes the simulation of this component */
 	virtual void calculate();
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
 	/** Reset all simulation variables */
 	virtual void reset();
 	

@@ -15,16 +15,27 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <klocale.h>
+// C includes
 
+// QT includes
+
+// KDE includes
+#include <klocale.h>
+#include <kmessagebox.h>
+
+// Project includes
 #include "wireproperty.h"
 
 #include "ksimdata.h"
 #include "wirepropertyinfo.h"
 #include "wire.h"
 #include "ksimdebug.h"
+#include "component.h"
 #include "connectorbase.h"
 #include "connectorlist.h"
+#include "externalconnector.h"
+#include "module.h"
+
 
 WireProperty::WireProperty(Wire * wire, const WirePropertyInfo * wirePropertyInfo)
 	:	QObject(wire),
@@ -83,7 +94,9 @@ int WireProperty::checkCircuit()
 			m_triStateCounter++;
 		}
 		else
+		{
 			KSIMDEBUG("unknown connector direction");
+		}
 	}
 
 	//*** min 1 Output or TriState required
@@ -92,7 +105,6 @@ int WireProperty::checkCircuit()
 		// Wire without controlling output
 		logError(i18n("Wire without controlling output"));
 		errors += 1;
-		
 	}
 	
 	return errors;
@@ -112,14 +124,37 @@ const WirePropertyInfo * WireProperty::getInfo() const
 	return m_wirePropertyInfo;
 }
 
+WatchItemBase * WireProperty::makeWatchItem()
+{
+	KMessageBox::sorry( (QWidget *)0,
+	                    i18n("The watch functionality is not implementated yet.\n"
+	                         "Wire Type: %1")
+	                         .arg(this->getInfo()->getName()));
+	return (WatchItemBase *)0;
+}
 
 
 //##############################################################################
 //##############################################################################
 
 WirePropertySingleOutput::WirePropertySingleOutput(Wire * wire, const WirePropertyInfo * wirePropertyInfo)
-	:	WireProperty(wire, wirePropertyInfo)
+	:	WireProperty(wire, wirePropertyInfo),
+		m_outConnector(0)
 {
+	m_inConnectorList = new ConnectorList();
+	CHECK_PTR(m_inConnectorList);
+	m_inZeroDelayConnectorList = new ConnectorList();
+	CHECK_PTR(m_inZeroDelayConnectorList);
+	
+	m_zeroDelayList = new ComponentList();
+	CHECK_PTR(m_zeroDelayList);
+}
+
+WirePropertySingleOutput::~WirePropertySingleOutput()
+{
+	delete m_inConnectorList;
+	delete m_inZeroDelayConnectorList;
+	delete m_zeroDelayList;
 }
 
 /** Checks the connected component
@@ -130,13 +165,14 @@ int WirePropertySingleOutput::checkCircuit()
 {
 	int errors = WireProperty::checkCircuit();
 	
-	//*** min 1 Output or TriState required
+	//*** 1 Output required
 	if (m_outputCounter > 1)
 	{
 		logError(i18n("Wire has more than one connected output"));
 		errors += 1;
 	}
 	
+	//*** no tristate allowed
 	if (m_triStateCounter != 0)
 	{
 		logError(i18n("TriStates outputs are not allowed"));
@@ -146,3 +182,115 @@ int WirePropertySingleOutput::checkCircuit()
 	return errors;
 }
 	
+/** Setup the Wire property for a new circuit execution.
+ * The sub class has to implement this function.
+ */
+void WirePropertySingleOutput::setupCircuit()
+{
+	m_inConnectorList->clear();
+	m_inZeroDelayConnectorList->clear();
+	m_zeroDelayList->clear();
+	m_outConnector = 0;
+	
+	FOR_EACH_CONNECTOR(it, *getWire()->getConnList())
+	{
+		if (it.current()->isInput())
+		{
+			if (it.current()->getComponent()->isModule())
+			{
+				// Module
+				Module * module = (Module *)it.current()->getComponent();
+				ExternalConnector * extConn = module->searchExtConn(it.current());
+				if (extConn)
+				{
+					if (-1 == m_zeroDelayList->findRef(extConn))
+						m_zeroDelayList->append(extConn);
+					if (-1 == m_inZeroDelayConnectorList->findRef(extConn->getExternalConn()))
+						m_inZeroDelayConnectorList->append(extConn->getExternalConn());
+					extConn->getExternalConn()->setWireProperty(this);
+				}
+				else
+				{
+					KSIMDEBUG("ExternalConnector not found");
+					ASSERT(extConn);
+				}
+			}
+			else if (it.current()->getComponent()->isZeroDelayComponent())
+			{
+				// Zero Delay Components
+				if (-1 == m_zeroDelayList->findRef(it.current()->getComponent()))
+					m_zeroDelayList->append(it.current()->getComponent());
+				if (-1 == m_inZeroDelayConnectorList->findRef(it.current()))
+					m_inZeroDelayConnectorList->append(it.current());
+				it.current()->setWireProperty(this);
+			}
+			else
+			{
+				// Regular connector
+				if (-1 == m_inConnectorList->findRef(it.current()))
+					m_inConnectorList->append(it.current());
+				it.current()->setWireProperty(this);
+			}
+		}
+		else if (it.current()->isOutput())
+		{
+			if (it.current()->getComponent()->isModule())
+			{
+				// Module
+				Module * module = (Module *)it.current()->getComponent();
+				ExternalConnector * extConn = module->searchExtConn(it.current());
+				if (extConn)
+				{
+					m_outConnector = extConn->getExternalConn();
+					extConn->getExternalConn()->setWireProperty(this);
+				}
+				else
+				{
+					KSIMDEBUG("ExternalConnector not found");
+					ASSERT(extConn);
+				}
+			}
+			else
+			{
+				// Regular connector
+				m_outConnector = it.current();
+				it.current()->setWireProperty(this);
+			}
+		}
+		else
+		{
+			KSIMDEBUG("Bad connector");
+		}
+	}
+	
+	ASSERT(m_outConnector);
+}
+
+const void * WirePropertySingleOutput::readoutData() const
+{
+	if (m_outConnector) return m_outConnector->readoutData();
+	return (const void *)0;
+}
+
+/** Executes the WireProperty. This means copies the data from the output connector
+  * to the input connector. */
+void WirePropertySingleOutput::execute()
+{
+	const void * pData = m_outConnector->readoutData();
+	FOR_EACH_CONNECTOR(it, *m_inConnectorList)
+	{
+		it.current()->copyData(pData);
+		it.current()->executeComponentNext();
+	}
+	
+	FOR_EACH_CONNECTOR(it, *m_inZeroDelayConnectorList)
+	{
+		it.current()->copyData(pData);
+	}
+	
+	FOR_EACH_COMP(itExt, *m_zeroDelayList)
+	{
+		// Execute zero delay components
+		itExt.current()->calculate();
+	}
+}

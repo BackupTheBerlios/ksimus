@@ -11,6 +11,7 @@ Comment=KSimus is a tool for simulation, automatization and visualization of tec
 Terminal=0
 Name=KSimus
 MimeType=application/x-ksimus
+InitialPreference=100
 
 
 

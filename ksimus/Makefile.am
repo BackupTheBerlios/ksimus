@@ -24,7 +24,8 @@ package-messages:
 	$(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
 
-EXTRA_DIST = admin 
+# Removed 04.07.2002 (KSimus 0.3.5)
+#EXTRA_DIST = admin
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin

@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qlayout.h>
 #include <qpainter.h>
 #include <qdrawutil.h>
 #include <qvbox.h>
@@ -52,13 +51,18 @@ static Component * createBooleanLed(CompContainer * container, const ComponentIn
 	return new BooleanLed(container, ci);
 }
 
-const ComponentInfo BooleanLedInfo(I18N_NOOP("LED"),
-                                   I18N_NOOP("Boolean/Output/LED"),
-                                   QString::null,
-                                   VA_SHEET_AND_USER,
-                                   createBooleanLed,	
-                                   QString::null,
-                                   "component-led");
+const ComponentInfo * getBooleanLedInfo()
+{
+	static const ComponentInfo Info(i18n("LED"),
+	                                QString::fromLatin1("Boolean/Output/LED"),
+	                                i18n("Component", "Boolean/Output/LED"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                createBooleanLed,	
+	                                QString::null,
+	                                QString::fromLatin1("component-led"));
+	return &Info;
+}
 
 
 //############################################################################
@@ -77,7 +81,10 @@ BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
 	setFrameAdjustmentEnabled(true);
 //	setFontAdjustmentEnabled(true);
 	
-	m_inConn = new ConnectorBoolIn (this, I18N_NOOP("Input"), QPoint(0,1));
+	m_inConn = new ConnectorBoolIn(this,
+	                               QString::fromLatin1("Input"),
+	                               i18n("Connector", "Input"),
+	                               QPoint(0,1));
 	CHECK_PTR(m_inConn);
 	
 	// Initializes the sheet view
@@ -90,7 +97,6 @@ BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
 	{
 		new BooleanLedView(this, USER_VIEW);
 	}
-	getAction().disable(KSimAction::UPDATEOUTPUT);
 }
 
 BooleanLed::~BooleanLed()
@@ -323,12 +329,20 @@ void BooleanLedWidgetView::slotColorChanged()
 #define ORANGE	QColor(255,128,0)
 
 
-BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & text, QWidget *parent=0, const char *name=0)
+BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & text, bool withDefault, QWidget *parent=0, const char *name=0)
 	:	QVButtonGroup(text, parent, name)
 {
 	
-	m_defaultColor = new QCheckBox(i18n("Automatic colored"), this);
-	CHECK_PTR(m_defaultColor);
+	if (withDefault)
+	{
+		m_defaultColor = new QCheckBox(i18n("Automatic colored"), this);
+		CHECK_PTR(m_defaultColor);
+	}
+	else
+	{
+		m_defaultColor = 0;
+	}
+	
 	
 	m_red = new QRadioButton(i18n("Red"), this);
 	CHECK_PTR(m_red);
@@ -351,29 +365,19 @@ BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & tex
 	connect(m_green,SIGNAL(clicked()),this,SLOT(slotGreen()));
 	connect(m_orange,SIGNAL(clicked()),this,SLOT(slotOrange()));
 	connect(m_userColor,SIGNAL(changed(const QColor &)),this,SLOT(setColor(const QColor &)));
-	connect(m_defaultColor,SIGNAL(toggled(bool)),this,SLOT(slotDefault(bool)));
-	
+	if (m_defaultColor)
+	{
+		connect(m_defaultColor,SIGNAL(toggled(bool)),this,SLOT(slotDefault(bool)));
+	}
 }
 
 BooleanLedColorPropertyWidget::~BooleanLedColorPropertyWidget()
 {
 }
 
-void BooleanLedColorPropertyWidget::setEnableDefault(bool ena)
-{
-	if (ena)
-	{
-		m_defaultColor->show();
-	}
-	else
-	{
-		m_defaultColor->hide();
-	}
-}
-	
 void BooleanLedColorPropertyWidget::setColor(const QColor & newColor)
 {
-	if (newColor.isValid() == m_defaultColor->isChecked())
+	if (m_defaultColor && (newColor.isValid() == m_defaultColor->isChecked()))
 	{
 		m_defaultColor->setChecked(!newColor.isValid());
 		slotDefault(!newColor.isValid());
@@ -410,7 +414,7 @@ void BooleanLedColorPropertyWidget::setColor(const QColor & newColor)
 
 QColor BooleanLedColorPropertyWidget::color() const
 {
-	if(m_defaultColor->isChecked())
+	if(m_defaultColor && (m_defaultColor->isChecked()))
 	{
 		return QColor();
 	}
@@ -436,8 +440,6 @@ void BooleanLedColorPropertyWidget::slotOrange()
 	setColor(ORANGE);
 }
 
-//void BooleanLedColorPropertyWidget::slotUserColor(const QColor &);
-
 void BooleanLedColorPropertyWidget::slotDefault(bool def)
 {
 	m_red->setEnabled(!def);	
@@ -449,7 +451,7 @@ void BooleanLedColorPropertyWidget::slotDefault(bool def)
 
 bool BooleanLedColorPropertyWidget::isDefault() const
 {
-	return m_defaultColor->isChecked();
+	return (m_defaultColor && m_defaultColor->isChecked());
 }
 
 
@@ -460,18 +462,18 @@ bool BooleanLedColorPropertyWidget::isDefault() const
 
 
 BooleanLedPropertyWidget::BooleanLedPropertyWidget(Component * comp, QWidget *parent, const char *name)
-	:	ComponentPropertyBaseWidget(comp, parent, name)
+	:	ComponentPropertyBaseWidget(comp, 1, parent, name)
 {
+	m_onColor = new BooleanLedColorPropertyWidget(i18n("Color On"), false, this);
+	CHECK_PTR(m_onColor);
+	
+	m_offColor = new BooleanLedColorPropertyWidget(i18n("Color Off"), true, this);
+	CHECK_PTR(m_offColor);
+
 	QHBox * exampleBox = new QHBox(this);
 	CHECK_PTR(exampleBox);
 	exampleBox->setSpacing(KDialog::spacingHint());
 	
-	m_onColor = new BooleanLedColorPropertyWidget(i18n("Color On"), this);
-	m_onColor->setEnableDefault(false);
-	
-	m_offColor = new BooleanLedColorPropertyWidget(i18n("Color Off"), this);
-	m_offColor->setEnableDefault(true);
-
 	QLabel * label = new QLabel(i18n("Result:"),exampleBox);
 	CHECK_PTR(label);
 	label = new QLabel(i18n("On"),exampleBox);
@@ -496,20 +498,6 @@ BooleanLedPropertyWidget::BooleanLedPropertyWidget(Component * comp, QWidget *pa
 	slotOnColor(m_onColor->color());
 	slotOffColor(m_offColor->color());
 	
-	
-	QGridLayout * layout;
-	
-		
-	// Set main layout
-	layout = new QGridLayout(this,4,2);
-	layout->setMargin(KDialog::marginHint());
-	layout->setSpacing(KDialog::spacingHint());
-	
-	layout->addWidget(m_onColor,0,0);
-	layout->addWidget(m_offColor,1,0);
-	layout->addWidget(exampleBox,2,0);
-	layout->setRowStretch(3,1);
-	layout->setColStretch(1,1);
 }
 
 BooleanLedPropertyWidget::~BooleanLedPropertyWidget()

@@ -19,12 +19,11 @@
 #include <limits.h>
 
 // QT-Includes
-#include <qlayout.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
+#include <qvgroupbox.h>
 
 // KDE-Includes
-#include <kdialog.h>
 #include <klocale.h>
 
 // Project-Includes
@@ -42,60 +41,40 @@
 
 
 SimulationTimingWidget::SimulationTimingWidget(SimulationTiming & timing, QWidget *parent, const char *name )
-	:	PropertyWidget(parent,name),
+	:	PropertyWidget(1, parent,name),
 		m_timing(timing)
 {
-  QLabel * execLabel;
-  QLabel * tickLabel;
-  QLabel * updateLabel;
-	QGridLayout * layout;
+	QVGroupBox * box;
 	
-	execLabel = new QLabel (i18n("Execution speed:"), this);
-	m_execFastest = new QCheckBox(i18n("Fast as possible"), this);
+	box = new QVGroupBox(i18n("Execution speed:"), this);
+	CHECK_PTR(box);
+	m_execFastest = new QCheckBox(i18n("Fast as possible"), box);
+	CHECK_PTR(m_execFastest);
 	m_execFastest->setChecked(m_timing.m_execFastest);
-/*	m_execTime = new KSimDoubleUnitSpinBox(1e-3, 1e0, 1e-2, this);
-	m_execTime->getMultiUnitList().append(KSimUnitListStatic::getTimeUnitList());
-	m_execTime->setNewExponentSteps(1.0,2.0,5.0);
-	m_execTime->setValue(m_timing.m_execTime->getValue(unit_sec));*/
-	m_execTime = new KSimTimeSpinBox(*m_timing.m_execTime, 1e-3, 1e0, 1e-2, this);
+	m_execTime = new KSimTimeSpinBox(*m_timing.m_execTime, 1e-3, 1e0, 1e-2, box);
+	CHECK_PTR(m_execTime);
 	connect(m_execFastest, SIGNAL(toggled(bool)), this, SLOT(slotCheckBoxToggled()));
-
-	tickLabel = new QLabel (i18n("Simulation time per tick:"), this);
-	m_tickSynchronized = new QCheckBox(i18n("Sychronized to execution speed"), this);
+	
+	box = new QVGroupBox(i18n("Simulation time per tick:"), this);
+	CHECK_PTR(box);
+	m_tickSynchronized = new QCheckBox(i18n("Sychronized to execution speed"), box);
+	CHECK_PTR(m_tickSynchronized);
 	m_tickSynchronized->setChecked(m_timing.m_tickSynchronized);
-/*	m_tickTime = new KSimDoubleUnitSpinBox(1e-10, 1e0, 1e-2, this);
-	m_tickTime->getMultiUnitList().append(KSimUnitListStatic::getTimeUnitList());
-	m_tickTime->setNewExponentSteps(1.0,2.0,5.0);
-	m_tickTime->setValue(m_timing.m_tickTime->getValue(unit_sec));*/
-	m_tickTime = new KSimTimeSpinBox(*m_timing.m_tickTime, 1e-10, 1e0, 1e-2, this);
+	m_tickTime = new KSimTimeSpinBox(*m_timing.m_tickTime, 1e-10, 1e0, 1e-2, box);
+	CHECK_PTR(m_tickTime);
 	connect(m_tickSynchronized, SIGNAL(toggled(bool)), this, SLOT(slotCheckBoxToggled()));
 
-	updateLabel = new QLabel (i18n("View update speed:"), this);
-	m_updateSynchronized = new QCheckBox(i18n("Sychronized to execution speed"), this);
+	box = new QVGroupBox(i18n("View update speed:"), this);
+	CHECK_PTR(box);
+	m_updateSynchronized = new QCheckBox(i18n("Sychronized to execution speed"), box);
+	CHECK_PTR(m_updateSynchronized);
 	m_updateSynchronized->setChecked(m_timing.m_updateSynchronized);
-/*	m_updateTime = new KSimDoubleUnitSpinBox(1e-3, 1e0, 1e-2, this);
-	m_updateTime->getMultiUnitList().append(KSimUnitListStatic::getTimeUnitList());
-	m_updateTime->setNewExponentSteps(1.0,2.0,5.0);
-	m_updateTime->setValue(m_timing.m_updateTime->getValue(unit_sec));*/
-	m_updateTime = new KSimTimeSpinBox(*m_timing.m_updateTime, 1e-3, 1e0, 1e-2, this);
+	m_updateTime = new KSimTimeSpinBox(*m_timing.m_updateTime, 1e-3, 1e0, 1e-2, box);
+	CHECK_PTR(m_updateTime);
 	connect(m_updateSynchronized, SIGNAL(toggled(bool)), this, SLOT(slotCheckBoxToggled()));
 
-	layout = new QGridLayout(this,6,2);	
-	layout->setMargin(KDialog::marginHint());
-	layout->setSpacing(KDialog::spacingHint());
-	layout->colStretch(1);
-
-	layout->addWidget(execLabel,0,0);
-	layout->addWidget(m_execFastest,0,1);
-	layout->addWidget(m_execTime,1,1);
-
-	layout->addWidget(tickLabel,2,0);
-	layout->addWidget(m_tickSynchronized,2,1);
-	layout->addWidget(m_tickTime,3,1);
-
-	layout->addWidget(updateLabel,4,0);
-	layout->addWidget(m_updateSynchronized,4,1);
-	layout->addWidget(m_updateTime,5,1);
+	// Fixes a problem with the truncated layout on the right side! Why? TODO
+	setRightColSpacing(4 * margin());
 	
 	slotCheckBoxToggled();
 	connect(this,SIGNAL(signalChangeData()), this, SLOT(slotUndo()));
@@ -111,25 +90,19 @@ SimulationTimingWidget::~SimulationTimingWidget()
 */
 void SimulationTimingWidget::acceptPressed()
 {
-//	if (m_timing.m_execTime->getValue(unit_sec) != m_execTime->value())
 	if (*m_timing.m_execTime != m_execTime->value())
 	{
 		changeData();
-//		m_timing.m_execTime->setValue(m_execTime->value(), unit_sec);
 		*m_timing.m_execTime = m_execTime->value();
 	}
-//	if (m_timing.m_updateTime->getValue(unit_sec) != m_updateTime->value())
 	if (*m_timing.m_updateTime != m_updateTime->value())
 	{
 		changeData();
-//		m_timing.m_updateTime->setValue(m_updateTime->value(), unit_sec);
 		*m_timing.m_updateTime = m_updateTime->value();
 	}
-//	if (m_timing.m_tickTime->getValue(unit_sec) != m_tickTime->value())
 	if (*m_timing.m_tickTime != m_tickTime->value())
 	{
 		changeData();
-//		m_timing.m_tickTime->setValue(m_tickTime->value(), unit_sec);
 		*m_timing.m_tickTime = m_tickTime->value();
 	}
 	if (m_timing.m_execFastest != m_execFastest->isChecked())

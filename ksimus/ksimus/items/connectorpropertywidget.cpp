@@ -69,14 +69,14 @@ public:
 };
 
 ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidget *parent, const char *name )
-	:	ComponentPropertyBaseWidget(connector->getComponent(),parent,name),
+	:	ComponentPropertyBaseWidget(connector->getComponent(),1, parent,name),
 		m_conn(connector)
 {
 	QLabel * label;
-	QGridLayout * lay1;
-	QWidget * wid;
-	QGridLayout * m_layout;
-	QGridLayout * mainLayout;
+//	QGridLayout * lay1;
+	QGrid * grid;
+//	QGridLayout * m_layout;
+//	QGridLayout * mainLayout;
 	QString str;
 	
 	m_p = new Private();
@@ -90,50 +90,42 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	CHECK_PTR(m_p->boxWidget);
 	m_p->boxWidget->setSpacing(KDialog::spacingHint());
 	
-	mainLayout = new QGridLayout(this,2,1);
+/*	mainLayout = new QGridLayout(this,2,1);
 	CHECK_PTR(mainLayout);
 	m_layout = new QGridLayout(mainLayout,1,2);
 	CHECK_PTR(m_layout);
 	m_layout->addWidget(rowWidget(),0,0);
 	m_layout->addWidget(boxWidget(),1,0);
-	mainLayout->setRowStretch(1,1);
+	mainLayout->setRowStretch(1,1);*/
 	
 	m_p->settingWidget = new QGroupBox(1, Qt::Horizontal, i18n("Settings"), boxWidget(), "boxWidget");
 	CHECK_PTR(m_p->settingWidget);
 	
-	wid = new QWidget(rowWidget());
-	CHECK_PTR(wid);
-	lay1 = new QGridLayout(wid,2,2);
-	CHECK_PTR(lay1);
-	lay1->setMargin(KDialog::marginHint());
-	lay1->setSpacing(KDialog::spacingHint());
-	lay1->setColStretch(1,1);
+	grid = new QGrid(2, /*QGrid::Horizontal,*/ rowWidget());
+	CHECK_PTR(grid);
+	grid->setSpacing(KDialog::spacingHint());
 	
 	
 	// Name edit
 	str = i18n("Change the name of the connector here");
-	label = new QLabel(i18n("Name:"), wid,"LineEditLabel");
+	label = new QLabel(i18n("Name:"), grid,"LineEditLabel");
 	CHECK_PTR(label);
 	QToolTip::add(label, str);
-	lay1->addWidget(label,0,0);
 	
-	m_p->nameEdit = new QLineEdit(wid,"LineEdit");
+	m_p->nameEdit = new QLineEdit(grid,"LineEdit");
 	CHECK_PTR(m_p->nameEdit);
 	m_p->nameEdit->setText(m_conn->getName());
-	lay1->addWidget(m_p->nameEdit,0,1);
 	QToolTip::add(m_p->nameEdit, str);
 
 	// Shows connector type
 	str = i18n("The shows the connector type.");
-	label = new QLabel(i18n("Type:"), wid,"TypeLabel");
+	label = new QLabel(i18n("Type:"), grid,"TypeLabel");
 	CHECK_PTR(label);
 	QToolTip::add(label, str);
-	lay1->addWidget(label,1,0);
 	
-	label = new QLabel(m_conn->getConnInfo()->getName(), wid,"Type");
+	label = new QLabel(m_conn->getConnInfo()->getName(), grid,"Type");
 	CHECK_PTR(label);
 	QToolTip::add(label, str);
-	lay1->addWidget(label,1,1,AlignLeft);
 	
 	
 	if (m_conn->isHideEnabled())

@@ -58,6 +58,9 @@
 #include "ksimdebug.h"
 #include "componentpropertydialog.h"
 #include "packageinfo.h"
+#include "watchwidget.h"
+#include "wire.h"
+#include "wireproperty.h"
 
 
 // Scroll directions
@@ -195,7 +198,7 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	connect (&delayedStatusHelpMsgTimer, SIGNAL(timeout()), SLOT(slotDelayedStatusHelpMsg()));
 	
 	
-	QFont newFont("helvetica",12);
+	QFont newFont(QString::fromLatin1("helvetica"),12);
 	setFont(newFont);
 	
 }
@@ -233,10 +236,8 @@ void KSimEditor::print(KPrinter *pPrinter)
 	
 #define PRINT_FACTOR   2
 	
-	
-	
 	QPainter p;
-		p.begin(pPrinter);
+	p.begin(pPrinter);
 	
 /*	QPaintDeviceMetrics pdmEditor(this);
 	KSIMDEBUG("-------- this ---------");
@@ -249,15 +250,15 @@ void KSimEditor::print(KPrinter *pPrinter)
 
 	
 	QPaintDeviceMetrics pdmPrinter(pPrinter);
-	KSIMDEBUG("-------- pPrinter ---------");
+/*	KSIMDEBUG("-------- pPrinter ---------");
 	KSIMDEBUG_VAR("",pdmPrinter.width());
 	KSIMDEBUG_VAR("",pdmPrinter.widthMM());
 	KSIMDEBUG_VAR("",pdmPrinter.height());
 	KSIMDEBUG_VAR("",pdmPrinter.heightMM());
 	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiX());
-	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiY());
+	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiY());*/
 	
-	QFont newFont("helvetica",12);
+	QFont newFont(QString::fromLatin1("helvetica"),12);
 	p.setFont(newFont);
 
 	int x = 0;
@@ -487,7 +488,7 @@ void KSimEditor::select (Component *comp, bool sel)
 void KSimEditor::unselectAll()
 {
 	while (!selected.isEmpty())
-		select (selected.first(), FALSE);
+		select (selected.first(), false);
 
 	emit deleteAllowed(false);
 	emit cutAllowed(false);
@@ -645,16 +646,16 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 							ASSERT(!getApp()->getModuleFile().isEmpty());
 						
 							const ModuleInfo * mi =	ModuleData::makeModuleInfo(getApp()->getModuleFile());
-              if (!mi)
-              {
-              	// No valid module
-           			KMessageBox::error(0,i18n("The file %1 contains no valid module!").arg(getApp()->getModuleFile()),
-           													i18n("Open Module"));
+							if (!mi)
+							{
+								// No valid module
+								KMessageBox::error(0,i18n("The file %1 contains no valid module!").arg(getApp()->getModuleFile()),
+								                     i18n("Open Module"));
 
-              	delete newComp;
-              	setEditorMode(EM_SELECT);
-              	break;
-              }
+								delete newComp;
+								setEditorMode(EM_SELECT);
+								break;
+							}
 							((ComponentLibrary*)g_library->getComponentLib())->insert(mi, 0);
 							((Module*)newComp)->setModuleFile(getApp()->getModuleFile());
 						}
@@ -799,24 +800,49 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 					break;
 			}
 		}
+		else
+		{
+		
+			switch(getContainer()->isCompViewHit(mousePos, viewList))
+			{
+				case SPECIAL_HIT:
+					{
+						QPainter p(drawMap);
+						getContainer()->getFirstCompView()->mousePress(ev, &p);
+					}
+					break;
+				
+				default:
+					break;
+			}
+		}
 	}
 }
 
 static QString getComponentPartName(const Component * comp, const ConnectorBase * conn)
 {
-	QString s(i18n(comp->getInfo()->getName().latin1()));
+/*	QString s(comp->getInfo()->getName());
 
 	if (conn)
 	{
 		s += ":" + conn->getName();
 	}
 		
-	if (comp->getName() != i18n(comp->getInfo()->getName().latin1()))	
+	if (comp->getName() != comp->getInfo()->getName())
 	{
 		s += " (" + comp->getName() + ")";
 	}
 	
-	return s;
+	return s;*/
+	if(conn)
+	{
+		return conn->getFullName();
+	}
+	if(comp)
+	{
+		return comp->getName();
+	}
+	return QString::null;
 }
 
 void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
@@ -1304,13 +1330,16 @@ void KSimEditor::setEditorCursor(QPoint * pMousePos, eHitType hit) const
 void KSimEditor::refreshSimMode(CompViewList * sheetList, CompViewList * userList)
 {
 	QPainter p (drawMap);
+	CompViewList cvList;
+	
 	if (EV_SHEETVIEW == editorView)
 	{
 		FOR_EACH_COMPVIEW(it, *sheetList)
 		{
 			if (it.current()->isViewChanged())
 			{
-				it.current()->draw(&p);
+				it.current()->setViewChanged(false);
+				cvList.append(it.current());
 			}
 		}
 	}
@@ -1320,10 +1349,12 @@ void KSimEditor::refreshSimMode(CompViewList * sheetList, CompViewList * userLis
 		{
 			if (it.current()->isViewChanged())
 			{
-				it.current()->draw(&p);
+				it.current()->setViewChanged(false);
+				cvList.append(it.current());
 			}
 		}
 	}
+	getContainer()->drawComponents(&p, &cvList);
 }
 /**  */
 bool KSimEditor::eventFilter( QObject * obj, QEvent * ev)
@@ -1625,12 +1656,12 @@ void KSimEditor::backgroundPopup()
 	
 	ComponentPopupMenu * compMenu = new ComponentPopupMenu(menu);
 	connect(compMenu, SIGNAL(signalSelection(const ComponentInfo *)),
-			getApp(), SLOT(slotSelectCI(const ComponentInfo *)));
+	        getApp(), SLOT(slotSelectCI(const ComponentInfo *)));
 
-    getApp()->editDelete->plug(menu);
-    getApp()->editCut->plug(menu);
-    getApp()->editCopy->plug(menu);
-    getApp()->editPaste->plug(menu);
+	getApp()->editDelete->plug(menu);
+	getApp()->editCut->plug(menu);
+	getApp()->editCopy->plug(menu);
+	getApp()->editPaste->plug(menu);
 	
 	menu->insertSeparator();
 	menu->insertItem(i18n("New component"), compMenu, ID_COMP_MENU);
@@ -1650,6 +1681,7 @@ void KSimEditor::componentPopup(bool connectorHit)
 	int rot90Idx = 0;
 	int rot180Idx = 0;
 	int rot270Idx = 0;
+	int addWatchItemIdx = 0;
 	KSimUndo * undo = getDoc()->getUndo();
 	CHECK_PTR(undo);
 	QPopupMenu * menu = new QPopupMenu(0, "componentPopup");
@@ -1714,6 +1746,8 @@ void KSimEditor::componentPopup(bool connectorHit)
 		{
 			conn = getContainer()->getFirstConnector();
 			conn->initPopupMenu(menu);
+			menu->insertSeparator();
+			addWatchItemIdx = menu->insertItem(i18n("&Add connector to watch view"));
 		}
 		
 		comp->initPopupMenu(menu);
@@ -1735,14 +1769,14 @@ void KSimEditor::componentPopup(bool connectorHit)
 		if (res == idx)
 		{
 			ComponentPropertyDialog * dia;
-			dia = new ComponentPropertyDialog(comp);
+			dia = new ComponentPropertyDialog(comp, i18n("Component Properties"));
 			comp->initPropertyDialog(dia);
 			dia->exec();
 			delete dia;
 		}
 		else if (res == connIdx)
 		{
-			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn);
+			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn, i18n("Connector Properties"));
 			dia->exec();
 			delete dia;
 		}
@@ -1788,10 +1822,12 @@ void KSimEditor::componentPopup(bool connectorHit)
 				kapp->invokeHelp(ci->getHTMLDescr(), pi->getInstance()->instanceName());
 			}
 		}
-		
-		
+		else if (res == addWatchItemIdx)
+		{
+			WatchItemBase * wi = conn->makeWatchItem();
+			getApp()->getWatchWidget()->addWatchItem(wi);
+		}
 
-		
 		// Not deleted ?
 		if (getContainer()->getComponentList()->find(comp) != -1)
 		{
@@ -1817,7 +1853,7 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	KSimUndo * undo = getDoc()->getUndo();
 	CHECK_PTR(undo);
 	Component * comp = getContainer()->getFirstCompView()->getComponent();
-	int res,idDelete, idTruncate, idProperty;
+	int res,idDelete, idTruncate, idProperty, addWatchItemIdx;
 
 	idDelete = menu->insertItem(i18n("&Delete wire"));
 	idTruncate = menu->insertItem(i18n("&Truncate wire"));
@@ -1829,6 +1865,10 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	}
 		
 	comp->initPopupMenu(menu);
+
+	menu->insertSeparator();
+	addWatchItemIdx = menu->insertItem(i18n("&Add wire to watch view"));
+
 
 	menu->insertSeparator();
 	idProperty = menu->insertItem(i18n("P&roperties"));
@@ -1857,10 +1897,25 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	else if (res == idProperty)
 	{
 		ComponentPropertyDialog * dia;
-		dia = new ComponentPropertyDialog(comp);
+		dia = new ComponentPropertyDialog(comp, i18n("Component Properties"));
 		comp->initPropertyDialog(dia);
 		dia->exec();
 		delete dia;
+	}
+	else if (res == addWatchItemIdx)
+	{
+		WireProperty * wp = ((Wire*)comp)->getWireProperty();
+
+		if (wp)
+		{
+			getApp()->getWatchWidget()->addWatchItem(wp->makeWatchItem());
+		}
+		else
+		{
+			KMessageBox::sorry( (QWidget *)0,
+			                    i18n("You can't add the wire to the watch view until \n"
+			                         "the data type is not specified!\n"));
+		}
 	}
 	else if (res == -1)
 	{

@@ -38,8 +38,11 @@ class KSimusDoc;
 class Component;
 class ConnectorInfo;
 class Wire;
+class WireProperty;
+class WireColorScheme;
+class PropertyWidget;
+class WatchItemBase;
 
-class ConnectorBasePrivate;
 
 /**Base class for all connector classes
   *@author Rasmus Diekenbrock
@@ -52,6 +55,9 @@ friend class Wire;
 friend class Module;
 friend class ConnectorPropertyWidget;
 
+class ConnectorBasePrivate;
+
+	
 	Q_OBJECT
 	
 public:
@@ -59,6 +65,14 @@ public:
 	
 	//**************************************************************************	
 	// *** Data manipulation function ***
+	
+	/** Returns a pointer to the data that's read from the component.
+	  * Reimplementations is required. */
+	virtual const void * readoutData() const = 0;
+	
+	/** The function copyData() has to copy data to the output variable.
+	  * Reimplementations is required. */
+	virtual void copyData(const void * pData) = 0;
 	
 	/** Returns the related document. */
 	KSimusDoc * getDoc() const;
@@ -75,11 +89,6 @@ public:
 	  */
 	QString getWireName() const;
 	
-	/** Sets the unique serial ID. There is no need to call this function unless you know what you do. */
-	void setSerialNumber(unsigned int serial);
-	/** Returns the unique serial ID. */
-	unsigned int getSerialNumber() const;
-	
 	/** Set new connector name. Use a translated name if possible.
 	  * The name won't be saved in document, if init is true.
 	  * The signal signalProperty() is emitted.
@@ -89,6 +98,8 @@ public:
 	const QString & getName() const;
 	/** Returns the translated connector init name. */
 	const QString & getInitName() const;
+	/** Returns the connected name componentName::connectorName. */
+	QString getFullName() const;
 	
 	/** Set new connector position.
 	  * Position is given in grid !!!
@@ -190,26 +201,40 @@ public:
 	/** Returns the connected wire. Null, if not connected. */
 	Wire * getWire() const;
 	
-	/** True, if data of the wire is valid. */
-	bool isInputDataValid() const;
-
+	/** Returns true if the connector is connected to a wire. */
+	bool isConnected() const;
+	
+	/** Returns the @ref WireProperty of the wire to where the connector is connected.
+	  * Returns zero if the connector is not connected. Is valid after proceeding all
+	  * @ref checkCircuit functions. */
+	WireProperty * getWireProperty() const;
+	
+	/** Sets the @ref WireProperty of the wire to where the connector is connected.
+	  * In most cases this function is without any interest. */
+	void setWireProperty(WireProperty * wireProperty);
+	
 	/** Add menu items depend on connetor properties.
 	  *	Return true, if items are added. */
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
 	/** Creates the property widget. */
-	virtual QWidget* propertyWidget(QWidget * parent);
+	virtual PropertyWidget* propertyWidget(QWidget * parent);
 	
 	
 	/** Checks the connector.
 	*   eg. if input is connected.
 	*   The default implementation does nothing.
-	*	Returns the number of errors.
+	*   Returns the number of errors.
 	*/
-	
 	virtual int checkCircuit();
+	
+	/** Setup the connector for a new circuit execution.
+	*   The default implementation resets the @ref WireProperty pointer.
+	*/
+	virtual void setupCircuit();
+	
 	/** Checks the component property. The functions is called after the
-	*		property dialog.
+	*   property dialog.
 	*   Eg. all connectors have unique names.
 	*   The default implementation does nothing.
 	*
@@ -217,15 +242,21 @@ public:
 	*/
 	virtual void checkProperty(QStringList & errorMsg);
 
-  /** Resets the connector.
-     */
+	/** Resets the connector.
+	  */
 	virtual void reset();
-		
+
+	/** Adds the component in the list for execute next cycle. */
+	void executeComponentNext();
+	/** Adds the @ref WireProperty in the list for execute next cycle. */
+	void executeWirePropertyNext();
+
+	
 	//**************************************************************************	
 	// *** Display functions ***
 	
-	// Setup the colors, brushs, and fills for the connector.
-	virtual void setupColorScheme (QPainter * p) const = 0;
+	// Get the colors for the connector
+	virtual const WireColorScheme & getColorScheme() const = 0;
 	/** Draws the connector. */
 	void draw (QPainter * p) const;
 	/** Draws the connector on/in the given place and orientation. */
@@ -233,32 +264,35 @@ public:
 
 	/** Returns a text which represents the current value. */
 	virtual QString getValueText() const = 0;
-
+	
+	/** Returns a watch item. 
+	*   The default implementation return a null pointer. Must reimplemented in a sub class.
+	*/
+	virtual WatchItemBase * makeWatchItem();
+	
 protected:
 	//**************************************************************************	
 	
 	/** Constructor of the base class of all connectors.
 	  *
 	  *
-	  * @param comp   The component which contains this connector.
-    * @param name   The *untranslated* connector name. This name is used as default as
-    *               connector identifier and (internally translated) as connector name
-    *               used at the property view or the status bar.
-	  * @param pos    The position of the connector relative to the component top left (measured in grid).
-	  * @param orient Gives the direction from where the connector can be connected.
-	  * @param dir    Declares the connector as input, put or tristate
-	  * @param ci     Gives the connector the exact type info.
+	  * @param comp     The component which contains this connector.
+	  * @param name     The *untranslated* connector name. This name is used as internal
+	  *                 identifier and should not be translated.
+	  * @param i18nName The *translated* connector name. This name is used in the status bar and
+	  *                 the property widget.
+	  * @param pos      The position of the connector relative to the component top left (measured in grid).
+	  * @param orient   Gives the direction from where the connector can be connected.
+	  * @param dir      Declares the connector as input, put or tristate
+	  * @param ci       Gives the connector the exact type info.
 	  */
 	ConnectorBase(Component * comp,				
 	              const QString & name,
+	              const QString & i18nName,
 	              const QPoint & pos,	
 	              ConnOrientationType orient,
 	              ConnDirType dir,
 	              const ConnectorInfo * ci);
-					
-
-	/** Returns a generic pointer to the current wire data. */
-	const void * getWireData() const;
 	
 	
 
@@ -282,7 +316,8 @@ private:
 	bool m_negType;
 	
 	KSimAction m_myActions;
-
+	WireProperty * m_wireProperty;
+	
 signals:
 	/** This signal is emitted immediately after the connector is connected to a wire.
 		*/
@@ -315,8 +350,6 @@ signals:
 
 class ConnectorInputBase : public ConnectorBase
 {
-friend class Module;
-	
 	Q_OBJECT
 	
 	/** Checks the connector.
@@ -330,70 +363,102 @@ protected:
 	/**
 	 * Constructs a input connector. Use this constructor if you derive this class.
 	 *
-	 * @param comp   Component which contains this connector.
-   * @param name   The *untranslated* connector name. This name is used as default as
-   *               connector identifier and (internally translated) as connector name
-   *               used at the property view or the status bar.
-	 * @param pos    Sets the position of the connctor. The position has to be given in grids.
-	 * @param orient Sets the orientation of the connector.
-	 * @param ci     Sets the connector info (@ref ConnectorInfo):
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient    Sets the orientation of the connector.
+	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorInputBase(Component * comp,
 	                   const QString & name,
+	                   const QString & i18nName,
 	                   const QPoint & pos,
 	                   ConnOrientationType orient,
 	                   const ConnectorInfo * ci);
-					
-	/** Returns a pointer to the data that's read from the component.
-	  * The default implementation calls the function getWireData().
-	  * Reimplementations is required if the connector has to modify ths data (e.g. a neg. boolean input. */
-	virtual const void * readoutData() const;
 	
 };
 
 
 class ConnectorOutputBase : public ConnectorBase
 {
-friend class Module;
-friend class Wire;
 	
 	Q_OBJECT
 		
 public:	
-	/** Set the data of *this* connector valid / not valid. */
-	void setOutputDataValid(bool valid);
-	/** True, if data of *this* connector is valid. */
-	bool isOutputDataValid() const;
 
 protected:	
 	/**
 	 * Constructs a output connector. Use this constructor if you derive this class.
 	 *
-	 * @param comp   Component which contains this connector.
-   * @param name   The *untranslated* connector name. This name is used as default as
-   *               connector identifier and (internally translated) as connector name
-   *               used at the property view or the status bar.
-	 * @param pos    Sets the position of the connctor. The position has to be given in grids.
-	 * @param orient Sets the orientation of the connector.
-	 * @param ci     Sets the connector info (@ref ConnectorInfo):
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient    Sets the orientation of the connector.
+	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorOutputBase(Component * comp,
 	                    const QString & name,
+	                    const QString & i18nName,
 	                    const QPoint & pos,
 	                    ConnOrientationType orient,
 	                    const ConnectorInfo * ci);
-					
-	/** The function copyData() has to copy data to the output variable.
-	  * Reimplementations is required. */
-	virtual void copyData(const void * pData) = 0;
-
-	/** Returns a pointer to the data of this output connector. */
-	virtual const void * getData() const = 0;
-
-	// True, if data of *this* connector is valid.
-	bool dataValid;
 };
 
+
+class ConnectorTriStateBase : public ConnectorBase
+{
+	
+	Q_OBJECT
+		
+public:	
+
+	/** Checks the connector.
+	*   eg. if input is connected.
+	*   Checks if the WireProperty inherits WirePropertyMultipleOutput.
+	*   Returns the number of errors.
+	*/
+	virtual int checkCircuit();
+
+	/** Resets the connector.
+	  */
+	virtual void reset();
+	
+	/** Sets the connector output active. */
+	void setOutputActive(bool active);
+	/** Returns true if the connector output is active. */
+	bool isOutputActive() const { return m_outActive; };
+	/** Returns true if the wire has one or more active connectors. */
+	bool isActive() const;
+
+protected:	
+	/**
+	 * Constructs a tristate connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient    Sets the orientation of the connector.
+	 * @param ci        Sets the connector info (@ref ConnectorInfo):
+	 */
+	ConnectorTriStateBase(Component * comp,
+	                      const QString & name,
+	                      const QString & i18nName,
+	                      const QPoint & pos,
+	                      ConnOrientationType orient,
+	                      const ConnectorInfo * ci);
+	
+private:
+	bool m_outActive;
+};
 
 
 class ConnectorList : public QList<ConnectorBase>
@@ -417,6 +482,13 @@ public:
 //	~ConnectorOutputList();
 };
 
+class ConnectorTriStateList : public QList<ConnectorTriStateBase>
+{
+public:
+//	ConnectorOutputList();
+//	~ConnectorOutputList();
+};
+
 #define FOR_EACH_CONNECTOR(_it_,_connList_)	\
 		for(QListIterator<ConnectorBase> _it_(_connList_);_it_.current();++_it_)
 
@@ -426,5 +498,7 @@ public:
 #define FOR_EACH_CONNECTORINPUT(_it_,_connList_)	\
 		for(QListIterator<ConnectorInputBase> _it_(_connList_);_it_.current();++_it_)
 
+#define FOR_EACH_CONNECTORTRISTATE(_it_,_connList_)	\
+		for(QListIterator<ConnectorTriStateBase> _it_(_connList_);_it_.current();++_it_)
 
 #endif

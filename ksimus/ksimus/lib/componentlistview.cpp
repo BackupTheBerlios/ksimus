@@ -36,16 +36,9 @@
 ComponentListView::ComponentListView(QWidget *parent, const char *name )
 	:	QListView(parent,name),
 		m_leastSelected(0),
-		m_currentView(APP_SHEET_VIEW),
-		componentRoot(0)
+		m_currentView(APP_SHEET_VIEW)
 {
-	addColumn(i18n("Component"));
-	
-	componentRoot = new ComponentListViewItem(this, i18n("Component"));
-	CHECK_PTR(componentRoot);
-	componentRoot->setOpen(true);
-	
-//	setupTreeView(g_library->getComponentLib()->m_dirBase, componentRoot);
+	addColumn(i18n("ksimus", "Component"));
 	
 	connect(g_library->getComponentLib(),SIGNAL(signalInsert(const ComponentLibraryItem *)),
 					this,SLOT(slotInsert(const ComponentLibraryItem *)));
@@ -58,11 +51,8 @@ ComponentListView::ComponentListView(QWidget *parent, const char *name )
 	}
 	
 	setShowSortIndicator(true);
+	setRootIsDecorated(true);
 
-	
-//	connect(this, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelection(QListViewItem*)));
-//	connect(this, SIGNAL(returnPressed(QListViewItem*)), this, SLOT(slotSelection(QListViewItem*)));
-	
 	connect(this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotSelection(QListViewItem*)));
 
 	connect(this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)),
@@ -137,9 +127,9 @@ void ComponentListView::insert(const ComponentLibraryItem * cli, bool open)
 {
 	if (cli->isAddToMenu())
 	{
-		insert(cli->getLibName(), cli->getComponentInfo(), open);
+		insert(cli->getI18nLibName(), cli->getComponentInfo(), open);
 	
-		QStringList * libNames = cli->getAdditionalLibNames();
+		QStringList * libNames = cli->getAdditionalI18nLibNames();
 	
 		if (libNames)
 		{
@@ -159,15 +149,17 @@ void ComponentListView::slotInsert(const ComponentLibraryItem * cli)
 
 void ComponentListView::insert(const QString & libName, const ComponentInfo * ci, bool open)
 {
-	QStringList sl = QStringList::split('/', i18n(libName.latin1()));
+	QStringList sl = QStringList::split('/', libName);
 	unsigned int count;
 	
-	ComponentListViewItem * clvi = componentRoot;
 	ComponentListViewItem * nextClvi;
+	
+	ComponentListViewItem * clvi = 0;
 	
 	for (count = 0; count < sl.count(); count++)
 	{
-		nextClvi = clvi->findChild(sl[count]);
+		nextClvi = clvi ? clvi->findChild(sl[count])
+		                : this->findChild(sl[count]);
 		if(nextClvi)
 		{
 			if (nextClvi->isEntry())
@@ -184,37 +176,31 @@ void ComponentListView::insert(const QString & libName, const ComponentInfo * ci
 			// Create sub menus
 			for (; count < sl.count()-1; count++)
 			{
-				nextClvi = new ComponentListViewItem(clvi, sl[count]);
+				if (clvi)
+				{
+					nextClvi = new ComponentListViewItem(clvi, sl[count]);
+				}
+				else
+				{
+					nextClvi = new ComponentListViewItem(this, sl[count]);
+				}
 				if (open) nextClvi->setOpen(true);
 				clvi = nextClvi;
 			}
 			
 			// Create entry
-			nextClvi = new ComponentListViewItem(clvi, sl[sl.count()-1], ci);
+			if (clvi)
+			{
+				nextClvi = new ComponentListViewItem(clvi, sl[sl.count()-1], ci);
+			}
+			else
+			{
+				nextClvi = new ComponentListViewItem(this, sl[sl.count()-1], ci);
+			}
+			if (open) nextClvi->setOpen(true);
 		}
 			
 		clvi = nextClvi;
-	}			
-}
-
-void ComponentListView::contentsMousePressEvent(QMouseEvent * ev)
-{
-/*	if (ev->button() == RightButton)
-	{
-		QPopupMenu * menu = new QPopupMenu();
-		
-		menu->insertItem(i18n("&Fold Tree"),this, SLOT(slotFoldTree()));
-		menu->insertItem(i18n("&Unfold Tree"),this, SLOT(slotUnfoldTree()));
-		menu->insertSeparator();
-		menu->insertItem(i18n("&Hide Component Supplier"),this, SLOT(slotHideMe()));
-	
-    menu->exec(QCursor::pos());
-
-    delete menu;
-	}
-	else*/
-	{
-		QListView::contentsMousePressEvent(ev);
 	}
 }
 
@@ -342,6 +328,18 @@ void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoin
 	
 }
 
+ComponentListViewItem * ComponentListView::findChild(const QString & childName)
+{
+	QListViewItem * child = firstChild();
+	
+	while (child)
+	{
+		if (child->text(0) == childName)
+			return (ComponentListViewItem *) child;
+		child = child->nextSibling();
+	}
+	return 0;
+}
 
 
 

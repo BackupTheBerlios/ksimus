@@ -47,9 +47,9 @@ ConnectorBoolInEdgePropertyWidget::ConnectorBoolInEdgePropertyWidget(ConnectorBo
 	}
 }
 
-/*ConnectorBoolInEdgePropertyWidget::~ConnectorBoolInEdgePropertyWidget()
+ConnectorBoolInEdgePropertyWidget::~ConnectorBoolInEdgePropertyWidget()
 {
-} */
+}
 
 ConnectorBoolInEdge * ConnectorBoolInEdgePropertyWidget::getConn() const
 {

@@ -30,7 +30,6 @@ enum ConnOrientationType { CO_UNDEF, CO_TOP, CO_RIGHT, CO_BOTTOM, CO_LEFT };
 enum ConnDirType { CD_UNDEF, CD_INPUT, CD_OUTPUT, CD_TRISTATE };
 
 
-								
 
 
 

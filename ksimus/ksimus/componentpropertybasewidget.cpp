@@ -26,14 +26,16 @@
 
 // Forward declaration
 
-ComponentPropertyBaseWidget::ComponentPropertyBaseWidget(Component * comp, QWidget *parent, const char *name )
-	:	PropertyWidget(parent,name),
+ComponentPropertyBaseWidget::ComponentPropertyBaseWidget(Component * comp, int n, QWidget *parent, const char *name, WFlags f)
+	:	PropertyWidget(n,parent,name,f),
 		ComponentItem(comp)
 {
+	setCenterRowStretch(0);
+	setBottomRowStretch(1);
 }
 
-/*ComponentPropertyBaseWidget::~ComponentPropertyBaseWidget()
+ComponentPropertyBaseWidget::~ComponentPropertyBaseWidget()
 {
-} */
+}
 
 
