@@ -1,3 +1,8 @@
+	16.12.2001
+* New: Remove mechanism for component layouts
+* Change: New handle style for resizeable components.
+* Change: Use default background color in the user view (KSimEditor)
+* Fix: Status bar handling for help messages (KSimEditor)
 	12.12.2001
 * New: function KSimTimeServer::getTime()
 	09.12.2001
