@@ -89,10 +89,11 @@ public:
 	
 	/** Hit point x,y the component ?
 		NO_HIT
-		NORMAL_HIT   - component is hit, KSimEditor controls mouse action
-		CONNCTOR_HIT - connector of a component is hit
-		WIRE_HIT     - wire is hit, KSimEditor controls mouse action
-		SPECIAL_HIT  - component is hit, component controls mouse action */
+		NORMAL_HIT        - component is hit, KSimEditor controls mouse action
+		CONNCTOR_HIT      - connector of a component is hit
+		WIRE_HIT          - wire is hit, KSimEditor controls mouse action
+		SPECIAL_HIT       - component is hit, component controls mouse action
+	*/
 	virtual eHitType isHit(int x, int y) const;
 	
 	/** New position of the component view */
@@ -261,8 +262,13 @@ public:
 	virtual void drawBound(QPainter * p);
 	/** Hit point x,y the component ?
 		NO_HIT
-		NORMAL_HIT - component is hit, KSimView controls mouse action
-		SPECIAL_HIT - component is hit, component controls mouse action */
+		NORMAL_HIT        - component is hit, KSimEditor controls mouse action
+		CONNCTOR_HIT      - connector of a component is hit
+		WIRE_HIT          - wire is hit, KSimEditor controls mouse action
+		SPECIAL_HIT       - component is hit, component controls mouse action
+		COMP_RESIZE_F_HIT - Resize component, component controls mouse action
+		COMP_RESIZE_B_HIT - Resize component, component controls mouse action
+	*/
 	virtual eHitType isHit(int x, int y) const;
 	
 	/** save component properties */

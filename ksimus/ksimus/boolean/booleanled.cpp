@@ -171,12 +171,20 @@ const QColor & BooleanLed::getColor() const
 BooleanLedView::BooleanLedView(Component * comp, eViewType viewType)
 	: CompViewSize(comp,viewType)
 {
-	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
-	setMinSize(5*gridX,3*gridY);
-	enableConnectorSpacingTop(false);
-	enableConnectorSpacingBottom(false);
+	if (viewType == SHEET_VIEW)
+	{
+		setPlace(QRect(0, 0, 4*gridX, 3*gridY));
+		setMinSize(4*gridX,3*gridY);
+		enableConnectorSpacingTop(false);
+		enableConnectorSpacingBottom(false);
 //	enableConnectorSpacingLeft(false);
-//	enableConnectorSpacingRight(false);
+		enableConnectorSpacingRight(false);
+	}
+	else
+	{
+		setPlace(QRect(0, 0, 3*gridX, 3*gridY));
+		setMinSize(3*gridX,3*gridY);
+	}	
 }
 
 
@@ -242,9 +250,12 @@ BooleanLedWidgetView::~BooleanLedWidgetView()
 
 void BooleanLedWidgetView::paintEvent(QPaintEvent *)
 {
-  QPainter p(this);
-  QBrush fill(colorGroup().background());
-  qDrawWinButton (&p, rect(), colorGroup(), false, &fill);
+//	if (getCompView()->getViewType() == SHEET_VIEW)
+	{
+		QPainter p(this);
+		QBrush fill(colorGroup().background());
+		qDrawWinButton (&p, rect(), colorGroup(), false, &fill);
+	}
 }
 
 void BooleanLedWidgetView::slotState(bool on)

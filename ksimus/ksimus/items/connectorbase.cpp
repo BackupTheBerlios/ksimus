@@ -255,10 +255,10 @@ eHitType ConnectorBase::isHit(int x, int y) const
 	QPoint pos = getPos();
 	
 	if ( isHidden()
-		|| (x < pos.x()-gridX/2)
-		|| (x > pos.x()+gridX/2)
-		|| (y < pos.y()-gridY/2)
-		|| (y > pos.y()+gridY/2))
+		|| (x <= pos.x()-gridX/2)
+		|| (x >= pos.x()+gridX/2)
+		|| (y <= pos.y()-gridY/2)
+		|| (y >= pos.y()+gridY/2))
 	{
 		return NO_HIT;
 	}

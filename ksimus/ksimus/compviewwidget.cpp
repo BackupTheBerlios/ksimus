@@ -28,31 +28,29 @@
 
 // Forward declaration
 
-
-	
-
-
-
-class CompViewWidget::CompViewWidgetPrivate
+/*class CompViewWidget::CompViewWidgetPrivate
 {
 public:	
 	
-	CompViewWidgetPrivate(QWidget * _parent)
-		:	parent(_parent)
+	CompViewWidgetPrivate(CompView * cv)
+		:	m_cv(cv)
 	{};
 	
-	~CompViewWidgetPrivate() {};
+//	~CompViewWidgetPrivate() {};
 	
-	QWidget * parent;
-};
+	CompView * m_cv;
+};*/
 
 
 
 
 CompViewWidget::CompViewWidget(CompView * cv, QWidget *parent, const char *name )
-	:	QWidget(parent,name)
+	:	QWidget(parent,name),
+		m_p(0),
+		m_compView(cv)
 {
-	m_p = new CompViewWidgetPrivate(parent);
+//	m_p = new CompViewWidgetPrivate(cv, parent);
+//	CHECK_PTR(m_p);
 	
 	cv->getWidgetList()->addWidget(this);
 	
@@ -80,8 +78,8 @@ CompViewWidget::CompViewWidget(CompView * cv, QWidget *parent, const char *name 
 CompViewWidget::~CompViewWidget()
 {
 	emit destroyed(this);
-	if (m_p)
-		delete m_p;
+/*	if (m_p)
+		delete m_p;*/
 }
 
 /** This slot delete this widget */

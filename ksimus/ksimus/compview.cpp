@@ -95,14 +95,17 @@ class CompView::CompViewPrivate
 public:
 	CompViewPrivate(eViewType vt)
 		:	place(0,0,0,0),
-			flags(	FLAGS_CONN_SPACING_TOP | FLAGS_CONN_SPACING_RIGHT | FLAGS_CONN_SPACING_BOTTOM
-					| FLAGS_CONN_SPACING_LEFT | FLAGS_ENABLE_GRID_SNAP ),
 			posGridX(&sheetGridX),
 			posGridY(&sheetGridY),
 			viewType (vt),
 			widgetList(0)
-			
-	{};
+	{
+		if (vt == SHEET_VIEW)
+			flags =	FLAGS_CONN_SPACING_TOP | FLAGS_CONN_SPACING_RIGHT | FLAGS_CONN_SPACING_BOTTOM
+					| FLAGS_CONN_SPACING_LEFT | FLAGS_ENABLE_GRID_SNAP;
+		else
+			flags =	FLAGS_ENABLE_GRID_SNAP;
+	};
 	~CompViewPrivate()
 	{
 		if (widgetList)
@@ -732,29 +735,29 @@ void CompViewSize::mousePress(QMouseEvent *ev, QPainter *)
 		QPoint mousePos = ev->pos();
 		m_ps->lmbDown = true;
 
-        m_ps->oldPlace = getPlace();
-        m_ps->resizeMode = 0;
+		m_ps->oldPlace = getPlace();
+		m_ps->resizeMode = 0;
 
-        // A handle on left side
-        if (mousePos.x() <= getPlace().left()+HANDLE_SIZE)
-        {
-        	// Top left handle
-	        if (mousePos.y() <= getPlace().top()+HANDLE_SIZE)
+		// A handle on left side
+		if (mousePos.x() <= getPlace().left()+HANDLE_SIZE)
+		{
+			// Top left handle
+			if (mousePos.y() <= getPlace().top()+HANDLE_SIZE)
 				m_ps->resizeMode = CV_LEFT | CV_TOP;
 
-        	// Bottom left handle
-	        if (mousePos.y() >= getPlace().bottom()-HANDLE_SIZE)
+			// Bottom left handle
+			if (mousePos.y() >= getPlace().bottom()-HANDLE_SIZE)
 				m_ps->resizeMode = CV_LEFT | CV_BOTTOM;
 		}
-        // A handle on right side
+		// A handle on right side
 		else if (mousePos.x() >= getPlace().right()-HANDLE_SIZE)
 		{
-        	// Top right handle
-	        if (mousePos.y() <= getPlace().top()+HANDLE_SIZE)
+			// Top right handle
+			if (mousePos.y() <= getPlace().top()+HANDLE_SIZE)
 				m_ps->resizeMode = CV_RIGHT | CV_TOP;
 
-        	// Bottom right handle
-	        if (mousePos.y() >= getPlace().bottom()-HANDLE_SIZE)
+			// Bottom right handle
+			if (mousePos.y() >= getPlace().bottom()-HANDLE_SIZE)
 				m_ps->resizeMode = CV_RIGHT | CV_BOTTOM;
 		}
 	}
@@ -852,28 +855,74 @@ void CompViewSize::drawBound(QPainter * p)
 {
 	CompView::drawBound(p);
 	p->setRasterOp(NotROP);
-	p->setPen(NoPen);
-	p->setBrush(SolidPattern);
+//	p->setPen(NoPen);
+//	p->setBrush(SolidPattern);
 	
-    p->drawRect(getPlace().left(), getPlace().top(), HANDLE_SIZE, HANDLE_SIZE);
-    p->drawRect(getPlace().left(), getPlace().bottom(), HANDLE_SIZE, -HANDLE_SIZE);
-    p->drawRect(getPlace().right(), getPlace().top(), -HANDLE_SIZE, HANDLE_SIZE);
-    p->drawRect(getPlace().right(), getPlace().bottom(), -HANDLE_SIZE, -HANDLE_SIZE);
+//	p->drawRect(getPlace().left(), getPlace().top(), HANDLE_SIZE, HANDLE_SIZE);
+//	p->drawRect(getPlace().left(), getPlace().bottom(), HANDLE_SIZE, -HANDLE_SIZE);
+//	p->drawRect(getPlace().right(), getPlace().top(), -HANDLE_SIZE, HANDLE_SIZE);
+//	p->drawRect(getPlace().right(), getPlace().bottom(), -HANDLE_SIZE, -HANDLE_SIZE);
+
+  #define HANDLE_THICK 2
+	
+	p->setPen(QPen(black, HANDLE_THICK));
+	QRect place(getPlace().normalize());
+	place.rLeft() -= 1;
+	place.rRight() += HANDLE_THICK;
+	place.rTop() -= 1;
+	place.rBottom() += HANDLE_THICK;
+	
+	// Top Left Handle
+	
+	p->drawLine(place.left(),               place.top(),
+	            place.left() + HANDLE_SIZE, place.top());
+	p->drawLine(place.left(),               place.top(),
+	            place.left(),               place.top() + HANDLE_SIZE);
+	
+	// Bottom Left Handle
+	p->drawLine(place.left(),               place.bottom(),
+	            place.left() + HANDLE_SIZE, place.bottom());
+	p->drawLine(place.left(),               place.bottom(),
+	            place.left(),               place.bottom() - HANDLE_SIZE);
+
+	// Top Right Handle
+	p->drawLine(place.right(),               place.top(),
+	            place.right() - HANDLE_SIZE, place.top());
+	p->drawLine(place.right(),               place.top(),
+	            place.right(),               place.top() + HANDLE_SIZE);
+	
+	// Bottom Right Handle
+	p->drawLine(place.right(),               place.bottom(),
+	            place.right() - HANDLE_SIZE, place.bottom());
+	p->drawLine(place.right(),               place.bottom(),
+	            place.right(),               place.bottom() - HANDLE_SIZE);
 }
 
 eHitType CompViewSize::isHit(int x, int y) const
 {
-	eHitType hitRes = CompView::isHit(x,y);
-	
-    if (hitRes == NORMAL_HIT)
-    {
-    	QRect rect = getPlace().normalize();
-		if ((x <= rect.left()+HANDLE_SIZE ||
-			 x >= rect.right()-HANDLE_SIZE) &&
-			(y <= rect.top()+HANDLE_SIZE ||
-			 y >= rect.bottom()-HANDLE_SIZE ))
+	eHitType hitRes(NO_HIT);
+	QRect place(getPlace().normalize());
+	place.rLeft() -= 1;
+	place.rRight() += HANDLE_THICK;
+	place.rTop() -= 1;
+	place.rBottom() += HANDLE_THICK;
+
+	if (place.contains(x,y))
+	{
+		if (((x <= place.left()  + HANDLE_SIZE) && (y <= place.top()    + HANDLE_SIZE)) //top left
+		 || ((x >= place.right() - HANDLE_SIZE) && (y >= place.bottom() - HANDLE_SIZE)))//bottom right
 		{
-			return SPECIAL_HIT;
+			hitRes = COMP_RESIZE_F_HIT;
+		}
+		else
+		if (((x <= place.left()  + HANDLE_SIZE) && (y >= place.bottom() - HANDLE_SIZE))  //top right
+		 || ((x >= place.right() - HANDLE_SIZE) && (y <= place.top()    + HANDLE_SIZE))) //bottom left
+		{
+			hitRes = COMP_RESIZE_B_HIT;
+		}
+		else
+		{
+			hitRes = CompView::isHit(x,y);
 		}
 	}
 	return hitRes;

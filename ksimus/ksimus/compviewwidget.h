@@ -42,6 +42,9 @@ class CompViewWidgetPrivate;
 public: 
 	CompViewWidget(CompView * cv, QWidget *parent=0, const char *name=0);
 	~CompViewWidget();
+	
+	/** Returns the component view. */
+	CompView * getCompView() const { return m_compView; };
 
 		
 private slots:
@@ -50,6 +53,7 @@ private slots:
 
 private:
 	CompViewWidgetPrivate * m_p;	
+	CompView * m_compView;
 
 signals:
 	void destroyed(const QWidget * widget);

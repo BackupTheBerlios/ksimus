@@ -183,10 +183,20 @@ ComponentPropertyBaseWidget * BooleanButton::createGeneralProperty(Component * c
 BooleanButtonView::BooleanButtonView(Component * comp, eViewType viewType)
 	: CompViewSize(comp, viewType)
 {
-	setPlace(QRect(0, 0, 12*gridX, 3*gridY));
-	setMinSize(7*gridX,3*gridY);
-	enableConnectorSpacingTop(false);
-	enableConnectorSpacingBottom(false);
+	if(viewType == SHEET_VIEW)
+	{
+		setPlace(QRect(0, 0, 11*gridX, 3*gridY));
+		setMinSize(6*gridX,3*gridY);
+		enableConnectorSpacingRight(true);
+		enableConnectorSpacingTop(false);
+		enableConnectorSpacingBottom(false);
+		enableConnectorSpacingLeft(false);
+	}
+	else
+	{
+		setPlace(QRect(0, 0, 10*gridX, 3*gridY));
+		setMinSize(5*gridX,3*gridY);
+	}
 	
 	resize();
 }
