@@ -1,3 +1,5 @@
+	27.12.2002
+* Fix: Change some define names which are used in config.h now
 	30.11.2002
 * New: Boolean Or, Nor, Xor, Xnor with tristate output
 * Fix: Timing issue in Converter Boolean to Boolean Tristate
