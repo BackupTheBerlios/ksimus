@@ -18,10 +18,10 @@ libboolean_la_LDFLAGS = -avoid-version -module -no-undefined
 
 libboolean_la_METASOURCES = AUTO
 
-libboolean_la_SOURCES = monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
+libboolean_la_SOURCES = booleanconstant.cpp booleancounter.cpp monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
 
 
-EXTRA_DIST = boolean.cpp boolean.h lo16-app-boolean.png booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h 
+EXTRA_DIST = boolean.cpp boolean.h lo16-app-boolean.png booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h booleancounter.cpp booleancounter.h booleanconstant.cpp booleanconstant.h 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_icondir)/locolor/16x16/apps/
