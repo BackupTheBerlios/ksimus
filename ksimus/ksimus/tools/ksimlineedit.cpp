@@ -50,12 +50,13 @@ KSimLineEdit::KSimLineEdit(const QString & contents, QWidget *parent, const char
 void KSimLineEdit::focusOutEvent(QFocusEvent * ev)
 {
 	QLineEdit::focusOutEvent(ev);
-	if (edited())
+	slotChanged();
+/*	if (edited())
 	{
 		emit changed();
 		emit changed(text ());
 		setEdited(false);
-	}
+	}*/
 }
 
 void KSimLineEdit::slotChanged()
