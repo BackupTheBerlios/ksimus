@@ -38,6 +38,7 @@ class ConnectorBase;
 class ComponentLayout;
 class ConnectorPack;
 class CompLayoutBase;
+class CompView;
 
 
 //#######################################################################
@@ -275,7 +276,7 @@ public:
 	  * Construct a component layout, add connectors and other layout elements and forgot it :).
 	  * @param component Component for which the layout is.
 	  */
-	ComponentLayout(Component * component);
+	ComponentLayout(CompView * sheetView);
 	/** The destructor. Deletes also all added layout items. Do not use the destructor, this is done
 	  * by KSimus. */
 	~ComponentLayout();
@@ -306,6 +307,9 @@ public:
   /** Returns, if the component size is set to fix. */
   bool isFixedSize() const { return m_fixedSize; };
 
+	/** Returns the sheet view which uses the layout.
+	  */
+	CompView * getSheetView() const { return m_sheetView; };
 
 
 public slots:
@@ -317,6 +321,7 @@ public slots:
 
 
 private:
+	CompView * m_sheetView;
 	CompLayoutBase * m_left;
 	CompLayoutBase * m_right;
 	CompLayoutBase * m_top;

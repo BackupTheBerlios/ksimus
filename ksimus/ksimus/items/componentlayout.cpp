@@ -432,12 +432,27 @@ void CompLayoutBase::addPosition(QPoint & pos, int add)
 //#######################################################################
 
 
-ComponentLayout::ComponentLayout(Component * component)
-	:	ComponentAddOn(component, QString("Component Layout")),
+ComponentLayout::ComponentLayout(CompView * sheetView)
+	:	ComponentAddOn(sheetView->getComponent(), QString("Component Layout")),
+		m_sheetView(sheetView),
 		m_minSize(QSize(5,5)),
 		m_currentSize(QSize()),
 		m_fixedSize(false)
 {
+
+	#ifdef DEBUG
+		// Should only useful during development!
+		if (sheetView == 0)
+		{
+			KSIMDEBUG(QString("Add a layout to a compView == NULL"));
+			ASSERT(sheetView != 0);
+		}
+	
+		if (sheetView->getViewType() != SHEET_VIEW)
+		{
+			KSIMDEBUG(QString("Add a layout to a compView which is not a SHEET_VIEW! (Component %1)").arg(sheetView->getComponent()->getName()));
+		}
+	#endif // DEBUG
 	
 	getAction().disable(KSimAction::ALL);
 	
@@ -452,7 +467,7 @@ ComponentLayout::ComponentLayout(Component * component)
 	CHECK_PTR(m_bottom);
 
 
-	connect(getComponent()->getSheetView(), SIGNAL(signalResize(const QSize &)),
+	connect(getSheetView(), SIGNAL(signalResize(const QSize &)),
 					this, SLOT(slotResizeView()));
 }
 
@@ -480,10 +495,10 @@ void ComponentLayout::updateLayout()
 	topConn = getTop()->getItemList()->count() != 0;
 	bottomConn = getBottom()->getItemList()->count() != 0;
 	
-	getComponent()->getSheetView()->enableConnectorSpacingLeft(leftConn);
-	getComponent()->getSheetView()->enableConnectorSpacingRight(rightConn);
-	getComponent()->getSheetView()->enableConnectorSpacingTop(topConn);
-	getComponent()->getSheetView()->enableConnectorSpacingBottom(bottomConn);
+	getSheetView()->enableConnectorSpacingLeft(leftConn);
+	getSheetView()->enableConnectorSpacingRight(rightConn);
+	getSheetView()->enableConnectorSpacingTop(topConn);
+	getSheetView()->enableConnectorSpacingBottom(bottomConn);
 	
 	
 	leftSize         = getLeft()->getSize();
@@ -497,8 +512,8 @@ void ComponentLayout::updateLayout()
 
   if (isFixedSize())
   {
-  	sizeX = getComponent()->getSheetView()->getPlace().width() / gridX;
-  	sizeY = getComponent()->getSheetView()->getPlace().height() / gridY;
+  	sizeX = getSheetView()->getPlace().width() / gridX;
+  	sizeY = getSheetView()->getPlace().height() / gridY;
   }
   else
   {
@@ -515,7 +530,7 @@ void ComponentLayout::updateLayout()
 		
 		m_currentSize = QSize(sizeX * gridX, sizeY * gridY);
 		
-		QRect newPlace(getComponent()->getSheetView()->getPos(), m_currentSize);
+		QRect newPlace(getSheetView()->getPos(), m_currentSize);
 		QSize mapSize(getComponent()->getContainer()->getSheetSize());
 		
 		if (getComponent()->getContainer()->isVisible())
@@ -533,7 +548,7 @@ void ComponentLayout::updateLayout()
 				newPlace.moveBy( -newPlace.left(), 0);
 		}
 		
-		getComponent()->getSheetView()->setPlace(newPlace);
+		getSheetView()->setPlace(newPlace);
 	}
 	
  	int i;
@@ -545,12 +560,14 @@ void ComponentLayout::updateLayout()
  	getTop()->position(i, topSumStretch, QPoint(leftConn?1:0,0));
  	i = sizeX - bottomSize;
  	getBottom()->position(i, bottomSumStretch, QPoint(leftConn?1:0,sizeY-1));
+ 	
+ 	getComponent()->refresh();
 }
 
 
 void ComponentLayout::slotResizeView()
 {
-	if (getComponent()->getSheetView()->getPlace().size() != m_currentSize)
+	if (getSheetView()->getPlace().size() != m_currentSize)
 	{
 		updateLayout();
 	}
