@@ -842,7 +842,7 @@ bool ModuleData::checkConnectorPosition(bool showMessage)
 				KSIMDEBUG(QString::fromLatin1("bottomArea (%1/%2 - %3/%4)").arg(bottomArea.left()).arg(bottomArea.top()).arg(bottomArea.right()).arg(bottomArea.bottom()));
 				KSIMDEBUG(QString::fromLatin1("leftArea (%1/%2 - %3/%4)").arg(leftArea.left()).arg(leftArea.top()).arg(leftArea.right()).arg(leftArea.bottom()));
 				KSIMDEBUG(QString::fromLatin1("rightArea (%1/%2 - %3/%4)").arg(rightArea.left()).arg(rightArea.top()).arg(rightArea.right()).arg(rightArea.bottom()));
-//				matchPos = false;
+				matchPos = false;
 //				break;
 			}
 		}
@@ -850,17 +850,15 @@ bool ModuleData::checkConnectorPosition(bool showMessage)
 
 	if (!matchPos && showMessage)
 	{
-		QString s1 = i18n("The placement of the external connectors does not match the module shape!");
-		QString s2 = i18n("\n\nThe common reason for this error is a resized module without rearranged external connectors.");
-		KMessageBox::error((QWidget*)0, s1 + s2,
-		                   i18n("Load Module"));
+		QString s(i18n("The placement of the external connectors don't match the module shape! Switch to generic view.\n"
+		               "Hint: The common reason for this error is a resized module without rearranged external connectors."));
 		if (m_container->isParentComponent())
 		{
-			m_container->getParentComponent()->logError(s1);
+			m_container->getParentComponent()->logError(s);
 		}
 		else
 		{
-			m_container->getLogList()->error(s1);
+			m_container->getLogList()->error(s);
 		}
 	}
 	return matchPos;
