@@ -36,6 +36,7 @@
 #include <kstdaction.h>
 #include <kstddirs.h>
 #include <kstatusbar.h>
+#include <kaccel.h>
 
 // application specific includes
 #include "globals.h"
@@ -105,7 +106,8 @@ public:
 			sheetView(0),
 			userView(0),
 			moduleDialog(0),
-			currentView(APP_SHEET_VIEW)
+			currentView(APP_SHEET_VIEW),
+			accel(0)
 	{};	
 	
 /*	~Private()
@@ -119,9 +121,15 @@ public:
 	eAppViewType currentView;
 	QString moduleFile;
 	QTimer * messageTimer;
+	KAccel * accel;
+
+
+	static const QString idDelete;
+
 	
 };
 
+const QString KSimusApp::Private::idDelete(QString::fromLatin1("Delete"));
 
 
 
@@ -244,6 +252,15 @@ KSimusApp::~KSimusApp()
 
 void KSimusApp::initActions()
 {
+	m_p->accel = new KAccel(this);
+	CHECK_PTR(m_p->accel);
+	m_p->accel->insertItem(i18n("Delete"), Private::idDelete, Key_Delete);
+	m_p->accel->connectItem(Private::idDelete, this, SLOT(slotEditDelete()));
+	
+
+	m_p->accel->readSettings();
+
+
 	fileNewWindow = new KAction(i18n("New &Window"), QString::null, 0, this, SLOT(slotFileNewWindow()), actionCollection(),"file_new_window");
 	fileNew = KStdAction::openNew(this, SLOT(slotFileNew()), actionCollection());
 	fileOpen = KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
@@ -256,7 +273,7 @@ void KSimusApp::initActions()
 	editUndo = KStdAction::undo(this, SLOT(slotEditUndo()), actionCollection());
 	editRedo = KStdAction::redo(this, SLOT(slotEditRedo()), actionCollection());
 	
-	editDelete = new KAction(i18n("&Delete"), 0, this, SLOT(slotEditDelete()), actionCollection(), "edit_delete");
+	editDelete = new KAction(i18n("Delete"), m_p->accel->currentKey(Private::idDelete), this, SLOT(slotEditDelete()), actionCollection(), "edit_delete");
 	editCut = KStdAction::cut(this, SLOT(slotEditCut()), actionCollection());
 	editCopy = KStdAction::copy(this, SLOT(slotEditCopy()), actionCollection());
 	editPaste = KStdAction::paste(this, SLOT(slotEditPaste()), actionCollection());
@@ -285,17 +302,26 @@ void KSimusApp::initActions()
 	executeStop = new KAction(i18n("S&top"), QString::fromLatin1("stop"), 0, this, SLOT(slotExecuteStop()), actionCollection(), "execute_stop");
 	executePause = new KToggleAction(i18n("&Pause"), QString::fromLatin1("player_pause"), 0, this, SLOT(slotExecutePause()), actionCollection(), "execute_pause");
 	
-	helpPackages = new KSelectAction(i18n("&Package help"), 0, this, SLOT(slotHelpPackages()), actionCollection(), "help_packages");
-	QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
 	QStringList list;
+	QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
 	for (packageIt.toFirst(); packageIt.current(); ++packageIt)
 	{
-		list.append(packageIt.current()->getPackageName());
+		// Add if not KSimus handbook
+		if (packageIt.current()->getInstance() != KGlobal::instance())
+			list.append(packageIt.current()->getPackageName());
 	}
-	helpPackages->setItems(list);
+	if (list.count())
+	{
+		helpPackages = new KSelectAction(i18n("&Package handbooks"), 0, this, SLOT(slotHelpPackages()), actionCollection(), "help_packages");
+		helpPackages->setItems(list);
+	}
+	else
+	{
+		helpPackages = (KSelectAction *)0;
+	}
 	
 
-	testAction = new KAction(i18n("Test &Action"), 0, 0, this, SLOT(slotTestAction()), actionCollection(),"test_action");
+	testAction = new KAction(i18n("Test &Action"), QString::null, 0, this, SLOT(slotTestAction()), actionCollection(),"test_action");
 
 	fileNewWindow->setToolTip(i18n("Opens a new application window"));
 	fileNew->setToolTip(i18n("Creates a new document"));
@@ -338,12 +364,16 @@ void KSimusApp::initActions()
 	settingWatchWidget->setToolTip(i18n("General watch settings"));
 	settingLogWidget->setToolTip(i18n("Log Window Properties"));
 
-	helpPackages->setToolTip(i18n("Package handbooks"));
+	if (helpPackages)
+	{
+		helpPackages->setToolTip(i18n("Package handbooks"));
+	}
 
 	connect(actionCollection(),SIGNAL(actionStatusText(const QString &)),SLOT(slotStatusHelpMsg(const QString &)));
 	actionCollection()->setHighlightingEnabled(true);
 	// use the absolute path to your ksimusui.rc file for testing purpose in createGUI();
-	createGUI(QString::fromLatin1("/home/rasmus/Projekte/ksimus-0.3.7/ksimus/ksimusui.rc"));  //TODO remove
+//	createGUI(QString::fromLatin1("/home/rasmus/Projekte/ksimus/ksimus/ksimusui.rc"));  //TODO remove
+	createGUI();
 
 }
 
@@ -389,7 +419,7 @@ void KSimusApp::initView()
 	getDocument()->addView(m_p->sheetView);
 
 	connect(m_p->sheetView->getEditor(), SIGNAL(editorModeChanged(int)),
-			this, SLOT(slotEditorModeChanged(int)));
+	        this, SLOT(slotEditorModeChanged(int)));
 	
 	connect(m_p->sheetView->getEditor(),SIGNAL(deleteAllowed(bool)),SLOT(slotDeleteAllowed(bool)));
 	connect(m_p->sheetView->getEditor(),SIGNAL(cutAllowed(bool)),SLOT(slotCutAllowed(bool)));
@@ -407,7 +437,7 @@ void KSimusApp::initView()
 	getDocument()->addView(m_p->userView);
 
 	connect(m_p->userView->getEditor(), SIGNAL(editorModeChanged(int)),
-			this, SLOT(slotEditorModeChanged(int)));
+	        this, SLOT(slotEditorModeChanged(int)));
 	
 	connect(m_p->userView->getEditor(),SIGNAL(deleteAllowed(bool)),SLOT(slotDeleteAllowed(bool)));
 	connect(m_p->userView->getEditor(),SIGNAL(cutAllowed(bool)),SLOT(slotCutAllowed(bool)));
@@ -768,7 +798,13 @@ void KSimusApp::slotFileQuit()
 	KMainWindow* w;
 	if(memberList)
 	{
+#if QT_VERSION >= 200 && QT_VERSION < 300
+// version 2.x
 		for(w=memberList->first(); w!=0; w=memberList->first())
+#else
+// version 3.x
+		for(w=memberList->first(); w!=0; w=memberList->next())
+#endif
 		{
 			// only close the window if the closeEvent is accepted. If the user presses Cancel on the saveModified() dialog,
 			// the window and the application stay open.
@@ -1478,28 +1514,29 @@ void KSimusApp::slotSetupActions()
 	bool stopped = !running;
 	bool editView = (getCurrentView() != APP_MODULE_VIEW);
 	
-	fileNewWindow->setEnabled(stopped);
+//	fileNewWindow->setEnabled(true); always enabled
 	fileNew->setEnabled(stopped);
 	fileOpen->setEnabled(stopped);
 	fileOpenRecent->setEnabled(stopped);
 	fileSave->setEnabled(stopped && m_saveAllowed);
 	fileSaveAs->setEnabled(stopped);
-	fileClose->setEnabled(true);
-	filePrint->setEnabled(true);
-	fileQuit->setEnabled(true);
+//	fileClose->setEnabled(true);     always enabled
+//	filePrint->setEnabled(true);     always enabled
+//	fileQuit->setEnabled(true);      always enabled
 	
 	editUndo->setEnabled(stopped && m_undoAllowed);
 	editRedo->setEnabled(stopped && m_redoAllowed);
 	editDelete->setEnabled(stopped && editView && m_deleteAllowed);
+	m_p->accel->setItemEnabled(Private::idDelete, stopped && editView && m_deleteAllowed);
 	editCut->setEnabled(stopped && editView && m_cutAllowed);
 	editCopy->setEnabled(stopped && editView && m_copyAllowed);
 	editPaste->setEnabled(stopped && editView && m_pastAllowed);
 	editInsertModule->setEnabled(stopped && editView);
 	
-//	viewToolBar->setEnabled(ena);		always enabled
-//	viewStatusBar->setEnabled(ena);		always enabled
-//	viewLogView->setEnabled(ena);		always enabled
-//	viewTreeView->setEnabled(ena);		always enabled
+//	viewToolBar->setEnabled(true);     always enabled
+//	viewStatusBar->setEnabled(true);   always enabled
+//	viewLogView->setEnabled(true);     always enabled
+//	viewTreeView->setEnabled(true);    always enabled
 	viewCostmap->setEnabled(stopped);
 	viewTreeFold->setEnabled(stopped);
 	viewTreeUnfold->setEnabled(stopped);
