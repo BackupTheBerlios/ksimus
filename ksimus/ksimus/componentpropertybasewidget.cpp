@@ -28,8 +28,7 @@
 
 ComponentPropertyBaseWidget::ComponentPropertyBaseWidget(Component * comp, QWidget *parent, const char *name )
 	:	PropertyWidget(parent,name),
-		m_component(comp)/*,
-		m_dataChanged(false)*/
+		ComponentItem(comp)
 {
 }
 
@@ -37,29 +36,4 @@ ComponentPropertyBaseWidget::ComponentPropertyBaseWidget(Component * comp, QWidg
 {
 } */
 
-Component * ComponentPropertyBaseWidget::getComponent() const
-{
-	return m_component;
-}
-
-/*void ComponentPropertyBaseWidget::slotAccept()
-{
-}
-
-void ComponentPropertyBaseWidget::slotDefault()
-{
-}
-	
-void ComponentPropertyBaseWidget::slotCancel()
-{
-}
-
-void ComponentPropertyBaseWidget::changeData()
-{
-	if (!m_dataChanged)
-	{
-		emit signalChangeData();
-		m_dataChanged = true;
-	}
-} */
 
