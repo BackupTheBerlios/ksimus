@@ -24,6 +24,8 @@
 #include <qobjectlist.h>
 
 // KDE-Includes
+#include <kconfig.h>
+#include <kapp.h>
 
 // Project-Includes
 #include "ksimdialog.h"
@@ -336,6 +338,30 @@ bool KSimDialog::isChanged() const
 void KSimDialog::setChanged(bool changed)
 {
 	m_p->m_changed = changed;
+}
+
+void KSimDialog::readSize(const char * group, const char * key)
+{
+	// Load last size
+	KConfig * config=kapp->config();
+	QString oldGroup(config->group());
+	config->setGroup(group);
+	QSize size=config->readSizeEntry(key ? key : "Geometry");
+	config->setGroup(oldGroup);
+	if(!size.isEmpty())
+	{
+		resize(size);
+	}
+}
+
+void KSimDialog::writeSize(const char * group, const char * key) const
+{
+	// Save size
+	KConfig * config=kapp->config();
+	QString oldGroup(config->group());
+	config->setGroup(group);
+	config->writeEntry(key ? key : "Geometry", size());
+	config->setGroup(oldGroup);
 }
 
 

@@ -63,6 +63,17 @@ public:
 	/** Returns true, if one or more PropertyWidget contains changed data. */
 	bool isChanged() const;
 
+	/** Reads dialog size from KConfig.
+	  * @param group The group where the entry is searched.
+	  * @param key   The key of the entry. Use "Geometry" if key is 0.
+	  */
+	void readSize(const char * group, const char * key = (const char *)0);
+	/** Writes dialog size to KConfig.
+	  * @param group The group where the entry is searched.
+	  * @param key   The key of the entry. Use "Geometry" if key is 0.
+	  */
+	void writeSize(const char * group, const char * key = (const char *)0) const;
+
 protected slots:
 	virtual void slotDataChanged();
 	virtual void slotOk();
