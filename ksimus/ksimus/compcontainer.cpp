@@ -50,12 +50,12 @@
 
 #include "ksimgrid.h"
 
-static const char * sPropertyGrp    = "Property/";
-static const char * sModuleGrp      = "Module/";
-//static const char * sRequirementGrp = "Requirement/";
-static const char * sSheetSize      = "Sheetsize";
-static const char * sUserSize       = "Usersize";
-static const char * sSerialNumber   = "Last Serial Number";
+static const char * const sPropertyGrp    = "Property/";
+static const char * const sModuleGrp      = "Module/";
+//static const char * const sRequirementGrp = "Requirement/";
+static const char * const sSheetSize      = "Sheetsize";
+static const char * const sUserSize       = "Usersize";
+static const char * const sSerialNumber   = "Last Serial Number";
 
 class WirePropertyInfo;
 
@@ -840,7 +840,6 @@ eHitType CompContainer::isCompViewHit(const QPoint & pos, const CompViewList * v
 bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 {
 	unsigned int numOfComp;
-	unsigned int loadedCompCounter = 0;
 	unsigned int err = 0;
 	QProgressDialog * progress = 0;
 	QString baseGroup;
@@ -857,11 +856,9 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 	if (isParentDoc())
 	{
 		// Not for modules !!
-		progress = new QProgressDialog(i18n("Loading..."), QString::null, numOfComp, getApp(), "progress");
+		progress = new QProgressDialog(i18n("Loading..."), QString::null, 2*numOfComp, getApp(), "progress");
 		CHECK_PTR(progress);
-		progress->setMinimumDuration(1000);
 	}
-
 
 	// First load components (no wires)
 	for (unsigned int i=0;i < numOfComp; i++)
@@ -879,11 +876,9 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		// No Wire ?
 		if (id != getWireInfo()->getLibName())
 		{
-			loadedCompCounter++;
-
-			if (progress && ((loadedCompCounter & 0x7) == 0))
+			if (progress && ((i & 0x7) == 0))
 			{
-				progress->setProgress(loadedCompCounter);
+				progress->setProgress(i);
 				qApp->processEvents();
 			}
 
@@ -961,11 +956,9 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		// Wire ?
 		if (id == getWireInfo()->getLibName())
 		{
-			loadedCompCounter++;
-			
-			if (progress && ((loadedCompCounter & 0x7) == 0))
+			if (progress && (((numOfComp + i) & 0x7) == 0))
 			{
-				progress->setProgress(loadedCompCounter);
+				progress->setProgress(numOfComp + i);
 				qApp->processEvents();
 			}
 
