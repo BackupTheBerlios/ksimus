@@ -5,21 +5,21 @@ Document Version=KSimus 0.3.5
 
 [/Component 0/]
 Serial Number=4
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 0/Sheet/]
 Pos=520,24
 
 [/Component 1/]
 Serial Number=6
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 1/Sheet/]
 Pos=552,56
 
 [/Component 10/]
 Serial Number=36
-Type=Converter/Boolean to Boolean TriState
+Type=Converter/Boolean to Boolean Tristate
 
 [/Component 10/Sheet/]
 Pos=160,328
@@ -45,35 +45,35 @@ Unit=Ticks
 
 [/Component 12/]
 Serial Number=42
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 12/Sheet/]
 Pos=552,248
 
 [/Component 13/]
 Serial Number=43
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 13/Sheet/]
 Pos=520,280
 
 [/Component 14/]
 Serial Number=51
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 14/Sheet/]
 Pos=552,184
 
 [/Component 15/]
 Serial Number=58
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 15/Sheet/]
 Pos=520,216
 
 [/Component 16/]
 Serial Number=73
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 16/Sheet/]
 Pos=552,312
@@ -118,14 +118,14 @@ Unit=Ticks
 
 [/Component 19/]
 Serial Number=86
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 19/Sheet/]
 Pos=384,32
 
 [/Component 2/]
 Serial Number=7
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 2/Sheet/]
 Pos=520,88
@@ -133,7 +133,7 @@ Pos=520,88
 [/Component 20/]
 Reset State=False
 Serial Number=87
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 20/Sheet/]
 Pos=384,64
@@ -141,63 +141,63 @@ Pos=384,64
 [/Component 21/]
 Reset State=True
 Serial Number=88
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 21/Sheet/]
 Pos=384,96
 
 [/Component 22/]
 Serial Number=89
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 22/Sheet/]
 Pos=480,320
 
 [/Component 23/]
 Serial Number=90
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 23/Sheet/]
 Pos=432,288
 
 [/Component 24/]
 Serial Number=91
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 24/Sheet/]
 Pos=432,320
 
 [/Component 25/]
 Serial Number=93
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 25/Sheet/]
 Pos=432,192
 
 [/Component 26/]
 Serial Number=94
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 26/Sheet/]
 Pos=384,192
 
 [/Component 27/]
 Serial Number=96
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 27/Sheet/]
 Pos=480,224
 
 [/Component 28/]
 Serial Number=97
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 28/Sheet/]
 Pos=432,224
 
 [/Component 29/]
 Serial Number=99
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 29/Sheet/]
 Pos=384,224
@@ -322,14 +322,14 @@ Pos=608,24
 
 [/Component 30/]
 Serial Number=100
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 30/Sheet/]
 Pos=336,224
 
 [/Component 31/]
 Serial Number=103
-Type=External Connector/Bool TriState Output
+Type=External Connector/Bool Tristate Output
 
 [/Component 31/Sheet/]
 Pos=384,160
@@ -886,7 +886,7 @@ Type=wire/property/boolean
 
 [/Component 6/]
 Serial Number=20
-Type=Converter/Boolean to Boolean TriState
+Type=Converter/Boolean to Boolean Tristate
 
 [/Component 6/Sheet/]
 Pos=152,104
@@ -1128,14 +1128,14 @@ Type=wire/property/boolean tristate
 
 [/Component 8/]
 Serial Number=26
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 8/Sheet/]
 Pos=552,120
 
 [/Component 9/]
 Serial Number=32
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 9/Sheet/]
 Pos=520,152

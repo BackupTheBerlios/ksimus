@@ -41,7 +41,7 @@ KSimBoolTristateBox::KSimBoolTristateBox(bool value, bool active, QWidget *paren
 	setValue(value, active);
 }
 
-KSimBoolTristateBox::KSimBoolTristateBox(KSimBoolTriState state, QWidget *parent, const char *name)
+KSimBoolTristateBox::KSimBoolTristateBox(KSimBoolTristate state, QWidget *parent, const char *name)
 	: QComboBox(parent,name)
 {
 	init();
@@ -98,12 +98,12 @@ QString KSimBoolTristateBox::getActiveText() const
 
 void KSimBoolTristateBox::slotActivated(int i)
 {
-	switch((eKSimBoolTriState)i)
+	switch((eKSimBoolTristate)i)
 	{
 		case KSIMBOOLTRISTATE_FALSE:
 		case KSIMBOOLTRISTATE_TRUE:
 		case KSIMBOOLTRISTATE_INACTIVE:
-			emit activated(KSimBoolTriState((eKSimBoolTriState)i));
+			emit activated(KSimBoolTristate((eKSimBoolTristate)i));
 			break;
 
 		default:
@@ -115,12 +115,12 @@ void KSimBoolTristateBox::slotActivated(int i)
 
 void KSimBoolTristateBox::slotHighlighted(int i)
 {
-	switch((eKSimBoolTriState)i)
+	switch((eKSimBoolTristate)i)
 	{
 		case KSIMBOOLTRISTATE_FALSE:
 		case KSIMBOOLTRISTATE_TRUE:
 		case KSIMBOOLTRISTATE_INACTIVE:
-			emit highlighted(KSimBoolTriState((eKSimBoolTriState)i));
+			emit highlighted(KSimBoolTristate((eKSimBoolTristate)i));
 			break;
 
 		default:
@@ -130,7 +130,7 @@ void KSimBoolTristateBox::slotHighlighted(int i)
 	
 }
 
-void KSimBoolTristateBox::setValue(KSimBoolTriState state)
+void KSimBoolTristateBox::setValue(KSimBoolTristate state)
 {
 	setCurrentItem((int)state);
 }
@@ -151,7 +151,7 @@ void KSimBoolTristateBox::setValue(bool state, bool active)
 	}
 }
 
-KSimBoolTriState KSimBoolTristateBox::getValue() const
+KSimBoolTristate KSimBoolTristateBox::getValue() const
 {
-	return KSimBoolTriState((eKSimBoolTriState)currentItem());
+	return KSimBoolTristate((eKSimBoolTristate)currentItem());
 }

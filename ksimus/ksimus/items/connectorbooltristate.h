@@ -36,9 +36,9 @@
   *@author Rasmus Diekenbrock
   */
 
-const ConnectorInfo * getConnectorBoolTriStateInfo();
+const ConnectorInfo * getConnectorBoolTristateInfo();
 
-class ConnectorBoolTriState : public ConnectorTriStateBase
+class ConnectorBoolTristate : public ConnectorTristateBase
 {
 	Q_OBJECT
 
@@ -53,7 +53,7 @@ public:
 	 *                  the property widget.
 	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolTriState(Component * comp,
+	ConnectorBoolTristate(Component * comp,
 	                      const QString & name,
 	                      const QString & i18nName,
 	                      const QPoint & pos = QPoint());
@@ -70,7 +70,7 @@ public:
 	 * @param descr     Sets the description of the connector label.
 	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolTriState(Component * comp,
+	ConnectorBoolTristate(Component * comp,
 	                      const QString & name,
 	                      const QString & i18nName,
 	                      const QString & descr,
@@ -90,11 +90,11 @@ public:
 	* @param executeWirePropertyNext  If set the wire property is execute next. The parameter is used
 	*                                 with zero delay components.
 	*/
-	void setOutput(KSimBoolTriState state, bool executeWirePropertyNext = true);
+	void setOutput(KSimBoolTristate state, bool executeWirePropertyNext = true);
 /** Return the current output */
-	KSimBoolTriState getOutput() const;
+	KSimBoolTristate getOutput() const;
 /** Return the current wire state */
-	KSimBoolTriState getInput() const;
+	KSimBoolTristate getInput() const;
 	
 	// Get the colors for the connector
 	virtual const WireColorScheme & getColorScheme() const;
@@ -133,7 +133,7 @@ protected:
 	 * @param orient    Sets the orientation of the connector.
 	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
-	ConnectorBoolTriState(Component * comp,
+	ConnectorBoolTristate(Component * comp,
 	                      const QString & name,
 	                      const QString & i18nName,
 	                      const QPoint & pos,
@@ -145,8 +145,8 @@ private:
 	/** Internal init function. */
 	void init();
 	
-	WireStateBoolTriState m_inData;
-	WireStateBoolTriState m_outData;
+	WireStateBoolTristate m_inData;
+	WireStateBoolTristate m_outData;
 };
 
 
@@ -161,9 +161,9 @@ private:
   * Used in External Connector
   */
 
-const ConnectorInfo * getConnectorBoolTriStateSpecialInfo();
+const ConnectorInfo * getConnectorBoolTristateSpecialInfo();
 
-class ConnectorBoolTriStateSpecial : public ConnectorBoolTriState
+class ConnectorBoolTristateSpecial : public ConnectorBoolTristate
 {
 	Q_OBJECT
 
@@ -178,7 +178,7 @@ public:
 	 *                  the property widget.
 	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolTriStateSpecial(Component * comp,
+	ConnectorBoolTristateSpecial(Component * comp,
 	                             const QString & name,
 	                             const QString & i18nName,
 	                             const QPoint & pos = QPoint());
@@ -195,7 +195,7 @@ public:
 	 * @param descr     Sets the description of the connector label.
 	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
 	 */
-	ConnectorBoolTriStateSpecial(Component * comp,
+	ConnectorBoolTristateSpecial(Component * comp,
 	                             const QString & name,
 	                             const QString & i18nName,
 	                             const QString & descr,
@@ -219,7 +219,7 @@ protected:
 	 * @param orient    Sets the orientation of the connector.
 	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
-	ConnectorBoolTriStateSpecial(Component * comp,
+	ConnectorBoolTristateSpecial(Component * comp,
 	                             const QString & name,
 	                             const QString & i18nName,
 	                             const QPoint & pos,

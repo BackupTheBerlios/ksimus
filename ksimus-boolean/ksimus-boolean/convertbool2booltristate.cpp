@@ -42,14 +42,14 @@ namespace KSimLibBoolean
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new ConvertBool2BoolTriState(container, ci);
+	return new ConvertBool2BoolTristate(container, ci);
 }
 
-const ComponentInfo * getConvertBool2BoolTriStateInfo()
+const ComponentInfo * getConvertBool2BoolTristateInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean to Boolean TriState"),
-	                                QString::fromLatin1("Converter/Boolean to Boolean TriState"),
-	                                i18n("Component", "Converter/Boolean to Boolean TriState"),
+	static const ComponentInfo Info(i18n("Component", "Boolean to Boolean Tristate"),
+	                                QString::fromLatin1("Converter/Boolean to Boolean Tristate"),
+	                                i18n("Component", "Converter/Boolean to Boolean Tristate"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create/*,
@@ -62,7 +62,7 @@ const ComponentInfo * getConvertBool2BoolTriStateInfo()
 //###############################################################
 
 
-ConvertBool2BoolTriState::ConvertBool2BoolTriState(CompContainer * container, const ComponentInfo * ci)
+ConvertBool2BoolTristate::ConvertBool2BoolTristate(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci),
 		m_lockRecursion(false)
 {
@@ -81,7 +81,7 @@ ConvertBool2BoolTriState::ConvertBool2BoolTriState(CompContainer * container, co
 	                           QString::fromLatin1("E"));
 	CHECK_PTR(m_connActiveIn);
 	
-	m_connOut = new ConnectorBoolTriState(this,
+	m_connOut = new ConnectorBoolTristate(this,
 	                           QString::fromLatin1("Output"),
 	                           i18n("Connector", "Output"));
 	CHECK_PTR(m_connOut);
@@ -90,23 +90,23 @@ ConvertBool2BoolTriState::ConvertBool2BoolTriState(CompContainer * container, co
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ConvertBool2BoolTriStateView(this, SHEET_VIEW);
+		new ConvertBool2BoolTristateView(this, SHEET_VIEW);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
-ConvertBool2BoolTriState::~ConvertBool2BoolTriState()
+ConvertBool2BoolTristate::~ConvertBool2BoolTristate()
 {
 }
 
-void ConvertBool2BoolTriState::reset()
+void ConvertBool2BoolTristate::reset()
 {
 	Component::reset();
 	
 	m_lockRecursion = false;
 }
 
-void ConvertBool2BoolTriState::calculate()
+void ConvertBool2BoolTristate::calculate()
 {
 	if(!m_lockRecursion)
 	{
@@ -124,14 +124,14 @@ void ConvertBool2BoolTriState::calculate()
 	{
 		executeNext();
 	}
-//	KSIMDEBUG("ConvertBool2BoolTriState::calculate()");
+//	KSIMDEBUG("ConvertBool2BoolTristate::calculate()");
 }
 
 //###############################################################
 //###############################################################
 
 
-ConvertBool2BoolTriStateView::ConvertBool2BoolTriStateView(ConvertBool2BoolTriState * comp, eViewType viewType)
+ConvertBool2BoolTristateView::ConvertBool2BoolTristateView(ConvertBool2BoolTristate * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 	if (viewType == SHEET_VIEW)
@@ -158,7 +158,7 @@ ConvertBool2BoolTriStateView::ConvertBool2BoolTriStateView(ConvertBool2BoolTriSt
 	}
 }
 
-void ConvertBool2BoolTriStateView::draw(QPainter * p)
+void ConvertBool2BoolTristateView::draw(QPainter * p)
 {
 	CompView::draw(p);
 	

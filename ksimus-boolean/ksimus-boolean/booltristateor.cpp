@@ -37,16 +37,16 @@
 namespace KSimLibBoolean
 {
 
-Component * BoolTriStateOr::create(CompContainer * container, const ComponentInfo * ci)
+Component * BoolTristateOr::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new BoolTriStateOr(container, ci);
+	return new BoolTristateOr(container, ci);
 }
 
-const ComponentInfo * BoolTriStateOr::getStaticOrInfo()
+const ComponentInfo * BoolTristateOr::getStaticOrInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean OR with TriState output"),
-	                                QString::fromLatin1("Boolean/Tristate/Gates/OR TriState"),
-	                                i18n("Component", "Boolean/Tristate/Gates/OR with TriState output"),
+	static const ComponentInfo Info(i18n("Component", "Boolean OR with Tristate output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/OR Tristate"),
+	                                i18n("Component", "Boolean/Tristate/Gates/OR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create/* todo,
@@ -55,11 +55,11 @@ const ComponentInfo * BoolTriStateOr::getStaticOrInfo()
 	return &Info;
 }
 
-const ComponentInfo * BoolTriStateOr::getStaticNorInfo()
+const ComponentInfo * BoolTristateOr::getStaticNorInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean NOR with TriState output"),
-	                                QString::fromLatin1("Boolean/Tristate/Gates/NOR TriState"),
-	                                i18n("Component", "Boolean/Tristate/Gates/NOR with TriState output"),
+	static const ComponentInfo Info(i18n("Component", "Boolean NOR with Tristate output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/NOR Tristate"),
+	                                i18n("Component", "Boolean/Tristate/Gates/NOR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create /* TODO,
@@ -71,8 +71,8 @@ const ComponentInfo * BoolTriStateOr::getStaticNorInfo()
 //###############################################################
 //###############################################################
 
-BoolTriStateOr::BoolTriStateOr(CompContainer * container, const ComponentInfo * ci)
-	: BoolTriStateXIn1Out1Ena(container, ci)
+BoolTristateOr::BoolTristateOr(CompContainer * container, const ComponentInfo * ci)
+	: BoolTristateXIn1Out1Ena(container, ci)
 {
 	
 	// make NOR
@@ -84,16 +84,16 @@ BoolTriStateOr::BoolTriStateOr(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTriStateOrView(this, SHEET_VIEW);
+		new BoolTristateOrView(this, SHEET_VIEW);
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
-void BoolTriStateOr::calculate()
+void BoolTristateOr::calculate()
 {
-	BoolTriStateXIn1Out1Ena::calculate();
+	BoolTristateXIn1Out1Ena::calculate();
 	
 	bool result = false;
 	

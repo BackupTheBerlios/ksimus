@@ -31,13 +31,13 @@ namespace KSimLibBoolean
   *@author Rasmus Diekenbrock
   */
 
-class ExtConnBoolTriStateBase : public ExternalConnector
+class ExtConnBoolTristateBase : public ExternalConnector
 {
 	Q_OBJECT
 	
 public: 
-	ExtConnBoolTriStateBase(CompContainer * container, const ComponentInfo * ci);
-//	~ExtConnBoolTriStateBase();
+	ExtConnBoolTristateBase(CompContainer * container, const ComponentInfo * ci);
+//	~ExtConnBoolTristateBase();
 
 	/** Resets the component state. */
 	virtual void reset();
@@ -50,18 +50,18 @@ public:
 	virtual bool load(KSimData & file, bool copyLoad);
 
 	/** Sets the reset state. The component gets this state each call @ref reset. */
-	void setResetState(KSimBoolTriState resetState);
+	void setResetState(KSimBoolTristate resetState);
 
 	/** Returns the reset state. The component gets this state each call @ref reset. */
-	KSimBoolTriState getResetState() const;
+	KSimBoolTristate getResetState() const;
 
 	/** Creates the general property page for the property dialog.
-	  * This function creates a @ref ExtConnBoolTriStateInPropertyGeneralWidget.
+	  * This function creates a @ref ExtConnBoolTristateInPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
-	/** Returns true, if the connector is connected to a ConnectorBoolTriState. */
-	static bool isConnectedWithBoolTriState(ConnectorBase * conn);
+	/** Returns true, if the connector is connected to a ConnectorBoolTristate. */
+	static bool isConnectedWithBoolTristate(ConnectorBase * conn);
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
@@ -71,23 +71,23 @@ protected:
 	  * @param input       True, if the external connector is an input (on the left side of the module)
 	  * @param multiOutput True, if the data type of the external connector supports multiple outputs
 	  */
-	ExtConnBoolTriStateBase(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput = false);
+	ExtConnBoolTristateBase(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput = false);
 
 private:
-	KSimBoolTriState m_resetState;
+	KSimBoolTristate m_resetState;
 };
 
 
 
 //###############################################################
 
-class ExtConnBoolTriStateBasePropertyGeneralWidget : public ExternalConnectorPropertyGeneralWidget
+class ExtConnBoolTristateBasePropertyGeneralWidget : public ExternalConnectorPropertyGeneralWidget
 {
 	Q_OBJECT
 
 public:
-	ExtConnBoolTriStateBasePropertyGeneralWidget(ExtConnBoolTriStateBase * comp, QWidget *parent=0, const char *name=0);
-//	~ExtConnBoolTriStateBasePropertyGeneralWidget();
+	ExtConnBoolTristateBasePropertyGeneralWidget(ExtConnBoolTristateBase * comp, QWidget *parent=0, const char *name=0);
+//	~ExtConnBoolTristateBasePropertyGeneralWidget();
 
 
 	/** The function acceptPressed() is called, if changes are accepted.
@@ -100,7 +100,7 @@ public:
 	 */
 	virtual void defaultPressed();
 
-	ExtConnBoolTriStateBase * getExtConn() { return (ExtConnBoolTriStateBase *)getComponent(); };
+	ExtConnBoolTristateBase * getExtConn() { return (ExtConnBoolTristateBase *)getComponent(); };
 
 private:
 	KSimBoolTristateBox * m_defaultState;
@@ -112,13 +112,13 @@ private:
   *@author Rasmus Diekenbrock
   */
 
-class ExtConnBoolTriStateIn : public ExtConnBoolTriStateBase
+class ExtConnBoolTristateIn : public ExtConnBoolTristateBase
 {
 	Q_OBJECT
 
 public:
-	ExtConnBoolTriStateIn(CompContainer * container, const ComponentInfo * ci);
-//	~ExtConnBoolTriStateIn();
+	ExtConnBoolTristateIn(CompContainer * container, const ComponentInfo * ci);
+//	~ExtConnBoolTristateIn();
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
@@ -130,13 +130,13 @@ public:
   *@author Rasmus Diekenbrock
   */
 
-class ExtConnBoolTriStateOut : public ExtConnBoolTriStateBase
+class ExtConnBoolTristateOut : public ExtConnBoolTristateBase
 {
 	Q_OBJECT
 
 public:
-	ExtConnBoolTriStateOut(CompContainer * container, const ComponentInfo * ci);
-//	~ExtConnBoolTriStateOut();
+	ExtConnBoolTristateOut(CompContainer * container, const ComponentInfo * ci);
+//	~ExtConnBoolTristateOut();
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();

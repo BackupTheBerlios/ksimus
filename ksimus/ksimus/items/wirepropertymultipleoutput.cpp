@@ -40,7 +40,7 @@ WirePropertyMultipleOutput::WirePropertyMultipleOutput(Wire * wire, const WirePr
 		m_activeConnectors(0),
 		m_masterWP((WirePropertyMultipleOutput *) 0)
 {
-	m_connectorList = new ConnectorTriStateList();
+	m_connectorList = new ConnectorTristateList();
 	CHECK_PTR(m_connectorList);
 	
 	m_connectorInputList = new ConnectorInputList();
@@ -141,12 +141,12 @@ void WirePropertyMultipleOutput::setupCircuit()
 					}
 				}
 			}
-			else if (it.current()->inherits("ConnectorTriStateBase"))
+			else if (it.current()->inherits("ConnectorTristateBase"))
 			{
 				// Add connector if not in list and is not a connected Module or ExtConn connector
-				if ((-1 == m_connectorList->findRef((ConnectorTriStateBase*)it.current())))
+				if ((-1 == m_connectorList->findRef((ConnectorTristateBase*)it.current())))
 				{
-					m_connectorList->append((ConnectorTriStateBase*)it.current());
+					m_connectorList->append((ConnectorTristateBase*)it.current());
 					if (comp->isZeroDelayComponent())
 					{
 						// Component has to caclulate immediatly
@@ -163,7 +163,7 @@ void WirePropertyMultipleOutput::setupCircuit()
 			}
 			else
 			{
-				KSIMDEBUG(QString::fromLatin1("Connector '%1' is not a ConnectorTriStateBase (Component %2)")
+				KSIMDEBUG(QString::fromLatin1("Connector '%1' is not a ConnectorTristateBase (Component %2)")
 				          .arg(it.current()->getName())
 				          .arg(comp->getName()));
 			}

@@ -39,34 +39,34 @@ namespace KSimLibBoolean
 static ImplicitConverter * create(ConnectorBase * connector)
 {
 	ImplicitConverter * ic;
-	ic = new ImplicitConverterBoolTriState2Bool(connector);
+	ic = new ImplicitConverterBoolTristate2Bool(connector);
 	CHECK_PTR(ic);
 	return ic;
 }
 
-const ImplicitConverterInfo * getImplicitConverterBoolTriState2BoolInfo()
+const ImplicitConverterInfo * getImplicitConverterBoolTristate2BoolInfo()
 {
-	static const ImplicitConverterInfo Info(QString::fromLatin1("Implicit Converter Boolean TriState to Boolean"),
-	                                        QString::fromLatin1("implicitconverter/BooleanTriState2Boolean"),
-	                                        QString::fromLatin1("Boolean TriState"),
+	static const ImplicitConverterInfo Info(QString::fromLatin1("Implicit Converter Boolean Tristate to Boolean"),
+	                                        QString::fromLatin1("implicitconverter/BooleanTristate2Boolean"),
+	                                        QString::fromLatin1("Boolean Tristate"),
 	                                        QString::fromLatin1("Boolean"),
 	                                        create );
 	return &Info;
 }
 
 
-ImplicitConverterBoolTriState2Bool::ImplicitConverterBoolTriState2Bool(ConnectorBase * connector)
-	: ImplicitConverter(connector, getImplicitConverterBoolTriState2BoolInfo())
+ImplicitConverterBoolTristate2Bool::ImplicitConverterBoolTristate2Bool(ConnectorBase * connector)
+	: ImplicitConverter(connector, getImplicitConverterBoolTristate2BoolInfo())
 {
 }
 
-/*ImplicitConverterBoolTriState2Bool::~ImplicitConverterBoolTriState2Bool()
+/*ImplicitConverterBoolTristate2Bool::~ImplicitConverterBoolTristate2Bool()
 {
 } */
 
-const void * ImplicitConverterBoolTriState2Bool::convert(const void * data)
+const void * ImplicitConverterBoolTristate2Bool::convert(const void * data)
 {
-	if (data && !((const WireStateBoolTriState *) data)->isFalse())
+	if (data && !((const WireStateBoolTristate *) data)->isFalse())
 	{
 		m_result = true;
 	}

@@ -383,7 +383,7 @@ bool ConnectorBase::isOutput() const
 }
 	
 /** True, if connector is a tris state connector */
-bool ConnectorBase::isTriState() const
+bool ConnectorBase::isTristate() const
 {
 	return (m_p->direction == CD_TRISTATE);
 }
@@ -916,10 +916,10 @@ ConnectorOutputBase::ConnectorOutputBase(
 };
 
 //**************************************************************************	
-// *** class ConnectorTriStateBase ***
+// *** class ConnectorTristateBase ***
 	
 
-ConnectorTriStateBase::ConnectorTriStateBase(	
+ConnectorTristateBase::ConnectorTristateBase(	
 			Component * comp, const QString & name, const QString & i18nName,
 			const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
 	:	ConnectorBase (comp,name,i18nName,pos,orient,CD_TRISTATE,ci),
@@ -927,14 +927,14 @@ ConnectorTriStateBase::ConnectorTriStateBase(
 {
 };
 
-void ConnectorTriStateBase::reset()
+void ConnectorTristateBase::reset()
 {
 	ConnectorBase::reset();
 	
 	setOutputActive(false);
 }
 
-void ConnectorTriStateBase::setOutputActive(bool active)
+void ConnectorTristateBase::setOutputActive(bool active)
 {
 	if (m_outActive != active)
 	{
@@ -943,7 +943,7 @@ void ConnectorTriStateBase::setOutputActive(bool active)
 	}
 }
 
-int ConnectorTriStateBase::checkCircuit()
+int ConnectorTristateBase::checkCircuit()
 {
 	int errors = ConnectorBase::checkCircuit();
 	
@@ -959,7 +959,7 @@ int ConnectorTriStateBase::checkCircuit()
 	return errors;
 }
 
-bool ConnectorTriStateBase::isActive() const
+bool ConnectorTristateBase::isActive() const
 {
 	if  (getWire() && getWire()->getWireProperty())
 	{

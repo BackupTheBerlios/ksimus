@@ -30,7 +30,7 @@
 
 // Forward declaration
 class ConnectorBase;
-class ConnectorTriStateList;
+class ConnectorTristateList;
 class ConnectorInputList;
 
 
@@ -60,7 +60,7 @@ protected:
 	
 	void setMasterWireProperty(WirePropertyMultipleOutput * masterWP);
 	
-	ConnectorTriStateList * m_connectorList;
+	ConnectorTristateList * m_connectorList;
 	ConnectorInputList * m_connectorInputList;
 	ComponentList * m_executeNextList;
 	ComponentList * m_zeroDelayList;

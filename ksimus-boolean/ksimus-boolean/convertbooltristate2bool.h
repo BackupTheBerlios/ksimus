@@ -31,7 +31,7 @@
 
 // Forward declaration
 class ConnectorBoolOut;
-class ConnectorBoolTriState;
+class ConnectorBoolTristate;
 
 
 /**Converts a boolean tristate into a boolean.
@@ -42,16 +42,16 @@ namespace KSimLibBoolean
 {
 
 
-const ComponentInfo * getConvertBoolTriState2BoolInfo();
+const ComponentInfo * getConvertBoolTristate2BoolInfo();
 
-class ConvertBoolTriState2Bool : public Component
+class ConvertBoolTristate2Bool : public Component
 {
 
 	Q_OBJECT
 
 public:
-	ConvertBoolTriState2Bool(CompContainer * container, const ComponentInfo * ci);
-	~ConvertBoolTriState2Bool();
+	ConvertBoolTristate2Bool(CompContainer * container, const ComponentInfo * ci);
+	~ConvertBoolTristate2Bool();
 	
 	/** Resets the component state. */
 	virtual void reset();
@@ -61,7 +61,7 @@ public:
 
 	
 private:
-	ConnectorBoolTriState * m_connIn;
+	ConnectorBoolTristate * m_connIn;
 	ConnectorBoolOut * m_connDataOut;
 	ConnectorBoolOut * m_connActiveOut;
 	bool m_lockRecursion;
@@ -71,10 +71,10 @@ private:
 
 //###############################################################
 
-class ConvertBoolTriState2BoolView : public CompView
+class ConvertBoolTristate2BoolView : public CompView
 {
 public:
-	ConvertBoolTriState2BoolView(ConvertBoolTriState2Bool * comp, eViewType viewType);
+	ConvertBoolTristate2BoolView(ConvertBoolTristate2Bool * comp, eViewType viewType);
 	
 	virtual void draw(QPainter * p);
 };

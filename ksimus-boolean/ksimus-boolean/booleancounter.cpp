@@ -486,7 +486,7 @@ BooleanCounterPropertyWidget::~BooleanCounterPropertyWidget()
 void BooleanCounterPropertyWidget::acceptPressed()
 {
 	ComponentPropertyBaseWidget::acceptPressed();
-
+                                         
 	if (getCounter()->getResetCount() != getResetValueWidget()->value())
 	{
 		changeData();

@@ -43,7 +43,7 @@ WireProperty::WireProperty(Wire * wire, const WirePropertyInfo * wirePropertyInf
 		m_wirePropertyInfo(wirePropertyInfo),
 		m_inputCounter(0),
 		m_outputCounter(0),
-		m_triStateCounter(0)
+		m_tristateCounter(0)
 {
 }
 
@@ -77,7 +77,7 @@ int WireProperty::checkCircuit()
 	//*** Count inputs, outputs and triStates
 	m_inputCounter = 0;
 	m_outputCounter = 0;
-	m_triStateCounter = 0;
+	m_tristateCounter = 0;
 	
 	FOR_EACH_CONNECTOR(it,*getWire()->getConnList())
 	{
@@ -89,9 +89,9 @@ int WireProperty::checkCircuit()
 		{
 			m_outputCounter++;
 		}
-		else if (it.current()->isTriState())
+		else if (it.current()->isTristate())
 		{
-			m_triStateCounter++;
+			m_tristateCounter++;
 		}
 		else
 		{
@@ -99,8 +99,8 @@ int WireProperty::checkCircuit()
 		}
 	}
 
-	//*** min 1 Output or TriState required
-	if ((m_outputCounter == 0) && (m_triStateCounter == 0))
+	//*** min 1 Output or Tristate required
+	if ((m_outputCounter == 0) && (m_tristateCounter == 0))
 	{
 		// Wire without controlling output
 		logError(i18n("Wire without controlling output"));
@@ -173,9 +173,9 @@ int WirePropertySingleOutput::checkCircuit()
 	}
 	
 	//*** no tristate allowed
-	if (m_triStateCounter != 0)
+	if (m_tristateCounter != 0)
 	{
-		logError(i18n("TriStates outputs are not allowed"));
+		logError(i18n("Tristates outputs are not allowed"));
 		errors += 1;
 	}
 	

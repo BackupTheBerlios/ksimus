@@ -35,46 +35,46 @@ namespace KSimLibBoolean
 //###############################################################
 //###############################################################
 
-ExtConnBoolTriStateBase::ExtConnBoolTriStateBase(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput)
+ExtConnBoolTristateBase::ExtConnBoolTristateBase(CompContainer * container, const ComponentInfo * ci, bool input, bool multiOutput)
 	: ExternalConnector(container, ci, input, multiOutput),
 		m_resetState(KSIMBOOLTRISTATE_INACTIVE)
 {
 }
 
-/*ExtConnBoolTriStateBase::~ExtConnBoolTriStateBase()
+/*ExtConnBoolTristateBase::~ExtConnBoolTristateBase()
 {
 }*/
 
-void ExtConnBoolTriStateBase::reset()
+void ExtConnBoolTristateBase::reset()
 {
 	Component::reset();
 
-	if (!isConnectedWithBoolTriState(getUsedExternalConn()))
+	if (!isConnectedWithBoolTristate(getUsedExternalConn()))
 	{
-		((ConnectorBoolTriStateSpecial *)getUsedExternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
-		((ConnectorBoolTriStateSpecial *)getInternalConn())->setOutput(m_resetState);
+		((ConnectorBoolTristateSpecial *)getUsedExternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
+		((ConnectorBoolTristateSpecial *)getInternalConn())->setOutput(m_resetState);
 	}
-	else if (!isConnectedWithBoolTriState(getInternalConn()))
+	else if (!isConnectedWithBoolTristate(getInternalConn()))
 	{
-		((ConnectorBoolTriStateSpecial *)getUsedExternalConn())->setOutput(m_resetState);
-		((ConnectorBoolTriStateSpecial *)getInternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
+		((ConnectorBoolTristateSpecial *)getUsedExternalConn())->setOutput(m_resetState);
+		((ConnectorBoolTristateSpecial *)getInternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
 	}
 	else
 	{
-		((ConnectorBoolTriStateSpecial *)getUsedExternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
-		((ConnectorBoolTriStateSpecial *)getInternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
+		((ConnectorBoolTristateSpecial *)getUsedExternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
+		((ConnectorBoolTristateSpecial *)getInternalConn())->setOutput(KSIMBOOLTRISTATE_INACTIVE);
 	}
 }
 
 
-bool ExtConnBoolTriStateBase::isConnectedWithBoolTriState(ConnectorBase * conn)
+bool ExtConnBoolTristateBase::isConnectedWithBoolTristate(ConnectorBase * conn)
 {
 	bool connected = false;
 	if (conn->getWire())
 	{
 		FOR_EACH_CONNECTOR(it, *conn->getWire()->getConnList())
 		{
-			if ((it.current() != conn) && (it.current()->inherits("ConnectorBoolTriState")))
+			if ((it.current() != conn) && (it.current()->inherits("ConnectorBoolTristate")))
 			{
 				connected = true;
 				break;
@@ -86,11 +86,11 @@ bool ExtConnBoolTriStateBase::isConnectedWithBoolTriState(ConnectorBase * conn)
 
 
 /** save component properties */
-void ExtConnBoolTriStateBase::save(KSimData & file) const
+void ExtConnBoolTristateBase::save(KSimData & file) const
 {
 	ExternalConnector::save(file);
 
-	if (m_resetState != KSimBoolTriState(KSIMBOOLTRISTATE_INACTIVE))
+	if (m_resetState != KSimBoolTristate(KSIMBOOLTRISTATE_INACTIVE))
 	{
 		m_resetState.save(file, "Reset State");
 	}
@@ -99,27 +99,27 @@ void ExtConnBoolTriStateBase::save(KSimData & file) const
 /** load component properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool ExtConnBoolTriStateBase::load(KSimData & file, bool copyLoad)
+bool ExtConnBoolTristateBase::load(KSimData & file, bool copyLoad)
 {
-	m_resetState.load(file, "Reset State", KSimBoolTriState(KSIMBOOLTRISTATE_INACTIVE).text());
+	m_resetState.load(file, "Reset State", KSimBoolTristate(KSIMBOOLTRISTATE_INACTIVE).text());
 	return ExternalConnector::load(file, copyLoad);
 }
 
-void ExtConnBoolTriStateBase::setResetState(KSimBoolTriState resetState)
+void ExtConnBoolTristateBase::setResetState(KSimBoolTristate resetState)
 {
 	m_resetState = resetState;
 }
 
-KSimBoolTriState ExtConnBoolTriStateBase::getResetState() const
+KSimBoolTristate ExtConnBoolTristateBase::getResetState() const
 {
 	return m_resetState;
 };
 
 
-ComponentPropertyBaseWidget * ExtConnBoolTriStateBase::createGeneralProperty(QWidget *parent)
+ComponentPropertyBaseWidget * ExtConnBoolTristateBase::createGeneralProperty(QWidget *parent)
 {
-	ExtConnBoolTriStateBasePropertyGeneralWidget * wid;
-	wid = new ExtConnBoolTriStateBasePropertyGeneralWidget(this, parent);
+	ExtConnBoolTristateBasePropertyGeneralWidget * wid;
+	wid = new ExtConnBoolTristateBasePropertyGeneralWidget(this, parent);
 	CHECK_PTR(wid);
 
 	return wid;
@@ -130,7 +130,7 @@ ComponentPropertyBaseWidget * ExtConnBoolTriStateBase::createGeneralProperty(QWi
 //##########################################################################################
 
 
-ExtConnBoolTriStateBasePropertyGeneralWidget::ExtConnBoolTriStateBasePropertyGeneralWidget(ExtConnBoolTriStateBase * comp, QWidget *parent, const char *name)
+ExtConnBoolTristateBasePropertyGeneralWidget::ExtConnBoolTristateBasePropertyGeneralWidget(ExtConnBoolTristateBase * comp, QWidget *parent, const char *name)
 	:	ExternalConnectorPropertyGeneralWidget(comp, parent, name)
 {
 	QString str;
@@ -148,11 +148,11 @@ ExtConnBoolTriStateBasePropertyGeneralWidget::ExtConnBoolTriStateBasePropertyGen
 	m_defaultState->setValue(getExtConn()->getResetState());
 }
 
-/*ExtConnBoolTriStateBasePropertyGeneralWidget::~ExtConnBoolTriStateBasePropertyGeneralWidget()
+/*ExtConnBoolTristateBasePropertyGeneralWidget::~ExtConnBoolTristateBasePropertyGeneralWidget()
 {
 } */
 
-void ExtConnBoolTriStateBasePropertyGeneralWidget::acceptPressed()
+void ExtConnBoolTristateBasePropertyGeneralWidget::acceptPressed()
 {
 	ExternalConnectorPropertyGeneralWidget::acceptPressed();
 
@@ -163,11 +163,11 @@ void ExtConnBoolTriStateBasePropertyGeneralWidget::acceptPressed()
 	}
 }
 
-void ExtConnBoolTriStateBasePropertyGeneralWidget::defaultPressed()
+void ExtConnBoolTristateBasePropertyGeneralWidget::defaultPressed()
 {
 	ExternalConnectorPropertyGeneralWidget::defaultPressed();
 
-	m_defaultState->setValue(KSimBoolTriState(KSIMBOOLTRISTATE_INACTIVE));
+	m_defaultState->setValue(KSimBoolTristate(KSIMBOOLTRISTATE_INACTIVE));
 }
 
 
@@ -179,39 +179,39 @@ void ExtConnBoolTriStateBasePropertyGeneralWidget::defaultPressed()
 //###############################################################
 //###############################################################
 
-Component * ExtConnBoolTriStateIn::create(CompContainer * container, const ComponentInfo * ci)
+Component * ExtConnBoolTristateIn::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new ExtConnBoolTriStateIn(container, ci);
+	return new ExtConnBoolTristateIn(container, ci);
 }
 
-const ComponentInfo * ExtConnBoolTriStateIn::getStaticInfo()
+const ComponentInfo * ExtConnBoolTristateIn::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "External Connector Boolean TriState Input"),
-	                                QString::fromLatin1("External Connector/Bool TriState Input"),
-	                                i18n("Component", "External Connector/Bool TriState Input"),
+	static const ComponentInfo Info(i18n("Component", "External Connector Boolean Tristate Input"),
+	                                QString::fromLatin1("External Connector/Bool Tristate Input"),
+	                                i18n("Component", "External Connector/Bool Tristate Input"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                ExtConnBoolTriStateIn::create/*,
+	                                ExtConnBoolTristateIn::create/*,
 	                                QString::null,
 	                                QString::fromLatin1("component-ext-conn-bool-in") TODO */);
 
 	return &Info;
 }
 
-ExtConnBoolTriStateIn::ExtConnBoolTriStateIn(CompContainer * container, const ComponentInfo * ci)
-	: ExtConnBoolTriStateBase(container, ci, true, true)
+ExtConnBoolTristateIn::ExtConnBoolTristateIn(CompContainer * container, const ComponentInfo * ci)
+	: ExtConnBoolTristateBase(container, ci, true, true)
 {
-	ConnectorBoolTriStateSpecial * internal;
-	ConnectorBoolTriStateSpecial * external;
+	ConnectorBoolTristateSpecial * internal;
+	ConnectorBoolTristateSpecial * external;
 
-	internal = new ConnectorBoolTriStateSpecial(this,
+	internal = new ConnectorBoolTristateSpecial(this,
 	                                            QString::fromLatin1("Internal"),
 	                                            i18n("Connector", "Internal"),
 	                                            QPoint(4,1));
 	CHECK_PTR(internal);
 	setInternalConn(internal);
 
-	external = new ConnectorBoolTriStateSpecial(this,
+	external = new ConnectorBoolTristateSpecial(this,
 	                                            QString::fromLatin1("External"),
 	                                            i18n("Connector", "External"),
 	                                            QPoint(0,1));
@@ -220,19 +220,19 @@ ExtConnBoolTriStateIn::ExtConnBoolTriStateIn(CompContainer * container, const Co
 	external->setOrientation(CO_LEFT); // is on the left side
 }
 
-/*ExtConnBoolTriStateIn::~ExtConnBoolTriStateIn()
+/*ExtConnBoolTristateIn::~ExtConnBoolTristateIn()
 {
 }*/
 
 //###############################################################
 
-ExtConnBoolTriStateOut::ExtConnBoolTriStateOut(CompContainer * container, const ComponentInfo * ci)
-	: ExtConnBoolTriStateBase(container, ci, false, true)
+ExtConnBoolTristateOut::ExtConnBoolTristateOut(CompContainer * container, const ComponentInfo * ci)
+	: ExtConnBoolTristateBase(container, ci, false, true)
 {
-	ConnectorBoolTriStateSpecial * internal;
-	ConnectorBoolTriStateSpecial * external;
+	ConnectorBoolTristateSpecial * internal;
+	ConnectorBoolTristateSpecial * external;
 	
-	internal = new ConnectorBoolTriStateSpecial(this,
+	internal = new ConnectorBoolTristateSpecial(this,
 	                                            QString::fromLatin1("Internal"),
 	                                            i18n("Connector", "Internal"),
 	                                            QPoint(0,1));
@@ -240,7 +240,7 @@ ExtConnBoolTriStateOut::ExtConnBoolTriStateOut(CompContainer * container, const 
 	setInternalConn(internal);
 	internal->setOrientation(CO_LEFT); // is on the left side
 	
-	external = new ConnectorBoolTriStateSpecial(this,
+	external = new ConnectorBoolTristateSpecial(this,
 	                                            QString::fromLatin1("External"),
 	                                            i18n("Connector", "External"),
 	                                            QPoint(4,1));
@@ -248,24 +248,24 @@ ExtConnBoolTriStateOut::ExtConnBoolTriStateOut(CompContainer * container, const 
 	setExternalConn(external);
 }
 
-/*ExtConnBoolTriStateOut::~ExtConnBoolTriStateOut()
+/*ExtConnBoolTristateOut::~ExtConnBoolTristateOut()
 {
 }*/
 
 
-Component * ExtConnBoolTriStateOut::create(CompContainer * container, const ComponentInfo * ci)
+Component * ExtConnBoolTristateOut::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new ExtConnBoolTriStateOut(container, ci);
+	return new ExtConnBoolTristateOut(container, ci);
 }
 
-const ComponentInfo * ExtConnBoolTriStateOut::getStaticInfo()
+const ComponentInfo * ExtConnBoolTristateOut::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "External Connector Boolean TriState Output"),
-	                                QString::fromLatin1("External Connector/Bool TriState Output"),
-	                                i18n("Component", "External Connector/Bool TriState Output"),
+	static const ComponentInfo Info(i18n("Component", "External Connector Boolean Tristate Output"),
+	                                QString::fromLatin1("External Connector/Bool Tristate Output"),
+	                                i18n("Component", "External Connector/Bool Tristate Output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                ExtConnBoolTriStateOut::create/*,
+	                                ExtConnBoolTristateOut::create/*,
 	                                QString::null,
 	                                QString::fromLatin1("component-ext-conn-bool-in") TODO */);
 

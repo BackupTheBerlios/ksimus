@@ -102,7 +102,7 @@ protected:
 	const WirePropertyInfo * m_wirePropertyInfo;
 	int m_inputCounter;
 	int m_outputCounter;
-	int m_triStateCounter;
+	int m_tristateCounter;
 	
 };
 

@@ -120,8 +120,8 @@ static const ConnectorInfoList & getDistConnector()
 		pDistConnector->append(getConnectorBoolOutInfo());
 		pDistConnector->append(getConnectorFloatInInfo());
 		pDistConnector->append(getConnectorFloatOutInfo());
-		pDistConnector->append(getConnectorBoolTriStateInfo());
-		pDistConnector->append(getConnectorBoolTriStateSpecialInfo());
+		pDistConnector->append(getConnectorBoolTristateInfo());
+		pDistConnector->append(getConnectorBoolTristateSpecialInfo());
 	}
 	
 	return *pDistConnector;
@@ -142,7 +142,7 @@ static const WirePropertyInfoList & getDistWireProperty()
 		// Add your wireproperty info here
 		pDistWireProp->append(getWirePropertyBooleanInfo());
 		pDistWireProp->append(getPropertyFloatingPointInfo());
-		pDistWireProp->append(getWirePropertyBoolTriStateInfo());
+		pDistWireProp->append(getWirePropertyBoolTristateInfo());
 
 		// Some "error" WireProperties
 		pDistWireProp->append(getWirePropertyInvalidDifferentOutputsInfo());

@@ -44,7 +44,7 @@ public:
 	/** Constructs a boolen input box. */
 	KSimBoolTristateBox(QWidget *parent=0, const char *name=0);
 	KSimBoolTristateBox(bool state, bool active, QWidget *parent=0, const char *name=0);
-	KSimBoolTristateBox(KSimBoolTriState state, QWidget *parent=0, const char *name=0);
+	KSimBoolTristateBox(KSimBoolTristate state, QWidget *parent=0, const char *name=0);
 	/** The destructor. */
 	~KSimBoolTristateBox();
 	
@@ -64,13 +64,13 @@ public:
 	QString getActiveText() const;
 
 	/** Sets the state of the @ref ComboBox. */
-	void setValue(KSimBoolTriState state);
+	void setValue(KSimBoolTristate state);
 	/** Sets the state of the @ref ComboBox. */
 	void setValue(bool state, bool active);
 	/** Returns the state of the @ref ComboBox. */
-	KSimBoolTriState getValue() const;
+	KSimBoolTristate getValue() const;
 	/** Returns the state of the @ref ComboBox. */
-	KSimBoolTriState value() const { return getValue(); };
+	KSimBoolTristate value() const { return getValue(); };
 
 private slots:
 	/** For internal use. */
@@ -84,9 +84,9 @@ private:
 	
 signals:
 	/** Emitted, if the combo box changes the state. */
-	void activated(KSimBoolTriState state);	
+	void activated(KSimBoolTristate state);	
 	/** Emitted, if the combo box changes the highlighted state. */
-	void highlighted(KSimBoolTriState state);
+	void highlighted(KSimBoolTristate state);
 };
 
 #endif

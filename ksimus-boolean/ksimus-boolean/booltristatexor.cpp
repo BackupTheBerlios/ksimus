@@ -37,16 +37,16 @@
 namespace KSimLibBoolean
 {
 
-Component * BoolTriStateXor::create(CompContainer * container, const ComponentInfo * ci)
+Component * BoolTristateXor::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new BoolTriStateXor(container, ci);
+	return new BoolTristateXor(container, ci);
 }
 
-const ComponentInfo * BoolTriStateXor::getStaticXorInfo()
+const ComponentInfo * BoolTristateXor::getStaticXorInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean XOR with TriState output"),
-	                                QString::fromLatin1("Boolean/Tristate/Gates/XOR TriState"),
-	                                i18n("Component", "Boolean/Tristate/Gates/XOR with TriState output"),
+	static const ComponentInfo Info(i18n("Component", "Boolean XOR with Tristate output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/XOR Tristate"),
+	                                i18n("Component", "Boolean/Tristate/Gates/XOR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create /* TODO,
@@ -55,11 +55,11 @@ const ComponentInfo * BoolTriStateXor::getStaticXorInfo()
 	return &Info;
 }
 
-const ComponentInfo * BoolTriStateXor::getStaticXnorInfo()
+const ComponentInfo * BoolTristateXor::getStaticXnorInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean XNOR with TriState output"),
-	                                QString::fromLatin1("Boolean/Tristate/Gates/XNOR TriState"),
-	                                i18n("Component", "Boolean/Tristate/Gates/XNOR with TriState output"),
+	static const ComponentInfo Info(i18n("Component", "Boolean XNOR with Tristate output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/XNOR Tristate"),
+	                                i18n("Component", "Boolean/Tristate/Gates/XNOR with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create /* TODO,
@@ -71,8 +71,8 @@ const ComponentInfo * BoolTriStateXor::getStaticXnorInfo()
 //###############################################################
 //###############################################################
 
-BoolTriStateXor::BoolTriStateXor(CompContainer * container, const ComponentInfo * ci)
-	: BoolTriStateXIn1Out1Ena(container, ci)
+BoolTristateXor::BoolTristateXor(CompContainer * container, const ComponentInfo * ci)
+	: BoolTristateXIn1Out1Ena(container, ci)
 {
 
 	// make XNOR
@@ -84,16 +84,16 @@ BoolTriStateXor::BoolTriStateXor(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTriStateXorView(this, SHEET_VIEW);
+		new BoolTristateXorView(this, SHEET_VIEW);
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
-void BoolTriStateXor::calculate()
+void BoolTristateXor::calculate()
 {
-	BoolTriStateXIn1Out1Ena::calculate();
+	BoolTristateXIn1Out1Ena::calculate();
 	
 	bool result = false;
 	

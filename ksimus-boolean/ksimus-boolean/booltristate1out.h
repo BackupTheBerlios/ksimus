@@ -37,7 +37,7 @@
 
 // Forward declaration
 class QLabel;
-class ConnectorBoolTriState;
+class ConnectorBoolTristate;
 class ConnectorBoolIn;
 class ComponentLayout;
 class ComponentControlBlock;
@@ -52,13 +52,13 @@ namespace KSimLibBoolean
   *@author Rasmus Diekenbrock
   */
 
-class BoolTriState1Out : public Component
+class BoolTristate1Out : public Component
 {
 
 	Q_OBJECT
 
 public:
-//	~BoolTriState1Out();
+//	~BoolTristate1Out();
 	/** Resets the component state. */
 	virtual void reset();
 
@@ -71,24 +71,24 @@ public:
 	
 	/** Returns the output connector.
 	  */
-	ConnectorBoolTriState * getOutputConnector() const { return m_out; };
+	ConnectorBoolTristate * getOutputConnector() const { return m_out; };
 
 
 	/** Sets the current component state. */
-	void setState(KSimBoolTriState newState);
+	void setState(KSimBoolTristate newState);
 	
 	/** Returns the current component state. */
-	KSimBoolTriState getState() const;
+	KSimBoolTristate getState() const;
 	
 	/** Sets the reset state. The component gets this state each call @ref reset.
 	 *  If init is true, the reset State is used as init value. The resetState is
 	 *  only saved, if the current resetState is not equal to resetState set as init value.*/
-	void setResetState(KSimBoolTriState resetState, bool init = false);
+	void setResetState(KSimBoolTristate resetState, bool init = false);
 	
 	/** Returns the reset state. The component gets this state each call @ref reset. */
-	KSimBoolTriState getResetState() const;
+	KSimBoolTristate getResetState() const;
 	/** Returns the reset state. The component gets this state each call @ref reset. */
-	KSimBoolTriState getResetStateInit() const;
+	KSimBoolTristate getResetStateInit() const;
 	
 	
 	/** Creates the general property page for the property dialog.
@@ -100,12 +100,12 @@ protected:
 	/** Creates a component with one boolean tristate output.
 	  * The constructer does not creates a component view. You have to do this in a sub class.
 	  */
-	BoolTriState1Out(CompContainer * container, const ComponentInfo * ci);
+	BoolTristate1Out(CompContainer * container, const ComponentInfo * ci);
 	
 private:
-	ConnectorBoolTriState * m_out;
-	KSimBoolTriState m_resetState;
-	KSimBoolTriState m_resetStateInit;
+	ConnectorBoolTristate * m_out;
+	KSimBoolTristate m_resetState;
+	KSimBoolTristate m_resetStateInit;
 };
 
 //###############################################################
@@ -120,22 +120,22 @@ private:
   */
 
 
-class BoolTriState1OutView : public CompView
+class BoolTristate1OutView : public CompView
 {
 
 	Q_OBJECT
 
 public:
-//	~BoolTriState1OutView();
+//	~BoolTristate1OutView();
 	
 	virtual void draw(QPainter * p);
 	
 	ComponentLayout * getComponentLayout() const { return m_layout; };
 	
-	BoolTriState1Out * getBoolTriState1Out() const { return (BoolTriState1Out*) getComponent(); };
+	BoolTristate1Out * getBoolTristate1Out() const { return (BoolTristate1Out*) getComponent(); };
 
 protected:
-	BoolTriState1OutView(BoolTriState1Out * comp, eViewType viewType);
+	BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType);
 	
 private:	
 	ComponentLayout * m_layout;
@@ -144,19 +144,19 @@ private:
 
 //###############################################################
 
-/** The property widget for @ref BoolTriState1Out components.
+/** The property widget for @ref BoolTristate1Out components.
   * This class adds to the general property dialog a item for selecting the reset state of the component.
   *
   * @author Rasmus Diekenbrock
   */
 
 
-class BoolTriState1OutPropertyGeneralWidget : public ComponentPropertyGeneralWidget
+class BoolTristate1OutPropertyGeneralWidget : public ComponentPropertyGeneralWidget
 {
 	Q_OBJECT
 
 public:
-	BoolTriState1OutPropertyGeneralWidget(BoolTriState1Out * comp, QWidget *parent=0, const char *name=0);
+	BoolTristate1OutPropertyGeneralWidget(BoolTristate1Out * comp, QWidget *parent=0, const char *name=0);
 
 	/** The function acceptPressed() is called, if changes are accepted.
 		You have to reimplement this function, if you add new properties.
@@ -168,7 +168,7 @@ public:
 	 */
 	virtual void defaultPressed();
 
-	BoolTriState1Out * getBoolTriState1Out() const { return (BoolTriState1Out*) getComponent(); };
+	BoolTristate1Out * getBoolTristate1Out() const { return (BoolTristate1Out*) getComponent(); };
 
 	/** Returns the a pointer to the @ref KSimBoolTristateBox. Use this to set a appropriate @ref QToolTip
 	  * and @ref QWhatsThis. */
@@ -190,13 +190,13 @@ protected:
   *@author Rasmus Diekenbrock
   */
 
-class BoolTriState1Out1Ena : public BoolTriState1Out
+class BoolTristate1Out1Ena : public BoolTristate1Out
 {
 
 	Q_OBJECT
 
 public:
-//	~BoolTriState1Out1Ena();
+//	~BoolTristate1Out1Ena();
 
 	/** Returns the output connector.
 	  */
@@ -210,13 +210,13 @@ public:
 	bool getState() const;
 
 	/** Returns the current component state. */
-	KSimBoolTriState getTriState() const { return BoolTriState1Out::getState(); };
+	KSimBoolTristate getTristate() const { return BoolTristate1Out::getState(); };
 
 protected:
 	/** Creates a component with one boolean tristate output.
 	  * The constructer does not creates a component view. You have to do this in a sub class.
 	  */
-	BoolTriState1Out1Ena(CompContainer * container, const ComponentInfo * ci);
+	BoolTristate1Out1Ena(CompContainer * container, const ComponentInfo * ci);
 
 private:
 	ConnectorBoolIn * m_enableOutput;
@@ -234,23 +234,23 @@ private:
   */
 
 
-class BoolTriState1Out1EnaView : public BoolTriState1OutView
+class BoolTristate1Out1EnaView : public BoolTristate1OutView
 {
 
 	Q_OBJECT
 
 public:
-//	~BoolTriState1Out1EnaView();
+//	~BoolTristate1Out1EnaView();
 
 	virtual void draw(QPainter * p);
 
 	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
 
-	BoolTriState1Out1Ena * getBoolTriState1Out1Ena() const { return (BoolTriState1Out1Ena*) getComponent(); };
+	BoolTristate1Out1Ena * getBoolTristate1Out1Ena() const { return (BoolTristate1Out1Ena*) getComponent(); };
 
 protected:
-	BoolTriState1Out1EnaView(BoolTriState1Out1Ena * comp, eViewType viewType);
-	BoolTriState1Out1EnaView(const QString & label, BoolTriState1Out1Ena * comp, eViewType viewType);
+	BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType);
+	BoolTristate1Out1EnaView(const QString & label, BoolTristate1Out1Ena * comp, eViewType viewType);
 
 private:
 	void init(eViewType viewType);
@@ -260,7 +260,7 @@ private:
 
 //###############################################################
 
-/** The property widget for @ref BoolTriState1Out1Ena components.
+/** The property widget for @ref BoolTristate1Out1Ena components.
   *
   * Currently the class does nothing. It is added to supply a uniform API.
   *
@@ -268,14 +268,14 @@ private:
   */
 
 
-class BoolTriState1Out1EnaPropertyGeneralWidget : public BoolTriState1OutPropertyGeneralWidget
+class BoolTristate1Out1EnaPropertyGeneralWidget : public BoolTristate1OutPropertyGeneralWidget
 {
 
 	Q_OBJECT
 
 public:
-	BoolTriState1Out1EnaPropertyGeneralWidget(BoolTriState1Out1Ena * comp, QWidget *parent=0, const char *name=0)
-		:	BoolTriState1OutPropertyGeneralWidget(comp, parent, name) {};
+	BoolTristate1Out1EnaPropertyGeneralWidget(BoolTristate1Out1Ena * comp, QWidget *parent=0, const char *name=0)
+		:	BoolTristate1OutPropertyGeneralWidget(comp, parent, name) {};
 };
 
 //###############################################################
@@ -285,13 +285,13 @@ public:
   *@author Rasmus Diekenbrock
   */
 
-class BoolTriStateXIn1Out1Ena : public BoolTriState1Out1Ena
+class BoolTristateXIn1Out1Ena : public BoolTristate1Out1Ena
 {
 
 	Q_OBJECT
 
 public:
-//	~BoolTriStateXIn1Out1Ena();
+//	~BoolTristateXIn1Out1Ena();
 
 	/** Returns the output connector.
 	  */
@@ -302,7 +302,7 @@ protected:
 	/** Creates a component with one boolean tristate output.
 	  * The constructer does not creates a component view. You have to do this in a sub class.
 	  */
-	BoolTriStateXIn1Out1Ena(CompContainer * container, const ComponentInfo * ci);
+	BoolTristateXIn1Out1Ena(CompContainer * container, const ComponentInfo * ci);
 
 private:
 	ConnectorPack * m_inPack;
@@ -320,15 +320,15 @@ private:
   */
 
 
-class BoolTriStateXIn1Out1EnaView : public CompView
+class BoolTristateXIn1Out1EnaView : public CompView
 {
 
 	Q_OBJECT
 
 public:
-//	~BoolTriStateXIn1Out1EnaView();
+//	~BoolTristateXIn1Out1EnaView();
 
-	BoolTriStateXIn1Out1Ena * getBoolTriStateXIn1Out1Ena() const { return (BoolTriStateXIn1Out1Ena*) getComponent(); };
+	BoolTristateXIn1Out1Ena * getBoolTristateXIn1Out1Ena() const { return (BoolTristateXIn1Out1Ena*) getComponent(); };
 
 	virtual void draw(QPainter * p);
 
@@ -336,8 +336,8 @@ public:
 	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
 
 protected:
-	BoolTriStateXIn1Out1EnaView(BoolTriStateXIn1Out1Ena * comp, eViewType viewType);
-	BoolTriStateXIn1Out1EnaView(const QString & label, BoolTriStateXIn1Out1Ena * comp, eViewType viewType);
+	BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType);
+	BoolTristateXIn1Out1EnaView(const QString & label, BoolTristateXIn1Out1Ena * comp, eViewType viewType);
 
 private:
 	void init(eViewType viewType);
@@ -348,7 +348,7 @@ private:
 
 //###############################################################
 
-/** The property widget for @ref BoolTriStateXIn1Out1Ena components.
+/** The property widget for @ref BoolTristateXIn1Out1Ena components.
   *
   * Currently the class does nothing. It is added to supply a uniform API.
   *
@@ -356,14 +356,14 @@ private:
   */
 
 
-class BoolTriStateXIn1Out1EnaPropertyGeneralWidget : public BoolTriState1Out1EnaPropertyGeneralWidget
+class BoolTristateXIn1Out1EnaPropertyGeneralWidget : public BoolTristate1Out1EnaPropertyGeneralWidget
 {
 
 	Q_OBJECT
 
 public:
-	BoolTriStateXIn1Out1EnaPropertyGeneralWidget(BoolTriStateXIn1Out1Ena * comp, QWidget *parent=0, const char *name=0)
-		:	BoolTriState1Out1EnaPropertyGeneralWidget(comp, parent, name) {};
+	BoolTristateXIn1Out1EnaPropertyGeneralWidget(BoolTristateXIn1Out1Ena * comp, QWidget *parent=0, const char *name=0)
+		:	BoolTristate1Out1EnaPropertyGeneralWidget(comp, parent, name) {};
 };
 
 

@@ -32,14 +32,14 @@
 // Forward declaration
 class QComboBox;
 class QCheckBox;
-class ConnectorBoolTriStateSpecial;
+class ConnectorBoolTristateSpecial;
 
 
 /**Base watch item for boolean data types.
   *@author Rasmus Diekenbrock
   */
 
-class WatchItemBoolTriStateBase : public WatchItemBase
+class WatchItemBoolTristateBase : public WatchItemBase
 {
 class StatePropertyWidget;
 class ActivePropertyWidget;
@@ -81,7 +81,7 @@ private:
 
 
 public:
-	~WatchItemBoolTriStateBase();
+	~WatchItemBoolTristateBase();
 	
 	/** Returns a value from the history buffer as a text.
 	  * This function has to be reimplementated in a sub class.
@@ -146,11 +146,11 @@ public:
 
 
 protected:
-	WatchItemBoolTriStateBase(ConnectorBase * connector, bool inOnly);
-	WatchItemBoolTriStateBase(WireProperty * wireProperty, bool inOnly);
+	WatchItemBoolTristateBase(ConnectorBase * connector, bool inOnly);
+	WatchItemBoolTristateBase(WireProperty * wireProperty, bool inOnly);
 	
-	QArray<WireStateBoolTriState> m_traceInBuffer;
-	QArray<WireStateBoolTriState> m_traceOutBuffer;
+	QArray<WireStateBoolTristate> m_traceInBuffer;
+	QArray<WireStateBoolTristate> m_traceOutBuffer;
 
 	struct
 	{
@@ -162,8 +162,8 @@ protected:
 private:
 	void init(bool inOnly);
 	unsigned int getMaxConnectors() const;
-	static bool testActive(ActiveProperty & property, const WireStateBoolTriState & state);
-	static bool testState(eStateProperty property, const WireStateBoolTriState & state);
+	static bool testActive(ActiveProperty & property, const WireStateBoolTristate & state);
+	static bool testState(eStateProperty property, const WireStateBoolTristate & state);
 
 	eStateProperty         m_triggerOutStateT1;
 	eStateProperty         m_triggerOutStateT0;
@@ -190,11 +190,11 @@ private:
   *@author Rasmus Diekenbrock
   */
 
-class WatchItemBoolTriStateConnector : public WatchItemBoolTriStateBase
+class WatchItemBoolTristateConnector : public WatchItemBoolTristateBase
 {
 public:
-	WatchItemBoolTriStateConnector(ConnectorBase * connector);
-	~WatchItemBoolTriStateConnector();
+	WatchItemBoolTristateConnector(ConnectorBase * connector);
+	~WatchItemBoolTristateConnector();
 	
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.
@@ -210,11 +210,11 @@ public:
   *@author Rasmus Diekenbrock
   */
 
-class WatchItemBoolTriStateWireProperty : public WatchItemBoolTriStateBase
+class WatchItemBoolTristateWireProperty : public WatchItemBoolTristateBase
 {
 public:
-	WatchItemBoolTriStateWireProperty(WireProperty * wireProperty);
-	~WatchItemBoolTriStateWireProperty();
+	WatchItemBoolTristateWireProperty(WireProperty * wireProperty);
+	~WatchItemBoolTristateWireProperty();
 	
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.
@@ -230,11 +230,11 @@ public:
   *@author Rasmus Diekenbrock
   */
 
-class WatchItemBoolTriStateConnectorSpecial : public WatchItemBoolTriStateBase
+class WatchItemBoolTristateConnectorSpecial : public WatchItemBoolTristateBase
 {
 public:
-	WatchItemBoolTriStateConnectorSpecial(ConnectorBoolTriStateSpecial * connector);
-	~WatchItemBoolTriStateConnectorSpecial();
+	WatchItemBoolTristateConnectorSpecial(ConnectorBoolTristateSpecial * connector);
+	~WatchItemBoolTristateConnectorSpecial();
 
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.

@@ -159,7 +159,7 @@ public:
 	/** True, if connector is a output. */
 	bool isOutput() const;
 	/** True, if connector is a tris state connector. */
-	bool isTriState() const;
+	bool isTristate() const;
 	
 	
 	// ### Hide functions
@@ -431,7 +431,7 @@ protected:
 };
 
 
-class ConnectorTriStateBase : public ConnectorBase
+class ConnectorTristateBase : public ConnectorBase
 {
 	
 	Q_OBJECT
@@ -469,7 +469,7 @@ protected:
 	 * @param orient    Sets the orientation of the connector.
 	 * @param ci        Sets the connector info (@ref ConnectorInfo):
 	 */
-	ConnectorTriStateBase(Component * comp,
+	ConnectorTristateBase(Component * comp,
 	                      const QString & name,
 	                      const QString & i18nName,
 	                      const QPoint & pos,
@@ -502,7 +502,7 @@ public:
 //	~ConnectorOutputList();
 };
 
-class ConnectorTriStateList : public QList<ConnectorTriStateBase>
+class ConnectorTristateList : public QList<ConnectorTristateBase>
 {
 public:
 //	ConnectorOutputList();
@@ -519,6 +519,6 @@ public:
 		for(QListIterator<ConnectorInputBase> _it_(_connList_);_it_.current();++_it_)
 
 #define FOR_EACH_CONNECTORTRISTATE(_it_,_connList_)	\
-		for(QListIterator<ConnectorTriStateBase> _it_(_connList_);_it_.current();++_it_)
+		for(QListIterator<ConnectorTristateBase> _it_(_connList_);_it_.current();++_it_)
 
 #endif

@@ -100,17 +100,17 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(getDemultiplexerInfo());
 		pDistComponents->append(getDelayInfo());
 
-		// TriState
-		pDistComponents->append(getConvertBool2BoolTriStateInfo());
-		pDistComponents->append(getConvertBoolTriState2BoolInfo());
-		pDistComponents->append(ExtConnBoolTriStateIn::getStaticInfo());
-		pDistComponents->append(ExtConnBoolTriStateOut::getStaticInfo());
-		pDistComponents->append(BoolTriStateAnd::getStaticAndInfo());
-		pDistComponents->append(BoolTriStateAnd::getStaticNandInfo());
-		pDistComponents->append(BoolTriStateOr::getStaticOrInfo());
-		pDistComponents->append(BoolTriStateOr::getStaticNorInfo());
-		pDistComponents->append(BoolTriStateXor::getStaticXorInfo());
-		pDistComponents->append(BoolTriStateXor::getStaticXnorInfo());
+		// Tristate
+		pDistComponents->append(getConvertBool2BoolTristateInfo());
+		pDistComponents->append(getConvertBoolTristate2BoolInfo());
+		pDistComponents->append(ExtConnBoolTristateIn::getStaticInfo());
+		pDistComponents->append(ExtConnBoolTristateOut::getStaticInfo());
+		pDistComponents->append(BoolTristateAnd::getStaticAndInfo());
+		pDistComponents->append(BoolTristateAnd::getStaticNandInfo());
+		pDistComponents->append(BoolTristateOr::getStaticOrInfo());
+		pDistComponents->append(BoolTristateOr::getStaticNorInfo());
+		pDistComponents->append(BoolTristateXor::getStaticXorInfo());
+		pDistComponents->append(BoolTristateXor::getStaticXnorInfo());
 	}
 
 	return *pDistComponents;
@@ -186,7 +186,7 @@ static const ImplicitConverterInfoList & getImplicitConverterProperty()
 		CHECK_PTR(pImplicitConverterProp);
 
 		// Add your implicit converter info here
-		pImplicitConverterProp->append(getImplicitConverterBoolTriState2BoolInfo());
+		pImplicitConverterProp->append(getImplicitConverterBoolTristate2BoolInfo());
 	}
 
 	return *pImplicitConverterProp;

@@ -51,53 +51,53 @@
 namespace KSimLibBoolean
 {
 
-BoolTriState1Out::BoolTriState1Out(CompContainer * container, const ComponentInfo * ci)
+BoolTristate1Out::BoolTristate1Out(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
 		m_resetState(KSIMBOOLTRISTATE_INACTIVE),
 		m_resetStateInit(KSIMBOOLTRISTATE_INACTIVE)
 {
 	
-	m_out = new ConnectorBoolTriState(this,
+	m_out = new ConnectorBoolTristate(this,
 	                                  QString::fromLatin1("Output"),
 	                                  i18n("Connector", "Output"));
 	CHECK_PTR(m_out);
 	
 }
 
-/*BoolTriState1Out::~BoolTriState1Out()
+/*BoolTristate1Out::~BoolTristate1Out()
 {
 } */
 
-void BoolTriState1Out::setState(KSimBoolTriState newState)
+void BoolTristate1Out::setState(KSimBoolTristate newState)
 {
 	getOutputConnector()->setOutput(newState);
 }
 	
-KSimBoolTriState BoolTriState1Out::getState() const
+KSimBoolTristate BoolTristate1Out::getState() const
 {
 	return getOutputConnector()->getOutput();
 }
 
-void BoolTriState1Out::setResetState(KSimBoolTriState resetState, bool init)
+void BoolTristate1Out::setResetState(KSimBoolTristate resetState, bool init)
 {
 	m_resetState = resetState;
 	if (init)
 		m_resetStateInit = resetState;
 }
 
-KSimBoolTriState BoolTriState1Out::getResetState() const
+KSimBoolTristate BoolTristate1Out::getResetState() const
 {
 	return m_resetState;
 };
 	
-KSimBoolTriState BoolTriState1Out::getResetStateInit() const
+KSimBoolTristate BoolTristate1Out::getResetStateInit() const
 {
 	return m_resetStateInit;
 };
 	
 
 
-void BoolTriState1Out::reset()
+void BoolTristate1Out::reset()
 {
 	Component::reset();
 	
@@ -106,7 +106,7 @@ void BoolTriState1Out::reset()
 }
 
 /** save component properties */
-void BoolTriState1Out::save(KSimData & file) const
+void BoolTristate1Out::save(KSimData & file) const
 {
 	Component::save(file);
 	
@@ -119,7 +119,7 @@ void BoolTriState1Out::save(KSimData & file) const
 /** load component properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool BoolTriState1Out::load(KSimData & file, bool copyLoad)
+bool BoolTristate1Out::load(KSimData & file, bool copyLoad)
 {
 	m_resetState.load(file, "Reset State", m_resetStateInit.text());
 	return Component::load(file, copyLoad);
@@ -130,10 +130,10 @@ bool BoolTriState1Out::load(KSimData & file, bool copyLoad)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * BoolTriState1Out::createGeneralProperty(QWidget *parent)
+ComponentPropertyBaseWidget * BoolTristate1Out::createGeneralProperty(QWidget *parent)
 {
-	BoolTriState1OutPropertyGeneralWidget * wid;
-	wid = new BoolTriState1OutPropertyGeneralWidget(this, parent);
+	BoolTristate1OutPropertyGeneralWidget * wid;
+	wid = new BoolTristate1OutPropertyGeneralWidget(this, parent);
 	CHECK_PTR(wid);
 	
 	return wid;
@@ -143,7 +143,7 @@ ComponentPropertyBaseWidget * BoolTriState1Out::createGeneralProperty(QWidget *p
 //###############################################################
 
 
-BoolTriState1OutView::BoolTriState1OutView(BoolTriState1Out * comp, eViewType viewType)
+BoolTristate1OutView::BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 //	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
@@ -165,11 +165,11 @@ BoolTriState1OutView::BoolTriState1OutView(BoolTriState1Out * comp, eViewType vi
 		m_layout = 0;
 	}
 }
-/*BoolTriState1OutView::~BoolTriState1OutView()
+/*BoolTristate1OutView::~BoolTristate1OutView()
 {
 }*/
 
-void BoolTriState1OutView::draw(QPainter * p)
+void BoolTristate1OutView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
@@ -180,13 +180,13 @@ void BoolTriState1OutView::draw(QPainter * p)
 //###############################################################
 //###############################################################
 
-BoolTriState1OutPropertyGeneralWidget::BoolTriState1OutPropertyGeneralWidget(BoolTriState1Out * comp, QWidget *parent, const char *name)
+BoolTristate1OutPropertyGeneralWidget::BoolTristate1OutPropertyGeneralWidget(BoolTristate1Out * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetStateLabel = new QLabel(i18n("Reset State: "), this, "ResetStateLabel");
 	CHECK_PTR(m_resetStateLabel);
 	
-	m_resetState = new KSimBoolTristateBox(getBoolTriState1Out()->getResetState(), this, "ResetState");
+	m_resetState = new KSimBoolTristateBox(getBoolTristate1Out()->getResetState(), this, "ResetState");
 	CHECK_PTR(m_resetState);
 	
 	QString tip(i18n("Changes the reset state of the component to true, false or inactive."));
@@ -201,14 +201,14 @@ BoolTriState1OutPropertyGeneralWidget::BoolTriState1OutPropertyGeneralWidget(Boo
 	You have to reimplement this function, if you add new properties.
 	If you do so, then first call function changeData() and than changed data!
   */
-void BoolTriState1OutPropertyGeneralWidget::acceptPressed()
+void BoolTristate1OutPropertyGeneralWidget::acceptPressed()
 {
 	ComponentPropertyGeneralWidget::acceptPressed();
 	
-	if (getBoolTriState1Out()->getResetState() != m_resetState->getValue())
+	if (getBoolTristate1Out()->getResetState() != m_resetState->getValue())
 	{
 		changeData();
-		getBoolTriState1Out()->setResetState( m_resetState->getValue() );
+		getBoolTristate1Out()->setResetState( m_resetState->getValue() );
 	}
 }
 
@@ -216,18 +216,18 @@ void BoolTriState1OutPropertyGeneralWidget::acceptPressed()
 /** The function defaultPressed() is called, if user wants to set the default values.
     You have to reimplement this function, if you add new properties.
   */
-void BoolTriState1OutPropertyGeneralWidget::defaultPressed()
+void BoolTristate1OutPropertyGeneralWidget::defaultPressed()
 {
 	ComponentPropertyGeneralWidget::defaultPressed();
 
-	m_resetState->setValue(getBoolTriState1Out()->getResetStateInit());
+	m_resetState->setValue(getBoolTristate1Out()->getResetStateInit());
 }
 
 //###############################################################
 //###############################################################
 
-BoolTriState1Out1Ena::BoolTriState1Out1Ena(CompContainer * container, const ComponentInfo * ci)
-	:	BoolTriState1Out(container, ci)
+BoolTristate1Out1Ena::BoolTristate1Out1Ena(CompContainer * container, const ComponentInfo * ci)
+	:	BoolTristate1Out(container, ci)
 {
 	m_enableOutput = new ConnectorBoolIn(this,
 	                                     QString::fromLatin1("Enable Output"),
@@ -235,38 +235,38 @@ BoolTriState1Out1Ena::BoolTriState1Out1Ena(CompContainer * container, const Comp
 	CHECK_PTR(m_enableOutput);
 }
 
-/*BoolTriState1Out1Ena::~BoolTriState1Out1Ena()
+/*BoolTristate1Out1Ena::~BoolTristate1Out1Ena()
 {}*/
 
-void BoolTriState1Out1Ena::setState(bool newState)
+void BoolTristate1Out1Ena::setState(bool newState)
 {
-	BoolTriState1Out::setState(KSimBoolTriState(newState, getEnableOutputConnector()->getInput()));
+	BoolTristate1Out::setState(KSimBoolTristate(newState, getEnableOutputConnector()->getInput()));
 }
 
-bool BoolTriState1Out1Ena::getState() const
+bool BoolTristate1Out1Ena::getState() const
 {
-	return BoolTriState1Out::getState().isTrue();
+	return BoolTristate1Out::getState().isTrue();
 }
 
 //###############################################################
 //###############################################################
 
-BoolTriState1Out1EnaView::BoolTriState1Out1EnaView(BoolTriState1Out1Ena * comp, eViewType viewType)
-	:	BoolTriState1OutView(comp, viewType),
+BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType)
+	:	BoolTristate1OutView(comp, viewType),
 		m_label(QString::fromLatin1(""))
 {
 	init(viewType);
 }
 
-BoolTriState1Out1EnaView::BoolTriState1Out1EnaView(const QString & label, BoolTriState1Out1Ena * comp, eViewType viewType)
-	:	BoolTriState1OutView(comp, viewType),
+BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(const QString & label, BoolTristate1Out1Ena * comp, eViewType viewType)
+	:	BoolTristate1OutView(comp, viewType),
 		m_label(label)
 {
 	init(viewType);
 }
 
 
-void BoolTriState1Out1EnaView::init(eViewType viewType)
+void BoolTristate1Out1EnaView::init(eViewType viewType)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -275,22 +275,22 @@ void BoolTriState1Out1EnaView::init(eViewType viewType)
 		CHECK_PTR(m_ctrlBlock);
 
 		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(getBoolTriState1Out1Ena()->getEnableOutputConnector());
+		getComponentLayout()->getLeft()->addConnector(getBoolTristate1Out1Ena()->getEnableOutputConnector());
 //		getComponentLayout()->getLeft()->addSpace(1);
 
 		getComponentLayout()->setMinSize(5,5);
 		getComponentLayout()->updateLayout();
 
-		new ConnectorLabel(getBoolTriState1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getBoolTristate1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
 	}
 }
 
-/*	BoolTriState1Out1EnaView::~BoolTriState1OutView()
+/*	BoolTristate1Out1EnaView::~BoolTristate1OutView()
 {}*/
 
-void BoolTriState1Out1EnaView::draw(QPainter * p)
+void BoolTristate1Out1EnaView::draw(QPainter * p)
 {
-	// Don't use the BoolTriState1OutView::draw(QPainter * p) !!!
+	// Don't use the BoolTristate1OutView::draw(QPainter * p) !!!
 	CompView::draw(p);
 
 	QRect rect(getDrawingPlace());
@@ -308,8 +308,8 @@ void BoolTriState1Out1EnaView::draw(QPainter * p)
 //###############################################################
 //###############################################################
 
-BoolTriStateXIn1Out1Ena::BoolTriStateXIn1Out1Ena(CompContainer * container, const ComponentInfo * ci)
-	:	BoolTriState1Out1Ena( container, ci)
+BoolTristateXIn1Out1Ena::BoolTristateXIn1Out1Ena(CompContainer * container, const ComponentInfo * ci)
+	:	BoolTristate1Out1Ena( container, ci)
 {
 	m_inPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Input"),
@@ -320,27 +320,27 @@ BoolTriStateXIn1Out1Ena::BoolTriStateXIn1Out1Ena(CompContainer * container, cons
 	m_inPack->setConnectorCount(2);
 }
 
-/* BoolTriStateXIn1Out1Ena::~BoolTriStateXIn1Out1Ena()
+/* BoolTristateXIn1Out1Ena::~BoolTristateXIn1Out1Ena()
 { }*/
 
 //###############################################################
 //###############################################################
 
-BoolTriStateXIn1Out1EnaView::BoolTriStateXIn1Out1EnaView(BoolTriStateXIn1Out1Ena * comp, eViewType viewType)
+BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType)
 	:	CompView(comp, viewType),
 		m_label(QString::fromLatin1(""))
 {
 	init(viewType);
 }
 
-BoolTriStateXIn1Out1EnaView::BoolTriStateXIn1Out1EnaView(const QString & label, BoolTriStateXIn1Out1Ena * comp, eViewType viewType)
+BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(const QString & label, BoolTristateXIn1Out1Ena * comp, eViewType viewType)
 	:	CompView(comp, viewType),
 		m_label(label)
 {
 	init(viewType);
 }
 
-void BoolTriStateXIn1Out1EnaView::init(eViewType viewType)
+void BoolTristateXIn1Out1EnaView::init(eViewType viewType)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -352,26 +352,26 @@ void BoolTriStateXIn1Out1EnaView::init(eViewType viewType)
 		CHECK_PTR(m_ctrlBlock);
 
 		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getBoolTriStateXIn1Out1Ena()->getEnableOutputConnector());
+		m_ctrlBlock->getLeft()->addConnector(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector());
 
 		m_layout->getRight()->addStretch(1);
-		m_layout->getRight()->addConnector(getBoolTriStateXIn1Out1Ena()->getOutputConnector());
+		m_layout->getRight()->addConnector(getBoolTristateXIn1Out1Ena()->getOutputConnector());
 		m_layout->getRight()->addStretch(1);
 
 		m_layout->getLeft()->addSpace(1);
-		m_layout->getLeft()->addConnectorPack(getBoolTriStateXIn1Out1Ena()->getInputConnector());
+		m_layout->getLeft()->addConnectorPack(getBoolTristateXIn1Out1Ena()->getInputConnector());
 
 		m_layout->setMinSize(5,5);
 		m_layout->updateLayout();
 
-		new ConnectorLabel(getBoolTriStateXIn1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
 	}
 /*	if (viewType == SHEET_VIEW)
 	{
 //		enableRotation(true);
 
 		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnectorPack(getBoolTriStateXIn1Out1Ena()->getInputConnector());
+		getComponentLayout()->getLeft()->addConnectorPack(getBoolTristateXIn1Out1Ena()->getInputConnector());
 //		getComponentLayout()->getRight()->addSpace(1);
 
 		getComponentLayout()->setMinSize(5,5);
@@ -379,13 +379,13 @@ void BoolTriStateXIn1Out1EnaView::init(eViewType viewType)
 	}*/
 }
 
-/* BoolTriStateXIn1Out1EnaView::~BoolTriStateXIn1Out1EnaView()
+/* BoolTristateXIn1Out1EnaView::~BoolTristateXIn1Out1EnaView()
 {}*/
 
 
-void BoolTriStateXIn1Out1EnaView::draw(QPainter * p)
+void BoolTristateXIn1Out1EnaView::draw(QPainter * p)
 {
-	// Don't use the BoolTriState1OutView::draw(QPainter * p) !!!
+	// Don't use the BoolTristate1OutView::draw(QPainter * p) !!!
 	CompView::draw(p);
 
 	QRect rect(getDrawingPlace());

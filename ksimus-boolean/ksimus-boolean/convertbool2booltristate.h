@@ -31,7 +31,7 @@
 
 // Forward declaration
 class ConnectorBoolIn;
-class ConnectorBoolTriState;
+class ConnectorBoolTristate;
 class ComponentControlBlock;
 class ComponentLayout;
 
@@ -46,16 +46,16 @@ namespace KSimLibBoolean
   *@author Rasmus Diekenbrock
   */
 
-const ComponentInfo * getConvertBool2BoolTriStateInfo();
+const ComponentInfo * getConvertBool2BoolTristateInfo();
 
-class ConvertBool2BoolTriState : public Component
+class ConvertBool2BoolTristate : public Component
 {
 
 	Q_OBJECT
 
 public:
-	ConvertBool2BoolTriState(CompContainer * container, const ComponentInfo * ci);
-	~ConvertBool2BoolTriState();
+	ConvertBool2BoolTristate(CompContainer * container, const ComponentInfo * ci);
+	~ConvertBool2BoolTristate();
 	
 	/** Resets the component state. */
 	virtual void reset();
@@ -65,26 +65,26 @@ public:
 
 	ConnectorBoolIn * getInputDataIn() const { return m_connDataIn; };
 	ConnectorBoolIn * getInputActiveIn() const { return m_connActiveIn; };
-	ConnectorBoolTriState * getOutput() const { return m_connOut; };
+	ConnectorBoolTristate * getOutput() const { return m_connOut; };
 	
 private:
 	ConnectorBoolIn * m_connDataIn;
 	ConnectorBoolIn * m_connActiveIn;
-	ConnectorBoolTriState * m_connOut;
+	ConnectorBoolTristate * m_connOut;
 	bool m_lockRecursion;
 
 };
 
 //###############################################################
 
-class ConvertBool2BoolTriStateView : public CompView
+class ConvertBool2BoolTristateView : public CompView
 {
 public:
-	ConvertBool2BoolTriStateView(ConvertBool2BoolTriState * comp, eViewType viewType);
+	ConvertBool2BoolTristateView(ConvertBool2BoolTristate * comp, eViewType viewType);
 	
 	virtual void draw(QPainter * p);
 
-	ConvertBool2BoolTriState * getConverter() const { return (ConvertBool2BoolTriState*) getComponent(); };
+	ConvertBool2BoolTristate * getConverter() const { return (ConvertBool2BoolTristate*) getComponent(); };
 
 	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
 	ComponentLayout * getComponentLayout() const { return m_layout; };

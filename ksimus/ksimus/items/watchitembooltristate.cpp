@@ -44,7 +44,7 @@
 //############################################################################################
 //############################################################################################
 
-class WatchItemBoolTriStateBase::StatePropertyWidget : public QComboBox
+class WatchItemBoolTristateBase::StatePropertyWidget : public QComboBox
 {
 public:
 
@@ -58,51 +58,51 @@ private:
 	void init();
 };
 
-WatchItemBoolTriStateBase::StatePropertyWidget::StatePropertyWidget(QWidget * parent, const char * name)
+WatchItemBoolTristateBase::StatePropertyWidget::StatePropertyWidget(QWidget * parent, const char * name)
 	:	QComboBox(parent,name)
 {
 	init();
 }
 
-WatchItemBoolTriStateBase::StatePropertyWidget::StatePropertyWidget(eStateProperty value, QWidget * parent, const char * name)
+WatchItemBoolTristateBase::StatePropertyWidget::StatePropertyWidget(eStateProperty value, QWidget * parent, const char * name)
 	:	QComboBox(parent,name)
 {
 	init();
 	setValue(value);
 }
 
-void WatchItemBoolTriStateBase::StatePropertyWidget::init()
+void WatchItemBoolTristateBase::StatePropertyWidget::init()
 {
 	QString s;
 
-	s = i18n("Boolean TriState Watch", "Inactive");
+	s = i18n("Boolean Tristate Watch", "Inactive");
 	insertItem(s, (int)eInactive);
 
-	s = i18n("Boolean TriState Watch", "False");
+	s = i18n("Boolean Tristate Watch", "False");
 	insertItem(s, (int)eFalse);
 
-	s = i18n("Boolean TriState Watch", "True");
+	s = i18n("Boolean Tristate Watch", "True");
 	insertItem(s, (int)eTrue);
 
-	s = i18n("Boolean TriState Watch", "Inactive or False");
+	s = i18n("Boolean Tristate Watch", "Inactive or False");
 	insertItem(s, (int)eInactiveOrFalse);
 
-	s = i18n("Boolean TriState Watch", "Inactive or True");
+	s = i18n("Boolean Tristate Watch", "Inactive or True");
 	insertItem(s, (int)eInactiveOrTrue);
 
-	s = i18n("Boolean TriState Watch", "False or True");
+	s = i18n("Boolean Tristate Watch", "False or True");
 	insertItem(s, (int)eFalseOrTrue);
 
-	s = i18n("Boolean TriState Watch", "Don't care");
+	s = i18n("Boolean Tristate Watch", "Don't care");
 	insertItem(s, (int)eDontCare);
 }
 
-void WatchItemBoolTriStateBase::StatePropertyWidget::setValue(WatchItemBoolTriStateBase::eStateProperty value)
+void WatchItemBoolTristateBase::StatePropertyWidget::setValue(WatchItemBoolTristateBase::eStateProperty value)
 {
 	setCurrentItem((int)value);
 }
 
-WatchItemBoolTriStateBase::eStateProperty WatchItemBoolTriStateBase::StatePropertyWidget::value() const
+WatchItemBoolTristateBase::eStateProperty WatchItemBoolTristateBase::StatePropertyWidget::value() const
 {
 	return (eStateProperty) currentItem();
 }
@@ -110,7 +110,7 @@ WatchItemBoolTriStateBase::eStateProperty WatchItemBoolTriStateBase::StateProper
 //############################################################################################
 //############################################################################################
 
-class WatchItemBoolTriStateBase::ActivePropertyWidget : public QHBox
+class WatchItemBoolTristateBase::ActivePropertyWidget : public QHBox
 {
 public:
 
@@ -127,13 +127,13 @@ private:
 	QSpinBox * m_spin;
 };
 
-WatchItemBoolTriStateBase::ActivePropertyWidget::ActivePropertyWidget(QWidget * parent, const char * name)
+WatchItemBoolTristateBase::ActivePropertyWidget::ActivePropertyWidget(QWidget * parent, const char * name)
 	:	QHBox(parent, name)
 {
 	init();
 }
 
-WatchItemBoolTriStateBase::ActivePropertyWidget::ActivePropertyWidget(ActiveProperty value, unsigned int maxValue, QWidget * parent, const char * name)
+WatchItemBoolTristateBase::ActivePropertyWidget::ActivePropertyWidget(ActiveProperty value, unsigned int maxValue, QWidget * parent, const char * name)
 	:	QHBox(parent, name)
 {
 	init();
@@ -141,7 +141,7 @@ WatchItemBoolTriStateBase::ActivePropertyWidget::ActivePropertyWidget(ActiveProp
 	setMaxValue(maxValue);
 }
 
-void WatchItemBoolTriStateBase::ActivePropertyWidget::init()
+void WatchItemBoolTristateBase::ActivePropertyWidget::init()
 {
 	QString s;
 
@@ -154,7 +154,7 @@ void WatchItemBoolTriStateBase::ActivePropertyWidget::init()
 
 	m_box->insertItem(QString::fromLatin1(">"), (int)eLarger);
 
-	s = i18n("Boolean TriState Watch", "Don't care");
+	s = i18n("Boolean Tristate Watch", "Don't care");
 	m_box->insertItem(s, (int)eDontCareCount);
 
 	m_spin = new QSpinBox(this, name());
@@ -162,18 +162,18 @@ void WatchItemBoolTriStateBase::ActivePropertyWidget::init()
 	m_spin->setMinValue(0);
 }
 
-void WatchItemBoolTriStateBase::ActivePropertyWidget::setValue(WatchItemBoolTriStateBase::ActiveProperty value)
+void WatchItemBoolTristateBase::ActivePropertyWidget::setValue(WatchItemBoolTristateBase::ActiveProperty value)
 {
 	m_box->setCurrentItem((int)value.getProperty());
 	m_spin->setValue(value.getCount());
 }
 
-void WatchItemBoolTriStateBase::ActivePropertyWidget::setMaxValue(unsigned int maxValue)
+void WatchItemBoolTristateBase::ActivePropertyWidget::setMaxValue(unsigned int maxValue)
 {
 	m_spin->setMaxValue(maxValue);
 };
 
-WatchItemBoolTriStateBase::ActiveProperty WatchItemBoolTriStateBase::ActivePropertyWidget::value() const
+WatchItemBoolTristateBase::ActiveProperty WatchItemBoolTristateBase::ActivePropertyWidget::value() const
 {
 	return ActiveProperty((eActiveProperty) m_box->currentItem(), m_spin->value());
 } 
@@ -193,26 +193,26 @@ WatchItemBoolTriStateBase::ActiveProperty WatchItemBoolTriStateBase::ActivePrope
 #define HIDE_IF_WIRE(widget) { if (isWirePropertyWatch()) widget->hide(); }
 
 
-WatchItemBoolTriStateBase::WatchItemBoolTriStateBase(ConnectorBase * connector, bool inOnly)
+WatchItemBoolTristateBase::WatchItemBoolTristateBase(ConnectorBase * connector, bool inOnly)
 	:	WatchItemBase(connector)
 {
 	init(inOnly);
 }
 
-WatchItemBoolTriStateBase::WatchItemBoolTriStateBase(WireProperty * wireProperty, bool inOnly)
+WatchItemBoolTristateBase::WatchItemBoolTristateBase(WireProperty * wireProperty, bool inOnly)
 	:	WatchItemBase(wireProperty)
 {
 	init(inOnly);
 }
 
-WatchItemBoolTriStateBase::~WatchItemBoolTriStateBase()
+WatchItemBoolTristateBase::~WatchItemBoolTristateBase()
 {
 }
 
-void WatchItemBoolTriStateBase::init(bool inOnly)
+void WatchItemBoolTristateBase::init(bool inOnly)
 {
-	m_traceInBuffer.fill(WireStateBoolTriState(), getTraceSize());
-	m_traceOutBuffer.fill(WireStateBoolTriState(), getTraceSize());
+	m_traceInBuffer.fill(WireStateBoolTristate(), getTraceSize());
+	m_traceOutBuffer.fill(WireStateBoolTristate(), getTraceSize());
 
 	m_triggerOutStateT1 = DEFAULT_OUT_STATE_T1;
 	m_triggerOutStateT0 = DEFAULT_OUT_STATE_T0;
@@ -233,7 +233,7 @@ void WatchItemBoolTriStateBase::init(bool inOnly)
 
 }
 
-unsigned int WatchItemBoolTriStateBase::getMaxConnectors() const
+unsigned int WatchItemBoolTristateBase::getMaxConnectors() const
 {
 	Wire * wire = (Wire*) 0;
 	if (isConnectorWatch())
@@ -252,28 +252,28 @@ unsigned int WatchItemBoolTriStateBase::getMaxConnectors() const
 }
 
 /** Resets the item. */
-void WatchItemBoolTriStateBase::reset()
+void WatchItemBoolTristateBase::reset()
 {
 	WatchItemBase::reset();
-	m_traceInBuffer.fill(WireStateBoolTriState());
-	m_traceOutBuffer.fill(WireStateBoolTriState());
+	m_traceInBuffer.fill(WireStateBoolTristate());
+	m_traceOutBuffer.fill(WireStateBoolTristate());
 }
 
 
-void WatchItemBoolTriStateBase::setTraceSize(unsigned int size)
+void WatchItemBoolTristateBase::setTraceSize(unsigned int size)
 {
 	WatchItemBase::setTraceSize(size);
 
 	m_traceInBuffer.resize(getTraceSize());
-	m_traceInBuffer.fill(WireStateBoolTriState());
+	m_traceInBuffer.fill(WireStateBoolTristate());
 
 	m_traceOutBuffer.resize(getTraceSize());
-	m_traceOutBuffer.fill(WireStateBoolTriState());
+	m_traceOutBuffer.fill(WireStateBoolTristate());
 }
 
-QString WatchItemBoolTriStateBase::getDataText(unsigned int index)
+QString WatchItemBoolTristateBase::getDataText(unsigned int index)
 {
-	static QString str18n(i18n("Boolean TriState Watch", "%1 (Output: %2)"));
+	static QString str18n(i18n("Boolean Tristate Watch", "%1 (Output: %2)"));
 	unsigned int sel = m_flags.inOnly + m_flags.detailed * 2;
 	
 	switch(sel)
@@ -300,7 +300,7 @@ QString WatchItemBoolTriStateBase::getDataText(unsigned int index)
 	}
 }
 
-bool WatchItemBoolTriStateBase::testState(WatchItemBoolTriStateBase::eStateProperty property, const WireStateBoolTriState & state)
+bool WatchItemBoolTristateBase::testState(WatchItemBoolTristateBase::eStateProperty property, const WireStateBoolTristate & state)
 {
 	bool res = true;
 	
@@ -337,7 +337,7 @@ bool WatchItemBoolTriStateBase::testState(WatchItemBoolTriStateBase::eStatePrope
 	return res;
 }
 
-bool WatchItemBoolTriStateBase::testActive(WatchItemBoolTriStateBase::ActiveProperty & property, const WireStateBoolTriState & state)
+bool WatchItemBoolTristateBase::testActive(WatchItemBoolTristateBase::ActiveProperty & property, const WireStateBoolTristate & state)
 {
 	bool res = true;
 
@@ -363,7 +363,7 @@ bool WatchItemBoolTriStateBase::testActive(WatchItemBoolTriStateBase::ActiveProp
 }
 
 
-bool WatchItemBoolTriStateBase::testBreak(unsigned int index, unsigned int stepCount)
+bool WatchItemBoolTristateBase::testBreak(unsigned int index, unsigned int stepCount)
 {
 
 	bool trigger = true;
@@ -404,18 +404,18 @@ bool WatchItemBoolTriStateBase::testBreak(unsigned int index, unsigned int stepC
 	return trigger;
 }
 
-PropertyWidget * WatchItemBoolTriStateBase::createPropertyWidget(QWidget * parent)
+PropertyWidget * WatchItemBoolTristateBase::createPropertyWidget(QWidget * parent)
 {
 	PropertyWidget * wid = WatchItemBase::createPropertyWidget(parent);
 	CHECK_PTR(wid);
 
-	m_detailed = new QCheckBox(i18n("Boolean TriState Watch", "Show detailed information"),
+	m_detailed = new QCheckBox(i18n("Boolean Tristate Watch", "Show detailed information"),
 	                           wid, "m_detailed");
 	CHECK_PTR(m_detailed);
 	
-	PropertyWidget::addToolTip(i18n("Boolean TriState Watch", "Shows the number of connectors with state true and false"),
+	PropertyWidget::addToolTip(i18n("Boolean Tristate Watch", "Shows the number of connectors with state true and false"),
 	                           m_detailed);
-	PropertyWidget::addWhatsThis(i18n("Boolean TriState Watch", "Shows the number of connectors with state true and false"),
+	PropertyWidget::addWhatsThis(i18n("Boolean Tristate Watch", "Shows the number of connectors with state true and false"),
 	                             m_detailed);
 
 	m_detailed->setChecked(m_flags.detailed);
@@ -423,19 +423,19 @@ PropertyWidget * WatchItemBoolTriStateBase::createPropertyWidget(QWidget * paren
 	return wid;
 }
 
-void WatchItemBoolTriStateBase::propertyOkPressed()
+void WatchItemBoolTristateBase::propertyOkPressed()
 {
 	WatchItemBase::propertyOkPressed();
 	m_flags.detailed = m_detailed->isChecked();
 }
 
-void WatchItemBoolTriStateBase::propertyDefaultPressed()
+void WatchItemBoolTristateBase::propertyDefaultPressed()
 {
 	WatchItemBase::propertyDefaultPressed();
 	m_detailed->setChecked(false);
 }
 
-void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
+void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 {
 /*	ASSERT(m_triggerOut == 0);*/
 
@@ -458,7 +458,7 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	QLabel * label;
 	QString s;
-	static QString sStateProperty(i18n("Boolean TriState Watch",
+	static QString sStateProperty(i18n("Boolean Tristate Watch",
 	                                   ""
 	                            "<table><tr><td><b>Inactive</b></td><td> Trigger if state is neither true nor false.</td></tr>"
 	                                   "<tr><td><b>False</b></td><td> Trigger if state is false.</td></tr>"
@@ -467,7 +467,7 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	                                   "<tr><td><b>Inactive or True</b></td><td> Trigger if state is inactive or true (in other words not false).</td></tr>"
 	                                   "<tr><td><b>False or True</b></td><td> Trigger if state is false or true (in other words active).</td></tr>"
 	                                   "<tr><td><b>Don't care </b></td><td> Don't check the state.</td></tr></table>"));
-	static QString sActiveProperty(i18n("Boolean TriState Watch",
+	static QString sActiveProperty(i18n("Boolean Tristate Watch",
 	                                    ""
 	                                    "<p>Trigger if the number of active connectors matches the given condition.</p>"
 	                             "<table><tr><td><b> &lt </b></td><td> Trigger if the number of active connectors is lesser.</td></tr>"
@@ -485,40 +485,40 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	CHECK_PTR(label);
 	if (isConnectorWatch())
 	{
-		label->setText(i18n("Boolean TriState Watch", "Input(t):"));
-		s = i18n("Boolean TriState Watch",
+		label->setText(i18n("Boolean Tristate Watch", "Input(t):"));
+		s = i18n("Boolean Tristate Watch",
 		         "Defines the trigger condition of the input signal at time t.");
 	}
 	else
 	{
-		label->setText(i18n("Boolean TriState Watch", "Wire(t):"));
-		s = i18n("Boolean TriState Watch",
+		label->setText(i18n("Boolean Tristate Watch", "Wire(t):"));
+		s = i18n("Boolean Tristate Watch",
 		         "Defines the trigger condition of the signal at time t.");
 	}
 	PropertyWidget::addToolTip(s, label);
 	PropertyWidget::addWhatsThis(s, label);
 
 	mainWid->addEmptyCell();
-	label = new QLabel(i18n("Boolean TriState Watch", "State:"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "InT0LabelState");
 	CHECK_PTR(label);
 
 	m_triggerInStateT0Widget = new StatePropertyWidget(m_triggerInStateT0, mainWid, "InT0Property");
 	CHECK_PTR(m_triggerInStateT0Widget);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "Defines the signal state at time t.");
 	PropertyWidget::addToolTip(s, label, m_triggerInStateT0Widget);
 	PropertyWidget::addWhatsThis(preP + s + postP + sStateProperty, label, m_triggerInStateT0Widget);
 
 
 	mainWid->addEmptyCell();
-	label = new QLabel(i18n("Boolean TriState Watch", "Active connectors:"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "Active connectors:"),
 	                   mainWid, "InT0LabelCount");
 	CHECK_PTR(label);
 
 	m_triggerInActiveT0Widget = new ActivePropertyWidget(m_triggerInActiveT0, getMaxConnectors(), mainWid, "InT0Active");
 	CHECK_PTR(m_triggerInActiveT0Widget);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "This trigger depends on the number of active connectors at time t.");
 	PropertyWidget::addToolTip(s, label, m_triggerInActiveT0Widget);
 	PropertyWidget::addWhatsThis(preP + s + postP + sActiveProperty, label, m_triggerInActiveT0Widget);
@@ -526,17 +526,17 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	// ####################    Output State     ####################
 	// ####################           t         ####################
 
-	label = new QLabel(i18n("Boolean TriState Watch", "Output(t):"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "Output(t):"),
 	                   mainWid->newRowHBox(AlignLeft), "OutT0Label");
 	CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "Defines the trigger condition of the output signal at time t.");
 	PropertyWidget::addToolTip(s, label);
 	PropertyWidget::addWhatsThis(s, label);
 
 	mainWid->addEmptyCell();
-	label = new QLabel(i18n("Boolean TriState Watch", "State:"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "OutT0LabelState");
 	CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
@@ -544,7 +544,7 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerOutStateT0Widget = new StatePropertyWidget(m_triggerOutStateT0, mainWid, "OutT0Property");
 	CHECK_PTR(m_triggerOutStateT0Widget);
 	HIDE_IF_WIRE(m_triggerOutStateT0Widget);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "Defines the output signal state at time t.");
 	PropertyWidget::addToolTip(s, label, m_triggerOutStateT0Widget);
 	PropertyWidget::addWhatsThis(preP + s + postP + sStateProperty, label, m_triggerOutStateT0Widget);
@@ -556,39 +556,39 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	CHECK_PTR(label);
 	if (isConnectorWatch())
 	{
-		label->setText(i18n("Boolean TriState Watch", "Input(t-1):"));
-		s = i18n("Boolean TriState Watch",
+		label->setText(i18n("Boolean Tristate Watch", "Input(t-1):"));
+		s = i18n("Boolean Tristate Watch",
 		         "Defines the trigger condition of the input signal at time t-1.");
 	}
 	else
 	{
-		label->setText(i18n("Boolean TriState Watch", "Wire(t-1):"));
-		s = i18n("Boolean TriState Watch",
+		label->setText(i18n("Boolean Tristate Watch", "Wire(t-1):"));
+		s = i18n("Boolean Tristate Watch",
 		         "Defines the trigger condition of the signal at time t-1.");
 	}
 	PropertyWidget::addToolTip(s, label);
 	PropertyWidget::addWhatsThis(s, label);
 
 	mainWid->addEmptyCell();
-	label = new QLabel(i18n("Boolean TriState Watch", "State:"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "InT1LabelState");
 	CHECK_PTR(label);
 
 	m_triggerInStateT1Widget = new StatePropertyWidget(m_triggerInStateT1, mainWid, "InT1Property");
 	CHECK_PTR(m_triggerInStateT1Widget);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "Defines the signal state at time t-1.");
 	PropertyWidget::addToolTip(s, label, m_triggerInStateT1Widget);
 	PropertyWidget::addWhatsThis(preP + s + postP + sStateProperty, label, m_triggerInStateT1Widget);
 
 	mainWid->addEmptyCell();
-	label = new QLabel(i18n("Boolean TriState Watch", "Active connectors:"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "Active connectors:"),
 	                   mainWid, "InT1LabelCount");
 	CHECK_PTR(label);
 
 	m_triggerInActiveT1Widget = new ActivePropertyWidget(m_triggerInActiveT1, getMaxConnectors(), mainWid, "InT1Active");
 	CHECK_PTR(m_triggerInActiveT1Widget);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "This trigger depends on the number of active connectors at time t-1.");
 	PropertyWidget::addToolTip(s, label, m_triggerInActiveT1Widget);
 	PropertyWidget::addWhatsThis(preP + s + postP + sActiveProperty, label, m_triggerInActiveT1Widget);
@@ -596,17 +596,17 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	// ####################    Output State     ####################
 	// ####################         t - 1       ####################
 
-	label = new QLabel(i18n("Boolean TriState Watch", "Output(t-1):"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "Output(t-1):"),
 	                   mainWid->newRowHBox(AlignLeft), "OutT1Label");
 	CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "Defines the trigger condition of the output signal at time t-1.");
 	PropertyWidget::addToolTip(s, label);
 	PropertyWidget::addWhatsThis(s, label);
 
 	mainWid->addEmptyCell();
-	label = new QLabel(i18n("Boolean TriState Watch", "State:"),
+	label = new QLabel(i18n("Boolean Tristate Watch", "State:"),
 	                   mainWid, "OutT1LabelState");
 	CHECK_PTR(label);
 	HIDE_IF_WIRE(label);
@@ -614,13 +614,13 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerOutStateT1Widget = new StatePropertyWidget(m_triggerOutStateT1, mainWid, "OutT1Property");
 	CHECK_PTR(m_triggerOutStateT1Widget);
 	HIDE_IF_WIRE(m_triggerOutStateT1Widget);
-	s = i18n("Boolean TriState Watch",
+	s = i18n("Boolean Tristate Watch",
 	         "Defines the output signal state at time t-1.");
 	PropertyWidget::addToolTip(s, label, m_triggerOutStateT1Widget);
 	PropertyWidget::addWhatsThis(preP + s + postP + sStateProperty, label, m_triggerOutStateT1Widget);
 
 	//##### Some Hints for the users ######
-	label = new QLabel(i18n("Boolean TriState Watch",
+	label = new QLabel(i18n("Boolean Tristate Watch",
 	                "<b>Hints:</b>"
 	            "<ul><li>A break trigger is released if <b>all</b> conditions are fulfilled.</li>"
 	                "<li>The time t is the current simulation time. E.g. the state(t) is the current signal state.</li>"
@@ -636,7 +636,7 @@ void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
 	#undef FIRST_COL_WIDTH
 }
 
-void WatchItemBoolTriStateBase::triggerPropertyOkPressed()
+void WatchItemBoolTristateBase::triggerPropertyOkPressed()
 {
 	ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
 	ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
@@ -671,7 +671,7 @@ void WatchItemBoolTriStateBase::triggerPropertyOkPressed()
 	
 }
 
-void WatchItemBoolTriStateBase::triggerPropertyDefaultPressed()
+void WatchItemBoolTristateBase::triggerPropertyDefaultPressed()
 {
 	ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
 	ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
@@ -688,7 +688,7 @@ void WatchItemBoolTriStateBase::triggerPropertyDefaultPressed()
 	m_triggerInActiveT0Widget->setValue(DEFAULT_IN_ACTIVE_T0);
 }
 
-void WatchItemBoolTriStateBase::triggerPropertyCancelPressed()
+void WatchItemBoolTristateBase::triggerPropertyCancelPressed()
 {
 	ASSERT(m_triggerOutStateT1Widget != (StatePropertyWidget*) 0);
 	ASSERT(m_triggerOutStateT0Widget != (StatePropertyWidget*) 0);
@@ -716,20 +716,20 @@ void WatchItemBoolTriStateBase::triggerPropertyCancelPressed()
 //############################################################################################
 //############################################################################################
 
-WatchItemBoolTriStateConnector::WatchItemBoolTriStateConnector(ConnectorBase * connector)
-	:	WatchItemBoolTriStateBase(connector, false)
+WatchItemBoolTristateConnector::WatchItemBoolTristateConnector(ConnectorBase * connector)
+	:	WatchItemBoolTristateBase(connector, false)
 {
 }
 
-WatchItemBoolTriStateConnector::~WatchItemBoolTriStateConnector()
+WatchItemBoolTristateConnector::~WatchItemBoolTristateConnector()
 {
 }
 
-void WatchItemBoolTriStateConnector::readData(unsigned int index)
+void WatchItemBoolTristateConnector::readData(unsigned int index)
 {
-	ConnectorBoolTriState * conn = (ConnectorBoolTriState *) getConnector();
-	const WireStateBoolTriState * pOutData = (const WireStateBoolTriState *)conn->readoutData();
-	const WireStateBoolTriState * pInData = (const WireStateBoolTriState *)conn->readoutInData();
+	ConnectorBoolTristate * conn = (ConnectorBoolTristate *) getConnector();
+	const WireStateBoolTristate * pOutData = (const WireStateBoolTristate *)conn->readoutData();
+	const WireStateBoolTristate * pInData = (const WireStateBoolTristate *)conn->readoutInData();
 	if (pInData && pOutData)
 	{
 		m_traceOutBuffer[index] = *pOutData;
@@ -741,20 +741,20 @@ void WatchItemBoolTriStateConnector::readData(unsigned int index)
 //############################################################################################
 //############################################################################################
 
-WatchItemBoolTriStateWireProperty::WatchItemBoolTriStateWireProperty(WireProperty * wireProperty)
-	:	WatchItemBoolTriStateBase(wireProperty, true)
+WatchItemBoolTristateWireProperty::WatchItemBoolTristateWireProperty(WireProperty * wireProperty)
+	:	WatchItemBoolTristateBase(wireProperty, true)
 {
 }
 
-WatchItemBoolTriStateWireProperty::~WatchItemBoolTriStateWireProperty()
+WatchItemBoolTristateWireProperty::~WatchItemBoolTristateWireProperty()
 {
 }
 
-void WatchItemBoolTriStateWireProperty::readData(unsigned int index)
+void WatchItemBoolTristateWireProperty::readData(unsigned int index)
 {
-	WirePropertyBoolTriState * wp = (WirePropertyBoolTriState *)getWireProperty();
-	wp = (WirePropertyBoolTriState *)(wp->getMasterWireProperty());
-	const WireStateBoolTriState * pData = (const WireStateBoolTriState *)wp->readoutData();
+	WirePropertyBoolTristate * wp = (WirePropertyBoolTristate *)getWireProperty();
+	wp = (WirePropertyBoolTristate *)(wp->getMasterWireProperty());
+	const WireStateBoolTristate * pData = (const WireStateBoolTristate *)wp->readoutData();
 	if (pData)
 	{
 		m_traceInBuffer[index] = *pData;
@@ -765,23 +765,23 @@ void WatchItemBoolTriStateWireProperty::readData(unsigned int index)
 //############################################################################################
 //############################################################################################
 
-WatchItemBoolTriStateConnectorSpecial::WatchItemBoolTriStateConnectorSpecial(ConnectorBoolTriStateSpecial * connector)
-	:	WatchItemBoolTriStateBase(connector, true)
+WatchItemBoolTristateConnectorSpecial::WatchItemBoolTristateConnectorSpecial(ConnectorBoolTristateSpecial * connector)
+	:	WatchItemBoolTristateBase(connector, true)
 {
 }
 
-WatchItemBoolTriStateConnectorSpecial::~WatchItemBoolTriStateConnectorSpecial()
+WatchItemBoolTristateConnectorSpecial::~WatchItemBoolTristateConnectorSpecial()
 {
 }
 
-void WatchItemBoolTriStateConnectorSpecial::readData(unsigned int index)
+void WatchItemBoolTristateConnectorSpecial::readData(unsigned int index)
 {
-	const WirePropertyBoolTriState * wpb = (const WirePropertyBoolTriState *)getConnector()->getWireProperty();
+	const WirePropertyBoolTristate * wpb = (const WirePropertyBoolTristate *)getConnector()->getWireProperty();
 	const void * pData = wpb->getMasterWireProperty()->readoutData();
 	
 	if (pData)
 	{
-		m_traceInBuffer[index] = *(const WireStateBoolTriState *)pData;
+		m_traceInBuffer[index] = *(const WireStateBoolTristate *)pData;
 		setIndexUsed(index);
 	}
 }

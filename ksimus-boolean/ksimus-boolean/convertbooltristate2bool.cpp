@@ -39,14 +39,14 @@ namespace KSimLibBoolean
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new ConvertBoolTriState2Bool(container, ci);
+	return new ConvertBoolTristate2Bool(container, ci);
 }
 
-const ComponentInfo * getConvertBoolTriState2BoolInfo()
+const ComponentInfo * getConvertBoolTristate2BoolInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean TriState to Boolean"),
-	                                QString::fromLatin1("Converter/Boolean TriState to Boolean"),
-	                                i18n("Component", "Converter/Boolean TriState to Boolean"),
+	static const ComponentInfo Info(i18n("Component", "Boolean Tristate to Boolean"),
+	                                QString::fromLatin1("Converter/Boolean Tristate to Boolean"),
+	                                i18n("Component", "Converter/Boolean Tristate to Boolean"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create/*,
@@ -63,13 +63,13 @@ const ComponentInfo * getConvertBoolTriState2BoolInfo()
 //###############################################################
 
 
-ConvertBoolTriState2Bool::ConvertBoolTriState2Bool(CompContainer * container, const ComponentInfo * ci)
+ConvertBoolTristate2Bool::ConvertBoolTristate2Bool(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci),
 		m_lockRecursion(false)
 {
 	setZeroDelayComponent(true);
 	
-	m_connIn = new ConnectorBoolTriState(this,
+	m_connIn = new ConnectorBoolTristate(this,
 	                           QString::fromLatin1("Input"),
 	                           i18n("Connector", "Input"),
 	                           QPoint(0,2));
@@ -79,7 +79,7 @@ ConvertBoolTriState2Bool::ConvertBoolTriState2Bool(CompContainer * container, co
 	m_connDataOut = new ConnectorBoolOut(this,
 	                           QString::fromLatin1("Data Output"),
 	                           i18n("Connector", "Data Output"),
-	                           QString::fromLatin1("Do"),
+	                           QString::fromLatin1("D"),
 	                           QPoint(4,3));
 	CHECK_PTR(m_connDataOut);
 	
@@ -87,7 +87,7 @@ ConvertBoolTriState2Bool::ConvertBoolTriState2Bool(CompContainer * container, co
 	m_connActiveOut = new ConnectorBoolOut(this,
 	                           QString::fromLatin1("Wire active"),
 	                           i18n("Connector", "Wire active"),
-	                           QString::fromLatin1("Eo"),
+	                           QString::fromLatin1("E"),
 	                           QPoint(4,1));
 	CHECK_PTR(m_connActiveOut);
 	
@@ -95,23 +95,23 @@ ConvertBoolTriState2Bool::ConvertBoolTriState2Bool(CompContainer * container, co
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ConvertBoolTriState2BoolView(this, SHEET_VIEW);
+		new ConvertBoolTristate2BoolView(this, SHEET_VIEW);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
-ConvertBoolTriState2Bool::~ConvertBoolTriState2Bool()
+ConvertBoolTristate2Bool::~ConvertBoolTristate2Bool()
 {
 }
 
-void ConvertBoolTriState2Bool::reset()
+void ConvertBoolTristate2Bool::reset()
 {
 	Component::reset();
 	
 	m_lockRecursion = false;
 }
 
-void ConvertBoolTriState2Bool::calculate()
+void ConvertBoolTristate2Bool::calculate()
 {
 	if(!m_lockRecursion)
 	{
@@ -132,14 +132,14 @@ void ConvertBoolTriState2Bool::calculate()
 	{
 		executeNext();
 	}
-//	KSIMDEBUG("ConvertBoolTriState2Bool::calculate()");
+//	KSIMDEBUG("ConvertBoolTristate2Bool::calculate()");
 }
 
 //###############################################################
 //###############################################################
 
 
-ConvertBoolTriState2BoolView::ConvertBoolTriState2BoolView(ConvertBoolTriState2Bool * comp, eViewType viewType)
+ConvertBoolTristate2BoolView::ConvertBoolTristate2BoolView(ConvertBoolTristate2Bool * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
@@ -150,7 +150,7 @@ ConvertBoolTriState2BoolView::ConvertBoolTriState2BoolView(ConvertBoolTriState2B
 	enableRotation(true);
 }
 
-void ConvertBoolTriState2BoolView::draw(QPainter * p)
+void ConvertBoolTristate2BoolView::draw(QPainter * p)
 {
 	CompView::draw(p);
 	

@@ -37,25 +37,25 @@
 
 
 
-QString WireStateBoolTriState::getText() const
+QString WireStateBoolTristate::getText() const
 {
 	if (!isActive())
 	{
-		return i18n("BoolTriState", "Inactive");
+		return i18n("BoolTristate", "Inactive");
 	}
 	else if (isTrue())
 	{
-		return i18n("BoolTriState", "True");
+		return i18n("BoolTristate", "True");
 	}
 	else
 	{
-		return i18n("BoolTriState", "False");
+		return i18n("BoolTristate", "False");
 	}
 }
 
-QString WireStateBoolTriState::getDetailedText() const
+QString WireStateBoolTristate::getDetailedText() const
 {
-	return getText() + i18n("BoolTriState", " (True: %1, False: %2)")
+	return getText() + i18n("BoolTristate", " (True: %1, False: %2)")
 		                     .arg(getTrue())
 		                     .arg(getFalse());
 }
@@ -64,33 +64,33 @@ QString WireStateBoolTriState::getDetailedText() const
 static WireProperty * create(Wire * wire)
 {
 	WireProperty * wp;
-	wp = new WirePropertyBoolTriState(wire);
+	wp = new WirePropertyBoolTristate(wire);
 	CHECK_PTR(wp);
 	return wp;
 }
 
 
-const WirePropertyInfo * getWirePropertyBoolTriStateInfo()
+const WirePropertyInfo * getWirePropertyBoolTristateInfo()
 {
-	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Boolean TriState"),
+	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Boolean Tristate"),
 	                                   QString::fromLatin1("wire/property/boolean tristate"),
-	                                   QString::fromLatin1("Boolean TriState"),
+	                                   QString::fromLatin1("Boolean Tristate"),
 	                                   create );
 	return &Info;
 }
 
 
-WirePropertyBoolTriState::WirePropertyBoolTriState(Wire * wire)
-	:	WirePropertyMultipleOutput(wire, getWirePropertyBoolTriStateInfo()),
+WirePropertyBoolTristate::WirePropertyBoolTristate(Wire * wire)
+	:	WirePropertyMultipleOutput(wire, getWirePropertyBoolTristateInfo()),
 		m_lockRecursion(false)
 {
 }
 
-WirePropertyBoolTriState::~WirePropertyBoolTriState()
+WirePropertyBoolTristate::~WirePropertyBoolTristate()
 {
 }
 
-void WirePropertyBoolTriState::setupCircuit()
+void WirePropertyBoolTristate::setupCircuit()
 {
 	WirePropertyMultipleOutput::setupCircuit();
 
@@ -100,7 +100,7 @@ void WirePropertyBoolTriState::setupCircuit()
 
 /** Executes the WireProperty. This means copies the data from the output connector
   * to the input connector. */
-void WirePropertyBoolTriState::execute()
+void WirePropertyBoolTristate::execute()
 {
 	if (m_lockRecursion) return;
 	
@@ -110,7 +110,7 @@ void WirePropertyBoolTriState::execute()
 	
 	FOR_EACH_CONNECTORTRISTATE(itRd, *m_connectorList)
 	{
-		const WireStateBoolTriState * state = (const WireStateBoolTriState *)itRd.current()->readoutData();
+		const WireStateBoolTristate * state = (const WireStateBoolTristate *)itRd.current()->readoutData();
 		trueCounter += state->getTrue();
 		falseCounter += state->getFalse();
 	}
@@ -149,7 +149,7 @@ void WirePropertyBoolTriState::execute()
 }
 	
 	/** Get the colors for the wire property. */
-const WireColorScheme & WirePropertyBoolTriState::colorScheme()
+const WireColorScheme & WirePropertyBoolTristate::colorScheme()
 {
 	static WireColorScheme colorScheme(black, darkGreen);
 	
@@ -157,19 +157,19 @@ const WireColorScheme & WirePropertyBoolTriState::colorScheme()
 }
 
 	/** Get the colors for the wire property. */
-const WireColorScheme & WirePropertyBoolTriState::getColorScheme() const
+const WireColorScheme & WirePropertyBoolTristate::getColorScheme() const
 {
 	return colorScheme();
 }
 
-const void * WirePropertyBoolTriState::readoutData() const
+const void * WirePropertyBoolTristate::readoutData() const
 {
 	return (const void *)&m_state;
 }
 
-WatchItemBase * WirePropertyBoolTriState::makeWatchItem()
+WatchItemBase * WirePropertyBoolTristate::makeWatchItem()
 {
-	WatchItemBase * wi = new WatchItemBoolTriStateWireProperty(this);
+	WatchItemBase * wi = new WatchItemBoolTristateWireProperty(this);
 	CHECK_PTR(wi);
 	return wi;
 }

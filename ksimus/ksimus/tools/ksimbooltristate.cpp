@@ -32,41 +32,41 @@
 
 //#########################################################################################
 
-EnumDict<eKSimBoolTriState>::tData EnumDict<eKSimBoolTriState>::data[]
+EnumDict<eKSimBoolTristate>::tData EnumDict<eKSimBoolTristate>::data[]
       = { {"False",        KSIMBOOLTRISTATE_FALSE},
           {"True",         KSIMBOOLTRISTATE_TRUE},
           {"Inactive",     KSIMBOOLTRISTATE_INACTIVE},
-          {0,              (eKSimBoolTriState)0}};
+          {0,              (eKSimBoolTristate)0}};
 
-static const EnumDict<eKSimBoolTriState> & getTriStateDict()
+static const EnumDict<eKSimBoolTristate> & getTristateDict()
 {
-	static EnumDict<eKSimBoolTriState> triStateDict;
+	static EnumDict<eKSimBoolTristate> triStateDict;
 	return triStateDict;
 }
 
-const char * KSimBoolTriState::convert(KSimBoolTriState state)
+const char * KSimBoolTristate::convert(KSimBoolTristate state)
 {
-	return getTriStateDict().find(state);
+	return getTristateDict().find(state);
 }
 
-KSimBoolTriState KSimBoolTriState::convert(const char * state, KSimBoolTriState eDefault)
+KSimBoolTristate KSimBoolTristate::convert(const char * state, KSimBoolTristate eDefault)
 {
-	return KSimBoolTriState(getTriStateDict().find(state, eDefault));
+	return KSimBoolTristate(getTristateDict().find(state, eDefault));
 }
 
 
-QString KSimBoolTriState::text() const
+QString KSimBoolTristate::text() const
 {
 	return QString::fromLatin1(convert(m_value));
 }
 
-void KSimBoolTriState::setText(const QString & text, bool * ok)
+void KSimBoolTristate::setText(const QString & text, bool * ok)
 {
-	eKSimBoolTriState e = convert(text, (eKSimBoolTriState) -1);
-	if ( e == (eKSimBoolTriState) -1)
+	eKSimBoolTristate e = convert(text, (eKSimBoolTristate) -1);
+	if ( e == (eKSimBoolTristate) -1)
 	{
 		if (ok) *ok = false;
-		KSIMDEBUG(QString::fromLatin1("FixMe: '%1' is no eKSimBoolTriState").arg(text));
+		KSIMDEBUG(QString::fromLatin1("FixMe: '%1' is no eKSimBoolTristate").arg(text));
 	}
 	else
 	{

@@ -36,30 +36,30 @@
 
 static ConnectorBase * create(Component * comp, const QString & name, const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorBoolTriState(comp, name, i18nName, pos);
+	return new ConnectorBoolTristate(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo * getConnectorBoolTriStateInfo()
+const ConnectorInfo * getConnectorBoolTristateInfo()
 {
-	static const ConnectorInfo Info(QString::fromLatin1("Boolean TriState"),
-	                                QString::fromLatin1("Boolean TriState"),
-	                                QString::fromLatin1("Boolean TriState"),
+	static const ConnectorInfo Info(QString::fromLatin1("Boolean Tristate"),
+	                                QString::fromLatin1("Boolean Tristate"),
+	                                QString::fromLatin1("Boolean Tristate"),
 	                                create );
 	return &Info;
 }
 
-ConnectorBoolTriState::ConnectorBoolTriState(Component * comp, const QString & name,
+ConnectorBoolTristate::ConnectorBoolTristate(Component * comp, const QString & name,
 		                                         const QString & i18nName, const QPoint & pos)
-	:	ConnectorTriStateBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTriStateInfo()),
+	:	ConnectorTristateBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTristateInfo()),
 		m_inData(),
 		m_outData()
 {
 	init();
 }
 
-ConnectorBoolTriState::ConnectorBoolTriState(Component * comp, const QString & name, const QString & i18nName,
+ConnectorBoolTristate::ConnectorBoolTristate(Component * comp, const QString & name, const QString & i18nName,
 		                                         const QString & descr, const QPoint & pos)
-	:	ConnectorTriStateBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTriStateInfo()),
+	:	ConnectorTristateBase(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTristateInfo()),
 		m_inData(),
 		m_outData()
 {
@@ -67,31 +67,31 @@ ConnectorBoolTriState::ConnectorBoolTriState(Component * comp, const QString & n
 	new ConnectorLabel(this, descr);
 }
 
-ConnectorBoolTriState::ConnectorBoolTriState(Component * comp, const QString & name, const QString & i18nName,
+ConnectorBoolTristate::ConnectorBoolTristate(Component * comp, const QString & name, const QString & i18nName,
 		                                         const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorTriStateBase(comp, name, i18nName, pos, orient, ci),
+	:	ConnectorTristateBase(comp, name, i18nName, pos, orient, ci),
 		m_inData(),
 		m_outData()
 {
 	init();
 }
 
-void ConnectorBoolTriState::init()
+void ConnectorBoolTristate::init()
 {
 	setNegateEnabled(true);
 }
 
 // Get the colors for the connector
-const WireColorScheme & ConnectorBoolTriState::getColorScheme() const
+const WireColorScheme & ConnectorBoolTristate::getColorScheme() const
 {
-	return WirePropertyBoolTriState::colorScheme();
+	return WirePropertyBoolTristate::colorScheme();
 }
 	
 /** Resets the connector
 */
-void ConnectorBoolTriState::reset()
+void ConnectorBoolTristate::reset()
 {
-	ConnectorTriStateBase::reset();
+	ConnectorTristateBase::reset();
 	
 	m_inData.set(0,0);
 	m_outData.set(0,0);
@@ -100,20 +100,20 @@ void ConnectorBoolTriState::reset()
 /** The function copyData() has to copy data to the output variable
   * The default implementation does nothing
   * Reimplementations is required for all output connectors  */
-void ConnectorBoolTriState::copyData(const void * pData)
+void ConnectorBoolTristate::copyData(const void * pData)
 {
-	m_inData = *(const WireStateBoolTriState*)pData;
+	m_inData = *(const WireStateBoolTristate*)pData;
 }
 
 /** Set the current output */
-void ConnectorBoolTriState::setOutput(bool out, bool active, bool exeWirePropNext)
+void ConnectorBoolTristate::setOutput(bool out, bool active, bool exeWirePropNext)
 {
-	KSimBoolTriState state(out ^ isNegated(), active);
+	KSimBoolTristate state(out ^ isNegated(), active);
 	
-	if (state != m_outData.getTriState())
+	if (state != m_outData.getTristate())
 	{
 		// Value changed
-		m_outData.setTriState(state);
+		m_outData.setTristate(state);
 		// No Wire connected ?
 		if (!getWireProperty())
 		{
@@ -123,57 +123,57 @@ void ConnectorBoolTriState::setOutput(bool out, bool active, bool exeWirePropNex
 	}
 }
 
-void ConnectorBoolTriState::setOutput(KSimBoolTriState state, bool executeWirePropertyNext)
+void ConnectorBoolTristate::setOutput(KSimBoolTristate state, bool executeWirePropertyNext)
 {
 	setOutput(state.isTrue(), state.isActive(), executeWirePropertyNext);
 }
 
 /** Return the current output */
-KSimBoolTriState ConnectorBoolTriState::getOutput() const
+KSimBoolTristate ConnectorBoolTristate::getOutput() const
 {
 	if (isNegated())
 	{
-		return KSimBoolTriState(m_outData.isFalse(), m_outData.isActive());
+		return KSimBoolTristate(m_outData.isFalse(), m_outData.isActive());
 	}
 	else
 	{
-		return m_outData.getTriState();
+		return m_outData.getTristate();
 	}
 };
 
 /** Return the current wire state */
-KSimBoolTriState ConnectorBoolTriState::getInput() const
+KSimBoolTristate ConnectorBoolTristate::getInput() const
 {
 	if (isNegated())
 	{
-		return KSimBoolTriState(m_inData.isFalse(), m_inData.isActive());
+		return KSimBoolTristate(m_inData.isFalse(), m_inData.isActive());
 	}
 	else
 	{
-		return m_inData.getTriState();
+		return m_inData.getTristate();
 	}
 }
 
 /** Returns a pointer to the data that's read from the component. */
-const void * ConnectorBoolTriState::readoutData() const
+const void * ConnectorBoolTristate::readoutData() const
 {
 	return &m_outData;
 }
 
-const void * ConnectorBoolTriState::readoutInData() const
+const void * ConnectorBoolTristate::readoutInData() const
 {
 	return &m_inData;
 }
 
 /** Returns a text which represents the current value. */
-QString ConnectorBoolTriState::getValueText() const
+QString ConnectorBoolTristate::getValueText() const
 {
 	return m_inData.getText();
 }
 
-WatchItemBase * ConnectorBoolTriState::makeWatchItem()
+WatchItemBase * ConnectorBoolTristate::makeWatchItem()
 {
-	WatchItemBase * wi = new WatchItemBoolTriStateConnector(this);
+	WatchItemBase * wi = new WatchItemBoolTristateConnector(this);
 	CHECK_PTR(wi);
 	return wi;
 }
@@ -184,48 +184,48 @@ WatchItemBase * ConnectorBoolTriState::makeWatchItem()
 
 static ConnectorBase * createNoNegatable(Component * comp, const QString & name, const QString & i18nName, const QPoint & pos)
 {
-	return new ConnectorBoolTriStateSpecial(comp, name, i18nName, pos);
+	return new ConnectorBoolTristateSpecial(comp, name, i18nName, pos);
 }
 
-const ConnectorInfo * getConnectorBoolTriStateSpecialInfo()
+const ConnectorInfo * getConnectorBoolTristateSpecialInfo()
 {
-	static const ConnectorInfo Info(QString::fromLatin1("Boolean TriState No Negatable"),
-	                                QString::fromLatin1("Boolean TriState No Negatable"),
-	                                QString::fromLatin1("Boolean TriState"),
+	static const ConnectorInfo Info(QString::fromLatin1("Boolean Tristate No Negatable"),
+	                                QString::fromLatin1("Boolean Tristate No Negatable"),
+	                                QString::fromLatin1("Boolean Tristate"),
 	                                createNoNegatable );
 	return &Info;
 }
 
-ConnectorBoolTriStateSpecial::ConnectorBoolTriStateSpecial(Component * comp, const QString & name,
+ConnectorBoolTristateSpecial::ConnectorBoolTristateSpecial(Component * comp, const QString & name,
 		                                                               const QString & i18nName, const QPoint & pos)
-	:	ConnectorBoolTriState(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTriStateSpecialInfo())
+	:	ConnectorBoolTristate(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTristateSpecialInfo())
 {
 	init();
 }
 
-ConnectorBoolTriStateSpecial::ConnectorBoolTriStateSpecial(Component * comp, const QString & name, const QString & i18nName,
+ConnectorBoolTristateSpecial::ConnectorBoolTristateSpecial(Component * comp, const QString & name, const QString & i18nName,
 		                                                              const QString & descr, const QPoint & pos)
-	:	ConnectorBoolTriState(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTriStateSpecialInfo())
+	:	ConnectorBoolTristate(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTristateSpecialInfo())
 {
 	init();
 	new ConnectorLabel(this, descr);
 }
 
-ConnectorBoolTriStateSpecial::ConnectorBoolTriStateSpecial(Component * comp, const QString & name, const QString & i18nName,
+ConnectorBoolTristateSpecial::ConnectorBoolTristateSpecial(Component * comp, const QString & name, const QString & i18nName,
 		                                                               const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
-	:	ConnectorBoolTriState(comp, name, i18nName, pos, orient, ci)
+	:	ConnectorBoolTristate(comp, name, i18nName, pos, orient, ci)
 {
 	init();
 }
 
-void ConnectorBoolTriStateSpecial::init()
+void ConnectorBoolTristateSpecial::init()
 {
 	setNegateEnabled(false);
 }
 
-WatchItemBase * ConnectorBoolTriStateSpecial::makeWatchItem()
+WatchItemBase * ConnectorBoolTristateSpecial::makeWatchItem()
 {
-	WatchItemBase * wi = new WatchItemBoolTriStateConnectorSpecial(this);
+	WatchItemBase * wi = new WatchItemBoolTristateConnectorSpecial(this);
 	CHECK_PTR(wi);
 	return wi;
 }

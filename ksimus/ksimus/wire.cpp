@@ -359,7 +359,7 @@ void Wire::addConnector(ConnectorBase * conn)
 	if (-1 == getConnList()->findRef(conn))
 	{
 		// Outputs first
-		if (conn->isOutput() || conn->isTriState())
+		if (conn->isOutput() || conn->isTristate())
 		{
 			unsigned int i = 0;
 			while ((getConnList()->count()>i) && !(getConnList()->at(i)->isInput()))
@@ -558,7 +558,7 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 	//##### 1. All outputs and tristate outputs must be the same data type
 	FOR_EACH_CONNECTOR(it,*list)
 	{
-		if (it.current()->isOutput() || it.current()->isTriState())
+		if (it.current()->isOutput() || it.current()->isTristate())
 		{
 			if (outputType.isNull())
 			{

@@ -40,14 +40,14 @@ namespace KSimLibBoolean
   * @author Rasmus Diekenbrock
   */
 
-class BoolTriStateXor : public BoolTriStateXIn1Out1Ena
+class BoolTristateXor : public BoolTristateXIn1Out1Ena
 {
 	
 	Q_OBJECT
 
 public:
 	/** Constructs a boolean XOR/XNOR with a tristate output */
-	BoolTriStateXor(CompContainer * container, const ComponentInfo * ci);
+	BoolTristateXor(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
@@ -63,14 +63,14 @@ public:
 	*
   * @author Rasmus Diekenbrock
   */
-class BoolTriStateXorView : public BoolTriStateXIn1Out1EnaView
+class BoolTristateXorView : public BoolTristateXIn1Out1EnaView
 {
 
 	Q_OBJECT
 
 public:
-	BoolTriStateXorView(BoolTriStateXor * comp, eViewType viewType)
-		: BoolTriStateXIn1Out1EnaView(QString::fromLatin1("=1"), comp, viewType) {};
+	BoolTristateXorView(BoolTristateXor * comp, eViewType viewType)
+		: BoolTristateXIn1Out1EnaView(QString::fromLatin1("=1"), comp, viewType) {};
 };
 
 //###############################################################

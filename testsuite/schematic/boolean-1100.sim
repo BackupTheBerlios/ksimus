@@ -5,7 +5,7 @@ Document Version=KSimus 0.3.5
 
 [/Component 0/]
 Serial Number=7
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 0/Sheet/]
 Pos=520,88
@@ -100,7 +100,7 @@ Pos=608,24
 
 [/Component 10/]
 Serial Number=129
-Type=Boolean/Tristate/Gates/AND TriState
+Type=Boolean/Tristate/Gates/AND Tristate
 
 [/Component 10/Sheet/]
 Pos=256,120
@@ -176,7 +176,7 @@ Pos=248,72
 
 [/Component 17/]
 Serial Number=147
-Type=Boolean/Tristate/Gates/AND TriState
+Type=Boolean/Tristate/Gates/AND Tristate
 
 [/Component 17/Sheet/]
 Pos=256,336
@@ -186,7 +186,7 @@ Connector Count=3
 
 [/Component 18/]
 Serial Number=149
-Type=Boolean/Tristate/Gates/AND TriState
+Type=Boolean/Tristate/Gates/AND Tristate
 
 [/Component 18/Sheet/]
 Pos=152,248
@@ -197,7 +197,7 @@ Connector Count=26
 [/Component 19/]
 Reset State=False
 Serial Number=180
-Type=Boolean/Tristate/Gates/AND TriState
+Type=Boolean/Tristate/Gates/AND Tristate
 
 [/Component 19/Sheet/]
 Pos=256,184
@@ -227,7 +227,7 @@ Unit=Ticks
 [/Component 20/]
 Reset State=True
 Serial Number=181
-Type=Boolean/Tristate/Gates/AND TriState
+Type=Boolean/Tristate/Gates/AND Tristate
 
 [/Component 20/Sheet/]
 Pos=256,248
@@ -855,14 +855,14 @@ Type=wire/property/boolean tristate
 
 [/Component 5/]
 Serial Number=26
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 5/Sheet/]
 Pos=552,120
 
 [/Component 6/]
 Serial Number=32
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 6/Sheet/]
 Pos=520,152
@@ -888,14 +888,14 @@ Unit=Ticks
 
 [/Component 8/]
 Serial Number=92
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 8/Sheet/]
 Pos=552,184
 
 [/Component 9/]
 Serial Number=93
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 9/Sheet/]
 Pos=520,216

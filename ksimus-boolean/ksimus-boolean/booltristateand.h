@@ -40,14 +40,14 @@ namespace KSimLibBoolean
   * @author Rasmus Diekenbrock
   */
 
-class BoolTriStateAnd : public BoolTriStateXIn1Out1Ena
+class BoolTristateAnd : public BoolTristateXIn1Out1Ena
 {
 	
 	Q_OBJECT
 
 public:
 	/** Constructs a boolean AND/NAND with a tristate output */
-	BoolTriStateAnd(CompContainer * container, const ComponentInfo * ci);
+	BoolTristateAnd(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
@@ -63,14 +63,14 @@ public:
 	*
   * @author Rasmus Diekenbrock
   */
-class BoolTriStateAndView : public BoolTriStateXIn1Out1EnaView
+class BoolTristateAndView : public BoolTristateXIn1Out1EnaView
 {
 
 	Q_OBJECT
 
 public:
-	BoolTriStateAndView(BoolTriStateAnd * comp, eViewType viewType)
-		: BoolTriStateXIn1Out1EnaView(QString::fromLatin1("&"), comp, viewType) {};
+	BoolTristateAndView(BoolTristateAnd * comp, eViewType viewType)
+		: BoolTristateXIn1Out1EnaView(QString::fromLatin1("&"), comp, viewType) {};
 };
 
 //###############################################################

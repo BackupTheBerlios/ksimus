@@ -37,42 +37,42 @@
 namespace KSimLibBoolean
 {
 
-Component * BoolTriStateAnd::create(CompContainer * container, const ComponentInfo * ci)
+Component * BoolTristateAnd::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new BoolTriStateAnd(container, ci);
+	return new BoolTristateAnd(container, ci);
 }
 
-const ComponentInfo * BoolTriStateAnd::getStaticAndInfo()
+const ComponentInfo * BoolTristateAnd::getStaticAndInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean AND with TriState output"),
-	                                QString::fromLatin1("Boolean/Tristate/Gates/AND TriState"),
-	                                i18n("Component", "Boolean/Tristate/Gates/AND with TriState output"),
+	static const ComponentInfo Info(i18n("Component", "Boolean AND with Tristate output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/AND Tristate"),
+	                                i18n("Component", "Boolean/Tristate/Gates/AND with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create/* TODO,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-and")*/);
+	                                QString::fromLatin1("component-boolean-tristate-and"));
 	return &Info;
 }
 
-const ComponentInfo * BoolTriStateAnd::getStaticNandInfo()
+const ComponentInfo * BoolTristateAnd::getStaticNandInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Boolean NAND with TriState output"),
-	                                QString::fromLatin1("Boolean/Tristate/Gates/NAND TriState"),
-	                                i18n("Component", "Boolean/Tristate/Gates/NAND with TriState output"),
+	static const ComponentInfo Info(i18n("Component", "Boolean NAND with Tristate output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/NAND Tristate"),
+	                                i18n("Component", "Boolean/Tristate/Gates/NAND with Tristate output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create /* TODO,
+	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-nand") */);
+	                                QString::fromLatin1("component-boolean-tristate-nand"));
 	return &Info;
 }
 
 //###############################################################
 //###############################################################
 
-BoolTriStateAnd::BoolTriStateAnd(CompContainer * container, const ComponentInfo * ci)
-	: BoolTriStateXIn1Out1Ena(container, ci)
+BoolTristateAnd::BoolTristateAnd(CompContainer * container, const ComponentInfo * ci)
+	: BoolTristateXIn1Out1Ena(container, ci)
 {
 	
 	// make NAND
@@ -84,16 +84,16 @@ BoolTriStateAnd::BoolTriStateAnd(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTriStateAndView(this, SHEET_VIEW);
+		new BoolTristateAndView(this, SHEET_VIEW);
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
-void BoolTriStateAnd::calculate()
+void BoolTristateAnd::calculate()
 {
-	BoolTriStateXIn1Out1Ena::calculate();
+	BoolTristateXIn1Out1Ena::calculate();
 	
 	bool result = true;
 	

@@ -5,21 +5,21 @@ Document Version=KSimus 0.3.5
 
 [/Component 0/]
 Serial Number=4
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 0/Sheet/]
 Pos=520,24
 
 [/Component 1/]
 Serial Number=6
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 1/Sheet/]
 Pos=552,56
 
 [/Component 10/]
 Serial Number=36
-Type=Converter/Boolean to Boolean TriState
+Type=Converter/Boolean to Boolean Tristate
 
 [/Component 10/Sheet/]
 Pos=152,160
@@ -83,63 +83,63 @@ Unit=Ticks
 
 [/Component 14/]
 Serial Number=92
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 14/Sheet/]
 Pos=552,184
 
 [/Component 15/]
 Serial Number=93
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 15/Sheet/]
 Pos=520,216
 
 [/Component 16/]
 Serial Number=94
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 16/Sheet/]
 Pos=552,248
 
 [/Component 17/]
 Serial Number=95
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 17/Sheet/]
 Pos=520,280
 
 [/Component 18/]
 Serial Number=96
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 18/Sheet/]
 Pos=552,312
 
 [/Component 19/]
 Serial Number=97
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 19/Sheet/]
 Pos=520,344
 
 [/Component 2/]
 Serial Number=7
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 2/Sheet/]
 Pos=520,88
 
 [/Component 20/]
 Serial Number=121
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 20/Sheet/]
 Pos=552,376
 
 [/Component 21/]
 Serial Number=122
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 21/Sheet/]
 Pos=520,408
@@ -1022,7 +1022,7 @@ Type=wire/property/boolean tristate
 
 [/Component 6/]
 Serial Number=20
-Type=Converter/Boolean to Boolean TriState
+Type=Converter/Boolean to Boolean Tristate
 
 [/Component 6/Sheet/]
 Pos=152,104
@@ -1174,14 +1174,14 @@ Unit=Ticks
 
 [/Component 8/]
 Serial Number=26
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 8/Sheet/]
 Pos=552,120
 
 [/Component 9/]
 Serial Number=32
-Type=Converter/Boolean TriState to Boolean
+Type=Converter/Boolean Tristate to Boolean
 
 [/Component 9/Sheet/]
 Pos=520,152
