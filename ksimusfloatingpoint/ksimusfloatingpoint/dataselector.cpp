@@ -65,7 +65,7 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 
 const ComponentInfo DataSelectorInfo(
                      I18N_NOOP("Floating Data Selector"),
-                     I18N_NOOP("Floating Point/Misc/Data Selector"),
+                     I18N_NOOP("Floating Point/Control/Data Selector"),
                      QString::null,
                      VA_SHEETVIEW,
                      create );
@@ -158,7 +158,7 @@ void DataSelector::calculate()
 		if (m_addressLatch < getInputPack()->getConnectorCount())
 		{
 			ConnectorFloatIn * in = (ConnectorFloatIn *)getInputPack()->getConnList()->at(m_addressLatch);
-			ASSERT(in == 0);
+			ASSERT(in != 0);
 			setValue(in->getInput());
 		}
 		else
@@ -239,7 +239,7 @@ unsigned int DataSelector::getChannelCount() const
 
 unsigned int DataSelector::getMinChannelCount() const
 {
-	int i = MAX_CHANNELS;
+	unsigned int i = MAX_CHANNELS;
 	
 	switch(getAddressPack()->getNumberOfNotDeletableConnectors())
 	{
@@ -248,13 +248,13 @@ unsigned int DataSelector::getMinChannelCount() const
 		case 2: i = 3; break;
 		case 3: i = 5; break;
 		case 4: i = 9; break;
-		default: ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() > 4); break;
+		default: ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
 	}
 	
 	return QMAX(getInputPack()->getNumberOfNotDeletableConnectors(), i);
 }
 
-static int tempConnCount;
+static unsigned int tempConnCount;
 static DataSelector * tempConnCountOwner = (DataSelector *)0;
 
 void DataSelector::setChannelCountDelayed(int count)
@@ -409,7 +409,7 @@ void DataSelectorPropertyGeneralWidget::acceptPressed()
 		changeData();
 		getComponent()->setResetValue(reset);
 	}
-	if (getComponent()->getInputPack()->getConnectorCount() != m_channels->value())
+	if (getComponent()->getInputPack()->getConnectorCount() != (unsigned int)m_channels->value())
 	{
 		changeData();
 		getComponent()->setChannelCountDelayed(m_channels->value());
