@@ -72,7 +72,7 @@ private:
 //##################################################################
 
 
-class WireSV: public CompView  
+class WireSV: public CompView
 {
 
 Q_OBJECT
@@ -108,7 +108,8 @@ public:
 		
 
 protected:
-	CPointListList * routeList;	
+	void protectConnectorEdgeing(bool ena);
+	CPointListList * routeList;
 };
 
 
@@ -163,8 +164,11 @@ public:
 	const WirePropertyInfo * getPropertyInfo() const;
 	
 	/** Returns the current wire property. */
-	WireProperty * getWireProperty();
-	
+	WireProperty * getWireProperty() { return m_wireProperty; };
+
+	/** Returns the current wire property. */
+	const WireProperty * getWireProperty() const { return m_wireProperty; };
+
 	/** Find the suitable wire property class for the given connectors
 	*   Returns a null pointer, if no suitable wire property class is found
 	*/

@@ -17,9 +17,14 @@
 
 
 // Include C-Header
-#include <qpainter.h>
-#include <klocale.h>
 
+// Include QT header
+#include <qpainter.h>
+#include <qimage.h>
+#include <qbitmap.h>
+
+// Include KDE header
+#include <klocale.h>
 
 // Include Project-Header
 #include "ksimdata.h"
@@ -39,6 +44,21 @@
 #include "implicitconverterlibrary.h"
 
 // Forward declaration
+
+
+
+// Helper class
+// Creates immediatly a QBitmap from a XPM (used in static initializer)
+class WireSV_Bitmap : public QBitmap
+{
+public:
+	WireSV_Bitmap(const char * const xpm[])
+	{
+		*(QBitmap *)this = QImage(xpm);
+	}
+};
+
+
 
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
@@ -80,7 +100,7 @@ WireColorScheme::WireColorScheme(QColor wireForegroundColor, QColor wireBackgrou
 		m_width(width)
 {
 }
-	
+
 bool WireColorScheme::isDualColor() const
 {
 	return m_background.isValid();
@@ -103,115 +123,141 @@ WireSV::~WireSV()
 	delete routeList;
 }
 
+static inline void WireSV_drawLineSolid(QPainter * p, int x1, int y1, int x2, int y2, const QColor & color)
+{
+	// use rect
+	p->setPen(color);
+	p->setBrush(color);
+	if (x1 > x2)
+	{
+		const int i = x1;
+		x1  = x2;
+		x2 = i;
+	}
+	if (y1 > y2)
+	{
+		const int i = y1;
+		y1  = y2;
+		y2 = i;
+	}
+
+	if (x1 == x2)
+	{
+		p->drawRect(x1-1, y1, 2, y2-y1);
+	}
+	else
+	{
+		p->drawRect(x1, y1-1, x2-x1, 2);
+	}
+}
+
+static inline void WireSV_drawLineDot(QPainter * p, int x1, int y1, int x2, int y2, const QColor & color)
+{
+	// use lines
+	p->setPen(QPen(color, 1, Qt::DotLine));
+	if (x1 == x2)
+	{
+		p->drawLine(x1-1, y1, x1-1, y2);
+		p->drawLine(x1,   y1, x1,   y2);
+	}
+	else
+	{
+		// y1 == y2 !!!
+		p->drawLine(x1, y1-1, x2, y1-1);
+		p->drawLine(x1, y1,   x2, y1);
+	}
+}
+
+
 void WireSV::draw(QPainter * p)
 {
-/*	CPointList * list;
-	QPoint * first;
-	int step = 0;
-	bool ready = false;
-	
-	Wire * wire = (Wire*)getComponent();
-	
-	const WireColorScheme & colorScheme = (wire->m_wireProperty)
-	                             ? wire->m_wireProperty->getColorScheme()
-	                             : wire->getConnList()->at(0)->getColorScheme();
-	
-	p->setPen(QPen(colorScheme.getColor(), 2));
-	p->setBrush(colorScheme.getColor());
-	
-	do
-	{
-		switch(step)
-		{
-			case 0:
-				if (colorScheme.isDualColor())
-				{
-					p->setPen(QPen(colorScheme.getBackgroundColor(), 2));
-					p->setBrush(colorScheme.getBackgroundColor());
-				}
-				else
-				{
-					p->setPen(QPen(colorScheme.getColor(), 2));
-					p->setBrush(colorScheme.getColor());
-					ready = true;
-				}
-				break;
-				
-			case 1:
-				ready = true;
-				if (colorScheme.isDualColor())
-				{
-					p->setPen(QPen(colorScheme.getForegroundColor(), 2, DotLine));
-					p->setBrush(colorScheme.getForegroundColor());
-				}
-				break;
-				
-			default:
-				ready = true;
-				break;
-		}
-		step++;
-		
-		for (unsigned int j = 0; j < routeList->count(); j++)
-		{
-			list = routeList->at(j);
-			first = list->at(0);
-		
-			if (j != 0)
-			{
-				p->drawEllipse(first->x()*gridX+gridX/2-3, first->y()*gridY+gridY/2-3, 6 , 6);
-			}
-			for (unsigned int i = 1; i < list->count(); i++)
-			{
-				QPoint * pos = list->at(i);
-				p->drawLine(first->x()*gridX+gridX/2, first->y()*gridY+gridY/2,
-				            pos->x()*gridX+gridX/2, pos->y()*gridY+gridY/2);
-			
-				first = pos;
-			}
-		}
-	}
-	while(!ready);*/
-
-	CPointList * list;
-	QPoint p1,p2;
-	Wire * wire = (Wire*)getComponent();
+	const Wire * const wire = (Wire*)getComponent();
 
 	const WireColorScheme & colorScheme = (wire->m_wireProperty)
-	                             ? wire->m_wireProperty->getColorScheme()
-	                             : wire->getConnList()->at(0)->getColorScheme();
-
-	p->setPen(QPen(colorScheme.getForegroundColor(), colorScheme.getWidth()));
-	p->setBrush(colorScheme.getForegroundColor());
+	                                    ? wire->getWireProperty()->getColorScheme()
+	                                    : wire->getConnList()->at(0)->getColorScheme();
 
 	for (unsigned int j = 0; j < routeList->count(); j++)
 	{
-		list = routeList->at(j);
-		p1 = QPoint(list->at(0)->x()*gridX+gridX/2, list->at(0)->y()*gridY+gridY/2);
-		
+		CPointList * list = routeList->at(j);
+		int x2, y2;
+		int x1 = list->at(0)->x()*gridX+gridX/2;
+		int y1 = list->at(0)->y()*gridY+gridY/2;
+
 		for (unsigned int i = 1; i < list->count(); i++)
 		{
-			p2 = QPoint(list->at(i)->x()*gridX+gridX/2, list->at(i)->y()*gridY+gridY/2);
-			
+			x2 = list->at(i)->x()*gridX+gridX/2;
+			y2 = list->at(i)->y()*gridY+gridY/2;
+
 			if (colorScheme.isDualColor())
 			{
-				p->setPen(QPen(colorScheme.getBackgroundColor(), colorScheme.getWidth()));
-				p->setBrush(colorScheme.getBackgroundColor());
-				p->drawLine(p1, p2);
-				p->setPen(QPen(colorScheme.getForegroundColor(), colorScheme.getWidth(), DotLine));
-				p->setBrush(colorScheme.getForegroundColor());
+				WireSV_drawLineSolid(p, x1, y1, x2, y2, colorScheme.getBackgroundColor());
+				WireSV_drawLineDot(p, x1, y1, x2, y2, colorScheme.getForegroundColor());
 			}
-			p->drawLine(p1, p2);
-			
-			p1 = p2;
+			else
+			{
+				WireSV_drawLineSolid(p, x1, y1, x2, y2, colorScheme.getColor());
+			}
+
+			x1 = x2;
+			y1 = y2;
 		}
 	}
 
-	p->setPen(QPen(colorScheme.getForegroundColor(), colorScheme.getWidth()));
-	p->setBrush(colorScheme.getForegroundColor());
-	for (unsigned int j = 1; j < routeList->count(); j++)
+	if (routeList->count() > 1)
 	{
-		p->drawEllipse(routeList->at(j)->at(0)->x()*gridX+gridX/2-3, routeList->at(j)->at(0)->y()*gridY+gridY/2-3, 6 , 6);
+		// The "outter" bubble
+		static const char * const xpmOutter[] =
+		{
+			"6 6 2 1",
+			" 	c None",
+			".	c #000000",
+			" .... ",
+			"......",
+			"......",
+			"......",
+			"......",
+			" .... "
+		};
+		static WireSV_Bitmap mapOutter(xpmOutter);
+
+		if (colorScheme.isDualColor())
+		{
+			// The "inner" bubble
+			static const char * const xpmInner[] =
+			{
+				"6 6 2 1",
+				" 	c None",
+				".	c #000000",
+				"  ..  ",
+				"  ..  ",
+				"..  ..",
+				"..  ..",
+				"  ..  ",
+				"  ..  "
+			};
+			static WireSV_Bitmap mapInner(xpmInner);
+
+			for (unsigned int j = 1; j < routeList->count(); j++)
+			{
+				const int x = routeList->at(j)->at(0)->x()*gridX+1;
+				const int y = routeList->at(j)->at(0)->y()*gridY+1;
+				p->setPen(colorScheme.getBackgroundColor());
+				p->drawPixmap(x, y, mapOutter);
+				p->setPen(colorScheme.getForegroundColor());
+				p->drawPixmap(x, y, mapInner);
+			}
+		}
+		else
+		{
+			p->setPen(colorScheme.getColor());
+			for (unsigned int j = 1; j < routeList->count(); j++)
+			{
+				const int x = routeList->at(j)->at(0)->x()*gridX+1;
+				const int y = routeList->at(j)->at(0)->y()*gridY+1;
+				p->drawPixmap(x, y, mapOutter);
+			}
+		}
 	}
 }
 
@@ -263,7 +309,7 @@ eHitType WireSV::isHit(int x, int y) const
 		if (isWireHit(it.current(),x,y))
 		{
 			// Remember "a" connector
-			CompView::lastHitConnector = getComponent()->getConnList()->first();
+			CompView::s_lastHitConnector = getComponent()->getConnList()->first();
 			return WIRE_HIT;        	
 		}
 	}
@@ -711,10 +757,10 @@ const WirePropertyInfo * Wire::getPropertyInfo() const
 }
 
 /** Returns the current wire property. */
-WireProperty * Wire::getWireProperty()
+/*WireProperty * Wire::getWireProperty()
 {
 	return m_wireProperty;
-}
+}*/
 
 /** Checks the component
 *   eg. all required inputs are connected.
