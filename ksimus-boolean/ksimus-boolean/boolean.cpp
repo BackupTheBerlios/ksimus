@@ -57,25 +57,35 @@ namespace KSimLibBoolean
  **
  ************************************************************************************
  ************************************************************************************/
-static const ComponentInfoPtr distributeComponent[] =
+static const ComponentInfoList & getDistComponents()
 {
-	&BooleanOrInfo,
-	&BooleanNorInfo,
-	&BooleanXorInfo,
-	&BooleanXnorInfo,
-	&RSFlipFlopInfo,
-	&JKFlipFlopInfo,
-	&JKMSFlipFlopInfo,
-	&DFlipFlopInfo,
-	&MonoFlopInfo,
-	&BooleanCounterInfo,
-	&BooleanConstantTrue,
-	&BooleanConstantFalse,
-	&Boolean7SegmentInfo,
-	&MultiDLatchInfo,
-	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
-};
+	static ComponentInfoList * pDistComponents = 0;
 
+	if (pDistComponents == 0)
+	{
+		// Initialize
+		pDistComponents = new ComponentInfoList;
+		CHECK_PTR(pDistComponents);
+
+		// Add your component info here
+		pDistComponents->append(getBooleanOrInfo());
+		pDistComponents->append(getBooleanNorInfo());
+		pDistComponents->append(getBooleanXorInfo());
+		pDistComponents->append(getBooleanXnorInfo());
+		pDistComponents->append(getRSFlipFlopInfo());
+		pDistComponents->append(getJKFlipFlopInfo());
+		pDistComponents->append(getJKMSFlipFlopInfo());
+		pDistComponents->append(getDFlipFlopInfo());
+		pDistComponents->append(getMonoFlopInfo());
+		pDistComponents->append(getBooleanCounterInfo());
+		pDistComponents->append(getBooleanConstantTrue());
+		pDistComponents->append(getBooleanConstantFalse());
+		pDistComponents->append(getBoolean7SegmentInfo());
+		pDistComponents->append(getMultiDLatchInfo());
+	}
+
+	return *pDistComponents;
+}
 
 
 
@@ -86,10 +96,22 @@ static const ComponentInfoPtr distributeComponent[] =
  **
  ************************************************************************************
  ************************************************************************************/
-static const ConnectorInfoPtr distributeConnector[] =
+static const ConnectorInfoList & getDistConnector()
 {
-	(ConnectorInfoPtr) 0          // Do not remove. Must be the last item.
-};
+	static ConnectorInfoList * pDistConnector = 0;
+	
+	if (pDistConnector == 0)
+	{
+		// Initialize
+		pDistConnector = new ConnectorInfoList;
+		CHECK_PTR(pDistConnector);
+
+		// Add your connector info here
+//		pDistConnector->append(getConnectorBoolInInfo());
+	}
+
+	return *pDistConnector;
+}
 
 
 
@@ -100,10 +122,22 @@ static const ConnectorInfoPtr distributeConnector[] =
  **
  ******************************************************************************************
  ******************************************************************************************/
-static const WirePropertyInfoPtr distributeWireProperty[] =
+static const WirePropertyInfoList & getDistWireProperty()
 {
-	(WirePropertyInfoPtr) 0       // Do not remove. Must be the last item.
-};
+	static WirePropertyInfoList * pDistWireProp = 0;
+
+	if (pDistWireProp == 0)
+	{
+		// Initialize
+		pDistWireProp = new WirePropertyInfoList;
+		CHECK_PTR(pDistWireProp);
+
+		// Add your wireproperty info here
+//		pDistWireProp->append(getWirePropertyBooleanInfo());
+	}
+
+	return *pDistWireProp;
+}
 
 
 
@@ -138,10 +172,10 @@ extern "C"
 		{
 			KSimLibBoolean::packageInfo = new PackageInfo( PACKAGE_NAME,
 			                                               KSimLibBoolean::instance,
-	  		                                             VERSION,      // version from config.h
-	    		                                           KSimLibBoolean::distributeComponent,
-	      		                                         KSimLibBoolean::distributeConnector,
-	        		                                       KSimLibBoolean::distributeWireProperty);
+			                                               VERSION,      // version from config.h
+			                                               KSimLibBoolean::getDistComponents(),
+			                                               KSimLibBoolean::getDistConnector(),
+			                                               KSimLibBoolean::getDistWireProperty());
 	  }
 	
 

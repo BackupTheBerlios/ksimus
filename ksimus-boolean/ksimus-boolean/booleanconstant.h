@@ -39,8 +39,8 @@ class ConnectorBoolOut;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo BooleanConstantTrue;
-extern const ComponentInfo BooleanConstantFalse;
+const ComponentInfo * getBooleanConstantTrue();
+const ComponentInfo * getBooleanConstantFalse();
 
 
 //###############################################################

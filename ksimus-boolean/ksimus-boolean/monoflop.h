@@ -43,7 +43,7 @@ class KSimBooleanBox;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo MonoFlopInfo;
+const ComponentInfo * getMonoFlopInfo();
 
 
 //###############################################################

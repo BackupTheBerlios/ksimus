@@ -41,8 +41,8 @@ class CompContainer;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo JKFlipFlopInfo;
-extern const ComponentInfo JKMSFlipFlopInfo;
+const ComponentInfo * getJKFlipFlopInfo();
+const ComponentInfo * getJKMSFlipFlopInfo();
 
 
 /**Base class for JK-FF.

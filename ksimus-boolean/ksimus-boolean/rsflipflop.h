@@ -43,7 +43,7 @@ class ConnectorBoolIn;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo RSFlipFlopInfo;
+const ComponentInfo * getRSFlipFlopInfo();
 
 class RSFlipFlop : public KSimLibBoolean::FlipFlopBase
 {

@@ -48,7 +48,7 @@ class ConnectorLabel;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo BooleanCounterInfo;
+const ComponentInfo * getBooleanCounterInfo();
 
 /**a simple boolean counter.
   *@author Rasmus Diekenbrock

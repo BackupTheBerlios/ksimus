@@ -36,8 +36,8 @@
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo BooleanXorInfo;
-extern const ComponentInfo BooleanXnorInfo;
+const ComponentInfo * getBooleanXorInfo();
+const ComponentInfo * getBooleanXnorInfo();
 
 
 class BooleanXor : public BooleanXIn1Out

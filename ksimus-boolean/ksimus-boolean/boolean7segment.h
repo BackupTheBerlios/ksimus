@@ -40,8 +40,7 @@ namespace KSimLibBoolean
 {
 
 
-extern const ComponentInfo Boolean7SegmentInfo;
-
+const ComponentInfo * getBoolean7SegmentInfo();
 
 //#######################################################################
 //#######################################################################

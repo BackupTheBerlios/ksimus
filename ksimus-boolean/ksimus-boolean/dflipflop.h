@@ -40,7 +40,7 @@ class ComponentLayout;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo DFlipFlopInfo;
+const ComponentInfo * getDFlipFlopInfo();
 
 
 //###############################################################

@@ -49,7 +49,7 @@ class KSimBooleanBox;
 namespace KSimLibBoolean
 {
 
-extern const ComponentInfo MultiDLatchInfo;
+const ComponentInfo * getMultiDLatchInfo();
 
 /**A multiple D latch.
   *@author Rasmus Diekenbrock
