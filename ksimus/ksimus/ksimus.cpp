@@ -48,6 +48,7 @@
 #include "ksimdebug.h"
 #include "basewindow.h"
 #include "library.h"
+#include "packageinfo.h"
 #include "componentlistview.h"
 #include "componentinfo.h"
 #include "simulationtimingwidget.h"
@@ -61,6 +62,8 @@
 #include "ksimmodulefilewidget.h"
 #include "mapsizeswidget.h"
 #include "watchwidget.h"
+#include "ksimiodeviceoverviewwidget.h"
+#include "ksimiodevicelist.h"
 
 #define ID_STATUS_MSG 1
 #define ID_TIME_LABEL 2
@@ -188,6 +191,7 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 		g_library = new Library();
 		CHECK_PTR(g_library);
 		loadLib = true;
+		KSimIoDeviceList::getList()->loadActive();
 	}
 
 
@@ -281,7 +285,17 @@ void KSimusApp::initActions()
 	executeStop = new KAction(i18n("S&top"), QString::fromLatin1("stop"), 0, this, SLOT(slotExecuteStop()), actionCollection(), "execute_stop");
 	executePause = new KToggleAction(i18n("&Pause"), QString::fromLatin1("player_pause"), 0, this, SLOT(slotExecutePause()), actionCollection(), "execute_pause");
 	
-//	testAction = new KAction(i18n("Test &Action"), 0, 0, this, SLOT(slotTestAction()), actionCollection(),"test_action");
+	helpPackages = new KSelectAction(i18n("&Package help"), 0, this, SLOT(slotHelpPackages()), actionCollection(), "help_packages");
+	QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
+	QStringList list;
+	for (packageIt.toFirst(); packageIt.current(); ++packageIt)
+	{
+		list.append(packageIt.current()->getPackageName());
+	}
+	helpPackages->setItems(list);
+	
+
+	testAction = new KAction(i18n("Test &Action"), 0, 0, this, SLOT(slotTestAction()), actionCollection(),"test_action");
 
 	fileNewWindow->setToolTip(i18n("Opens a new application window"));
 	fileNew->setToolTip(i18n("Creates a new document"));
@@ -324,10 +338,12 @@ void KSimusApp::initActions()
 	settingWatchWidget->setToolTip(i18n("General watch settings"));
 	settingLogWidget->setToolTip(i18n("Log Window Properties"));
 
+	helpPackages->setToolTip(i18n("Package handbooks"));
+
 	connect(actionCollection(),SIGNAL(actionStatusText(const QString &)),SLOT(slotStatusHelpMsg(const QString &)));
 	actionCollection()->setHighlightingEnabled(true);
 	// use the absolute path to your ksimusui.rc file for testing purpose in createGUI();
-	createGUI();
+	createGUI(QString::fromLatin1("/home/rasmus/Projekte/ksimus-0.3.7/ksimus/ksimusui.rc"));  //TODO remove
 
 }
 
@@ -1246,11 +1262,42 @@ void KSimusApp::slotSaveAllowed(bool ena)
 	setCaption(doc->URL().fileName(), ena);
 }
 
+void KSimusApp::slotHelpPackages()
+{
+	slotStatusMsg(i18n("Open handbook..."));
+
+	int item = helpPackages->currentItem();
+
+	QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
+	const PackageInfo * pi = (packageIt += item);
+	if (pi)
+	{
+		kapp->invokeHelp(QString::null, pi->getInstance()->instanceName());
+	}
+
+/*	if (item < g_library->getPackageList()->count())
+	{
+		QListIterator<PackageInfo> packageIt(*g_library->getPackageList());
+		while(item)
+		{
+			item--;
+			++packageIt;
+		};
+		for (packageIt.toFirst(); packageIt.current(); ++packageIt)
+	{
+		list.append(packageIt.current()->getPackageName());
+	}
+		kapp->invokeHelp(QString::null, packageIt.current()->getInstance()->instanceName());
+	}*/
+	helpPackages->setCurrentItem(-1);  // Don't check item
+}
+
+
 void KSimusApp::slotTestAction()
 {
 	slotStatusMsg(i18n("Test Action..."));
 	
-	
+	KSimIoDeviceOverviewWidget::executeDialog(this, "KSimIoDeviceOverviewWidget");
 
 	slotStatusMsg(i18n("Ready."));
 }
