@@ -20,7 +20,7 @@ Pos=120,448
 
 [/Component 0/Start Delay/]
 Time=11000000000
-Unit=sec
+Unit=s
 
 [/Component 1/]
 Serial Number=18
@@ -74,77 +74,77 @@ Connector=Input 31
 Type=wire/property/boolean
 
 [/Component 12/]
-Serial Number=68
+Serial Number=69
 Type=Wire/Wire
 
 [/Component 12/Connections/]
-Number=2
+Number=3
 
 [/Component 12/Connections/Connection 0/]
-Component=66
+Component=67
 Connector=Output
 
 [/Component 12/Connections/Connection 1/]
+Component=63
+Connector=Input A
+
+[/Component 12/Connections/Connection 2/]
 Component=64
-Connector=Input B
+Connector=Summand A
 
 [/Component 12/Property/]
 Type=wire/property/floating point
 
 [/Component 13/]
-Serial Number=69
+Serial Number=70
 Type=Wire/Wire
 
 [/Component 13/Connections/]
-Number=3
+Number=2
 
 [/Component 13/Connections/Connection 0/]
-Component=67
+Component=64
 Connector=Output
 
 [/Component 13/Connections/Connection 1/]
-Component=64
-Connector=Input A
-
-[/Component 13/Connections/Connection 2/]
-Component=63
-Connector=Input A
+Component=10
+Connector=Input 32
 
 [/Component 13/Property/]
 Type=wire/property/floating point
 
 [/Component 14/]
-Serial Number=70
+Serial Number=71
 Type=Wire/Wire
 
 [/Component 14/Connections/]
 Number=2
 
 [/Component 14/Connections/Connection 0/]
-Component=64
-Connector=Output
+Component=63
+Connector=Output A
 
 [/Component 14/Connections/Connection 1/]
 Component=10
-Connector=Input 32
+Connector=Input 43
 
 [/Component 14/Property/]
 Type=wire/property/floating point
 
 [/Component 15/]
-Serial Number=71
+Serial Number=72
 Type=Wire/Wire
 
 [/Component 15/Connections/]
 Number=2
 
 [/Component 15/Connections/Connection 0/]
-Component=63
-Connector=Output A
+Component=66
+Connector=Output
 
 [/Component 15/Connections/Connection 1/]
-Component=10
-Connector=Input 43
+Component=64
+Connector=Summand B
 
 [/Component 15/Property/]
 Type=wire/property/floating point
@@ -172,7 +172,7 @@ Unit=Ticks
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=46
+Last Serial Number=49
 Number of channels=3
 Serial List=31,32,43
 Serial Number=10
@@ -233,7 +233,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 6/Sheet/]
 Pos=168,104
 
-[/Component 6/connPack/Input/]
+[/Component 6/connPack/Summand/]
 Connector Count=2
 
 [/Component 7/]
@@ -250,7 +250,7 @@ Type=Floating Point/Control/Waveform Generator
 
 [/Component 8/Period/]
 Time=10000000000
-Unit=sec
+Unit=s
 
 [/Component 8/Sheet/]
 Pos=16,160
@@ -284,18 +284,18 @@ Dummy=true
 [/Document Property/Timing/Execution/]
 Fastest=true
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Simulation/]
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Update/]
 Time=500000000
-Unit=msec
+Unit=ms
 
 [/Property/]
-Last Serial Number=71
+Last Serial Number=72
 Sheetsize=1000,504
 Usersize=1000,504
 

@@ -11,7 +11,7 @@ Wave Type=Sawtooth
 
 [/Component 0/Period/]
 Time=10000000000
-Unit=sec
+Unit=s
 
 [/Component 0/Sheet/]
 Pos=16,48
@@ -20,7 +20,7 @@ Pos=16,48
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=22
+Last Serial Number=24
 Number of channels=2
 Serial List=1,2
 Serial Number=10
@@ -44,37 +44,37 @@ Path Type=Relative Document
 Pos=344,64
 
 [/Component 10/]
-Serial Number=26
+Serial Number=32
 Type=Wire/Wire
 
 [/Component 10/Connections/]
 Number=2
 
 [/Component 10/Connections/Connection 0/]
-Component=22
+Component=31
 Connector=Output
 
 [/Component 10/Connections/Connection 1/]
 Component=10
-Connector=Input 1
+Connector=Input 2
 
 [/Component 10/Property/]
 Type=wire/property/floating point
 
 [/Component 11/]
-Serial Number=32
+Serial Number=33
 Type=Wire/Wire
 
 [/Component 11/Connections/]
 Number=2
 
 [/Component 11/Connections/Connection 0/]
-Component=31
+Component=23
 Connector=Output
 
 [/Component 11/Connections/Connection 1/]
-Component=10
-Connector=Input 2
+Component=22
+Connector=Summand B
 
 [/Component 11/Property/]
 Type=wire/property/floating point
@@ -96,7 +96,7 @@ Pos=128,304
 
 [/Component 2/Start Delay/]
 Time=11000000000
-Unit=sec
+Unit=s
 
 [/Component 3/]
 Serial Number=18
@@ -112,7 +112,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 4/Sheet/]
 Pos=192,48
 
-[/Component 4/connPack/Input/]
+[/Component 4/connPack/Summand/]
 Connector Count=2
 
 [/Component 5/]
@@ -149,41 +149,41 @@ Connector=Trigger
 Type=wire/property/boolean
 
 [/Component 8/]
-Serial Number=24
+Serial Number=25
 Type=Wire/Wire
 
 [/Component 8/Connections/]
-Number=2
+Number=3
 
 [/Component 8/Connections/Connection 0/]
-Component=23
+Component=1
 Connector=Output
 
 [/Component 8/Connections/Connection 1/]
+Component=31
+Connector=Input
+
+[/Component 8/Connections/Connection 2/]
 Component=22
-Connector=Input B
+Connector=Summand A
 
 [/Component 8/Property/]
 Type=wire/property/floating point
 
 [/Component 9/]
-Serial Number=25
+Serial Number=26
 Type=Wire/Wire
 
 [/Component 9/Connections/]
-Number=3
+Number=2
 
 [/Component 9/Connections/Connection 0/]
-Component=1
+Component=22
 Connector=Output
 
 [/Component 9/Connections/Connection 1/]
-Component=22
-Connector=Input A
-
-[/Component 9/Connections/Connection 2/]
-Component=31
-Connector=Input
+Component=10
+Connector=Input 1
 
 [/Component 9/Property/]
 Type=wire/property/floating point
@@ -199,18 +199,18 @@ Dummy=true
 [/Document Property/Timing/Execution/]
 Fastest=true
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Simulation/]
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Update/]
 Time=500000000
-Unit=msec
+Unit=ms
 
 [/Property/]
-Last Serial Number=32
+Last Serial Number=33
 Sheetsize=1000,504
 Usersize=1000,504
 

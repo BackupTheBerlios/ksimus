@@ -20,7 +20,7 @@ Pos=600,576
 
 [/Component 0/Start Delay/]
 Time=11000000000
-Unit=sec
+Unit=s
 
 [/Component 1/]
 Serial Number=18
@@ -44,7 +44,7 @@ Type=Floating Point/Control/Waveform Generator
 
 [/Component 11/Period/]
 Time=10000000000
-Unit=sec
+Unit=s
 
 [/Component 11/Sheet/]
 Pos=40,200
@@ -112,99 +112,99 @@ Connector=Input 31
 Type=wire/property/boolean
 
 [/Component 15/]
-Serial Number=68
+Serial Number=69
 Type=Wire/Wire
 
 [/Component 15/Connections/]
-Number=2
+Number=3
 
 [/Component 15/Connections/Connection 0/]
-Component=66
+Component=67
 Connector=Output
 
 [/Component 15/Connections/Connection 1/]
+Component=63
+Connector=Input Y
+
+[/Component 15/Connections/Connection 2/]
 Component=64
-Connector=Input B
+Connector=Summand A
 
 [/Component 15/Property/]
 Type=wire/property/floating point
 
 [/Component 16/]
-Serial Number=69
+Serial Number=70
 Type=Wire/Wire
 
 [/Component 16/Connections/]
-Number=3
+Number=2
 
 [/Component 16/Connections/Connection 0/]
-Component=67
+Component=64
 Connector=Output
 
 [/Component 16/Connections/Connection 1/]
-Component=64
-Connector=Input A
-
-[/Component 16/Connections/Connection 2/]
-Component=63
-Connector=Input Y
+Component=10
+Connector=Input 32
 
 [/Component 16/Property/]
 Type=wire/property/floating point
 
 [/Component 17/]
-Serial Number=70
+Serial Number=75
 Type=Wire/Wire
 
 [/Component 17/Connections/]
-Number=2
+Number=3
 
 [/Component 17/Connections/Connection 0/]
-Component=64
+Component=74
 Connector=Output
 
 [/Component 17/Connections/Connection 1/]
-Component=10
-Connector=Input 32
+Component=63
+Connector=Input Z
+
+[/Component 17/Connections/Connection 2/]
+Component=72
+Connector=Summand A
 
 [/Component 17/Property/]
 Type=wire/property/floating point
 
 [/Component 18/]
-Serial Number=75
+Serial Number=78
 Type=Wire/Wire
 
 [/Component 18/Connections/]
-Number=3
+Number=2
 
 [/Component 18/Connections/Connection 0/]
-Component=74
-Connector=Output
+Component=63
+Connector=Output Y
 
 [/Component 18/Connections/Connection 1/]
-Component=72
-Connector=Input A
-
-[/Component 18/Connections/Connection 2/]
-Component=63
-Connector=Input Z
+Component=10
+Connector=Input 43
 
 [/Component 18/Property/]
 Type=wire/property/floating point
 
 [/Component 19/]
-Serial Number=76
+Serial Number=79
 Type=Wire/Wire
 
 [/Component 19/Connections/]
 Number=2
 
 [/Component 19/Connections/Connection 0/]
-Component=73
+Component=72
 Connector=Output
 
 [/Component 19/Connections/Connection 1/]
-Component=72
-Connector=Input B
+Component=10
+Connector=Input 44
 
 [/Component 19/Property/]
 Type=wire/property/floating point
@@ -229,7 +229,7 @@ Time=0
 Unit=Ticks
 
 [/Component 20/]
-Serial Number=78
+Serial Number=80
 Type=Wire/Wire
 
 [/Component 20/Connections/]
@@ -237,47 +237,47 @@ Number=2
 
 [/Component 20/Connections/Connection 0/]
 Component=63
-Connector=Output Y
+Connector=Output Z
 
 [/Component 20/Connections/Connection 1/]
 Component=10
-Connector=Input 43
+Connector=Input 45
 
 [/Component 20/Property/]
 Type=wire/property/floating point
 
 [/Component 21/]
-Serial Number=79
+Serial Number=81
 Type=Wire/Wire
 
 [/Component 21/Connections/]
 Number=2
 
 [/Component 21/Connections/Connection 0/]
-Component=72
+Component=66
 Connector=Output
 
 [/Component 21/Connections/Connection 1/]
-Component=10
-Connector=Input 44
+Component=64
+Connector=Summand B
 
 [/Component 21/Property/]
 Type=wire/property/floating point
 
 [/Component 22/]
-Serial Number=80
+Serial Number=82
 Type=Wire/Wire
 
 [/Component 22/Connections/]
 Number=2
 
 [/Component 22/Connections/Connection 0/]
-Component=63
-Connector=Output Z
+Component=73
+Connector=Output
 
 [/Component 22/Connections/Connection 1/]
-Component=10
-Connector=Input 45
+Component=72
+Connector=Summand B
 
 [/Component 22/Property/]
 Type=wire/property/floating point
@@ -286,7 +286,7 @@ Type=wire/property/floating point
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=45
+Last Serial Number=50
 Number of channels=5
 Serial List=31,32,43,44,45
 Serial Number=10
@@ -357,7 +357,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 6/Sheet/]
 Pos=104,160
 
-[/Component 6/connPack/Input/]
+[/Component 6/connPack/Summand/]
 Connector Count=2
 
 [/Component 7/]
@@ -374,7 +374,7 @@ Type=Floating Point/Control/Waveform Generator
 
 [/Component 8/Period/]
 Time=10000000000
-Unit=sec
+Unit=s
 
 [/Component 8/Sheet/]
 Pos=40,152
@@ -386,7 +386,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 9/Sheet/]
 Pos=104,208
 
-[/Component 9/connPack/Input/]
+[/Component 9/connPack/Summand/]
 Connector Count=2
 
 [/Document Property/]
@@ -400,18 +400,18 @@ Dummy=true
 [/Document Property/Timing/Execution/]
 Fastest=true
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Simulation/]
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Update/]
 Time=500000000
-Unit=msec
+Unit=ms
 
 [/Property/]
-Last Serial Number=80
+Last Serial Number=82
 Sheetsize=984,752
 Usersize=1000,504
 

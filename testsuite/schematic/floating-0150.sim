@@ -11,7 +11,7 @@ Wave Type=Sawtooth
 
 [/Component 0/Period/]
 Time=10000000000
-Unit=sec
+Unit=s
 
 [/Component 0/Sheet/]
 Pos=16,48
@@ -20,7 +20,7 @@ Pos=16,48
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=26
+Last Serial Number=29
 Number of channels=3
 Serial List=1,2,23
 Serial Number=10
@@ -67,135 +67,135 @@ Connector=Trigger
 Type=wire/property/boolean
 
 [/Component 11/]
-Serial Number=24
+Serial Number=25
 Type=Wire/Wire
 
 [/Component 11/Connections/]
-Number=2
+Number=3
 
 [/Component 11/Connections/Connection 0/]
-Component=23
+Component=1
 Connector=Output
 
 [/Component 11/Connections/Connection 1/]
+Component=43
+Connector=Input A
+
+[/Component 11/Connections/Connection 2/]
 Component=22
-Connector=Input B
+Connector=Summand A
 
 [/Component 11/Property/]
 Type=wire/property/floating point
 
 [/Component 12/]
-Serial Number=25
+Serial Number=26
 Type=Wire/Wire
 
 [/Component 12/Connections/]
-Number=3
+Number=2
 
 [/Component 12/Connections/Connection 0/]
-Component=1
+Component=22
 Connector=Output
 
 [/Component 12/Connections/Connection 1/]
-Component=22
-Connector=Input A
-
-[/Component 12/Connections/Connection 2/]
-Component=43
-Connector=Input A
+Component=10
+Connector=Input 1
 
 [/Component 12/Property/]
 Type=wire/property/floating point
 
 [/Component 13/]
-Serial Number=26
+Serial Number=33
 Type=Wire/Wire
 
 [/Component 13/Connections/]
-Number=2
+Number=3
 
 [/Component 13/Connections/Connection 0/]
-Component=22
+Component=30
 Connector=Output
 
 [/Component 13/Connections/Connection 1/]
-Component=10
-Connector=Input 1
+Component=43
+Connector=Input B
+
+[/Component 13/Connections/Connection 2/]
+Component=31
+Connector=Summand A
 
 [/Component 13/Property/]
 Type=wire/property/floating point
 
 [/Component 14/]
-Serial Number=33
+Serial Number=35
 Type=Wire/Wire
 
 [/Component 14/Connections/]
-Number=3
+Number=2
 
 [/Component 14/Connections/Connection 0/]
-Component=30
+Component=31
 Connector=Output
 
 [/Component 14/Connections/Connection 1/]
-Component=31
-Connector=Input A
-
-[/Component 14/Connections/Connection 2/]
-Component=43
-Connector=Input B
+Component=10
+Connector=Input 2
 
 [/Component 14/Property/]
 Type=wire/property/floating point
 
 [/Component 15/]
-Serial Number=34
+Serial Number=44
 Type=Wire/Wire
 
 [/Component 15/Connections/]
 Number=2
 
 [/Component 15/Connections/Connection 0/]
-Component=32
+Component=43
 Connector=Output
 
 [/Component 15/Connections/Connection 1/]
-Component=31
-Connector=Input B
+Component=10
+Connector=Input 23
 
 [/Component 15/Property/]
 Type=wire/property/floating point
 
 [/Component 16/]
-Serial Number=35
+Serial Number=45
 Type=Wire/Wire
 
 [/Component 16/Connections/]
 Number=2
 
 [/Component 16/Connections/Connection 0/]
-Component=31
+Component=23
 Connector=Output
 
 [/Component 16/Connections/Connection 1/]
-Component=10
-Connector=Input 2
+Component=22
+Connector=Summand B
 
 [/Component 16/Property/]
 Type=wire/property/floating point
 
 [/Component 17/]
-Serial Number=44
+Serial Number=46
 Type=Wire/Wire
 
 [/Component 17/Connections/]
 Number=2
 
 [/Component 17/Connections/Connection 0/]
-Component=43
+Component=32
 Connector=Output
 
 [/Component 17/Connections/Connection 1/]
-Component=10
-Connector=Input 23
+Component=31
+Connector=Summand B
 
 [/Component 17/Property/]
 Type=wire/property/floating point
@@ -217,7 +217,7 @@ Pos=128,304
 
 [/Component 2/Start Delay/]
 Time=11000000000
-Unit=sec
+Unit=s
 
 [/Component 3/]
 Serial Number=18
@@ -233,7 +233,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 4/Sheet/]
 Pos=192,48
 
-[/Component 4/connPack/Input/]
+[/Component 4/connPack/Summand/]
 Connector Count=2
 
 [/Component 5/]
@@ -252,7 +252,7 @@ Wave Type=Sawtooth
 
 [/Component 6/Period/]
 Time=5000000000
-Unit=sec
+Unit=s
 
 [/Component 6/Sheet/]
 Pos=16,96
@@ -264,7 +264,7 @@ Type=Floating Point/Arithmetic/Adder
 [/Component 7/Sheet/]
 Pos=192,96
 
-[/Component 7/connPack/Input/]
+[/Component 7/connPack/Summand/]
 Connector Count=2
 
 [/Component 8/]
@@ -299,18 +299,18 @@ Dummy=true
 [/Document Property/Timing/Execution/]
 Fastest=true
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Simulation/]
 Time=100000000
-Unit=msec
+Unit=ms
 
 [/Document Property/Timing/Update/]
 Time=500000000
-Unit=msec
+Unit=ms
 
 [/Property/]
-Last Serial Number=44
+Last Serial Number=46
 Sheetsize=1000,504
 Usersize=1000,504
 
