@@ -35,13 +35,6 @@ namespace KSimLibFloatingPoint
 
 // Forward declaration
 
-const ComponentInfo * getFloatExpInfo();
-const ComponentInfo * getFloatPowInfo();
-const ComponentInfo * getFloatSqrtInfo();
-
-
-//###############################################################
-
 /**A floating point exponent gate.
   * @author Rasmus Diekenbrock
   */
@@ -54,6 +47,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -87,6 +82,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -120,6 +117,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################

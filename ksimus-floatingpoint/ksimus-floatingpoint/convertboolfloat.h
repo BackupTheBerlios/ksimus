@@ -40,12 +40,6 @@ class ConnectorFloatOut;
 namespace KSimLibFloatingPoint
 {
 
-
-const ComponentInfo * getConvertBoolFloatInfo();
-
-
-//###############################################################
-
 /**Component for converting a boolean value in a floating point value.
   *@author Rasmus Diekenbrock
   */
@@ -84,6 +78,9 @@ public:
 	
 	double getTrueValue() const { return m_trueValue; };
 	void setTrueValue(double value);
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private:
 	

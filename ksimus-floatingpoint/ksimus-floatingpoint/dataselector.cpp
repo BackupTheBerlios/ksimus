@@ -57,13 +57,13 @@ namespace KSimLibFloatingPoint
 //###############################################################
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * DataSelector::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new DataSelector(container, ci);
 }
 
 
-const ComponentInfo * getDataSelectorInfo()
+const ComponentInfo * DataSelector::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Data Selector"),
 	                                QString::fromLatin1("Floating Point/Control/Data Selector"),
@@ -88,6 +88,8 @@ const ComponentInfo * getDataSelectorInfo()
 //###############################################################
 //###############################################################
 
+unsigned int DataSelector::tempConnCount;
+DataSelector * DataSelector::tempConnCountOwner = (DataSelector *)0;
 
 DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	: Float1Out(container, ci)
@@ -232,7 +234,7 @@ void DataSelector::slotDeleteChannel()
 	setChannelCount(getChannelCount()-1);
 }
 
-void DataSelector::setChannelCount(int count)
+void DataSelector::setChannelCount(unsigned int count)
 {
 	if (count < MIN_CHANNELS) count = MIN_CHANNELS;
 	if (count > MAX_CHANNELS) count = MAX_CHANNELS;
@@ -274,10 +276,7 @@ unsigned int DataSelector::getMinChannelCount() const
 	return QMAX(getInputPack()->getNumberOfNotDeletableConnectors(), i);
 }
 
-static unsigned int tempConnCount;
-static DataSelector * tempConnCountOwner = (DataSelector *)0;
-
-void DataSelector::setChannelCountDelayed(int count)
+void DataSelector::setChannelCountDelayed(unsigned int count)
 {
 	tempConnCount = count;
 	tempConnCountOwner = this;
@@ -448,6 +447,13 @@ void DataSelectorPropertyGeneralWidget::defaultPressed()
 	m_channels->setValue(QMAX(DEFAULT_CHANNELS, getComponent()->getMinChannelCount()));
 }
 
+#undef DEFAULT_RESET_VALUE
+#undef MIN_CHANNELS
+#undef MAX_CHANNELS
+#undef DEFAULT_CHANNELS
+#undef MIN_ADRESS
+#undef MAX_ADRESS
+#undef DEFAULT_ADRESS
 
 //###############################################################
 //###############################################################

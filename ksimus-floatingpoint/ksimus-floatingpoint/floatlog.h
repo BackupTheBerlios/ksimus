@@ -34,12 +34,6 @@ namespace KSimLibFloatingPoint
 
 // Forward declaration
 
-const ComponentInfo * getFloatLogInfo();
-const ComponentInfo * getFloatLog10Info();
-
-
-//###############################################################
-
 /**A floating point natural logarithm gate.
   * @author Rasmus Diekenbrock
   */
@@ -52,6 +46,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -84,7 +80,9 @@ public:
 	FloatLog10(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
-
+	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################

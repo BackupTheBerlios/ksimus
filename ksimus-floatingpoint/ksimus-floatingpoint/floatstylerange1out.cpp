@@ -44,7 +44,7 @@ namespace KSimLibFloatingPoint
 #define MAX_SLIDER_VAL   1000
 #define MIN_SLIDER_VAL   0
 
-#define FLAGS_SWAP_RANGE_ALLOWED	0x0001
+#define FLAGS_SWAP_RANGE_ALLOWED   0x0001
 
 
 //############################################################################
@@ -237,5 +237,13 @@ void FloatStyleRange1OutPropertyGeneralWidget::defaultPressed()
 
 //###############################################################
 //###############################################################
+
+#undef DEFAULT_MIN_VALUE
+#undef DEFAULT_MAX_VALUE
+
+#undef MAX_SLIDER_VAL
+#undef MIN_SLIDER_VAL
+
+#undef FLAGS_SWAP_RANGE_ALLOWED
 
 };  //namespace KSimLibFloatingPoint

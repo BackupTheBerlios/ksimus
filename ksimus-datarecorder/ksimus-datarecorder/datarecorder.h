@@ -150,12 +150,13 @@ public:
 	/** Returns the zoom widget property */
 	ZoomWidgetVar & getZoomVar() { return * m_zoomVar;};
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 public slots:
 	void slotRemoveChannelConn(ConnectorBase * conn);
 	void updateRequest();
 	void undoZoom();
-
-
 
 private:
 	void arrangeChannelInputs();

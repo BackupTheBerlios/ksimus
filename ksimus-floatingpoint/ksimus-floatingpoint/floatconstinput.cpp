@@ -45,12 +45,12 @@ namespace KSimLibFloatingPoint
 //#######################################################################
 //#######################################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatConstInput::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatConstInput(container, ci);
 }
 
-const ComponentInfo * getFloatConstInputInfo()
+const ComponentInfo * FloatConstInput::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Constant"),
 	                                QString::fromLatin1("Floating Point/Input/Constant"),

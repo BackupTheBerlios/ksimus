@@ -49,9 +49,6 @@ class QLineEdit;
 namespace KSimLibDataRecorder
 {
 
-const ComponentInfo * getTextRecInfo();
-
-
 class ConnectorContainer
 {
 public:
@@ -234,7 +231,22 @@ public:
 	  */
 	QString getSeparator() const;
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
+	static const char * const sNumberChannels;
+	static const char * const sChannelX;
+	static const char * const sChannelType;
+	static const char * const sSerialList;
+	static const char * const sLastSerialNumber;
+	static const char * const sSerialNumber;
+	static const char * const sFile;
+	static const char * const sAppendFile;
+	static const char * const sAddHeaderDate;
+	static const char * const sAddConnNames;
+	static const char * const sAddLineNo;
+	static const char * const sAddTimeStamp;
+	static const char * const sSeparator;
 
 private:
 	void arrangeConnectors();
@@ -249,7 +261,6 @@ private:
 	QString m_separator;
 	unsigned int m_lineCnt;
 	Q_UINT32 m_flags;
-
 
 private slots:
 	void slotRemoveChannelConn(ConnectorBase * conn);

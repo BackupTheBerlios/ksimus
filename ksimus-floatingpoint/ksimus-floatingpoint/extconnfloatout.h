@@ -23,9 +23,6 @@
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getExtConnFloatOutInfo();
-
-
 /**A external floating point output connector
   *@author Rasmus Diekenbrock
   */
@@ -40,6 +37,9 @@ public:
 //	~ExtConnFloatOut();
 	/** Executes the simulation of this component */
 	virtual void calculate();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 protected:
 };

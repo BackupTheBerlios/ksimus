@@ -41,14 +41,14 @@ namespace KSimLibFloatingPoint
 
 #define DEFAULT_VALUE   0.0
 
-static const char * sDefaultValue  = "Default Value";
+const char * const ExtConnFloatIn::sDefaultValue  = "Default Value";
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ExtConnFloatIn::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ExtConnFloatIn(container, ci);
 }
 
-const ComponentInfo * getExtConnFloatInInfo()
+const ComponentInfo * ExtConnFloatIn::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "External Connector Floating Point Input"),
 	                                QString::fromLatin1("External Connector/Floating Point Input"),
@@ -197,7 +197,8 @@ void ExtConnFloatInPropertyGeneralWidget::defaultPressed()
 	m_defaultValue->setValue(DEFAULT_VALUE);
 }
 
-//###############################################################
+#undef DEFAULT_VALUE
 
+//###############################################################
 
 };  //namespace KSimLibFloatingPoint

@@ -36,12 +36,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatMin::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatMin(container, ci);
 }
 
-const ComponentInfo * getFloatMinInfo()
+const ComponentInfo * FloatMin::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Minimum"),
 	                                QString::fromLatin1("Floating Point/Control/Minimum"),

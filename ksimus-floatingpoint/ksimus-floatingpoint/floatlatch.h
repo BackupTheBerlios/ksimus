@@ -49,8 +49,6 @@ class KSimDoubleEdit;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getFloatLatchInfo();
-
 /**A floating point latch.
   *@author Rasmus Diekenbrock
   */
@@ -106,8 +104,8 @@ public:
 	/** Returns the reset state. The component gets this state each call @ref reset. */
 	double getResetValue() const;
 	
-	void setChannelCount(int count);
-	void setChannelCountDelayed(int count);
+	void setChannelCount(unsigned int count);
+	void setChannelCountDelayed(unsigned int count);
 	int getChannelCount() const;
 	
 	ConnectorPack * getInputPack() const { return m_inputPack; };
@@ -115,7 +113,8 @@ public:
 	ConnectorBoolInEdge * getInputReset() const { return m_inputReset; };
 	ConnectorBoolInEdge * getInputEnable() const { return m_inputEnable; };
 
-
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private slots:
 	void slotAddChannel();
@@ -128,6 +127,8 @@ private:
 	ConnectorBoolInEdge * m_inputEnable;
 	ConnectorPack * m_inputPack;
 	ConnectorPack * m_outputPack;
+	static unsigned int tempConnCount;
+	static FloatLatch * tempConnCountOwner;
 };
 
 //###############################################################

@@ -33,11 +33,6 @@ namespace KSimLibFloatingPoint
 {
 // Forward declaration
 
-const ComponentInfo * getFloatRemainderInfo();
-
-
-//###############################################################
-
 /**This class computes the remainder from the division of numerator by denominator.
   *@author Rasmus Diekenbrock
   */
@@ -50,6 +45,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################

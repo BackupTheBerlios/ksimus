@@ -37,12 +37,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatRemainder::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatRemainder(container, ci);
 }
 
-const ComponentInfo * getFloatRemainderInfo()
+const ComponentInfo * FloatRemainder::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Remainder"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Remainder"),

@@ -50,8 +50,6 @@ class KSimDoubleEdit;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getDataSelectorInfo();
-
 /**A floating point latch.
   *@author Rasmus Diekenbrock
   */
@@ -99,8 +97,8 @@ public:
 	  */
 	virtual void menuExecuted();
 	
-	void setChannelCount(int count);
-	void setChannelCountDelayed(int count);
+	void setChannelCount(unsigned int count);
+	void setChannelCountDelayed(unsigned int count);
 	unsigned int getChannelCount() const;
 	unsigned int getMinChannelCount() const;
 	
@@ -109,7 +107,8 @@ public:
 	ConnectorBoolInEdge * getLatchOutput() const { return m_latchOutput; };
 	ConnectorBoolInEdge * getLatchAddress() const { return m_latchAddress; };
 
-
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private slots:
 	void slotAddChannel();
@@ -121,6 +120,9 @@ private:
 	ConnectorBoolInEdge * m_latchAddress;
 	ConnectorPack * m_inputPack;
 	ConnectorPack * m_addressPack;
+	static unsigned int tempConnCount;
+	static DataSelector * tempConnCountOwner;
+
 
 };
 

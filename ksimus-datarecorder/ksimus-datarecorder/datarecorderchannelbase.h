@@ -74,35 +74,35 @@ public:
 		*/
 	virtual void fetchData() = 0;
 	/** Draws a data set to the map.
-			startSample:      index of the first sample to draw.
-			stopSample:       index of the last sample to draw.
-			horizontalOffset: horizontal position of thze first sample
-			height:	          height of the paint device.
-			samplePerPixel:   Number of samples to draw per pixel.
-			verticalDivs:			Number of vertical divisions.
-			Returns the index of the last drawn sample. */
+	    startSample:      index of the first sample to draw.
+	    stopSample:       index of the last sample to draw.
+	    horizontalOffset: horizontal position of thze first sample
+	    height:           height of the paint device.
+	    samplePerPixel:   Number of samples to draw per pixel.
+	    verticalDivs:     Number of vertical divisions.
+	    Returns the index of the last drawn sample. */
 	virtual int drawData(QPaintDevice * paintDev,
-											 int startSample, int stopSample,
-											 int horizontalOffset, int maxHeight,
-											 double samplePerPixel, int verticalDivs) = 0;
-  /** Resets channel. Delete data. */
-  virtual void reset() = 0;
+	                     int startSample, int stopSample,
+	                     int horizontalOffset, int maxHeight,
+	                     double samplePerPixel, int verticalDivs) = 0;
+	/** Resets channel. Delete data. */
+	virtual void reset() = 0;
 
 	/** save channel properties */
 	virtual void save(KSimData & file) const;
 	/** load channel properties
 	*   copyLoad is true, if the load function is used as a copy function
-	*	Returns true if successful */
+	*   Returns true if successful */
 	virtual bool load(KSimData & file, bool copyLoad);
 
-  /** Returns the current line color. */
-  const QColor & getLineColor() const;
+	/** Returns the current line color. */
+	const QColor & getLineColor() const;
 
-  /** Returns the vertical offset. */
-  double getVerticalOffset() const;
+	/** Returns the vertical offset. */
+	double getVerticalOffset() const;
 
-  /** Returns the vertical gain. */
-  double getVerticalGain() const;
+	/** Returns the vertical gain. */
+	double getVerticalGain() const;
 
 	/** Returns the channel type */
 	eChannelType getChannelType() const;
@@ -115,7 +115,7 @@ public:
 	static const char * channelType2Str(eChannelType ct);
 
 	/** Returns the property widget.
-			This function has to create a widget at the frist call.
+	    This function has to create a widget at the frist call.
 	 */
 	virtual QWidget * getPropertyWidget(QWidget * parent = 0, const char * name = 0) = 0;
 
@@ -125,18 +125,18 @@ public:
 
 
 public slots:
-  /** Set the vertical offset. */
-  void setVerticalOffset(double offset);
+	/** Set the vertical offset. */
+	void setVerticalOffset(double offset);
 
-  /** Set the vertical gain. */
-  void setVerticalGain(double gain);
+	/** Set the vertical gain. */
+	void setVerticalGain(double gain);
 
-  /** Set the line color. */
-  void setLineColor(const QColor & color);
+	/** Set the line color. */
+	void setLineColor(const QColor & color);
 
-  /** Set channel name.
-  		The channel name is the same as the name of the according connector. */
-  void setChannelName(const QString & name);
+	/** Set channel name.
+	    The channel name is the same as the name of the according connector. */
+	void setChannelName(const QString & name);
 
 protected:
 	/** Sets the channel type */
@@ -144,7 +144,7 @@ protected:
 	
 	
 	DataRecorderChannelBase(DataRecorder * recorder);
-  ConnectorInputBase * m_input;
+	ConnectorInputBase * m_input;
 
 private:
 	DataRecorder * m_recorder;
@@ -153,6 +153,11 @@ private:
 	double m_vertGain;
 	eChannelType m_channelType;
 	unsigned int m_serialNumber;
+
+	static const char * const sColor;
+	static const char * const sVertGain;
+	static const char * const sVertOfs;
+	static const char * const sSerial;
 
 signals:
 	void lineColorChanged(const QColor & newColor);

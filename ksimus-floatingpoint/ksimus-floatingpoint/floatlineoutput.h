@@ -38,14 +38,6 @@ class QLabel;
 namespace KSimLibFloatingPoint
 {
 
-
-const ComponentInfo * getFloatLineOutputInfo();
-
-
-//#######################################################################
-//#######################################################################
-
-
 /**A simple floating output.
   *@author Rasmus Diekenbrock
   */
@@ -63,8 +55,10 @@ public:
 	/** Reset all simulation variables */
 	virtual void reset();
 
-  ConnectorFloatIn * getInput() const { return m_input; };
-	
+	ConnectorFloatIn * getInput() const { return m_input; };
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 protected: // Protected attributes
 	double m_number;

@@ -35,12 +35,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatDivider::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatDivider(container, ci);
 }
 
-const ComponentInfo * getFloatDividerInfo()
+const ComponentInfo * FloatDivider::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Divider"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Divider"),

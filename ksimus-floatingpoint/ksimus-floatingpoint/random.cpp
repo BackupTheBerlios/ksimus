@@ -49,12 +49,12 @@ namespace KSimLibFloatingPoint
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Random::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Random(container, ci);
 }
 
-const ComponentInfo * getRandomInfo()
+const ComponentInfo * Random::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Random"),
 	                                QString::fromLatin1("Floating Point/Random/Random"),
@@ -78,10 +78,10 @@ const ComponentInfo * getRandomInfo()
 #define MIN_SEED            1
 #define MAX_SEED            LONG_MAX
 
-static const char * sUseSeed   = "use seed";
-static const char * sSeed      = "seed";
-static const char * sMin       = "min";
-static const char * sMax       = "max";
+const char * const Random::sUseSeed   = "use seed";
+const char * const Random::sSeed      = "seed";
+const char * const Random::sMin       = "min";
+const char * const Random::sMax       = "max";
 
 
 Random::Random(CompContainer * container, const ComponentInfo * ci)
@@ -336,5 +336,11 @@ void RandomPropertyGeneralWidget::defaultPressed()
 //##########################################################################################
 //##########################################################################################
 
-	
+#undef DEFAULT_USE_SEED
+#undef DEFAULT_SEED
+#undef DEFAULT_MIN
+#undef DEFAULT_MAX
+#undef MIN_SEED
+#undef MAX_SEED
+
 }; //namespace

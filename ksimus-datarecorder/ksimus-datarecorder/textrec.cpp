@@ -59,14 +59,13 @@
 
 namespace KSimLibDataRecorder
 {
-		
+
 #define FLAG_APPEND        0x0001
 #define FLAG_HEADER_DATE   0x0002
 #define FLAG_CONN_NAMES    0x0004
 #define FLAG_LINE_NO       0x0008
 #define FLAG_TIME_STAMP    0x0010
 
-//#define DEFAULT_FLAGS      (FLAG_LINE_NO | FLAG_TIME_STAMP)
 #define DEFAULT_FLAGS      (FLAG_HEADER_DATE | FLAG_CONN_NAMES | FLAG_LINE_NO | FLAG_TIME_STAMP)
 
 #define DEFAULT_FILENAME   "text-recorder.log"
@@ -74,29 +73,27 @@ namespace KSimLibDataRecorder
 #define DEFAULT_SEPARATOR  QString::fromLatin1(";")
 
 
+const char * const TextRec::sNumberChannels   = "Number of channels";
+const char * const TextRec::sChannelX         = "Channel %1/";
+const char * const TextRec::sChannelType      = "Channel Type";
+const char * const TextRec::sSerialList       = "Serial List";
+const char * const TextRec::sLastSerialNumber = "Last Serial Number";
+const char * const TextRec::sSerialNumber     = "Serial Number";
+const char * const TextRec::sFile             = "File/";
+const char * const TextRec::sAppendFile       = "Append Data";
+const char * const TextRec::sAddHeaderDate    = "Add Header Date";
+const char * const TextRec::sAddConnNames     = "Add Connector Names";
+const char * const TextRec::sAddLineNo        = "Add Line Numbers";
+const char * const TextRec::sAddTimeStamp     = "Add Time Stamp";
+const char * const TextRec::sSeparator        = "Column Separator";
 
 
-static const char * sNumberChannels   = "Number of channels";
-static const char * sChannelX         = "Channel %1/";
-static const char * sChannelType      = "Channel Type";
-static const char * sSerialList       = "Serial List";
-static const char * sLastSerialNumber = "Last Serial Number";
-static const char * sSerialNumber     = "Serial Number";
-static const char * sFile             = "File/";
-static const char * sAppendFile       = "Append Data";
-static const char * sAddHeaderDate    = "Add Header Date";
-static const char * sAddConnNames     = "Add Connector Names";
-static const char * sAddLineNo        = "Add Line Numbers";
-static const char * sAddTimeStamp     = "Add Time Stamp";
-static const char * sSeparator        = "Column Separator";
-
-
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * TextRec::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new TextRec(container, ci);
 }
 
-const ComponentInfo * getTextRecInfo()
+const ComponentInfo * TextRec::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("DataRecorder-Component", "Text Recorder"),
 	                                QString::fromLatin1("Recorder/Text Recorder"),
@@ -139,13 +136,13 @@ unsigned int ConnectorContainer::getSerialNumber() const
 
 void ConnectorContainer::save(KSimData & file) const
 {
-	file.writeEntry(sSerialNumber, getSerialNumber());
+	file.writeEntry(TextRec::sSerialNumber, getSerialNumber());
 	getConnector()->save(file);
 }
 
 bool ConnectorContainer::load(KSimData & file, bool /*copyLoad*/)
 {
-	setSerialNumber(file.readUnsignedNumEntry(sSerialNumber, 0));
+	setSerialNumber(file.readUnsignedNumEntry(TextRec::sSerialNumber, 0));
 	return getConnector()->load(file);
 }
 
@@ -217,9 +214,6 @@ void TextRecView::draw(QPainter * p)
 //###############################################################
 //###############################################################
 
-
-
-								
 TextRec::TextRec(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci),
 		m_serialNumberGenerator(0),
@@ -1030,6 +1024,18 @@ void TextRecPropertyGeneralWidget::defaultPressed()
 	getSeparatorEdit()->setText(DEFAULT_SEPARATOR);
 
 }
+
+#undef FLAG_APPEND
+#undef FLAG_HEADER_DATE
+#undef FLAG_CONN_NAMES
+#undef FLAG_LINE_NO
+#undef FLAG_TIME_STAMP
+
+#undef DEFAULT_FLAGS
+
+#undef DEFAULT_FILENAME
+#undef DEFAULT_PATH_TYPE
+#undef DEFAULT_SEPARATOR
 
 };  //namespace KSimLibDataRecorder
 

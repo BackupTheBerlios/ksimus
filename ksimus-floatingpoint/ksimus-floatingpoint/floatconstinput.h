@@ -38,13 +38,6 @@ class QLabel;
 namespace KSimLibFloatingPoint
 {
 
-
-const ComponentInfo * getFloatConstInputInfo();
-
-
-//#######################################################################
-//#######################################################################
-
 /**A constant component with floating point output connector.
   *@author Rasmus Diekenbrock
   */
@@ -79,6 +72,9 @@ public:
 	/** Updates widget value. */
 	void updateValue(double val);
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 private slots:
 	void editValue();
 

@@ -32,11 +32,6 @@ namespace KSimLibFloatingPoint
 {
 // Forward declaration
 
-const ComponentInfo * getFloatDividerInfo();
-
-
-//###############################################################
-
 /**A floating point divider gate with two inputs
 	*
   * @author Rasmus Diekenbrock
@@ -50,6 +45,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################

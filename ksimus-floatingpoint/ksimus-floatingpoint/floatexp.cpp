@@ -37,19 +37,19 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * createExp(CompContainer * container, const ComponentInfo * ci)
+Component * FloatExp::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatExp(container, ci);
 }
 
-const ComponentInfo * getFloatExpInfo()
+const ComponentInfo * FloatExp::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point exp(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createExp,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-arithmetic-exp"));
 	return &Info;
@@ -57,19 +57,19 @@ const ComponentInfo * getFloatExpInfo()
 
 
 
-static Component * createPow(CompContainer * container, const ComponentInfo * ci)
+Component * FloatPow::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatPow(container, ci);
 }
 
-const ComponentInfo * getFloatPowInfo()
+const ComponentInfo * FloatPow::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point pow(base,power)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/pow(base,power)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/pow(base,power)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createPow,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-arithmetic-pow"));
 	return &Info;
@@ -77,19 +77,19 @@ const ComponentInfo * getFloatPowInfo()
 
 
 
-static Component * createSqrt(CompContainer * container, const ComponentInfo * ci)
+Component * FloatSqrt::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatSqrt(container, ci);
 }
 
-const ComponentInfo * getFloatSqrtInfo()
+const ComponentInfo * FloatSqrt::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point square root"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/square root"),
 	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/square root"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createSqrt,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-arithmetic-sqrt"));
 	return &Info;

@@ -38,9 +38,6 @@ class QLabel;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getFloatInputSliderInfo();
-
-
 /**A slider input for float values.
   *@author Rasmus Diekenbrock
   */
@@ -84,6 +81,9 @@ public:
 	/** Returns the minimum value. */
 	void setMinValue(double min);
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 public slots:
 	void newValue(int i);
 

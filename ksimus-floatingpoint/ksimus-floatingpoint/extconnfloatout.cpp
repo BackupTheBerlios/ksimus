@@ -26,12 +26,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ExtConnFloatOut::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ExtConnFloatOut(container, ci);
 }
 
-const ComponentInfo * getExtConnFloatOutInfo()
+const ComponentInfo * ExtConnFloatOut::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "External Connector Floating Point Output"),
 	                                QString::fromLatin1("External Connector/Floating Point Output"),

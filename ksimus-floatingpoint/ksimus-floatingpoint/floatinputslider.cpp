@@ -49,12 +49,12 @@ namespace KSimLibFloatingPoint
 //#######################################################################
 //#######################################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatInputSlider::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatInputSlider(container, ci);
 }
 
-const ComponentInfo * getFloatInputSliderInfo()
+const ComponentInfo * FloatInputSlider::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Input Slider"),
 	                                QString::fromLatin1("Floating Point/Input/Slider"),
@@ -366,6 +366,10 @@ void FloatInputSliderPropertyGeneralWidget::defaultPressed()
 //###############################################################
 //###############################################################
 
+#undef DEFAULT_MIN_VALUE
+#undef DEFAULT_MAX_VALUE
+#undef MAX_SLIDER_VAL
+#undef MIN_SLIDER_VAL
 
 };  //namespace KSimLibFloatingPoint
 

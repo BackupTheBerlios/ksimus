@@ -40,12 +40,6 @@ class KSimTimeSpinBox;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getDelayInfo();
-
-
-//###############################################################
-//###############################################################
-
 /**A Delay.
   *@author Rasmus Diekenbrock
   */
@@ -80,6 +74,9 @@ public:
 	void setDelayTime(const KSimTimeBase & delay) { m_delayTime = delay; };
 	const KSimTimeBase & getDelayTime()const { return m_delayTime; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 private:
 	ConnectorFloatIn * m_input;
 	KSimTime m_delayTime;
@@ -87,6 +84,7 @@ private:
 	unsigned int m_counter;
 	unsigned int m_index;
 	QArray<double> m_list;
+	static const char * const sDelayTime;
 };
 
 //###############################################################

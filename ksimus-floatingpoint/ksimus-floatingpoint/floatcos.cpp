@@ -37,38 +37,38 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * createCos(CompContainer * container, const ComponentInfo * ci)
+Component * FloatCos::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatCos(container, ci);
 }
 
-const ComponentInfo * getFloatCosInfo()
+const ComponentInfo * FloatCos::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point cos(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/cos(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/cos(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createCos,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-cos"));
 	return &Info;
 }
 
 
-static Component * createACos(CompContainer * container, const ComponentInfo * ci)
+Component * FloatACos::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatACos(container, ci);
 }
 
-const ComponentInfo * getFloatACosInfo()
+const ComponentInfo * FloatACos::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point acos(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/acos(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/acos(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createACos,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-acos"));
 	return &Info;
@@ -76,38 +76,38 @@ const ComponentInfo * getFloatACosInfo()
 
 
 
-static Component * createCosh(CompContainer * container, const ComponentInfo * ci)
+Component * FloatCosh::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatCosh(container, ci);
 }
 
-const ComponentInfo * getFloatCoshInfo()
+const ComponentInfo * FloatCosh::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point cosh(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/cosh(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/cosh(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createCosh,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-cosh"));
 	return &Info;
 }
 
 
-static Component * createACosh(CompContainer * container, const ComponentInfo * ci)
+Component * FloatACosh::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatACosh(container, ci);
 }
 
-const ComponentInfo * getFloatACoshInfo()
+const ComponentInfo * FloatACosh::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point acosh(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/acosh(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/acosh(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createACosh,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-acosh"));
 	return &Info;

@@ -39,22 +39,17 @@ class KSimTimeSpinBox;
 namespace KSimLibFloatingPoint
 {
 
-
-const ComponentInfo * getWaveformGeneratorInfo();
-
-
-enum eWaveType { eSinusoidal, eSquare, eSawtooth, eTriangular, eDirac };
-
-//###############################################################
-
 /**A waveform generator.
-	*
+  *
   * @author Rasmus Diekenbrock
   */
 
 class WaveformGenerator : public Float1Out
 {
 public:
+	class Private;
+	enum eWaveType { eSinusoidal, eSquare, eSawtooth, eTriangular, eDirac };
+
 	/** Constructs a floating point waveform generator. */
 	WaveformGenerator(CompContainer * container, const ComponentInfo * ci);
 	/** Reset all simulation variables */
@@ -98,6 +93,9 @@ public:
 	void setOffset(double offset);
 	
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 private:
 	eWaveType m_waveType;
 	double m_lastFrac;
@@ -107,6 +105,7 @@ private:
 	double m_phase;
 	KSimTimeType m_periodLength;
 	KSimTimeType m_phaseLength;
+	Private * m_p;
 	
 };
 
@@ -125,6 +124,8 @@ public:
 	virtual void draw(QPainter * p);
 	
 	WaveformGenerator* getComponent() { return (WaveformGenerator*) Float1OutView::getComponent(); };
+
+	class Private;
 };
 
 //###############################################################

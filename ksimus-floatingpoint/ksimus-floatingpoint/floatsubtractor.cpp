@@ -36,12 +36,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatSubtractor::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatSubtractor(container, ci);
 }
 
-const ComponentInfo * getFloatSubtractorInfo()
+const ComponentInfo * FloatSubtractor::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Subtractor"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Subtractor"),

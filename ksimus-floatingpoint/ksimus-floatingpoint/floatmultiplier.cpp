@@ -38,12 +38,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatMultiplier::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatMultiplier(container, ci);
 }
 
-const ComponentInfo * getFloatMultiplierInfo()
+const ComponentInfo * FloatMultiplier::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Multiplier"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Multiplier"),

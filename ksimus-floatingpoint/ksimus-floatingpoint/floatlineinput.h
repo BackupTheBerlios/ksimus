@@ -40,9 +40,6 @@ class QComboBox;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getFloatLineInputInfo();
-
-
 /**A line input component for double values.
   *@author Rasmus Diekenbrock
   */
@@ -92,6 +89,9 @@ public:
 	/** Gets the convertion type. Allowed types are 'g', 'G', 'e', 'E', 'g' and 'G'. See the printf docu.
 		*/
 	char getConversionType() const;
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 public slots:
 	void newValue(double i);
@@ -201,6 +201,11 @@ protected:
 	QLabel * m_decimalsLabel;
 	QSpinBox * m_decimals;
 	QCheckBox * m_tracking;
+
+private:
+	static int convertType2Idx(char type);
+	static char idx2ConvertType(int idx);
+
 };
 
 //#######################################################################

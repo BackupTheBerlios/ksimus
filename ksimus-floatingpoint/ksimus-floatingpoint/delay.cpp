@@ -45,12 +45,12 @@ namespace KSimLibFloatingPoint
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Delay::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Delay(container, ci);
 }
 
-const ComponentInfo * getDelayInfo()
+const ComponentInfo * Delay::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Delay"),
 	                                QString::fromLatin1("Floating Point/Timing/Delay"),
@@ -68,7 +68,7 @@ const ComponentInfo * getDelayInfo()
 //###############################################################
 
 #define MAX_DEPTH    (1<<16)
-static const char * sDelayTime   = "Delay Time/";
+const char * const Delay::sDelayTime   = "Delay Time/";
 
 
 Delay::Delay(CompContainer * container, const ComponentInfo * ci)
@@ -312,6 +312,8 @@ void DelayPropertyGeneralWidget::slotChanged(const KSimTime & time)
 	                         .arg(myTime.getAdjustValueString())
 	                         .arg(ticks));
 }
+
+#undef MAX_DEPTH
 
 //##########################################################################################
 //##########################################################################################

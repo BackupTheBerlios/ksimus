@@ -40,12 +40,12 @@ namespace KSimLibFloatingPoint
 //#######################################################################
 //#######################################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatLineOutput::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatLineOutput(container, ci);
 }
 
-const ComponentInfo * getFloatLineOutputInfo()
+const ComponentInfo * FloatLineOutput::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Label"),
 	                                QString::fromLatin1("Floating Point/Output/Label"),

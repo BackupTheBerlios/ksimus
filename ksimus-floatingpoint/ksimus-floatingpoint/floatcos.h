@@ -34,14 +34,6 @@ namespace KSimLibFloatingPoint
 
 // Forward declaration
 
-const ComponentInfo * getFloatCosInfo();
-const ComponentInfo * getFloatACosInfo();
-const ComponentInfo * getFloatCoshInfo();
-const ComponentInfo * getFloatACoshInfo();
-
-
-//###############################################################
-
 /**A floating point cosinusoidal gate.
   * @author Rasmus Diekenbrock
   */
@@ -54,6 +46,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -88,6 +82,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -121,6 +117,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -155,6 +153,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################

@@ -41,7 +41,7 @@
 namespace KSimLibDataRecorder
 {
 
-static const KSimUnitList & getTimeDivList()
+const KSimUnitList & ZoomWidget::getTimeDivList()
 {
 	static KSimUnitList * list = 0;
 	
@@ -74,7 +74,7 @@ static const KSimUnitList & getTimeDivList()
 	return *list;
 }
 
-static const KSimUnitList & getSampleDivList()
+const KSimUnitList & ZoomWidget::getSampleDivList()
 {
 	static KSimUnitList * list = 0;
 	
@@ -102,7 +102,7 @@ static const KSimUnitList & getSampleDivList()
 	return *list;
 }
 
-static const KSimUnitList & getSamplePixelList()
+const KSimUnitList & ZoomWidget::getSamplePixelList()
 {
 	static KSimUnitList * list = 0;
 	
@@ -296,11 +296,11 @@ void ZoomWidget::updateMinZoom()
 //#######################################################################################
 //#######################################################################################
 
-static const char * sGroup = "Zoom/";
-static const char * sValue = "Value";
-static const char * sUnitList = "Unit List";
-static const char * sFixedUnit = "Fixed Unit";
-static const char * sExpEna = "Use exponent Steps";
+const char * const ZoomWidgetVar::sGroup = "Zoom/";
+const char * const ZoomWidgetVar::sValue = "Value";
+const char * const ZoomWidgetVar::sUnitList = "Unit List";
+const char * const ZoomWidgetVar::sFixedUnit = "Fixed Unit";
+const char * const ZoomWidgetVar::sExpEna = "Use exponent Steps";
 
 ZoomWidgetVar::ZoomWidgetVar(const double & sampleTime)
 	:	m_rawValue(sampleTime),

@@ -46,18 +46,10 @@
 namespace KSimLibDataRecorder
 {
 
-static int counter = 1;
-
-
-
-
-//#############################################################################
-//#############################################################################
+#define DOUBLE_PER_ARRAY  256
 
 class FloatStorage
 {
-	#define DOUBLE_PER_ARRAY	256
-	
 	typedef struct
 	{
 		double array[DOUBLE_PER_ARRAY];
@@ -91,19 +83,19 @@ public:
 			
 	double get(int number)
 	{
-  	if(number >= m_count) return 0.0;
-  	
+		if(number >= m_count) return 0.0;
+		
 		int index = number / DOUBLE_PER_ARRAY;
 		int offset = number % DOUBLE_PER_ARRAY;
 
- 		return m_data.at(index)->array[offset];
- 	}
-		
-				
+		return m_data.at(index)->array[offset];
+	}
+
+
 	int count() const { return m_count; };
 	
 	void clear() { m_data.clear();
-								 m_count = 0; };
+	               m_count = 0; };
 	
 private:
 	int m_count;
@@ -111,10 +103,14 @@ private:
 	
 };
 
+#undef DOUBLE_PER_ARRAY
 
 
 //#############################################################################
 //#############################################################################
+
+unsigned int DataRecorderChannelFloat::counter = 1;
+
 
 DataRecorderChannelFloat::DataRecorderChannelFloat(DataRecorder * recorder)
 	:	DataRecorderChannelBase(recorder),

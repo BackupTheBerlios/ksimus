@@ -34,6 +34,7 @@
 class QLabel;
 class KSimDoubleUnitSpinBox;
 class KSimData;
+class KSimUnitList;
 
 
 namespace KSimLibDataRecorder
@@ -93,6 +94,10 @@ private:
 	QLabel * m_label;
 	QString m_unitList;
 
+	static const KSimUnitList & getTimeDivList();
+	static const KSimUnitList & getSampleDivList();
+	static const KSimUnitList & getSamplePixelList();
+
 signals:
 	void changedTimePixel(double timePerPixel);
 	void changedSamplePixel(double samplePerPixel);
@@ -131,6 +136,11 @@ private:
 	QString m_fixedUnitString;
 	bool m_exponentSteps;
 	
+	static const char * const sGroup;
+	static const char * const sValue;
+	static const char * const sUnitList;
+	static const char * const sFixedUnit;
+	static const char * const sExpEna;
 
 };
 

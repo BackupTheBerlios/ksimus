@@ -46,20 +46,13 @@
 namespace KSimLibDataRecorder
 {
 
-static int counter = 1;
-
-
-
-
-//#############################################################################
-//#############################################################################
-
+#define BITS_PER_BYTE   8
+#define INTS_PER_ARRAY  16
+#define BITS_PER_INT    (BITS_PER_BYTE * sizeof(unsigned int))
+#define BITS_PER_TDATA  (BITS_PER_INT * INTS_PER_ARRAY)
+                        
 class BoolStorage
 {
-	#define BITS_PER_BYTE		8
-	#define INTS_PER_ARRAY	16
-	#define BITS_PER_INT		(BITS_PER_BYTE * sizeof(unsigned int))
-	#define BITS_PER_TDATA	(BITS_PER_INT * INTS_PER_ARRAY)
 	typedef struct
 	{
 		unsigned int array[INTS_PER_ARRAY];
@@ -95,20 +88,20 @@ public:
 			
 	bool get(int number)
 	{
-  	if(number >= m_count) return false;
-  	
+		if(number >= m_count) return false;
+		
 		int index = number / BITS_PER_TDATA;
 		int arrayOffset = (number % BITS_PER_TDATA) / BITS_PER_INT;
 		int uintOffset = number % BITS_PER_INT;
 
- 		return (m_data.at(index)->array[arrayOffset] & (1 << uintOffset));
- 	}
-		
-				
+		return (m_data.at(index)->array[arrayOffset] & (1 << uintOffset));
+	}
+
+
 	int count() const { return m_count; };
 	
 	void clear() { m_data.clear();
-								 m_count = 0; };
+	               m_count = 0; };
 	
 private:
 	int m_count;
@@ -117,9 +110,17 @@ private:
 };
 
 
+#undef BITS_PER_BYTE
+#undef INTS_PER_ARRAY
+#undef BITS_PER_INT
+#undef BITS_PER_TDATA
+
 
 //#############################################################################
 //#############################################################################
+
+unsigned int DataRecorderChannelBoolean::counter = 1;
+
 
 DataRecorderChannelBoolean::DataRecorderChannelBoolean(DataRecorder * recorder)
 	:	DataRecorderChannelBase(recorder),

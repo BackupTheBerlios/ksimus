@@ -37,19 +37,19 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * createLog(CompContainer * container, const ComponentInfo * ci)
+Component * FloatLog::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatLog(container, ci);
 }
 
-const ComponentInfo * getFloatLogInfo()
+const ComponentInfo * FloatLog::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point log(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createLog,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-arithmetic-log"));
 	return &Info;
@@ -57,19 +57,19 @@ const ComponentInfo * getFloatLogInfo()
 
 
 
-static Component * createLog10(CompContainer * container, const ComponentInfo * ci)
+Component * FloatLog10::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatLog10(container, ci);
 }
 
-const ComponentInfo * getFloatLog10Info()
+const ComponentInfo * FloatLog10::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point log10(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/log10(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/log10(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createLog10,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-arithmetic-log10"));
 	return &Info;

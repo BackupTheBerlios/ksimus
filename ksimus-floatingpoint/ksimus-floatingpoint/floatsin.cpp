@@ -37,74 +37,74 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * createSin(CompContainer * container, const ComponentInfo * ci)
+Component * FloatSin::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatSin(container, ci);
 }
 
-const ComponentInfo * getFloatSinInfo()
+const ComponentInfo * FloatSin::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point sin(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/sin(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/sin(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createSin,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-sin"));
 	return &Info;
 }
 
 
-static Component * createASin(CompContainer * container, const ComponentInfo * ci)
+Component * FloatASin::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatASin(container, ci);
 }
 
-const ComponentInfo * getFloatASinInfo()
+const ComponentInfo * FloatASin::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point asin(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/asin(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/asin(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createASin,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-asin"));
 	return &Info;
 }
 
-static Component * createSinh(CompContainer * container, const ComponentInfo * ci)
+Component * FloatSinh::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatSinh(container, ci);
 }
 
-const ComponentInfo * getFloatSinhInfo()
+const ComponentInfo * FloatSinh::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point sinh(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/sinh(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/sinh(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createSinh,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-sinh"));
 	return &Info;
 }
 
-static Component * createASinh(CompContainer * container, const ComponentInfo * ci)
+Component * FloatASinh::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatASinh(container, ci);
 }
 
-const ComponentInfo * getFloatASinhInfo()
+const ComponentInfo * FloatASinh::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point asinh(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createASinh,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-asinh"));
 	return &Info;

@@ -35,15 +35,6 @@ namespace KSimLibFloatingPoint
 
 // Forward declaration
 
-const ComponentInfo * getFloatTanInfo();
-const ComponentInfo * getFloatATanInfo();
-const ComponentInfo * getFloatATan2Info();
-const ComponentInfo * getFloatTanhInfo();
-const ComponentInfo * getFloatATanhInfo();
-
-
-//###############################################################
-
 /**A floating point tangential gate.
   * @author Rasmus Diekenbrock
   */
@@ -56,6 +47,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -89,6 +82,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -122,6 +117,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -155,6 +152,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -188,6 +187,8 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################

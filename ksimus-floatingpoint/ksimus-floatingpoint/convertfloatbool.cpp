@@ -47,12 +47,12 @@ namespace KSimLibFloatingPoint
 //###############################################################
 //###############################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ConvertFloatBool::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ConvertFloatBool(container, ci);
 }
 
-const ComponentInfo * getConvertFloatBoolInfo()
+const ComponentInfo * ConvertFloatBool::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Converter Floating Point to Boolean"),
 	                                QString::fromLatin1("Converter/Float to Boolean"),
@@ -347,6 +347,9 @@ void ConvertFloatBoolPropertyGeneralWidget::valChanged()
 	m_level->setNum((m_trueThreshold->value() + m_falseThreshold->value())/2.0);
 	m_hysteresis->setNum(fabs(m_trueThreshold->value() - m_falseThreshold->value()));
 }
+
+#undef DEFAULT_TRUE_THRESHOLD
+#undef DEFAULT_FALSE_THRESHOLD
 
 //###############################################################
 //###############################################################

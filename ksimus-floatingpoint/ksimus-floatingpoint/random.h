@@ -46,12 +46,6 @@ class QSpinBox;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getRandomInfo();
-
-
-//###############################################################
-//###############################################################
-
 /**A Random Generator.
   *@author Rasmus Diekenbrock
   */
@@ -95,6 +89,9 @@ public:
 	void setMaximum(double max) { m_max = max; };
 	double getMaximum() const { return m_max; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 private:
 	ConnectorFloatOut * m_out;
 	ConnectorBoolInEdge * m_enable;
@@ -106,6 +103,10 @@ private:
 	double m_min;
 	double m_max;
 	
+	static const char * const sUseSeed;
+	static const char * const sSeed;
+	static const char * const sMin;
+	static const char * const sMax;
 };
 
 //###############################################################

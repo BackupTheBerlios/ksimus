@@ -82,6 +82,7 @@ protected:
 private:
 	FloatStorage * m_data;
 	QWidget * m_propertyWidget;
+	static unsigned int counter;
 };
 
 

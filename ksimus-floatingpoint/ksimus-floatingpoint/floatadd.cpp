@@ -37,12 +37,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatAdd::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatAdd(container, ci);
 }
 
-const ComponentInfo * getFloatAddInfo()
+const ComponentInfo * FloatAdd::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Adder"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Adder"),

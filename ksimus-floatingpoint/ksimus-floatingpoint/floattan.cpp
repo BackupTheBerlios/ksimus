@@ -37,38 +37,38 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * createTan(CompContainer * container, const ComponentInfo * ci)
+Component * FloatTan::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatTan(container, ci);
 }
 
-const ComponentInfo * getFloatTanInfo()
+const ComponentInfo * FloatTan::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point tan(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/tan(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/tan(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createTan,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-tan"));
 	return &Info;
 }
 
 
-static Component * createATan(CompContainer * container, const ComponentInfo * ci)
+Component * FloatATan::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatATan(container, ci);
 }
 
-const ComponentInfo * getFloatATanInfo()
+const ComponentInfo * FloatATan::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point atan(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/atan(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/atan(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createATan,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-atan"));
 	return &Info;
@@ -76,19 +76,19 @@ const ComponentInfo * getFloatATanInfo()
 
 
 
-static Component * createATan2(CompContainer * container, const ComponentInfo * ci)
+Component * FloatATan2::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatATan2(container, ci);
 }
 
-const ComponentInfo * getFloatATan2Info()
+const ComponentInfo * FloatATan2::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point atan2(x,y)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/atan2(x,y)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/atan2(x,y)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createATan2,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-atan2"));
 	return &Info;
@@ -96,38 +96,38 @@ const ComponentInfo * getFloatATan2Info()
 
 
 
-static Component * createTanh(CompContainer * container, const ComponentInfo * ci)
+Component * FloatTanh::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatTanh(container, ci);
 }
 
-const ComponentInfo * getFloatTanhInfo()
+const ComponentInfo * FloatTanh::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point tanh(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/tan(hx)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/tanh(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createTanh,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-tanh"));
 	return &Info;
 }
 
 
-static Component * createATanh(CompContainer * container, const ComponentInfo * ci)
+Component * FloatATanh::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatATanh(container, ci);
 }
 
-const ComponentInfo * getFloatATanhInfo()
+const ComponentInfo * FloatATanh::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point atanh(x)"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/atanh(x)"),
 	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/atanh(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                createATanh,
+	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-trigonometric-atanh"));
 	return &Info;

@@ -56,13 +56,13 @@ namespace KSimLibFloatingPoint
 //###############################################################
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatLatch::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatLatch(container, ci);
 }
 
 
-const ComponentInfo * getFloatLatchInfo()
+const ComponentInfo * FloatLatch::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Latch"),
 	                                QString::fromLatin1("Floating Point/Control/Latch"),
@@ -256,7 +256,7 @@ double FloatLatch::getResetValue() const
 	return m_resetValue;
 };
 
-void FloatLatch::setChannelCount(int count)
+void FloatLatch::setChannelCount(unsigned int count)
 {
 	if (count < MIN_CHANNELS) count = MIN_CHANNELS;
 	if (count > MAX_CHANNELS) count = MAX_CHANNELS;
@@ -269,10 +269,10 @@ int FloatLatch::getChannelCount() const
 	return getInputPack()->getConnectorCount();
 }
 
-static int tempConnCount;
-static FloatLatch * tempConnCountOwner = (FloatLatch *)0;
+unsigned int FloatLatch::tempConnCount;
+FloatLatch * FloatLatch::tempConnCountOwner = (FloatLatch *)0;
 
-void FloatLatch::setChannelCountDelayed(int count)
+void FloatLatch::setChannelCountDelayed(unsigned int count)
 {
 	tempConnCount = count;
 	tempConnCountOwner = this;
@@ -421,5 +421,10 @@ void FloatLatchPropertyGeneralWidget::defaultPressed()
 
 //###############################################################
 //###############################################################
+
+#undef DEFAULT_RESET_VALUE
+#undef MIN_CHANNELS
+#undef MAX_CHANNELS
+#undef DEFAULT_CHANNELS
 
 };  //namespace KSimLibFloatingPoint

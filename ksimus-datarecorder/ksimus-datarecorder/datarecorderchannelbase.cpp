@@ -39,10 +39,10 @@ namespace KSimLibDataRecorder
 
 // Statics
 
-static const char * sColor    = "Color";
-static const char * sVertGain = "Vertical Gain";
-static const char * sVertOfs  = "Vertical Offset";
-static const char * sSerial   = "Serial Number";
+const char * const DataRecorderChannelBase::sColor    = "Color";
+const char * const DataRecorderChannelBase::sVertGain = "Vertical Gain";
+const char * const DataRecorderChannelBase::sVertOfs  = "Vertical Offset";
+const char * const DataRecorderChannelBase::sSerial   = "Serial Number";
 
 
 
@@ -53,7 +53,7 @@ static const char * sSerial   = "Serial Number";
 static EnumDict<eChannelType> channelTypeDict;
 
 EnumDict<eChannelType>::tData EnumDict<eChannelType>::data[]
-			= { {"Unknown", KSimLibDataRecorder::CT_Unknown},
+      = { {"Unknown", KSimLibDataRecorder::CT_Unknown},
           {"Boolean",  KSimLibDataRecorder::CT_Boolean},
           {"Floating Point",  KSimLibDataRecorder::CT_Float},
           {0,(KSimLibDataRecorder::eChannelType)0}};
@@ -109,8 +109,8 @@ void DataRecorderChannelBase::save(KSimData & file) const
 }
 
 /** load channel properties
-	*   copyLoad is true, if the load function is used as a copy function
-	*	Returns true if successful */
+  * copyLoad is true, if the load function is used as a copy function
+  * Returns true if successful */
 bool DataRecorderChannelBase::load(KSimData & file, bool copyLoad)
 {
 	setLineColor(file.readColorEntry(sColor, &getLineColor()));
@@ -168,7 +168,7 @@ double DataRecorderChannelBase::getVerticalGain() const
 }
 
 /** Set channel name.
-	*	The channel name is the same as the name of the according connector. */
+	* The channel name is the same as the name of the according connector. */
 void DataRecorderChannelBase::setChannelName(const QString & name)
 {
 	QString simpStr(name.simplifyWhiteSpace());
@@ -230,8 +230,8 @@ DataRecorderChannelBase * DataRecorderChannelList::findSerial(unsigned int no) c
 
 int DataRecorderChannelList::compareItems(QCollection::Item di1, QCollection::Item di2)
 {
-	int serNo1 = ((DataRecorderChannelBase *)di1)->getSerialNumber();
-	int serNo2 = ((DataRecorderChannelBase *)di2)->getSerialNumber();
+	unsigned int serNo1 = ((DataRecorderChannelBase *)di1)->getSerialNumber();
+	unsigned int serNo2 = ((DataRecorderChannelBase *)di2)->getSerialNumber();
 	
 	if(serNo1 < serNo2)
 	{

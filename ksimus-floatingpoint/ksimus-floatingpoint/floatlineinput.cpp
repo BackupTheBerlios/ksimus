@@ -45,25 +45,25 @@ namespace KSimLibFloatingPoint
 #define DEFAULT_MIN_VALUE    -1000.0
 #define DEFAULT_MAX_VALUE    1000.0
 
-#define DEFAULT_DECIMALS			10
-#define DEFAULT_TRACKING			true
-#define DEFAULT_TYPE					'g'
+#define DEFAULT_DECIMALS     10
+#define DEFAULT_TRACKING     true
+#define DEFAULT_TYPE         'g'
 
-#define FLAGS_TYPE_MASK				0x00FF
-#define FLAGS_TRACKING				0x0100
+#define FLAGS_TYPE_MASK      0x00FF
+#define FLAGS_TRACKING       0x0100
 
-#define DEFAULT_FLAGS					((DEFAULT_TRACKING ? FLAGS_TRACKING : 0) | DEFAULT_TYPE)
+#define DEFAULT_FLAGS        ((DEFAULT_TRACKING ? FLAGS_TRACKING : 0) | DEFAULT_TYPE)
 
 
 //#######################################################################
 //#######################################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatLineInput::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatLineInput(container, ci);
 }
 
-const ComponentInfo * getFloatLineInputInfo()
+const ComponentInfo * FloatLineInput::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Line Edit Input"),
 	                                QString::fromLatin1("Floating Point/Input/Line Edit"),
@@ -330,18 +330,24 @@ void FloatLineInputWidgetView::setConversionType(char type)
 //###############################################################
 //###############################################################
 
-static int convertType2Idx(char type)
+int FloatLineInputPropertyGeneralWidget::convertType2Idx(char type)
 {
-	if (type == 'f') return 0;
-	if (type == 'e') return 1;
-	return 2;
+	switch(type)
+	{
+		case 'f': return 0; break;
+		case 'e': return 1; break;
+		default:  return 2; break;
+	}
 }
 
-static char idx2ConvertType(int idx)
+char FloatLineInputPropertyGeneralWidget::idx2ConvertType(int idx)
 {
-	if (idx == 0) return 'f';
-	if (idx == 1) return 'e';
-	return 'g';
+	switch(idx)
+	{
+		case 0:  return 'f'; break;
+		case 1:  return 'e'; break;
+		default: return 'g'; break;
+	}
 }
 
 FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLineInput * comp, QWidget *parent, const char *name)
@@ -439,6 +445,14 @@ void FloatLineInputPropertyGeneralWidget::defaultPressed()
 	m_convertType->setCurrentItem(convertType2Idx(DEFAULT_TYPE));
 }
 
+#undef DEFAULT_MIN_VALUE
+#undef DEFAULT_MAX_VALUE
+#undef DEFAULT_DECIMALS
+#undef DEFAULT_TRACKING
+#undef DEFAULT_TYPE
+#undef FLAGS_TYPE_MASK
+#undef FLAGS_TRACKING
+#undef DEFAULT_FLAGS
 
 //###############################################################
 //###############################################################

@@ -34,8 +34,6 @@ class QLabel;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getExtConnFloatInInfo();
-
 /**A external floating point input connector
   *@author Rasmus Diekenbrock
   */
@@ -72,8 +70,12 @@ public:
 	/** Returns the default value. */
 	double getDefaultValue() const { return m_defaultValue; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 protected:
 	double m_defaultValue;
+	static const char * const sDefaultValue;
 };
 
 

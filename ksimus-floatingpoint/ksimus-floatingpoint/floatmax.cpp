@@ -36,12 +36,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatMax::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatMax(container, ci);
 }
 
-const ComponentInfo * getFloatMaxInfo()
+const ComponentInfo * FloatMax::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Maximum"),
 	                                QString::fromLatin1("Floating Point/Control/Maximum"),

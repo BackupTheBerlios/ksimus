@@ -43,12 +43,12 @@ namespace KSimLibFloatingPoint
 //###############################################################
 //###############################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * SimpleConditional::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new SimpleConditional(container, ci);
 }
 
-const ComponentInfo * getConditionalLesserInfo()
+const ComponentInfo * SimpleConditional::getStaticLesserInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Lesser"),
 	                                QString::fromLatin1("Floating Point/Conditional/Lesser"),
@@ -61,7 +61,7 @@ const ComponentInfo * getConditionalLesserInfo()
 	return &Info;
 }
 
-const ComponentInfo * getConditionalLesserEqualInfo()
+const ComponentInfo * SimpleConditional::getStaticLesserEqualInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Lesser Equal"),
 	                                QString::fromLatin1("Floating Point/Conditional/Lesser Equal"),
@@ -74,7 +74,7 @@ const ComponentInfo * getConditionalLesserEqualInfo()
 	return &Info;
 }
 
-const ComponentInfo * getConditionalEqualInfo()
+const ComponentInfo * SimpleConditional::getStaticEqualInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Equal"),
 	                                QString::fromLatin1("Floating Point/Conditional/Equal"),
@@ -87,7 +87,7 @@ const ComponentInfo * getConditionalEqualInfo()
 	return &Info;
 }
 
-const ComponentInfo * getConditionalLargerEqualInfo()
+const ComponentInfo * SimpleConditional::getStaticLargerEqualInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Larger Equal"),
 	                                QString::fromLatin1("Floating Point/Conditional/Larger Equal"),
@@ -100,7 +100,7 @@ const ComponentInfo * getConditionalLargerEqualInfo()
 	return &Info;
 }
 
-const ComponentInfo * getConditionalLargerInfo()
+const ComponentInfo * SimpleConditional::getStaticLargerInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Larger"),
 	                                QString::fromLatin1("Floating Point/Conditional/Larger"),
@@ -116,16 +116,15 @@ const ComponentInfo * getConditionalLargerInfo()
 //###############################################################
 //###############################################################
 
-
 SimpleConditional::SimpleConditional(CompContainer * container, const ComponentInfo * ci)
 	: Boolean1Out(container, ci)
 {
 	
-	if      (ci == getConditionalLesserInfo())      m_conditionalType = eLesser;
-	else if (ci == getConditionalLesserEqualInfo()) m_conditionalType = eLesserEqual;
-	else if (ci == getConditionalEqualInfo())       m_conditionalType = eEqual;
-	else if (ci == getConditionalLargerEqualInfo()) m_conditionalType = eLargerEqual;
-	else /*if (ci == getConditionalLargerInfo())*/  m_conditionalType = eLarger;
+	if      (ci == getStaticLesserInfo())      m_conditionalType = eLesser;
+	else if (ci == getStaticLesserEqualInfo()) m_conditionalType = eLesserEqual;
+	else if (ci == getStaticEqualInfo())       m_conditionalType = eEqual;
+	else if (ci == getStaticLargerEqualInfo()) m_conditionalType = eLargerEqual;
+	else /*if (ci == getStaticLargerInfo())*/  m_conditionalType = eLarger;
 	
 	
 	m_inputA = new ConnectorFloatIn(this,
@@ -166,11 +165,11 @@ bool SimpleConditional::load(KSimData & file, bool copyLoad)
 
 bool SimpleConditional::isProperReloadType(const QString & type) const
 {
-	return (type == getConditionalLesserInfo()->getLibName())
-	    || (type == getConditionalLesserEqualInfo()->getLibName())
-	    || (type == getConditionalEqualInfo()->getLibName())
-	    || (type == getConditionalLargerEqualInfo()->getLibName())
-	    || (type == getConditionalLargerInfo()->getLibName());
+	return (type == getStaticLesserInfo()->getLibName())
+	    || (type == getStaticLesserEqualInfo()->getLibName())
+	    || (type == getStaticEqualInfo()->getLibName())
+	    || (type == getStaticLargerEqualInfo()->getLibName())
+	    || (type == getStaticLargerInfo()->getLibName());
 }
 
 void SimpleConditional::calculate()
@@ -194,11 +193,11 @@ void SimpleConditional::setConditionalType(eConditionalType newCond)
 {
 	switch(newCond)
 	{
-		case eLesser:      setInfo(getConditionalLesserInfo());      break;
-		case eLesserEqual: setInfo(getConditionalLesserEqualInfo()); break;
-		case eEqual:       setInfo(getConditionalEqualInfo());       break;
-		case eLargerEqual: setInfo(getConditionalLargerEqualInfo()); break;
-		case eLarger:      setInfo(getConditionalLargerInfo());      break;
+		case eLesser:      setInfo(getStaticLesserInfo());      break;
+		case eLesserEqual: setInfo(getStaticLesserEqualInfo()); break;
+		case eEqual:       setInfo(getStaticEqualInfo());       break;
+		case eLargerEqual: setInfo(getStaticLargerEqualInfo()); break;
+		case eLarger:      setInfo(getStaticLargerInfo());      break;
 	}
 	m_conditionalType = newCond;
 	if (hasDefaultName())
@@ -210,15 +209,15 @@ void SimpleConditional::setConditionalType(eConditionalType newCond)
 
 void SimpleConditional::setConditionalType(const QString & type)
 {
-	if (type == getConditionalLesserInfo()->getLibName())
+	if (type == getStaticLesserInfo()->getLibName())
 		setConditionalType(eLesser);
-	else if (type == getConditionalLesserEqualInfo()->getLibName())
+	else if (type == getStaticLesserEqualInfo()->getLibName())
 		setConditionalType(eLesserEqual);
-	else if (type == getConditionalEqualInfo()->getLibName())
+	else if (type == getStaticEqualInfo()->getLibName())
 		setConditionalType(eEqual);
-	else if (type == getConditionalLargerEqualInfo()->getLibName())
+	else if (type == getStaticLargerEqualInfo()->getLibName())
 		setConditionalType(eLargerEqual);
-	else if (type == getConditionalLargerInfo()->getLibName())
+	else if (type == getStaticLargerInfo()->getLibName())
 		setConditionalType(eLarger);
 	else
 	{

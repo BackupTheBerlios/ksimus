@@ -37,12 +37,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * FloatAbs::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatAbs(container, ci);
 }
 
-const ComponentInfo * getFloatAbsInfo()
+const ComponentInfo * FloatAbs::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Absolute Value"),
 	                                QString::fromLatin1("Floating Point/Arithmetic/Absolute Value"),

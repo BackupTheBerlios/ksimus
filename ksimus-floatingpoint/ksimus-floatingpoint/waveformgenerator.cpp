@@ -50,12 +50,12 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * WaveformGenerator::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new WaveformGenerator(container, ci);
 }
 
-const ComponentInfo * getWaveformGeneratorInfo()
+const ComponentInfo * WaveformGenerator::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Floating Point Waveform Generator"),
 	                                QString::fromLatin1("Floating Point/Control/Waveform Generator"),
@@ -72,19 +72,7 @@ const ComponentInfo * getWaveformGeneratorInfo()
 //###############################################################
 //###############################################################
 
-static EnumDict<eWaveType> waveTypeDict;
-
-EnumDict<eWaveType>::tData EnumDict<eWaveType>::data[]
-			= { {"Sinusoidal", KSimLibFloatingPoint::eSinusoidal},
-          {"Square",     KSimLibFloatingPoint::eSquare},
-					{"Sawtooth",   KSimLibFloatingPoint::eSawtooth},
-					{"Triangular", KSimLibFloatingPoint::eTriangular},
-					{"Dirac",      KSimLibFloatingPoint::eDirac},
-          {0,            (KSimLibFloatingPoint::eWaveType)0}};
-
-
-
-#define DEFAULT_WAVEFORM  eSinusoidal
+#define DEFAULT_WAVEFORM  WaveformGenerator::eSinusoidal
 #define DEFAULT_PHASE     0.0
 #define DEFAULT_AMPLITUDE 1.0
 #define DEFAULT_OFFSET    0.0
@@ -94,123 +82,21 @@ EnumDict<eWaveType>::tData EnumDict<eWaveType>::data[]
 //###############################################################
 //###############################################################
 
-static QPixmap * sinusoidalPix = 0;
-static QPixmap * squarePix = 0;
-static QPixmap * sawtoothPix = 0;
-static QPixmap * triangularPix = 0;
-static QPixmap * diracPix = 0;
+class WaveformGenerator::Private
+{
+public:
+	static EnumDict<eWaveType> waveTypeDict;
+};
 
-static int viewCounter = 0;
 
-static const char *sinus[]={
-"16 16 3 1",
-"a c #ff0000",
-". c #000000",
-"# c #ffffff",
-".##aaa##########",
-".#a###a#########",
-".#a###a#########",
-".a####a#########",
-".a#####a########",
-"a######a########",
-"a######a########",
-"a.......a......a",
-".#######a######a",
-".#######a######a",
-".########a#####a",
-".########a####a#",
-".#########a###a#",
-".#########a###a#",
-".##########aaa##",
-"################"};
+EnumDict<WaveformGenerator::eWaveType>::tData EnumDict<WaveformGenerator::eWaveType>::data[]
+      = { {"Sinusoidal", KSimLibFloatingPoint::WaveformGenerator::eSinusoidal},
+          {"Square",     KSimLibFloatingPoint::WaveformGenerator::eSquare},
+          {"Sawtooth",   KSimLibFloatingPoint::WaveformGenerator::eSawtooth},
+          {"Triangular", KSimLibFloatingPoint::WaveformGenerator::eTriangular},
+          {"Dirac",      KSimLibFloatingPoint::WaveformGenerator::eDirac},
+          {0,            (KSimLibFloatingPoint::WaveformGenerator::eWaveType)0}};
 
-static const char *square[]={
-"16 16 3 1",
-"a c #000000",
-". c #ff0000",
-"# c #ffffff",
-"........########",
-".######.########",
-".######.########",
-".######.########",
-".######.########",
-".######.########",
-".######.########",
-".aaaaaa.aaaaaaa.",
-"a######.#######.",
-"a######.#######.",
-"a######.#######.",
-"a######.#######.",
-"a######.#######.",
-"a######.#######.",
-"a######.........",
-"################"};
-
-static const char *sawtooth[]={
-"16 16 3 1",
-"a c #ff0000",
-". c #000000",
-"# c #ffffff",
-".########a######",
-".#######aa######",
-".######a#a######",
-".######a#a######",
-".#####a##a#####a",
-".####a###a####a#",
-".####a###a###a##",
-"....a....a...a..",
-".##a#####a##a###",
-".##a#####a##a###",
-".#a######a#a####",
-".a#######aa#####",
-".a#######aa#####",
-"a########a######",
-"a########a######",
-"################"};
-
-static const char *triangular[]={
-"16 16 3 1",
-"a c #ff0000",
-". c #000000",
-"# c #ffffff",
-".######a########",
-".#####aa########",
-".#####a#a#######",
-".####a##a#######",
-".####a###a######",
-".###a####a######",
-".###a#####a#####",
-"...a.......a....",
-".##a#######a####",
-".#a#########a###",
-".#a#########a###",
-".a###########a##",
-".a###########a##",
-"a#############a#",
-"a##############a",
-"################"};
-
-static const char *dirac[]={
-"16 16 3 1",
-"a c #ff0000",
-". c #000000",
-"# c #ffffff",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-".##a#########a##",
-"aaaaaaaaaaaaaaaa",
-"################"};
 
 //###############################################################
 //###############################################################
@@ -313,7 +199,7 @@ void WaveformGenerator::save(KSimData & file) const
 	
 	if (getWaveform() != DEFAULT_WAVEFORM)
 	{
-		waveTypeDict.save(file, "Wave Type", getWaveform());
+		Private::waveTypeDict.save(file, "Wave Type", getWaveform());
 	}
 	if (getPhase() != DEFAULT_PHASE)
 	{
@@ -346,7 +232,7 @@ bool WaveformGenerator::load(KSimData & file, bool copyLoad)
 	}
 	file.setGroup(oldGroup);
 	
-	setWaveform(waveTypeDict.load(file, "Wave Type", DEFAULT_WAVEFORM));
+	setWaveform(Private::waveTypeDict.load(file, "Wave Type", DEFAULT_WAVEFORM));
 	setPhase(file.readDoubleNumEntry("Phase", DEFAULT_PHASE));
 	setAmplitude(file.readDoubleNumEntry("Amplitude", DEFAULT_AMPLITUDE));
 	setOffset(file.readDoubleNumEntry("Offset", DEFAULT_OFFSET));
@@ -397,37 +283,179 @@ void WaveformGenerator::setOffset(double offset)
 //###############################################################
 
 
+//###############################################################
+//###############################################################
+
+class WaveformGeneratorView::Private
+{
+public:
+	static QPixmap * sinusoidalPix;
+	static QPixmap * squarePix;
+	static QPixmap * sawtoothPix;
+	static QPixmap * triangularPix;
+	static QPixmap * diracPix;
+	static unsigned int viewCounter;
+	static const char * sinus[];
+	static const char * square[];
+	static const char * sawtooth[];
+	static const char * triangular[];
+	static const char * dirac[];
+};
+
+
+QPixmap * WaveformGeneratorView::Private::sinusoidalPix = (QPixmap*)0;
+QPixmap * WaveformGeneratorView::Private::squarePix     = (QPixmap*)0;
+QPixmap * WaveformGeneratorView::Private::sawtoothPix   = (QPixmap*)0;
+QPixmap * WaveformGeneratorView::Private::triangularPix = (QPixmap*)0;
+QPixmap * WaveformGeneratorView::Private::diracPix      = (QPixmap*)0;
+
+unsigned int WaveformGeneratorView::Private::viewCounter = 0;
+
+const char * WaveformGeneratorView::Private::sinus[]={
+"16 16 3 1",
+"a c #ff0000",
+". c #000000",
+"# c #ffffff",
+".##aaa##########",
+".#a###a#########",
+".#a###a#########",
+".a####a#########",
+".a#####a########",
+"a######a########",
+"a######a########",
+"a.......a......a",
+".#######a######a",
+".#######a######a",
+".########a#####a",
+".########a####a#",
+".#########a###a#",
+".#########a###a#",
+".##########aaa##",
+"################"};
+
+const char * WaveformGeneratorView::Private::square[]={
+"16 16 3 1",
+"a c #000000",
+". c #ff0000",
+"# c #ffffff",
+"........########",
+".######.########",
+".######.########",
+".######.########",
+".######.########",
+".######.########",
+".######.########",
+".aaaaaa.aaaaaaa.",
+"a######.#######.",
+"a######.#######.",
+"a######.#######.",
+"a######.#######.",
+"a######.#######.",
+"a######.#######.",
+"a######.........",
+"################"};
+
+const char * WaveformGeneratorView::Private::sawtooth[]={
+"16 16 3 1",
+"a c #ff0000",
+". c #000000",
+"# c #ffffff",
+".########a######",
+".#######aa######",
+".######a#a######",
+".######a#a######",
+".#####a##a#####a",
+".####a###a####a#",
+".####a###a###a##",
+"....a....a...a..",
+".##a#####a##a###",
+".##a#####a##a###",
+".#a######a#a####",
+".a#######aa#####",
+".a#######aa#####",
+"a########a######",
+"a########a######",
+"################"};
+
+const char * WaveformGeneratorView::Private::triangular[]={
+"16 16 3 1",
+"a c #ff0000",
+". c #000000",
+"# c #ffffff",
+".######a########",
+".#####aa########",
+".#####a#a#######",
+".####a##a#######",
+".####a###a######",
+".###a####a######",
+".###a#####a#####",
+"...a.......a....",
+".##a#######a####",
+".#a#########a###",
+".#a#########a###",
+".a###########a##",
+".a###########a##",
+"a#############a#",
+"a##############a",
+"################"};
+
+const char * WaveformGeneratorView::Private::dirac[]={
+"16 16 3 1",
+"a c #ff0000",
+". c #000000",
+"# c #ffffff",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+".##a#########a##",
+"aaaaaaaaaaaaaaaa",
+"################"};
+
+//###############################################################
+//###############################################################
+
+
 WaveformGeneratorView::WaveformGeneratorView(WaveformGenerator * comp, eViewType viewType)
 		: Float1OutView(comp, viewType)
 {
 	if (viewType == SHEET_VIEW)
 	{
-		viewCounter++;
+		Private::viewCounter++;
 
-		if (sinusoidalPix == 0)
+		if (Private::sinusoidalPix == (QPixmap*)0)
 		{
-			sinusoidalPix = new QPixmap(sinus);
-			CHECK_PTR(sinusoidalPix);
+			Private::sinusoidalPix = new QPixmap(Private::sinus);
+			CHECK_PTR(Private::sinusoidalPix);
 		}
-		if (squarePix == 0)
+		if (Private::squarePix == (QPixmap*)0)
 		{
-			squarePix = new QPixmap(square);
-			CHECK_PTR(squarePix);
+			Private::squarePix = new QPixmap(Private::square);
+			CHECK_PTR(Private::squarePix);
 		}
-		if (sawtoothPix == 0)
+		if (Private::sawtoothPix == (QPixmap*)0)
 		{
-			sawtoothPix = new QPixmap(sawtooth);
-			CHECK_PTR(sawtoothPix);
+			Private::sawtoothPix = new QPixmap(Private::sawtooth);
+			CHECK_PTR(Private::sawtoothPix);
 		}
-		if (triangularPix == 0)
+		if (Private::triangularPix == (QPixmap*)0)
 		{
-			triangularPix = new QPixmap(triangular);
-			CHECK_PTR(triangularPix);
+			Private::triangularPix = new QPixmap(Private::triangular);
+			CHECK_PTR(Private::triangularPix);
 		}
-		if (diracPix == 0)
+		if (Private::diracPix == (QPixmap*)0)
 		{
-			diracPix = new QPixmap(dirac);
-			CHECK_PTR(diracPix);
+			Private::diracPix = new QPixmap(Private::dirac);
+			CHECK_PTR(Private::diracPix);
 		} 	
 		getComponentLayout()->setMinSize(4,3);
 		getComponentLayout()->updateLayout();
@@ -436,34 +464,34 @@ WaveformGeneratorView::WaveformGeneratorView(WaveformGenerator * comp, eViewType
 
 WaveformGeneratorView::~WaveformGeneratorView()
 {
-	viewCounter--;
+	Private::viewCounter--;
 	
-	if (viewCounter == 0)
+	if (Private::viewCounter == 0)
 	{
-		if (sinusoidalPix != 0)
+		if (Private::sinusoidalPix != (QPixmap*)0)
 		{
-			delete sinusoidalPix;
-			sinusoidalPix = 0;
+			delete Private::sinusoidalPix;
+			Private::sinusoidalPix = (QPixmap*)0;
 		}
-		if (squarePix != 0)
+		if (Private::squarePix != (QPixmap*)0)
 		{
-			delete squarePix;
-			squarePix = 0;
+			delete Private::squarePix;
+			Private::squarePix = (QPixmap*)0;
 		}
-		if (sawtoothPix != 0)
+		if (Private::sawtoothPix != (QPixmap*)0)
 		{
-			delete sawtoothPix;
-			sawtoothPix = 0;
+			delete Private::sawtoothPix;
+			Private::sawtoothPix = (QPixmap*)0;
 		}
-		if (triangularPix != 0)
+		if (Private::triangularPix != (QPixmap*)0)
 		{
-			delete triangularPix;
-			triangularPix = 0;
+			delete Private::triangularPix;
+			Private::triangularPix = (QPixmap*)0;
 		}
-		if (diracPix != 0)
+		if (Private::diracPix != (QPixmap*)0)
 		{
-			delete diracPix;
-			diracPix = 0;
+			delete Private::diracPix;
+			Private::diracPix = (QPixmap*)0;
 		}
 	}
 }
@@ -476,48 +504,48 @@ void WaveformGeneratorView::draw(QPainter * p)
 	
 	switch(getComponent()->getWaveform())
 	{
-		case eSinusoidal:
+		case WaveformGenerator::eSinusoidal:
 		{
 			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - sinusoidalPix->width()) / 2;
-			int y = place.top() + (place.height() - sinusoidalPix->height()) / 2;
-			p->drawPixmap(x,y,*sinusoidalPix);
+			int x = place.left() + (place.width() - Private::sinusoidalPix->width()) / 2;
+			int y = place.top() + (place.height() - Private::sinusoidalPix->height()) / 2;
+			p->drawPixmap(x,y,*Private::sinusoidalPix);
 		}
 		break;
 		
-		case eSquare:
+		case WaveformGenerator::eSquare:
 		{
 			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - squarePix->width()) / 2;
-			int y = place.top() + (place.height() - squarePix->height()) / 2;
-			p->drawPixmap(x,y,*squarePix);
+			int x = place.left() + (place.width() - Private::squarePix->width()) / 2;
+			int y = place.top() + (place.height() - Private::squarePix->height()) / 2;
+			p->drawPixmap(x,y,*Private::squarePix);
 		}
 		break;
 		
-		case eSawtooth:
+		case WaveformGenerator::eSawtooth:
 		{
 			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - sawtoothPix->width()) / 2;
-			int y = place.top() + (place.height() - sawtoothPix->height()) / 2;
-			p->drawPixmap(x,y,*sawtoothPix);
+			int x = place.left() + (place.width() - Private::sawtoothPix->width()) / 2;
+			int y = place.top() + (place.height() - Private::sawtoothPix->height()) / 2;
+			p->drawPixmap(x,y,*Private::sawtoothPix);
 		}
 		break;
 		
-		case eTriangular:
+		case WaveformGenerator::eTriangular:
 		{
 			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - triangularPix->width()) / 2;
-			int y = place.top() + (place.height() - triangularPix->height()) / 2;
-			p->drawPixmap(x,y,*triangularPix);
+			int x = place.left() + (place.width() - Private::triangularPix->width()) / 2;
+			int y = place.top() + (place.height() - Private::triangularPix->height()) / 2;
+			p->drawPixmap(x,y,*Private::triangularPix);
 		}
 		break;
 		
-		case eDirac:
+		case WaveformGenerator::eDirac:
 		{
 			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - diracPix->width()) / 2;
-			int y = place.top() + (place.height() - diracPix->height()) / 2;
-			p->drawPixmap(x,y,*diracPix);
+			int x = place.left() + (place.width() - Private::diracPix->width()) / 2;
+			int y = place.top() + (place.height() - Private::diracPix->height()) / 2;
+			p->drawPixmap(x,y,*Private::diracPix);
 		}
 		break;
 		
@@ -538,12 +566,12 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	
 	m_waveform = new QComboBox(this, "m_waveform");
 	CHECK_PTR(m_waveform);
-	m_waveform->insertItem(*sinusoidalPix, i18n("FloatingPoint", "Sinusoidal"), (int)eSinusoidal);
-	m_waveform->insertItem(*squarePix,     i18n("FloatingPoint", "Square"),     (int)eSquare);
-	m_waveform->insertItem(*sawtoothPix,   i18n("FloatingPoint", "Sawtooth"),   (int)eSawtooth);
-	m_waveform->insertItem(*triangularPix, i18n("FloatingPoint", "Triangular"), (int)eTriangular);
-	m_waveform->insertItem(*diracPix,      i18n("FloatingPoint", "Dirac"),      (int)eDirac);
-	m_waveform->setFixedHeight(QMAX(sinusoidalPix->height(),m_waveform->height()));
+	m_waveform->insertItem(*WaveformGeneratorView::Private::sinusoidalPix, i18n("FloatingPoint", "Sinusoidal"), (int)WaveformGenerator::eSinusoidal);
+	m_waveform->insertItem(*WaveformGeneratorView::Private::squarePix,     i18n("FloatingPoint", "Square"),     (int)WaveformGenerator::eSquare);
+	m_waveform->insertItem(*WaveformGeneratorView::Private::sawtoothPix,   i18n("FloatingPoint", "Sawtooth"),   (int)WaveformGenerator::eSawtooth);
+	m_waveform->insertItem(*WaveformGeneratorView::Private::triangularPix, i18n("FloatingPoint", "Triangular"), (int)WaveformGenerator::eTriangular);
+	m_waveform->insertItem(*WaveformGeneratorView::Private::diracPix,      i18n("FloatingPoint", "Dirac"),      (int)WaveformGenerator::eDirac);
+	m_waveform->setFixedHeight(QMAX(WaveformGeneratorView::Private::sinusoidalPix->height(),m_waveform->height()));
 	
 	tip = i18n("FloatingPoint", "Sets the waveform.");
 	addToolTip(tip, m_waveform, m_waveformLabel);
@@ -629,10 +657,10 @@ void WaveformGeneratorPropertyGeneralWidget::acceptPressed()
 {
 	ComponentPropertyGeneralWidget::acceptPressed();
 	
-	if (getComponent()->getWaveform() != (eWaveType)m_waveform->currentItem())
+	if (getComponent()->getWaveform() != (WaveformGenerator::eWaveType)m_waveform->currentItem())
 	{
 		changeData();
-		getComponent()->setWaveform((eWaveType)m_waveform->currentItem());
+		getComponent()->setWaveform((WaveformGenerator::eWaveType)m_waveform->currentItem());
 	}
 	if (getComponent()->getPeriod() != m_period->value())
 	{
@@ -680,6 +708,13 @@ void WaveformGeneratorPropertyGeneralWidget::valChanged()
 
 //###############################################################
 //###############################################################
+
+#undef DEFAULT_WAVEFORM
+#undef DEFAULT_PHASE
+#undef DEFAULT_AMPLITUDE
+#undef DEFAULT_OFFSET
+
+
 
 };  //namespace KSimLibFloatingPoint
 

@@ -42,11 +42,6 @@ class KSimDoubleEdit;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getConvertFloatBoolInfo();
-
-
-//###############################################################
-
 /**Component for converting a floating point value in a boolean value.
   *@author Rasmus Diekenbrock
   */
@@ -87,7 +82,8 @@ public:
 	double getTrueThreshold() const { return m_trueThreshold; };
 	void setTrueThreshold(double limit);
 	
-
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 protected:
 

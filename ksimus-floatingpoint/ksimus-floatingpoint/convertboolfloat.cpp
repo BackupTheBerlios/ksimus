@@ -55,13 +55,13 @@ namespace KSimLibFloatingPoint
 #define DEFAULT_FALSE_VALUE  0.0
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ConvertBoolFloat::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ConvertBoolFloat(container, ci);
 }
 
 
-const ComponentInfo * getConvertBoolFloatInfo()
+const ComponentInfo * ConvertBoolFloat::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Converter Boolean to Floating Point"),
 	                                QString::fromLatin1("Converter/Boolean to Float"),
@@ -291,6 +291,9 @@ void ConvertBoolFloatPropertyGeneralWidget::defaultPressed()
 	m_falseValue->setValue(DEFAULT_FALSE_VALUE);
 }
 
+
+#undef DEFAULT_TRUE_VALUE
+#undef DEFAULT_FALSE_VALUE
 
 //###############################################################
 //###############################################################

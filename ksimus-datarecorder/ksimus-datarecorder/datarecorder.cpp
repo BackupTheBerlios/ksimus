@@ -78,8 +78,8 @@ static const ComponentInfoList & getDistComponents()
 		CHECK_PTR(pDistComponents);
 		
 		// Add your component info here
-		pDistComponents->append(getDataRecorderInfo());
-		pDistComponents->append(getTextRecInfo());
+		pDistComponents->append(DataRecorder::getStaticInfo());
+		pDistComponents->append(TextRec::getStaticInfo());
 	}
 	
 	return *pDistComponents;
@@ -222,16 +222,13 @@ extern "C"
 namespace KSimLibDataRecorder
 {
 
-#define MAX_CHANNEL 16
-
-
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * DataRecorder::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new DataRecorder(container, ci);
 }
 
 
-const ComponentInfo * getDataRecorderInfo()
+const ComponentInfo * DataRecorder::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("DataRecorder-Component", "Data Recorder"),
 	                                QString::fromLatin1("Recorder/Data Recorder"),
@@ -250,11 +247,11 @@ const ComponentInfo * getDataRecorderInfo()
 //#################################################################
 
 
-static const char * sNumberChannels = "Number of channels";
-static const char * sChannelX       = "Channel %1/";
-static const char * sChannelType    = "Channel Type";								
-static const char * sSerialList     = "Serial List";
-//static const char * sSerialNumber   = "Last Serial Number"; // !!!from component.h !!!
+static const char * const sNumberChannels = "Number of channels";
+static const char * const sChannelX       = "Channel %1/";
+static const char * const sChannelType    = "Channel Type";
+static const char * const sSerialList     = "Serial List";
+//static const char * const sSerialNumber   = "Last Serial Number"; // !!!from component.h !!!
 
 static const QColor defaultColors[] = {Qt::black, Qt::red, Qt::green, Qt::blue,
                                        Qt::cyan, Qt::magenta, Qt::yellow, Qt::gray,

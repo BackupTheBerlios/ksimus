@@ -35,11 +35,6 @@ class ConnectorPack;
 namespace KSimLibFloatingPoint
 {
 
-const ComponentInfo * getFloatMultiplierInfo();
-
-
-//###############################################################
-
 /**A floating point multiplier gate with muliple inputs
 	*
   * @author Rasmus Diekenbrock
@@ -56,6 +51,9 @@ public:
 	/** Returns the input connector pack.
 	  */
 	ConnectorPack * getInputConnectorPack() const { return m_inPack; };
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private:
 	ConnectorPack * m_inPack;
