@@ -108,6 +108,7 @@ public:
 //	~MonoFlopView();
 	virtual void draw(QPainter * p);
 
+	MonoFlop * getMF() { return ((MonoFlop *) getComponent()); };
 private:
 	ComponentLayout * m_layout;
 };
@@ -135,7 +136,7 @@ public:
 	 */
 	virtual void defaultPressed();
 
-
+	MonoFlop * getMF() { return ((MonoFlop *) getComponent()); };
 private:
 	KSimBooleanBox * m_retrigger;
 	KSimTimeSpinBox * m_highTime;

@@ -210,8 +210,6 @@ ComponentPropertyBaseWidget * MonoFlop::createGeneralProperty(QWidget *parent)
 //###############################################################
 //###############################################################
 
-#define getMF() ((MonoFlop *) getComponent())
-
 MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
@@ -329,7 +327,6 @@ void MonoFlopPropertyGeneralWidget::defaultPressed()
 	m_highTime->setValue(KSimTimeBase(0.5, unit_sec));
 }
 
-#undef getMF()
 
 //##########################################################################################
 //##########################################################################################
