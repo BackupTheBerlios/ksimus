@@ -26,6 +26,7 @@
 #include <kdialogbase.h>
 
 // Project-Includes
+#include "componentitem.h"
 
 // Forward declaration
 class QString;
@@ -37,7 +38,7 @@ class ConnectorBase;
   *@author Rasmus Diekenbrock
   */
 
-class ConnectorPropertyDialog : public KDialogBase
+class ConnectorPropertyDialog : public KDialogBase, public ComponentItem
 {
    Q_OBJECT
 public: 
@@ -47,10 +48,9 @@ public:
 
 protected slots:
 	void slotDataChanged();
-	void slotOk();
+	virtual void slotOk();
 
 private:
-	Component * m_comp;
 	bool m_dataChanged;
 
 };

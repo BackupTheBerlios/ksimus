@@ -34,8 +34,6 @@
 #include "connectorpropertydialog.h"
 #include "connectorbase.h"
 #include "connectorlist.h"
-#include "loglist.h"
-#include "loglistitem.h"
 #include "ksimundo.h"
 
 // Forward declaration
@@ -50,6 +48,7 @@ ConnectorPropertyDialog::ConnectorPropertyDialog(ConnectorList * connList, Conne
  					Ok,
  					parent,
  					name),
+ 		ComponentItem((Component *)0),
 		m_dataChanged(false)		
 {
 	if (connList && connList->count())
@@ -58,7 +57,7 @@ ConnectorPropertyDialog::ConnectorPropertyDialog(ConnectorList * connList, Conne
 		QWidget * wid;
 		QVBox * page;
 
-		m_comp = connList->first()->getComponent();
+		setComponent(connList->first()->getComponent());
 			
 		FOR_EACH_CONNECTOR(it,*connList)
 		{
@@ -86,10 +85,31 @@ ConnectorPropertyDialog::~ConnectorPropertyDialog()
 
 void ConnectorPropertyDialog::slotOk()
 {
+//	unsigned int errors = 0;
 	QStringList errMsg;
 	emit okClicked();
 	
-	m_comp->checkProperty(errMsg);
+/*	if (m_dataChanged)
+	{
+		// Only if something changed	
+		errors = getComponent()->executePropertyCheck();
+	
+		if(errors)
+		{	
+	    m_dataChanged = false;
+		}
+		else
+		{
+			// No errors
+			QDialog::accept();
+		}
+	}
+	else
+	{
+		// Nothing changed
+		QDialog::accept();
+	}*/
+	getComponent()->checkProperty(errMsg);
 	
 	if(errMsg.count())
 	{	
@@ -97,15 +117,14 @@ void ConnectorPropertyDialog::slotOk()
 		QString errText(i18n("Property Errors"));
 		errText += "\n" + errMsg.join("\n");
 		
-		LogListItem *item = new LogListItem(errText,LOG_ERROR);
-		m_comp->getLogList()->append(item);
+		logError(errText);
 		
 		KMessageBox::error(0,errText,i18n("Property Errors"));
 
 		// Restore data
-		if(m_dataChanged && (m_comp->getUndo()))
+		if(m_dataChanged && (getComponent()->getUndo()))
 		{
-			m_comp->getUndo()->hiddenUndo();
+			getComponent()->getUndo()->hiddenUndo();
 	    m_dataChanged = false;
 		}
 		
@@ -121,8 +140,8 @@ void ConnectorPropertyDialog::slotDataChanged()
 {
 	if (!m_dataChanged)
 	{
-		m_comp->undoChangeProperty(i18n("Change Connector Properties"));
+		getComponent()->undoChangeProperty(i18n("Change Connector Properties"));
 		m_dataChanged = true;
-		m_comp->setModified();
+		getComponent()->setModified();
 	}
 }
