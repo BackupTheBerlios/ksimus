@@ -52,7 +52,7 @@ class BaseWindow : public QWidget
 
 public:
 	/** Creates the base window */
-	BaseWindow(KSimusApp *parent=0, const char *name=0);
+	BaseWindow(KSimusApp *parent, const char *name=0);
 	~BaseWindow();
 
 	QWidget * getWorkingWidget() { return m_workingWidget; };
@@ -67,6 +67,8 @@ public:
 
 
 public slots:
+	virtual void polish();
+
 	void hideWorkingWidget();
 	void hideLogWidget();
 	void hideListWidget();
@@ -79,6 +81,7 @@ public slots:
 
 	void showWatchWidget();
 	void showComponentListWidget();
+
 
 
 private:

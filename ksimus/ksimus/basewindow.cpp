@@ -26,6 +26,8 @@
 
 // KDE-Includes
 #include <klocale.h>
+#include <kconfig.h>
+#include <kapp.h>
 
 // Project-Includes
 #include "ksimus.h"
@@ -33,6 +35,7 @@
 #include "loglist.h"
 #include "componentlistview.h"
 #include "watchwidget.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
@@ -68,32 +71,86 @@ BaseWindow::BaseWindow(KSimusApp *parent, const char *name )
 	m_logWidget = new LogList(parent, m_vertSplitter, "LogWidget");
 	CHECK_PTR(m_logWidget);
 	connect(m_logWidget,SIGNAL(signalShow()),SLOT(showLogWidget()));
-	
+
 
 
 	// Layout
 	QBoxLayout * lay = new QHBoxLayout(this);
 	CHECK_PTR(lay);
 	lay->addWidget(m_horiSplitter);
-
-/*	QBoxLayout * layleft = new QHBoxLayout(m_horiSplitter);
-	layleft->addWidget(m_listWidget);*/
-
-	// Widget sizes
-	QValueList<int> sizeList;
-
-	sizeList.append(20);
-	sizeList.append(80);
-	m_horiSplitter->setSizes(sizeList);
-
-	sizeList[0] = 80;
-	sizeList[1] = 20;
-	m_vertSplitter->setSizes(sizeList);
 }
 
 BaseWindow::~BaseWindow()
 {
+	/*QValueList<int> sizeList;
+	sizeList = m_horiSplitter->sizes();
+	KSIMDEBUG(QString("m_horiSplitter %1 %2 %3").arg(sizeList.count()).arg(sizeList[0]).arg(sizeList[1]));
+	sizeList = m_vertSplitter->sizes();
+	KSIMDEBUG(QString("m_vertSplitter %1 %2 %3").arg(sizeList.count()).arg(sizeList[0]).arg(sizeList[1]));
+*/
+
+	// Store last size
+	KConfig * config=kapp->config();
+	QString group(config->group());
+	config->setGroup("BaseWindow");
+
+	config->writeEntry("Horizontal Splitter", m_horiSplitter->sizes());
+	config->writeEntry("Vertical Splitter", m_vertSplitter->sizes());
+	config->writeEntry("Log Widget Hidden", isLogWidgetHidden());
+	config->writeEntry("List Widget Hidden", isListWidgetHidden());
+
+	config->setGroup(group);
 }
+
+
+void BaseWindow::polish()
+{
+	QWidget::polish();
+
+	// Load last size
+	KConfig * config=kapp->config();
+	QString group(config->group());
+	config->setGroup("BaseWindow");
+	QValueList<int> sizeList;
+
+	sizeList = config->readIntListEntry("Horizontal Splitter");
+	if (sizeList.count() != 2)
+	{
+		sizeList.clear();
+		sizeList.append(20);
+		sizeList.append(80);
+	}
+	m_horiSplitter->setSizes(sizeList);
+
+	sizeList = config->readIntListEntry("Vertical Splitter");
+	if (sizeList.count() != 2)
+	{
+		sizeList.clear();
+		sizeList.append(80);
+		sizeList.append(20);
+	}
+	m_vertSplitter->setSizes(sizeList);
+
+	if (config->readBoolEntry("Log Widget Hidden", false))
+	{
+		((KSimusApp *)parentWidget())->slotViewHideLog();
+	}
+
+	if (config->readBoolEntry("List Widget Hidden", false))
+	{
+		((KSimusApp *)parentWidget())->slotViewHideList();
+	}
+
+	config->setGroup(group);
+
+
+/*	sizeList = m_horiSplitter->sizes();
+	KSIMDEBUG(QString("m_horiSplitter %1 %2 %3").arg(sizeList.count()).arg(sizeList[0]).arg(sizeList[1]));
+	sizeList = m_vertSplitter->sizes();
+	KSIMDEBUG(QString("m_vertSplitter %1 %2 %3").arg(sizeList.count()).arg(sizeList[0]).arg(sizeList[1]));
+*/
+}
+
 
 void BaseWindow::hideWorkingWidget()
 {
