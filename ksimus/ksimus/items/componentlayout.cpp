@@ -43,6 +43,11 @@ CompLayoutBaseItem::CompLayoutBaseItem(CompLayoutBase * parentLayout)
 
 CompLayoutBaseItem::~CompLayoutBaseItem()
 {
+	if (getParent())
+	{
+//		KSIMDEBUG("CompLayoutBaseItem::~CompLayoutBaseItem()");
+		getParent()->removeItem(this, false);
+	}
 }
 
 ComponentLayout * CompLayoutBaseItem::getBaseLayout() const
@@ -366,6 +371,27 @@ void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, unsigned int spa
 	getItemList()->append(item);
 	QObject::connect(connPack, SIGNAL(signalAddConnector(ConnectorBase *)),getBaseLayout(),SLOT(updateLayout()));
 	QObject::connect(connPack, SIGNAL(signalDeletedConnector()),getBaseLayout(),SLOT(updateLayout()));
+}
+
+bool CompLayoutBase::removeItem(CompLayoutBaseItem * layoutItem, bool del = true)
+{
+	if (del)
+	{
+		return getItemList()->removeRef(layoutItem);
+	}
+	else
+	{
+		if (-1 == getItemList()->findRef(layoutItem))
+		{
+			// not found
+			return false;
+		}
+		else
+		{
+			getItemList()->take();
+			return true;
+		}
+	}
 }
 
 void CompLayoutBase::getSize(unsigned int & size, unsigned int & connectors) const

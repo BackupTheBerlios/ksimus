@@ -152,6 +152,12 @@ public:
     */
   void addConnectorPack(ConnectorPack * connPack, unsigned int additionalSpace = 1);
 
+	/** Reomves the given item from this layout.
+	  * @param layoutItem Remove this item from layout.
+	  * @param del        If true, the item will be deleted also.
+	  */
+  bool removeItem(CompLayoutBaseItem * layoutItem, bool del = true);
+
   /** Returns the orientations of the element. */
   ConnOrientationType getOrientation() const { return m_orientation; };
 
