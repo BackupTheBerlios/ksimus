@@ -70,8 +70,8 @@ public:
 	/** Add the value of a item to the actual value */
 	void addItem(unsigned int x, unsigned int y, mapItem value);
 	/** Returns the cost of the given place */
-	int getPlace(QRect & place) const;
-	void addPlace(QRect & place, mapItem value);
+	int getCost(QRect & place) const;
+	void addPlace(const QRect & place, mapItem value);
 	void addRoute(CPointList * route, mapItem value);
 	void addRouteSegment(CPointList * route, mapItem value, int start);
 	void addRouteList(CPointListList * routeList, mapItem value);
@@ -82,7 +82,7 @@ public:
 	/** Search a "optimal" route "from" "to".
 		After return, the start point, stop point, and edges are stored in route.
 		The return value is true, if a route is founded and false, if no route is founded */
-	bool findRoute(QPoint * from, QPoint * to, CPointList * route);
+	bool findRoute(const QPoint & from, const QPoint & to, CPointList * route);
 	bool findRoute(ConnectorList * connList, CPointListList * routeList);
   /** Searches the "best" place and returns the top left position */
   QPoint findBestPlace(const QSize & size) const;
@@ -97,10 +97,11 @@ protected: // Protected methods
 	QArray<mapItem> * map;
 	QSize mapSize;
 	/** Determine the route back */
-	void findBackRoute(QPoint * from, QPoint * to, CPointList * route);
+	void findBackRoute(const QPoint & from, const QPoint & to, CPointList * route);
 	/** Setup the cost value for each (requiered) position */
-	void setupCostMap(QPoint * from, QPoint * to);
-	int searchCommonRoute(CPointListList * routeList, CPointList * actRoute);
+	void setupCostMap(const QPoint & from, const QPoint & to);
+	static int searchCommonRoute(const CPointListList & routeList, CPointList * actRoute);
+	void setDiagonalCost(const QPoint & pos, mapItem cost);
 };
 
 #endif

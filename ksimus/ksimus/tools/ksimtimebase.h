@@ -25,15 +25,15 @@
   *@author Rasmus Diekenbrock
   */
 
-#define KSIMTIME_NSEC	10LL
-#define KSIMTIME_USEC	(KSIMTIME_NSEC * 1000)
-#define KSIMTIME_MSEC	(KSIMTIME_USEC * 1000)
-#define KSIMTIME_SEC	(KSIMTIME_MSEC * 1000)
-#define KSIMTIME_MIN	(KSIMTIME_SEC  * 60)
-#define KSIMTIME_HOUR	(KSIMTIME_MIN  * 60)
-#define KSIMTIME_DAY	(KSIMTIME_HOUR * 24)
+#define KSIMTIME_NSEC   10LL
+#define KSIMTIME_USEC   (KSIMTIME_NSEC * 1000)
+#define KSIMTIME_MSEC   (KSIMTIME_USEC * 1000)
+#define KSIMTIME_SEC    (KSIMTIME_MSEC * 1000)
+#define KSIMTIME_MIN    (KSIMTIME_SEC  * 60)
+#define KSIMTIME_HOUR   (KSIMTIME_MIN  * 60)
+#define KSIMTIME_DAY    (KSIMTIME_HOUR * 24)
 
-#define KSIMTIME_UNITS	9
+#define KSIMTIME_UNITS  9
 
 class QString;
 class KSimData;
@@ -42,7 +42,7 @@ class KSimTimeServer;
 typedef signed long long KSimTimeType;
 
 enum eTimeUnit { unit_ticks = 0, unit_tenth_nsec, unit_nsec, unit_usec,
-				 unit_msec, unit_sec, unit_min, unit_hour, unit_day };
+                 unit_msec, unit_sec, unit_min, unit_hour, unit_day };
 
 
 class KSimTimeBase

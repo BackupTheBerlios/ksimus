@@ -82,27 +82,27 @@ void ComponentMap::fill(mapItem value)
 	map->fill(value);
 }
 /** Returns the cost of the given place */
-int ComponentMap::getPlace(QRect & place) const
+int ComponentMap::getCost(QRect & place) const
 {
 	int i,j;
 	int cost = 0;
-	
-    for (i=place.top(); i <= place.bottom(); i++)
-    {
-    	for (j=place.left(); j <= place.right(); j++)
-    	{
+
+	for (i=place.top(); i <= place.bottom(); i++)
+	{
+		for (j=place.left(); j <= place.right(); j++)
+		{
 			cost += map->at( getIndex(j,i) );
 		}
 	}
 	return cost;
-}    		
+}
 
-void ComponentMap::addPlace(QRect & place, mapItem value)
+void ComponentMap::addPlace(const QRect & place, mapItem value)
 {
 	int i,j, index;
-	
-	QRect _place = place.normalize();
-	
+
+	QRect _place(place.normalize());
+
 	for (i=_place.top(); i <= _place.bottom(); i++)
 	{
 		index = getIndex(_place.left(), i);
@@ -111,28 +111,26 @@ void ComponentMap::addPlace(QRect & place, mapItem value)
 				map->at(index++) += value;
 		}
 	}
-}    		
+}
 void ComponentMap::addRoute(CPointList * route, mapItem value)
 {
-
-    for (unsigned int i=0; i < route->count()-1; i++)
-    {
-    	QRect rect(*route->at(i),*route->at(i+1));
-    	addPlace(rect, value);
-//		map->at( getIndex(route->at(i)->x(),route->at(i)->y()) ) += value;
+	for (unsigned int i=0; i < route->count()-1; i++)
+	{
+		QRect rect(*route->at(i),*route->at(i+1));
+		addPlace(rect, value);
 	}
-}    		
+}
 void ComponentMap::addRouteSegment(CPointList * route, mapItem value, int start)
 {
-    for (unsigned int i=start; i < route->count(); i++)
-    {
+	for (unsigned int i=start; i < route->count(); i++)
+	{
 		map->at( getIndex(route->at(i)->x(),route->at(i)->y()) ) += value;
 	}
-}    		
+}
 void ComponentMap::addRouteList(CPointListList * routeList, mapItem value)
 {
-    for (unsigned int i=0; i < routeList->count(); i++)
-    {
+	for (unsigned int i=0; i < routeList->count(); i++)
+	{
 		addRoute(routeList->at(i), value);
 		if (i != 0)
 		{
@@ -140,16 +138,16 @@ void ComponentMap::addRouteList(CPointListList * routeList, mapItem value)
 			addItem(routeList->at(i)->at(0)->x(),routeList->at(i)->at(0)->y(), -value);
 		}
 	}
-}    		
+}
 /** Draws the map (for debuging only) */
 void ComponentMap::draw (QPainter * p)
 {
 	int i,j;
 
-    for (i=0; i < mapSize.height(); i++)
-    {
-    	for (j=0; j < mapSize.width(); j++)
-    	{
+	for (i=0; i < mapSize.height(); i++)
+	{
+		for (j=0; j < mapSize.width(); j++)
+		{
 			mapItem value = map->at(getIndex(j,i));
 			if (value == costNone)
 			{
@@ -178,62 +176,52 @@ QSize ComponentMap::getSize() const
 
 bool ComponentMap::findRoute(ConnectorList * connList, CPointListList * routeList)
 {
-	ConnectorBase * startConn;
-	ConnectorBase * destConn;
-	ConnectorBase * conn;
 	CPointList * wireRoute;
 	ConnectorList tmpConnList;
 	CPointListList tmpRouteList;
-	QList<int> tmpStartList;
 	QPoint center;
-	
-		
+
 	// Wire connects more than one connectors
 	if (connList->count() > 1)
 	{
-		tmpStartList.setAutoDelete(true);
 		tmpRouteList.setAutoDelete(true);
-		
+
 		//*** Sort connectors ***
-		// Search center of all connectors
-		center = QPoint(0,0);
-		for (unsigned int i = 0; i < connList->count(); i++)
 		{
-			center += connList->at(i)->getWirePos();
-		}
-		center /= (int)connList->count();
-		
-		FOR_EACH_CONNECTOR(itConn, *connList)
-		{
-			int diffA, diffB;
-			unsigned int j;
-			conn = itConn.current();
-			diffA = abs(center.x()-conn->getWirePos().x())
-					+ abs(center.y()-conn->getWirePos().y());
-			for (j = 0; j < tmpConnList.count(); j++)
+			// Search center of all connectors
+			QPoint center(0,0);
+			FOR_EACH_CONNECTOR(itConn, *connList)
 			{
-				diffB = abs(center.x()-tmpConnList.at(j)->getWirePos().x())
-						+ abs(center.y()-tmpConnList.at(j)->getWirePos().y());
-				if (diffA < diffB)
-					break;
+				center += itConn()->getWirePos();
 			}
-			tmpConnList.insert(j, conn);
+			center /= (int)connList->count();
+
+			FOR_EACH_CONNECTOR(itConn, *connList)
+			{
+				int diffA, diffB;
+				unsigned int j;
+				const ConnectorBase * conn = itConn.current();
+				diffA = abs(center.x() - conn->getWirePos().x())
+						+ abs(center.y() - conn->getWirePos().y());
+				for (j = 0; j < tmpConnList.count(); j++)
+				{
+					diffB = abs(center.x() - tmpConnList.at(j)->getWirePos().x())
+							+ abs(center.y() - tmpConnList.at(j)->getWirePos().y());
+					if (diffA < diffB)
+						break;
+				}
+				tmpConnList.insert(j, conn);
+			}
 		}
-		
+
 		// Remove old routes
-		while (!routeList->isEmpty())
-		{
-			routeList->remove();
-		}
-			
-		startConn = tmpConnList.first();
+		routeList->clear();
+
 		for(unsigned int i = 1; tmpConnList.count() > i; i++)
 		{
-			destConn = tmpConnList.at(i);
-			
-			QPoint stop(destConn->getWireGridPos());
-			
 			QPoint start(tmpConnList.first()->getWireGridPos());
+			QPoint stop(tmpConnList.at(i)->getWireGridPos());
+
 			for(unsigned int j = 1; i > j; j++)
 			{
 				QPoint next(tmpConnList.at(j)->getWireGridPos());
@@ -247,14 +235,11 @@ bool ComponentMap::findRoute(ConnectorList * connList, CPointListList * routeLis
 			wireRoute = new CPointList;
 			wireRoute->setAutoDelete(true);
 
-			if (findRoute(&start,&stop,wireRoute))
+			if (findRoute(start, stop, wireRoute))
 			{
 				// search common routes
-				int startIndex = searchCommonRoute(&tmpRouteList, wireRoute);
+				searchCommonRoute(tmpRouteList, wireRoute);
 				// add new route
-				int * pInt = new int;
-				*pInt = startIndex;
-				tmpStartList.append(pInt);
 				tmpRouteList.append(wireRoute);
 				
 				// No cost if same route for same wire
@@ -327,28 +312,33 @@ bool ComponentMap::findRoute(ConnectorList * connList, CPointListList * routeLis
 /** Search a "optimal" route "from" "to".
 After return, the start point, stop point, and edges are stored in route.
 The return value is true, if a route is found and false, if no route is found */
-bool ComponentMap::findRoute(QPoint * from, QPoint * to, CPointList * route)
+bool ComponentMap::findRoute(const QPoint & from, const QPoint & to, CPointList * route)
 {
 	// first remove all old Point from route
-	while (!route->isEmpty())
+/*	while (!route->isEmpty())
 	{
 		route->remove();
-	}
+	}*/
+	route->clear();
 	
+//	setDiagonalCost(to, 1);
+//	setDiagonalCost(from, 1);
 	setupCostMap(to, from);
 	findBackRoute(to, from, route);
+//	setDiagonalCost(to, -1);
+//	setDiagonalCost(from, -1);
 
 	return true;
 }
 
-int ComponentMap::searchCommonRoute(CPointListList * routeList, CPointList * actRoute)
+int ComponentMap::searchCommonRoute(const CPointListList & routeList, CPointList * actRoute)
 {
 	bool found = false;
 	int res = 0;
 	
-	if (routeList->count() > 0)
+	if (routeList.count() > 0)
 	{
-		QListIterator<CPointList> it(*routeList);
+		QListIterator<CPointList> it(routeList);
 
 		// Test points beginning last
 		for (int i = (int)actRoute->count()-1; i>=0 && !found; i--)
@@ -378,7 +368,7 @@ int ComponentMap::searchCommonRoute(CPointListList * routeList, CPointList * act
 }
 
 /** Setup the cost value for each (requiered) position */
-void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
+void ComponentMap::setupCostMap(const QPoint & from, const QPoint & to)
 {
 	// Queue for points to visit
 	tPointQueue pointQueue;
@@ -386,34 +376,31 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 	// These points lays on a component and are normaly not used
 	tPointQueue pointQueueCross;
 	bool ready = false;
-					
+
 	QPoint pos;
 	int localCost;
-	int maxCost;
-	int newCost;
+	int maxCost = INT_MAX;
 	unsigned int index;
-	unsigned int testIndex;
 	mapItem oldStopValue;
-	
-	QPoint start(*from);
-	QPoint stop(*to);
-	
-	maxCost = INT_MAX;
+
+	QPoint start(from);
+	QPoint stop(to);
+
 	// setup costMap
 	costMap->fill(INT_MAX);
-	
+
 	// Set start pos
 	pointQueue.push(start);
 	costMap->at(getIndex(start.x(), start.y())) = 0;
-	
+
 	// Store stop point value
 	oldStopValue = map->at(getIndex(stop.x(), stop.y()));
 	map->at(getIndex(stop.x(), stop.y())) = 0;
-	
+
 	#ifdef SETUP_COST_MAP_SHOW_LOOPS
 		int count = 0;
 	#endif
-	
+
 	while (!ready)
 	{
 		#ifdef SETUP_COST_MAP_SHOW_LOOPS
@@ -433,10 +420,10 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 		{
 			ready = true;
 		}
-		
+
 		index = getIndex(pos.x(), pos.y());
 		localCost = costMap->at(index);
-		
+
 		if (pos == stop)
 		{
 			// Destination reached, remember max cost
@@ -448,8 +435,8 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 			// Test relative position (-1,0)
 			if (pos.x() > 0)
 			{
-				testIndex = index - 1;
-				newCost = localCost + map->at(testIndex);
+				unsigned int testIndex = index - 1;
+				int newCost = localCost + map->at(testIndex);
 				if ((newCost < costMap->at(testIndex)))// && (newCost < maxCost ))
 				{
 					costMap->at(testIndex) = newCost;
@@ -459,12 +446,12 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 						pointQueueCross.push(pos + QPoint(-1,0));
 				}
 			}
-			
+
 			// Test relative position (0,-1)
 			if (pos.y() > 0)
 			{
-				testIndex = index - mapSize.width();
-				newCost = localCost + map->at(testIndex);
+				unsigned int testIndex = index - mapSize.width();
+				int newCost = localCost + map->at(testIndex);
 				if ((newCost < costMap->at(testIndex)))// && (newCost < maxCost ))
 				{
 					costMap->at(testIndex) = newCost;
@@ -474,12 +461,12 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 						pointQueueCross.push(pos + QPoint(0,-1));
 				}
 			}
-			
+
 			// Test relative position (+1,0)
 			if (pos.x() < mapSize.width()-1)
 			{
-				testIndex = index + 1;
-				newCost = localCost + map->at(testIndex);
+				unsigned int testIndex = index + 1;
+				int newCost = localCost + map->at(testIndex);
 				if ((newCost < costMap->at(testIndex)))// && (newCost < maxCost ))
 				{
 					costMap->at(testIndex) = newCost;
@@ -489,12 +476,12 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 						pointQueueCross.push(pos + QPoint(+1,0));
 				}
 			}
-			
+
 			// Test relative position (0,+1)
 			if (pos.y() < mapSize.height()-1)
 			{
-				testIndex = index + mapSize.width();
-				newCost = localCost + map->at(testIndex);
+				unsigned int testIndex = index + mapSize.width();
+				int newCost = localCost + map->at(testIndex);
 				if ((newCost < costMap->at(testIndex)))// && (newCost < maxCost ))
 				{
 					costMap->at(testIndex) = newCost;
@@ -509,7 +496,7 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 
 	// Restore stop point value
 	map->at(getIndex(stop.x(), stop.y())) = oldStopValue;
-	
+
 	#ifdef SETUP_COST_MAP_SHOW_LOOPS
 		KSIMDEBUG_VAR("Loops",count);
 		KSIMDEBUG_VAR("maxCost",maxCost);
@@ -517,7 +504,7 @@ void ComponentMap::setupCostMap(QPoint * from, QPoint * to)
 }
 
 /** Determine the route back */
-void ComponentMap::findBackRoute(QPoint * from, QPoint * to, CPointList * route)
+void ComponentMap::findBackRoute(const QPoint & from, const QPoint & to, CPointList * route)
 {
 	tPointQueue backRoute;
 	QPoint pos;
@@ -525,79 +512,79 @@ void ComponentMap::findBackRoute(QPoint * from, QPoint * to, CPointList * route)
 	unsigned int index;
 	int dir = 0;
 	int bestDir = 0;
-	
-	QPoint start(*from);
-	QPoint stop(*to);
-	
+
+	QPoint start(from);
+	QPoint stop(to);
+
 	backRoute.push(stop);
 
-    while (stop != start)
-    {
-	   	newCost = INT_MAX;
-    	
-    	index = getIndex(stop.x(), stop.y());
-        	
-    	for (int i=0;i<4;i++)
-    	{
-	    	switch(dir)
-    		{
-	    		case 0:
-	    		if (stop.x() > 0)
-	    		{
-    				if (newCost > costMap->at(index - 1))
-    				{
-	    				newCost = costMap->at(index - 1);
-			    		pos = stop + QPoint(-1,0);
-			    		bestDir = 0;
-				    }
-				}
-				break;
-    	
-	    		case 1:
-	    		if (stop.y() > 0)
-		    	{
-    				if (newCost > costMap->at(index - mapSize.width()))
-    				{
-    					newCost = costMap->at(index - mapSize.width());
-		    			pos = stop + QPoint(0,-1);
-				    	bestDir = 1;
-				    }
+	while (stop != start)
+	{
+		newCost = INT_MAX;
+
+		index = getIndex(stop.x(), stop.y());
+
+		for (int i=0;i<4;i++)
+		{
+			switch(dir)
+			{
+				case 0:
+				if (stop.x() > 0)
+				{
+					if (newCost > costMap->at(index - 1))
+					{
+						newCost = costMap->at(index - 1);
+						pos = stop + QPoint(-1,0);
+						bestDir = 0;
+					}
 				}
 				break;
 
-		    	case 2:
-    			if (stop.x() < mapSize.width()-1)
-	    		{
-    				if (newCost > costMap->at(index + 1))
-    				{
-    					newCost = costMap->at(index + 1);
-			    		pos = stop + QPoint(1,0);
-				    	bestDir = 2;
-				    }
+				case 1:
+				if (stop.y() > 0)
+				{
+					if (newCost > costMap->at(index - mapSize.width()))
+					{
+						newCost = costMap->at(index - mapSize.width());
+						pos = stop + QPoint(0,-1);
+						bestDir = 1;
+					}
 				}
 				break;
 
-		    	case 3:
-    			if (stop.y() < mapSize.height()-1)
-	    		{
-    				if (newCost > costMap->at(index + mapSize.width()))
-	    			{
-    					newCost = costMap->at(index + mapSize.width());
-			    		pos = stop + QPoint(0,1);
-				    	bestDir = 3;
-			    	}
+				case 2:
+				if (stop.x() < mapSize.width()-1)
+				{
+					if (newCost > costMap->at(index + 1))
+					{
+						newCost = costMap->at(index + 1);
+						pos = stop + QPoint(1,0);
+						bestDir = 2;
+					}
+				}
+				break;
+
+				case 3:
+				if (stop.y() < mapSize.height()-1)
+				{
+					if (newCost > costMap->at(index + mapSize.width()))
+					{
+						newCost = costMap->at(index + mapSize.width());
+						pos = stop + QPoint(0,1);
+						bestDir = 3;
+					}
 				}
 				break;
 			}
 		dir = (dir+1) & 0x03;
 		}
-		
+
 		dir = bestDir;
 		stop = pos;
 		backRoute.push(stop);
 	}
 
-	
+
 	{
 		QPoint pos, *newPos;
 
@@ -615,23 +602,23 @@ QPoint ComponentMap::findBestPlace(const QSize & size) const
 {
 #define ADD_X	2
 #define ADD_Y	ADD_X
-	
+
 	QPoint bestPos(0,0);
 	int bestCost = INT_MAX;
 	int minCost = size.height() * size.width() * costNone;
 	int cost;
-	
+
 	int x = 0;
 	int y = 0;
-	
+
 	do
 	{
 		y = 0;
-		do		
+		do
 		{
 			QRect place(QPoint(x,y), size);
-			cost = getPlace (place);
-			
+			cost = getCost (place);
+
 			// min cost found -> exit
 			if (cost == minCost)
 			{
@@ -643,13 +630,31 @@ QPoint ComponentMap::findBestPlace(const QSize & size) const
 				bestCost = cost;
 				bestPos = QPoint(x,y);
 			}
-			
+
 			y += ADD_Y;
 		}
 		while ( (y + size.height()) < mapSize.height());
 		x += ADD_X;
 	}
 	while ( (x + size.width()) < mapSize.width());
-	
+
 	return bestPos;
+}
+
+void ComponentMap::setDiagonalCost(const QPoint & pos, mapItem cost)
+{
+	if (pos.x() > 0)
+	{
+		if (pos.y() > 0)
+			map->at(getIndex(pos.x()-1,pos.y()-1)) += cost;
+		if (pos.y() < mapSize.height()-1)
+			map->at(getIndex(pos.x()-1,pos.y()+1)) += cost;
+	}
+	if (pos.x() < mapSize.width()-1)
+	{
+		if (pos.y() > 0)
+			map->at(getIndex(pos.x()+1,pos.y()-1)) += cost;
+		if (pos.y() < mapSize.height()-1)
+			map->at(getIndex(pos.x()+1,pos.y()+1)) += cost;
+	}
 }
