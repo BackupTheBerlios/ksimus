@@ -38,6 +38,7 @@
 #include "connectorpropertywidget.h"
 #include "connectorbase.h"
 #include "connectorinfo.h"
+#include "ksimdebug.h"
 
 
 // Forward declaration
@@ -193,6 +194,30 @@ void ConnectorPropertyWidget::polish()
 {
 	QWidget::polish();
 	
+	// Hide setting widget if it does not contains properties
+	bool hideSetting = true;
+	const QObjectList * list = m_p->settingWidget->children();
+	if (list)
+	{
+		QListIterator<QObject> it(*list);
+		for (; it.current(); ++it)
+		{
+			if (it.current()->isWidgetType())
+			{
+				if (!((QWidget*)it.current())->isHidden())
+				{
+					hideSetting = false;
+					break;
+				}
+			}
+		}
+	}
+	if (hideSetting)
+	{
+		m_p->settingWidget->hide();
+	}
+		
+	// Set tab order
 	QWidget * wid = 0;
 	setGlobalTabOrder(this,&wid);
 }
@@ -203,17 +228,17 @@ static void setGlobalTabOrder(QWidget * main, QWidget ** last)
 	
 	if (list)
 	{
-		QObject * obj;
-		for ( obj = ((QObjectList*)list)->first(); obj; obj = ((QObjectList*)list)->next() )
+		QListIterator<QObject> it(*list);
+		for (; it.current(); ++it)
 		{
-			if (obj->isWidgetType())
+			if (it.current()->isWidgetType())
 			{
 				if (*last)
 				{
-					QWidget::setTabOrder(*last,(QWidget*)obj);
+					QWidget::setTabOrder(*last,(QWidget*)it.current());
 				}
-				*last = (QWidget*)obj;
-				setGlobalTabOrder((QWidget*)obj, last);
+				*last = (QWidget*)it.current();
+				setGlobalTabOrder((QWidget*)it.current(), last);
 			}
 		}
 	}
