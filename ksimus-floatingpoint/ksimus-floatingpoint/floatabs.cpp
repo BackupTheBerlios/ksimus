@@ -69,7 +69,7 @@ void FloatAbsView::draw(QPainter * p)
 	
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Abs");
+	p->drawText(getDrawingPlace(), AlignCenter, "Abs\nFlt");
 }
 
 

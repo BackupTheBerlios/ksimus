@@ -64,7 +64,7 @@ class FloatAbsView : public Float1In1OutView
 {
 public:
 	FloatAbsView(FloatAbs * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
 	virtual void draw(QPainter * p);
 };
