@@ -78,7 +78,7 @@ public:
 	 */
 	unsigned int getConnectorMinimum() const { return m_minConn; };
 	
-	/** Sets the maximum count of connectors. The function delete no supernumeray connectors!
+	/** Sets the maximum count of connectors. The function deletes no supernumeray connectors!
 	 */
 	void setConnectorMaximum(unsigned int minConn);
 	/** Returns the maximum count of connectors.
@@ -97,12 +97,10 @@ public:
 		*/
 	bool initPopupMenu(QPopupMenu * popup);
 	/** Save component add on's properties.
-		* The default implementation does nothing.
 		*/
 	virtual void save(KSimData & file) const;
 	/** Load component add on's properties.
 		*	Returns true if successful.
-		* The default implementation does nothing.
 		*/
 	virtual bool load(KSimData & file);
 	
@@ -134,6 +132,13 @@ public:
     */
   bool isDeleteLastOnly() const;
 
+	/** Return the number of deletable connectors. The number depends on the minimum connetor count and
+	  * the number of unwired connectors.*/
+	unsigned int getNumberOfDeletableConnectors() const;
+	
+	/** Return the number of not deletable connectors. The number depends on the minimum connetor count and
+	  * the number of unwired connectors.*/
+	unsigned int getNumberOfNotDeletableConnectors() const;
 
 public slots:
 	/** Call this slot to add a connector. The slot is not successful if the maximum count is reached. */
@@ -153,7 +158,7 @@ protected:
 	virtual QString createNewName();
 	/** Returns the next connector to delete or zero if all connector are connected.
 	  */
-	virtual ConnectorBase * getDeletableConnector();
+	ConnectorBase * getDeletableConnector() const;
 		
 private: 		//functions
 	/** This internal function adds a new connector.

@@ -229,7 +229,7 @@ QString ConnectorPack::createNewName()
 	return name;
 }
 
-ConnectorBase * ConnectorPack::getDeletableConnector()
+ConnectorBase * ConnectorPack::getDeletableConnector() const
 {
 	QListIterator<ConnectorBase> it(*getConnList());
 	
@@ -258,6 +258,36 @@ ConnectorBase * ConnectorPack::getDeletableConnector()
 		return it.current();
 	}
 }
+
+unsigned int ConnectorPack::getNumberOfDeletableConnectors() const
+{
+	unsigned int cnt = 0;
+	
+	QListIterator<ConnectorBase> it(*getConnList());
+	
+	for(it.toLast(); it.current() != 0; --it)
+	{
+		if(it.current()->getWire() != 0)
+		{
+			if (isDeleteLastOnly())
+			{
+				break;
+			}
+		}
+		else
+		{
+			cnt++;
+		}
+	}
+	
+	return QMIN(cnt, getConnectorCount() - getConnectorMinimum());
+}
+
+unsigned int ConnectorPack::getNumberOfNotDeletableConnectors() const
+{
+	return getConnectorCount() - getNumberOfDeletableConnectors();
+}
+
 
 bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 {
