@@ -1376,13 +1376,22 @@ bool KSimEditor::eventFilter( QObject * obj, QEvent * ev)
 			case QEvent::MouseMove:
 			{
 				QMouseEvent mouseEv = QMouseEvent(  ev->type(),
-//								 	 				((QWidget*)obj)->mapToParent(((QMouseEvent*)ev)->pos()),
-								 	 				mapFromGlobal(((QWidget*)obj)->mapToGlobal(((QMouseEvent*)ev)->pos())),
-								  					((QMouseEvent*)ev)->button(),
-								  					((QMouseEvent*)ev)->state()
-								  				 );
+				                        mapFromGlobal(((QWidget*)obj)->mapToGlobal(((QMouseEvent*)ev)->pos())),
+				                        ((QMouseEvent*)ev)->button(),
+				                        ((QMouseEvent*)ev)->state() );
 				return event(&mouseEv);
 			}
+			break;
+			
+			case QEvent::KeyPress:
+			case QEvent::KeyRelease:
+			case QEvent::FocusIn:
+			case QEvent::FocusOut:
+			{
+				return event(ev);
+			}
+			break;
+			
 			
 			default:
 				return false;
