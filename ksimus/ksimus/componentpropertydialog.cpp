@@ -42,7 +42,7 @@ ComponentPropertyDialog::ComponentPropertyDialog(Component * comp, QString * cap
  					Ok,
  					parent,
  					name),
-		m_component(comp),
+		ComponentItem(comp),
 		m_dataChanged(false)		
 {
 }

@@ -26,6 +26,7 @@
 #include <kdialogbase.h>
 
 // Project-Includes
+#include "componentitem.h"
 
 // Forward declaration
 class Component;
@@ -34,24 +35,18 @@ class Component;
   *@author Rasmus Diekenbrock
   */
 
-class ComponentPropertyDialog : public KDialogBase
+class ComponentPropertyDialog : public KDialogBase, public ComponentItem
 {
    Q_OBJECT
 public: 
 	ComponentPropertyDialog(Component *comp, QString *caption=0, QWidget *parent=0, const char *name=0);
 	~ComponentPropertyDialog();
 
-    /** Returns the component. */
-	Component * getComponent() const { return m_component; };
-	
 	/** Connects dialog signals okClicked(), defaultClicked() and cancelClicked() to the widget slots
 		slotAccept(), slotDefault() and slotCancel(). Connects the widget signal signalDataChanged() to
 		the slot signalChangeData().
 	*/
 	void connectSlots(QWidget * wid);
-
-protected:
-	Component * m_component;
 
 protected slots:
 	void slotDataChanged();
