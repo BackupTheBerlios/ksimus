@@ -57,7 +57,7 @@ TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char
   QToolTip::add(m_rbGeneric,tooltip);
   QWhatsThis::add(m_rbGeneric,tooltip);
 	
-	m_rbUserView = new QRadioButton("&User View", this);
+	m_rbUserView = new QRadioButton(i18n("&User View"), this);
 	CHECK_PTR(m_rbUserView);
  	m_rbUserView->setFocusPolicy(ClickFocus);
 	insert(m_rbUserView,(int)MV_USERVIEW);
@@ -65,7 +65,7 @@ TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char
   QToolTip::add(m_rbUserView,tooltip);
   QWhatsThis::add(m_rbUserView,tooltip);
 	
-	m_rbPixmap = new QRadioButton("&Image", this);
+	m_rbPixmap = new QRadioButton(i18n("&Image"), this);
 	CHECK_PTR(m_rbPixmap);
  	m_rbPixmap->setFocusPolicy(ClickFocus);
 	insert(m_rbPixmap,(int)MV_PIXMAP);

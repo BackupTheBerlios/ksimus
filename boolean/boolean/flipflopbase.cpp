@@ -51,14 +51,14 @@ FlipFlopBase::FlipFlopBase(CompContainer * container, const ComponentInfo * ci)
 	:	Boolean1Out(container, ci),
 		m_setDominant(false)
 {
-	m_notOut = new ConnectorBoolOut (this, "/Output");
+	m_notOut = new ConnectorBoolOut (this, I18N_NOOP("/Output"));
 	CHECK_PTR(m_notOut);
 	m_notOut->setNegate(true, true);
 	
-	m_inSet = new ConnectorBoolInEdge (this, "Set");
+	m_inSet = new ConnectorBoolInEdge (this, I18N_NOOP("Set"));
 	CHECK_PTR(m_inSet);
 	
-	m_inReset = new ConnectorBoolInEdge (this, "Reset");
+	m_inReset = new ConnectorBoolInEdge (this, I18N_NOOP("Reset"));
 	CHECK_PTR(m_inReset);
 
 

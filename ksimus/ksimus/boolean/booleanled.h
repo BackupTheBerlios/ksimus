@@ -99,8 +99,6 @@ public:
 	BooleanLedView(Component * comp, eViewType viewType);
 	virtual ~BooleanLedView();
 	
-	/** Draws the Button to a printer */
-//	virtual void print(QPainter * paint);
 	virtual QWidget * createCompViewWidget(QWidget * parent);
 
 	/** Draw the component view */

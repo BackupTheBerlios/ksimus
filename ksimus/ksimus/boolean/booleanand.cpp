@@ -41,19 +41,19 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanAnd(container, ci);
 }
 
-const ComponentInfo BooleanAndInfo (	"Boolean AND",
-									"Boolean/Gates/AND",
-									QString::null,//"Boolean AND",
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo BooleanAndInfo(I18N_NOOP("Boolean AND"),
+                                   I18N_NOOP("Boolean/Gates/AND"),
+                                   QString::null,
+                                   VA_SHEETVIEW,
+                                   create
+                                  );
 
-const ComponentInfo BooleanNandInfo (	"Boolean NAND",
-									"Boolean/Gates/NAND",
-									QString::null,//"Boolean Nand",
-									VA_SHEETVIEW,
-									create
-								);
+const ComponentInfo BooleanNandInfo(I18N_NOOP("Boolean NAND"),
+                                    I18N_NOOP("Boolean/Gates/NAND"),
+                                    QString::null,
+                                    VA_SHEETVIEW,
+                                    create
+                                   );
 
 const ComponentInfoList BooleanAndList = { &BooleanAndInfo, &BooleanNandInfo, 0 };
 

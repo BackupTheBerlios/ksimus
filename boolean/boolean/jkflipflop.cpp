@@ -55,15 +55,15 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new JKFlipFlop(container, ci);
 }
 
-const ComponentInfo JKFlipFlopInfo("JK Flip Flop",
-                                   "Boolean/Flip Flop/JK-FF",
+const ComponentInfo JKFlipFlopInfo(I18N_NOOP("JK Flip Flop"),
+                                   I18N_NOOP("Boolean/Flip Flop/JK-FF"),
                                    QString::null,/*"JK Flip Flop",*/
                                    VA_SHEETVIEW,
                                    create
                                   );
 
-const ComponentInfo JKMSFlipFlopInfo("JK Master Slave Flip Flop",
-                                     "Boolean/Flip Flop/JK-MS-FF",
+const ComponentInfo JKMSFlipFlopInfo(I18N_NOOP("JK Master Slave Flip Flop"),
+                                     I18N_NOOP("Boolean/Flip Flop/JK-MS-FF"),
                                      QString::null,/*"JK Flip Flop",*/
                                      VA_SHEETVIEW,
                                      create
@@ -85,7 +85,7 @@ JKFlipFlopBase::JKFlipFlopBase(CompContainer * container, const ComponentInfo * 
 	m_inK = new ConnectorBoolIn(this, "K");
 	CHECK_PTR(m_inK);
 
-	m_inClk = new ConnectorBoolInEdge(this, "Clock");
+	m_inClk = new ConnectorBoolInEdge(this, I18N_NOOP("Clock"));
 	CHECK_PTR(m_inClk);
 	m_inClk->setEdgeSensitiveChangeEnable(false);
 	

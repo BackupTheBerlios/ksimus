@@ -55,9 +55,9 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new Boolean7Segment(container, ci);
 }
 
-const ComponentInfo Boolean7SegmentInfo("7 Segment Display",
-                                        "Boolean/Output/7 Segment Display",
-                                        QString::null,//"7 Segment Display",
+const ComponentInfo Boolean7SegmentInfo(I18N_NOOP("7 Segment Display"),
+                                        I18N_NOOP("Boolean/Output/7 Segment Display"),
+                                        QString::null,
                                         VA_SHEET_AND_USER,
                                         create	);
 
@@ -85,16 +85,16 @@ Boolean7Segment::Boolean7Segment(CompContainer * container, const ComponentInfo 
 	setDefaultColors(DEFAULT_FOREGROUND,DEFAULT_BACKGROUND);
 	setFrameEnabled(true);
 	
-	m_in1 = new ConnectorBoolIn (this, "Input 1");
+	m_in1 = new ConnectorBoolIn (this, I18N_NOOP("Input 1"));
 	CHECK_PTR(m_in1);
 	
-	m_in2 = new ConnectorBoolIn (this, "Input 2");
+	m_in2 = new ConnectorBoolIn (this, I18N_NOOP("Input 2"));
 	CHECK_PTR(m_in2);
 	
-	m_in4 = new ConnectorBoolIn (this, "Input 4");
+	m_in4 = new ConnectorBoolIn (this, I18N_NOOP("Input 4"));
 	CHECK_PTR(m_in4);
 	
-	m_in8 = new ConnectorBoolIn (this, "Input 8");
+	m_in8 = new ConnectorBoolIn (this, I18N_NOOP("Input 8"));
 	CHECK_PTR(m_in8);
 	
 	// Initializes the sheet view
@@ -187,12 +187,6 @@ QWidget * Boolean7SegmentView::createCompViewWidget(QWidget * parent)
 	/* Specific signals */
 	// Number changed (Component->LCD)
 	connect(getComponent(), SIGNAL(signalSetNumber(int)), wid->m_lcd, SLOT(display(int)));
-/*	// Foreground color changed (Component->CompViewWidget)
-	connect(getComponent(), SIGNAL(signalSetForeground(const QColor &)), wid, SLOT(slotForeground(const QColor &)));
-	// Background color changed (Component->CompViewWidget)
-	connect(getComponent(), SIGNAL(signalSetBackground(const QColor &)), wid, SLOT(slotBackground(const QColor &)));
-	// Frame changed (Component->CompViewWidget)
-	connect(getComponent(), SIGNAL(signalEnableFrame(bool)), wid, SLOT(slotEnableFrame(bool)));*/
 
 	return wid;
 }

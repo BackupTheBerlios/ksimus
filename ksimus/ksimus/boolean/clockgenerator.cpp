@@ -56,9 +56,9 @@ static Component * create2(CompContainer * container, const ComponentInfo * ci)
 
 const ComponentInfo ClockGeneratorInfo
 								(	
-									"Clock Generator",
-									"Boolean/Gates/Clock Generator",
-									QString::null,//"Clock Generator",
+									I18N_NOOP("Clock Generator"),
+									I18N_NOOP("Boolean/Gates/Clock Generator"),
+									QString::null,
 									VA_SHEETVIEW,
 									create2
 								);

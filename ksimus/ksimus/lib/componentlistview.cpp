@@ -156,7 +156,7 @@ void ComponentListView::slotInsert(const ComponentLibraryItem * cli)
 
 void ComponentListView::insert(const QString & libName, const ComponentInfo * ci, bool open)
 {
-	QStringList sl = QStringList::split('/', libName.simplifyWhiteSpace());
+	QStringList sl = QStringList::split('/', i18n(libName.latin1()));
 	unsigned int count;
 	
 	ComponentListViewItem * clvi = componentRoot;
@@ -170,7 +170,7 @@ void ComponentListView::insert(const QString & libName, const ComponentInfo * ci
 			if (nextClvi->isEntry())
 			{
 				// Entry exist - bad
-				KSIMDEBUG_VAR("Entry exist - skipped",libName);
+				KSIMDEBUG_VAR("Entry exist - skipped",i18n(libName.latin1()));
 				KSIMDEBUG_VAR("Entry info",nextClvi->text(0));
 				break;
 			}
@@ -243,7 +243,7 @@ void ComponentListView::slotFoldTree()
 		QListViewItem * item = topLevelitem->firstChild();
 		while(item)
 		{
-			foldRecursive(item,false);
+			foldRecursive(item,true);
 			item = item->nextSibling();
 		}
 		topLevelitem = topLevelitem->nextSibling();
@@ -256,7 +256,7 @@ void ComponentListView::slotUnfoldTree()
 	
 	if(item)
 	{
-		foldRecursive(item, true);
+		foldRecursive(item, false);
 	}
 }
 

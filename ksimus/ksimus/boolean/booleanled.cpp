@@ -52,9 +52,9 @@ static Component * createBooleanLed(CompContainer * container, const ComponentIn
 	return new BooleanLed(container, ci);
 }
 
-const ComponentInfo BooleanLedInfo("LED",
-                                   "Boolean/Output/LED",
-                                   QString::null,//"LED",
+const ComponentInfo BooleanLedInfo(I18N_NOOP("LED"),
+                                   I18N_NOOP("Boolean/Output/LED"),
+                                   QString::null,
                                    VA_SHEET_AND_USER,
                                    createBooleanLed	);
 
@@ -460,39 +460,6 @@ bool BooleanLedColorPropertyWidget::isDefault() const
 BooleanLedPropertyWidget::BooleanLedPropertyWidget(Component * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyBaseWidget(comp, parent, name)
 {
-/*	m_newColor = new QColor(((BooleanLed*)comp)->getColor());
-	CHECK_PTR(m_newColor);
-	
-	QButtonGroup * grp = new QVButtonGroup(i18n("Color"), this);
-	CHECK_PTR(grp);
-	
-	m_red = new QRadioButton(i18n("Red"),grp);
-	CHECK_PTR(m_red);
-	m_green = new QRadioButton(i18n("Green"),grp);
-	CHECK_PTR(m_green);
-	m_orange = new QRadioButton(i18n("Orange"),grp);
-	CHECK_PTR(m_orange);
-	
-	QHBox * userBox = new QHBox(grp);
-	CHECK_PTR(userBox);
-	userBox->setSpacing(KDialog::spacingHint());
-	
-	QLabel * label = new QLabel(i18n("User defined:"),userBox);
-	CHECK_PTR(label);
-	m_userColor = new KColorButton(userBox);;
-	CHECK_PTR(m_userColor);
-
-	
-		
-	connect(m_red,SIGNAL(clicked()),this,SLOT(slotRed()));
-	connect(m_green,SIGNAL(clicked()),this,SLOT(slotGreen()));
-	connect(m_orange,SIGNAL(clicked()),this,SLOT(slotOrange()));
-	connect(m_userColor,SIGNAL(changed(const QColor &)),this,SLOT(slotUserColor(const QColor &)));
-	
-	m_userColor->setColor(*m_newColor);
-	slotUserColor(*m_newColor);*/
-	
-	
 	QHBox * exampleBox = new QHBox(this);
 	CHECK_PTR(exampleBox);
 	exampleBox->setSpacing(KDialog::spacingHint());
@@ -536,8 +503,6 @@ BooleanLedPropertyWidget::BooleanLedPropertyWidget(Component * comp, QWidget *pa
 	layout->setMargin(KDialog::marginHint());
 	layout->setSpacing(KDialog::spacingHint());
 	
-/*	layout->addWidget(grp,0,0);
-	layout->addWidget(exampleBox,1,0);*/
 	layout->addWidget(m_onColor,0,0);
 	layout->addWidget(m_offColor,1,0);
 	layout->addWidget(exampleBox,2,0);
@@ -572,61 +537,8 @@ void BooleanLedPropertyWidget::defaultPressed()
 
 	m_onColor->setColor(DEFAULT_COLOR);
 	m_offColor->setColor(QColor());
-	
-/*	*m_newColor =		 RED;
-	m_orange->setChecked(false);
-	m_green->setChecked(false);
-	m_red->setChecked(true);*/
 }
 
-/*void BooleanLedPropertyWidget::slotRed()
-{
-	*m_newColor = RED;
-	m_userColor->setColor(RED);
-	m_exampleOff->setColor(RED);
-	m_exampleOn->setColor(RED);
-}
-void BooleanLedPropertyWidget::slotGreen()
-{
-	*m_newColor = GREEN;
-	m_userColor->setColor(GREEN);
-	m_exampleOff->setColor(GREEN);
-	m_exampleOn->setColor(GREEN);
-}
-void BooleanLedPropertyWidget::slotOrange()
-{
-	*m_newColor = ORANGE;
-	m_userColor->setColor(ORANGE);
-	m_exampleOff->setColor(ORANGE);
-	m_exampleOn->setColor(ORANGE);
-}
-
-void BooleanLedPropertyWidget::slotUserColor(const QColor & color)
-{
-	*m_newColor = color;
-	
-	if (*m_newColor == ORANGE)
-	{
-		m_orange->setChecked(true);
-	}
-	else if (*m_newColor == GREEN)
-	{
-		m_green->setChecked(true);
-	}
-	else if (*m_newColor == RED)
-	{
-		m_red->setChecked(true);
-	}
-	else
-	{	
-		m_orange->setChecked(false);
-		m_green->setChecked(false);
-		m_red->setChecked(false);
-	}
-	
-	m_exampleOff->setColor(*m_newColor);
-	m_exampleOn->setColor(*m_newColor);
-} */
 
 void BooleanLedPropertyWidget::slotOnColor(const QColor & color)
 {

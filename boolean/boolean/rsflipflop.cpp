@@ -22,6 +22,7 @@
 
 
 // KDE-Includes
+#include <klocale.h>
 
 // KSimus-Includes
 #include "ksimus/resource.h"
@@ -44,8 +45,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new RSFlipFlop(container, ci);
 }
 
-const ComponentInfo RSFlipFlopInfo("RS Flip Flop",
-                                   "Boolean/Flip Flop/RS-FF",
+const ComponentInfo RSFlipFlopInfo(I18N_NOOP("RS Flip Flop"),
+                                   I18N_NOOP("Boolean/Flip Flop/RS-FF"),
                                    QString::null,//"RS Flip Flop",
                                    VA_SHEETVIEW,
                                    create

@@ -22,7 +22,7 @@
 #include <qpainter.h>
 
 // KDE-Includes
-//#include <klocale.h>
+#include <klocale.h>
 
 // Project-Includes
 #include "boolean2in1out.h"
@@ -64,11 +64,11 @@ void Boolean2In1OutView::draw(QPainter * p)
 Boolean2In1Out::Boolean2In1Out(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
-	m_out = new ConnectorBoolOut (this, "Output", QPoint(4,2));
+	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"), QPoint(4,2));
 	CHECK_PTR(m_out);
-	m_inA = new ConnectorBoolIn (this, "Input A", QPoint(0,1));
+	m_inA = new ConnectorBoolIn (this, I18N_NOOP("Input A"), QPoint(0,1));
 	CHECK_PTR(m_inA);
-	m_inB = new ConnectorBoolIn (this, "Input B", QPoint(0,3));
+	m_inB = new ConnectorBoolIn (this, I18N_NOOP("Input B"), QPoint(0,3));
 	CHECK_PTR(m_inB);
 }
 

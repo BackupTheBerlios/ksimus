@@ -44,11 +44,11 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new Wire(container, ci);
 }
 
-const ComponentInfo WireInfo (	"Wire",
-								"Wire/Wire",
-								QString::null,
-								VA_SHEETVIEW,
-								create	);
+const ComponentInfo WireInfo(I18N_NOOP("Wire"),
+                             "Wire/Wire",
+                             QString::null,
+                             VA_SHEETVIEW,
+                             create);
 
 //###############################################################
 

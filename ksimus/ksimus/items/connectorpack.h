@@ -154,8 +154,9 @@ public slots:
 protected:
 	/** The function creates a name for a new connector. Per default it is the pack name and a letter or
 	  * a number depenning on the setting of @ref setLetter.
+	  * Sets the @see ConnectorBase::setWireName and the @see ConnectorBase::setName .
 	  */
-	virtual QString createNewName();
+	virtual void createNewName(ConnectorBase * conn);
 	/** Returns the next connector to delete or zero if all connector are connected.
 	  */
 	ConnectorBase * getDeletableConnector() const;

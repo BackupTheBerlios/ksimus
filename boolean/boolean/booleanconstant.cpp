@@ -22,6 +22,7 @@
 #include <qpainter.h>
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "ksimus/resource.h"
@@ -40,14 +41,14 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanConstant(container, ci);
 }
 
-const ComponentInfo BooleanConstantTrue("Boolean Const True",
-                                        "Boolean/Input/Const True",
+const ComponentInfo BooleanConstantTrue(I18N_NOOP("Boolean Const True"),
+                                        I18N_NOOP("Boolean/Input/Const True"),
                                         QString::null,
                                         VA_SHEETVIEW,
                                         create);
 
-const ComponentInfo BooleanConstantFalse("Boolean Const False",
-                                         "Boolean/Input/Const False",
+const ComponentInfo BooleanConstantFalse(I18N_NOOP("Boolean Const False"),
+                                         I18N_NOOP("Boolean/Input/Const False"),
                                          QString::null,
                                          VA_SHEETVIEW,
                                          create);
@@ -145,7 +146,7 @@ void BooleanConstantView::draw(QPainter * p)
 BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci)
 {
-	m_out = new ConnectorBoolOut(this, "Output");
+	m_out = new ConnectorBoolOut(this, I18N_NOOP("Output"));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view

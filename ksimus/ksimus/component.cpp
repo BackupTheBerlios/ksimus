@@ -58,7 +58,7 @@ Component::Component(CompContainer * container, const ComponentInfo * ci)
 	  m_sheetView(0),
 	  m_userView(0),
 	  m_container(container),
-	  m_name(ci->getName()),
+	  m_name(i18n(ci->getName().latin1())),
 	  m_serialNumber(0),
 	  m_info(ci),
 	  m_isWire(false),
@@ -142,7 +142,7 @@ void Component::save(KSimData & file) const
 	
 	file.writeEntry(sType, getType());
 	
-	if (getName() != getInfo()->getName())
+	if (getName() != i18n(getInfo()->getName().latin1()))
 	{
 		file.writeEntry(sName, getName());
 	}
@@ -202,7 +202,7 @@ bool Component::load(KSimData & file, bool)
 	QString group;
 	bool ok = true;
 	
-	setName(file.readEntry(sName, getInfo()->getName()));
+	setName(file.readEntry(sName, i18n(getInfo()->getName().latin1())));
 	setSerialNumber(file.readUnsignedNumEntry(sSerialNumber, getSerialNumber()));
 	
 	group = file.group();

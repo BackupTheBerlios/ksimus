@@ -68,7 +68,7 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	CHECK_PTR(label);
 	QToolTip::add(label, str);
 	
-	label = new QLabel(getComponent()->getInfo()->getName(), m_grid);
+	label = new QLabel(i18n(getComponent()->getInfo()->getName().latin1()), m_grid);
 	CHECK_PTR(label);
 	QToolTip::add(label, str);
 	

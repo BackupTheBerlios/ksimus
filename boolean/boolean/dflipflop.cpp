@@ -22,6 +22,7 @@
 
 
 // KDE-Includes
+#include <klocale.h>
 
 // KSimus-Includes
 #include "ksimus/resource.h"
@@ -46,8 +47,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new DFlipFlop(container, ci);
 }
 
-const ComponentInfo DFlipFlopInfo("D Latch",
-                                  "Boolean/Flip Flop/D Latch",
+const ComponentInfo DFlipFlopInfo(I18N_NOOP("D Latch"),
+                                  I18N_NOOP("Boolean/Flip Flop/D Latch"),
                                   QString::null,//"D Latch",
                                   VA_SHEETVIEW,
                                   create
@@ -63,10 +64,10 @@ DFlipFlop::DFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	: FlipFlopBase(container, ci)
 {
 	
-	m_inD = new ConnectorBoolIn(this, "Data");
+	m_inD = new ConnectorBoolIn(this, I18N_NOOP("Data"));
 	CHECK_PTR(m_inD);
 
-	m_inEna = new ConnectorBoolInEdge(this, "Enable");
+	m_inEna = new ConnectorBoolInEdge(this, I18N_NOOP("Enable"));
 	CHECK_PTR(m_inEna);
 //	m_inEna->setEdgeSensitiveChangeEnable(false);
 	m_inEna->setEdgeSensitive(false, true);

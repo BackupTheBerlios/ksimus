@@ -142,6 +142,11 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 	}
 	g_appList->append(this);
 	
+/*	KSIMDEBUG(QString("LanguageList: %1").arg(KGlobal::locale()->languageList().join(" ")));
+	KSIMDEBUG(QString("Languages: %1").arg(KGlobal::locale()->languages()));
+	KGlobal::locale()->setLanguage("C");*/
+	
+	
 	if (!g_library)
 	{
 		g_library = new Library();
@@ -151,8 +156,11 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 
 	config=kapp->config();
 
+	
+	
 	///////////////////////////////////////////////////////////////////
 	// call inits to invoke all other construction parts
+	
 	initStatusBar();
 	initActions();
 	initDocument();
@@ -1074,7 +1082,7 @@ void KSimusApp::slotEditorModeChanged(int mode)
 		case EM_INSERT:
 			{
 				QString msg;
-				msg.sprintf(i18n("Insert Component '%1' ...").arg(m_p->lastSelectedCI->getName()));
+				msg.sprintf(i18n("Insert Component '%1' ...").arg(i18n(m_p->lastSelectedCI->getName().latin1())));
 				slotStatusMsg(msg);
 			}
 			break;

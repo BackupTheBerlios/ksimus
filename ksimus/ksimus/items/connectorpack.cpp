@@ -74,7 +74,8 @@ ConnectorBase * ConnectorPack::internalAddConnector()
 	
 	if(getConnectorMaximum() > getConnectorCount())
 	{
-		conn = getConnectorInfo()->create(getComponent(), createNewName(), QPoint());
+		conn = getConnectorInfo()->create(getComponent(), "dummy", QPoint());
+		createNewName(conn);
 		conn->getAction().disable(KSimAction::STORAGE);
 		conn->setOrientation(getOrientation());
 		
@@ -185,18 +186,20 @@ void ConnectorPack::slotDeleteConnector(ConnectorBase * conn)
 	}		
 }
 	
-QString ConnectorPack::createNewName()
+void ConnectorPack::createNewName(ConnectorBase * conn)
 {
 	unsigned int i = 0;
 	bool found;
 	QString name;
+	QString wireName;
+	QString i18nName;
 	
 	do
 	{
 		found = false;
 		i++;
 		
-		if (getConnectorName() == QString())
+		if (getConnectorName().isEmpty())
 		{
 			name = getName() + " %1";
 		}
@@ -208,25 +211,29 @@ QString ConnectorPack::createNewName()
 		
 		if (isLetter())
 		{
-			name = name.arg(QChar((char)i + 'A' - 1));
+			wireName = name.arg(QChar((char)i + 'A' - 1));
+			i18nName = i18n(name.latin1()).arg(QChar((char)i + 'A' - 1));
 		}
 		else
 		{
-			name = name.arg(i);
+			wireName = name.arg(i);
+			i18nName = i18n(name.latin1()).arg(i);
 		}
 		
 		
-		
+		// Exist name ?
 		FOR_EACH_CONNECTOR(it, *getConnList())
 		{
-			if (it.current()->getWireName() == name)
+			if (it.current()->getWireName() == wireName)
 			{
 				found = true;
 				break;
 			}
 		}
 	} while (found);
-	return name;
+	
+	conn->setWireName(wireName);
+	conn->setName(i18nName, true);
 }
 
 ConnectorBase * ConnectorPack::getDeletableConnector() const
@@ -298,11 +305,11 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 	
 	popup->insertSeparator();
 		
-	i = popup->insertItem(i18n("Add %1").arg(getName()), this, SLOT(slotAddConnector()));
+	i = popup->insertItem(i18n("Add %1").arg(i18n(getName().latin1())), this, SLOT(slotAddConnector()));
 	if(getConnectorCount() >= getConnectorMaximum())
 		popup->setItemEnabled(i, false);
 		
-	i = popup->insertItem(i18n("Delete %2").arg(getName()), this, SLOT(slotDeleteConnector()));
+	i = popup->insertItem(i18n("Delete %2").arg(i18n(getName().latin1())), this, SLOT(slotDeleteConnector()));
 	if((getConnectorCount() <= getConnectorMinimum()) || (getDeletableConnector() == 0))
 		popup->setItemEnabled(i, false);
 

@@ -22,7 +22,7 @@
 #include <qpainter.h>
 
 // KDE-Includes
-//#include <klocale.h>
+#include <klocale.h>
 
 // Project-Includes
 #include "booleanor.h"
@@ -46,16 +46,16 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanOr(container, ci);
 }
 
-const ComponentInfo BooleanOrInfo("Boolean OR",
-                                  "Boolean/Gates/OR",
-                                  QString::null,//"Boolean OR",
+const ComponentInfo BooleanOrInfo(I18N_NOOP("Boolean OR"),
+                                  I18N_NOOP("Boolean/Gates/OR"),
+                                  QString::null,
                                   VA_SHEETVIEW,
                                   create
                                   );
 
-const ComponentInfo BooleanNorInfo("Boolean NOR",
-                                   "Boolean/Gates/NOR",
-                                   QString::null,//"Boolean NOR",
+const ComponentInfo BooleanNorInfo(I18N_NOOP("Boolean NOR"),
+                                   I18N_NOOP("Boolean/Gates/NOR"),
+                                   QString::null,
                                    VA_SHEETVIEW,
                                    create
                                    );

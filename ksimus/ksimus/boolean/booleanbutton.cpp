@@ -50,9 +50,9 @@ static Component * createBooleanButton(CompContainer * container, const Componen
 	return new BooleanButton(container, ci);
 }
 
-const ComponentInfo BooleanButtonInfo("Button",
-                                      "Boolean/Input/Button",
-                                      QString::null,//"Button",
+const ComponentInfo BooleanButtonInfo(I18N_NOOP("Button"),
+                                      I18N_NOOP("Boolean/Input/Button"),
+                                      QString::null,
                                       VA_SHEET_AND_USER,
                                       createBooleanButton	);
 
@@ -64,8 +64,8 @@ static Component * createBooleanToggleButton(CompContainer * container, const Co
 	return new BooleanButton(container, ci);
 }
 
-const ComponentInfo BooleanToggleButtonInfo("TButton",
-                                            "Boolean/Input/Toggle Button",
+const ComponentInfo BooleanToggleButtonInfo(I18N_NOOP("TButton"),
+                                            I18N_NOOP("Boolean/Input/Toggle Button"),
                                             QString::null,//"Toggle Button",
                                             VA_SHEET_AND_USER,
                                             createBooleanToggleButton	);

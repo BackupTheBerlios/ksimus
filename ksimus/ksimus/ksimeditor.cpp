@@ -834,14 +834,14 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 
 static QString getComponentPartName(const Component * comp, const ConnectorBase * conn)
 {
-	QString s(comp->getInfo()->getName());
+	QString s(i18n(comp->getInfo()->getName().latin1()));
 
 	if (conn)
 	{
 		s += ":" + conn->getName();
 	}
 		
-	if (comp->getName() != comp->getInfo()->getName())	
+	if (comp->getName() != i18n(comp->getInfo()->getName().latin1()))	
 	{
 		s += " (" + comp->getName() + ")";
 	}
@@ -1682,9 +1682,9 @@ void KSimEditor::componentPopup(bool connectorHit)
 {
 	int idx, connIdx;
 	int rot0Idx = 0;
-	int rotCWIdx = 0;
-	int rotCCWIdx = 0;
-	int rotFlipIdx = 0;
+	int rot90Idx = 0;
+	int rot180Idx = 0;
+	int rot270Idx = 0;
 	KSimUndo * undo = getDoc()->getUndo();
 	CHECK_PTR(undo);
 	QPopupMenu * menu = new QPopupMenu(0, "componentPopup");
@@ -1718,17 +1718,31 @@ void KSimEditor::componentPopup(bool connectorHit)
 			CHECK_PTR(rotMenu);
 			
 			menu->insertSeparator();
-			menu->insertItem(i18n("Ro&tate"), rotMenu);
+			menu->insertItem(i18n("Ro&tation"), rotMenu);
 			
-			rot0Idx = rotMenu->insertItem(i18n("&Default Rotation"));
-			if ((compView->getRotation() < 45.0) || (compView->getRotation() > 315.0))
+			rot0Idx = rotMenu->insertItem(i18n("&0 Degree"));
+			if ((compView->getRotation() < 45.0) || (compView->getRotation() >= 315.0))
 			{
 				rotMenu->setItemEnabled(rot0Idx, false);
 			}
 			
-			rotCWIdx = rotMenu->insertItem(i18n("&Clockwise"));
-			rotCCWIdx = rotMenu->insertItem(i18n("Counterclock&wise"));
-			rotFlipIdx = rotMenu->insertItem(i18n("&Flip"));
+			rot90Idx = rotMenu->insertItem(i18n("&90 Degree"));
+			if ((compView->getRotation() >= 45.0) && (compView->getRotation() < 135.0))
+			{
+				rotMenu->setItemEnabled(rot90Idx, false);
+			}
+			
+			rot180Idx = rotMenu->insertItem(i18n("&180 Degree"));
+			if ((compView->getRotation() >= 135.0) && (compView->getRotation() < 225.0))
+			{
+				rotMenu->setItemEnabled(rot180Idx, false);
+			}
+			
+			rot270Idx = rotMenu->insertItem(i18n("&270 Degree"));
+			if ((compView->getRotation() >= 225.0) && (compView->getRotation() < 315.0))
+			{
+				rotMenu->setItemEnabled(rot270Idx, false);
+			}
 		}
 		
 		if (connectorHit)
@@ -1761,32 +1775,32 @@ void KSimEditor::componentPopup(bool connectorHit)
 		}
 		else if (res == rot0Idx)
 		{
-			undo->changeProperty(compView, i18n("Default Rotation"));
+			undo->changeProperty(compView, i18n("Rotation 0 Degree"));
 			compView->setRotation(0.0);
 			getDoc()->setModified();
 			getContainer()->routeComponents();
 			refresh();
 		}
-		else if (res == rotCWIdx)
+		else if (res == rot90Idx)
 		{
-			undo->changeProperty(compView, i18n("Rotate clockwise"));
-			compView->stepRotationCW();
+			undo->changeProperty(compView, i18n("Rotation 90 Degree"));
+			compView->setRotation(90.0);
 			getDoc()->setModified();
 			getContainer()->routeComponents();
 			refresh();
 		}
-		else if (res == rotCCWIdx)
+		else if (res == rot180Idx)
 		{
-			undo->changeProperty(compView, i18n("Rotate counterclockwise"));
-			compView->stepRotationCCW();
+			undo->changeProperty(compView, i18n("Rotation 180 Degree"));
+			compView->setRotation(180.0);
 			getDoc()->setModified();
 			getContainer()->routeComponents();
 			refresh();
 		}
-		else if (res == rotFlipIdx)
+		else if (res == rot270Idx)
 		{
-			undo->changeProperty(compView, i18n("Rotate half rotation"));
-			compView->setRotation(compView->getRotation() + 180.0);
+			undo->changeProperty(compView, i18n("Rotation 270 Degree"));
+			compView->setRotation(270.0);
 			getDoc()->setModified();
 			getContainer()->routeComponents();
 			refresh();

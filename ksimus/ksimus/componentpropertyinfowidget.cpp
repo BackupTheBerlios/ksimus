@@ -70,28 +70,28 @@ ComponentPropertyInfoWidget::ComponentPropertyInfoWidget(Component * comp, QWidg
 	switch(comp->getInfo()->getViewAttr())
 	{
 		case VA_SHEETVIEW:
-			str = i18n("sheet view");
+			str = "sheet view";
 			break;
 		case VA_SHEETVIEW | VA_WINDOWVIEW:
-			str = i18n("sheet view, window view");
+			str = "sheet view, window view";
 			break;
 		case VA_USERVIEW:
-			str = i18n("user view");
+			str = "user view";
 			break;
 		case VA_USERVIEW | VA_WINDOWVIEW:
-			str = i18n("user view, window view");
+			str = "user view, window view";
 			break;
 		case VA_SHEET_AND_USER:
-			str = i18n("sheet view, user view");
+			str = "sheet view, user view";
 			break;
 		case VA_SHEET_AND_USER | VA_WINDOWVIEW:
-			str = i18n("sheet view, user view, window view");
+			str = "sheet view, user view, window view";
 			break;
 		case VA_SHEET_XOR_USER:
-			str = i18n("sheet view or user view");
+			str = "sheet view or user view";
 			break;
 		default:
-			str.sprintf(i18n("unknown combination - %i"),(int)comp->getInfo()->getViewAttr());
+			str.sprintf("unknown combination - %i",(int)comp->getInfo()->getViewAttr());
 			KSIMDEBUG_VAR("unknown combination",(int)comp->getInfo()->getViewAttr());
 			break;
 	}

@@ -57,8 +57,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new MonoFlop(container, ci);
 }
 
-const ComponentInfo MonoFlopInfo("Mono Flop",
-                                 "Boolean/Flip Flop/Mono Flop",
+const ComponentInfo MonoFlopInfo(I18N_NOOP("Mono Flop"),
+                                 I18N_NOOP("Boolean/Flip Flop/Mono Flop"),
                                  QString::null,//"Mono Flop",
                                  VA_SHEETVIEW,
                                  create
@@ -80,7 +80,7 @@ MonoFlop::MonoFlop(CompContainer * container, const ComponentInfo * ci)
 {
 
 //	getSetInputConnector()->setEdgeSensitive(true,true);
-	getSetInputConnector()->setName("Trigger", true);
+	getSetInputConnector()->setName(I18N_NOOP("Trigger"), true);
 
 	getResetInputConnector()->setEdgeSensitive(false,true);
 	getResetInputConnector()->setHideEnabled(true);

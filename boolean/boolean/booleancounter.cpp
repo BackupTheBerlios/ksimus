@@ -56,8 +56,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanCounter(container, ci);
 }
 
-const ComponentInfo BooleanCounterInfo("Boolean Counter with RCO and RBO",
-                                       "Boolean/Counter/with RCO and RBO",
+const ComponentInfo BooleanCounterInfo(I18N_NOOP("Boolean Counter with RCO and RBO"),
+                                       I18N_NOOP("Boolean/Counter/with RCO and RBO"),
                                        QString::null,//"D Latch",
                                        VA_SHEETVIEW,
                                        create,
@@ -90,31 +90,32 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 {
 	// Create connectors
 	
-	m_inClear = new ConnectorBoolInEdge(this, "Reset");
+	m_inClear = new ConnectorBoolInEdge(this, I18N_NOOP("Reset"));
 	CHECK_PTR(m_inClear);
 	m_inClear->setEdgeSensitive(false,true);
 	m_inClear->setHideEnabled(true);
 	m_inClear->setHide(true,true);
 	
-	m_inClkUp = new ConnectorBoolInEdge(this, "Clock Up");
+	m_inClkUp = new ConnectorBoolInEdge(this, I18N_NOOP("Clock Up"));
 	CHECK_PTR(m_inClkUp);
 	m_inClkUp->setEdgeSensitiveChangeEnable(false);
 	m_inClkUp->setHideEnabled(true);
 	
-	m_inClkDown = new ConnectorBoolInEdge(this, "Clock Down");
+	m_inClkDown = new ConnectorBoolInEdge(this, I18N_NOOP("Clock Down"));
 	CHECK_PTR(m_inClkDown);
 	m_inClkDown->setEdgeSensitiveChangeEnable(false);
 	m_inClkDown->setHideEnabled(true);
 	
-	m_outCnt = new ConnectorPack(this, "Output", &ConnectorBoolOutInfo, MIN_BIT, MAX_BIT);
+	m_outCnt = new ConnectorPack(this, I18N_NOOP("Output"), &ConnectorBoolOutInfo, MIN_BIT, MAX_BIT);
 	CHECK_PTR(m_outCnt);
+	m_outCnt->setConnectorName(I18N_NOOP("Output %1"));
 	m_outCnt->setConnectorCount(DEFAULT_BIT);
 	
-	m_outBorrow = new ConnectorBoolOut(this, "Ripple Borrow Out");
+	m_outBorrow = new ConnectorBoolOut(this, I18N_NOOP("Ripple Borrow Out"));
 	CHECK_PTR(m_outBorrow);
 	m_outBorrow->setHideEnabled(true);
 	
-	m_outCarry = new ConnectorBoolOut(this, "Ripple Carry Out");
+	m_outCarry = new ConnectorBoolOut(this, I18N_NOOP("Ripple Carry Out"));
 	CHECK_PTR(m_outCarry);
 	m_outCarry->setHideEnabled(true);
 

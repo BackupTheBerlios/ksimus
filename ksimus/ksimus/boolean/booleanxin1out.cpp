@@ -20,6 +20,7 @@
 // QT-Includes
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "booleanxin1out.h"
@@ -41,8 +42,9 @@
 BooleanXIn1Out::BooleanXIn1Out(CompContainer * container, const ComponentInfo * ci)
 	:	Boolean1Out(container, ci)
 {
-	m_inPack = new ConnectorPack(this, "Input", &ConnectorBoolInInfo, 2, 10);
+	m_inPack = new ConnectorPack(this, I18N_NOOP("Input"), &ConnectorBoolInInfo, 2, 26);
 	CHECK_PTR(m_inPack);
+	m_inPack->setConnectorName(I18N_NOOP("Input %1"));
 	m_inPack->setConnectorCount(2);
 }
 

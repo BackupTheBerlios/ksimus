@@ -29,8 +29,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new ExtConnBoolIn(container, ci);
 }
 
-const ComponentInfo ExtConnBoolInInfo (	"External Connector Boolean Input",
-																				"External Connector/Bool Input",
+const ComponentInfo ExtConnBoolInInfo (	I18N_NOOP("External Connector Boolean Input"),
+																				I18N_NOOP("External Connector/Bool Input"),
 																				QString::null,
 																				VA_SHEETVIEW,
 																				create );

@@ -28,8 +28,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new ExtConnBoolOut(container, ci);
 }
 
-const ComponentInfo ExtConnBoolOutInfo ("External Connector Boolean Output",
-																				"External Connector/Bool Output",
+const ComponentInfo ExtConnBoolOutInfo (I18N_NOOP("External Connector Boolean Output"),
+																				I18N_NOOP("External Connector/Bool Output"),
 																				QString::null,
 																				VA_SHEETVIEW,
 																				create );
