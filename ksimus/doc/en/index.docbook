@@ -16,13 +16,23 @@
   <!ENTITY propertyDialog 'property dialog'>
 
   <!ENTITY component 'component'>
+  <!ENTITY Component 'Component'>
   <!ENTITY components 'components'>
+  <!ENTITY Components 'Components'>
   <!ENTITY connector 'connector'>
   <!ENTITY connectors 'connectors'>
+  <!ENTITY Connector 'Connector'>
+  <!ENTITY Connectors 'Connectors'>
+  <!ENTITY wire 'wire'>
+  <!ENTITY Wire 'Wire'>
+  <!ENTITY wires 'wires'>
+  <!ENTITY Wires 'Wires'>
   <!ENTITY extConn '<link linkend="modules-extconn">External Connector</link>'>
   <!ENTITY extConns '<link linkend="modules-extconn">External Connectors</link>'>
   <!ENTITY module '<link linkend="Modules">module</link>'>
   <!ENTITY modules '<link linkend="Modules">modules</link>'>
+  <!ENTITY schematic 'schematic'>
+  <!ENTITY Schematic 'Schematic'>
 
   <!ENTITY todo '<para>[TODO]</para>'>
 
@@ -30,11 +40,12 @@
   <!ENTITY example_rsff_part SYSTEM "example_rsff.docbook">
   <!ENTITY example_module_part SYSTEM "example_module.docbook">
   <!ENTITY modules_part SYSTEM "modules.docbook">
+  <!ENTITY component_part SYSTEM "component.docbook">
 
   <!-- Do not define any other entities; instead, use the entities
        from kde-genent.entities and $LANG/user.entities. -->
 ]>
-<!-- kdoctemplate v0.8 October 1 1999 
+<!-- kdoctemplate v0.8 October 1 1999
      Minor update to "Credits and Licenses" section on August 24, 2000
      Removed "Revision history" section on 22 January 2001   -->
 
@@ -83,12 +94,13 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <copyright>
 <year>2001</year>
+<year>2002</year>
 <holder>Rasmus Diekenbrock</holder>
 </copyright>
 <!-- Translators: put here the copyright notice of the translation -->
 <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
      and in the FDL itself on how to use it. -->
-<legalnotice>&GPLNotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
 
 <!-- Date and version information of the documentation
 Don't forget to include this last date and this last revision number, we
@@ -97,8 +109,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>09/12/2001</date>
-<releaseinfo>0.00.02</releaseinfo>
+<date>24/02/2002</date>
+<releaseinfo>0.00.03</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -123,6 +135,7 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>Simulation</keyword>
 <keyword>Logic</keyword>
 <keyword>Boolean</keyword>
+<keyword>Floating Point</keyword>
 </keywordset>
 
 </bookinfo>
@@ -153,7 +166,7 @@ revision history. (see installation appendix comment) -->
 controller (PID controller is not implemented yet ;-).
 &kapp; lets you design your sheet without any worry about the wiring between the
 components. &kapp; does it in a hopefully successful way for you. Just place the
-components free arbitrary on the schematic and wire the connectors of the
+components free arbitrary on the schematic and &wire; the connectors of the
 components.  Voil&aacute;, you are ready for
 simulating! </para>
 <para>
@@ -924,19 +937,19 @@ Features:
 Select the &components; from the &componentSupplier; and place them at the view.
 </para></listitem>
 <listitem><para>
-Wire the connectors or wires with drag and drop.
+&Wire; the connectors or &wires; with drag and drop.
 </para></listitem>
 <listitem><para>
 Use the context sensitive popup menus. There are four different areas:
 	<itemizedlist>
 	<listitem><para>
-	Components
+	&Components;
 	</para></listitem>
 	<listitem><para>
-	Connectors
+	&Connectors;
 	</para></listitem>
 	<listitem><para>
-	Wires
+	&Wires;
 	</para></listitem>
 	<listitem><para>
 	Empty Area
@@ -954,7 +967,7 @@ button on an empty area, enlarge the rectangle until all components are covered 
 then release the mouse button.
 </para></listitem>
 <listitem><para>
-Copy and past components. Wires between copied components are copied also.
+Copy and past components. &Wires; between copied components are copied also.
 Wires between a copied component and a not copied component are not copied.
 </para></listitem>
 <listitem><para>
@@ -1006,6 +1019,16 @@ See also <link linkend="example-module">Module Example</link>
 
 
 </sect1>
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################            Components         ######################## -->
+<!-- ############################################################################### -->
+<chapter id="Components">
+<title>Components Reference</title>
+&component_part;
+
 
 </chapter>
 
@@ -1109,7 +1132,7 @@ distribution. -->
 &kapp;
 </para>
 <para>
-Program copyright 2001 Rasmus Diekenbrock &kappmail;
+Program copyright 2002 Rasmus Diekenbrock &kappmail;
 </para>
 
 <!--
@@ -1125,7 +1148,7 @@ Contributors:
 -->
 
 <para>
-Documentation copyright 2001 Rasmus Diekenbrock &kappmail;
+Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->

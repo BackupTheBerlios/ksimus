@@ -1,0 +1,58 @@
+
+<para>
+&Components; are the smallest building blocks a &schematic;. Connect the &components;
+with &wires; and create in this way your &schematic;.
+</para>
+
+<sect1 id="ComponentButton">
+<title>Button</title>
+
+<para>
+<anchor id="ComponentTButton"/>
+Currently there exists two button types:
+
+<itemizedlist>
+<listitem><para>
+A simple button which is activeted as long as the user press the button.
+</para></listitem>
+<listitem><para>
+A toggle button which changes the state each time the user press the button.
+</para></listitem>
+</itemizedlist>
+
+</para>
+
+<para>
+Location in &componentSupplier;:
+
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Boolean</guimenuitem>
+<guimenuitem>Input</guimenuitem>
+<guimenuitem>Button</guimenuitem>
+</menuchoice></term>
+<listitem><para><action> </action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Boolean</guimenuitem>
+<guimenuitem>Input</guimenuitem>
+<guimenuitem>Toggle Button</guimenuitem>
+</menuchoice></term>
+<listitem><para><action> </action></para></listitem> </varlistentry>
+
+</variablelist>
+
+
+</para>
+
+
+</sect1>
+
+
+
+
+
+
