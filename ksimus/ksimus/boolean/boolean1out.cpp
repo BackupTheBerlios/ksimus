@@ -54,7 +54,7 @@ Boolean1Out::Boolean1Out(CompContainer * container, const ComponentInfo * ci)
 		m_flags(0)
 {
 	
-	m_out = new ConnectorBoolOut (this, "Output");
+	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"));
 	CHECK_PTR(m_out);
 	
 }

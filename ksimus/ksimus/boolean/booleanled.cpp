@@ -75,7 +75,7 @@ BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
 	setFrameAdjustmentEnabled(true);
 //	setFontAdjustmentEnabled(true);
 	
-	m_inConn = new ConnectorBoolIn (this, i18n("Input"), QPoint(0,1));
+	m_inConn = new ConnectorBoolIn (this, I18N_NOOP("Input"), QPoint(0,1));
 	CHECK_PTR(m_inConn);
 	
 	// Initializes the sheet view

@@ -39,9 +39,9 @@ const ComponentInfo ExtConnBoolOutInfo ("External Connector Boolean Output",
 ExtConnBoolOut::ExtConnBoolOut(CompContainer * container, const ComponentInfo * ci)
 	: ExternalConnector(container, ci)
 {
-	out = new ConnectorBoolOut(this, i18n("Output"), QPoint(4,1));
+	out = new ConnectorBoolOut(this, I18N_NOOP("Output"), QPoint(4,1));
 	CHECK_PTR(out);
-	in = new ConnectorBoolIn(this, i18n("Input"), QPoint(0,1));
+	in = new ConnectorBoolIn(this, I18N_NOOP("Input"), QPoint(0,1));
 	CHECK_PTR(in);
 }
 

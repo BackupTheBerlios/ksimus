@@ -120,7 +120,7 @@ ClockGenerator::ClockGenerator(CompContainer * container, const ComponentInfo * 
 		m_lowTime(getTimeServer()),
 		m_time(getTimeServer())
 {
-	m_out = new ConnectorBoolOut (this, i18n("Output"), QPoint(4,2));
+	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"), QPoint(4,2));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
