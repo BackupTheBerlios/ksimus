@@ -286,6 +286,11 @@ public:
 	*/
 	virtual WatchItemBase * makeWatchItem();
 	
+	//**************************************************************************
+	// *** static funtions
+	static const char * convertOrientation(ConnOrientationType orientation);
+	static ConnOrientationType convertOrientation(const char * orientation, ConnOrientationType defaultOrient = CO_UNDEF);
+
 protected:
 	//**************************************************************************	
 	

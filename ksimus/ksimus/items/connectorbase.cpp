@@ -41,25 +41,26 @@
 #include "wirepropertymultipleoutput.h"
 #include "watchwidget.h"
 #include "library.h"
+#include "enumdict.h"
 
 #include "connectorpropertywidget.h"
 #include "ksimdebug.h"
 
 #include "implicitconverterlibrary.h"
 
-static const char * const sName = "Name";
-static const char * const sNegType = "Neg";
+static const char * const sName     = "Name";
+static const char * const sNegType  = "Neg";
 static const char * const sHideType = "Hide";
 
 
-#define HIDDEN_TYPE_ENA		0x0001
-#define HIDDEN_TYPE_INIT	0x0002
-#define HIDDEN_TYPE_CURR	0x0004
+#define HIDDEN_TYPE_ENA	  0x0001
+#define HIDDEN_TYPE_INIT  0x0002
+#define HIDDEN_TYPE_CURR  0x0004
 
-#define NEG_TYPE_ENA			0x0008
-#define NEG_TYPE_INIT			0x0010
+#define NEG_TYPE_ENA      0x0008
+#define NEG_TYPE_INIT     0x0010
 
-#define ERASABLE					0x0020
+#define ERASABLE          0x0020
 
 
 class ConnectorBase::ConnectorBasePrivate
@@ -883,6 +884,37 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 	p->restore();
 }
 
+
+//**************************************************************************
+// *** static funtions
+EnumDict<ConnOrientationType>::tData EnumDict<ConnOrientationType>::data[]
+      = { {"CO_UNDEF", CO_UNDEF},
+          {"CO_TOP",   CO_TOP},
+          {"CO_RIGHT", CO_RIGHT},
+          {"CO_BOTTOM",CO_BOTTOM},
+          {"CO_LEFT",  CO_LEFT},
+          {"0",        CO_UNDEF}, // Old KSimus versions <= 0.3.6
+          {"1",        CO_TOP},
+          {"2",        CO_RIGHT},
+          {"3",        CO_BOTTOM},
+          {"4",        CO_LEFT},
+          {0,         (ConnOrientationType)0}};
+
+static const EnumDict<ConnOrientationType> & getConnOrientationTypeDict()
+{
+	static EnumDict<ConnOrientationType> connOrientationTypeDict(11);
+	return connOrientationTypeDict;
+}
+
+const char * ConnectorBase::convertOrientation(ConnOrientationType orientation)
+{
+	return getConnOrientationTypeDict().find(orientation);
+}
+
+ConnOrientationType ConnectorBase::convertOrientation(const char * orientation, ConnOrientationType defaultOrient)
+{
+	return getConnOrientationTypeDict().find(orientation, defaultOrient);
+}
 
 //**************************************************************************	
 // *** class ConnectorInputBase ***

@@ -256,7 +256,7 @@ void ExternalConnector::save(KSimData & file) const
 		file.writeEntry(sPixPos, m_pixmapPos);
 		
 		if (m_pixmapOrient != DEFAULT_CO)
-			file.writeEntry(sPixOrient, (int)m_pixmapOrient);
+			file.writeEntry(sPixOrient, ConnectorBase::convertOrientation(m_pixmapOrient));
 	}
 	// User view
 	if (m_userViewPos.x() != -1)
@@ -264,7 +264,7 @@ void ExternalConnector::save(KSimData & file) const
 		file.writeEntry(sUserPos, m_userViewPos);
 		
 		if (m_userViewOrient != DEFAULT_CO)
-			file.writeEntry(sUserOrient, (int)m_userViewOrient);
+			file.writeEntry(sUserOrient, ConnectorBase::convertOrientation(m_userViewOrient));
 	}
 
 	if (isOptionalConn())
@@ -286,7 +286,7 @@ bool ExternalConnector::load(KSimData & file, bool copyLoad)
 	
 	QPoint defaultPos(-1,0);
 	
-	ok = Component::load(file, copyLoad);	
+	ok = Component::load(file, copyLoad);
 	
 	if (copyLoad)
 	{
@@ -301,10 +301,10 @@ bool ExternalConnector::load(KSimData & file, bool copyLoad)
 	{
 		// Pixmap view
 		m_pixmapPos = file.readPointEntry(sPixPos, &defaultPos);
-		setPixmapOrientation((ConnOrientationType)file.readNumEntry(sPixOrient, (getExternalConn()->getOrientation())));
+		setPixmapOrientation(ConnectorBase::convertOrientation(file.readEntry(sPixOrient), getExternalConn()->getOrientation()));
 		// User view
 		m_userViewPos = file.readPointEntry(sUserPos, &defaultPos);
-		setUserViewOrientation((ConnOrientationType)file.readNumEntry(sUserOrient, (getExternalConn()->getOrientation())));
+		setUserViewOrientation(ConnectorBase::convertOrientation(file.readEntry(sUserOrient), getExternalConn()->getOrientation()));
 	}
 
 	setOptionalConn(file.readBoolEntry(sOption, false));
