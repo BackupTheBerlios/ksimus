@@ -56,7 +56,7 @@ unsigned int LogListProperty::getDefaultPriorityMask()
 #ifdef DEBUG
 	return (LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR);
 #else
-	return (LOG_INFO|LOG_WARNING|LOG_ERROR)
+	return (LOG_INFO|LOG_WARNING|LOG_ERROR);
 #endif
 }
 
@@ -65,7 +65,7 @@ unsigned int LogListProperty::getDefaultPopupMask()
 #ifdef DEBUG
 	return (LOG_DEBUG|LOG_INFO|LOG_WARNING|LOG_ERROR);
 #else
-	return (LOG_INFO|LOG_WARNING|LOG_ERROR)
+	return (LOG_INFO|LOG_WARNING|LOG_ERROR);
 #endif
 }
 
