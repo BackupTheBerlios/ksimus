@@ -24,7 +24,6 @@
 #include <qlabel.h>
 #include <qgrid.h>
 #include <qlayout.h>
-#include <qtooltip.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -269,30 +268,40 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	:	ComponentPropertyBaseWidget(comp, parent, name)
 {
 	QGridLayout * layout;
+	QLabel * lab;
+	QString str;	
 	
 	QGrid * m_grid = new QGrid(2, /*QGrid::Horizontal,*/ this);
+	CHECK_PTR(m_grid);
 	m_grid->setMargin(KDialog::marginHint());
 	m_grid->setSpacing(KDialog::spacingHint());
 	
-	new QLabel(i18n("Start delay: "), m_grid);
+	lab = new QLabel(i18n("Start delay: "), m_grid);
+	CHECK_PTR(lab);
 	
 	m_startDelay = new KSimTimeSpinBox(getClockGen()->m_startDelay, m_grid, "StartDelay");
 	CHECK_PTR(m_startDelay);
 	m_startDelay->setExtraZeroAllowed(true);
 	m_startDelay->setValue(getClockGen()->m_startDelay);
-	QToolTip::add(m_startDelay, i18n("Delay before clock starts."));
+	str = i18n("Delay before clock starts.");
+	addToolTip(str, lab, m_startDelay);
+	addWhatsThis(str, lab, m_startDelay);
 
-	new QLabel(i18n("High time: "), m_grid);
-	
+	lab = new QLabel(i18n("High time: "), m_grid);
+	CHECK_PTR(lab);
 	m_highTime = new KSimTimeSpinBox(getClockGen()->m_highTime, m_grid, "HighTime");
 	CHECK_PTR(m_highTime);
-	QToolTip::add(m_highTime, i18n("Time of high level."));
+	str = i18n("Time of high level.");
+	addToolTip(str, lab, m_highTime);
+	addWhatsThis(str, lab, m_highTime);
 
-	new QLabel(i18n("Low time: "), m_grid);
-	
+	lab = new QLabel(i18n("Low time: "), m_grid);
+	CHECK_PTR(lab);
 	m_lowTime = new KSimTimeSpinBox(getClockGen()->m_lowTime, m_grid, "LowTime");
 	CHECK_PTR(m_lowTime);
-	QToolTip::add(m_lowTime, i18n("Time of low level."));
+	str = i18n("Time of low level.");
+	addToolTip(str, lab, m_lowTime);
+	addWhatsThis(str, lab, m_lowTime);
 
 	// Set main layout
 	layout = new QGridLayout(this,2,1);
