@@ -113,6 +113,10 @@ const WirePropertyInfo * WireProperty::getInfo() const
 }
 
 
+
+//##############################################################################
+//##############################################################################
+
 WirePropertySingleOutput::WirePropertySingleOutput(Wire * wire, const WirePropertyInfo * wirePropertyInfo)
 	:	WireProperty(wire, wirePropertyInfo)
 {
@@ -141,3 +145,4 @@ int WirePropertySingleOutput::checkCircuit()
 	
 	return errors;
 }
+	

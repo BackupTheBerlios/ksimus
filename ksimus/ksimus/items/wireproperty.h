@@ -53,7 +53,7 @@ public:
 	/** Returns a pointer to the current data.
 	*   Returns null, if no output is active (TRISTATE).
 	*/	
-	virtual const void * getCurrentData() = 0;
+	virtual const void * getCurrentData() const = 0;
 	
 	/** Add menu items depend on wire properties.
 	  *	Return true, if items are added. */

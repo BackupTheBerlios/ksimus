@@ -46,7 +46,7 @@ public:
 	virtual ~WirePropertyFloatingPoint();
 
 	/** Returns a pointer to the current data */	
-	virtual const void * getCurrentData();
+	virtual const void * getCurrentData() const;
 	
 	// Setup the colors, brushs, and fills for the connector
 	virtual void setupColorScheme (QPainter * p) const;

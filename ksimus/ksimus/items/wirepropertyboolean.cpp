@@ -17,6 +17,8 @@
 
 #include <qpainter.h>
 
+#include <klocale.h>
+
 #include "wirepropertyboolean.h"
 #include "wirepropertyinfo.h"
 #include "connectorboolout.h"
@@ -52,7 +54,7 @@ WirePropertyBoolean::~WirePropertyBoolean()
 }
 	
 /** Returns a pointer to the current data */	
-const void * WirePropertyBoolean::getCurrentData()
+const void * WirePropertyBoolean::getCurrentData() const
 {
 	ConnectorBase * conn = getWire()->getConnList()->at(0);
 	

@@ -60,7 +60,7 @@ WirePropertyFloatingPoint::~WirePropertyFloatingPoint()
 }
 	
 /** Returns a pointer to the current data */	
-const void * WirePropertyFloatingPoint::getCurrentData()
+const void * WirePropertyFloatingPoint::getCurrentData() const
 {
 	ConnectorBase * conn = getWire()->getConnList()->at(0);
 	
@@ -86,5 +86,4 @@ void WirePropertyFloatingPoint::colorScheme(QPainter * p)
 	p->setPen(QPen(red, 2));
 	p->setBrush(red);
 }
-
 
