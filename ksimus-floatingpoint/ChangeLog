@@ -1,3 +1,6 @@
+	26.06.2002
+* Change: The converters and exeternal connectors have zero delay now.
+* New: Component Delay.
 	18.06.2002
 * Change: use class OptionalConnector for optional connectors.
 	27.05.2002

@@ -1,3 +1,5 @@
+	26.06.2002
+* New: Components Delay, Demultiplexer, Multiplexer
 	18.06.2002
 * Change: use class OptionalConnector for optional connectors.
 * New: MonoFlop is timed executed yet.
