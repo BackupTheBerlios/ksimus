@@ -132,15 +132,16 @@ public:
 		Types are: MV_NONE, MV_GENERIC, MV_USERVIEW, MV_PIXMAP. */
 	ModuleViewType getModuleView() const { return m_moduleView; };
 
+	/** search the connector
+	returns 0,if no connector is found */
+	static ConnectorBase * searchConn(const ExternalConnector * extConn, const ConnectorList * connList);
+
 protected:
 	CompContainer * m_moduleContainer;
 	QString moduleFile;
 	ComponentList * extList;
 	ModuleViewType m_moduleView;
 	
-	/** search the connector
-	returns 0,if no connector is found */
-	static ConnectorBase * searchConn(ExternalConnector * extConn, ConnectorList * connList);
 
 	
 protected slots:

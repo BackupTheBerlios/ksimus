@@ -340,10 +340,34 @@ void Module::reloadModule()
 		setName(mdata->getModuleName());
 	}
 	
-	if ((mdata->getModuleView() == MV_PIXMAP) && (!mdata->isPixmapFileValid()))
+	// Some view type depending checks 
+	switch(mdata->getModuleView())
 	{
-		logWarning(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(mdata->getPixmapFile()));
-		mdata->setModuleView(MV_GENERIC);
+		case MV_GENERIC:
+			// Nothing yet
+			break;
+
+		case MV_PIXMAP:
+			if (!mdata->isPixmapFileValid())
+			{
+				logWarning(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(mdata->getPixmapFile()));
+				mdata->setModuleView(MV_GENERIC);
+			}
+			break;
+
+		case MV_USERVIEW:
+			// Nothing yet
+			break;
+		
+		case MV_NONE:
+			logError(i18n("File %1 is not a module! Switch to generic view.").arg(getModuleFile()));
+			mdata->setModuleView(MV_GENERIC);
+			break;
+
+		default:
+			KSIMDEBUG(QString::fromLatin1("Unknown module view = %1 Filename = %2").arg((int)mdata->getModuleView()).arg(getModuleFile()));
+			mdata->setModuleView(MV_GENERIC);
+			break;
 	}
 
 	if(getSheetView())
@@ -440,8 +464,8 @@ void Module::reloadModule()
 		break;
 		
 		default:
-			KSIMDEBUG_VAR("Unknown module view",(int)mdata->getModuleView());
-			posList = &emptyPosList;
+/*			KSIMDEBUG(QString::fromLatin1("Unknown module view = %1 Filename = %2").arg((int)mdata->getModuleView()).arg(getModuleFile()));
+			posList = &emptyPosList;*/
 			break;
 	}
 	
@@ -468,7 +492,13 @@ void Module::reloadModule()
 				                 extConn->getName(),
 				                 QPoint(0,0));
 			}
-			
+
+			// Remove wire from external connector
+			if(extConn->getExternalConn()->isConnected())
+			{
+				extConn->getContainer()->delConnection(extConn->getExternalConn());
+			}
+
 			// Create optional conn if required
 			if(extConn->isOptionalConn())
 			{
@@ -544,7 +574,7 @@ bool Module::checkRecursion() const
 
 /** search the connector
 	returns 0,if no connector is found */
-ConnectorBase * Module::searchConn(ExternalConnector * extConn, ConnectorList * connList)
+ConnectorBase * Module::searchConn(const ExternalConnector * extConn, const ConnectorList * connList)
 {
 	const ConnectorInfo * extConnInfo = extConn->getExternalConn()->getConnInfo();
 	QString connWireName = QString::fromLatin1("(extConn) %1").arg(extConn->getSerialNumber());
