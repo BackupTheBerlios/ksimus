@@ -31,7 +31,10 @@ const ComponentInfo * getExtConnFloatOutInfo();
   */
 
 
-class ExtConnFloatOut : public ExternalConnector  {
+class ExtConnFloatOut : public ExternalConnector
+{
+	Q_OBJECT
+
 public: 
 	ExtConnFloatOut(CompContainer * container, const ComponentInfo * ci);
 //	~ExtConnFloatOut();

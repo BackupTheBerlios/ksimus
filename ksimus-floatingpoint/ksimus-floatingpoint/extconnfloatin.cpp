@@ -15,16 +15,33 @@
  *                                                                         *
  ***************************************************************************/
 
+// C-Includes
+#include <float.h>
+
+// QT-Includes
+#include <qlabel.h>
+
+// KDE-Includes
 #include <klocale.h>
 
-#include "extconnfloatin.h"
+// Project-Includes
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorfloatout.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/wireproperty.h"
+#include "ksimus/ksimdoubleedit.h"
+#include "ksimus/ksimdata.h"
+#include "extconnfloatin.h"
+
+
+// Forward declaration
 
 namespace KSimLibFloatingPoint
 {
+
+#define DEFAULT_VALUE   0.0
+
+static const char * sDefaultValue  = "Default Value";
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
 {
@@ -47,7 +64,8 @@ const ComponentInfo * getExtConnFloatInInfo()
 //###############################################################
 
 ExtConnFloatIn::ExtConnFloatIn(CompContainer * container, const ComponentInfo * ci)
-	: ExternalConnector(container, ci, true)
+	: ExternalConnector(container, ci, true),
+		m_defaultValue(DEFAULT_VALUE)
 {
 	ConnectorFloatOut * out;
 	ConnectorFloatIn * in;
@@ -72,6 +90,16 @@ ExtConnFloatIn::ExtConnFloatIn(CompContainer * container, const ComponentInfo * 
 {
 } */
 
+void ExtConnFloatIn::reset()
+{
+	ExternalConnector::reset();
+
+	if (!getExternalConn()->isConnected())
+	{
+		getExternalConn()->copyData(&m_defaultValue);
+	}
+}
+
 void ExtConnFloatIn::calculate()
 {
 	// Protect against infinite recursion
@@ -91,6 +119,75 @@ void ExtConnFloatIn::calculate()
 		setRecursionLocked(false);
 	}
 }
+
+void ExtConnFloatIn::save(KSimData & file) const
+{
+	if (getDefaultValue() != 0.0)
+	{
+		file.writeEntry(sDefaultValue, getDefaultValue());
+	}
+	ExternalConnector::save(file);
+}
+
+bool ExtConnFloatIn::load(KSimData & file, bool copyLoad)
+{
+	setDefaultValue(file.readDoubleNumEntry(sDefaultValue, 0.0));
+
+	return ExternalConnector::load(file, copyLoad);
+}
+
+ComponentPropertyBaseWidget * ExtConnFloatIn::createGeneralProperty(QWidget *parent)
+{
+	ExtConnFloatInPropertyGeneralWidget * wid;
+	wid = new ExtConnFloatInPropertyGeneralWidget(this, parent);
+	CHECK_PTR(wid);
+
+	return wid;
+}
+
+//##########################################################################################
+//##########################################################################################
+
+
+ExtConnFloatInPropertyGeneralWidget::ExtConnFloatInPropertyGeneralWidget(ExtConnFloatIn * comp, QWidget *parent, const char *name)
+	:	ExternalConnectorPropertyGeneralWidget(comp, parent, name)
+{
+	m_defaultValueLabel = new QLabel(i18n("FloatingPoint", "Default value:"), this, "m_defaultValueLabel");
+	CHECK_PTR(m_defaultValueLabel);
+
+	m_defaultValue = new KSimDoubleEdit(this, "m_defaultValue");
+	CHECK_PTR(m_defaultValue);
+	QString tip(i18n("FloatingPoint", "Sets the default value of the external connector. Used if it is unconnected."));
+	addToolTip(tip, m_defaultValue, m_defaultValueLabel);
+	addWhatsThis(tip, m_defaultValue, m_defaultValueLabel);
+
+
+	// Setup value
+	m_defaultValue->setValue(getExtConnIn()->getDefaultValue());
+}
+
+/*ExtConnFloatInPropertyGeneralWidget::~ExtConnFloatInPropertyGeneralWidget()
+{
+} */
+
+void ExtConnFloatInPropertyGeneralWidget::acceptPressed()
+{
+	ExternalConnectorPropertyGeneralWidget::acceptPressed();
+
+	if (getExtConnIn()->getDefaultValue() != m_defaultValue->value())
+	{
+		changeData();
+		getExtConnIn()->setDefaultValue( m_defaultValue->value() );
+	}
+}
+
+void ExtConnFloatInPropertyGeneralWidget::defaultPressed()
+{
+	ExternalConnectorPropertyGeneralWidget::defaultPressed();
+
+	m_defaultValue->setValue(DEFAULT_VALUE);
+}
+
 //###############################################################
 
 
