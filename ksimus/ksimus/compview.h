@@ -292,6 +292,10 @@ private:
 
 class CompViewList : public QList<CompView>
 {
+public:
+	/** Returns the rect which contains all component views (excluding wires). */
+	QRect getRect() const;
+
 };
 
 

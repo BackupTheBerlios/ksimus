@@ -196,15 +196,41 @@ void CompView::mouseRelease(QMouseEvent *, QPainter *)
 /** New position of the comoponent view */
 void CompView::setPos(const QPoint & pos)
 {
-	QPoint newPos;
+	QPoint newPos(pos);
 	
-	if (isGridSnapEnabled())
+	// Limit position
+	QSize mapSize;
+	if (getViewType() == SHEET_VIEW)
 	{
-		newPos = mapToGrid(pos);
+		mapSize = getComponent()->getContainer()->getSheetSize();
 	}
 	else
 	{
-		newPos = pos;
+		mapSize = getComponent()->getContainer()->getUserSize();
+	}
+	KSIMDEBUG_VAR("", mapSize.width());
+	KSIMDEBUG_VAR("", mapSize.height());
+	if (newPos.x() > (mapSize.width() - getPlace().width()))
+	{
+		newPos.setX(mapSize.width() - getPlace().width());
+	}
+	if (newPos.y() > (mapSize.height() - getPlace().height()))
+	{
+		newPos.setY(mapSize.height() - getPlace().height());
+	}
+	if (newPos.x() < 0)
+	{
+		newPos.setX(0);
+	}
+	if (newPos.y() < 0)
+	{
+		newPos.setY(0);
+	}
+	
+	// now map to grid
+	if (isGridSnapEnabled())
+	{
+		newPos = mapToGrid(newPos);
 	}
 	
 	// Remove Object from sheet map
@@ -958,4 +984,36 @@ void CompViewSize::setMinSize(int width, int height)
 //#############################################################################
 //#############################################################################
 
+/** the returned rect contains all components excluding wires */
+QRect CompViewList::getRect() const
+{
+	bool empty = true;
+	int minX = INT_MAX;
+	int minY = INT_MAX;
+	int maxX = INT_MIN;
+	int maxY = INT_MIN;
+	// Calculate the dimension of all components
+	FOR_EACH_COMPVIEW(it, *this)
+	{
+		// do not if wire
+		if (!it.current()->getComponent()->isWire())
+		{
+			empty = false;
+			if (minX > it.current()->getPlace().left())
+				minX = it.current()->getPlace().left();
+			if (maxX < it.current()->getPlace().right())
+				maxX = it.current()->getPlace().right();
+			if (minY > it.current()->getPlace().top())
+				minY = it.current()->getPlace().top();
+			if (maxY < it.current()->getPlace().bottom())
+				maxY = it.current()->getPlace().bottom();
+		}
+	};
+	if (empty)
+		return QRect(0,0,0,0);
+	else		
+		return QRect(QPoint(minX,minY),QPoint(maxX,maxY));
+}
 
+//#############################################################################
+//#############################################################################
