@@ -58,6 +58,20 @@
 namespace KSimLibDataRecorder
 {
 
+static KInstance * packageInstance = (KInstance *)0;
+static PackageInfo * packageInfo = (PackageInfo *)0;
+static bool isPackageInitialized = false;
+
+
+KInstance * getPackageInstance()
+{
+	return packageInstance;
+}
+
+const PackageInfo * getPackageInfo()
+{
+	return packageInfo;
+}
 
 
 /************************************************************************************
@@ -85,94 +99,36 @@ static const ComponentInfoList & getDistComponents()
 	return *pDistComponents;
 }
 
-
-
-
-/************************************************************************************
- ************************************************************************************
- **
- **  Insert pointers to the ConnectorInfo for each connector you want to distribute.
- **
- ************************************************************************************
- ************************************************************************************/
-static const ConnectorInfoList & getDistConnector()
-{
-	static ConnectorInfoList * pDistConnector = 0;
-	
-	if (pDistConnector == 0)
-	{
-		// Initialize
-		pDistConnector = new ConnectorInfoList;
-		CHECK_PTR(pDistConnector);
-		
-		// Add your connector info here
-//		pDistConnector->append(getConnectorBoolInInfo());
-	}
-	
-	return *pDistConnector;
-}
-
-
-
 /******************************************************************************************
  ******************************************************************************************
  **
- **  Insert pointers to the WirePropertyInfo for each wire property you want to distribute.
- **
- ******************************************************************************************
- ******************************************************************************************/
-static const WirePropertyInfoList & getDistWireProperty()
-{
-	static WirePropertyInfoList * pDistWireProp = 0;
-	
-	if (pDistWireProp == 0)
-	{
-		// Initialize
-		pDistWireProp = new WirePropertyInfoList;
-		CHECK_PTR(pDistWireProp);
-		
-		// Add your wireproperty info here
-//		pDistWireProp->append(getWirePropertyBooleanInfo());
-	}
-	
-	return *pDistWireProp;
-}
-
-/******************************************************************************************
- ******************************************************************************************
- **
- **  Insert pointers to the ImplicitConverterInfo for each implicit converter you want to distribute.
- **
- ******************************************************************************************
- ******************************************************************************************/
-static const ImplicitConverterInfoList & getImplicitConverterProperty()
-{
-	static ImplicitConverterInfoList * pImplicitConverterProp = 0;
-
-	if (pImplicitConverterProp == 0)
-	{
-		// Initialize
-		pImplicitConverterProp = new ImplicitConverterInfoList;
-		CHECK_PTR(pImplicitConverterProp);
-
-		// Add your implicit converter info here
-	}
-
-	return *pImplicitConverterProp;
-}
-
-
-
-/******************************************************************************************
- ******************************************************************************************
- **
- **  Changes only the namespace below !!!
+ **  No changes required inside the next function
  **
  ******************************************************************************************
  ******************************************************************************************/
 
-KInstance * instance = 0;
-const PackageInfo * packageInfo = 0;
+static void initPackage(KLocale * ksimusLocale)
+{
+
+//	KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
+	ASSERT(packageInstance == (KInstance *)0);
+	ASSERT(packageInfo == (const PackageInfo *)0);
+	ASSERT(ksimusLocale != (KLocale *)0);
+
+	packageInstance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
+	CHECK_PTR(packageInstance);
+	// add translation
+	ksimusLocale->insertCatalogue(packageInstance->instanceName());
+
+	packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
+	                               packageInstance,
+	                               VERSION);      // version from config.h
+	CHECK_PTR(packageInfo);
+
+	// Add info lists
+	packageInfo->insert(getDistComponents());
+}
+
 
 };  //namespace KSimLibDataRecorder
 
@@ -182,29 +138,11 @@ extern "C"
 {
 	const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
 	{
-
-//		KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
-			
-		if (KSimLibDataRecorder::instance == 0)
+		if (!KSimLibDataRecorder::isPackageInitialized)
 		{
-			KSimLibDataRecorder::instance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
-			CHECK_PTR(KSimLibDataRecorder::instance);
-			CHECK_PTR(ksimusLocale);
-			// add translation
-			ksimusLocale->insertCatalogue(KSimLibDataRecorder::instance->instanceName());
+			KSimLibDataRecorder::initPackage(ksimusLocale);
+			KSimLibDataRecorder::isPackageInitialized = true;
 		}
-	
-		if (KSimLibDataRecorder::packageInfo == 0)
-		{
-			KSimLibDataRecorder::packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
-			                                                    KSimLibDataRecorder::instance,
-			                                                    VERSION,      // version from config.h
-			                                                    KSimLibDataRecorder::getDistComponents(),
-			                                                    KSimLibDataRecorder::getDistConnector(),
-			                                                    KSimLibDataRecorder::getDistWireProperty(),
-			                                                    KSimLibDataRecorder::getImplicitConverterProperty());
-	  }
-	
 
 		return KSimLibDataRecorder::packageInfo;
 	}

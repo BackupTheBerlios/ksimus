@@ -54,22 +54,6 @@ class KLocale;
 
 
 
-/******************************************************************************************
- ******************************************************************************************
- **
- **  No changes required below !!!
- **
- ******************************************************************************************
- ******************************************************************************************/
-
-namespace KSimLibFloatingPoint
-{
-extern KInstance * instance;
-extern const PackageInfo * packageInfo;
-
-
-};  //namespace KSimLibFloatingPoint
-
 /** The init function. KSIMUS_PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
 extern "C" const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
 

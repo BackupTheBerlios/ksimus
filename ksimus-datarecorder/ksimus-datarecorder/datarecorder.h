@@ -73,18 +73,8 @@ class ZoomWidgetVar;
 #define KSIMUS_PACKAGE_INIT_FUNCTION     init_libksimus_datarecorder
 
 
-
-/******************************************************************************************
- ******************************************************************************************
- **
- **  Changes only the namespace below !!!
- **
- ******************************************************************************************
- ******************************************************************************************/
-
-extern KInstance * instance;
-const ComponentInfo * getDataRecorderInfo();
-
+	KInstance * getPackageInstance();
+	const PackageInfo * getPackageInfo();
 
 };  //namespace KSimLibDataRecorder
 
