@@ -26,7 +26,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "component.h"
+#include "boolean1out.h"
 #include "compview.h"
 #include "compviewwidget.h"
 #include "componentinfo.h"
@@ -36,7 +36,7 @@
 class ConnectorBoolOut;
 class ConnectorBoolIn;
 class QPushButton;
-class QCheckBox;
+class KSimBooleanBox;
 
 /**A Button
   *@author Rasmus Diekenbrock
@@ -48,7 +48,7 @@ extern const ComponentInfoList BooleanButtonList;
 //###############################################################
 
 
-class BooleanButton : public Component
+class BooleanButton : public Boolean1Out
 {
 
 friend class BooleanButtonView;
@@ -57,14 +57,15 @@ friend class BooleanButtonPropertyWidget;
 
 public:
 	BooleanButton(CompContainer * container, const ComponentInfo * ci);
-	~BooleanButton();
+//	~BooleanButton();
 
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
 	/** Reset all simulation variables */
 	virtual void reset();
-	/** Init the property dialog */
-	virtual void initPropertyDialog(ComponentPropertyDialog * dialog);
+	
+	/** Creates the general property page for the property dialog.
+	  * This function creates a @ref BooleanButtonPropertyGeneralWidget.
+	  * This function is called by @ref addGeneralProperty*/
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
 
 	bool isToggleButton() const;
 
@@ -76,9 +77,7 @@ public slots: // Public slots
 	void slotReleased();
 
 protected: // Protected attributes
-	bool m_buttonState;
 	bool m_toggleButton;
-	ConnectorBoolOut * out;
 
 signals: // Signals
 	void buttonChanged(bool pressed);
@@ -96,7 +95,7 @@ class BooleanButtonView : public CompViewSize
 
 public:	
 	BooleanButtonView(Component * comp, eViewType viewType);
-	virtual ~BooleanButtonView();
+//	virtual ~BooleanButtonView();
 	
 	/** Draws the Button to a printer */
 //	virtual void print(QPainter * paint);
@@ -118,7 +117,7 @@ friend class BooleanButtonView;
 	
 public:
 	BooleanButtonWidgetView(CompView * cv, QWidget *parent=0, const char *name=0);
-	~BooleanButtonWidgetView();
+//	~BooleanButtonWidgetView();
 
 public slots:
 	/** This slot rename the button */
@@ -134,13 +133,13 @@ protected:
 //###############################################################
 //###############################################################
 
-class BooleanButtonPropertyWidget : public ComponentPropertyBaseWidget
+class BooleanButtonPropertyGeneralWidget : public Boolean1OutPropertyGeneralWidget
 {
 	Q_OBJECT
 
 public:
-	BooleanButtonPropertyWidget(Component * comp, QWidget *parent=0, const char *name=0);
-	~BooleanButtonPropertyWidget();
+	BooleanButtonPropertyGeneralWidget(BooleanButton * comp, QWidget *parent=0, const char *name=0);
+//	~BooleanButtonPropertyGeneralWidget();
 
 
 public slots:
@@ -156,8 +155,13 @@ public slots:
 	/** The function slotReset() is called, if user wants to cancel the dialog.
 	 */
 
-protected:
-		QCheckBox * m_toggle;
+private slots:
+	void slotActivateToggled(bool state);
+
+private:
+	KSimBooleanBox * m_toggle;
+		
+
 
 };
 
