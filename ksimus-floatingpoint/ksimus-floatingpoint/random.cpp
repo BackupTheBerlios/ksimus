@@ -87,8 +87,8 @@ const char * const Random::sMax       = "max";
 Random::Random(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
 		m_randomGen(),
-		m_useSeed(DEFAULT_USE_SEED),
 		m_seed(DEFAULT_SEED),
+		m_useSeed(DEFAULT_USE_SEED),
 		m_min(DEFAULT_MIN),
 		m_max(DEFAULT_MAX)
 {
