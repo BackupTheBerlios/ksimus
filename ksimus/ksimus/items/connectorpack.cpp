@@ -77,7 +77,7 @@ ConnectorBase * ConnectorPack::internalAddConnector()
 	
 	if(getConnectorMaximum() > getConnectorCount())
 	{
-		QString dummyStr(QString::fromLatin1("dummy"));  // only a dummy string. Not used!
+		static const QString dummyStr(QString::fromLatin1("dummy"));  // only a dummy string. Not used!
 		conn = getConnectorInfo()->create(getComponent(), dummyStr, dummyStr, QPoint());
 		createNewName(conn);
 		conn->getAction().disable(KSimAction::STORAGE);
@@ -125,13 +125,13 @@ void ConnectorPack::setConnectorCount(unsigned int connCount)
 	if (connCount > getConnectorMaximum())
 	{
 		KSIMDEBUG(QString::fromLatin1("ConnectorPack::setConnectorCount greater than max (%1>%2)")
-								.arg(connCount).arg(getConnectorMaximum()));
+		          .arg(connCount).arg(getConnectorMaximum()));
 		connCount = getConnectorMaximum();
 	}
 	if (connCount < getConnectorMinimum())
 	{
 		KSIMDEBUG(QString::fromLatin1("ConnectorPack::setConnectorCount lesser than min (%1<%2)")
-								.arg(connCount).arg(getConnectorMinimum()));
+		          .arg(connCount).arg(getConnectorMinimum()));
 		connCount = getConnectorMinimum();
 	}
 	
@@ -200,16 +200,19 @@ void ConnectorPack::createNewName(ConnectorBase * conn)
 	QString wireName;
 	QString i18nName;
 	
-	QString wireNameTemplate(getName() + " %1");
+	const QString wireNameTemplate(getName() + " %1");
 	
 	do
 	{
 		found = false;
 		i++;
 		
-		if (isLetter())
+		if (isLetter() && (i <= (2*26)))
 		{
-			QChar c ((char)i + 'A' - 1);
+			QChar c( (i <= 26)
+			         ? (char)i + 'A' - 1
+			         : (char)i + 'a' - 1 - 26 );
+			 
 			wireName = wireNameTemplate.arg(c);
 			i18nName = getConnectorName().arg(c);
 		}
@@ -319,8 +322,8 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 
 void ConnectorPack::save(KSimData & file) const
 {
-	QString oldGroup(file.group());
-	QString group((oldGroup + QString::fromLatin1(sGroup)).arg(getStoreName()));	
+	const QString oldGroup(file.group());
+	const QString group((oldGroup + QString::fromLatin1(sGroup)).arg(getStoreName()));
 	file.setGroup(group);
 	
 	file.writeEntry(sConnectorCount,getConnectorCount());
@@ -342,8 +345,8 @@ void ConnectorPack::save(KSimData & file) const
 bool ConnectorPack::load(KSimData & file)
 {
 	unsigned int c;
-	QString oldGroup(file.group());
-	QString group((oldGroup + QString::fromLatin1(sGroup)).arg(getStoreName()));	
+	const QString oldGroup(file.group());
+	const QString group((oldGroup + QString::fromLatin1(sGroup)).arg(getStoreName()));	
 	file.setGroup(group);
 	
 	c = file.readUnsignedNumEntry(sConnectorCount);
