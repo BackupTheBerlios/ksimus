@@ -4,7 +4,15 @@
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new_window"/>
   </Menu>
-  <Menu name="edit"><text>&amp;Edit</text>
+  <Menu name="edit" noMerge="1"><text>&amp;Edit</text>
+    <Action name="edit_undo"/>
+    <Action name="edit_redo"/>
+    <Separator/>
+    <Action name="edit_delete"/>
+    <Action name="edit_cut"/>
+    <Action name="edit_copy"/>
+    <Action name="edit_paste"/>
+    <Separator/>
     <Action name="edit_insert_module"/>
   </Menu>
   <Menu name="execute"><text>E&amp;xecute</text>

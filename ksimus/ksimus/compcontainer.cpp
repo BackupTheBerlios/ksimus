@@ -437,14 +437,10 @@ void CompContainer::delComponent(Component * delComp)
 
 void CompContainer::delComponent(ComponentList * compList)
 {
-	ComponentList listTemp = *compList;
 	Component * comp;
-	copyComponent(&listTemp);
 	
-	QListIterator<Component> it(*compList);
-	while(it.toFirst())
+	while((comp = compList->first()))
 	{
-		comp = it.toFirst();
 		delComponent(comp);
 		compList->removeRef(comp);
 	}
@@ -452,17 +448,31 @@ void CompContainer::delComponent(ComponentList * compList)
 
 void CompContainer::delComponent(CompViewList * compViewList)
 {
-	CompViewList listTemp = *compViewList;
 	CompView * cv;
-	copyComponent(&listTemp);
 	
-	QListIterator<CompView> it(*compViewList);
-	while(it.toFirst())
+	while((cv = compViewList->first()))
 	{
-		cv = it.toFirst();
 		delComponent(cv->getComponent());
 		compViewList->removeRef(cv);
 	}
+}
+
+void CompContainer::cutComponent(ComponentList * compList)
+{
+/*	ComponentList listTemp = *compList;
+	copyComponent(&listTemp);*/
+	copyComponent(compList);
+	
+	delComponent(compList);
+}
+
+void CompContainer::cutComponent(CompViewList * compViewList)
+{
+/*	CompViewList listTemp = *compViewList;
+	copyComponent(&listTemp);*/
+	copyComponent(compViewList);
+	
+	delComponent(compViewList);
 }
 
 /** Move a component */
@@ -598,7 +608,6 @@ void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMo
 			// Dont track delete wire
 			if (getUndo()) getUndo()->pause(true);
 			delete newComp;
-//			container->delComponent(newComp);
 			if (getUndo()) getUndo()->pause(false);
 		}
 		else

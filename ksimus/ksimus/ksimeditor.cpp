@@ -265,11 +265,13 @@ void KSimEditor::select (CompView * compView, bool sel)
 	
 	if (selected.count())
 	{
+		emit deleteAllowed(true);
 		emit cutAllowed(true);
 		emit copyAllowed(true);
 	}
 	else
 	{
+		emit deleteAllowed(false);
 		emit cutAllowed(false);
 		emit copyAllowed(false);
 	}
@@ -282,11 +284,12 @@ void KSimEditor::select (Component *comp, bool sel)
 }
 
 // Hebt die Auswahl auf.
-void KSimEditor::unselectAll ()
+void KSimEditor::unselectAll()
 {
 	while (!selected.isEmpty())
 		select (selected.first(), FALSE);
 
+	emit deleteAllowed(false);
 	emit cutAllowed(false);
 	emit copyAllowed(false);
 }
@@ -1355,6 +1358,7 @@ void KSimEditor::backgroundPopup()
 	connect(compMenu, SIGNAL(signalSelection(const ComponentInfo *)),
 			getApp(), SLOT(slotSelectCI(const ComponentInfo *)));
 
+    getApp()->editDelete->plug(menu);
     getApp()->editCut->plug(menu);
     getApp()->editCopy->plug(menu);
     getApp()->editPaste->plug(menu);
@@ -1390,6 +1394,7 @@ void KSimEditor::componentPopup(bool connectorHit)
 		select(getContainer()->getFirstCompView(), TRUE);
 	}
 	
+    getApp()->editDelete->plug(menu);
     getApp()->editCut->plug(menu);
     getApp()->editCopy->plug(menu);
     getApp()->editPaste->plug(menu);
@@ -1522,10 +1527,23 @@ void KSimEditor::slotSelectCI(const ComponentInfo *ci)
 void KSimEditor::cutSelection()
 {
 	KSimUndo * undo = getDoc()->getUndo();
+	undo->begin(i18n("Cut Components"));
+	getContainer()->cutComponent(&selected);
+	undo->end();
+	unselectAll();
+	getContainer()->setModified();
+	getContainer()->routeComponents();
+	getDoc()->slotUpdateAllViews(0);
+}
+
+/** Deletes selected components */
+void KSimEditor::deleteSelection()
+{
+	KSimUndo * undo = getDoc()->getUndo();
 	undo->begin(i18n("Delete Components"));
 	getContainer()->delComponent(&selected);
 	undo->end();
-	selected.clear();
+	unselectAll();
 	getContainer()->setModified();
 	getContainer()->routeComponents();
 	getDoc()->slotUpdateAllViews(0);

@@ -118,6 +118,9 @@ public:
 
 	/** Copies selected components */
 	void copySelection();
+	
+	/** Deletes selected components */
+	void deleteSelection();
 
 
 
@@ -201,6 +204,7 @@ private slots: // Private slots
 signals:
 	void editorModeChanged(int);
 	void editorViewChanged(int);
+	void deleteAllowed(bool);
 	void cutAllowed(bool);
 	void copyAllowed(bool);
 	void signalStatusMsg(const QString &);

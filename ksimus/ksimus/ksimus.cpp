@@ -121,6 +121,7 @@ public:
 KSimusApp::KSimusApp(QWidget* , const char* name)
 	:	KMainWindow(0, name),
 		baseWin(0),
+		m_deleteAllowed(false),
 		m_cutAllowed(false),
 		m_copyAllowed(false),
 	  m_pastAllowed(false),
@@ -201,6 +202,8 @@ void KSimusApp::initActions()
 	fileQuit = KStdAction::quit(this, SLOT(slotFileQuit()), actionCollection());
 	editUndo = KStdAction::undo(this, SLOT(slotEditUndo()), actionCollection());
 	editRedo = KStdAction::redo(this, SLOT(slotEditRedo()), actionCollection());
+	
+	editDelete = new KAction(i18n("&Delete"), 0, this, SLOT(slotEditDelete()), actionCollection(), "edit_delete");
 	editCut = KStdAction::cut(this, SLOT(slotEditCut()), actionCollection());
 	editCopy = KStdAction::copy(this, SLOT(slotEditCopy()), actionCollection());
 	editPaste = KStdAction::paste(this, SLOT(slotEditPaste()), actionCollection());
@@ -236,6 +239,7 @@ void KSimusApp::initActions()
 	fileClose->setToolTip(i18n("Closes the actual document"));
 	filePrint ->setToolTip(i18n("Prints out the actual document"));
 	fileQuit->setToolTip(i18n("Quits the application"));
+	editDelete->setToolTip(i18n("Deletes the selected section"));
 	editCut->setToolTip(i18n("Cuts the selected section and puts it to the clipboard"));
 	editCopy->setToolTip(i18n("Copies the selected section to the clipboard"));
 	editPaste->setToolTip(i18n("Pastes the clipboard contents to actual position"));
@@ -259,6 +263,7 @@ void KSimusApp::initActions()
 	executePause->setToolTip(i18n("Pause simulation"));
 	executePause->setChecked(false);
 
+	settingMapSize->setToolTip(i18n("Setup Schematic und User Interface size"));
 	settingTiming->setToolTip(i18n("Setup simulation timing"));
 	settingGrid->setToolTip(i18n("Setup grid"));
 	settingPackageFiles->setToolTip(i18n("Select packages"));
@@ -314,6 +319,7 @@ void KSimusApp::initView()
 	connect(m_p->sheetView->getEditor(), SIGNAL(editorModeChanged(int)),
 			this, SLOT(slotEditorModeChanged(int)));
 	
+	connect(m_p->sheetView->getEditor(),SIGNAL(deleteAllowed(bool)),SLOT(slotDeleteAllowed(bool)));
 	connect(m_p->sheetView->getEditor(),SIGNAL(cutAllowed(bool)),SLOT(slotCutAllowed(bool)));
 	connect(m_p->sheetView->getEditor(),SIGNAL(copyAllowed(bool)),SLOT(slotCopyAllowed(bool)));
 	connect(m_p->sheetView->getEditor(),SIGNAL(signalStatusMsg(const QString &)),SLOT(slotStatusMsg(const QString &)));
@@ -331,6 +337,7 @@ void KSimusApp::initView()
 	connect(m_p->userView->getEditor(), SIGNAL(editorModeChanged(int)),
 			this, SLOT(slotEditorModeChanged(int)));
 	
+	connect(m_p->userView->getEditor(),SIGNAL(deleteAllowed(bool)),SLOT(slotDeleteAllowed(bool)));
 	connect(m_p->userView->getEditor(),SIGNAL(cutAllowed(bool)),SLOT(slotCutAllowed(bool)));
 	connect(m_p->userView->getEditor(),SIGNAL(copyAllowed(bool)),SLOT(slotCopyAllowed(bool)));
 	connect(m_p->userView->getEditor(),SIGNAL(signalStatusMsg(const QString &)),SLOT(slotStatusMsg(const QString &)));
@@ -697,6 +704,12 @@ void KSimusApp::slotEditRedo()
   }
 }
 
+void KSimusApp::slotEditDelete()
+{
+  slotStatusHelpMsg(i18n("Deleting selection..."));
+  getActiveEditor()->deleteSelection();
+}
+
 void KSimusApp::slotEditCut()
 {
   slotStatusHelpMsg(i18n("Cutting selection..."));
@@ -996,6 +1009,12 @@ void KSimusApp::slotStatusHelpMsg(const QString &text)
 }
 
 
+void KSimusApp::slotDeleteAllowed(bool ena)
+{
+	m_deleteAllowed = ena;
+	editDelete->setEnabled(ena);
+}
+
 void KSimusApp::slotCutAllowed(bool ena)
 {
 	m_cutAllowed = ena;
@@ -1222,6 +1241,7 @@ void KSimusApp::slotSetupActions()
 	
 	editUndo->setEnabled(stopped && m_undoAllowed);
 	editRedo->setEnabled(stopped && m_redoAllowed);
+	editDelete->setEnabled(stopped && editView && m_deleteAllowed);
 	editCut->setEnabled(stopped && editView && m_cutAllowed);
 	editCopy->setEnabled(stopped && editView && m_copyAllowed);
 	editPaste->setEnabled(stopped && editView && m_pastAllowed);

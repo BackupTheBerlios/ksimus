@@ -179,6 +179,8 @@ public slots:
 	/** Redo last action
 	 */
 	void slotEditRedo();
+	/** Deletes the selcected components. */
+	void slotEditDelete();
 	/** put the marked text/object into the clipboard and remove
 	 *	it from the document
 	 */
@@ -233,6 +235,7 @@ public slots:
 
 	void slotTestAction();
 
+	void slotDeleteAllowed(bool);
 	void slotCutAllowed(bool);
 	void slotCopyAllowed(bool);
 	void slotUndoAllowed(bool);
@@ -271,6 +274,7 @@ private:
 	KAction* fileQuit;
 	KAction* editUndo;
 	KAction* editRedo;
+	KAction* editDelete;
 	KAction* editCut;
 	KAction* editCopy;
 	KAction* editPaste;
@@ -294,6 +298,7 @@ private:
 
 	KAction* testAction;
 	
+	bool m_deleteAllowed;
 	bool m_cutAllowed;
 	bool m_copyAllowed;
 	bool m_pastAllowed;

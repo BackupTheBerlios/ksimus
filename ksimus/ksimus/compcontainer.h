@@ -67,6 +67,9 @@ public:
 	void delComponent(Component * delComp);
 	void delComponent(ComponentList * compList);
 	void delComponent(CompViewList * compViewList);
+	/** Cuts a component from component list */
+	void cutComponent(ComponentList * compList);
+	void cutComponent(CompViewList * compViewList);
 	/** Move a component */
 	void moveComponent(Component * comp, const QPoint & relMove);
 	void moveComponent(ComponentList * compList, const QPoint & relMove);
