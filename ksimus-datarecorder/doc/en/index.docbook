@@ -2,8 +2,8 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
 
   <!ENTITY packageName 'Data Recorder'>
-  <!ENTITY ksimusPackage '<application>KSimus Package &packageName;</application>'>
-  <!ENTITY kapp "&ksimusPackage;"><!-- replace test here -->
+  <!ENTITY ksimusPackage '<application>KSimus Package Data Recorder</application>'>
+  <!ENTITY kapp '&ksimusPackage;'><!-- replace test here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
   <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
