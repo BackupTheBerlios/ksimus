@@ -1,18 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of fr.po to FRANCAIS
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Aurelien Jarno <aurelien@aurel32.net>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: fr\n"
 "POT-Creation-Date: 2003-03-02 17:44+0100\n"
-"PO-Revision-Date: 2002-10-09 12:18GMT+1\n"
+"PO-Revision-Date: 2003-03-28 02:21GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #: lib/ksimpackage.cpp:91
 msgid "Package %1 is already opened."
@@ -195,8 +195,7 @@ msgid "Use system colors"
 msgstr "Utiliser les couleurs par défaut de votre système"
 
 #: componentpropertystylewidget.cpp:60
-msgid ""
-"Check the box if the component have to use the color scheme of your system."
+msgid "Check the box if the component have to use the color scheme of your system."
 msgstr ""
 "Cochez cette case pour que le composant utilise les couleurs par défaut de "
 "votre système."
@@ -238,8 +237,7 @@ msgid "Use default font"
 msgstr "Utiliser la police par défaut"
 
 #: componentpropertystylewidget.cpp:106
-msgid ""
-"Check the box if component have to use the default (the application) font."
+msgid "Check the box if component have to use the default (the application) font."
 msgstr ""
 "Cochez cette case pour que le composant utilise la police par defaut (de "
 "l'application)."
@@ -261,14 +259,15 @@ msgstr ""
 "Voulez-vous l'enregistrer ?"
 
 #: ksimusdoc.cpp:347
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File access failed!\n"
 "\n"
 "%1"
 msgstr ""
-"Impossible d'écrire dans le fichier !\n"
+"Impossible d'accéder au fichier !\n"
 "\n"
+"%1"
 
 #: ksimusdoc.cpp:347
 msgid "Open Document"
@@ -303,9 +302,8 @@ msgid "Circuit check OK"
 msgstr "Vérification du circuit OK"
 
 #: ksimusdoc.cpp:638
-#, fuzzy
 msgid "Circuit check failed (%1 errors)"
-msgstr "Vérification du circuit échouée (%i erreurs)"
+msgstr "Vérification du circuit échouée (%1 erreurs)"
 
 #: ksimusdoc.cpp:679 ksimusdoc.cpp:710
 msgid ""
@@ -430,70 +428,64 @@ msgid "Toogles the sensitive (edge/level) of the connector"
 msgstr "Selectionne le déclenchement sur niveau/front du connecteur"
 
 #: items/watchitembooltristate.cpp:78
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Inactive"
-msgstr "État faux"
+msgstr "Inactif"
 
 #: items/watchitembooltristate.cpp:81
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "False"
-msgstr "État faux"
+msgstr "Faux"
 
 #: items/watchitembooltristate.cpp:84
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "True"
-msgstr "État vrai"
+msgstr "Vrai"
 
 #: items/watchitembooltristate.cpp:87
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Inactive or False"
-msgstr ""
+msgstr "Inactif ou faux"
 
 #: items/watchitembooltristate.cpp:90
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Inactive or True"
-msgstr ""
+msgstr "Inactif ou vrai"
 
 #: items/watchitembooltristate.cpp:93
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "False or True"
-msgstr "Transition faux vrai"
+msgstr "Faux ou vrai"
 
 #: items/watchitembooltristate.cpp:96 items/watchitembooltristate.cpp:157
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Don't care"
-msgstr "État faux"
+msgstr "Ignorer"
 
 #: items/watchitembooltristate.cpp:276
 msgid ""
 "_: Boolean Tristate Watch\n"
 "%1 (Output: %2)"
-msgstr ""
+msgstr "%1 (Sortie %2)"
 
 #: items/watchitembooltristate.cpp:412
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Show detailed information"
-msgstr "Transition vrai faux"
+msgstr "Afficher les informations détaillées"
 
 #: items/watchitembooltristate.cpp:416 items/watchitembooltristate.cpp:418
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Shows the number of connectors with state true and false"
-msgstr ""
+msgstr "Affiche le nombre de connecteurs avec un état vrai ou faux"
 
 #: items/watchitembooltristate.cpp:462
 msgid ""
@@ -508,6 +500,15 @@ msgid ""
 "false or true (in other words active).</td></tr><tr><td><b>Don't care "
 "</b></td><td> Don't check the state.</td></tr></table>"
 msgstr ""
+"<table><tr><td><b>Inactif</b></td><td> Arrêt si l'état est ni vrai ni "
+"faux.</td></tr><tr><td><b>Faux</b></td><td> Arrêt si l'état est "
+"faux.</td></tr><tr><td><b>Vrai</b></td><td> Arrêt si l'état est "
+"vrai.</td></tr><tr><td><b>Inactif or faux</b></td><td> Arrêt si l'état est "
+"inactif ou faux (en d'autres termes pas vrai).</td></tr><tr><td><b>Inactif ou "
+"vrai</b></td><td> Arrêt si l'état est inactif ou faux (en d'autres termes pas "
+"faux).</td></tr><tr><td><b>Faux ou vrai</b></td><td> Arrêt si l'état est "
+"faux ou vrai (en d'autres termes actif).</td></tr><tr><td><b>Ignorer "
+"</b></td><td> Ne tient pas compte de l'état.</td></tr></table>"
 
 #: items/watchitembooltristate.cpp:471
 msgid ""
@@ -520,130 +521,134 @@ msgid ""
 "larger.</td></tr><tr><td><b> Don't care </b></td><td> The number of active "
 "connectors causes no trigger.</td></tr></table>"
 msgstr ""
+"<p>Arrêt si le nombre de connecteurs actif correspond à la condition "
+"donnée.</p><table><tr><td><b> &lt </b></td><td> Arrêt si le nombre de "
+"connecteurs actif est plus petit.</td></tr><tr><td><b> = </b></td><td> Arrêt si "
+"le nombre de connecteurs actifs est égal.</td></tr><tr><td><b> &gt "
+"</b></td><td> Arrêt si le nombre de connecteur actif est plus "
+"grand.</td></tr><tr><td><b> Ignorer </b></td><td> Le nombre de connecteurs "
+"actif ne provoque pas d'arrêt.</td></tr></table>"
 
 #: items/watchitembooltristate.cpp:488
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Input(t):"
-msgstr ""
+msgstr "Entrée (t):"
 
 #: items/watchitembooltristate.cpp:490
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the trigger condition of the input signal at time t."
-msgstr ""
+msgstr "Défini la condition d'arrêt du signal d'entrée à l'instant t."
 
 #: items/watchitembooltristate.cpp:494
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Wire(t):"
-msgstr "État faux"
+msgstr "Fil (t):"
 
 #: items/watchitembooltristate.cpp:496
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the trigger condition of the signal at time t."
-msgstr ""
+msgstr "Défini la condition d'arrêt du signal à l'instant t."
 
 #: items/watchitembooltristate.cpp:502 items/watchitembooltristate.cpp:539
 #: items/watchitembooltristate.cpp:573 items/watchitembooltristate.cpp:609
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "State:"
-msgstr "État faux"
+msgstr "État :"
 
 #: items/watchitembooltristate.cpp:509
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the signal state at time t."
-msgstr ""
+msgstr "Défini l'état du signal à l'instant t."
 
 #: items/watchitembooltristate.cpp:515 items/watchitembooltristate.cpp:585
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Active connectors:"
-msgstr ""
+msgstr "Connecteurs actifs :"
 
 #: items/watchitembooltristate.cpp:522
 msgid ""
 "_: Boolean Tristate Watch\n"
 "This trigger depends on the number of active connectors at time t."
-msgstr ""
+msgstr "Cette condition d'arrêt dépend du nombre de connecteurs actifs à l'instant t."
 
 #: items/watchitembooltristate.cpp:529
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Output(t):"
-msgstr ""
+msgstr "Sortie (t) :"
 
 #: items/watchitembooltristate.cpp:534
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the trigger condition of the output signal at time t."
-msgstr ""
+msgstr "Défini la condition d'arrêt du signal de sortie à l'instant t."
 
 #: items/watchitembooltristate.cpp:548
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the output signal state at time t."
-msgstr ""
+msgstr "Défini l'état du signal de sortie à l'instant t."
 
 #: items/watchitembooltristate.cpp:559
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Input(t-1):"
-msgstr ""
+msgstr "Entrée (t-1) :"
 
 #: items/watchitembooltristate.cpp:561
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the trigger condition of the input signal at time t-1."
-msgstr ""
+msgstr "Défini la condition d'arrêt du signal d'éntrée à l'instant t-1."
 
 #: items/watchitembooltristate.cpp:565
-#, fuzzy
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Wire(t-1):"
-msgstr "État faux"
+msgstr "Fil (t-1) :"
 
 #: items/watchitembooltristate.cpp:567
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the trigger condition of the signal at time t-1."
-msgstr ""
+msgstr "Défini la condition d'arrêt du signal à l'instant t-1."
 
 #: items/watchitembooltristate.cpp:580
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the signal state at time t-1."
-msgstr ""
+msgstr "Défini l'état du signal à l'instant t-1."
 
 #: items/watchitembooltristate.cpp:592
 msgid ""
 "_: Boolean Tristate Watch\n"
 "This trigger depends on the number of active connectors at time t-1."
-msgstr ""
+msgstr "Cette condition d'arrêt dépend du nombre de connecteurs actifs à l'instant t-1."
 
 #: items/watchitembooltristate.cpp:599
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Output(t-1):"
-msgstr ""
+msgstr "Sortie (t-1) :"
 
 #: items/watchitembooltristate.cpp:604
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the trigger condition of the output signal at time t-1."
-msgstr ""
+msgstr "Défini la condition d'arrêt du signal de sortie à l'instant t-1."
 
 #: items/watchitembooltristate.cpp:618
 msgid ""
 "_: Boolean Tristate Watch\n"
 "Defines the output signal state at time t-1."
-msgstr ""
+msgstr "Défini l'état du signal de sortie à l'instant t-1."
 
 #: items/watchitembooltristate.cpp:624
 msgid ""
@@ -654,6 +659,10 @@ msgid ""
 "time one simulation cycle before. E.g. the state(t-1) is the last signal "
 "state.</li></ul>"
 msgstr ""
+"<b>Conseils :</b><ul><li>Un arrêt est déclenché si <b>toutes</b> les conditions "
+"sont remplies.</li><li>Le temps t est le temps actuel de la simulation. Par exemple "
+"l'état(t) est l'état courant du signal.</li><li>Le temps t-1 est le temps de la simulation "
+"un cycle plus tôt. Par exemple l'état(t-1) est l'état précédent du signal.</li></ul>"
 
 #: items/extconnboolin.cpp:51
 msgid ""
@@ -684,15 +693,16 @@ msgid ""
 msgstr "Entrée"
 
 #: items/extconnboolin.cpp:164
-#, fuzzy
 msgid "Default State:"
-msgstr "État initial :"
+msgstr "État par défaut :"
 
 #: items/extconnboolin.cpp:170
 msgid ""
 "Sets the default state of the external connector.\n"
 "This state is used if the external connector is not connected."
 msgstr ""
+"Paramètre la valeur par défaut du connecteur externe.\n"
+"Cette valeur est utilisée lorsque le connecteur externe n'est pas connecté."
 
 #: items/connectorbase.cpp:581
 #, c-format
@@ -790,27 +800,25 @@ msgstr ""
 msgid ""
 "_: BoolTristate\n"
 "Inactive"
-msgstr ""
+msgstr "Inactif"
 
 #: items/wirepropertybooltristate.cpp:48
-#, fuzzy
 msgid ""
 "_: BoolTristate\n"
 "True"
-msgstr "État vrai"
+msgstr "Vrai"
 
 #: items/wirepropertybooltristate.cpp:52
-#, fuzzy
 msgid ""
 "_: BoolTristate\n"
 "False"
-msgstr "État faux"
+msgstr "Faux"
 
 #: items/wirepropertybooltristate.cpp:58
 msgid ""
 "_: BoolTristate\n"
 " (True: %1, False: %2)"
-msgstr ""
+msgstr " (Vrai %1, faux %2)"
 
 #: items/optionalfunction.cpp:72
 msgid ""
@@ -1001,7 +1009,6 @@ msgid "Hide the connector"
 msgstr "Masquer le connecteur"
 
 #: items/connectorpropertywidget.cpp:140
-#, fuzzy
 msgid "Negated"
 msgstr "Complémenté"
 
@@ -1022,35 +1029,34 @@ msgid ""
 msgstr "Connecteur externe/Sortie logique"
 
 #: items/externalconnector.cpp:427
-#, fuzzy
 msgid ""
 "_: Component property dialog\n"
 "Optional connector:"
-msgstr "Connecteurs optionnels"
+msgstr "Connecteur optionnel :"
 
 #: items/externalconnector.cpp:430
-#, fuzzy
 msgid ""
 "_: Component property dialog\n"
 "External connector is optional"
-msgstr "Connecteurs optionnels"
+msgstr "Le connecteur externe est optionnel"
 
 #: items/externalconnector.cpp:432
 msgid ""
 "An external connector may be optional. Optional means the connector may be "
 "visible or hidden."
 msgstr ""
+"Un connecteur externe peut être optionnel. Optionnel veut dire que le "
+"connecteur peut être visible ou caché."
 
 #: items/externalconnector.cpp:436
-#, fuzzy
 msgid ""
 "_: Component property dialog\n"
 "Default is visible"
-msgstr "Général"
+msgstr "Visible par défaut"
 
 #: items/externalconnector.cpp:438
 msgid "An optional external connector may be visible or hidden by default."
-msgstr ""
+msgstr "Un connecteur externe optionnel peut être visible ou caché par défaut."
 
 #: items/watchitemboolean.cpp:120
 msgid ""
@@ -1096,23 +1102,24 @@ msgid "Wire has more than one connected output"
 msgstr "Ce fil a plus d'une sortie connectée"
 
 #: items/wireproperty.cpp:178
-#, fuzzy
 msgid "Tristates outputs are not allowed"
-msgstr "Les sortie 3 états ne sont pas autorisées"
+msgstr "Les sorties 3 états ne sont pas autorisées"
 
 #: items/wireproperty.cpp:365
 msgid "The wire is connected to output connectors with different data types.\n"
-msgstr ""
+msgstr "Le fil est connecté a des connecteurs de sortie qui ont des types de données différents.\n"
 
 #: items/wireproperty.cpp:424
 msgid ""
 "The wire is connected to one or more input connectors with incompatible data "
 "types."
 msgstr ""
+"Le fil est connecté a un ou plusieurs connecteurs d'entrée "
+"qui ont des types de données incompatibles."
 
 #: items/wireproperty.cpp:483
 msgid "The wire is connected to input connectors with different data types."
-msgstr ""
+msgstr "Le fil est connecté à des connecteurs d'entrée avec des types de données différents"
 
 #: items/wirepropertyboolean.cpp:68
 msgid ""
@@ -1264,8 +1271,7 @@ msgstr "Paquets"
 
 #: tools/simulationtiming.cpp:218
 msgid "Timing difference simulation time - real time = %1 ms"
-msgstr ""
-"Différence de vitesse entre le temps de simulation et le temps réel = %1 ms"
+msgstr "Différence de vitesse entre le temps de simulation et le temps réel = %1 ms"
 
 #: tools/ksimbooleanbox.cpp:53 tools/ksimbooltristatebox.cpp:55
 msgid ""
@@ -1280,11 +1286,10 @@ msgid ""
 msgstr "Vrai"
 
 #: tools/ksimbooleanbox.cpp:55
-#, fuzzy
 msgid ""
 "_: Text for inactive in a combo box\n"
 "Inactive"
-msgstr "Faux"
+msgstr "Inactif"
 
 #: tools/mapsizeswidget.cpp:72
 msgid "Schematic size:"
@@ -1400,55 +1405,50 @@ msgstr "Unités de longueur"
 
 #: tools/loglistitem.cpp:73
 msgid "DEBUG: "
-msgstr ""
+msgstr "DÉBOGAGE : "
 
 #: tools/loglistitem.cpp:77
 msgid "INFO: "
-msgstr ""
+msgstr "INFO : "
 
 #: tools/loglistitem.cpp:81
 msgid "WARNING: "
-msgstr ""
+msgstr "ATTENTION : "
 
 #: tools/loglistitem.cpp:85
 msgid "ERROR: "
-msgstr ""
+msgstr "ERREUR : "
 
 #: tools/ksimmodulefilewidget.cpp:43
-#, fuzzy
 msgid "Module directories:"
-msgstr "Répertoire des paquets :"
+msgstr "Répertoire des modules :"
 
 #: tools/ksimmodulefilewidget.cpp:47
-#, fuzzy
 msgid "Module files:"
 msgstr "Nom du module :"
 
 #: tools/ksimmodulefilewidget.cpp:48
-#, fuzzy
 msgid ""
 "*.sim|Module files (*.sim)\n"
 "*|All files (*)"
 msgstr ""
-"*.sim|Fichiers KSimus (*.sim)\n"
-"*|Tous les fichiers"
+"*.sim|Fichiers modules (*.sim)\n"
+"*|Tous les fichiers (*)"
 
 #: tools/ksimmodulefilewidget.cpp:92
-#, fuzzy
 msgid ""
 "KSimus modules are loaded only during the application start.You have to "
 "restart ksimus if you want to apply the changes.\n"
 "This will be changed in a future version. Sorry!"
 msgstr ""
-"Les paquets KSimus sont configurés uniquement au démarrage de "
+"Les modules KSimus sont configurés uniquement au démarrage de "
 "l'application. Vous devez redémarrer KSimus si vous voulez appliquer les "
 "modifications.\n"
 "Ce sera modifié dans une prochaine version. Désolé !"
 
 #: tools/ksimmodulefilewidget.cpp:117 tools/ksimmodulefilewidget.cpp:124
-#, fuzzy
 msgid "Module Files"
-msgstr "Prévisualisation du module"
+msgstr "Fichiers modules"
 
 #: tools/ksimbaseuint.cpp:307
 msgid ""
@@ -1499,8 +1499,7 @@ msgid "Save path relative to home dir"
 msgstr "Chemin relatif au répertoire personnel"
 
 #: tools/ksimfilename.cpp:577
-msgid ""
-"The path of the file can be stored absolute or relative in the document."
+msgid "The path of the file can be stored absolute or relative in the document."
 msgstr ""
 "Le chemin du fichier peut être stocké de façon absolue ou relative dans "
 "le document."
@@ -1594,11 +1593,12 @@ msgid "Load package %1 %2"
 msgstr "Chargement du paquet %1 %2"
 
 #: library.cpp:329
-#, fuzzy
 msgid ""
 "\n"
 "Contains no KInstance!"
-msgstr "Ne contient pas de KInstance !"
+msgstr ""
+"\n"
+"Ne contient pas de KInstance !"
 
 #: library.cpp:338
 msgid "Package %1 has no components."
@@ -1609,44 +1609,36 @@ msgid "Package %1: %2"
 msgstr "Paquet %1 : %2"
 
 #: library.cpp:437
-#, fuzzy
 msgid "Package %1: File does not exist."
-msgstr "Le module %1 n'existe pas."
+msgstr "Paquet %1: Le fichier n'existe pas."
 
 #: library.cpp:443
-#, fuzzy
 msgid "Package %1: Is not a file."
-msgstr "Le paquet %1 ne contient aucun composant"
+msgstr "Paquet %1 : N'est pas un fichier."
 
 #: library.cpp:449
-#, fuzzy
 msgid "Package %1: File is not readable."
-msgstr "Le module %1 n'est pas lisible."
+msgstr "Paquet %1 : Le fichier n'est pas lisible."
 
 #: library.cpp:555
-#, fuzzy
 msgid "Module %1: File does not exist."
-msgstr "Le module %1 n'existe pas."
+msgstr "Module %1 : Le fichier n'existe pas."
 
 #: library.cpp:561
-#, fuzzy
 msgid "Module %1: Is not a file."
-msgstr "Le module %1 n'est pas lisible."
+msgstr "Module %1 : N'est pas un fichier."
 
 #: library.cpp:567
-#, fuzzy
 msgid "Module %1: File is not readable."
-msgstr "Le module %1 n'est pas lisible."
+msgstr "Module %1 : Le fichier n'est pas lisible."
 
 #: library.cpp:596
-#, fuzzy
 msgid "Load module %1 (%2)"
-msgstr "Chargement du paquet %1 %2"
+msgstr "Chargement du module %1 (%2)"
 
 #: library.cpp:603
-#, fuzzy
 msgid "Module %1: File contains no valid module."
-msgstr "Le fichier %1 ne contient aucun module valable !"
+msgstr "Module %1 : Lefichier %1 ne contient aucun module valable."
 
 #: _translatorinfo.cpp:1
 msgid ""
@@ -1679,9 +1671,8 @@ msgid "start the execution of the given file"
 msgstr "démarre l'exécution du fichier spécifié"
 
 #: main.cpp:39
-msgid ""
-"execute KSimus in hidden mode (only in combination with option 'execute')"
-msgstr ""
+msgid "execute KSimus in hidden mode (only in combination with option 'execute')"
+msgstr "Execute KSimus en mode caché (seulement en combinaison avec l'option \"execute\")"
 
 #: main.cpp:40
 msgid "use the given language (for testing purpose)"
@@ -1704,30 +1695,28 @@ msgid "File Error"
 msgstr "Problème de fichier"
 
 #: compcontainer.cpp:462
-#, fuzzy
 msgid ""
 "Cant remove file : %1\n"
 "\n"
 "Abort copy/past function."
 msgstr ""
-"\n"
+"Impossible de supprimer le fichier : %1\n"
 "\n"
 "Abandon du copier/coller."
 
 #: compcontainer.cpp:512
-#, fuzzy
 msgid ""
 "Cant find file : %1\n"
 "\n"
 "Abort copy/past function."
 msgstr ""
-"\n"
+"Impossible de trouver le fichier : %1\n"
 "\n"
 "Abandon du copier/coller."
 
 #: compcontainer.cpp:593
 msgid "Data types do not match"
-msgstr ""
+msgstr "Les types de données ne correspondent pas"
 
 #: compcontainer.cpp:858
 msgid "Loading..."
@@ -1851,11 +1840,8 @@ msgstr ""
 "générique."
 
 #: module/module.cpp:538
-#, fuzzy
 msgid "File %1 is not a module! Switch to generic view."
-msgstr ""
-"Le fichier \"%1\" n'est pas une image valable ! Basculement en vue "
-"générique."
+msgstr "Le fichier \"%1\" n'est pas un module ! Basculement en vue générique."
 
 #: module/module.cpp:834
 msgid "&Reload module"
@@ -1868,6 +1854,10 @@ msgid ""
 "Hint: The common reason for this error is a resized module without "
 "rearranged external connectors."
 msgstr ""
+"Le placement des connecteurs externe ne correspond pas à la forme du module. "
+"Basculement en vue générique.\n"
+"Conseil : Une erreur courante de redimensionner un module sans "
+"réarranger ses connecteurs externes."
 
 #: module/moduleeditor.cpp:172
 msgid "No view !"
@@ -1964,8 +1954,7 @@ msgid "Absolute path"
 msgstr "Chemin absolu"
 
 #: module/modulepropertywidget.cpp:126
-msgid ""
-"Stores the path of the pixmap relative to module file (Image view only)."
+msgid "Stores the path of the pixmap relative to module file (Image view only)."
 msgstr ""
 "Sauvegarde le chemin de l'image relativement au fichier du module (Vue image "
 "seulement)."
@@ -2035,9 +2024,8 @@ msgid "INTERNAL ERROR *** Wire has no property ***"
 msgstr "ERREUR INTERNE *** Le fil n'a pas de propriété ***"
 
 #: compview.cpp:845
-#, fuzzy
 msgid "Hide User View"
-msgstr "&Masquer l'interface utilisateur"
+msgstr "Masque l'interface utilisateur"
 
 #: compview.cpp:1290
 msgid "Resize"
@@ -2177,8 +2165,7 @@ msgstr "Nombre d'impulsions :"
 
 #: boolean/controlstop.cpp:218
 msgid "Set number of required edges until the simulation stops here."
-msgstr ""
-"Changez ici le nombre d'impusion requises avant l'arrêt de la simulation."
+msgstr "Changez ici le nombre d'impusion requises avant l'arrêt de la simulation."
 
 #: boolean/clockgenerator.cpp:59
 msgid ""
@@ -2281,13 +2268,13 @@ msgstr "Logique/Porte/ET"
 msgid ""
 "_: Component\n"
 "Boolean NAND"
-msgstr "NON ET logique"
+msgstr "NON-ET logique"
 
 #: boolean/booleanand.cpp:61
 msgid ""
 "_: Component\n"
 "Boolean/Gates/NAND"
-msgstr "Logique/Porte/NON ET"
+msgstr "Logique/Porte/NON-ET"
 
 #: boolean/controlclose.cpp:58
 msgid "Control Close"
@@ -2301,8 +2288,7 @@ msgstr "Contrôle/Fermeture de la simulation"
 
 #: boolean/controlclose.cpp:219
 msgid "Set number of required edges until the window closes here."
-msgstr ""
-"Changez ici le nombre d'impusion requises avant la fermeture de la fenêtre."
+msgstr "Changez ici le nombre d'impusion requises avant la fermeture de la fenêtre."
 
 #: ksimus.cpp:243
 msgid "New &Window"
@@ -2349,18 +2335,16 @@ msgid "&Package Files"
 msgstr "&Paquets"
 
 #: ksimus.cpp:274
-#, fuzzy
 msgid "&Module Files"
-msgstr "Prévisualisation du module"
+msgstr "Fichiers &Modules"
 
 #: ksimus.cpp:275
 msgid "&Watch"
 msgstr "&Points de surveillance"
 
 #: ksimus.cpp:276
-#, fuzzy
 msgid "&Log View Properties"
-msgstr "Propriétés de la fenêtre de messages"
+msgstr "Propriétés de la fenêtre de &messages"
 
 #: ksimus.cpp:279
 msgid "&Reset"
@@ -2491,9 +2475,8 @@ msgid "Select packages"
 msgstr "Selectionnez les paquets"
 
 #: ksimus.cpp:323
-#, fuzzy
 msgid "Select modules"
-msgstr "Selectionnez le fichier"
+msgstr "Selectionnez le module"
 
 #: ksimus.cpp:324
 msgid "General watch settings"
@@ -2640,9 +2623,8 @@ msgid "Setup package files..."
 msgstr "Paramètrage des paquets..."
 
 #: ksimus.cpp:1059
-#, fuzzy
 msgid "Setup module files..."
-msgstr "Paramètrage des paquets..."
+msgstr "Paramètrage des fichiers modules..."
 
 #: ksimus.cpp:1088
 msgid "Setup watch..."
@@ -2653,9 +2635,8 @@ msgid "Watch Settings"
 msgstr "Points de surveillance"
 
 #: ksimus.cpp:1114
-#, fuzzy
 msgid "Setup log window..."
-msgstr "Paramètrage de la grille..."
+msgstr "Paramètrage de la fenêtre des messages..."
 
 #: ksimus.cpp:1139
 msgid "Resets simulation..."
@@ -2679,7 +2660,7 @@ msgstr "Action test..."
 
 #: ksimus.cpp:1278
 msgid "Insert Component '%1' ..."
-msgstr "Insertion du le composant \"%1\"..."
+msgstr "Insertion du composant \"%1\"..."
 
 #: ksimus.cpp:1287
 msgid "Past Components..."
@@ -2729,3 +2710,4 @@ msgstr "Redimensionnement..."
 
 #~ msgid "Timings Settings"
 #~ msgstr "Paramètres de vitesse"
+
