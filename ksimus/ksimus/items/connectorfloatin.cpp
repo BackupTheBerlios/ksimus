@@ -84,5 +84,10 @@ double ConnectorFloatIn::getInput() const
 	return pData ? *(double*)pData : 0.0;
 }
 
+/** Returns a text which represents the current value. */
+QString ConnectorFloatIn::getValueText() const
+{
+	return QString::number(getInput());
+}
 
 

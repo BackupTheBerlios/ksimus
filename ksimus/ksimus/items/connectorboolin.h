@@ -73,6 +73,9 @@ public:
 	/** Add menu items depend on connetor properties */
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
+	/** Returns a text which represents the current value. */
+	virtual QString getValueText() const;
+
 protected:
 	/**
 	 * Constructs a boolean input connector. Use this constructor if you derive this class.

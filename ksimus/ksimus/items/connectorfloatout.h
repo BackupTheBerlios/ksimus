@@ -77,6 +77,9 @@ public:
 	// Setup the colors, brushs, and fills for the connector
 	virtual void setupColorScheme (QPainter * p) const;
 	
+	/** Returns a text which represents the current value. */
+	virtual QString getValueText() const;
+
 
 protected:
 	/**

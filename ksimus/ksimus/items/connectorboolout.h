@@ -83,6 +83,8 @@ public:
 	/** Creates the property widget */
 	virtual QWidget* propertyWidget(QWidget * parent);
 
+	/** Returns a text which represents the current value. */
+	virtual QString getValueText() const;
 
 protected:
 	/**

@@ -147,3 +147,13 @@ void ConnectorBoolOut::slotToggleNegType()
 	getComponent()->refresh();
 }
 
+/** Returns a text which represents the current value. */
+QString ConnectorBoolOut::getValueText() const
+{
+	if (m_data == true)
+	{
+		return i18n("True");
+	}
+	
+	return i18n("False");
+}

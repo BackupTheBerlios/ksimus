@@ -98,4 +98,9 @@ const void * ConnectorFloatOut::getData() const
 }											
 																						
 	
+/** Returns a text which represents the current value. */
+QString ConnectorFloatOut::getValueText() const
+{
+	return QString::number(m_data);
+}
 
