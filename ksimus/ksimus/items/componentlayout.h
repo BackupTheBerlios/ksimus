@@ -152,7 +152,7 @@ public:
     */
   void addConnectorPack(ConnectorPack * connPack, unsigned int additionalSpace = 1);
 
-	/** Reomves the given item from this layout.
+	/** Removes the given item from this layout.
 	  * @param layoutItem Remove this item from layout.
 	  * @param del        If true, the item will be deleted also.
 	  */
