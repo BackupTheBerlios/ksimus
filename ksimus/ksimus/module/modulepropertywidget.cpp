@@ -109,6 +109,9 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	QWhatsThis::add(widget,tooltip);
 	connect(m_lePixmapFile, SIGNAL(changed()), SLOT(slotPixmapFileChanged()));
 
+
+	new QLabel(this);  // empty 1st col
+
 	// Store selection
 	m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
 
