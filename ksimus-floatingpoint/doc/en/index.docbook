@@ -3,7 +3,7 @@
 
   <!ENTITY packageName 'Floating Point'>
   <!ENTITY ksimusfloatingpoint '<application>KSimus Package Floating Point</application>'>
-  <!ENTITY kapp '&ksimusfloatingpoint;'<!-- replace test here -->
+  <!ENTITY kapp '&ksimusfloatingpoint;'><!-- replace test here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
   <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
