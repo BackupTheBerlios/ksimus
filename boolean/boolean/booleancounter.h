@@ -190,6 +190,7 @@ protected:
 
 private:
 	void limit();
+	bool m_noBitChanges;
 
 private slots:
 	void slotMinValueChanged();

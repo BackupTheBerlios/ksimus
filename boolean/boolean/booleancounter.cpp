@@ -56,12 +56,15 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new BooleanCounter(container, ci);
 }
 
-const ComponentInfo BooleanCounterInfo("Boolean Counter",
-                                   "Boolean/Gates/Counter",
-                                   QString::null,//"D Latch",
-                                   VA_SHEETVIEW,
-                                   create
-                                  );
+const ComponentInfo BooleanCounterInfo("Boolean Counter with RCO and RBO",
+                                       "Boolean/Counter/with RCO and RBO",
+                                       QString::null,//"D Latch",
+                                       VA_SHEETVIEW,
+                                       create,
+                                       QString::null,
+                                       QString::null,
+                                       "Boolean/Gates/Counter"
+                                      );
 
 //###############################################################
 //###############################################################
@@ -107,11 +110,11 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	CHECK_PTR(m_outCnt);
 	m_outCnt->setConnectorCount(DEFAULT_BIT);
 	
-	m_outBorrow = new ConnectorBoolOut(this, "Ribble Borrow Out");
+	m_outBorrow = new ConnectorBoolOut(this, "Ripple Borrow Out");
 	CHECK_PTR(m_outBorrow);
 	m_outBorrow->setHideEnabled(true);
 	
-	m_outCarry = new ConnectorBoolOut(this, "Ribble Carry Out");
+	m_outCarry = new ConnectorBoolOut(this, "Ripple Carry Out");
 	CHECK_PTR(m_outCarry);
 	m_outCarry->setHideEnabled(true);
 
@@ -358,7 +361,8 @@ void BooleanCounterView::addConn(ConnectorBase * conn)
 //###############################################################
 
 BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp, QWidget *parent, const char *name)
-	:	ComponentPropertyBaseWidget(comp, parent, name)
+	:	ComponentPropertyBaseWidget(comp, parent, name),
+		m_noBitChanges(false)
 {
 	QGridLayout * layout;
 	QGrid * grid;
@@ -480,10 +484,6 @@ void BooleanCounterPropertyWidget::defaultPressed()
 }
 
 
-// Set to "this", if no bit changes are wanted (quick and dirty!!)
-static BooleanCounterPropertyWidget * pNoBitChanges = 0;
-
-
 void BooleanCounterPropertyWidget::slotMinValueChanged()
 {
 //	KSIMDEBUG("BooleanCounterPropertyWidget::slotMinValueChanged()");
@@ -502,9 +502,9 @@ void BooleanCounterPropertyWidget::slotMaxValueChanged()
 		// Set bit count
 		if (newBit != (unsigned int)getBitsWidget()->value())
 		{
-			pNoBitChanges = this;
+			m_noBitChanges = true;
 			getBitsWidget()->setValue(newBit);
-			pNoBitChanges = (BooleanCounterPropertyWidget*)0;
+			m_noBitChanges = false;
 		}
 	}
 	else
@@ -520,7 +520,7 @@ void BooleanCounterPropertyWidget::slotMaxValueChanged()
 
 void BooleanCounterPropertyWidget::slotBitsChanged()
 {
-	if ((pNoBitChanges != this))
+	if (!m_noBitChanges)
 	{
 		unsigned int maxCnt = (1 << getBitsWidget()->value()) -1;
 		getMaxValueWidget()->setValue(maxCnt);
