@@ -40,7 +40,7 @@ ImplicitConverter * ImplicitConverterBoolTristate2Bool::create(ConnectorBase * c
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterBoolTristate2Bool(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 

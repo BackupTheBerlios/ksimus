@@ -80,12 +80,12 @@ ConvertIntegerFloat::ConvertIntegerFloat(CompContainer * container, const Compon
 	m_input = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_output = new ConnectorFloatOut(this,
 	                                 QString::fromLatin1("Output"),
 	                                 i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())

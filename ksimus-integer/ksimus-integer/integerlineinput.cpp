@@ -158,7 +158,7 @@ ComponentPropertyBaseWidget * IntegerLineInput::createGeneralProperty(QWidget *p
 {
 	IntegerLineInputPropertyGeneralWidget * wid;
 	wid = new IntegerLineInputPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -177,10 +177,10 @@ IntegerLineInputView::IntegerLineInputView(IntegerLineInput * comp, eViewType vi
 		setMinSize(5*gridX, 3*gridY);
 
 		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		block->getRight()->addStretch(2);
 		block->getRight()->addConnector(comp->getOutputConnector(),0);
@@ -228,7 +228,7 @@ IntegerLineInputWidgetView::IntegerLineInputWidgetView(IntegerLineInputView * cv
 	:	CompViewHBox(cv,parent,name)
 {
 	m_edit = new KSimBaseIntEdit(this);
-	CHECK_PTR(m_edit);
+	Q_CHECK_PTR(m_edit);
 	m_edit->setBottom(getIntegerLineInput()->getMinValue().value());
 	m_edit->setTop(getIntegerLineInput()->getMaxValue().value());
 	m_edit->setTrackingEnabled(getIntegerLineInput()->isTrackingEnabled());
@@ -266,7 +266,7 @@ IntegerLineInputPropertyGeneralWidget::IntegerLineInputPropertyGeneralWidget(Int
 	
 
 	m_tracking = new QCheckBox(i18n("Integer", "Value tracking"), this, "m_tracking");
-	CHECK_PTR(m_tracking);
+	Q_CHECK_PTR(m_tracking);
 	tip = i18n("Enables the value tracking.\n"
 	           "If enabled the output will be updated after each inserted digit.\n"
 	           "If disabled the output will be updated after the user press return or select another input field.");

@@ -74,7 +74,7 @@ IntegerLineOutput::IntegerLineOutput(CompContainer * container, const ComponentI
 	m_input = new ConnectorIntegerIn(this,
 	                                 QString::fromLatin1("Input"),
 	                                 i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	setColorAdjustmentEnabled(true);
 	setFrameAdjustmentEnabled(true);
@@ -145,7 +145,7 @@ ComponentPropertyBaseWidget * IntegerLineOutput::createGeneralProperty(QWidget *
 {
 	IntegerLineOutputPropertyGeneralWidget * wid;
 	wid = new IntegerLineOutputPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -221,7 +221,7 @@ IntegerLineOutputWidgetView::IntegerLineOutputWidgetView(IntegerLineOutputView *
 	:	CompViewVBox(cv,parent,name)
 {
 	m_label = new QLabel(this);
-	CHECK_PTR(m_label);
+	Q_CHECK_PTR(m_label);
 	m_label->setAlignment(AlignRight | AlignVCenter);
 }
 
@@ -236,16 +236,13 @@ IntegerLineOutputWidgetView::IntegerLineOutputWidgetView(IntegerLineOutputView *
 IntegerLineOutputPropertyGeneralWidget::IntegerLineOutputPropertyGeneralWidget(IntegerLineOutput * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
-	QString tip, precTip;
-
-
 	QLabel * lab = new QLabel(i18n("Integer", "Base: "), this, "BaseLabel");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_baseSel = new KSimBaseIntBaseSelection(comp->getBase(), this, "m_baseSel");
-	CHECK_PTR(m_baseSel);
+	Q_CHECK_PTR(m_baseSel);
 
-	tip = i18n("The base of the number.");
+	QString tip(i18n("The base of the number."));
 	addToolTip(tip, m_baseSel, lab);
 	addWhatsThis(tip, m_baseSel, lab);
 	lab->setBuddy(m_baseSel);

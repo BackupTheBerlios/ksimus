@@ -92,7 +92,7 @@ Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci
 	m_latchOutput = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable Latch Output"),
 	                             i18n("Boolean-Connector", "Enable Latch Output"));
-	CHECK_PTR(m_latchOutput);
+	Q_CHECK_PTR(m_latchOutput);
 	m_latchOutput->setEdgeSensitive(false,true);
 	// make Output Latch optional
 	new OptionalConnector(m_latchOutput,
@@ -102,7 +102,7 @@ Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci
 	m_latchAddress = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable Latch Address"),
 	                             i18n("Boolean-Connector", "Enable Latch Address"));
-	CHECK_PTR(m_latchAddress);
+	Q_CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
 	// make Address Latch optional
 	new OptionalConnector(m_latchAddress,
@@ -113,7 +113,7 @@ Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci
 	m_inputConn = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Boolean-Connector", "Input"));
-	CHECK_PTR(m_inputConn);
+	Q_CHECK_PTR(m_inputConn);
 	
 	
 	
@@ -122,7 +122,7 @@ Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci
 	                             i18n("Connector", "Output %1"),
 	                             getConnectorBoolOutInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_outputPack);
+	Q_CHECK_PTR(m_outputPack);
 	m_outputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_outputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -132,7 +132,7 @@ Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci
 	                             i18n("Connector", "Address %1"),
 	                             getConnectorBoolInInfo(),
 	                             MIN_ADRESS, MAX_ADRESS);
-	CHECK_PTR(m_addressPack);
+	Q_CHECK_PTR(m_addressPack);
 	m_addressPack->setConnectorCount(DEFAULT_ADRESS);
 	m_addressPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -187,7 +187,7 @@ void Demultiplexer::calculate()
 		if (m_addressLatch < getOutputPack()->getConnectorCount())
 		{
 			ConnectorBoolOut * out = (ConnectorBoolOut *)getOutputPack()->getConnList()->at(m_addressLatch);
-			ASSERT(out != 0);
+			Q_ASSERT(out != 0);
 			out->setOutput(getInputConn()->getInput());
 		}
 	}
@@ -221,7 +221,7 @@ ComponentPropertyBaseWidget * Demultiplexer::createGeneralProperty(QWidget *pare
 {
 	DemultiplexerPropertyGeneralWidget * wid;
 	wid = new DemultiplexerPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -255,7 +255,7 @@ void Demultiplexer::setChannelCount(unsigned int count)
 		getAddressPack()->setConnectorCount(4);
 	else
 	{
-		ASSERT(count <= 16);
+		Q_ASSERT(count <= 16);
 	}
 }
 
@@ -275,7 +275,7 @@ unsigned int Demultiplexer::getMinChannelCount() const
 		case 2: i = 3; break;
 		case 3: i = 5; break;
 		case 4: i = 9; break;
-		default: ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
+		default: Q_ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
 	}
 	
 	return QMAX(getOutputPack()->getNumberOfNotDeletableConnectors(), i);
@@ -313,7 +313,7 @@ DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType, c
 	{
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchOutput());
@@ -373,10 +373,10 @@ DemultiplexerPropertyGeneralWidget::DemultiplexerPropertyGeneralWidget(Demultipl
 	QString tip;
 	
 	m_channelsLabel = new QLabel(i18n("Boolean", "Number of channels: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new KSimSpinBox(comp->getMinChannelCount(), MAX_CHANNELS, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("Boolean", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);

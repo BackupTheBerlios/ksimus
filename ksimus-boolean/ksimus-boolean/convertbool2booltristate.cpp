@@ -70,19 +70,19 @@ ConvertBool2BoolTristate::ConvertBool2BoolTristate(CompContainer * container, co
 	                           QString::fromLatin1("Input"),
 	                           i18n("Connector", "Input"),
 	                           QString::fromLatin1("Di"));
-	CHECK_PTR(m_connDataIn);
+	Q_CHECK_PTR(m_connDataIn);
 	
 	
 	m_connActiveIn = new ConnectorBoolIn(this,
 	                           QString::fromLatin1("Enable"),
 	                           i18n("Connector", "Enable"),
 	                           QString::fromLatin1("E"));
-	CHECK_PTR(m_connActiveIn);
+	Q_CHECK_PTR(m_connActiveIn);
 	
 	m_connOut = new ConnectorBoolTristate(this,
 	                           QString::fromLatin1("Output"),
 	                           i18n("Connector", "Output"));
-	CHECK_PTR(m_connOut);
+	Q_CHECK_PTR(m_connOut);
 	
 	
 	// Initializes the sheet view

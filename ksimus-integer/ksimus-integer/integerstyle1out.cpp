@@ -52,7 +52,7 @@ IntegerStyle1Out::IntegerStyle1Out(CompContainer * container, const ComponentInf
 	m_out = new ConnectorIntegerOut(this,
 	                                QString::fromLatin1("Output"),
 	                                i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 }
 
@@ -128,7 +128,7 @@ ComponentPropertyBaseWidget * IntegerStyle1Out::createGeneralProperty(QWidget *p
 {
 	IntegerStyle1OutPropertyGeneralWidget * wid;
 	wid = new IntegerStyle1OutPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -146,7 +146,7 @@ IntegerStyle1OutView::IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType vi
 	if (viewType == SHEET_VIEW)
 	{
 		m_layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 	
 		m_layout->getRight()->addStretch(2);
 		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
@@ -171,10 +171,10 @@ IntegerStyle1OutPropertyGeneralWidget::IntegerStyle1OutPropertyGeneralWidget(Int
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetValueLabel = new QLabel(i18n("Integer", "Reset value: "), this, "ResetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimBaseIntEdit(this, "ResetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	QString tip(i18n("Integer", "Change the reset value of the component here"));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);

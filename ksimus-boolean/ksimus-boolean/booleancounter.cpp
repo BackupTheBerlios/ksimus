@@ -93,7 +93,7 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	m_inClear = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Reset"),
 	                             i18n("Boolean-Connector", "Reset"));
-	CHECK_PTR(m_inClear);
+	Q_CHECK_PTR(m_inClear);
 	m_inClear->setEdgeSensitive(false,true);
 	// make optional
 	new OptionalConnector(m_inClear,
@@ -104,7 +104,7 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	m_inClkUp = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock Up"),
 	                             i18n("Boolean-Connector", "Clock Up"));
-	CHECK_PTR(m_inClkUp);
+	Q_CHECK_PTR(m_inClkUp);
 	m_inClkUp->setEdgeSensitiveChangeEnable(false);
 	// make optional
 	new OptionalConnector(true, m_inClkUp,
@@ -117,7 +117,7 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	m_inClkDown = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock Down"),
 	                             i18n("Boolean-Connector", "Clock Down"));
-	CHECK_PTR(m_inClkDown);
+	Q_CHECK_PTR(m_inClkDown);
 	m_inClkDown->setEdgeSensitiveChangeEnable(false);
 	// make optional
 	new OptionalConnector(true, m_inClkDown,
@@ -131,13 +131,13 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	                             i18n("Boolean-Connector", "Output %1"),
 	                             getConnectorBoolOutInfo(),
 	                             MIN_BIT, MAX_BIT);
-	CHECK_PTR(m_outCnt);
+	Q_CHECK_PTR(m_outCnt);
 	m_outCnt->setConnectorCount(DEFAULT_BIT);
 	
 	m_outBorrow = new ConnectorBoolOut(this,
 	                             QString::fromLatin1("Ripple Borrow Out"),
 	                             i18n("Boolean-Connector", "Ripple Borrow Out"));
-	CHECK_PTR(m_outBorrow);
+	Q_CHECK_PTR(m_outBorrow);
 	// make optional
 	new OptionalConnector(true, m_outBorrow,
 	                      QString::fromLatin1("Ripple borrow output"),
@@ -147,7 +147,7 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	m_outCarry = new ConnectorBoolOut(this,
 	                             QString::fromLatin1("Ripple Carry Out"),
 	                             i18n("Boolean-Connector", "Ripple Carry Out"));
-	CHECK_PTR(m_outCarry);
+	Q_CHECK_PTR(m_outCarry);
 	// make optional
 	new OptionalConnector(true, m_outCarry,
 	                      QString::fromLatin1("Ripple carry output"),
@@ -333,7 +333,7 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 	{
 		enableRotation(true);
 		m_layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 
 		m_layout->getCtrlBlock()->getLeft()->addSpace(1);
 		m_layout->getCtrlBlock()->getLeft()->addConnector(getCounter()->getInputClear());
@@ -395,9 +395,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	
 	// Bits
 	lab = new QLabel(i18n("Boolean", "Counter width:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_bits = new KSimSpinBox(this, "Bits");
-	CHECK_PTR(m_bits);
+	Q_CHECK_PTR(m_bits);
 	m_bits->setValue(getCounter()->getBits());
 	m_bits->setRange(getCounter()->getMinBits() ,16);
 	m_bits->setSuffix(i18n("Boolean", " bit"));
@@ -408,9 +408,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 
 	// Maximum count
 	lab = new QLabel(i18n("Boolean", "Maximum:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_maxValue = new KSimBaseUIntEdit(getCounter()->getMaxCount(), this, "Maximum");
-	CHECK_PTR(m_maxValue);
+	Q_CHECK_PTR(m_maxValue);
 	str = i18n("Boolean", "Sets the maximum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_maxValue);
 	str += m_maxValue->getWhatsThisHelp();
@@ -419,9 +419,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 
 	// Minimum count
 	lab = new QLabel(i18n("Boolean", "Minimum:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_minValue = new KSimBaseUIntEdit(getCounter()->getMinCount(), this, "Minimum");
-	CHECK_PTR(m_minValue);
+	Q_CHECK_PTR(m_minValue);
 	str = i18n("Boolean", "Sets the minimum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_minValue);
 	str += m_minValue->getWhatsThisHelp();
@@ -430,9 +430,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 
 	// Reset value
 	lab = new QLabel(i18n("Boolean", "Reset value:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_resetValue = new KSimBaseUIntEdit(getCounter()->getResetCount(), this, "Reset value");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	str = i18n("Boolean", "Sets the reset counter value.\nThis value is also used if the counter is reseted.");
 	addToolTip(str, lab, m_resetValue);
 	str += m_resetValue->getWhatsThisHelp();
@@ -443,7 +443,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	// Hint bit count
 	str = i18n("Boolean", "Hint: minimum counter width is %1 bit").arg(getCounter()->getMinBits());
 	lab = new QLabel(str, newRowVBox());
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	str = i18n("Boolean", "This is the minimal possible counter width.\nThis value depends on wired connectors.");
 	addToolTip(str, lab);
 	addWhatsThis(str, lab);

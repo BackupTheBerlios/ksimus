@@ -89,12 +89,12 @@ ConvertBoolInteger::ConvertBoolInteger(CompContainer * container, const Componen
 	m_input = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_output = new ConnectorIntegerOut(this,
 	                                 QString::fromLatin1("Output"),
 	                                 i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -171,7 +171,7 @@ ComponentPropertyBaseWidget * ConvertBoolInteger::createGeneralProperty(QWidget 
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -238,10 +238,10 @@ ConvertBoolInteger::PropertyGeneralWidget::PropertyGeneralWidget(ConvertBoolInte
 	QString tip;
 	
 	m_trueValueLabel = new QLabel(i18n("Integer", "True Value: "), this, "m_trueValueLabel");
-	CHECK_PTR(m_trueValueLabel);
+	Q_CHECK_PTR(m_trueValueLabel);
 	
 	m_trueValue = new KSimBaseIntEdit(this, "m_trueValue");
-	CHECK_PTR(m_trueValue);
+	Q_CHECK_PTR(m_trueValue);
 	tip = i18n("Integer", "Sets the value which represents the true level.");
 	addToolTip(tip, m_trueValue, m_trueValueLabel);
 	addWhatsThis(tip, m_trueValue, m_trueValueLabel);
@@ -249,10 +249,10 @@ ConvertBoolInteger::PropertyGeneralWidget::PropertyGeneralWidget(ConvertBoolInte
 	
 	
 	m_falseValueLabel = new QLabel(i18n("Integer", "False Value: "), this, "m_falseValueLabel");
-	CHECK_PTR(m_falseValueLabel);
+	Q_CHECK_PTR(m_falseValueLabel);
 	
 	m_falseValue = new KSimBaseIntEdit(this, "m_falseValue");
-	CHECK_PTR(m_falseValue);
+	Q_CHECK_PTR(m_falseValue);
 	tip = i18n("Integer", "Sets the value which represents the false level.");
 	addToolTip(tip, m_falseValue, m_falseValueLabel);
 	addWhatsThis(tip, m_falseValue, m_falseValueLabel);

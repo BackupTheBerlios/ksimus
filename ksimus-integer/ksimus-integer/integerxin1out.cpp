@@ -51,7 +51,7 @@ IntegerXIn1Out::IntegerXIn1Out(CompContainer * container, const ComponentInfo * 
 	                             i18n("Interger-Connector", "Input %1"),
 	                             ConnectorIntegerIn::getStaticInfo(),
 	                             2, 52);
-	CHECK_PTR(m_inPack);
+	Q_CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
 }
 
@@ -74,7 +74,7 @@ IntegerXIn1OutView::IntegerXIn1OutView(IntegerXIn1Out * comp, eViewType viewType
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 

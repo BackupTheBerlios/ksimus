@@ -21,7 +21,7 @@
 // C-Includes
 
 // QT-Includes
-#include <qarray.h>
+#include <qmemarray.h>
 
 // KDE-Includes
 
@@ -116,7 +116,7 @@ private slots:
 	void slotDeleteChannel();
 
 private:
-	QArray<bool> m_values;
+	QMemArray<bool> m_values;
 	bool m_resetValue;
 	ConnectorBoolInEdge * m_inputReset;
 	ConnectorBoolInEdge * m_inputEnable;

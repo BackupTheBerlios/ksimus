@@ -154,7 +154,7 @@ void IntegerDelay::reset()
 	bool res = m_list.fill(m_lastValue, listLength);
 	if(!res)
 	{
-		KSIMDEBUG("Resize of QArray failed");
+		KSIMDEBUG("Resize of QMemArray failed");
 	}
 	setValue(m_lastValue);
 	m_counter = m_list.size();
@@ -198,7 +198,7 @@ ComponentPropertyBaseWidget * IntegerDelay::createGeneralProperty(QWidget *paren
 {
 	IntegerDelay::PropertyGeneralWidget * wid;
 	wid = new IntegerDelay::PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -245,10 +245,10 @@ IntegerDelay::PropertyGeneralWidget::PropertyGeneralWidget(IntegerDelay * comp, 
 	QString str;
 
 	lab = new QLabel(i18n("Integer", "Delay time:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_delayTime = new KSimTimeSpinBox(comp->getDelayTime(), this);
-	CHECK_PTR(m_delayTime);
+	Q_CHECK_PTR(m_delayTime);
 	lab->setBuddy(m_delayTime);
 	KSimTime myTime(comp->getDelayTime());
 	myTime.setValue((double)maxDepth, unit_ticks);
@@ -263,7 +263,7 @@ IntegerDelay::PropertyGeneralWidget::PropertyGeneralWidget(IntegerDelay * comp, 
 	QHBox * hintBox = newRowHBox("hintBox");
 
 	m_delayTimeHint = new QLabel(hintBox, "m_delayTimeHint");
-	CHECK_PTR(m_delayTimeHint);
+	Q_CHECK_PTR(m_delayTimeHint);
 	slotChanged(comp->getDelayTime());
 	connect(m_delayTime, SIGNAL(changed(const KSimTime &)), this, SLOT(slotChanged(const KSimTime &)));
 	

@@ -49,11 +49,11 @@ Integer2In1Out::Integer2In1Out(CompContainer * container, const ComponentInfo * 
 	m_inputA = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input A"),
 	                             i18n("Integer", "Input A"));
-	CHECK_PTR(m_inputA);
+	Q_CHECK_PTR(m_inputA);
 	m_inputB = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input B"),
 	                             i18n("Integer", "Input B"));
-	CHECK_PTR(m_inputB);
+	Q_CHECK_PTR(m_inputB);
 }
 
 /*Integer2In1Out::~Integer2In1Out()
@@ -75,7 +75,7 @@ Integer2In1OutView::Integer2In1OutView(Integer2In1Out * comp, eViewType viewType
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 

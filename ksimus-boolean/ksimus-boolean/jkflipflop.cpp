@@ -97,17 +97,17 @@ JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	m_inJ = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("J"),
 	                             i18n("Boolean-Connector JK-FF", "J"));
-	CHECK_PTR(m_inJ);
+	Q_CHECK_PTR(m_inJ);
 
 	m_inK = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("K"),
 	                             i18n("Boolean-Connector JK-FF", "K"));
-	CHECK_PTR(m_inK);
+	Q_CHECK_PTR(m_inK);
 
 	m_inClk = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock"),
 	                             i18n("Boolean-Connector", "Clock"));
-	CHECK_PTR(m_inClk);
+	Q_CHECK_PTR(m_inClk);
 	m_inClk->setEdgeSensitiveChangeEnable(false);
 	
 	getResetInputConnector()->setEdgeSensitive(false,true);
@@ -140,7 +140,7 @@ ComponentPropertyBaseWidget * JKFlipFlop::createGeneralProperty(QWidget *parent)
 {
 	JKFlipFlopPropertyGeneralWidget * wid;
 	wid = new JKFlipFlopPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -283,7 +283,7 @@ JKFlipFlopView::JKFlipFlopView(JKFlipFlop * comp, eViewType viewType, const char
 		new ConnectorLabel(getJKFF()->getClockInputConnector(), QString::fromLatin1("C"));
 	
 		m_layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 		
 		m_layout->getLeft()->addSpace(1);
 		m_layout->getLeft()->addConnector(getJKFF()->getSetInputConnector());
@@ -330,10 +330,10 @@ JKFlipFlopPropertyGeneralWidget::JKFlipFlopPropertyGeneralWidget(JKFlipFlop * co
 	QString str;	
 
 	lab = new QLabel(i18n("Boolean", "Master Slave:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_masterSlave = new KSimBooleanBox(getJKFF()->isMasterSlaveEnabled(), this);
-	CHECK_PTR(m_masterSlave);
+	Q_CHECK_PTR(m_masterSlave);
 	
 	m_masterSlave->setTrueText(i18n("Boolean", "Enabled"));
 	m_masterSlave->setFalseText(i18n("Boolean", "Disabled"));

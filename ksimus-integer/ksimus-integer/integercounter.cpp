@@ -69,7 +69,7 @@ IntegerCounterBase::IntegerCounterBase(CompContainer * container, const Componen
 	m_inClear = new ConnectorBoolInEdge(this,
 	                                    QString::fromLatin1("Reset"),
 	                                    i18n("Integer-Connector", "Reset"));
-	CHECK_PTR(m_inClear);
+	Q_CHECK_PTR(m_inClear);
 	m_inClear->setEdgeSensitive(false,true);
 	// make optional
 	new OptionalConnector(m_inClear,
@@ -79,12 +79,12 @@ IntegerCounterBase::IntegerCounterBase(CompContainer * container, const Componen
 	m_output = new ConnectorIntegerOut(this,
 	                                   QString::fromLatin1("Output"),
 	                                   i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 
 	m_outputMin = new ConnectorBoolOut(this,
 	                                    QString::fromLatin1("Count Min"),
 	                                    i18n("Integer-Connector", "Count Min"));
-	CHECK_PTR(m_outputMin);
+	Q_CHECK_PTR(m_outputMin);
 	// make optional
 	new OptionalConnector(m_outputMin,
 	                      QString::fromLatin1("Count Minimum Output"),
@@ -93,7 +93,7 @@ IntegerCounterBase::IntegerCounterBase(CompContainer * container, const Componen
 	m_outputMax = new ConnectorBoolOut(this,
 	                                    QString::fromLatin1("Count Max"),
 	                                    i18n("Integer-Connector", "Count Max"));
-	CHECK_PTR(m_outputMax);
+	Q_CHECK_PTR(m_outputMax);
 	// make optional
 	new OptionalConnector(m_outputMax,
 	                      QString::fromLatin1("Count Maximum Output"),
@@ -180,7 +180,7 @@ void IntegerCounterBase::initPropertyDialog(ComponentPropertyDialog * dialog)
 	IntegerCounterBasePropertyWidget * wid;
 	page = dialog->addVBoxPage(i18n("Integer", "Counter"));
 	wid = new IntegerCounterBasePropertyWidget(this, page, "Counter");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	dialog->connectSlots(wid);
 }
 
@@ -195,7 +195,7 @@ IntegerCounterBaseView::IntegerCounterBaseView(IntegerCounterBase * comp, eViewT
 	{
 		enableRotation(true);
 		m_layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 		
 		m_layout->setMinSize(5,5);
 	
@@ -231,9 +231,9 @@ IntegerCounterBasePropertyWidget::IntegerCounterBasePropertyWidget(IntegerCounte
 	
 	// Reset value
 	lab = new QLabel(i18n("Integer", "Reset value:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_resetValue = new KSimBaseIntEdit(getCounterBase()->getResetCount(), this, "Reset value");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	str = i18n("Integer", "Sets the reset counter value.\nThis value is also used if the counter is reseted.");
 	addToolTip(str, lab, m_resetValue);
 	str += m_resetValue->getWhatsThisHelp();
@@ -242,9 +242,9 @@ IntegerCounterBasePropertyWidget::IntegerCounterBasePropertyWidget(IntegerCounte
 
 	// Maximum count
 	lab = new QLabel(i18n("Integer", "Maximum:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_maxValue = new KSimBaseIntEdit(getCounterBase()->getMaxCount(), this, "Maximum");
-	CHECK_PTR(m_maxValue);
+	Q_CHECK_PTR(m_maxValue);
 	str = i18n("Integer", "Sets the maximum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_maxValue);
 	str += m_maxValue->getWhatsThisHelp();
@@ -253,9 +253,9 @@ IntegerCounterBasePropertyWidget::IntegerCounterBasePropertyWidget(IntegerCounte
 
 	// Minimum count
 	lab = new QLabel(i18n("Integer", "Minimum:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_minValue = new KSimBaseIntEdit(getCounterBase()->getMinCount(), this, "Minimum");
-	CHECK_PTR(m_minValue);
+	Q_CHECK_PTR(m_minValue);
 	str = i18n("Integer", "Sets the minimum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_minValue);
 	str += m_minValue->getWhatsThisHelp();
@@ -264,9 +264,9 @@ IntegerCounterBasePropertyWidget::IntegerCounterBasePropertyWidget(IntegerCounte
 
 	// Swap a round
 	QHBox * wrapBox = newRowHBox("wrapBox");
-	CHECK_PTR(wrapBox);
+	Q_CHECK_PTR(wrapBox);
 	m_wrapping = new QCheckBox(i18n("Integer", "Wrap around"), wrapBox, "m_wrapping");
-	CHECK_PTR(m_wrapping);
+	Q_CHECK_PTR(m_wrapping);
 	m_wrapping->setChecked(getCounterBase()->isWrappingEnabled());
 	str = i18n("Enables the wrap around function.\n"
 	           "If enabled it is possible to step from 'Minimum value' to 'Maximum value' and vice versa.");
@@ -348,7 +348,7 @@ IntegerCounterClkUpClkDown::IntegerCounterClkUpClkDown(CompContainer * container
 	m_inClkUp = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock Up"),
 	                             i18n("Integer-Connector", "Clock Up"));
-	CHECK_PTR(m_inClkUp);
+	Q_CHECK_PTR(m_inClkUp);
 	m_inClkUp->setEdgeSensitiveChangeEnable(false);
 	// make optional
 	new OptionalConnector(true, m_inClkUp,
@@ -358,7 +358,7 @@ IntegerCounterClkUpClkDown::IntegerCounterClkUpClkDown(CompContainer * container
 	m_inClkDown = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock Down"),
 	                             i18n("Integer-Connector", "Clock Down"));
-	CHECK_PTR(m_inClkDown);
+	Q_CHECK_PTR(m_inClkDown);
 	m_inClkDown->setEdgeSensitiveChangeEnable(false);
 	// make optional
 	new OptionalConnector(true, m_inClkDown,
@@ -478,12 +478,12 @@ IntegerCounterClkUpClkDownLoad::IntegerCounterClkUpClkDownLoad(CompContainer * c
 	m_inLoadEnable = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Load Enable"),
 	                             i18n("Integer-Connector", "Load Enable"));
-	CHECK_PTR(m_inLoadEnable);
+	Q_CHECK_PTR(m_inLoadEnable);
 
 	m_inCounter = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Load Input"),
 	                             i18n("Integer-Connector", "Load Input"));
-	CHECK_PTR(m_inCounter);
+	Q_CHECK_PTR(m_inCounter);
 
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -608,7 +608,7 @@ IntegerCounterClkDir::IntegerCounterClkDir(CompContainer * container, const Comp
 	m_inDir = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Direction"),
 	                             i18n("Integer-Connector", "Direction"));
-	CHECK_PTR(m_inDir);
+	Q_CHECK_PTR(m_inDir);
 	// make optional
 	new OptionalConnector(true, m_inDir,
 	                      QString::fromLatin1("Direction"),
@@ -617,7 +617,7 @@ IntegerCounterClkDir::IntegerCounterClkDir(CompContainer * container, const Comp
 	m_inClk = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Clock"),
 	                             i18n("Integer-Connector", "Clock"));
-	CHECK_PTR(m_inClk);
+	Q_CHECK_PTR(m_inClk);
 	m_inClk->setEdgeSensitiveChangeEnable(false);
 
 	// Initializes the sheet view
@@ -725,12 +725,12 @@ IntegerCounterClkDirLoad::IntegerCounterClkDirLoad(CompContainer * container, co
 	m_inLoadEnable = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Load Enable"),
 	                             i18n("Integer-Connector", "Load Enable"));
-	CHECK_PTR(m_inLoadEnable);
+	Q_CHECK_PTR(m_inLoadEnable);
 
 	m_inCounter = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Load Input"),
 	                             i18n("Integer-Connector", "Load Input"));
-	CHECK_PTR(m_inCounter);
+	Q_CHECK_PTR(m_inCounter);
 
 	// Initializes the sheet view
 	if (getSheetMap())

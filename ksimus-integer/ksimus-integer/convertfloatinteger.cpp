@@ -90,12 +90,12 @@ ConvertFloatInteger::ConvertFloatInteger(CompContainer * container, const Compon
 	m_input = new ConnectorFloatIn(this,
 	                               QString::fromLatin1("Input"),
 	                               i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_output = new ConnectorIntegerOut(this,
 	                                QString::fromLatin1("Output"),
 	                                i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -187,7 +187,7 @@ ComponentPropertyBaseWidget * ConvertFloatInteger::createGeneralProperty(QWidget
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -245,10 +245,10 @@ ConvertFloatInteger::PropertyGeneralWidget::PropertyGeneralWidget(ConvertFloatIn
 	QString tip;
 	
 	m_roundTypeLabel = new QLabel(i18n("Integer", "Rounding Type: "), this, "m_roundTypeLabel");
-	CHECK_PTR(m_roundTypeLabel);
+	Q_CHECK_PTR(m_roundTypeLabel);
 
 	m_roundType = new QComboBox(this, "m_roundType");
-	CHECK_PTR(m_roundType);
+	Q_CHECK_PTR(m_roundType);
 	m_roundType->insertItem(i18n("Integer", "Round"), (int)ConvertFloatInteger::eRound);
 	m_roundType->insertItem(i18n("Integer", "Floor"), (int)ConvertFloatInteger::eFloor);
 	m_roundType->insertItem(i18n("Integer", "Ceil"),  (int)ConvertFloatInteger::eCeil);

@@ -56,7 +56,7 @@ BoolTristate1Out::BoolTristate1Out(CompContainer * container, const ComponentInf
 	m_out = new ConnectorBoolTristate(this,
 	                                  QString::fromLatin1("Output"),
 	                                  i18n("Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 }
 
@@ -130,7 +130,7 @@ ComponentPropertyBaseWidget * BoolTristate1Out::createGeneralProperty(QWidget *p
 {
 	BoolTristate1OutPropertyGeneralWidget * wid;
 	wid = new BoolTristate1OutPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -148,7 +148,7 @@ BoolTristate1OutView::BoolTristate1OutView(BoolTristate1Out * comp, eViewType vi
 	{
 		enableRotation(true);
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 
 		layout->getRight()->addStretch(1);
 		layout->getRight()->addConnector(getBoolTristate1Out()->getOutputConnector());
@@ -172,10 +172,10 @@ BoolTristate1OutPropertyGeneralWidget::BoolTristate1OutPropertyGeneralWidget(Boo
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetStateLabel = new QLabel(i18n("Reset State: "), this, "ResetStateLabel");
-	CHECK_PTR(m_resetStateLabel);
+	Q_CHECK_PTR(m_resetStateLabel);
 	
 	m_resetState = new KSimBoolTristateBox(getBoolTristate1Out()->getResetState(), this, "ResetState");
-	CHECK_PTR(m_resetState);
+	Q_CHECK_PTR(m_resetState);
 	
 	QString tip(i18n("Changes the reset state of the component to true, false or inactive."));
 	addToolTip(tip, m_resetStateLabel, m_resetState);
@@ -219,7 +219,7 @@ BoolTristate1Out1Ena::BoolTristate1Out1Ena(CompContainer * container, const Comp
 	m_enableOutput = new ConnectorBoolIn(this,
 	                                     QString::fromLatin1("Enable Output"),
 	                                     i18n("Boolean-Connector", "Enable Output"));
-	CHECK_PTR(m_enableOutput);
+	Q_CHECK_PTR(m_enableOutput);
 }
 
 /*BoolTristate1Out1Ena::~BoolTristate1Out1Ena()
@@ -276,7 +276,7 @@ BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, 
 	{
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getBoolTristate1Out1Ena()->getEnableOutputConnector());
@@ -313,7 +313,7 @@ BoolTristateXIn1Out1Ena::BoolTristateXIn1Out1Ena(CompContainer * container, cons
 	                             i18n("Boolean-Connector", "Input %1"),
 	                             getConnectorBoolInInfo(),
 	                             2, 26);
-	CHECK_PTR(m_inPack);
+	Q_CHECK_PTR(m_inPack);
 	m_inPack->setConnectorCount(2);
 }
 
@@ -331,7 +331,7 @@ BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena
 	{
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector(), 0);

@@ -78,12 +78,12 @@ DFlipFlop::DFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	m_inD = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Data"),
 	                             i18n("Boolean-Connector", "Data"));
-	CHECK_PTR(m_inD);
+	Q_CHECK_PTR(m_inD);
 
 	m_inEna = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable"),
 	                             i18n("Boolean-Connector", "Enable"));
-	CHECK_PTR(m_inEna);
+	Q_CHECK_PTR(m_inEna);
 //	m_inEna->setEdgeSensitiveChangeEnable(false);
 	m_inEna->setEdgeSensitive(false, true);
 	
@@ -151,7 +151,7 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType, const char * 
 		new ConnectorLabel(getDFF()->getDataInputConnector(), QString::fromLatin1("D"));
 	
 		m_layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 		
 		m_layout->getLeft()->addSpace(1);
 		m_layout->getLeft()->addConnector(getDFF()->getSetInputConnector());

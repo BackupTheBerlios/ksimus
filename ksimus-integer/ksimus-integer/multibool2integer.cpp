@@ -79,7 +79,7 @@ MultiBool2Integer::MultiBool2Integer(CompContainer * container, const ComponentI
 	                             i18n("Connector", "Input %1"),
 	                             getConnectorBoolInInfo(),
 	                             MIN_INPUTS, MAX_INPUTS);
-	CHECK_PTR(m_inPack);
+	Q_CHECK_PTR(m_inPack);
 	connect(m_inPack, SIGNAL(signalAddConnector(ConnectorBase *)), this, SLOT(addConn(ConnectorBase *)));
 	m_inPack->setLetter(false);
 	m_inPack->setConnectorCount(DEFAULT_INPUTS);
@@ -118,7 +118,7 @@ ComponentPropertyBaseWidget * MultiBool2Integer::createGeneralProperty(QWidget *
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -178,7 +178,7 @@ MultiBool2Integer::View::View(MultiBool2Integer * comp, eViewType viewType, cons
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(4, 5);
 
@@ -210,10 +210,10 @@ MultiBool2Integer::PropertyGeneralWidget::PropertyGeneralWidget(MultiBool2Intege
 	m_min = QMAX(MIN_INPUTS, comp->getInputConnectorPack()->getNumberOfNotDeletableConnectors());
 
 	m_inputsLabel = new QLabel(i18n("Integer", "Number of inputs:"), this, "m_inputsLabel");
-	CHECK_PTR(m_inputsLabel);
+	Q_CHECK_PTR(m_inputsLabel);
 
 	m_inputs = new KSimSpinBox(m_min, MAX_INPUTS, 1, this, "m_inputs");
-	CHECK_PTR(m_inputs);
+	Q_CHECK_PTR(m_inputs);
 	tip = i18n("Integer", "Changes number of boolean inputs.");
 	addToolTip(tip, m_inputs, m_inputsLabel);
 	addWhatsThis(tip, m_inputs, m_inputsLabel);

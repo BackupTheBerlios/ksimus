@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 // C-Includes
-// TODO #include <float.h>
 
 // QT-Includes
 #include <qlabel.h>
@@ -56,7 +55,7 @@ Integer1Out::Integer1Out(CompContainer * container, const ComponentInfo * ci)
 	m_out = new ConnectorIntegerOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 }
 
@@ -132,7 +131,7 @@ ComponentPropertyBaseWidget * Integer1Out::createGeneralProperty(QWidget *parent
 {
 	Integer1OutPropertyGeneralWidget * wid;
 	wid = new Integer1OutPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -150,7 +149,7 @@ Integer1OutView::Integer1OutView(Integer1Out * comp, eViewType viewType, const Q
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 		
@@ -176,10 +175,10 @@ Integer1OutPropertyGeneralWidget::Integer1OutPropertyGeneralWidget(Integer1Out *
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetValueLabel = new QLabel(i18n("Integer", "Reset value: "), this, "ResetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimBaseIntEdit(this, "ResetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	QString tip(i18n("Integer", "Change the reset value of the component here."));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);

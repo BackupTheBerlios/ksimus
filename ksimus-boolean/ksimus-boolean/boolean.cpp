@@ -117,7 +117,7 @@ static const ComponentInfoList & getDistComponents()
 	{
 		// Initialize
 		pDistComponents = new ComponentInfoList;
-		CHECK_PTR(pDistComponents);
+		Q_CHECK_PTR(pDistComponents);
 
 		// Add your component info here
 		pDistComponents->append(Inverter::getStaticIdentityInfo());
@@ -175,7 +175,7 @@ static const ConnectorInfoList & getDistConnector()
 	{
 		// Initialize
 		pDistConnector = new ConnectorInfoList;
-		CHECK_PTR(pDistConnector);
+		Q_CHECK_PTR(pDistConnector);
 
 		// Add your connector info here
 	}
@@ -202,7 +202,7 @@ static const WirePropertyInfoList & getDistWireProperty()
 	{
 		// Initialize
 		pDistWireProp = new WirePropertyInfoList;
-		CHECK_PTR(pDistWireProp);
+		Q_CHECK_PTR(pDistWireProp);
 
 		// Add your wireproperty info here
 	}
@@ -229,7 +229,7 @@ static const ImplicitConverterInfoList & getDistImplicitConverter()
 	{
 		// Initialize
 		pDistImplicitConverter = new ImplicitConverterInfoList;
-		CHECK_PTR(pDistImplicitConverter);
+		Q_CHECK_PTR(pDistImplicitConverter);
 
 		// Add your implicit converter info here
 		pDistImplicitConverter->append(ImplicitConverterBoolTristate2Bool::getStaticInfo());
@@ -258,7 +258,7 @@ static const KSimIoDeviceInfoList & getDistIoDevice()
 	{
 		// Initialize
 		pDistIoDevice = new KSimIoDeviceInfoList;
-		CHECK_PTR(pDistIoDevice);
+		Q_CHECK_PTR(pDistIoDevice);
 
 		// Add your io device info here
 		pDistIoDevice->append(IoDeviceVirtualBool::getStaticInfo());
@@ -286,7 +286,7 @@ static const KSimIoJoinInfoList & getDistIoJoin()
 	{
 		// Initialize
 		pDistIoJoin = new KSimIoJoinInfoList;
-		CHECK_PTR(pDistIoJoin);
+		Q_CHECK_PTR(pDistIoJoin);
 
 		// Add your io join info here
 	}
@@ -309,19 +309,19 @@ static void initPackage(KLocale * ksimusLocale)
 {
 
 //	KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
-	ASSERT(packageInstance == (KInstance *)0);
-	ASSERT(packageInfo == (const PackageInfo *)0);
-	ASSERT(ksimusLocale != (KLocale *)0);
+	Q_ASSERT(packageInstance == (KInstance *)0);
+	Q_ASSERT(packageInfo == (const PackageInfo *)0);
+	Q_ASSERT(ksimusLocale != (KLocale *)0);
 
 	packageInstance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
-	CHECK_PTR(packageInstance);
+	Q_CHECK_PTR(packageInstance);
 	// add translation
 	ksimusLocale->insertCatalogue(packageInstance->instanceName());
 
 	packageInfo = new PackageInfo( (const char *)KSIMUS_PACKAGE_NAME,
 	                               packageInstance,
 	                               (const char *)VERSION);      // version from config.h
-	CHECK_PTR(packageInfo);
+	Q_CHECK_PTR(packageInfo);
 
 	// Add info lists
 	#ifdef EXPORT_COMPONENT_INFO_LIST

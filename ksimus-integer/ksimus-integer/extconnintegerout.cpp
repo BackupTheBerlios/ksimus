@@ -55,14 +55,14 @@ ExtConnIntegerOut::ExtConnIntegerOut(CompContainer * container, const ComponentI
 	                             QString::fromLatin1("Output"),
 	                             i18n("Integer-Connector", "Output"),
 	                             QPoint(4,1));
-	CHECK_PTR(out);
+	Q_CHECK_PTR(out);
 	setExternalConn(out);
 	
 	in = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Integer-Connector", "Input"),
 	                             QPoint(0,1));
-	CHECK_PTR(in);
+	Q_CHECK_PTR(in);
 	setInternalConn(in);
 
 }

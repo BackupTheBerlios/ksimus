@@ -91,7 +91,7 @@ MultiDLatch::MultiDLatch(CompContainer * container, const ComponentInfo * ci)
 	m_inputReset = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Reset"),
 	                             i18n("Boolean-Connector", "Reset"));
-	CHECK_PTR(m_inputReset);
+	Q_CHECK_PTR(m_inputReset);
 	m_inputReset->setEdgeSensitive(false,true);
 	// make Reset optional
 	new OptionalConnector(m_inputReset,
@@ -101,14 +101,14 @@ MultiDLatch::MultiDLatch(CompContainer * container, const ComponentInfo * ci)
 	m_inputEnable = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable"),
 	                             i18n("Boolean-Connector", "Enable"));
-	CHECK_PTR(m_inputEnable);
+	Q_CHECK_PTR(m_inputEnable);
 	
 	m_inputPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Boolean-Connector", "Input %1"),
 	                             getConnectorBoolInInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_inputPack);
+	Q_CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -118,7 +118,7 @@ MultiDLatch::MultiDLatch(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Boolean-Connector", "Output %1"),
 	                             getConnectorBoolOutInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_outputPack);
+	Q_CHECK_PTR(m_outputPack);
 	m_outputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_outputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -143,7 +143,7 @@ void MultiDLatch::calculate()
 	}
 	else if (getInputEnable()->getInput())
 	{
-		QListIterator<ConnectorBase> it(*getInputPack()->getConnList());
+		QPtrListIterator<ConnectorBase> it(*getInputPack()->getConnList());
 		int i = 0;
 		while(it.current())
 		{
@@ -156,7 +156,7 @@ void MultiDLatch::calculate()
 
 void MultiDLatch::setOutput() const
 {
-	QListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
+	QPtrListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
 	int i = 0;
 	while(it.current())
 	{
@@ -225,7 +225,7 @@ ComponentPropertyBaseWidget * MultiDLatch::createGeneralProperty(QWidget *parent
 {
 	MultiDLatchPropertyGeneralWidget * wid;
 	wid = new MultiDLatchPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -302,7 +302,7 @@ MultiDLatchView::MultiDLatchView(MultiDLatch * comp, eViewType viewType, const c
 	{
 		enableRotation(true);
 		m_layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 		
 		m_layout->getCtrlBlock()->getLeft()->addSpace(1);
 		m_layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getInputReset());
@@ -337,10 +337,10 @@ MultiDLatchPropertyGeneralWidget::MultiDLatchPropertyGeneralWidget(MultiDLatch *
 
 	
 	m_channelsLabel = new QLabel(i18n("Boolean", "Number of latches: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new KSimSpinBox(m_min, MAX_CHANNELS, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("Boolean", "Change number of latches here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
@@ -348,10 +348,10 @@ MultiDLatchPropertyGeneralWidget::MultiDLatchPropertyGeneralWidget(MultiDLatch *
 	
 	
 	m_resetValueLabel = new QLabel(i18n("Boolean", "Reset value: "), this, "m_resetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimBooleanBox(this, "m_resetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	tip = i18n("Boolean", "Set the reset value of the latches here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);

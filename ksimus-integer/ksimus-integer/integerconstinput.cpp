@@ -125,7 +125,7 @@ ComponentPropertyBaseWidget * IntegerConstInput::createGeneralProperty(QWidget *
 {
 	IntegerConstInputPropertyGeneralWidget * wid;
 	wid = new IntegerConstInputPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -199,7 +199,7 @@ IntegerConstInputWidgetView::IntegerConstInputWidgetView(IntegerConstInputView *
 	setFrameEnabled(true);
 	
 	m_label = new QLabel(this);
-	CHECK_PTR(m_label);
+	Q_CHECK_PTR(m_label);
 	m_label->setAlignment(AlignRight | AlignVCenter);
 	m_label->setText(getIntegerConstInput()->getResetValue().text());
 	

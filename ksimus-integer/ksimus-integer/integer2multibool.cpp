@@ -82,14 +82,14 @@ Integer2MultiBool::Integer2MultiBool(CompContainer * container, const ComponentI
 	m_input = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_outPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("Connector", "Output %1"),
 	                             getConnectorBoolOutInfo(),
 	                             MIN_OUTPUTS, MAX_OUTPUTS);
-	CHECK_PTR(m_outPack);
+	Q_CHECK_PTR(m_outPack);
 	connect(m_outPack, SIGNAL(signalAddConnector(ConnectorBase *)), this, SLOT(addConn(ConnectorBase *)));
 	m_outPack->setLetter(false);
 	m_outPack->setConnectorCount(DEFAULT_OUTPUTS);
@@ -158,7 +158,7 @@ ComponentPropertyBaseWidget * Integer2MultiBool::createGeneralProperty(QWidget *
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -229,7 +229,7 @@ Integer2MultiBool::View::View(Integer2MultiBool * comp, eViewType viewType, cons
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(4, 5);
 
@@ -255,10 +255,10 @@ Integer2MultiBool::PropertyGeneralWidget::PropertyGeneralWidget(Integer2MultiBoo
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	m_resetValueLabel = new QLabel(i18n("Integer", "Reset value: "), this, "ResetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimBaseIntEdit(this, "ResetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	QString tip(i18n("Integer", "Change the reset value of the component here."));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
@@ -267,10 +267,10 @@ Integer2MultiBool::PropertyGeneralWidget::PropertyGeneralWidget(Integer2MultiBoo
 	m_min = QMAX(MIN_OUTPUTS, comp->getOutputConnectorPack()->getNumberOfNotDeletableConnectors());
 
 	m_outputsLabel = new QLabel(i18n("Integer", "Number of outputs:"), this, "m_outputsLabel");
-	CHECK_PTR(m_outputsLabel);
+	Q_CHECK_PTR(m_outputsLabel);
 
 	m_outputs = new KSimSpinBox(m_min, MAX_OUTPUTS, 1, this, "m_outputs");
-	CHECK_PTR(m_outputs);
+	Q_CHECK_PTR(m_outputs);
 	tip = i18n("Integer", "Changes number of boolean outputs.");
 	addToolTip(tip, m_outputs, m_outputsLabel);
 	addWhatsThis(tip, m_outputs, m_outputsLabel);

@@ -200,7 +200,7 @@ ComponentPropertyBaseWidget * MonoFlop::createGeneralProperty(QWidget *parent)
 {
 	MonoFlopPropertyGeneralWidget * wid;
 	wid = new MonoFlopPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -222,7 +222,7 @@ MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType, const char * nam
 		new ConnectorLabel(getMF()->getResetInputConnector(), QString::fromLatin1("R"));
 	
 		m_layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(m_layout);
+		Q_CHECK_PTR(m_layout);
 		
 		m_layout->getLeft()->addSpace(1);
 		m_layout->getLeft()->addConnector(getMF()->getSetInputConnector());
@@ -268,10 +268,10 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	QString str;	
 
 	lab = new QLabel(i18n("Boolean", "Retrigger:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_retrigger = new KSimBooleanBox(comp->getRetrigger(), this);
-	CHECK_PTR(m_retrigger);
+	Q_CHECK_PTR(m_retrigger);
 	
 	m_retrigger->setTrueText(i18n("Boolean", "On"));
 	m_retrigger->setFalseText(i18n("Boolean", "Off"));
@@ -282,10 +282,10 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	lab->setBuddy(m_retrigger);
 	
 	lab = new QLabel(i18n("Boolean", "Time:"), this);
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	
 	m_highTime = new KSimTimeSpinBox(comp->getHighTime(), this);
-	CHECK_PTR(m_highTime);
+	Q_CHECK_PTR(m_highTime);
 	
 	str = i18n("Boolean", "Set here the duration.");
 	addToolTip(str, lab, m_highTime);

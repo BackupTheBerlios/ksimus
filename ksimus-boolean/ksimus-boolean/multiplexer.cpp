@@ -96,7 +96,7 @@ Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	m_latchOutput = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable Latch Output"),
 	                             i18n("Boolean-Connector", "Enable Latch Output"));
-	CHECK_PTR(m_latchOutput);
+	Q_CHECK_PTR(m_latchOutput);
 	m_latchOutput->setEdgeSensitive(false,true);
 	// make Output Latch optional
 	new OptionalConnector(m_latchOutput,
@@ -106,7 +106,7 @@ Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	m_latchAddress = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable Latch Address"),
 	                             i18n("Boolean-Connector", "Enable Latch Address"));
-	CHECK_PTR(m_latchAddress);
+	Q_CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
 	// make Address Latch optional
 	new OptionalConnector(m_latchAddress,
@@ -118,7 +118,7 @@ Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Input %1"),
 	                             getConnectorBoolInInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_inputPack);
+	Q_CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -128,7 +128,7 @@ Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Address %1"),
 	                             getConnectorBoolInInfo(),
 	                             MIN_ADRESS, MAX_ADRESS);
-	CHECK_PTR(m_addressPack);
+	Q_CHECK_PTR(m_addressPack);
 	m_addressPack->setConnectorCount(DEFAULT_ADRESS);
 	m_addressPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -177,7 +177,7 @@ void Multiplexer::calculate()
 		if (m_addressLatch < getInputPack()->getConnectorCount())
 		{
 			ConnectorBoolIn * in = (ConnectorBoolIn *)getInputPack()->getConnList()->at(m_addressLatch);
-			ASSERT(in != 0);
+			Q_ASSERT(in != 0);
 			setState(in->getInput());
 		}
 		else
@@ -215,7 +215,7 @@ ComponentPropertyBaseWidget * Multiplexer::createGeneralProperty(QWidget *parent
 {
 	MultiplexerPropertyGeneralWidget * wid;
 	wid = new MultiplexerPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -249,7 +249,7 @@ void Multiplexer::setChannelCount(int count)
 		getAddressPack()->setConnectorCount(4);
 	else
 	{
-		ASSERT(count <= 16);
+		Q_ASSERT(count <= 16);
 	}
 }
 
@@ -269,7 +269,7 @@ unsigned int Multiplexer::getMinChannelCount() const
 		case 2: i = 3; break;
 		case 3: i = 5; break;
 		case 4: i = 9; break;
-		default: ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
+		default: Q_ASSERT(getAddressPack()->getNumberOfNotDeletableConnectors() <= 4); break;
 	}
 	
 	return QMAX(getInputPack()->getNumberOfNotDeletableConnectors(), i);
@@ -308,7 +308,7 @@ MultiplexerView::MultiplexerView(Multiplexer * comp, eViewType viewType, const c
 	{
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchOutput());
@@ -368,10 +368,10 @@ MultiplexerPropertyGeneralWidget::MultiplexerPropertyGeneralWidget(Multiplexer *
 	QString tip;
 	
 	m_channelsLabel = new QLabel(i18n("Boolean", "Number of channels: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new KSimSpinBox(comp->getMinChannelCount(), MAX_CHANNELS, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("Boolean", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
@@ -379,10 +379,10 @@ MultiplexerPropertyGeneralWidget::MultiplexerPropertyGeneralWidget(Multiplexer *
 	
 
 	m_resetStateLabel = new QLabel(i18n("Boolean", "Reset state: "), this, "m_resetValueLabel");
-	CHECK_PTR(m_resetStateLabel);
+	Q_CHECK_PTR(m_resetStateLabel);
 	
 	m_resetState = new KSimBooleanBox(this, "m_resetValue");
-	CHECK_PTR(m_resetState);
+	Q_CHECK_PTR(m_resetState);
 	tip = i18n("Boolean", "Change the reset state of the channels here.");
 	addToolTip(tip, m_resetState, m_resetStateLabel);
 	addWhatsThis(tip, m_resetState, m_resetStateLabel);

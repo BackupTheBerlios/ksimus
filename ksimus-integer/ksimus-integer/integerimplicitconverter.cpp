@@ -41,7 +41,7 @@ ImplicitConverter * ImplicitConverterInteger2Boolean::create(ConnectorBase * con
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterInteger2Boolean(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 
@@ -77,7 +77,7 @@ ImplicitConverter * ImplicitConverterBoolean2Integer::create(ConnectorBase * con
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterBoolean2Integer(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 
@@ -113,7 +113,7 @@ ImplicitConverter * ImplicitConverterInteger2Float::create(ConnectorBase * conne
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterInteger2Float(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 
@@ -144,7 +144,7 @@ ImplicitConverter * ImplicitConverterFloat2Integer::create(ConnectorBase * conne
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterFloat2Integer(connector);
-	CHECK_PTR(ic);
+	Q_CHECK_PTR(ic);
 	return ic;
 }
 

@@ -278,7 +278,7 @@ ComponentPropertyBaseWidget * IntegerSpinbox::createGeneralProperty(QWidget *par
 {
 	IntegerSpinboxPropertyGeneralWidget * wid;
 	wid = new IntegerSpinboxPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -316,10 +316,10 @@ IntegerSpinboxView::IntegerSpinboxView(IntegerSpinbox * comp, eViewType viewType
 		setMinSize(5*gridX, 3*gridY);
 
 		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		block->getRight()->addStretch(2);
 		block->getRight()->addConnector(comp->getOutputConnector(),0);
@@ -377,7 +377,7 @@ IntegerSpinboxWidgetView::IntegerSpinboxWidgetView(IntegerSpinboxView * cv, QWid
 	:	CompViewHBox(cv,parent,name)
 {
 	m_spinbox = new KSimBaseIntSpinBox(this, "IntegerSpinboxWidgetView m_edit");
-	CHECK_PTR(m_spinbox);
+	Q_CHECK_PTR(m_spinbox);
 	m_spinbox->setMinValue(getIntegerSpinbox()->getMinValue().value());
 	m_spinbox->setMaxValue(getIntegerSpinbox()->getMaxValue().value());
 	m_spinbox->setTrackingEnabled(getIntegerSpinbox()->isTrackingEnabled());
@@ -465,9 +465,9 @@ IntegerSpinboxPropertyGeneralWidget::IntegerSpinboxPropertyGeneralWidget(Integer
 	QLabel * lab;
 
 	lab = new QLabel(i18n("integer", "Line step:"), this, "m_lineStep label");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_lineStep = new KSimBaseIntSpinBox(comp->getLineStep(), 1, 100000, 1, this, "m_lineStep");
-	CHECK_PTR(m_lineStep);
+	Q_CHECK_PTR(m_lineStep);
 	lab->setBuddy(m_lineStep);
 	tip = i18n("The value of the spinbox will be incremented/decremented by the number of line steps if the user press the arrow buttons.");
 	addToolTip(tip, m_lineStep, lab);
@@ -478,7 +478,7 @@ IntegerSpinboxPropertyGeneralWidget::IntegerSpinboxPropertyGeneralWidget(Integer
 	QVBox * lineBox = newRowVBox();
 	
 	m_tracking = new QCheckBox(i18n("Integer", "Value tracking"), lineBox, "m_tracking");
-	CHECK_PTR(m_tracking);
+	Q_CHECK_PTR(m_tracking);
 	tip = i18n("Enables the value tracking.\n"
 	           "If enabled the output will be updated after each inserted digit.\n"
 	           "If disabled the output will be updated after the user press return or select another input field.");
@@ -486,16 +486,16 @@ IntegerSpinboxPropertyGeneralWidget::IntegerSpinboxPropertyGeneralWidget(Integer
 	addWhatsThis(tip, m_tracking);
 	
 	m_wraparound = new QCheckBox(i18n("Integer", "Wrap around"), lineBox, "m_wraparound");
-	CHECK_PTR(m_wraparound);
+	Q_CHECK_PTR(m_wraparound);
 	tip = i18n("Enables the wrap around function.\n"
 	           "If enabled it is possible to step from 'Minimum value' to 'Maximum value' and vice versa.");
 	addToolTip(tip, m_wraparound);
 	addWhatsThis(tip, m_wraparound);
 
 	lab = new QLabel(i18n("integer", "Special value text:"), this, "m_specialValueText label");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_specialValueText = new QLineEdit(comp->getSpecialValueText(), this, "m_specialValueText");
-	CHECK_PTR(m_specialValueText);
+	Q_CHECK_PTR(m_specialValueText);
 	lab->setBuddy(m_specialValueText);
 	tip = i18n("The special value text is shown if the spinbox value is equal to 'Minimum value'.\n"
 	           "An empty text disables the function.");
@@ -503,9 +503,9 @@ IntegerSpinboxPropertyGeneralWidget::IntegerSpinboxPropertyGeneralWidget(Integer
 	addWhatsThis(tip, m_specialValueText, lab);
 
 	lab = new QLabel(i18n("integer", "Prefix text:"), this, "m_prefixText label");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_prefixText = new QLineEdit(comp->getPrefixText(), this, "m_prefixText");
-	CHECK_PTR(m_prefixText);
+	Q_CHECK_PTR(m_prefixText);
 	lab->setBuddy(m_prefixText);
 	tip = i18n("The prefix text is displayed in front of the spinbox value.\n"
 	           "The text does not influence the value.");
@@ -513,9 +513,9 @@ IntegerSpinboxPropertyGeneralWidget::IntegerSpinboxPropertyGeneralWidget(Integer
 	addWhatsThis(tip, m_prefixText, lab);
 
 	lab = new QLabel(i18n("integer", "Suffix text:"), this, "m_suffixText label");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_suffixText = new QLineEdit(comp->getSuffixText(), this, "m_suffixText");
-	CHECK_PTR(m_suffixText);
+	Q_CHECK_PTR(m_suffixText);
 	lab->setBuddy(m_suffixText);
 	tip = i18n("The suffix text is displayed behind of the spinbox value.\n"
 	           "The text does not influence the value.");
@@ -523,9 +523,9 @@ IntegerSpinboxPropertyGeneralWidget::IntegerSpinboxPropertyGeneralWidget(Integer
 	addWhatsThis(tip, m_suffixText, lab);
 
 	lab = new QLabel(i18n("integer", "Constants:"), this, "m_constantList label");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 	m_constantList = new QMultiLineEdit(this, "m_constantList");
-	CHECK_PTR(m_constantList);
+	Q_CHECK_PTR(m_constantList);
 	lab->setBuddy(m_constantList);
 	tip = i18n("Optional constants available by the popup menu during simulation.\n"
 	           "One constant each line. Format: <value> <optional name>.");

@@ -77,7 +77,7 @@ void IntegerMin::calculate()
 {
 	IntegerXIn1Out::calculate();
 	
-	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
+	QPtrListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
 	
 	
 	// Hint: Gate has min 2 inputs !!! No check is required.

@@ -91,7 +91,7 @@ IntegerLatch::IntegerLatch(CompContainer * container, const ComponentInfo * ci)
 	m_inputReset = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Reset"),
 	                             i18n("Integer-Connector", "Reset"));
-	CHECK_PTR(m_inputReset);
+	Q_CHECK_PTR(m_inputReset);
 	m_inputReset->setEdgeSensitive(false,true);
 	// make Reset optional
 	new OptionalConnector(m_inputReset,
@@ -101,14 +101,14 @@ IntegerLatch::IntegerLatch(CompContainer * container, const ComponentInfo * ci)
 	m_inputEnable = new ConnectorBoolInEdge(this,
 	                             QString::fromLatin1("Enable"),
 	                             i18n("Integer-Connector", "Enable"));
-	CHECK_PTR(m_inputEnable);
+	Q_CHECK_PTR(m_inputEnable);
 	
 	m_inputPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Connector", "Input %1"),
 	                             ConnectorIntegerIn::getStaticInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_inputPack);
+	Q_CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -118,7 +118,7 @@ IntegerLatch::IntegerLatch(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("Connector", "Output %1"),
 	                             ConnectorIntegerOut::getStaticInfo(),
 	                             MIN_CHANNELS, MAX_CHANNELS);
-	CHECK_PTR(m_outputPack);
+	Q_CHECK_PTR(m_outputPack);
 	m_outputPack->setConnectorCount(DEFAULT_CHANNELS);
 	m_outputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
@@ -143,7 +143,7 @@ void IntegerLatch::calculate()
 	}
 	else if (getInputEnable()->getInput())
 	{
-		QListIterator<ConnectorBase> it(*getInputPack()->getConnList());
+		QPtrListIterator<ConnectorBase> it(*getInputPack()->getConnList());
 		int i = 0;
 		while(it.current())
 		{
@@ -156,7 +156,7 @@ void IntegerLatch::calculate()
 
 void IntegerLatch::setOutput()
 {
-	QListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
+	QPtrListIterator<ConnectorBase> it(*getOutputPack()->getConnList());
 	int i = 0;
 	while(it.current())
 	{
@@ -225,7 +225,7 @@ ComponentPropertyBaseWidget * IntegerLatch::createGeneralProperty(QWidget *paren
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -303,7 +303,7 @@ IntegerLatch::View::View(IntegerLatch * comp, eViewType viewType, const char * n
 		setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 		enableRotation(true);
 		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 		
 		layout->getCtrlBlock()->getLeft()->addSpace(1);
 		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getInputReset());
@@ -338,10 +338,10 @@ IntegerLatch::PropertyGeneralWidget::PropertyGeneralWidget(IntegerLatch * comp, 
 
 	
 	m_channelsLabel = new QLabel(i18n("Integer", "Number of channels: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new KSimSpinBox(m_min, MAX_CHANNELS, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("Integer", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
@@ -349,10 +349,10 @@ IntegerLatch::PropertyGeneralWidget::PropertyGeneralWidget(IntegerLatch * comp, 
 	
 	
 	m_resetValueLabel = new QLabel(i18n("Integer", "Reset value: "), this, "m_resetValueLabel");
-	CHECK_PTR(m_resetValueLabel);
+	Q_CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimBaseIntEdit(this, "m_resetValue");
-	CHECK_PTR(m_resetValue);
+	Q_CHECK_PTR(m_resetValue);
 	tip = i18n("Integer", "Change the reset value of the channels here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	tip += m_resetValue->getWhatsThisHelp();

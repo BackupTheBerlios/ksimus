@@ -119,7 +119,7 @@ ComponentPropertyBaseWidget * ExtConnBoolTristateBase::createGeneralProperty(QWi
 {
 	ExtConnBoolTristateBasePropertyGeneralWidget * wid;
 	wid = new ExtConnBoolTristateBasePropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -135,10 +135,10 @@ ExtConnBoolTristateBasePropertyGeneralWidget::ExtConnBoolTristateBasePropertyGen
 	QString str;
 
 	QLabel * lab = new QLabel(i18n("Default State:"), this, "m_defaultStateLabel");
-	CHECK_PTR(lab);
+	Q_CHECK_PTR(lab);
 
 	m_defaultState = new KSimBoolTristateBox(this, "m_defaultState");
-	CHECK_PTR(m_defaultState);
+	Q_CHECK_PTR(m_defaultState);
 
 	str = i18n("Sets the default state of the external connector.\n"
 	           "This state is used if the external connector is not connected.");
@@ -209,14 +209,14 @@ ExtConnBoolTristateIn::ExtConnBoolTristateIn(CompContainer * container, const Co
 	                                            QString::fromLatin1("Internal"),
 	                                            i18n("Connector", "Internal"),
 	                                            QPoint(4,1));
-	CHECK_PTR(internal);
+	Q_CHECK_PTR(internal);
 	setInternalConn(internal);
 
 	external = new ConnectorBoolTristateSpecial(this,
 	                                            QString::fromLatin1("External"),
 	                                            i18n("Connector", "External"),
 	                                            QPoint(0,1));
-	CHECK_PTR(external);
+	Q_CHECK_PTR(external);
 	setExternalConn(external);
 	external->setOrientation(CO_LEFT); // is on the left side
 }
@@ -237,7 +237,7 @@ ExtConnBoolTristateOut::ExtConnBoolTristateOut(CompContainer * container, const 
 	                                            QString::fromLatin1("Internal"),
 	                                            i18n("Connector", "Internal"),
 	                                            QPoint(0,1));
-	CHECK_PTR(internal);
+	Q_CHECK_PTR(internal);
 	setInternalConn(internal);
 	internal->setOrientation(CO_LEFT); // is on the left side
 	
@@ -245,7 +245,7 @@ ExtConnBoolTristateOut::ExtConnBoolTristateOut(CompContainer * container, const 
 	                                            QString::fromLatin1("External"),
 	                                            i18n("Connector", "External"),
 	                                            QPoint(4,1));
-	CHECK_PTR(external);
+	Q_CHECK_PTR(external);
 	setExternalConn(external);
 }
 

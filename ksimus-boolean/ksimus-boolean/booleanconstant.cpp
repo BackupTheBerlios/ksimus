@@ -131,7 +131,7 @@ BooleanConstantFalse::BooleanConstantFalse(CompContainer * container, const Comp
 	m_out = new ConnectorBoolOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("Boolean-Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -250,7 +250,7 @@ BooleanConstantTrue::BooleanConstantTrue(CompContainer * container, const Compon
 	m_out = new ConnectorBoolOut(this,
 	                             QString::fromLatin1("Output"),
 	                             i18n("Boolean-Connector", "Output"));
-	CHECK_PTR(m_out);
+	Q_CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
 	if (getSheetMap())

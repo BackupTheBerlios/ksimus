@@ -72,14 +72,14 @@ ExtConnIntegerIn::ExtConnIntegerIn(CompContainer * container, const ComponentInf
 	                              QString::fromLatin1("Output"),
 	                              i18n("Integer-Connector", "Output"),
 	                              QPoint(4,1));
-	CHECK_PTR(out);
+	Q_CHECK_PTR(out);
 	setInternalConn(out);
 	
 	in = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Integer-Connector", "Input"),
 	                             QPoint(0,1));
-	CHECK_PTR(in);
+	Q_CHECK_PTR(in);
 	setExternalConn(in);
 	
 }
@@ -150,7 +150,7 @@ ComponentPropertyBaseWidget * ExtConnIntegerIn::createGeneralProperty(QWidget *p
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -163,10 +163,10 @@ ExtConnIntegerIn::PropertyGeneralWidget::PropertyGeneralWidget(ExtConnIntegerIn 
 	:	ExternalConnectorPropertyGeneralWidget(comp, parent, name)
 {
 	m_defaultValueLabel = new QLabel(i18n("Integer", "Default value:"), this, "m_defaultValueLabel");
-	CHECK_PTR(m_defaultValueLabel);
+	Q_CHECK_PTR(m_defaultValueLabel);
 
 	m_defaultValue = new KSimBaseIntEdit(this, "m_defaultValue");
-	CHECK_PTR(m_defaultValue);
+	Q_CHECK_PTR(m_defaultValue);
 	QString tip(i18n("Integer", "Sets the value state of the external connector.\n"
 	                            "This value is used if the external connector is not connected."));
 	addToolTip(tip, m_defaultValue, m_defaultValueLabel);

@@ -82,7 +82,7 @@ Inverter::Inverter(CompContainer * container, const ComponentInfo * ci)
 	m_input = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Boolean-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 
 	// Initializes the sheet view
 	if (getSheetMap())

@@ -104,7 +104,7 @@ void IoDeviceVirtualBool::setIO(int ioPinID, const void * pValue)
 {
 	if (!pValue)
 	{
-		ASSERT(pValue != (const void *)0);
+		Q_ASSERT(pValue != (const void *)0);
 		return;
 	}
 
@@ -127,7 +127,7 @@ void IoDeviceVirtualBool::getIO(int ioPinID, void * pValue) const
 {
 	if (!pValue)
 	{
-		ASSERT(pValue != (void *)0);
+		Q_ASSERT(pValue != (void *)0);
 		return;
 	}
 
@@ -162,13 +162,13 @@ void IoDeviceVirtualBool::setChannelCount(unsigned int count)
 		KSimIoPin * pin;
 		pin = new KSimIoPin(this, i*2, QString::fromLatin1("Input %1").arg(i),
 		                    QString::fromLatin1("Input %1").arg(i+1));    // TODO: pin names
-		CHECK_PTR(pin);
+		Q_CHECK_PTR(pin);
 		pin->addPinInfo(KSimIoJoinBoolIn::getStaticInfo());
 		addPin(pin);
 
 		pin = new KSimIoPin(this, i*2+1, QString::fromLatin1("Output %1").arg(i),
 		                    QString::fromLatin1("Output %1").arg(i+1));    // TODO: pin names
-		CHECK_PTR(pin);
+		Q_CHECK_PTR(pin);
 		pin->addPinInfo(KSimIoJoinBoolOut::getStaticInfo());
 		addPin(pin);
 	}
@@ -223,7 +223,7 @@ KSimIoDevicePropertyBaseWidget * IoDeviceVirtualBool::createGeneralProperty(QWid
 {
 	IoDeviceVirtualBoolPropertyGeneralWidget * wid;
 	wid = new IoDeviceVirtualBoolPropertyGeneralWidget(this, parent, "IoDeviceVirtualBool General Settings");
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 
 	return wid;
 }
@@ -253,10 +253,10 @@ IoDeviceVirtualBoolPropertyGeneralWidget::IoDeviceVirtualBoolPropertyGeneralWidg
 	QString tip;
 
 	m_channelsLabel = new QLabel(i18n("Boolean", "Number of channels: "), this, "m_channelsLabel");
-	CHECK_PTR(m_channelsLabel);
+	Q_CHECK_PTR(m_channelsLabel);
 
 	m_channels = new KSimSpinBox(device->getMinChannelCount(), MAX_CHANNEL_COUNT, 1, this, "m_channels");
-	CHECK_PTR(m_channels);
+	Q_CHECK_PTR(m_channels);
 	tip = i18n("Boolean", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);

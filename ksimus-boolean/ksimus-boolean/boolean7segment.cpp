@@ -29,7 +29,7 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 
 // Project-Includes
 #include "ksimus/connectorboolin.h"
@@ -93,22 +93,22 @@ Boolean7Segment::Boolean7Segment(CompContainer * container, const ComponentInfo 
 	m_in1 = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input 1"),
 	                             i18n("Boolean-Connector", "Input 1"));
-	CHECK_PTR(m_in1);
+	Q_CHECK_PTR(m_in1);
 	
 	m_in2 = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input 2"),
 	                             i18n("Boolean-Connector", "Input 2"));
-	CHECK_PTR(m_in2);
+	Q_CHECK_PTR(m_in2);
 	
 	m_in4 = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input 4"),
 	                             i18n("Boolean-Connector", "Input 4"));
-	CHECK_PTR(m_in4);
+	Q_CHECK_PTR(m_in4);
 	
 	m_in8 = new ConnectorBoolIn(this,
 	                             QString::fromLatin1("Input 8"),
 	                             i18n("Boolean-Connector", "Input 8"));
-	CHECK_PTR(m_in8);
+	Q_CHECK_PTR(m_in8);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -242,7 +242,7 @@ Boolean7SegmentWidgetView::Boolean7SegmentWidgetView(Boolean7SegmentView * cv, Q
 	:	CompViewHBox(cv,parent,name)
 {
 	m_lcd = new QLCDNumber(1, this);
-	CHECK_PTR(m_lcd);
+	Q_CHECK_PTR(m_lcd);
 	m_lcd->setMode(QLCDNumber::Hex);
 	m_lcd->setSegmentStyle(QLCDNumber::Flat);
 	m_lcd->setFrameStyle(QFrame::NoFrame);

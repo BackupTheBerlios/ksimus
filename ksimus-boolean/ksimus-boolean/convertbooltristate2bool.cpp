@@ -97,7 +97,7 @@ ConvertBoolTristate2Bool::ConvertBoolTristate2Bool(CompContainer * container, co
 	                           QString::fromLatin1("Input"),
 	                           i18n("Connector", "Input"),
 	                           QPoint(0,2));
-	CHECK_PTR(m_connIn);
+	Q_CHECK_PTR(m_connIn);
 	m_connIn->setOrientation(CO_LEFT); // is on the left side
 	
 	m_connDataOut = new ConnectorBoolOut(this,
@@ -105,7 +105,7 @@ ConvertBoolTristate2Bool::ConvertBoolTristate2Bool(CompContainer * container, co
 	                           i18n("Connector", "Data Output"),
 	                           QString::fromLatin1("D"),
 	                           QPoint(4,3));
-	CHECK_PTR(m_connDataOut);
+	Q_CHECK_PTR(m_connDataOut);
 	
 	
 	m_connActiveOut = new ConnectorBoolOut(this,
@@ -113,7 +113,7 @@ ConvertBoolTristate2Bool::ConvertBoolTristate2Bool(CompContainer * container, co
 	                           i18n("Connector", "Wire active"),
 	                           QString::fromLatin1("E"),
 	                           QPoint(4,1));
-	CHECK_PTR(m_connActiveOut);
+	Q_CHECK_PTR(m_connActiveOut);
 	
 	
 	// Initializes the sheet view

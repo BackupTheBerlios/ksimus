@@ -83,12 +83,12 @@ ConvertIntegerBool::ConvertIntegerBool(CompContainer * container, const Componen
 	m_input = new ConnectorIntegerIn(this,
 	                               QString::fromLatin1("Input"),
 	                               i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 	
 	m_output = new ConnectorBoolOut(this,
 	                                QString::fromLatin1("Output"),
 	                                i18n("Integer-Connector", "Output"));
-	CHECK_PTR(m_output);
+	Q_CHECK_PTR(m_output);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -207,7 +207,7 @@ ComponentPropertyBaseWidget * ConvertIntegerBool::createGeneralProperty(QWidget 
 {
 	PropertyGeneralWidget * wid;
 	wid = new PropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -265,10 +265,10 @@ ConvertIntegerBool::PropertyGeneralWidget::PropertyGeneralWidget(ConvertIntegerB
 	QString tip;
 	
 	m_trueThresholdLabel = new QLabel(i18n("Integer", "True Threshold: "), this, "m_trueThresholdLabel");
-	CHECK_PTR(m_trueThresholdLabel);
+	Q_CHECK_PTR(m_trueThresholdLabel);
 	
 	m_trueThreshold = new KSimBaseIntEdit(this, "m_trueThreshold");
-	CHECK_PTR(m_trueThreshold);
+	Q_CHECK_PTR(m_trueThreshold);
 	tip = i18n("Integer", "Sets the threshold where the converter switch to true.");
 	addToolTip(tip, m_trueThreshold, m_trueThresholdLabel);
 	addWhatsThis(tip, m_trueThreshold, m_trueThresholdLabel);
@@ -276,10 +276,10 @@ ConvertIntegerBool::PropertyGeneralWidget::PropertyGeneralWidget(ConvertIntegerB
 
 
 	m_falseThresholdLabel = new QLabel(i18n("Integer", "False Threshold: "), this, "m_falseThresholdLabel");
-	CHECK_PTR(m_falseThresholdLabel);
+	Q_CHECK_PTR(m_falseThresholdLabel);
 
 	m_falseThreshold = new KSimBaseIntEdit(this, "m_falseThreshold");
-	CHECK_PTR(m_falseThreshold);
+	Q_CHECK_PTR(m_falseThreshold);
 	tip = i18n("Integer", "Sets the threshold where the converter switch to false.");
 	addToolTip(tip, m_falseThreshold, m_falseThresholdLabel);
 	addWhatsThis(tip, m_falseThreshold, m_falseThresholdLabel);

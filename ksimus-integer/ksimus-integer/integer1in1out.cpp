@@ -49,7 +49,7 @@ Integer1In1Out::Integer1In1Out(CompContainer * container, const ComponentInfo * 
 	m_input = new ConnectorIntegerIn(this,
 	                             QString::fromLatin1("Input"),
 	                             i18n("Integer-Connector", "Input"));
-	CHECK_PTR(m_input);
+	Q_CHECK_PTR(m_input);
 }
 
 /*Integer1In1Out::~Integer1In1Out()
@@ -71,7 +71,7 @@ Integer1In1OutView::Integer1In1OutView(Integer1In1Out * comp, eViewType viewType
 	if (viewType == SHEET_VIEW)
 	{
 		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(layout);
+		Q_CHECK_PTR(layout);
 	
 		layout->setMinSize(3, 5);
 
