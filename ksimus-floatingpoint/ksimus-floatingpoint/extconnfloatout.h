@@ -26,7 +26,7 @@ class ConnectorFloatIn;
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo ExtConnFloatOutInfo;
+const ComponentInfo * getExtConnFloatOutInfo();
 
 
 /**A external floating point output connector

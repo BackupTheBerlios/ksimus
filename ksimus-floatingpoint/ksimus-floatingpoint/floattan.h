@@ -34,8 +34,8 @@ namespace KSimLibFloatingPoint
 
 // Forward declaration
 
-extern const ComponentInfo FloatTanInfo;
-extern const ComponentInfo FloatATanInfo;
+const ComponentInfo * getFloatTanInfo();
+const ComponentInfo * getFloatATanInfo();
 
 
 //###############################################################

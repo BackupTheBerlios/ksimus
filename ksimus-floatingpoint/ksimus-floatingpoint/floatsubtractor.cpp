@@ -41,13 +41,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatSubtractor(container, ci);
 }
 
-const ComponentInfo FloatSubtractorInfo(I18N_NOOP("Floating Point Subtractor"),
-                                        I18N_NOOP("Floating Point/Arithmetic/Subtractor"),
-                                        QString::null,
-                                        VA_SHEETVIEW,
-                                        create,
-                                        QString::null,
-                                        "component-float-arithmetic-sub");
+const ComponentInfo * getFloatSubtractorInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Subtractor"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Subtractor"),
+	                                i18n("Component", "Floating Point/Arithmetic/Subtractor"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-sub"));
+	return &Info;
+}
 
 
 
@@ -79,8 +84,8 @@ FloatSubtractor::FloatSubtractor(CompContainer * container, const ComponentInfo 
 		new FloatSubtractorView(this, SHEET_VIEW);
 	}
 
-	getInputA()->setName(i18n("Minuend"));
-	getInputB()->setName(i18n("Subtrahend"));
+	getInputA()->setName(i18n("FloatingPoint", "Minuend"));
+	getInputB()->setName(i18n("FloatingPoint", "Subtrahend"));
 	
 	getAction().disable(KSimAction::UPDATEVIEW);
 }

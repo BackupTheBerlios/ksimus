@@ -38,11 +38,11 @@ class QComboBox;
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo ConditionalLesserInfo;
-extern const ComponentInfo ConditionalLesserEqualInfo;
-extern const ComponentInfo ConditionalEqualInfo;
-extern const ComponentInfo ConditionalLargerEqualInfo;
-extern const ComponentInfo ConditionalLargerInfo;
+const ComponentInfo * getConditionalLesserInfo();
+const ComponentInfo * getConditionalLesserEqualInfo();
+const ComponentInfo * getConditionalEqualInfo();
+const ComponentInfo * getConditionalLargerEqualInfo();
+const ComponentInfo * getConditionalLargerInfo();
 
 enum eConditionalType { eLesser, eLesserEqual, eEqual, eLargerEqual, eLarger };
 

@@ -38,7 +38,7 @@ class KSimDoubleEdit;
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo ConvertFloatBoolInfo;
+const ComponentInfo * getConvertFloatBoolInfo();
 
 
 //###############################################################

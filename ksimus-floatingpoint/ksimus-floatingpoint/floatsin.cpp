@@ -42,13 +42,18 @@ static Component * createSin(CompContainer * container, const ComponentInfo * ci
 	return new FloatSin(container, ci);
 }
 
-const ComponentInfo FloatSinInfo(I18N_NOOP("Floating Point sin(x)"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Trigonometric/sin(x)"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 createSin,
-                                 QString::null,
-                                 "component-float-trigonometric-sin");
+const ComponentInfo * getFloatSinInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point sin(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/sin(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/sin(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createSin,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-sin"));
+	return &Info;
+}
 
 
 static Component * createASin(CompContainer * container, const ComponentInfo * ci)
@@ -56,13 +61,18 @@ static Component * createASin(CompContainer * container, const ComponentInfo * c
 	return new FloatASin(container, ci);
 }
 
-const ComponentInfo FloatASinInfo(I18N_NOOP("Floating Point asin(x)"),
-                                  I18N_NOOP("Floating Point/Arithmetic/Trigonometric/asin(x)"),
-                                  QString::null,
-                                  VA_SHEETVIEW,
-                                  createASin,
-                                  QString::null,
-                                  "component-float-trigonometric-asin");
+const ComponentInfo * getFloatASinInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point asin(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/asin(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/asin(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createASin,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-asin"));
+	return &Info;
+}
 
 
 

@@ -41,13 +41,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatAdd(container, ci);
 }
 
-const ComponentInfo FloatAddInfo(I18N_NOOP("Floating Point Adder"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Adder"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 create,
-                                 QString::null,
-                                 "component-float-arithmetic-add");
+const ComponentInfo * getFloatAddInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Adder"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Adder"),
+	                                i18n("Component", "Floating Point/Arithmetic/Adder"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-add"));
+	return &Info;
+}
 
 
 
@@ -79,7 +84,7 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 		new FloatAddView(this, SHEET_VIEW);
 	}
 
-	getInputConnectorPack()->setConnectorName(i18n("Summand %1"));
+	getInputConnectorPack()->setConnectorName(i18n("FloatingPoint", "Summand %1"));
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

@@ -53,14 +53,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new ConvertFloatBool(container, ci);
 }
 
-const ComponentInfo ConvertFloatBoolInfo(
-                     I18N_NOOP("Converter Floating Point to Boolean"),
-                     I18N_NOOP("Converter/Float to Boolean"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-converter-float-bool");
+const ComponentInfo * getConvertFloatBoolInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Converter Floating Point to Boolean"),
+	                                QString::fromLatin1("Converter/Float to Boolean"),
+	                                i18n("Component", "Converter/Float to Boolean"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-converter-float-bool"));
+	return &Info;
+}
 
 
 //###############################################################
@@ -73,7 +77,9 @@ ConvertFloatBool::ConvertFloatBool(CompContainer * container, const ComponentInf
 		m_trueThreshold(DEFAULT_TRUE_THRESHOLD)
 	
 {
-	m_input = new ConnectorFloatIn (this, I18N_NOOP("Input"));
+	m_input = new ConnectorFloatIn(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("FloatingPoint-Connector", "Input"));
 	CHECK_PTR(m_input);
 	
 	// Initializes the sheet view
@@ -220,43 +226,43 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 {
 	QString tip;
 	
-	m_trueThresholdLabel = new QLabel(i18n("True Threshold: "), getGrid(), "m_trueThresholdLabel");
+	m_trueThresholdLabel = new QLabel(i18n("FloatingPoint", "True Threshold: "), getGrid(), "m_trueThresholdLabel");
 	CHECK_PTR(m_trueThresholdLabel);
 	
 	m_trueThreshold = new KSimDoubleEdit(getGrid(), "m_trueThreshold");
 	CHECK_PTR(m_trueThreshold);
-	tip = i18n("Sets the threshold where the converter switch to true.");
+	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to true.");
 	addToolTip(tip, m_trueThreshold, m_trueThresholdLabel);
 	addWhatsThis(tip, m_trueThreshold, m_trueThresholdLabel);
 	
 	
 	
 	
-	m_falseThresholdLabel = new QLabel(i18n("False Threshold: "), getGrid(), "m_falseThresholdLabel");
+	m_falseThresholdLabel = new QLabel(i18n("FloatingPoint", "False Threshold: "), getGrid(), "m_falseThresholdLabel");
 	CHECK_PTR(m_falseThresholdLabel);
 	
 	m_falseThreshold = new KSimDoubleEdit(getGrid(), "m_falseThreshold");
 	CHECK_PTR(m_falseThreshold);
-	tip = i18n("Sets the threshold where the converter switch to false.");
+	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to false.");
 	addToolTip(tip, m_falseThreshold, m_falseThresholdLabel);
 	addWhatsThis(tip, m_falseThreshold, m_falseThresholdLabel);
 	
 	// Some label
-	m_levelLabel = new QLabel(i18n("Medium Threshold: "), getGrid(), "m_levelLabel");
+	m_levelLabel = new QLabel(i18n("FloatingPoint", "Medium Threshold: "), getGrid(), "m_levelLabel");
 	CHECK_PTR(m_levelLabel);
 	m_level = new QLabel(QString::null, getGrid(), "m_level");
 	CHECK_PTR(m_level);
 	m_level->setAlignment(AlignRight);
-	tip = i18n("Shows the medium value between 'False Threshold' and 'True Threshold'.");
+	tip = i18n("FloatingPoint", "Shows the medium value between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_level, m_levelLabel);
 	addWhatsThis(tip, m_level, m_levelLabel);
 	
-	m_hysteresisLabel = new QLabel(i18n("Hysteresis: "), getGrid(), "m_hysteresisLabel");
+	m_hysteresisLabel = new QLabel(i18n("FloatingPoint", "Hysteresis: "), getGrid(), "m_hysteresisLabel");
 	CHECK_PTR(m_hysteresisLabel);
 	m_hysteresis = new QLabel(QString::null, getGrid(), "m_hysteresis");
 	CHECK_PTR(m_hysteresis);
 	m_hysteresis->setAlignment(AlignRight);
-	tip = i18n("Shows the hysteresis between 'False Threshold' and 'True Threshold'.");
+	tip = i18n("FloatingPoint", "Shows the hysteresis between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_hysteresis, m_hysteresisLabel);
 	addWhatsThis(tip, m_hysteresis, m_hysteresisLabel);
 	

@@ -41,13 +41,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatMax(container, ci);
 }
 
-const ComponentInfo FloatMaxInfo(I18N_NOOP("Floating Point Maximum"),
-                                 I18N_NOOP("Floating Point/Control/Maximum"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 create,
-                                 QString::null,
-                                 "component-float-control-maximum");
+const ComponentInfo * getFloatMaxInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Maximum"),
+	                                QString::fromLatin1("Floating Point/Control/Maximum"),
+	                                i18n("Component", "Floating Point/Control/Maximum"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-control-maximum"));
+	return &Info;
+}
 
 
 

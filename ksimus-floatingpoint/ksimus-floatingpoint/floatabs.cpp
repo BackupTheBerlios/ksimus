@@ -42,13 +42,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatAbs(container, ci);
 }
 
-const ComponentInfo FloatAbsInfo(I18N_NOOP("Floating Point Absolute Value"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Absolute Value"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 create,
-                                 QString::null,
-                                 "component-float-arithmetic-abs");
+const ComponentInfo * getFloatAbsInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Absolute Value"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Absolute Value"),
+	                                i18n("Component", "Floating Point/Arithmetic/Absolute Value"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-abs"));
+	return &Info;
+}
 
 
 

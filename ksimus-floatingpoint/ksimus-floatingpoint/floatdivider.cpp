@@ -40,13 +40,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatDivider(container, ci);
 }
 
-const ComponentInfo FloatDividerInfo(I18N_NOOP("Floating Point Divider"),
-                                     I18N_NOOP("Floating Point/Arithmetic/Divider"),
-                                     QString::null,
-                                     VA_SHEETVIEW,
-                                     create,
-                                     QString::null,
-                                     "component-float-arithmetic-div");
+const ComponentInfo * getFloatDividerInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Divider"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Divider"),
+	                                i18n("Component", "Floating Point/Arithmetic/Divider"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-div"));
+	return &Info;
+}
 
 
 
@@ -78,8 +83,8 @@ FloatDivider::FloatDivider(CompContainer * container, const ComponentInfo * ci)
 		new FloatDividerView(this, SHEET_VIEW);
 	}
 
-	getInputA()->setName(I18N_NOOP("Dividend"), true);
-	getInputB()->setName(I18N_NOOP("Divisor"), true);
+	getInputA()->setName(i18n("FloatingPoint", "Dividend"), true);
+	getInputB()->setName(i18n("FloatingPoint", "Divisor"), true);
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

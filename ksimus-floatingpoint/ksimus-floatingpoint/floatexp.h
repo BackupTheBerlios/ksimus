@@ -34,7 +34,7 @@ namespace KSimLibFloatingPoint
 
 // Forward declaration
 
-extern const ComponentInfo FloatExpInfo;
+const ComponentInfo * getFloatExpInfo();
 
 
 //###############################################################

@@ -49,50 +49,70 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new SimpleConditional(container, ci);
 }
 
-const ComponentInfo ConditionalLesserInfo(
-                     I18N_NOOP("Floating Point Conditional Lesser"),
-                     I18N_NOOP("Floating Point/Conditional/Lesser"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-conditional-lesser");
+const ComponentInfo * getConditionalLesserInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Lesser"),
+	                                QString::fromLatin1("Floating Point/Conditional/Lesser"),
+	                                i18n("Component", "Floating Point/Conditional/Lesser"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-conditional-lesser"));
+	return &Info;
+}
 
-const ComponentInfo ConditionalLesserEqualInfo(
-                     I18N_NOOP("Floating Point Conditional Lesser Equal"),
-                     I18N_NOOP("Floating Point/Conditional/Lesser Equal"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-conditional-lesser-equal");
+const ComponentInfo * getConditionalLesserEqualInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Lesser Equal"),
+	                                QString::fromLatin1("Floating Point/Conditional/Lesser Equal"),
+	                                i18n("Component", "Floating Point/Conditional/Lesser Equal"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-conditional-lesser-equal"));
+	return &Info;
+}
 
-const ComponentInfo ConditionalEqualInfo(
-                     I18N_NOOP("Floating Point Conditional Equal"),
-                     I18N_NOOP("Floating Point/Conditional/Equal"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-conditional-equal");
+const ComponentInfo * getConditionalEqualInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Equal"),
+	                                QString::fromLatin1("Floating Point/Conditional/Equal"),
+	                                i18n("Component", "Floating Point/Conditional/Equal"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-conditional-equal"));
+	return &Info;
+}
 
-const ComponentInfo ConditionalLargerEqualInfo(
-                     I18N_NOOP("Floating Point Conditional Larger Equal"),
-                     I18N_NOOP("Floating Point/Conditional/Larger Equal"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-conditional-larger-equal");
+const ComponentInfo * getConditionalLargerEqualInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Larger Equal"),
+	                                QString::fromLatin1("Floating Point/Conditional/Larger Equal"),
+	                                i18n("Component", "Floating Point/Conditional/Larger Equal"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-conditional-larger-equal"));
+	return &Info;
+}
 
-const ComponentInfo ConditionalLargerInfo(
-                     I18N_NOOP("Floating Point Conditional Larger"),
-                     I18N_NOOP("Floating Point/Conditional/Larger"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-conditional-larger");
+const ComponentInfo * getConditionalLargerInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Conditional Larger"),
+	                                QString::fromLatin1("Floating Point/Conditional/Larger"),
+	                                i18n("Component", "Floating Point/Conditional/Larger"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-conditional-larger"));
+	return &Info;
+}
 
 //###############################################################
 //###############################################################
@@ -102,17 +122,21 @@ SimpleConditional::SimpleConditional(CompContainer * container, const ComponentI
 	: Boolean1Out(container, ci)
 {
 	
-	if      (ci == &ConditionalLesserInfo)      m_conditionalType = eLesser;
-	else if (ci == &ConditionalLesserEqualInfo) m_conditionalType = eLesserEqual;
-	else if (ci == &ConditionalEqualInfo)       m_conditionalType = eEqual;
-	else if (ci == &ConditionalLargerEqualInfo) m_conditionalType = eLargerEqual;
-	else /*if (ci == &ConditionalLargerInfo)*/  m_conditionalType = eLarger;
+	if      (ci == getConditionalLesserInfo())      m_conditionalType = eLesser;
+	else if (ci == getConditionalLesserEqualInfo()) m_conditionalType = eLesserEqual;
+	else if (ci == getConditionalEqualInfo())       m_conditionalType = eEqual;
+	else if (ci == getConditionalLargerEqualInfo()) m_conditionalType = eLargerEqual;
+	else /*if (ci == getConditionalLargerInfo())*/  m_conditionalType = eLarger;
 	
 	
-	m_inputA = new ConnectorFloatIn (this, I18N_NOOP("Input A"));
+	m_inputA = new ConnectorFloatIn(this,
+	                             QString::fromLatin1("Input A"),
+	                             i18n("FloatingPoint-Connector", "Input A"));
 	CHECK_PTR(m_inputA);
 	
-	m_inputB = new ConnectorFloatIn (this, I18N_NOOP("Input B"));
+	m_inputB = new ConnectorFloatIn(this,
+	                             QString::fromLatin1("Input B"),
+	                             i18n("FloatingPoint-Connector", "Input B"));
 	CHECK_PTR(m_inputB);
 	
 	// Initializes the sheet view
@@ -149,11 +173,11 @@ void SimpleConditional::setConditionalType(eConditionalType newCond)
 {
 	switch(newCond)
 	{
-		case eLesser:      setInfo(&ConditionalLesserInfo);      break;
-		case eLesserEqual: setInfo(&ConditionalLesserEqualInfo); break;
-		case eEqual:       setInfo(&ConditionalEqualInfo);       break;
-		case eLargerEqual: setInfo(&ConditionalLargerEqualInfo); break;
-		case eLarger:      setInfo(&ConditionalLargerInfo);      break;
+		case eLesser:      setInfo(getConditionalLesserInfo());      break;
+		case eLesserEqual: setInfo(getConditionalLesserEqualInfo()); break;
+		case eEqual:       setInfo(getConditionalEqualInfo());       break;
+		case eLargerEqual: setInfo(getConditionalLargerEqualInfo()); break;
+		case eLarger:      setInfo(getConditionalLargerInfo());      break;
 	}
 	m_conditionalType = newCond;	
 }
@@ -223,18 +247,18 @@ SimpleConditionalPropertyGeneralWidget::SimpleConditionalPropertyGeneralWidget(S
 {
 	QString tip;
 	
-	m_conditionalLabel = new QLabel(i18n("Conditional: "), getGrid(), "m_conditionalLabel");
+	m_conditionalLabel = new QLabel(i18n("FloatingPoint", "Conditional: "), getGrid(), "m_conditionalLabel");
 	CHECK_PTR(m_conditionalLabel);
 	
 	m_conditional = new QComboBox(getGrid(), "m_conditional");
 	CHECK_PTR(m_conditional);
-	m_conditional->insertItem(i18n("A < B"),  (int)eLesser);
-	m_conditional->insertItem(i18n("A <= B"), (int)eLesserEqual);
-	m_conditional->insertItem(i18n("A == B"), (int)eEqual);
-	m_conditional->insertItem(i18n("A >= B"), (int)eLargerEqual);
-	m_conditional->insertItem(i18n("A > B"),  (int)eLarger);
+	m_conditional->insertItem(i18n("FloatingPoint", "A < B"),  (int)eLesser);
+	m_conditional->insertItem(i18n("FloatingPoint", "A <= B"), (int)eLesserEqual);
+	m_conditional->insertItem(i18n("FloatingPoint", "A == B"), (int)eEqual);
+	m_conditional->insertItem(i18n("FloatingPoint", "A >= B"), (int)eLargerEqual);
+	m_conditional->insertItem(i18n("FloatingPoint", "A > B"),  (int)eLarger);
 	
-	tip = i18n("Sets the conditional.");
+	tip = i18n("FloatingPoint", "Sets the conditional.");
 	addToolTip(tip, m_conditional, m_conditionalLabel);
 	addWhatsThis(tip, m_conditional, m_conditionalLabel);
 

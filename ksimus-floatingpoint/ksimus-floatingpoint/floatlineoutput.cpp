@@ -45,13 +45,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatLineOutput(container, ci);
 }
 
-const ComponentInfo FloatLineOutputInfo(I18N_NOOP("Floating Point Label"),
-                                        I18N_NOOP("Floating Point/Output/Label"),
-                                        QString::null,
-                                        VA_SHEET_AND_USER,
-                                        create,
-                                        QString::null,
-                                        "component-float-output-label");
+const ComponentInfo * getFloatLineOutputInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Label"),
+	                                QString::fromLatin1("Floating Point/Output/Label"),
+	                                i18n("Component", "Floating Point/Output/Label"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-output-label"));
+	return &Info;
+}
 
 
 
@@ -63,7 +68,9 @@ FloatLineOutput::FloatLineOutput(CompContainer * container, const ComponentInfo 
 	: ComponentStyle(container, ci),
 		m_number(0)
 {
-	m_input = new ConnectorFloatIn (this, I18N_NOOP("Input"));
+	m_input = new ConnectorFloatIn(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("FloatingPoint-Connector", "Input"));
 	CHECK_PTR(m_input);
 	
 	setColorAdjustmentEnabled(true);

@@ -49,7 +49,7 @@ class KSimDoubleEdit;
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo FloatLatchInfo;
+const ComponentInfo * getFloatLatchInfo();
 
 /**A floating point latch.
   *@author Rasmus Diekenbrock

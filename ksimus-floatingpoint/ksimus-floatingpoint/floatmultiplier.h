@@ -34,7 +34,7 @@
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo FloatMultiplierInfo;
+const ComponentInfo * getFloatMultiplierInfo();
 
 
 //###############################################################

@@ -42,13 +42,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatMultiplier(container, ci);
 }
 
-const ComponentInfo FloatMultiplierInfo(I18N_NOOP("Floating Point Multiplier"),
-                                        I18N_NOOP("Floating Point/Arithmetic/Multiplier"),
-                                        QString::null,
-                                        VA_SHEETVIEW,
-                                        create,
-                                        QString::null,
-                                        "component-float-arithmetic-mul");
+const ComponentInfo * getFloatMultiplierInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Multiplier"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Multiplier"),
+	                                i18n("Component", "Floating Point/Arithmetic/Multiplier"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-mul"));
+	return &Info;
+}
 
 
 
@@ -80,7 +85,7 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 		new FloatMultiplierView(this, SHEET_VIEW);
 	}
 
-	getInputConnectorPack()->setConnectorName(I18N_NOOP("Factor %1"));
+	getInputConnectorPack()->setConnectorName(i18n("FloatingPoint", "Factor %1"));
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

@@ -63,14 +63,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 
-const ComponentInfo DataSelectorInfo(
-                     I18N_NOOP("Floating Data Selector"),
-                     I18N_NOOP("Floating Point/Control/Data Selector"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-control-dataSelect");
+const ComponentInfo * getDataSelectorInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Data Selector"),
+	                                QString::fromLatin1("Floating Point/Control/Data Selector"),
+	                                i18n("Component", "Floating Point/Control/Data Selector"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-control-dataSelect"));
+	return &Info;
+}
 
 
 #define DEFAULT_RESET_VALUE  0.0
@@ -90,29 +94,39 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 {
 	setResetValue(DEFAULT_RESET_VALUE);
 	
-	m_latchOutput = new ConnectorBoolInEdge (this, I18N_NOOP("Latch Output"));
+	m_latchOutput = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Latch Output"),
+	                             i18n("FloatingPoint-Connector", "Latch Output"));
 	CHECK_PTR(m_latchOutput);
 	m_latchOutput->setEdgeSensitive(false,true);
 	m_latchOutput->setHideEnabled(true);
 	m_latchOutput->setHide(true,true);
 	
-	m_latchAddress = new ConnectorBoolInEdge (this, I18N_NOOP("Latch Address Input"));
+	m_latchAddress = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Latch Address Input"),
+	                             i18n("FloatingPoint-Connector", "Latch Address Input"));
 	CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
 	m_latchAddress->setHideEnabled(true);
 	m_latchAddress->setHide(true,true);
 	
-	m_inputPack = new ConnectorPack(this, I18N_NOOP("Input"), &ConnectorFloatInInfo, MIN_CHANNELS, MAX_CHANNELS);
+	m_inputPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("Connector", "Input %1"),
+	                             getConnectorFloatInInfo(),
+	                             MIN_CHANNELS, MAX_CHANNELS);
 	CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
-	m_inputPack->setConnectorName(I18N_NOOP("Input %1"));
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
 	
-	m_addressPack = new ConnectorPack(this, I18N_NOOP("Address"), &ConnectorBoolInInfo, MIN_ADRESS, MAX_ADRESS);
+	m_addressPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Address"),
+	                             i18n("Connector", "Address %1"),
+	                             getConnectorBoolInInfo(),
+	                             MIN_ADRESS, MAX_ADRESS);
 	CHECK_PTR(m_addressPack);
 	m_addressPack->setConnectorCount(DEFAULT_ADRESS);
-	m_addressPack->setConnectorName(I18N_NOOP("Address %1"));
 	m_addressPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
 	// Initializes the sheet view
@@ -177,14 +191,14 @@ bool DataSelector::initPopupMenu(QPopupMenu * popup)
 	Component::initPopupMenu(popup);
 	
 	popup->insertSeparator();
-	i = popup->insertItem(i18n("&Add Channel"), this, SLOT(slotAddChannel()));
+	i = popup->insertItem(i18n("FloatingPoint", "&Add Channel"), this, SLOT(slotAddChannel()));
 	if (getInputPack()->getConnectorCount() >= MAX_CHANNELS)
 	{
 		popup->setItemEnabled(i, false);
 	}
 	
 	
-	i = popup->insertItem(i18n("&Delete Channel"), this, SLOT(slotDeleteChannel()));
+	i = popup->insertItem(i18n("FloatingPoint", "&Delete Channel"), this, SLOT(slotDeleteChannel()));
 	if ((getInputPack()->getConnectorCount() <= MIN_CHANNELS)
 	 || (getInputPack()->getConnectorCount() <= getMinChannelCount()))
 	{
@@ -372,22 +386,22 @@ DataSelectorPropertyGeneralWidget::DataSelectorPropertyGeneralWidget(DataSelecto
 	
 	QString tip;
 	
-	m_channelsLabel = new QLabel(i18n("Channel count: "), getGrid(), "m_channelsLabel");
+	m_channelsLabel = new QLabel(i18n("FloatingPoint", "Number of channels: "), getGrid(), "m_channelsLabel");
 	CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new QSpinBox(comp->getMinChannelCount(), MAX_CHANNELS, 1, getGrid(), "m_channels");
 	CHECK_PTR(m_channels);
-	tip = i18n("Change count of channels here.");
+	tip = i18n("FloatingPoint", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
 	
 	
-	m_resetValueLabel = new QLabel(i18n("Reset value: "), getGrid(), "m_resetValueLabel");
+	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), getGrid(), "m_resetValueLabel");
 	CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimDoubleEdit(getGrid(), "m_resetValue");
 	CHECK_PTR(m_resetValue);
-	tip = i18n("Change the reset value of the component here.");
+	tip = i18n("FloatingPoint", "Change the reset value of the channels here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
 	

@@ -42,13 +42,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatRemainder(container, ci);
 }
 
-const ComponentInfo FloatRemainderInfo(I18N_NOOP("Floating Point Remainder"),
-                                       I18N_NOOP("Floating Point/Arithmetic/Remainder"),
-                                       QString::null,
-                                       VA_SHEETVIEW,
-                                       create,
-                                       QString::null,
-                                       "component-float-arithmetic-mod");
+const ComponentInfo * getFloatRemainderInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Remainder"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Remainder"),
+	                                i18n("Component", "Floating Point/Arithmetic/Remainder"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-mod"));
+	return &Info;
+}
 
 
 
@@ -80,8 +85,8 @@ FloatRemainder::FloatRemainder(CompContainer * container, const ComponentInfo * 
 		new FloatRemainderView(this, SHEET_VIEW);
 	}
 
-	getInputA()->setName(I18N_NOOP("Dividend"), true);
-	getInputB()->setName(I18N_NOOP("Divisor"), true);
+	getInputA()->setName(i18n("FloatingPoint", "Dividend"), true);
+	getInputB()->setName(i18n("FloatingPoint", "Divisor"), true);
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

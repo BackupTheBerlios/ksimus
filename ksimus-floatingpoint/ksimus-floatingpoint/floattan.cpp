@@ -42,13 +42,18 @@ static Component * createTan(CompContainer * container, const ComponentInfo * ci
 	return new FloatTan(container, ci);
 }
 
-const ComponentInfo FloatTanInfo(I18N_NOOP("Floating Point tan(x)"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Trigonometric/tan(x)"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 createTan,
-                                 QString::null,
-                                 "component-float-trigonometric-tan");
+const ComponentInfo * getFloatTanInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point tan(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/tan(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/tan(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createTan,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-tan"));
+	return &Info;
+}
 
 
 static Component * createATan(CompContainer * container, const ComponentInfo * ci)
@@ -56,13 +61,18 @@ static Component * createATan(CompContainer * container, const ComponentInfo * c
 	return new FloatATan(container, ci);
 }
 
-const ComponentInfo FloatATanInfo(I18N_NOOP("Floating Point atan(x)"),
-                                  I18N_NOOP("Floating Point/Arithmetic/Trigonometric/atan(x)"),
-                                  QString::null,
-                                  VA_SHEETVIEW,
-                                  createATan,
-                                 QString::null,
-                                 "component-float-trigonometric-atan");
+const ComponentInfo * getFloatATanInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point atan(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/atan(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/atan(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createATan,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-atan"));
+	return &Info;
+}
 
 
 

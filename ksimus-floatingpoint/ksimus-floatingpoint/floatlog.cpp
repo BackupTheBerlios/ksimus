@@ -42,13 +42,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatLog(container, ci);
 }
 
-const ComponentInfo FloatLogInfo(I18N_NOOP("Floating Point log(x)"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 create,
-                                 QString::null,
-                                 "component-float-arithmetic-log");
+const ComponentInfo * getFloatLogInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point log(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-log"));
+	return &Info;
+}
 
 
 

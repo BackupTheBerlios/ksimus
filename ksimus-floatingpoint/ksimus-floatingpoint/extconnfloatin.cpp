@@ -30,22 +30,33 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new ExtConnFloatIn(container, ci);
 }
 
-const ComponentInfo ExtConnFloatInInfo(I18N_NOOP("External Connector Floating Point Input"),
-                                       I18N_NOOP("External Connector/Floating Point Input"),
-                                       QString::null,
-                                       VA_SHEETVIEW,
-                                       create,
-                                       QString::null,
-                                       "component-float-extconn-float-in");
+const ComponentInfo * getExtConnFloatInInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "External Connector Floating Point Input"),
+	                                QString::fromLatin1("External Connector/Floating Point Input"),
+	                                i18n("Component", "External Connector/Floating Point Input"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-extconn-float-in"));
+	return &Info;
+}
 
 //###############################################################
 
 ExtConnFloatIn::ExtConnFloatIn(CompContainer * container, const ComponentInfo * ci)
 	: ExternalConnector(container, ci, true)
 {
-	out = new ConnectorFloatOut(this, I18N_NOOP("Output"), QPoint(4,1));
+	out = new ConnectorFloatOut(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("FloatingPoint-Connector", "Output"),
+	                             QPoint(4,1));
 	CHECK_PTR(out);
-	in = new ConnectorFloatIn(this, I18N_NOOP("Input"), QPoint(0,1));
+	in = new ConnectorFloatIn(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("FloatingPoint-Connector", "Input"),
+	                             QPoint(0,1));
 	CHECK_PTR(in);
 	
 }

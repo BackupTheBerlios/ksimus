@@ -41,13 +41,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatMin(container, ci);
 }
 
-const ComponentInfo FloatMinInfo(I18N_NOOP("Floating Point Minimum"),
-                                 I18N_NOOP("Floating Point/Control/Minimum"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 create,
-                                 QString::null,
-                                 "component-float-control-minimum");
+const ComponentInfo * getFloatMinInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Minimum"),
+	                                QString::fromLatin1("Floating Point/Control/Minimum"),
+	                                i18n("Component", "Floating Point/Control/Minimum"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-control-minimum"));
+	return &Info;
+}
 
 
 

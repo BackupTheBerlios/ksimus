@@ -55,7 +55,9 @@ Float1Out::Float1Out(CompContainer * container, const ComponentInfo * ci)
 		m_resetValue(DEFAULT_RESET_VALUE)
 {
 	
-	m_out = new ConnectorFloatOut (this, I18N_NOOP("Output"));
+	m_out = new ConnectorFloatOut(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("FloatingPoint-Connector", "Output"));
 	CHECK_PTR(m_out);
 	
 }
@@ -168,12 +170,12 @@ void Float1OutView::draw(QPainter * p)
 Float1OutPropertyGeneralWidget::Float1OutPropertyGeneralWidget(Float1Out * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
-	m_resetValueLabel = new QLabel(i18n("Reset value: "), getGrid(), "ResetValueLabel");
+	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), getGrid(), "ResetValueLabel");
 	CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimDoubleEdit(getGrid(), "ResetValue");
 	CHECK_PTR(m_resetValue);
-	QString tip(i18n("Change the reset value of the component here."));
+	QString tip(i18n("FloatingPoint", "Change the reset value of the component here."));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
 	

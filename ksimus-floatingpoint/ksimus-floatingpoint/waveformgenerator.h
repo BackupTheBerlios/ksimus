@@ -40,7 +40,7 @@ namespace KSimLibFloatingPoint
 {
 
 
-extern const ComponentInfo WaveformGeneratorInfo;
+const ComponentInfo * getWaveformGeneratorInfo();
 
 
 enum eWaveType { eSinusoidal, eSquare, eSawtooth, eTriangular, eDirac };

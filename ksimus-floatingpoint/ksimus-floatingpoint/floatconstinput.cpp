@@ -50,13 +50,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatConstInput(container, ci);
 }
 
-const ComponentInfo FloatConstInputInfo(I18N_NOOP("Floating Point Constant"),
-                                        I18N_NOOP("Floating Point/Input/Constant"),
-                                        QString::null,
-                                        VA_SHEETVIEW,
-                                        create,
-                                        QString::null,
-                                        "component-float-input-const");
+const ComponentInfo * getFloatConstInputInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Constant"),
+	                                QString::fromLatin1("Floating Point/Input/Constant"),
+	                                i18n("Component", "Floating Point/Input/Constant"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-input-const"));
+	return &Info;
+}
 
 
 

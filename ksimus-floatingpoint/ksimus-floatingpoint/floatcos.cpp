@@ -42,13 +42,18 @@ static Component * createCos(CompContainer * container, const ComponentInfo * ci
 	return new FloatCos(container, ci);
 }
 
-const ComponentInfo FloatCosInfo(I18N_NOOP("Floating Point cos(x)"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Trigonometric/cos(x)"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 createCos,
-                                 QString::null,
-                                 "component-float-trigonometric-cos");
+const ComponentInfo * getFloatCosInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point cos(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/cos(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/cos(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createCos,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-cos"));
+	return &Info;
+}
 
 
 static Component * createACos(CompContainer * container, const ComponentInfo * ci)
@@ -56,13 +61,18 @@ static Component * createACos(CompContainer * container, const ComponentInfo * c
 	return new FloatACos(container, ci);
 }
 
-const ComponentInfo FloatACosInfo(I18N_NOOP("Floating Point acos(x)"),
-                                  I18N_NOOP("Floating Point/Arithmetic/Trigonometric/acos(x)"),
-                                  QString::null,
-                                  VA_SHEETVIEW,
-                                  createACos,
-                                  QString::null,
-                                  "component-float-trigonometric-acos");
+const ComponentInfo * getFloatACosInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point acos(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/acos(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/acos(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createACos,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-acos"));
+	return &Info;
+}
 
 
 

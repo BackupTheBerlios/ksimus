@@ -40,7 +40,7 @@ class QComboBox;
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo FloatLineInputInfo;
+const ComponentInfo * getFloatLineInputInfo();
 
 
 /**A line input component for double values.

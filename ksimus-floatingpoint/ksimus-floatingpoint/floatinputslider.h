@@ -38,7 +38,7 @@ class QLabel;
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo FloatInputSliderInfo;
+const ComponentInfo * getFloatInputSliderInfo();
 
 
 /**A slider input for float values.

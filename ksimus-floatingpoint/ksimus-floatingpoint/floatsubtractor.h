@@ -33,7 +33,7 @@
 namespace KSimLibFloatingPoint
 {
 
-extern const ComponentInfo FloatSubtractorInfo;
+const ComponentInfo * getFloatSubtractorInfo();
 
 
 //###############################################################

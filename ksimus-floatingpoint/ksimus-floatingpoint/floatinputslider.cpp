@@ -55,13 +55,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatInputSlider(container, ci);
 }
 
-const ComponentInfo FloatInputSliderInfo(I18N_NOOP("Floating Point Input Slider"),
-                                         I18N_NOOP("Floating Point/Input/Slider"),
-                                         QString::null,
-                                         VA_SHEET_AND_USER,
-                                         create,
-                                         QString::null,
-                                         "component-float-input-slider");
+const ComponentInfo * getFloatInputSliderInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Input Slider"),
+	                                QString::fromLatin1("Floating Point/Input/Slider"),
+	                                i18n("Component", "Floating Point/Input/Slider"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-input-slider"));
+	return &Info;
+}
 
 
 //############################################################################
@@ -296,28 +301,28 @@ void FloatInputSliderWidgetView::silderValueChanged(int i)
 FloatInputSliderPropertyGeneralWidget::FloatInputSliderPropertyGeneralWidget(FloatInputSlider * comp, QWidget *parent, const char *name)
 	:	FloatStyle1OutPropertyGeneralWidget(comp, parent, name)
 {
-	QString tip(i18n("The reset value of the slider."));
+	QString tip(i18n("FloatingPoint", "The reset value of the slider."));
 	addToolTip(tip, getResetValueEdit(), getResetValueLabel());
 	addWhatsThis(tip, getResetValueEdit(), getResetValueLabel());
 	
 	
 	
-	m_maxValueLabel = new QLabel(i18n("Top/Left value: "), getGrid(), "MaxValueLabel");
+	m_maxValueLabel = new QLabel(i18n("FloatingPoint", "Top/Left value: "), getGrid(), "MaxValueLabel");
 	CHECK_PTR(m_maxValueLabel);
 	
 	m_maxValue = new KSimDoubleEdit(getGrid(), "MaxValue");
 	CHECK_PTR(m_maxValue);
-	tip = i18n("The value of the slider at the top or left position.");
+	tip = i18n("FloatingPoint", "The value of the slider at the top or left position.");
 	addToolTip(tip, m_maxValue, m_maxValueLabel);
 	addWhatsThis(tip, m_maxValue, m_maxValueLabel);
 	
 	
-	m_minValueLabel = new QLabel(i18n("Bottom/Right value: "), getGrid(), "MinValueLabel");
+	m_minValueLabel = new QLabel(i18n("FloatingPoint", "Bottom/Right value: "), getGrid(), "MinValueLabel");
 	CHECK_PTR(m_minValueLabel);
 	
 	m_minValue = new KSimDoubleEdit(getGrid(), "MinValue");
 	CHECK_PTR(m_minValue);
-	tip = i18n("The value of the slider at the bottom or right position.");
+	tip = i18n("FloatingPoint", "The value of the slider at the bottom or right position.");
 	addToolTip(tip, m_minValue, m_minValueLabel);
 	addWhatsThis(tip, m_minValue, m_minValueLabel);
 	

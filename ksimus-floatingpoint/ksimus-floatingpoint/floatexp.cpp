@@ -42,13 +42,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatExp(container, ci);
 }
 
-const ComponentInfo FloatExpInfo(I18N_NOOP("Floating Point exp(x)"),
-                                 I18N_NOOP("Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"),
-                                 QString::null,
-                                 VA_SHEETVIEW,
-                                 create,
-                                 QString::null,
-                                 "component-float-arithmetic-exp");
+const ComponentInfo * getFloatExpInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point exp(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-exp"));
+	return &Info;
+}
 
 
 

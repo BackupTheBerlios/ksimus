@@ -64,13 +64,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatLineInput(container, ci);
 }
 
-const ComponentInfo FloatLineInputInfo(I18N_NOOP("Floating Point Line Edit Input"),
-                                       I18N_NOOP("Floating Point/Input/Line Edit"),
-                                       QString::null,
-                                       VA_SHEET_AND_USER,
-                                       create,
-                                       QString::null,
-                                       "component-float-input-line-edit");
+const ComponentInfo * getFloatLineInputInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point Line Edit Input"),
+	                                QString::fromLatin1("Floating Point/Input/Line Edit"),
+	                                i18n("Component", "Floating Point/Input/Line Edit"),
+	                                QString::null,
+	                                VA_SHEET_AND_USER,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-input-line-edit"));
+	return &Info;
+}
 
 
 //############################################################################
@@ -347,15 +352,15 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 {
 	QString tip, precTip;
 	
-	m_convertTypeLabel = new QLabel(i18n("Notation: "), getGrid(), "m_convertTypeLabel");
+	m_convertTypeLabel = new QLabel(i18n("FloatingPoint", "Notation: "), getGrid(), "m_convertTypeLabel");
 	CHECK_PTR(m_convertTypeLabel);
 	
 	m_convertType = new QComboBox(getGrid(), "m_convertType");
 	CHECK_PTR(m_convertType);
-	m_convertType->insertItem(i18n("Fixed Point"), convertType2Idx('f'));
-	m_convertType->insertItem(i18n("Exponential"), convertType2Idx('e'));
-	m_convertType->insertItem(i18n("Automatic"), convertType2Idx('g'));
-	tip = i18n("Sets the notation type of the input.");
+	m_convertType->insertItem(i18n("FloatingPoint", "Fixed Point"), convertType2Idx('f'));
+	m_convertType->insertItem(i18n("FloatingPoint", "Exponential"), convertType2Idx('e'));
+	m_convertType->insertItem(i18n("FloatingPoint", "Automatic"), convertType2Idx('g'));
+	tip = i18n("FloatingPoint", "Sets the notation type of the input.");
 	addToolTip(tip, m_convertType, m_convertTypeLabel);
 	precTip = i18n("\nFixed Point:\n"
 	               "The value is displayed in fixed point notation.\n"
@@ -371,17 +376,17 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	addWhatsThis(tip + precTip, m_convertType, m_convertTypeLabel);
 	
 	
-	m_decimalsLabel = new QLabel(i18n("Precision: "), getGrid(), "DecimalLabel");
+	m_decimalsLabel = new QLabel(i18n("FloatingPoint", "Precision: "), getGrid(), "DecimalLabel");
 	CHECK_PTR(m_decimalsLabel);
 	
 	m_decimals = new QSpinBox(0, 100, 1, getGrid(), "Decimals");
 	CHECK_PTR(m_decimals);
-	tip = i18n("Sets the 'Precision' of the input.");
+	tip = i18n("FloatingPoint", "Sets the 'Precision' of the input.");
 	addToolTip(tip, m_decimals, m_decimalsLabel);
 	addWhatsThis(tip + precTip, m_decimals, m_decimalsLabel);
 	
 	
-	m_tracking = new QCheckBox(i18n("Tracking"), getGrid(), "Tracking");
+	m_tracking = new QCheckBox(i18n("FloatingPoint", "Tracking"), getGrid(), "Tracking");
 	CHECK_PTR(m_tracking);
 	tip = i18n("Enables the value tracking.\n"
 	           "If enabled the output will be updated after each inserted digit.\n"

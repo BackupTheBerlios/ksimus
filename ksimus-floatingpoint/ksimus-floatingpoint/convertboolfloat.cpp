@@ -62,14 +62,18 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 
-const ComponentInfo ConvertBoolFloatInfo(
-                     I18N_NOOP("Converter Boolean to Floating Point"),
-                     I18N_NOOP("Converter/Boolean to Float"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,
-                     QString::null,
-                     "component-float-converter-bool-float");
+const ComponentInfo * getConvertBoolFloatInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Converter Boolean to Floating Point"),
+	                                QString::fromLatin1("Converter/Boolean to Float"),
+	                                i18n("Component", "Converter/Boolean to Float"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-converter-bool-float"));
+	return &Info;
+}
 
 
 
@@ -82,7 +86,9 @@ ConvertBoolFloat::ConvertBoolFloat(CompContainer * container, const ComponentInf
 		m_falseValue(DEFAULT_FALSE_VALUE),
 		m_trueValue(DEFAULT_TRUE_VALUE)
 {
-	m_input = new ConnectorBoolIn (this, I18N_NOOP("Input"));
+	m_input = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("FloatingPoint-Connector", "Input"));
 	CHECK_PTR(m_input);
 	
 	// Initializes the sheet view
@@ -205,24 +211,24 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 {
 	QString tip;
 	
-	m_trueValueLabel = new QLabel(i18n("True Value: "), getGrid(), "m_trueValueLabel");
+	m_trueValueLabel = new QLabel(i18n("FloatingPoint", "True Value: "), getGrid(), "m_trueValueLabel");
 	CHECK_PTR(m_trueValueLabel);
 	
 	m_trueValue = new KSimDoubleEdit(getGrid(), "m_trueValue");
 	CHECK_PTR(m_trueValue);
-	tip = i18n("Sets the value which represents the true level.");
+	tip = i18n("FloatingPoint", "Sets the value which represents the true level.");
 	addToolTip(tip, m_trueValue, m_trueValueLabel);
 	addWhatsThis(tip, m_trueValue, m_trueValueLabel);
 	
 	
 	
 	
-	m_falseValueLabel = new QLabel(i18n("False Value: "), getGrid(), "m_falseValueLabel");
+	m_falseValueLabel = new QLabel(i18n("FloatingPoint", "False Value: "), getGrid(), "m_falseValueLabel");
 	CHECK_PTR(m_falseValueLabel);
 	
 	m_falseValue = new KSimDoubleEdit(getGrid(), "m_falseValue");
 	CHECK_PTR(m_falseValue);
-	tip = i18n("Sets the value which represents the false level.");
+	tip = i18n("FloatingPoint", "Sets the value which represents the false level.");
 	addToolTip(tip, m_falseValue, m_falseValueLabel);
 	addWhatsThis(tip, m_falseValue, m_falseValueLabel);
 	

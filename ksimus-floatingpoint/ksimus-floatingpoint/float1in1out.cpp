@@ -37,7 +37,6 @@
 namespace KSimLibFloatingPoint
 {
 
-static const char * sInput = I18N_NOOP("Input");
 
 //###############################################################
 //###############################################################
@@ -46,7 +45,9 @@ static const char * sInput = I18N_NOOP("Input");
 Float1In1Out::Float1In1Out(CompContainer * container, const ComponentInfo * ci)
 	:	Float1Out(container, ci)
 {
-	m_input = new ConnectorFloatIn(this, sInput);
+	m_input = new ConnectorFloatIn(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("FloatingPoint-Connector", "Input"));
 	CHECK_PTR(m_input);
 }
 

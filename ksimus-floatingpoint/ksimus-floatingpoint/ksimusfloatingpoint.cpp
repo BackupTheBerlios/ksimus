@@ -72,42 +72,53 @@ namespace KSimLibFloatingPoint
  **
  ************************************************************************************
  ************************************************************************************/
-static const ComponentInfoPtr distributeComponent[] =
+static const ComponentInfoList & getDistComponents()
 {
-	&FloatAddInfo,
-	&FloatSubtractorInfo,
-	&FloatMultiplierInfo,
-	&FloatDividerInfo,
-	&FloatInputSliderInfo,
-	&FloatLineOutputInfo,
-	&FloatRemainderInfo,
-	&FloatLineInputInfo,
-	&FloatConstInputInfo,
-	&FloatAbsInfo,
-	&WaveformGeneratorInfo,
-	&ConditionalLesserInfo,
-	&ConditionalLesserEqualInfo,
-	&ConditionalEqualInfo,
-	&ConditionalLargerEqualInfo,
-	&ConditionalLargerInfo,
-	&ExtConnFloatOutInfo,
-	&ExtConnFloatInInfo,
-	&ConvertFloatBoolInfo,
-	&ConvertBoolFloatInfo,
-	&FloatLatchInfo,
-	&DataSelectorInfo,
-	&FloatExpInfo,
-	&FloatLogInfo,
-	&FloatSinInfo,
-	&FloatASinInfo,
-	&FloatCosInfo,
-	&FloatACosInfo,
-	&FloatTanInfo,
-	&FloatATanInfo,
-	&FloatMaxInfo,
-	&FloatMinInfo,
-	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
-};
+	static ComponentInfoList * pDistComponents = 0;
+
+	if (pDistComponents == 0)
+	{
+		// Initialize
+		pDistComponents = new ComponentInfoList;
+		CHECK_PTR(pDistComponents);
+
+		// Add your component info here
+		pDistComponents->append(getFloatAddInfo());
+		pDistComponents->append(getFloatSubtractorInfo());
+		pDistComponents->append(getFloatMultiplierInfo());
+		pDistComponents->append(getFloatDividerInfo());
+		pDistComponents->append(getFloatInputSliderInfo());
+		pDistComponents->append(getFloatLineOutputInfo());
+		pDistComponents->append(getFloatRemainderInfo());
+		pDistComponents->append(getFloatLineInputInfo());
+		pDistComponents->append(getFloatConstInputInfo());
+		pDistComponents->append(getFloatAbsInfo());
+		pDistComponents->append(getWaveformGeneratorInfo());
+		pDistComponents->append(getConditionalLesserInfo());
+		pDistComponents->append(getConditionalLesserEqualInfo());
+		pDistComponents->append(getConditionalEqualInfo());
+		pDistComponents->append(getConditionalLargerEqualInfo());
+		pDistComponents->append(getConditionalLargerInfo());
+		pDistComponents->append(getExtConnFloatOutInfo());
+		pDistComponents->append(getExtConnFloatInInfo());
+		pDistComponents->append(getConvertFloatBoolInfo());
+		pDistComponents->append(getConvertBoolFloatInfo());
+		pDistComponents->append(getFloatLatchInfo());
+		pDistComponents->append(getDataSelectorInfo());
+		pDistComponents->append(getFloatExpInfo());
+		pDistComponents->append(getFloatLogInfo());
+		pDistComponents->append(getFloatSinInfo());
+		pDistComponents->append(getFloatASinInfo());
+		pDistComponents->append(getFloatCosInfo());
+		pDistComponents->append(getFloatACosInfo());
+		pDistComponents->append(getFloatTanInfo());
+		pDistComponents->append(getFloatATanInfo());
+		pDistComponents->append(getFloatMaxInfo());
+		pDistComponents->append(getFloatMinInfo());
+	}
+
+	return *pDistComponents;
+}
 
 
 
@@ -119,10 +130,21 @@ static const ComponentInfoPtr distributeComponent[] =
  **
  ************************************************************************************
  ************************************************************************************/
-static const ConnectorInfoPtr distributeConnector[] =
+static const ConnectorInfoList & getDistConnector()
 {
-	(ConnectorInfoPtr) 0          // Do not remove. Must be the last item.
-};
+	static ConnectorInfoList * pDistConnector = 0;
+
+	if (pDistConnector == 0)
+	{
+		// Initialize
+		pDistConnector = new ConnectorInfoList;
+		CHECK_PTR(pDistConnector);
+
+		// Add your connector info here
+//		pDistConnector->append(getConnectorBoolInInfo());
+	}
+	return *pDistConnector;
+}
 
 
 
@@ -133,10 +155,22 @@ static const ConnectorInfoPtr distributeConnector[] =
  **
  ******************************************************************************************
  ******************************************************************************************/
-static const WirePropertyInfoPtr distributeWireProperty[] =
+static const WirePropertyInfoList & getDistWireProperty()
 {
-	(WirePropertyInfoPtr) 0       // Do not remove. Must be the last item.
-};
+	static WirePropertyInfoList * pDistWireProp = 0;
+
+	if (pDistWireProp == 0)
+	{
+		// Initialize
+		pDistWireProp = new WirePropertyInfoList;
+		CHECK_PTR(pDistWireProp);
+
+		// Add your wireproperty info here
+//		pDistWireProp->append(getWirePropertyBooleanInfo());
+	}
+
+	return *pDistWireProp;
+}
 
 
 
@@ -171,10 +205,10 @@ extern "C"
 		{
 			KSimLibFloatingPoint::packageInfo = new PackageInfo( PACKAGE_NAME,
 			                                              KSimLibFloatingPoint::instance,
-	  		                                            VERSION,      // version from config.h
-	    		                                          KSimLibFloatingPoint::distributeComponent,
-	      		                                        KSimLibFloatingPoint::distributeConnector,
-	        		                                      KSimLibFloatingPoint::distributeWireProperty);
+			                                              VERSION,      // version from config.h
+			                                              KSimLibFloatingPoint::getDistComponents(),
+			                                              KSimLibFloatingPoint::getDistConnector(),
+			                                              KSimLibFloatingPoint::getDistWireProperty());
 	  }
 	
 
