@@ -352,3 +352,5 @@ void RandomPropertyGeneralWidget::defaultPressed()
 #undef MAX_SEED
 
 }; //namespace
+
+#include "random.moc"

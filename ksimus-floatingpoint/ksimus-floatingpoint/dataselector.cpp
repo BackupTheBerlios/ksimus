@@ -437,3 +437,5 @@ void DataSelectorPropertyGeneralWidget::defaultPressed()
 //###############################################################
 
 };  //namespace KSimLibFloatingPoint
+
+#include "dataselector.moc"

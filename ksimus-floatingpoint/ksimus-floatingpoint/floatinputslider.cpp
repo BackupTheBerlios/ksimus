@@ -380,4 +380,5 @@ void FloatInputSliderPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibFloatingPoint
 
+#include "floatinputslider.moc"
 

@@ -247,3 +247,5 @@ void FloatStyleRange1OutPropertyGeneralWidget::defaultPressed()
 #undef FLAGS_SWAP_RANGE_ALLOWED
 
 };  //namespace KSimLibFloatingPoint
+
+#include "floatstylerange1out.moc"

@@ -709,3 +709,4 @@ void WaveformGeneratorPropertyGeneralWidget::valChanged()
 
 };  //namespace KSimLibFloatingPoint
 
+#include "waveformgenerator.moc"

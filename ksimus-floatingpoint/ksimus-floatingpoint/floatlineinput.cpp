@@ -468,3 +468,4 @@ void FloatLineInputPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibFloatingPoint
 
+#include "floatlineinput.moc"

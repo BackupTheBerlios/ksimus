@@ -192,3 +192,4 @@ FloatLineOutputWidgetView::FloatLineOutputWidgetView(FloatLineOutputView * cv, Q
 
 };  //namespace KSimLibFloatingPoint
 
+#include "floatlineoutput.moc"

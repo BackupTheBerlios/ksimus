@@ -298,3 +298,4 @@ void ConvertBoolFloatPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibFloatingPoint
 
+#include "convertboolfloat.moc"

@@ -219,3 +219,5 @@ void FloatConstInputPropertyGeneralWidget::acceptPressed()
 
 
 }; //namespace KSimLibFloatingPoint
+
+#include "floatconstinput.moc"

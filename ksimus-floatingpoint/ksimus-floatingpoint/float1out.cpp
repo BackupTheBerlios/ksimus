@@ -214,4 +214,5 @@ void Float1OutPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibFloatingPoint
 
+#include "float1out.moc"
 

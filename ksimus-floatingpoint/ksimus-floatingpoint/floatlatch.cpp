@@ -405,3 +405,5 @@ void FloatLatchPropertyGeneralWidget::defaultPressed()
 #undef DEFAULT_CHANNELS
 
 };  //namespace KSimLibFloatingPoint
+
+#include "floatlatch.moc"

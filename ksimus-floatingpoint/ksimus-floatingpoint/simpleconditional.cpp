@@ -377,3 +377,4 @@ void SimpleConditionalPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibFloatingPoint
 
+#include "simpleconditional.moc"

@@ -17,11 +17,11 @@
 
 #include <klocale.h>
 
-#include "extconnfloatout.h"
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorfloatout.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/wireproperty.h"
+#include "extconnfloatout.h"
 
 namespace KSimLibFloatingPoint
 {
@@ -98,3 +98,5 @@ void ExtConnFloatOut::calculate()
 
 
 };  //namespace KSimLibFloatingPoint
+
+#include "extconnfloatout.moc"

@@ -201,3 +201,5 @@ void ExtConnFloatInPropertyGeneralWidget::defaultPressed()
 //###############################################################
 
 };  //namespace KSimLibFloatingPoint
+
+#include "extconnfloatin.moc"
