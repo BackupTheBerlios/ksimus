@@ -50,7 +50,7 @@ const char * const DataRecorderChannelBase::sSerial   = "Serial Number";
 //#######################################################################
 //#######################################################################
 
-static EnumDict<eChannelType> channelTypeDict;
+static EnumDict<eChannelType> channelTypeDict(5);
 
 EnumDict<eChannelType>::tData EnumDict<eChannelType>::data[]
       = { {"Unknown", KSimLibDataRecorder::CT_Unknown},
