@@ -51,6 +51,8 @@
 static const char * sDocProperty = "Document Property/";
 static const char * sTiming      = "Timing/";
 static const char * sLastView    = "Last View";
+static const char * sSheetPos    = "Sheet Pos";
+static const char * sUserPos     = "User Pos";
 
 KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	:	QObject(parent, name),
@@ -369,6 +371,29 @@ void KSimusDoc::loadProperty(KSimData & config)
 		
 		getApp()->setCurrentView(config.readEntry(sLastView));
 		
+		QPoint defPos(0,0);
+		QPoint pos;
+		
+		pos = config.readPointEntry(sSheetPos, &defPos);
+		
+		for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
+		{
+			if (w->getEditor()->getEditorView() == EV_SHEETVIEW)
+			{
+				w->setContentsPos(pos.x(),pos.y());
+			}
+		}
+		
+		pos = config.readPointEntry(sUserPos, &defPos);
+		
+		for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
+		{
+			if (w->getEditor()->getEditorView() == EV_USERVIEW)
+			{
+				w->setContentsPos(pos.x(),pos.y());
+			}
+		}
+		
 		QString group = config.group();
 		if (config.hasGroup(group + sTiming))
 		{
@@ -391,6 +416,27 @@ void KSimusDoc::saveProperty(KSimData & config) const
 	// Add properties
 	config.writeEntry(sLastView,getApp()->getCurrentViewString());
 	
+	QPoint pos(0,0);
+	for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
+	{
+		if (w->getEditor()->getEditorView() == EV_SHEETVIEW)
+		{
+			pos = QPoint(w->contentsX(),w->contentsY());
+			break;
+		}
+	}
+	config.writeEntry(sSheetPos, pos);
+		
+	pos = QPoint(0,0);
+	for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
+	{
+		if (w->getEditor()->getEditorView() == EV_USERVIEW)
+		{
+			pos = QPoint(w->contentsX(),w->contentsY());
+			break;
+		}
+	}
+	config.writeEntry(sUserPos, pos);
 	
 	group = config.group();
 	config.setGroup(group + sTiming);
@@ -430,6 +476,7 @@ void KSimusDoc::deleteContents()
 	for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
 	{
 		w->getEditor()->unselectAll();
+		w->setContentsPos(0,0);
 	}
 	
 	getContainer()->deleteAll();
