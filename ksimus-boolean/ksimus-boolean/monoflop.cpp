@@ -129,6 +129,8 @@ void MonoFlop::calculate()
 		setState(false);
 		m_time = getTimeServer().getTime();
 	}
+	
+	executeNext();
 }
 
 /** Reset all simulation variables */
