@@ -88,7 +88,7 @@ bool ExtConnBoolTriStateBase::isConnectedWithBoolTriState(ConnectorBase * conn)
 /** save component properties */
 void ExtConnBoolTriStateBase::save(KSimData & file) const
 {
-	Component::save(file);
+	ExternalConnector::save(file);
 
 	if (m_resetState != KSimBoolTriState(KSIMBOOLTRISTATE_INACTIVE))
 	{
@@ -102,7 +102,7 @@ void ExtConnBoolTriStateBase::save(KSimData & file) const
 bool ExtConnBoolTriStateBase::load(KSimData & file, bool copyLoad)
 {
 	m_resetState.load(file, "Reset State", KSimBoolTriState(KSIMBOOLTRISTATE_INACTIVE).text());
-	return Component::load(file, copyLoad);
+	return ExternalConnector::load(file, copyLoad);
 }
 
 void ExtConnBoolTriStateBase::setResetState(KSimBoolTriState resetState)
