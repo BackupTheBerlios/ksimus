@@ -160,7 +160,7 @@ public:
 
 	Float1Out* getFloat1Out() { return (Float1Out*) getComponent(); };
 	
-	/** Returns the a pointer to the @ref QLineEdit. Use this to set a appropriate @ref QToolTip
+	/** Returns the a pointer to the @ref KSimDoubleEdit. Use this to set a appropriate @ref QToolTip
 	  * and @ref QWhatsThis. */
 	KSimDoubleEdit * getResetValueEdit() const { return m_resetValue; };
 	/** Returns the a pointer to the label of the @ref getResetValueEdit. Use this to set a appropriate
