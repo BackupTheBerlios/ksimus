@@ -67,7 +67,9 @@ const ComponentInfo ConvertBoolFloatInfo(
                      I18N_NOOP("Converter/Boolean to Float"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-converter-bool-float");
 
 
 
@@ -215,12 +217,12 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	
 	
 	
-	m_falseValueLabel = new QLabel(i18n("False Threshold: "), getGrid(), "m_falseValueLabel");
+	m_falseValueLabel = new QLabel(i18n("False Value: "), getGrid(), "m_falseValueLabel");
 	CHECK_PTR(m_falseValueLabel);
 	
 	m_falseValue = new KSimDoubleEdit(getGrid(), "m_falseValue");
 	CHECK_PTR(m_falseValue);
-	tip = i18n("Sets the threshold where the converter switch to false.");
+	tip = i18n("Sets the value which represents the false level.");
 	addToolTip(tip, m_falseValue, m_falseValueLabel);
 	addWhatsThis(tip, m_falseValue, m_falseValueLabel);
 	
