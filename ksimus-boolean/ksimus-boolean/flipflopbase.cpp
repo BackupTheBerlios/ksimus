@@ -116,7 +116,7 @@ bool FlipFlopBase::load(KSimData & file, bool copyLoad)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * FlipFlopBase::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * FlipFlopBase::createGeneralProperty(QWidget *parent)
 {
 	FlipFlopBasePropertyGeneralWidget * wid;
 	wid = new FlipFlopBasePropertyGeneralWidget(this, parent);

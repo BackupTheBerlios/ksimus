@@ -208,7 +208,7 @@ bool DataSelector::initPopupMenu(QPopupMenu * popup)
 	return true;
 }
 
-ComponentPropertyBaseWidget * DataSelector::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * DataSelector::createGeneralProperty(QWidget *parent)
 {
 	DataSelectorPropertyGeneralWidget * wid;
 	wid = new DataSelectorPropertyGeneralWidget(this, parent);

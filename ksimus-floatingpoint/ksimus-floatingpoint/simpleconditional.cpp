@@ -187,7 +187,7 @@ void SimpleConditional::setConditionalType(eConditionalType newCond)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * SimpleConditional::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * SimpleConditional::createGeneralProperty(QWidget *parent)
 {
 	SimpleConditionalPropertyGeneralWidget * wid;
 	wid = new SimpleConditionalPropertyGeneralWidget(this, parent);

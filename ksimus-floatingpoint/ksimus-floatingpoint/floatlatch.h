@@ -85,7 +85,7 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref FloatLatchPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 	
 	/** Is called after execution of the PopupMenu (@ref initPopupMenu) or PropertyDialog
 	  * (@ref initPropertyDialog). Use this function to adjust things which are difficult

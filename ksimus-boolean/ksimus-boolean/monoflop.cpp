@@ -191,7 +191,7 @@ bool MonoFlop::load(KSimData & file, bool copyLoad)
 	return ok;
 }
 
-ComponentPropertyBaseWidget * MonoFlop::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * MonoFlop::createGeneralProperty(QWidget *parent)
 {
 	MonoFlopPropertyGeneralWidget * wid;
 	wid = new MonoFlopPropertyGeneralWidget(this, parent);

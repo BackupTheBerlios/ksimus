@@ -222,7 +222,7 @@ char FloatLineInput::getConversionType() const
 	return m_flags & FLAGS_TYPE_MASK;
 }
 
-ComponentPropertyBaseWidget * FloatLineInput::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * FloatLineInput::createGeneralProperty(QWidget *parent)
 {
 	FloatLineInputPropertyGeneralWidget * wid;
 	wid = new FloatLineInputPropertyGeneralWidget(this, parent);

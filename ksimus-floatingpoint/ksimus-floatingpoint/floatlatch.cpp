@@ -221,7 +221,7 @@ bool FloatLatch::initPopupMenu(QPopupMenu * popup)
 	return true;
 }
 
-ComponentPropertyBaseWidget * FloatLatch::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * FloatLatch::createGeneralProperty(QWidget *parent)
 {
 	FloatLatchPropertyGeneralWidget * wid;
 	wid = new FloatLatchPropertyGeneralWidget(this, parent);

@@ -144,7 +144,7 @@ void FloatConstInput::editValue()
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * FloatConstInput::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * FloatConstInput::createGeneralProperty(QWidget *parent)
 {
 	FloatConstInputPropertyGeneralWidget * wid;
 	wid = new FloatConstInputPropertyGeneralWidget(this, parent);

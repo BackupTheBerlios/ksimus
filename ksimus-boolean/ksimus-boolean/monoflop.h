@@ -76,7 +76,7 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref MonoFlopPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
   void setHighTime(const KSimTimeBase & time) { m_highTime = time; };
   const KSimTimeBase & getHighTime()const { return m_highTime; };

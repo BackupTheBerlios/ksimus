@@ -111,7 +111,7 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref JKFlipFlopPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 	
 	/** Enables Master Slave. */
 	void setMasterSlaveEnabled(bool ena) { m_isMaterSlave = ena; };

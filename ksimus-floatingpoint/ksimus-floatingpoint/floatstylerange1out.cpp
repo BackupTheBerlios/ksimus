@@ -161,7 +161,7 @@ void FloatStyleRange1Out::checkProperty(QStringList & errorMsg)
 	}
 }
 
-ComponentPropertyBaseWidget * FloatStyleRange1Out::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * FloatStyleRange1Out::createGeneralProperty(QWidget *parent)
 {
 	FloatStyleRange1OutPropertyGeneralWidget * wid;
 	wid = new FloatStyleRange1OutPropertyGeneralWidget(this, parent);

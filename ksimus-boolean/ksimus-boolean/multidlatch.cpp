@@ -221,7 +221,7 @@ bool MultiDLatch::initPopupMenu(QPopupMenu * popup)
 	return true;
 }
 
-ComponentPropertyBaseWidget * MultiDLatch::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * MultiDLatch::createGeneralProperty(QWidget *parent)
 {
 	MultiDLatchPropertyGeneralWidget * wid;
 	wid = new MultiDLatchPropertyGeneralWidget(this, parent);

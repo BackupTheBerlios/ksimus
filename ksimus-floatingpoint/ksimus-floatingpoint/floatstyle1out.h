@@ -84,7 +84,7 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref Boolean1OutPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
 protected:
 	/** Creates a component with one floating point output.

@@ -69,7 +69,7 @@ public:
 	/** Creates the general property page for the property dialog.
 	  * This function creeates a @ref FlipFlopBasePropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
-	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 	
 	/** Returns the "not" output connector.
 	  */

@@ -172,7 +172,7 @@ bool FloatInputSlider::load(KSimData & file, bool copyLoad)
 	return FloatStyle1Out::load(file, copyLoad);
 }
 
-ComponentPropertyBaseWidget * FloatInputSlider::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * FloatInputSlider::createGeneralProperty(QWidget *parent)
 {
 	FloatInputSliderPropertyGeneralWidget * wid;
 	wid = new FloatInputSliderPropertyGeneralWidget(this, parent);

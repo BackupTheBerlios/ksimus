@@ -145,7 +145,7 @@ JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
-ComponentPropertyBaseWidget * JKFlipFlop::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * JKFlipFlop::createGeneralProperty(QWidget *parent)
 {
 	JKFlipFlopPropertyGeneralWidget * wid;
 	wid = new JKFlipFlopPropertyGeneralWidget(this, parent);

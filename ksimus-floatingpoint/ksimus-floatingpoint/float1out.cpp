@@ -118,7 +118,7 @@ bool Float1Out::load(KSimData & file, bool copyLoad)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * Float1Out::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * Float1Out::createGeneralProperty(QWidget *parent)
 {
 	Float1OutPropertyGeneralWidget * wid;
 	wid = new Float1OutPropertyGeneralWidget(this, parent);

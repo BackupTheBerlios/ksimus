@@ -165,7 +165,7 @@ void ConvertFloatBool::setTrueThreshold(double limit)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * ConvertFloatBool::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * ConvertFloatBool::createGeneralProperty(QWidget *parent)
 {
 	ConvertFloatBoolPropertyGeneralWidget * wid;
 	wid = new ConvertFloatBoolPropertyGeneralWidget(this, parent);

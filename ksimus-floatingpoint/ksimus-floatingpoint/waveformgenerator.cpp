@@ -361,7 +361,7 @@ bool WaveformGenerator::load(KSimData & file, bool copyLoad)
  * Overload this function if you want to use a modified General Propery Page. Use as base class
  * @ref ComponentPropertyGeneralWidget.
  * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * WaveformGenerator::createGeneralProperty(Component * comp, QWidget *parent)
+ComponentPropertyBaseWidget * WaveformGenerator::createGeneralProperty(QWidget *parent)
 {
 	WaveformGeneratorPropertyGeneralWidget * wid;
 	wid = new WaveformGeneratorPropertyGeneralWidget(this, parent);
