@@ -123,6 +123,18 @@ public:
   /** Returns the orientations of the connectors. */
   ConnOrientationType getOrientation() const { return m_orientation; };
 
+  /** Set true, if only the last of all connector shall be deleted. If false, the last unwired connector
+    * will delete. The default is delete last only.
+    *
+    * TODO: Do not use it! Works not properly!
+    */
+  void setDeleteLastOnly(bool lastOnly);
+  /** Returns true, if only the last of all connector shall be deleted. If false, the last unwired connector
+    * will delete.
+    */
+  bool isDeleteLastOnly() const;
+
+
 public slots:
 	/** Call this slot to add a connector. The slot is not successful if the maximum count is reached. */
 	void slotAddConnector();

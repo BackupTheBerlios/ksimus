@@ -35,7 +35,8 @@
 // Forward declaration
 
 
-#define USE_LETTER   0x0001L
+#define USE_LETTER        0x0001L
+#define DELETE_LAST_ONLY  0x0002L
 
 
 static const char * sGroup          = "connPack/%1/";
@@ -54,7 +55,7 @@ ConnectorPack::ConnectorPack(Component * comp, const QString & name, const Conne
 		m_maxConn(maxConn),
 		m_connName(),
 		m_orientation(CO_LEFT),
-		m_flags(USE_LETTER)
+		m_flags(USE_LETTER | DELETE_LAST_ONLY)
 {
 	m_connList = new ConnectorList();
 	CHECK_PTR(m_connList);
@@ -161,12 +162,17 @@ void ConnectorPack::slotAddConnector()
 {
 	getComponent()->undoChangeProperty(i18n("Add connector"));
 	internalAddConnector();
+	
+	getComponent()->refresh();
 }
 
 void ConnectorPack::slotDeleteConnector()
 {
 	getComponent()->undoChangeProperty(i18n("Delete connector"));
 	internalDeleteConnector();
+
+	getComponent()->refresh();
+
 }
 
 void ConnectorPack::slotDeleteConnector(ConnectorBase * conn)
@@ -229,11 +235,28 @@ ConnectorBase * ConnectorPack::getDeletableConnector()
 	
 	ConnectorBase * conn = it.toLast();
 	
-	if ((conn) && (conn->getWire() == 0))
-	{
-		return conn;
+	// No connectors
+	if (!conn) return 0;
+	
+  if (isDeleteLastOnly())
+  {
+  	if (conn->getWire() == 0)
+  	{
+			return conn;
+		}
+		else
+		{
+			return 0;
+		}
 	}
-	return 0;
+	else
+	{
+		while ((it.current() != 0) && (it.current()->getWire() != 0))
+		{
+			--it;
+		}
+		return it.current();
+	}
 }
 
 bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
@@ -341,3 +364,23 @@ void ConnectorPack::setOrientation(ConnOrientationType orient)
 		it.current()->setOrientation(orient);
 	}
 }
+
+void ConnectorPack::setDeleteLastOnly(bool lastOnly)
+{
+	if (lastOnly)
+	{
+		m_flags |= DELETE_LAST_ONLY;
+	}
+	else
+	{
+		m_flags &= ~DELETE_LAST_ONLY;
+	}
+}
+
+
+bool ConnectorPack::isDeleteLastOnly() const
+{
+	return m_flags & DELETE_LAST_ONLY;
+}
+
+
