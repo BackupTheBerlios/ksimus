@@ -217,10 +217,6 @@ bool KSimusDoc::saveModified()
 		                          i18n("Warning"));
 		switch(want_save)
 		{
-			case KMessageBox::Cancel:
-				completed = false;
-				break;
-
 			case KMessageBox::Yes:
 				if (doc_url.fileName() == i18n("Untitled"))
 					{
@@ -230,16 +226,16 @@ bool KSimusDoc::saveModified()
 					{
 						saveDocument(URL());
 					}
-					deleteContents();
-					completed = true;
+					newDocument();
+//					completed = true;
 					break;
 
 			case KMessageBox::No:
-				setModified(false);
-				deleteContents();
-				completed = true;
+				newDocument();
+//				completed = true;
 				break;	
 
+			case KMessageBox::Cancel:
 			default:
 				completed = false;
 				break;
@@ -247,7 +243,7 @@ bool KSimusDoc::saveModified()
 	}
 	else
 	{
-		deleteContents();
+		newDocument();
 	}
 
 	return completed;
