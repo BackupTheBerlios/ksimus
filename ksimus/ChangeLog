@@ -1,5 +1,6 @@
 	23.03.2002
 * New: Add includes for KDE3 compatibility
+* Fix: KSimEditor::eventFilter did not work as expected with KDE3
 	20.03.2002
 * New: Version 0.3.4
 	02.03.2002
