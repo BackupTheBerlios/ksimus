@@ -1,4 +1,11 @@
+	28.5.2003
+* New: Component Name history in component dialog
+* New: Class KSimIcon. Loads icons and has embedded icons if loading failed
+* Fix: Possible crash if circuit test failed
+* Change: Save Connector orientation as text and not as integer
+* Fix: Page detection in tabbed dialogs (KDE3 failed)
 	20.5.2003
+* Change: EnumDictBase uses QAsciiDict instead of QDict
 * Change: Change some "static char *" into "static char * const"
 * Change: Don't call KMessageBox with widget == 0
 * Change: BaseLibraryItem::getOldLibNames() returns a "const QStringList *" instead of "QStringList *"
