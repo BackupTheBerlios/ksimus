@@ -22,6 +22,7 @@
 #include <qfileinfo.h>
 
 // KDE-Includes
+#include <kglobal.h>
 #include <klocale.h>
 
 // Project-Includes
@@ -133,9 +134,9 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 			if (sym)
 			{
 //				KSIMDEBUG("Exec init function 1");
-				typedef const PackageInfo * (*t_func)();
+				typedef const PackageInfo * (*t_func)(KLocale *);
 				t_func func = (t_func)sym;
-				m_packageInfo = func();
+				m_packageInfo = func(KGlobal::locale());
 //				KSIMDEBUG_VAR("Exec init function",getFilename());
 				if (!m_packageInfo)
 				{

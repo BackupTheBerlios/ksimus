@@ -303,7 +303,7 @@ void Library::loadPackageFiles()
 							if (package->getPackageInfo()->getInstance())
 							{
 								// Add translations
-								KGlobal::locale()->insertCatalogue(package->getPackageInfo()->getInstance()->instanceName());
+//								KGlobal::locale()->insertCatalogue(package->getPackageInfo()->getInstance()->instanceName());
 							}
 							else
 							{
