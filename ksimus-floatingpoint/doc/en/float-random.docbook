@@ -30,7 +30,7 @@ It is possible to define an individual start seed. In this case the random numbe
 same each simulation. With selecting a random seed the component creates real random number. In
 this case the random number sequence is changed each simulation.
 </para><para>
-The component has also an optional Enable connector. This input enables the creation of random
+The component also has an optional Enable connector. This input enables the creation of random
 numbers. It is possible to define the Enable connector as level or edge sensitive. The component
 creates random number each simulation cycle if the Enable connector is deactivated.
 </para><para>

@@ -31,9 +31,9 @@ How to remove a connector? Open the connector popup menu and select the entry
 The connector popup menu is shown if the mouse pointer is above the connector and then
 the right mouse button is clicked.
 </para><para>
-How to examin the log file? The log file is a simple text file. So you can use any editor
+How to examine the log file? The log file is a simple text file. So you can use any editor
 to open the file. A disadvantage is that the columns of the log file are not aligned. So
-it is not clear to realize the columns. More comfortable is to open the file with 
+it is not clear to realize the columns. More comfortable is to open the file with
 <application>KSpread</application> which is part of <application>KOffice</application>. 
 <application>KSpread</application> opens a dialog where you are able to select the colum
 separator (the default separator of KSimus is a semicolon). This way should work with all

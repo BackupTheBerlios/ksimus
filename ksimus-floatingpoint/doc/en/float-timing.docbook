@@ -36,7 +36,8 @@ reachs the output connector.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The delay time is user definable. It is possible to select the unit ticks or a time based unit like msec.
+The delay time is user definable. It is possible to take ticks as the unit of measure or
+a time based unit like msec.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.

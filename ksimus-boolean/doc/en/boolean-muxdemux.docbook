@@ -26,13 +26,13 @@ input values to the output connector. The selected input connector depends on th
 the address inputs.
 </para><para>
 The component has an internal address latch. This latch is activated if the optional connector 'Enable Latch Address' is
-activated. During true condition at this input the current address is used. A transition to false condition
+activated. During true condition at this input the current address is used. A change to false condition
 latches the address. During false condition at this input the latched address is used. The latch is bypassed if the
 optional connector 'Enable Latch Address' is deactivated.
 </para><para>
-The component has also an internal output latch. This latch is activated if the connector 'Enable Latch Output'
-is activated. During true condition at this input the current addressed input value is used. A transition to
-false condition latches the output value. During false condition at this input the latched outut value is used.
+The component also has an internal output latch. This latch is activated if the connector 'Enable Latch Output'
+is activated. During true condition at this input the current addressed input value is used. A change to
+false condition latches the output value. During false condition at this input the latched output value is used.
 The latch is bypassed if the optional connector 'Enable Latch Output' is deactivated.
 </para><para>
 If an input is addressed which does not exist (e.g. the 15th input is selected but the component has only 14
@@ -123,12 +123,12 @@ input value to one of the output connectors. The selected output connector depen
 the address inputs.
 </para><para>
 The component has an internal address latch. This latch is activated if the optional connector 'Enable Latch Address' is
-activated. During true condition at this input the current address is used. A transition to false condition
+activated. During true condition at this input the current address is used. A change to false condition
 latches the address. During false condition at this input the latched address is used. The latch is bypassed
 if the optional connector 'Enable Latch Address' is deactivated.
 </para><para>
-The component has also an internal output latch. This latch is activated if the connector 'Enable Latch Output'
-is activated. During true condition at this input the latch is bypassed. A transition to
+The component also has an internal output latch. This latch is activated if the connector 'Enable Latch Output'
+is activated. During true condition at this input the latch is bypassed. A change to
 false condition latches the last output values. During false condition at this input the latched output values
 are used. The latch is bypassed if the optional connector 'Enable Latch' is deactivated.
 </para></sect3>

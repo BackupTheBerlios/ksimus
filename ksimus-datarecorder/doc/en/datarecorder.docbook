@@ -21,7 +21,7 @@ The connector popup menu is shown if the mouse pointer is above the connector an
 the right mouse button is clicked.
 </para><para>
 In the current version the DataRecorder uses a separate window for displaying the values. In a
-future version it will be also possible to place the data view inside the schematic and user view.
+future version it will also be possible to place the data view inside the schematic and user view.
 </para></sect2>
 
 
@@ -109,7 +109,7 @@ The connector must be not connected. This entry exists only in the connector pop
 
 <listitem>
 <para>Open graph</para>
-<para>Opens the data view (see below). This entry exists also during active simulation.</para>
+<para>Opens the data view (see below). This entry also exists during active simulation.</para>
 </listitem>
 
 <listitem>
@@ -165,12 +165,12 @@ The screenshot above shows the data view with three functions:
 </itemizedlist>
 
 <para>
-The the data view has on the left side a panel with one button for each channel and a
-zoom control. On the right side is the data area.
+On the left side of the data view has a panel with one button for each channel and a
+zoom control and on the right side there is the data area.
 </para>
 
 <para>
-The buttons on the panel are named like the related connectors. Left on each button is a small
+The buttons on the panel are named like the related connectors. Left side of each button is a small
 colored rectangle. This color is used to draw the line of this channel. A press on a button opens
 or closes a control window for the channel.
 </para>
@@ -197,8 +197,8 @@ or closes a control window for the channel.
 </para>
 
 <para>
-The first item in the control window shows the channel name which is also the related connector name.
-Changes in this item will change the channel name as well as the connector name. The second item is a
+The first item in the control window shows the channel name which also is the related connector name.
+Changes in this item will change the channel name as well as the connector name. The second item is an
 offset control and the third item is a gain control. Changes at this items cause an immediately update
 of the data area. The last item let you change the color of the line.
 </para>

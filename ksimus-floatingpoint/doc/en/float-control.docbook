@@ -95,7 +95,7 @@ activated. During true condition at this input the current address is used. A tr
 latches the address. During false condition at this input the latched address is used. The latch is bypassed if the
 optional connector 'Latch Address Input' is deactivated.
 </para><para>
-The component has also an internal output latch. This latch is activated if the connector 'Latch Output'
+The component also has an internal output latch. This latch is activated if the connector 'Latch Output'
 is activated. During true condition at this input the current addressed input value is used. A transition to
 false condition latches the output value. During false condition at this input the latched outut value is used.
 The latch is bypassed if the optional connector 'Latch Output' is deactivated.

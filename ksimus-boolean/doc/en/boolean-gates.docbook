@@ -31,7 +31,7 @@ true. The output is false if all inputs are false.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
@@ -90,7 +90,7 @@ true. The output is true if all inputs are false.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
@@ -147,7 +147,7 @@ is odd. In other case the output is false.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 All inputs and the output are freely negatable.
 </para></listitem><listitem><para>
@@ -204,7 +204,7 @@ is even (or zero). In other case the output is false.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 All inputs and the output are freely negatable.
 </para></listitem><listitem><para>

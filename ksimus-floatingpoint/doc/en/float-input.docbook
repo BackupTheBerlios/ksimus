@@ -65,7 +65,7 @@ The component is never shown in the User View.
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
-This component supplies a schematic with a input line for floating point values.
+This component supplies a schematic with an input line for floating point values.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
@@ -75,7 +75,7 @@ This component supplies a schematic with a input line for floating point values.
 Limits the value to an upper and a lower range.
 </para></listitem><listitem><para>
 Allows key tracking. This means that the output is changed every new inserted or deleted digit (as long as
-the resulting value is not outside the allowed range). This feature optional.
+the resulting value is not outside the allowed range). This feature is optional.
 </para></listitem><listitem><para>
 The component supports a user definable reset value.
 The default reset value is 0.0.

@@ -80,7 +80,7 @@ This component adds all input values and shifts the result to the output connect
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -170,7 +170,7 @@ This component multiplies all input values and shifts the result to the output c
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-User definable input count (2-26 inputs).
+User definable number of inputs (2-26 inputs).
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.

@@ -27,7 +27,7 @@ This component is a seven segment display.
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-Shows values from 0hex up to 0Fhex.
+Shows values from 0 to 9 and A to F.
 </para></listitem><listitem><para>
 The display is free resizable.
 </para></listitem><listitem><para>
