@@ -34,7 +34,6 @@
 // Project-Includes
 
 // Forward declaration
-class KSimDataPrivate;
 class QDateTime;
 class QStrList;
 
@@ -45,7 +44,9 @@ class QStrList;
   * @author Rasmus Diekenbrock
   */
 
-class KSimData {
+class KSimData
+{
+class Private;
 public: 
 
   enum eVersionType { versionError,   // Use this in @ref convertVersionType to detect an error. It is not used elsewhere.
@@ -657,7 +658,7 @@ public:
 
 
 private:
-	KSimDataPrivate * m_p;
+	Private * m_p;
 };
 
 #endif

@@ -31,11 +31,11 @@
 
 // Forward declaration
 
-class KSimDataPrivate
+class KSimData::Private
 {
 	public:
 
-	KSimDataPrivate(const QString &filename, KSimData::eVersionType versionType, bool bReadOnly)
+	Private(const QString &filename, KSimData::eVersionType versionType, bool bReadOnly)
 		: m_simpleFile(filename, bReadOnly),
 			m_versionType(versionType),
 			m_filename(filename)
@@ -107,7 +107,7 @@ KSimData::eVersionType KSimData::convertVersionType(const char * versionType, KS
 
 KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bReadOnly)
 {
-	m_p = new KSimDataPrivate(pFileName, versionType, bReadOnly);
+	m_p = new Private(pFileName, versionType, bReadOnly);
 	CHECK_PTR(m_p);
 	pushGroup("/");
 	writeEntry(sKSimusKey, "KSimus"); // Set always
