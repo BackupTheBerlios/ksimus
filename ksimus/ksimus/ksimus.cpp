@@ -368,8 +368,20 @@ void KSimusApp::openDocumentFile(const KURL& url)
   slotStatusMsg(i18n("Opening file..."));
 
   doc->openDocument( url);
+  setCaption(url.fileName(), false);
   fileOpenRecent->addURL( url );
   slotStatusMsg(i18n("Ready."));
+}
+
+
+void KSimusApp::executeDocumentFile(const KURL& url)
+{
+  slotStatusMsg(i18n("Execute file..."));
+
+  doc->openDocument( url);
+  setCaption(url.fileName(), false);
+  fileOpenRecent->addURL( url );
+  slotExecuteStart();
 }
 
 
@@ -657,7 +669,7 @@ void KSimusApp::slotFileClose()
 	
   close();
 
-  slotStatusMsg(i18n("Ready."));
+//  slotStatusMsg(i18n("Ready."));
 }
 
 void KSimusApp::slotFilePrint()
@@ -687,10 +699,10 @@ void KSimusApp::slotFileQuit()
       // only close the window if the closeEvent is accepted. If the user presses Cancel on the saveModified() dialog,
       // the window and the application stay open.
       if(!w->close())
-	break;
+				break;
     }
   }	
-  slotStatusMsg(i18n("Ready."));
+//  slotStatusMsg(i18n("Ready."));
 }
 
 void KSimusApp::slotEditUndo()
