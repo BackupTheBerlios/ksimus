@@ -59,17 +59,20 @@ public:
 	virtual ~CompLayoutBaseItem();
 	
 	/** This functions returns the size of the layout element. The size is measured in grid (8 Pixels).
-	 */
-	virtual int getSize() const = 0;
+ 	  * @param size       Add the size of the layout element to the variable size.
+ 	  * @param connectors Add the numbers of connectors to the variable connectors. Hidden connectors
+ 	  *                   are not counted.
+	  */
+	virtual void getSize(unsigned int & size, unsigned int & connectors) const = 0;
 	/** Returns the stretch factor of the layout element. In most case the factor is 0
 	 */
-	virtual int getStretchFactor() const = 0;
+	virtual unsigned int getStretchFactor() const = 0;
 	/** Positionized the layout element.
 	 *  @param size       The number of grid to distribute for stretch elements.
 	 *	@param sumStretch The sum of all stretch factors which have to split the size from above.
 	 *  @param startPos   The first position usable by this layout element.
 	 */
-	virtual int position(int & size, int & sumStretch, QPoint startPos) = 0;
+	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos) = 0;
 	
 	/** Returns the parent layout.*/
 	CompLayoutBase * getParent() const { return m_parentLayout; };
@@ -131,23 +134,23 @@ public:
    *  @param conn            The connector to add.
    *  @param additionalSpace A additional space after the connector.
    */
-  void addConnector(ConnectorBase * conn, int additionalSpace = 1);
+  void addConnector(ConnectorBase * conn, unsigned int additionalSpace = 1);
   /** Adds a space to the layout item.
     * @param space Space size measured in grids.
     */
-  void addSpace(int space);
+  void addSpace(unsigned int space);
   /** Adds a stretch item to the layout element. The size of a stretch item depends on the unused space
     * of the component side and the stretch factor.
     * @param factor   The factor is relative to other stretch factors of the layout element. Higher stretch
                       factors get more space.
     */
-  void addStretch(int factor);
+  void addStretch(unsigned int factor);
   /** Adds a connector pack to the layout element. The required space of this element is count of connector *
       (1 + space).
     * @param connPack           The connector pack to add.
     * @param additionalSpace    Space between two connectors and after the last connector.
     */
-  void addConnectorPack(ConnectorPack * connPack, int additionalSpace = 1);
+  void addConnectorPack(ConnectorPack * connPack, unsigned int additionalSpace = 1);
 
   /** Returns the orientations of the element. */
   ConnOrientationType getOrientation() const { return m_orientation; };
@@ -156,17 +159,23 @@ public:
   CompLayoutList * getItemList() const { return m_itemList; };
 	
 	/** This functions returns the size of the layout element. The size is measured in grid (8 Pixels).
+ 	  * @param size       Add the size of the layout element to the variable size.
+ 	  * @param connectors Add the numbers of connectors to the variable connectors. Hidden connectors
+ 	  *                   are not counted.
 	 */
-	virtual int getSize() const;
+	virtual void getSize(unsigned int & size, unsigned int & connectors) const;
 	/** Returns the stretch factor of the layout element. In most case the factor is 0
+ 	  * @param size       Add the size of the layout element to the variable size.
+ 	  * @param connectors Add the numbers of connectors to the variable connectors. Hidden connectors
+ 	  *                   are not counted.
 	 */
-	virtual int getStretchFactor() const;
+	virtual unsigned int getStretchFactor() const;
 	/** Positionized the layout element.
 	 *  @param size       The number of grid to distribute for stretch elements.
 	 *	@param sumStretch The sum of all stretch factors which have to split the size from above.
 	 *  @param startPos   The first position usable by this layout element.
 	 */
-	virtual int position(int & size, int & sumStretch, QPoint startPos);
+	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos);
 
 
   /** Returns the parent layout. Returns a null pointer if the layout have no parent. */
@@ -177,7 +186,7 @@ public:
   Component * getComponent() const;
 
 	/** Moves the position "pos" by "add" in the direction given by the orientation. */
-  void addPosition(QPoint & pos, int add);
+  void addPosition(QPoint & pos, unsigned int add);
 
 
 protected:
@@ -297,7 +306,7 @@ public:
   /** Sets the minimum size. */
   void setMinSize(const QSize & minSize);
   /** Sets the minimum size. */
-  void setMinSize(int width, int height) { setMinSize(QSize(width, height)); };
+  void setMinSize(unsigned int width, unsigned int height) { setMinSize(QSize(width, height)); };
 	
   /** Returns the current component size.*/
   const QSize & getSize() const { return m_currentSize; };

@@ -61,43 +61,40 @@ Component * CompLayoutBaseItem::getComponent() const
 class CompLayoutConnector : public CompLayoutBaseItem
 {
 public:
-	CompLayoutConnector(CompLayoutBase * parentLayout, ConnectorBase * conn, int additionalSpace = 1)
+	CompLayoutConnector(CompLayoutBase * parentLayout, ConnectorBase * conn, unsigned int additionalSpace = 1)
 		:	CompLayoutBaseItem(parentLayout),
 			m_conn(conn),
 			m_space(QMAX(0,additionalSpace))
 	{};
 	
 	ConnectorBase * getConnector() const { return m_conn;};
-	int getAdditionalSpace() const { return m_space;};
+	unsigned int getAdditionalSpace() const { return m_space;};
 	
-	virtual int getSize() const;
-	virtual int getStretchFactor() const;
-	virtual int position(int & size, int & sumStretch, QPoint startPos);
+	virtual void getSize(unsigned int & size, unsigned int & connectors) const;
+	virtual unsigned int getStretchFactor() const;
+	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos);
 
 
 private:
 	ConnectorBase * m_conn;
-	int m_space;
+	unsigned int m_space;
 };
 
-int CompLayoutConnector::getSize() const
+void CompLayoutConnector::getSize(unsigned int & size, unsigned int & connectors) const
 {
-	if (getConnector()->isHidden())
+	if (!getConnector()->isHidden())
 	{
-		return 0;
-	}
-	else
-	{
-		return 1 + getAdditionalSpace();
+		size += 1 + getAdditionalSpace();
+		connectors ++;
 	}
 }
 
-int CompLayoutConnector::getStretchFactor() const
+unsigned int CompLayoutConnector::getStretchFactor() const
 {
 	return 0;
 }
 
-int CompLayoutConnector::position(int & /*size*/, int & /*sumStretch*/, QPoint startPos)
+unsigned int CompLayoutConnector::position(unsigned int & /*size*/, unsigned int & /*sumStretch*/, QPoint startPos)
 {
 	if (getConnector()->isHidden())
 	{
@@ -125,25 +122,25 @@ public:
 	int getSpace() const { return m_space;};
 	
 	
-	virtual int getSize() const;
-	virtual int getStretchFactor() const;
-	virtual int position(int & size, int & sumStretch, QPoint startPos);
+	virtual void getSize(unsigned int & size, unsigned int & connectors) const;
+	virtual unsigned int getStretchFactor() const;
+	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos);
 
 private:
-	int m_space;
+	unsigned int m_space;
 };
 
-int CompLayoutSpace::getSize() const
+void CompLayoutSpace::getSize(unsigned int & size, unsigned int & /*connectors*/) const
 {
-	return getSpace();
+	size += getSpace();
 }
 
-int CompLayoutSpace::getStretchFactor() const
+unsigned int CompLayoutSpace::getStretchFactor() const
 {
 	return 0;
 }
 
-int CompLayoutSpace::position(int & /*size*/, int & /*sumStretch*/, QPoint /*startPos*/)
+unsigned int CompLayoutSpace::position(unsigned int & /*size*/, unsigned int & /*sumStretch*/, QPoint /*startPos*/)
 {
 	return getSpace();
 }
@@ -154,32 +151,31 @@ int CompLayoutSpace::position(int & /*size*/, int & /*sumStretch*/, QPoint /*sta
 class CompLayoutStretch : public CompLayoutBaseItem
 {
 public:
-	CompLayoutStretch(CompLayoutBase * parentLayout, int factor)
+	CompLayoutStretch(CompLayoutBase * parentLayout, unsigned int factor)
 		: CompLayoutBaseItem(parentLayout),
 			m_factor(QMAX(1,factor))
 	{};
 	
-	int getFactor() const { return m_factor;};
+	unsigned int getFactor() const { return m_factor;};
 	
-	virtual int getSize() const;
-	virtual int getStretchFactor() const;
-	virtual int position(int & size, int & sumStretch, QPoint startPos);
+	virtual void getSize(unsigned int & size, unsigned int & connectors) const;
+	virtual unsigned int getStretchFactor() const;
+	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos);
 
 private:
-	int m_factor;
+	unsigned int m_factor;
 };
 
-int CompLayoutStretch::getSize() const
+void CompLayoutStretch::getSize(unsigned int & /*size*/, unsigned int & /*connectors*/) const
 {
-	return 0;
 }
 
-int CompLayoutStretch::getStretchFactor() const
+unsigned int CompLayoutStretch::getStretchFactor() const
 {
 	return getFactor();
 }
 
-int CompLayoutStretch::position(int & size, int & sumStretch, QPoint /*startPos*/)
+unsigned int CompLayoutStretch::position(unsigned int & size, unsigned int & sumStretch, QPoint /*startPos*/)
 {
 	if (sumStretch == 0)
 	{
@@ -188,7 +184,7 @@ int CompLayoutStretch::position(int & size, int & sumStretch, QPoint /*startPos*
 	}
 	else
 	{
-		int stretch = (int)(((double)(size * getFactor()) / sumStretch) + 0.5);
+		unsigned int stretch = (unsigned int)(((double)(size * getFactor()) / sumStretch) + 0.5);
 		size -= stretch;
 		sumStretch -= getFactor();
 		return stretch;
@@ -209,21 +205,21 @@ public:
 	};
 	
 	ConnectorPack * getConnectorPack() const { return m_connPack;};
-	int getAdditionalSpace() const { return m_space;};
+	unsigned int getAdditionalSpace() const { return m_space;};
 	
 	
-	virtual int getSize() const;
-	virtual int getStretchFactor() const;
-	virtual int position(int & size, int & sumStretch, QPoint startPos);
+	virtual void getSize(unsigned int & size, unsigned int & connectors) const;
+	virtual unsigned int getStretchFactor() const;
+	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos);
 
 private:
 	ConnectorPack * m_connPack;
-	int m_space;
+	unsigned int m_space;
 };
 
-int CompLayoutConnPack::getSize() const
+void CompLayoutConnPack::getSize(unsigned int & size, unsigned int & connectors) const
 {
-	int i = 0;
+	unsigned int i = 0;
 	
 	FOR_EACH_CONNECTOR(it, *getConnectorPack()->getConnList())
 	{
@@ -232,17 +228,18 @@ int CompLayoutConnPack::getSize() const
 			i+= 1;
 		}
 	}
-	return i * ( 1 + getAdditionalSpace());
+	size += i * ( 1 + getAdditionalSpace());
+	connectors += i;
 }
 
-int CompLayoutConnPack::getStretchFactor() const
+unsigned int CompLayoutConnPack::getStretchFactor() const
 {
 	return 0;
 }
 
-int CompLayoutConnPack::position(int & /*size*/, int & /*sumStretch*/, QPoint startPos)
+unsigned int CompLayoutConnPack::position(unsigned int & /*size*/, unsigned int & /*sumStretch*/, QPoint startPos)
 {
-	int i = 0;
+	unsigned int i = 0;
 	
 	FOR_EACH_CONNECTOR(it, *getConnectorPack()->getConnList())
 	{
@@ -332,7 +329,7 @@ void CompLayoutBase::addLayout(CompLayoutBase * layout)
 	getItemList()->append(layout);
 }
 
-void CompLayoutBase::addConnector(ConnectorBase * conn, int additionalSpace = 1)
+void CompLayoutBase::addConnector(ConnectorBase * conn, unsigned int additionalSpace = 1)
 {
 	CompLayoutBaseItem * item = new CompLayoutConnector(this, conn, additionalSpace);
 	CHECK_PTR(item);
@@ -343,7 +340,7 @@ void CompLayoutBase::addConnector(ConnectorBase * conn, int additionalSpace = 1)
 	QObject::connect(conn, SIGNAL(signalProperty()),getBaseLayout(),SLOT(updateLayout()));
 }
 
-void CompLayoutBase::addSpace(int space)
+void CompLayoutBase::addSpace(unsigned int space)
 {
 	CompLayoutBaseItem * item = new CompLayoutSpace(this, space);
 	CHECK_PTR(item);
@@ -351,7 +348,7 @@ void CompLayoutBase::addSpace(int space)
 	getItemList()->append(item);
 }
 
-void CompLayoutBase::addStretch(int factor)
+void CompLayoutBase::addStretch(unsigned int factor)
 {
 	CompLayoutBaseItem * item = new CompLayoutStretch(this, factor);
 	CHECK_PTR(item);
@@ -359,7 +356,7 @@ void CompLayoutBase::addStretch(int factor)
 	getItemList()->append(item);
 }
 
-void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, int space = 1)
+void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, unsigned int space = 1)
 {
 	CompLayoutBaseItem * item = new CompLayoutConnPack(this, connPack, space);
 	CHECK_PTR(item);
@@ -371,20 +368,17 @@ void CompLayoutBase::addConnectorPack(ConnectorPack * connPack, int space = 1)
 	QObject::connect(connPack, SIGNAL(signalDeletedConnector()),getBaseLayout(),SLOT(updateLayout()));
 }
 
-int CompLayoutBase::getSize() const
+void CompLayoutBase::getSize(unsigned int & size, unsigned int & connectors) const
 {
-	int res = 0;
-	
 	FOR_EACH_LAYOUTITEM(it,*getItemList())
 	{
-		res += it.current()->getSize();
+		it.current()->getSize(size, connectors);
 	}
-	return res;
 }
 
-int CompLayoutBase::getStretchFactor() const
+unsigned int CompLayoutBase::getStretchFactor() const
 {
-	int res = 0;
+	unsigned int res = 0;
 	
 	FOR_EACH_LAYOUTITEM(it,*getItemList())
 	{
@@ -393,20 +387,20 @@ int CompLayoutBase::getStretchFactor() const
 	return res;
 }
 
-int CompLayoutBase::position(int & size, int & sumStretch, QPoint startPos)
+unsigned int CompLayoutBase::position(unsigned int & size, unsigned int & sumStretch, QPoint startPos)
 {
-	int res = 0;
+	unsigned int res = 0;
 	
 	FOR_EACH_LAYOUTITEM(it,*getItemList())
 	{
-		int offset = it.current()->position(size, sumStretch, startPos);
+		unsigned int offset = it.current()->position(size, sumStretch, startPos);
 		addPosition(startPos, offset);
 		res += offset;
 	}
 	return res;
 }
 
-void CompLayoutBase::addPosition(QPoint & pos, int add)
+void CompLayoutBase::addPosition(QPoint & pos, unsigned int add)
 {
 	switch(getOrientation())
 	{
@@ -482,32 +476,23 @@ ComponentLayout::~ComponentLayout()
 
 void ComponentLayout::updateLayout()
 {
-	int leftSize, rightSize, topSize, bottomSize;
-	int leftSumStretch, rightSumStretch, topSumStretch, bottomSumStretch;
+	unsigned int leftSize, rightSize, topSize, bottomSize;
+	unsigned int leftConn, rightConn, topConn, bottomConn;
+	unsigned int leftSumStretch, rightSumStretch, topSumStretch, bottomSumStretch;
 	
-	bool leftConn, rightConn, topConn, bottomConn;
-	int sizeX, sizeY;
+	unsigned int sizeX, sizeY;
 	
-	
-	// Component side used?
-	leftConn = getLeft()->getItemList()->count() != 0;
-	rightConn = getRight()->getItemList()->count() != 0;
-	topConn = getTop()->getItemList()->count() != 0;
-	bottomConn = getBottom()->getItemList()->count() != 0;
-	
-	getSheetView()->enableConnectorSpacingLeft(leftConn);
-	getSheetView()->enableConnectorSpacingRight(rightConn);
-	getSheetView()->enableConnectorSpacingTop(topConn);
-	getSheetView()->enableConnectorSpacingBottom(bottomConn);
+	leftSize = rightSize = topSize = bottomSize = 0;
+	leftConn = rightConn = topConn = bottomConn = 0;
 	
 	
-	leftSize         = getLeft()->getSize();
+	getLeft()->getSize(leftSize, leftConn);
 	leftSumStretch   = getLeft()->getStretchFactor();
-	rightSize        = getRight()->getSize();
+	getRight()->getSize(rightSize, rightConn);
 	rightSumStretch  = getRight()->getStretchFactor();
-	topSize          = getTop()->getSize();
+	getTop()->getSize(topSize, topConn);
 	topSumStretch    = getTop()->getStretchFactor();
-	bottomSize       = getBottom()->getSize();
+	getBottom()->getSize(bottomSize, bottomConn);
 	bottomSumStretch = getBottom()->getStretchFactor();
 
   if (isFixedSize())
@@ -517,6 +502,18 @@ void ComponentLayout::updateLayout()
   }
   else
   {
+		// Component side used?
+/*		leftConn = getLeft()->getItemList()->count() != 0;
+		rightConn = getRight()->getItemList()->count() != 0;
+		topConn = getTop()->getItemList()->count() != 0;
+		bottomConn = getBottom()->getItemList()->count() != 0;*/
+	
+		getSheetView()->enableConnectorSpacingLeft(leftConn);
+		getSheetView()->enableConnectorSpacingRight(rightConn);
+		getSheetView()->enableConnectorSpacingTop(topConn);
+		getSheetView()->enableConnectorSpacingBottom(bottomConn);
+	
+	
   	sizeX = QMAX(topSize,bottomSize);
 		sizeY = QMAX(leftSize,rightSize);
 		
@@ -525,8 +522,8 @@ void ComponentLayout::updateLayout()
 		if (topConn) sizeY++;
 		if (bottomConn) sizeY++;
 
-  	sizeX = QMAX(sizeX,getMinSize().width());
-		sizeY = QMAX(sizeY,getMinSize().height());
+  	sizeX = QMAX(sizeX,(unsigned int)getMinSize().width());
+		sizeY = QMAX(sizeY,(unsigned int)getMinSize().height());
 		
 		m_currentSize = QSize(sizeX * gridX, sizeY * gridY);
 		
@@ -551,7 +548,7 @@ void ComponentLayout::updateLayout()
 		getSheetView()->setPlace(newPlace);
 	}
 	
- 	int i;
+ 	unsigned int i;
  	i = sizeY - leftSize;
  	getLeft()->position(i, leftSumStretch, QPoint(0,topConn?1:0));
  	i = sizeY - rightSize;
