@@ -1,4 +1,12 @@
+	02.01.2002
+* New: Font property in classes ComponentStyle, ComponentPropertyStyleWidget, CompViewHBox and CompViewVBox
+* Change: Constructor ComponentStyle
+* Change: BooleanLed because changes in ComponentStyle
+* New: member function KSimData::hasKey
 	30.12.2001
+* Fix: The Module View had not accept last text input if you click after that on a checkbox.
+  (Cause: A click on a checkbox or radiobutton with default focus policy leave the (key) focus unchanged.
+   In this case the line edit does not receive a focus out event).
 * Fix: Speedup document loading
 * New: Progress bar during loading
 * New: Classes ComponentStyle, ComponentPropertyStyleWidget, CompViewHBox and CompViewVBox for
