@@ -39,10 +39,10 @@ class QDateTime;
 class QStrList;
 
 
-/**The data format for KSimus documents.
+/** The data format for KSimus documents.
   *
   * Copy some comments from KSimpleConfig and KConfigBase. Thanks KDE, Kalle Dalheimer and Preston Brown
-  *@author Rasmus Diekenbrock
+  * @author Rasmus Diekenbrock
   */
 
 class KSimData {
