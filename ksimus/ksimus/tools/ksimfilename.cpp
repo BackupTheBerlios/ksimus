@@ -351,7 +351,7 @@ bool KSimFilename::load(KSimData & config, const char * pGroup, const KSimFilena
 				setPathType(*pPathType);  // First path type
 				setFilename(filename);
 				
-				KSIMDEBUG(QString::fromLatin1("Resulting filename(%1)").arg(getFilename()));
+//				KSIMDEBUG(QString::fromLatin1("Resulting filename(%1)").arg(getFilename()));
 			}
 			else
 			{
