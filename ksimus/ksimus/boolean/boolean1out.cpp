@@ -152,6 +152,7 @@ Boolean1OutView::Boolean1OutView(Boolean1Out * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
@@ -175,12 +176,7 @@ Boolean1OutView::Boolean1OutView(Boolean1Out * comp, eViewType viewType)
 
 void Boolean1OutView::draw(QPainter * p)
 {
-	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
-							getWidgetPlace().bottomRight());
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
+	drawFrame(p);
 	
 	CompView::draw(p);
 }
