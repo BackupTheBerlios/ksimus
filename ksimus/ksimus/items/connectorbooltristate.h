@@ -149,4 +149,87 @@ private:
 	WireStateBoolTriState m_outData;
 };
 
+
+//#################################################################
+//#################################################################
+
+
+
+/**A boolean tristate connector for special cases as External Connectors.
+  *@author Rasmus Diekenbrock
+  *
+  * Used in External Connector
+  */
+
+const ConnectorInfo * getConnectorBoolTriStateSpecialInfo();
+
+class ConnectorBoolTriStateSpecial : public ConnectorBoolTriState
+{
+	Q_OBJECT
+
+public:
+	/**
+	 * Constructs a boolean tristate connector.
+	 *
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 */
+	ConnectorBoolTriStateSpecial(Component * comp,
+	                             const QString & name,
+	                             const QString & i18nName,
+	                             const QPoint & pos = QPoint());
+
+	/**
+	 * Constructs a boolean tristate connector. Like the constructor above, but creates also a
+	 * connector label (@ref ConnectorLabel).
+	 *
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param descr     Sets the description of the connector label.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 */
+	ConnectorBoolTriStateSpecial(Component * comp,
+	                             const QString & name,
+	                             const QString & i18nName,
+	                             const QString & descr,
+	                             const QPoint & pos = QPoint());
+
+
+
+	/** Returns a @ref WatchItemBooleanConnector object. */
+	virtual WatchItemBase * makeWatchItem();
+
+protected:
+	/**
+	 * Constructs a boolean tristate connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp      Component which contains this connector.
+	 * @param name      The *untranslated* connector name. This name is used as internal
+	 *                  identifier and should not be translated.
+	 * @param i18nName  The *translated* connector name. This name is used in the status bar and
+	 *                  the property widget.
+	 * @param pos       Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient    Sets the orientation of the connector.
+	 * @param ci        Sets the connector info (@ref ConnectorInfo):
+	 */
+	ConnectorBoolTriStateSpecial(Component * comp,
+	                             const QString & name,
+	                             const QString & i18nName,
+	                             const QPoint & pos,
+	                             ConnOrientationType orient,
+	                             const ConnectorInfo * ci);
+
+private:
+	/** Internal init function. */
+	void init();
+
+};
+
 #endif

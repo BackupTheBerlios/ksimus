@@ -177,3 +177,56 @@ WatchItemBase * ConnectorBoolTriState::makeWatchItem()
 	CHECK_PTR(wi);
 	return wi;
 }
+
+
+//#################################################################
+//#################################################################
+
+static ConnectorBase * createNoNegatable(Component * comp, const QString & name, const QString & i18nName, const QPoint & pos)
+{
+	return new ConnectorBoolTriStateSpecial(comp, name, i18nName, pos);
+}
+
+const ConnectorInfo * getConnectorBoolTriStateSpecialInfo()
+{
+	static const ConnectorInfo Info(QString::fromLatin1("Boolean TriState No Negatable"),
+	                                QString::fromLatin1("Boolean TriState No Negatable"),
+	                                QString::fromLatin1("Boolean TriState"),
+	                                createNoNegatable );
+	return &Info;
+}
+
+ConnectorBoolTriStateSpecial::ConnectorBoolTriStateSpecial(Component * comp, const QString & name,
+		                                                               const QString & i18nName, const QPoint & pos)
+	:	ConnectorBoolTriState(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTriStateSpecialInfo())
+{
+	init();
+}
+
+ConnectorBoolTriStateSpecial::ConnectorBoolTriStateSpecial(Component * comp, const QString & name, const QString & i18nName,
+		                                                              const QString & descr, const QPoint & pos)
+	:	ConnectorBoolTriState(comp, name, i18nName, pos, CO_RIGHT, getConnectorBoolTriStateSpecialInfo())
+{
+	init();
+	new ConnectorLabel(this, descr);
+}
+
+ConnectorBoolTriStateSpecial::ConnectorBoolTriStateSpecial(Component * comp, const QString & name, const QString & i18nName,
+		                                                               const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+	:	ConnectorBoolTriState(comp, name, i18nName, pos, orient, ci)
+{
+	init();
+}
+
+void ConnectorBoolTriStateSpecial::init()
+{
+	setNegateEnabled(false);
+}
+
+WatchItemBase * ConnectorBoolTriStateSpecial::makeWatchItem()
+{
+	WatchItemBase * wi = new WatchItemBoolTriStateConnectorSpecial(this);
+	CHECK_PTR(wi);
+	return wi;
+}
+
