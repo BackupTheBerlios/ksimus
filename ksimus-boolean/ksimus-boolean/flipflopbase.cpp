@@ -93,7 +93,7 @@ void FlipFlopBase::reset()
 /** save component properties */
 void FlipFlopBase::save(KSimData & file) const
 {
-	Component::save(file);
+	Boolean1Out::save(file);
 	
 	if (getDominant())   // Save true state only (default is false!)
 	{
@@ -108,7 +108,7 @@ bool FlipFlopBase::load(KSimData & file, bool copyLoad)
 {
 	setDominant( file.readBoolEntry("Set Dominant", false) );
 	
-	return Component::load(file, copyLoad);
+	return Boolean1Out::load(file, copyLoad);
 }
 
 
