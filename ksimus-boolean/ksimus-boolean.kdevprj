@@ -19,14 +19,16 @@ type=DATA
 [Config for BinMakefileAm]
 addcxxflags=-fPIC -Wno-long-long\s
 bin_program=ksimus-boolean
-cxxflags=\s-O3 -g2 -Wall -W\s
+cflags=
+cppflags=
+cxxflags=\s-O3 -g2 -Wall
 ldadd=
-ldflags=-shared
+ldflags=\s-shared
 
 [General]
 AMChanged=false
 author=Rasmus Diekenbrock
-configure_args=--prefix=/opt/kde2
+configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --prefix=/opt/kde2\s
 email=ksimus@gmx.de
 kdevprj_version=1.3
 lfv_open_groups=GNU,Headers,Sources,Translations
@@ -38,7 +40,7 @@ project_type=kpart_plugin
 sgml_file=/localhome/lokal/ksimus-boolean/doc/en/index.docbook
 short_info=The boolean package for KSimus
 sub_dir=ksimus-boolean/
-version=0.3.5-cvs
+version=0.3.5-pre1
 version_control=None
 workspace=1
 
