@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-02-04 22:40+0100\n"
-"PO-Revision-Date: 2002-02-18 20:13GMT\n"
+"PO-Revision-Date: 2002-02-24 12:35GMT\n"
 "Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "&Öffne Verzeichnis %1"
 
 #: lib/componentlistview.cpp:300
 msgid "&Hide Component Supplier"
-msgstr "&Schließe Komponentenverzeichnisse"
+msgstr "&Verstecke Komponentenverzeichnis"
 
 #: ksimeditor.cpp:681
 #, ycp-format
