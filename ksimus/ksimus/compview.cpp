@@ -305,54 +305,40 @@ void CompView::mouseRelease(QMouseEvent *, QPainter *)
 /** New position of the comoponent view */
 void CompView::setPos(const QPoint & pos)
 {
-	QPoint newPos(pos);
-	
-	if (getComponent()->getContainer()->isVisible() && !isHidden())
-	{	
-		// Limit position
-		QSize mapSize;
-		if (getViewType() == SHEET_VIEW)
-		{
-			mapSize = getComponent()->getContainer()->getSheetSize();
-		}
-		else
-		{ 	
-			mapSize = getComponent()->getContainer()->getUserSize();
-		}
+	QSize mapSize(  (getViewType() == SHEET_VIEW)
+	              ?  getComponent()->getContainer()->getSheetSize()
+	              :  getComponent()->getContainer()->getUserSize()  );
 
-		if (newPos.x() > (mapSize.width() - getPlace().width()))
-		{
-			newPos.setX(mapSize.width() - getPlace().width());
-		}
-		if (newPos.y() > (mapSize.height() - getPlace().height()))
-		{
-			newPos.setY(mapSize.height() - getPlace().height());
-		}
-		if (newPos.x() < 0)
-		{
-			newPos.setX(0);
-		}
-		if (newPos.y() < 0)
-		{
-			newPos.setY(0);
-		}
-		
-		// now map to grid
-		if (isGridSnapEnabled())
-		{
-			newPos = mapToGrid(newPos);
-		}
+	// Limit position
+	QPoint newPos(QMAX(0, QMIN(pos.x(), mapSize.width()  - getPlace().width())),
+	              QMAX(0, QMIN(pos.y(), mapSize.height() - getPlace().height())));
 	
-		if(m_p->place.topLeft() != newPos)
+	// now map to grid
+	if (isGridSnapEnabled())
+	{
+		newPos = mapToGrid(newPos);
+	}
+	
+	if(m_p->place.topLeft() != newPos)
+	{
+		if (getComponent()->getContainer()->isVisible() && !isHidden())
 		{
 			// Remove Object from sheet map
 			updateSheetMap(false);
+			
+			// Store new position
 			m_p->place.moveTopLeft(newPos);
+			
 			// Insert Object to sheet map
 			updateSheetMap(true);
-
+			
 			emit signalMove(getPlace().topLeft());
 			emit signalMoveWidget(getWidgetPlace().topLeft());
+		}
+		else
+		{
+			// Store new position
+			m_p->place.moveTopLeft(newPos);
 		}
 	}
 }
@@ -371,31 +357,27 @@ void CompView::setPlace(const QRect & place, bool degree0)
 		newPlace.setSize(convertSize(newPlace.size(), ROT_0_DEG, convertRotToInt(getRotation())));
 	}
 	
-	
-	if (getComponent()->getContainer()->isVisible())
-	{	
-		// Limit position
-		QSize mapSize;
-		if (getViewType() == SHEET_VIEW)
-		{
-			mapSize = getComponent()->getContainer()->getSheetSize();
-		}
-		else
-		{
-			mapSize = getComponent()->getContainer()->getUserSize();
-		}
-		if (newPlace.bottom() > mapSize.height())
-			newPlace.moveBy(0, mapSize.height() - newPlace.bottom());
-		
-		if (newPlace.right() > mapSize.width())
-			newPlace.moveBy(mapSize.width() - newPlace.right(), 0);
-		
-		if (newPlace.top() < 0)
-			newPlace.moveBy(0, - newPlace.top());
-		
-		if (newPlace.left() < 0)
-			newPlace.moveBy( -newPlace.left(), 0);
+	// Limit position
+	QSize mapSize;
+	if (getViewType() == SHEET_VIEW)
+	{
+		mapSize = getComponent()->getContainer()->getSheetSize();
 	}
+	else
+	{
+		mapSize = getComponent()->getContainer()->getUserSize();
+	}
+	if (newPlace.bottom() > mapSize.height())
+		newPlace.moveBy(0, mapSize.height() - newPlace.bottom());
+	
+	if (newPlace.right() > mapSize.width())
+		newPlace.moveBy(mapSize.width() - newPlace.right(), 0);
+		
+	if (newPlace.top() < 0)
+		newPlace.moveBy(0, - newPlace.top());
+		
+	if (newPlace.left() < 0)
+		newPlace.moveBy( -newPlace.left(), 0);
 	
 	if (isGridSnapEnabled())
 	{
@@ -404,19 +386,27 @@ void CompView::setPlace(const QRect & place, bool degree0)
 	
 	if (newPlace != m_p->place)
 	{
-		// Remove Object from sheet map
-		updateSheetMap(false);
-		m_p->place = newPlace;
-		// Insert Object to sheet map
-		updateSheetMap(true);
+		if (getComponent()->getContainer()->isVisible())
+		{
+			// Remove Object from sheet map
+			updateSheetMap(false);
+			m_p->place = newPlace;
+			// Insert Object to sheet map
+			updateSheetMap(true);
 
-		// Don't forget setRotation !!
-		emit signalMove(getPlace().topLeft());
-		emit signalResize(getPlace().size());
-		emit signalMoveWidget(getWidgetPlace().topLeft());
-		emit signalResizeWidget(getWidgetPlace().size());
+			// Don't forget setRotation !!
+			emit signalMove(getPlace().topLeft());
+			emit signalResize(getPlace().size());
+			emit signalMoveWidget(getWidgetPlace().topLeft());
+			emit signalResizeWidget(getWidgetPlace().size());
 	
-		resize();
+			resize();
+			
+		}
+		else
+		{
+			m_p->place = newPlace;
+		}
 	}
 }
 
@@ -836,6 +826,10 @@ void CompView::setHide(bool hide)
 			// Insert object to sheet map (after set not hidden)
 			updateSheetMap(true);
 			moveToBestPlace();
+			emit signalMove(getPlace().topLeft());
+			emit signalResize(getPlace().size());
+			emit signalMoveWidget(getWidgetPlace().topLeft());
+			emit signalResizeWidget(getWidgetPlace().size());
 			emit signalShow();
 		}
 	}
