@@ -2,118 +2,77 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-24 10:02+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2002-03-07 22:33+0100\n"
+"PO-Revision-Date: 2002-02-26 13:25GMT+1\n"
+"Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
+"Language-Team: Français <de@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
 
-#: channelpositionwidget.cpp:68
+#: channelpositionwidget.cpp:70
 msgid "&Offset: "
 msgstr "&Décalage :"
 
-#: channelpositionwidget.cpp:77
+#: channelpositionwidget.cpp:79
 msgid "&Gain: "
 msgstr "&Gain :"
 
-#: datarecorderchannelbase.cpp:174
+#: datarecorderchannelbase.cpp:177
 msgid "Change Channel Name"
 msgstr "Changer le nom du canal"
 
-#: datarecorderwidget.moc.cpp:42 datarecorderwidget.moc.cpp:47
-msgid "DataRecorderWidget"
-msgstr ""
-
-#: datarecorderwidget.moc.cpp:117 datarecorderwidget.moc.cpp:122
-msgid "KSimGridWidget"
-msgstr ""
-
-#: datarecorderchannelboolean.cpp:126
+#: datarecorderchannelboolean.cpp:129
 msgid "Boolean"
 msgstr "Logique"
 
-#: datarecorderchannelboolean.cpp:222 datarecorderwidget.cpp:171
+#: datarecorderchannelboolean.cpp:225 datarecorderchannelfloat.cpp:218
+#: datarecorderwidget.cpp:177
 msgid "Channel:"
 msgstr "Canal :"
 
-#: zoomwidget.cpp:217
+#: zoomwidget.cpp:219
+#, ycp-format
 msgid "%1 Sample/Pixel"
 msgstr "%1 Echantillon/pixel"
 
-#: zoomwidget.cpp:221
+#: zoomwidget.cpp:223
+#, ycp-format
 msgid "%1 s/div"
 msgstr "%1 s/div"
 
-#: zoomwidget.moc.cpp:42 zoomwidget.moc.cpp:47
-msgid "ZoomWidget"
-msgstr ""
-
-#: datarecorder.cpp:166 datarecorder.cpp:167
+#: datarecorder.cpp:170 datarecorder.cpp:171
 msgid "Data Recorder"
 msgstr "Enregisteur de données"
 
-#: datarecorder.cpp:513
+#: datarecorder.cpp:532
 msgid "&Open"
 msgstr "&Ouvrir"
 
-#: datarecorder.cpp:514
-msgid "&Add boolean connector"
-msgstr "&Ajouter un connecteur logique"
+#: datarecorder.cpp:533
+msgid "Add &boolean connector"
+msgstr "Ajouter un connecteur &logique"
 
-#: datarecorder.cpp:538
+#: datarecorder.cpp:534
+msgid "Add &floating point connector"
+msgstr "Ajouter un connecteur virgule &flottante"
+
+#: datarecorder.cpp:558 datarecorder.cpp:569
 msgid "Add channel"
 msgstr "Ajouer un canal"
 
-#: datarecorder.cpp:554
+#: datarecorder.cpp:585
 msgid "Remove channel"
 msgstr "Supprimer le canal"
 
-#: datarecorderview.moc.cpp:42 datarecorderview.moc.cpp:47
-msgid "DataRecorderView"
-msgstr ""
+#: datarecorderchannelfloat.cpp:124
+msgid "Floating Point"
+msgstr "Virgule flottante"
 
-#: datarecorder.moc.cpp:42 datarecorder.moc.cpp:47
-msgid "DataRecorder"
-msgstr ""
-
-#: channelpositionwidget.moc.cpp:42 channelpositionwidget.moc.cpp:47
-msgid "ChannelPositionWidget"
-msgstr ""
-
-#: datarecorderdataview.moc.cpp:42 datarecorderdataview.moc.cpp:47
-msgid "DataRecorderDataView"
-msgstr ""
-
-#: datarecorderdataview.moc.cpp:139 datarecorderdataview.moc.cpp:144
-msgid "DataRecorderDataViewItem"
-msgstr ""
-
-#: datarecorderdataview.moc.cpp:193 datarecorderdataview.moc.cpp:198
-msgid "DataRecorderDataViewDivGrid"
-msgstr ""
-
-#: datarecorderwidget.cpp:176
+#: datarecorderwidget.cpp:182
 msgid "&Zoom:"
 msgstr "&Zoom :"
-
-#: datarecorderchannelboolean.moc.cpp:42 datarecorderchannelboolean.moc.cpp:47
-msgid "DataRecorderChannelBoolean"
-msgstr ""
-
-#: widgetcontrolbutton.moc.cpp:42 widgetcontrolbutton.moc.cpp:47
-msgid "WidgetControlButton"
-msgstr ""
-
-#: widgetcontrolbutton.moc.cpp:125 widgetcontrolbutton.moc.cpp:130
-msgid "KSimColorLabel"
-msgstr ""
-
-#: datarecorderchannelbase.moc.cpp:42 datarecorderchannelbase.moc.cpp:47
-msgid "DataRecorderChannelBase"
-msgstr ""
