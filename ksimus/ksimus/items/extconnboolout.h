@@ -27,7 +27,10 @@
 const ComponentInfo * getExtConnBoolOutInfo();
 
 
-class ExtConnBoolOut : public ExternalConnector  {
+class ExtConnBoolOut : public ExternalConnector
+{
+	Q_OBJECT
+
 public: 
 	ExtConnBoolOut(CompContainer * container, const ComponentInfo * ci);
 	~ExtConnBoolOut();
