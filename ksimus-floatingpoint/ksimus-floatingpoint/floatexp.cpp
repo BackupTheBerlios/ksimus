@@ -129,8 +129,8 @@ FloatPow::FloatPow(CompContainer * container, const ComponentInfo * ci)
 	{
 		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("pow"));
 	}
-	getInputA()->setName(i18n("FloatingPoint", "Power"));
-	getInputB()->setName(i18n("FloatingPoint", "Base"));
+	getInputA()->setName(i18n("FloatingPoint", "Base"));
+	getInputB()->setName(i18n("FloatingPoint", "Power"));
 
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
@@ -139,8 +139,8 @@ FloatPow::FloatPow(CompContainer * container, const ComponentInfo * ci)
 void FloatPow::calculate()
 {
 	Float2In1Out::calculate();
-	
-	setValue(pow(getInputB()->getInput(), getInputA()->getInput()));
+
+	setValue(pow(getInputA()->getInput(), getInputB()->getInput()));
 }
 
 //###############################################################
