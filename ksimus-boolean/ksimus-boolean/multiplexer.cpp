@@ -70,8 +70,8 @@ const ComponentInfo * getMultiplexerInfo()
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
-	                                QString::null/*,  TODO
-	                                QString::fromLatin1("component-float-control-dataSelect")*/);
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-multiplexer"));
 	return &Info;
 }
 
@@ -94,24 +94,24 @@ Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	setResetState(DEFAULT_RESET_STATE);
 	
 	m_latchOutput = new ConnectorBoolInEdge(this,
-	                             QString::fromLatin1("Latch Output"),
-	                             i18n("Boolean-Connector", "Latch Output"));
+	                             QString::fromLatin1("Enable Latch Output"),
+	                             i18n("Boolean-Connector", "Enable Latch Output"));
 	CHECK_PTR(m_latchOutput);
 	m_latchOutput->setEdgeSensitive(false,true);
 	// make Output Latch optional
 	new OptionalConnector(m_latchOutput,
-	                      QString::fromLatin1("Output Latch"),
-	                      i18n("Boolean", "Output Latch:"));
+	                      QString::fromLatin1("Enable Output Latch"),
+	                      i18n("Boolean", "Enable Output Latch:"));
 	
 	m_latchAddress = new ConnectorBoolInEdge(this,
-	                             QString::fromLatin1("Latch Address Input"),
-	                             i18n("Boolean-Connector", "Latch Address Input"));
+	                             QString::fromLatin1("Enable Latch Address"),
+	                             i18n("Boolean-Connector", "Enable Latch Address"));
 	CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
 	// make Address Latch optional
 	new OptionalConnector(m_latchAddress,
-	                      QString::fromLatin1("Address Latch"),
-	                      i18n("Boolean", "Address Latch:"));
+	                      QString::fromLatin1("Enable Address Latch"),
+	                      i18n("Boolean", "Enable Address Latch:"));
 	
 	m_inputPack = new ConnectorPack(this,
 	                             QString::fromLatin1("Input"),
