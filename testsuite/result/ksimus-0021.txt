@@ -1,0 +1,13 @@
+Line;Time;Clock 1;Floating Point Input 1;Floating Point Input 2;
+1;0;Wahr;0;0.01;
+2;0.01;Wahr;0;0.01;
+3;0.02;Falsch;0.01;0.01;
+4;0.03;Wahr;0.02;0.01;
+5;0.04;Falsch;0.03;0.01;
+6;0.05;Wahr;0.04;0.01;
+7;0.06;Falsch;0.05;0.01;
+8;0.07;Wahr;0.06;0.01;
+9;0.08;Falsch;0.07;0.01;
+10;0.09;Wahr;0.08;0.01;
+11;0.1;Falsch;0.09;0.01;
+12;0.11;Wahr;0.1;0.01;

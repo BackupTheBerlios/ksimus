@@ -1,0 +1,854 @@
+[/]
+Components=53
+Document Type=KSimus
+Document Version=KSimus 0.3.5
+
+[/Component 0/]
+Serial Number=17
+Type=Boolean/Gates/Clock Generator
+
+[/Component 0/High Time/]
+Time=1
+Unit=Ticks
+
+[/Component 0/Low Time/]
+Time=5
+Unit=Ticks
+
+[/Component 0/Sheet/]
+Pos=560,384
+
+[/Component 0/Start Delay/]
+Time=5000000000
+Unit=sec
+
+[/Component 1/]
+Serial Number=18
+Type=Control/Close
+
+[/Component 1/Sheet/]
+Pos=632,384
+
+[/Component 10/]
+Reset Value=4
+Serial Number=74
+Type=Floating Point/Input/Constant
+
+[/Component 10/Sheet/]
+Pos=0,296
+Size=56,24
+
+[/Component 11/]
+Reset Value=5
+Serial Number=75
+Type=Floating Point/Input/Constant
+
+[/Component 11/Sheet/]
+Pos=56,312
+Size=56,24
+
+[/Component 12/]
+Reset Value=6
+Serial Number=76
+Type=Floating Point/Input/Constant
+
+[/Component 12/Sheet/]
+Pos=0,328
+Size=56,24
+
+[/Component 13/]
+Reset Value=7
+Serial Number=77
+Type=Floating Point/Input/Constant
+
+[/Component 13/Sheet/]
+Pos=56,344
+Size=56,24
+
+[/Component 14/]
+Reset Value=8
+Serial Number=78
+Type=Floating Point/Input/Constant
+
+[/Component 14/Sheet/]
+Pos=0,360
+Size=56,24
+
+[/Component 15/]
+Reset Value=9
+Serial Number=79
+Type=Floating Point/Input/Constant
+
+[/Component 15/Sheet/]
+Pos=56,376
+Size=56,24
+
+[/Component 16/]
+Reset Value=10
+Serial Number=80
+Type=Floating Point/Input/Constant
+
+[/Component 16/Sheet/]
+Pos=0,392
+Size=56,24
+
+[/Component 17/]
+Reset Value=11
+Serial Number=81
+Type=Floating Point/Input/Constant
+
+[/Component 17/Sheet/]
+Pos=56,408
+Size=56,24
+
+[/Component 18/]
+Reset Value=12
+Serial Number=82
+Type=Floating Point/Input/Constant
+
+[/Component 18/Sheet/]
+Pos=0,424
+Size=56,24
+
+[/Component 19/]
+Reset Value=13
+Serial Number=83
+Type=Floating Point/Input/Constant
+
+[/Component 19/Sheet/]
+Pos=56,440
+Size=56,24
+
+[/Component 2/]
+Serial Number=40
+Type=Floating Point/Control/Data Selector
+
+[/Component 2/Conn1/]
+Edge sensitive=true
+
+[/Component 2/Conn2/]
+Edge sensitive=true
+
+[/Component 2/Sheet/]
+Pos=224,160
+
+[/Component 2/connPack/Address/]
+Connector Count=4
+
+[/Component 2/connPack/Input/]
+Connector Count=16
+
+[/Component 20/]
+Reset Value=14
+Serial Number=84
+Type=Floating Point/Input/Constant
+
+[/Component 20/Sheet/]
+Pos=0,456
+Size=56,24
+
+[/Component 21/]
+Reset Value=15
+Serial Number=85
+Type=Floating Point/Input/Constant
+
+[/Component 21/Sheet/]
+Pos=56,472
+Size=56,24
+
+[/Component 22/]
+Max Count=0xf
+Min Count=0x0
+Reset Count=0x0
+Serial Number=101
+Type=Boolean/Counter/with RCO and RBO
+
+[/Component 22/Sheet/]
+Pos=64,72
+
+[/Component 22/connPack/Output/]
+Connector Count=4
+
+[/Component 23/]
+Serial Number=105
+Type=Boolean/Gates/AND
+
+[/Component 23/Sheet/]
+Pos=232,40
+
+[/Component 23/connPack/Input/]
+Connector Count=2
+
+[/Component 24/]
+Serial Number=107
+Type=Boolean/Gates/AND
+
+[/Component 24/Sheet/]
+Pos=232,80
+
+[/Component 24/connPack/Input/]
+Connector Count=2
+
+[/Component 25/]
+Serial Number=109
+Type=Boolean/Gates/AND
+
+[/Component 25/Sheet/]
+Pos=232,120
+
+[/Component 25/connPack/Input/]
+Connector Count=2
+
+[/Component 26/]
+Serial Number=21
+Type=Wire/Wire
+
+[/Component 26/Connections/]
+Number=2
+
+[/Component 26/Connections/Connection 0/]
+Component=17
+Connector=Output
+
+[/Component 26/Connections/Connection 1/]
+Component=18
+Connector=Trigger
+
+[/Component 26/Property/]
+Type=wire/property/boolean
+
+[/Component 27/]
+Serial Number=45
+Type=Wire/Wire
+
+[/Component 27/Connections/]
+Number=2
+
+[/Component 27/Connections/Connection 0/]
+Component=43
+Connector=Output
+
+[/Component 27/Connections/Connection 1/]
+Component=40
+Connector=Input A
+
+[/Component 27/Property/]
+Type=wire/property/floating point
+
+[/Component 28/]
+Serial Number=46
+Type=Wire/Wire
+
+[/Component 28/Connections/]
+Number=2
+
+[/Component 28/Connections/Connection 0/]
+Component=44
+Connector=Output
+
+[/Component 28/Connections/Connection 1/]
+Component=40
+Connector=Input B
+
+[/Component 28/Property/]
+Type=wire/property/floating point
+
+[/Component 29/]
+Serial Number=51
+Type=Wire/Wire
+
+[/Component 29/Connections/]
+Number=2
+
+[/Component 29/Connections/Connection 0/]
+Component=48
+Connector=Output
+
+[/Component 29/Connections/Connection 1/]
+Component=10
+Connector=Input 31
+
+[/Component 29/Property/]
+Type=wire/property/boolean
+
+[/Component 3/]
+Serial Number=42
+Type=Boolean/Gates/Clock Generator
+
+[/Component 3/High Time/]
+Time=1
+Unit=Ticks
+
+[/Component 3/Low Time/]
+Time=1
+Unit=Ticks
+
+[/Component 3/Sheet/]
+Pos=8,72
+
+[/Component 3/Start Delay/]
+Time=0
+Unit=Ticks
+
+[/Component 30/]
+Serial Number=86
+Type=Wire/Wire
+
+[/Component 30/Connections/]
+Number=2
+
+[/Component 30/Connections/Connection 0/]
+Component=72
+Connector=Output
+
+[/Component 30/Connections/Connection 1/]
+Component=40
+Connector=Input C
+
+[/Component 30/Property/]
+Type=wire/property/floating point
+
+[/Component 31/]
+Serial Number=87
+Type=Wire/Wire
+
+[/Component 31/Connections/]
+Number=2
+
+[/Component 31/Connections/Connection 0/]
+Component=73
+Connector=Output
+
+[/Component 31/Connections/Connection 1/]
+Component=40
+Connector=Input D
+
+[/Component 31/Property/]
+Type=wire/property/floating point
+
+[/Component 32/]
+Serial Number=88
+Type=Wire/Wire
+
+[/Component 32/Connections/]
+Number=2
+
+[/Component 32/Connections/Connection 0/]
+Component=74
+Connector=Output
+
+[/Component 32/Connections/Connection 1/]
+Component=40
+Connector=Input E
+
+[/Component 32/Property/]
+Type=wire/property/floating point
+
+[/Component 33/]
+Serial Number=89
+Type=Wire/Wire
+
+[/Component 33/Connections/]
+Number=2
+
+[/Component 33/Connections/Connection 0/]
+Component=75
+Connector=Output
+
+[/Component 33/Connections/Connection 1/]
+Component=40
+Connector=Input F
+
+[/Component 33/Property/]
+Type=wire/property/floating point
+
+[/Component 34/]
+Serial Number=90
+Type=Wire/Wire
+
+[/Component 34/Connections/]
+Number=2
+
+[/Component 34/Connections/Connection 0/]
+Component=76
+Connector=Output
+
+[/Component 34/Connections/Connection 1/]
+Component=40
+Connector=Input G
+
+[/Component 34/Property/]
+Type=wire/property/floating point
+
+[/Component 35/]
+Serial Number=91
+Type=Wire/Wire
+
+[/Component 35/Connections/]
+Number=2
+
+[/Component 35/Connections/Connection 0/]
+Component=77
+Connector=Output
+
+[/Component 35/Connections/Connection 1/]
+Component=40
+Connector=Input H
+
+[/Component 35/Property/]
+Type=wire/property/floating point
+
+[/Component 36/]
+Serial Number=92
+Type=Wire/Wire
+
+[/Component 36/Connections/]
+Number=2
+
+[/Component 36/Connections/Connection 0/]
+Component=78
+Connector=Output
+
+[/Component 36/Connections/Connection 1/]
+Component=40
+Connector=Input I
+
+[/Component 36/Property/]
+Type=wire/property/floating point
+
+[/Component 37/]
+Serial Number=93
+Type=Wire/Wire
+
+[/Component 37/Connections/]
+Number=2
+
+[/Component 37/Connections/Connection 0/]
+Component=79
+Connector=Output
+
+[/Component 37/Connections/Connection 1/]
+Component=40
+Connector=Input J
+
+[/Component 37/Property/]
+Type=wire/property/floating point
+
+[/Component 38/]
+Serial Number=94
+Type=Wire/Wire
+
+[/Component 38/Connections/]
+Number=2
+
+[/Component 38/Connections/Connection 0/]
+Component=80
+Connector=Output
+
+[/Component 38/Connections/Connection 1/]
+Component=40
+Connector=Input K
+
+[/Component 38/Property/]
+Type=wire/property/floating point
+
+[/Component 39/]
+Serial Number=95
+Type=Wire/Wire
+
+[/Component 39/Connections/]
+Number=2
+
+[/Component 39/Connections/Connection 0/]
+Component=81
+Connector=Output
+
+[/Component 39/Connections/Connection 1/]
+Component=40
+Connector=Input L
+
+[/Component 39/Property/]
+Type=wire/property/floating point
+
+[/Component 4/]
+Serial Number=43
+Type=Floating Point/Input/Constant
+
+[/Component 4/Sheet/]
+Pos=0,232
+Size=56,24
+
+[/Component 40/]
+Serial Number=96
+Type=Wire/Wire
+
+[/Component 40/Connections/]
+Number=2
+
+[/Component 40/Connections/Connection 0/]
+Component=82
+Connector=Output
+
+[/Component 40/Connections/Connection 1/]
+Component=40
+Connector=Input M
+
+[/Component 40/Property/]
+Type=wire/property/floating point
+
+[/Component 41/]
+Serial Number=97
+Type=Wire/Wire
+
+[/Component 41/Connections/]
+Number=2
+
+[/Component 41/Connections/Connection 0/]
+Component=83
+Connector=Output
+
+[/Component 41/Connections/Connection 1/]
+Component=40
+Connector=Input N
+
+[/Component 41/Property/]
+Type=wire/property/floating point
+
+[/Component 42/]
+Serial Number=98
+Type=Wire/Wire
+
+[/Component 42/Connections/]
+Number=2
+
+[/Component 42/Connections/Connection 0/]
+Component=84
+Connector=Output
+
+[/Component 42/Connections/Connection 1/]
+Component=40
+Connector=Input O
+
+[/Component 42/Property/]
+Type=wire/property/floating point
+
+[/Component 43/]
+Serial Number=99
+Type=Wire/Wire
+
+[/Component 43/Connections/]
+Number=2
+
+[/Component 43/Connections/Connection 0/]
+Component=85
+Connector=Output
+
+[/Component 43/Connections/Connection 1/]
+Component=40
+Connector=Input P
+
+[/Component 43/Property/]
+Type=wire/property/floating point
+
+[/Component 44/]
+Serial Number=103
+Type=Wire/Wire
+
+[/Component 44/Connections/]
+Number=2
+
+[/Component 44/Connections/Connection 0/]
+Component=42
+Connector=Output
+
+[/Component 44/Connections/Connection 1/]
+Component=101
+Connector=Clock Up
+
+[/Component 44/Property/]
+Type=wire/property/boolean
+
+[/Component 45/]
+Serial Number=106
+Type=Wire/Wire
+
+[/Component 45/Connections/]
+Number=4
+
+[/Component 45/Connections/Connection 0/]
+Component=101
+Connector=Output B
+
+[/Component 45/Connections/Connection 1/]
+Component=105
+Connector=Input B
+
+[/Component 45/Connections/Connection 2/]
+Component=105
+Connector=Input A
+
+[/Component 45/Connections/Connection 3/]
+Component=40
+Connector=Address B
+
+[/Component 45/Property/]
+Type=wire/property/boolean
+
+[/Component 46/]
+Serial Number=110
+Type=Wire/Wire
+
+[/Component 46/Connections/]
+Number=4
+
+[/Component 46/Connections/Connection 0/]
+Component=101
+Connector=Output D
+
+[/Component 46/Connections/Connection 1/]
+Component=109
+Connector=Input B
+
+[/Component 46/Connections/Connection 2/]
+Component=109
+Connector=Input A
+
+[/Component 46/Connections/Connection 3/]
+Component=40
+Connector=Address D
+
+[/Component 46/Property/]
+Type=wire/property/boolean
+
+[/Component 47/]
+Serial Number=111
+Type=Wire/Wire
+
+[/Component 47/Connections/]
+Number=4
+
+[/Component 47/Connections/Connection 0/]
+Component=101
+Connector=Output A
+
+[/Component 47/Connections/Connection 1/]
+Component=40
+Connector=Address A
+
+[/Component 47/Connections/Connection 2/]
+Component=48
+Connector=Input B
+
+[/Component 47/Connections/Connection 3/]
+Component=48
+Connector=Input A
+
+[/Component 47/Property/]
+Type=wire/property/boolean
+
+[/Component 48/]
+Serial Number=113
+Type=Wire/Wire
+
+[/Component 48/Connections/]
+Number=4
+
+[/Component 48/Connections/Connection 0/]
+Component=101
+Connector=Output C
+
+[/Component 48/Connections/Connection 1/]
+Component=40
+Connector=Address C
+
+[/Component 48/Connections/Connection 2/]
+Component=107
+Connector=Input B
+
+[/Component 48/Connections/Connection 3/]
+Component=107
+Connector=Input A
+
+[/Component 48/Property/]
+Type=wire/property/boolean
+
+[/Component 49/]
+Serial Number=114
+Type=Wire/Wire
+
+[/Component 49/Connections/]
+Number=2
+
+[/Component 49/Connections/Connection 0/]
+Component=105
+Connector=Output
+
+[/Component 49/Connections/Connection 1/]
+Component=10
+Connector=Input 40
+
+[/Component 49/Property/]
+Type=wire/property/boolean
+
+[/Component 5/]
+Reset Value=1
+Serial Number=44
+Type=Floating Point/Input/Constant
+
+[/Component 5/Sheet/]
+Pos=56,248
+Size=56,24
+
+[/Component 50/]
+Serial Number=115
+Type=Wire/Wire
+
+[/Component 50/Connections/]
+Number=2
+
+[/Component 50/Connections/Connection 0/]
+Component=107
+Connector=Output
+
+[/Component 50/Connections/Connection 1/]
+Component=10
+Connector=Input 41
+
+[/Component 50/Property/]
+Type=wire/property/boolean
+
+[/Component 51/]
+Serial Number=116
+Type=Wire/Wire
+
+[/Component 51/Connections/]
+Number=2
+
+[/Component 51/Connections/Connection 0/]
+Component=109
+Connector=Output
+
+[/Component 51/Connections/Connection 1/]
+Component=10
+Connector=Input 42
+
+[/Component 51/Property/]
+Type=wire/property/boolean
+
+[/Component 52/]
+Serial Number=117
+Type=Wire/Wire
+
+[/Component 52/Connections/]
+Number=2
+
+[/Component 52/Connections/Connection 0/]
+Component=40
+Connector=Output
+
+[/Component 52/Connections/Connection 1/]
+Component=10
+Connector=Input 43
+
+[/Component 52/Property/]
+Type=wire/property/floating point
+
+[/Component 6/]
+Add Connector Names=true
+Add Line Numbers=true
+Add Time Stamp=true
+Last Serial Number=43
+Number of channels=5
+Serial List=31,40,41,42,43
+Serial Number=10
+Type=Recorder/Text Recorder
+
+[/Component 6/Channel 31/]
+Channel Type=Boolean Input
+Name=clk 1
+Serial Number=31
+
+[/Component 6/Channel 40/]
+Channel Type=Boolean Input
+Name=clk 2
+Serial Number=40
+
+[/Component 6/Channel 41/]
+Channel Type=Boolean Input
+Name=clk 3
+Serial Number=41
+
+[/Component 6/Channel 42/]
+Channel Type=Boolean Input
+Name=clk 4
+Serial Number=42
+
+[/Component 6/Channel 43/]
+Channel Type=Floating Point Input
+Name=result
+Serial Number=43
+
+[/Component 6/File/]
+Filename=../result/floating-0506.txt
+Path Type=Relative Document
+
+[/Component 6/Sheet/]
+Pos=344,112
+
+[/Component 7/]
+Serial Number=48
+Type=Boolean/Gates/AND
+
+[/Component 7/Sheet/]
+Pos=232,0
+
+[/Component 7/connPack/Input/]
+Connector Count=2
+
+[/Component 8/]
+Reset Value=2
+Serial Number=72
+Type=Floating Point/Input/Constant
+
+[/Component 8/Sheet/]
+Pos=0,264
+Size=56,24
+
+[/Component 9/]
+Reset Value=3
+Serial Number=73
+Type=Floating Point/Input/Constant
+
+[/Component 9/Sheet/]
+Pos=56,280
+Size=56,24
+
+[/Document Property/]
+Last View=Sheet View
+Sheet Pos=0,0
+User Pos=0,0
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Fastest=true
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Simulation/]
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=msec
+
+[/Property/]
+Last Serial Number=117
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

@@ -1,0 +1,13 @@
+Line;Time;Clk 1;Clk 2;Q;/Q;
+1;0;Falsch;Falsch;Wahr;Falsch;
+2;0.01;Wahr;Wahr;Wahr;Falsch;
+3;0.02;Wahr;Wahr;Wahr;Falsch;
+4;0.03;Wahr;Wahr;Wahr;Falsch;
+5;0.04;Wahr;Wahr;Wahr;Falsch;
+6;0.05;Wahr;Wahr;Wahr;Falsch;
+7;0.06;Wahr;Falsch;Falsch;Wahr;
+8;0.07;Wahr;Falsch;Falsch;Wahr;
+9;0.08;Wahr;Falsch;Falsch;Wahr;
+10;0.09;Wahr;Falsch;Falsch;Wahr;
+11;0.1;Wahr;Wahr;Falsch;Wahr;
+12;0.11;Wahr;Wahr;Falsch;Wahr;

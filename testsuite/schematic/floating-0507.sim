@@ -1,0 +1,263 @@
+[/]
+Components=14
+Document Type=KSimus
+Document Version=KSimus 0.3.5
+
+[/Component 0/]
+Serial Number=17
+Type=Boolean/Gates/Clock Generator
+
+[/Component 0/High Time/]
+Time=1
+Unit=Ticks
+
+[/Component 0/Low Time/]
+Time=5
+Unit=Ticks
+
+[/Component 0/Sheet/]
+Pos=120,448
+
+[/Component 0/Start Delay/]
+Time=1000000000
+Unit=sec
+
+[/Component 1/]
+Serial Number=18
+Type=Control/Close
+
+[/Component 1/Sheet/]
+Pos=344,440
+
+[/Component 10/]
+Serial Number=46
+Type=Wire/Wire
+
+[/Component 10/Connections/]
+Number=2
+
+[/Component 10/Connections/Connection 0/]
+Component=44
+Connector=Output
+
+[/Component 10/Connections/Connection 1/]
+Component=40
+Connector=Input B
+
+[/Component 10/Property/]
+Type=wire/property/floating point
+
+[/Component 11/]
+Serial Number=50
+Type=Wire/Wire
+
+[/Component 11/Connections/]
+Number=4
+
+[/Component 11/Connections/Connection 0/]
+Component=42
+Connector=Output
+
+[/Component 11/Connections/Connection 1/]
+Component=40
+Connector=Address A
+
+[/Component 11/Connections/Connection 2/]
+Component=48
+Connector=Input A
+
+[/Component 11/Connections/Connection 3/]
+Component=48
+Connector=Input B
+
+[/Component 11/Property/]
+Type=wire/property/boolean
+
+[/Component 12/]
+Serial Number=51
+Type=Wire/Wire
+
+[/Component 12/Connections/]
+Number=2
+
+[/Component 12/Connections/Connection 0/]
+Component=48
+Connector=Output
+
+[/Component 12/Connections/Connection 1/]
+Component=10
+Connector=Input 31
+
+[/Component 12/Property/]
+Type=wire/property/boolean
+
+[/Component 13/]
+Serial Number=52
+Type=Wire/Wire
+
+[/Component 13/Connections/]
+Number=2
+
+[/Component 13/Connections/Connection 0/]
+Component=40
+Connector=Output
+
+[/Component 13/Connections/Connection 1/]
+Component=10
+Connector=Input 32
+
+[/Component 13/Property/]
+Type=wire/property/floating point
+
+[/Component 2/]
+Reset Value=-1
+Serial Number=40
+Type=Floating Point/Control/Data Selector
+
+[/Component 2/Sheet/]
+Pos=160,104
+
+[/Component 2/connPack/Address/]
+Connector Count=1
+
+[/Component 2/connPack/Input/]
+Connector Count=2
+
+[/Component 3/]
+Serial Number=42
+Type=Boolean/Gates/Clock Generator
+
+[/Component 3/High Time/]
+Time=2
+Unit=Ticks
+
+[/Component 3/Low Time/]
+Time=2
+Unit=Ticks
+
+[/Component 3/Sheet/]
+Pos=48,64
+
+[/Component 3/Start Delay/]
+Time=0
+Unit=Ticks
+
+[/Component 4/]
+Serial Number=43
+Type=Floating Point/Input/Constant
+
+[/Component 4/Sheet/]
+Pos=8,128
+Size=56,24
+
+[/Component 5/]
+Reset Value=1
+Serial Number=44
+Type=Floating Point/Input/Constant
+
+[/Component 5/Sheet/]
+Pos=64,144
+Size=56,24
+
+[/Component 6/]
+Add Connector Names=true
+Add Line Numbers=true
+Add Time Stamp=true
+Last Serial Number=42
+Number of channels=2
+Serial List=31,32
+Serial Number=10
+Type=Recorder/Text Recorder
+
+[/Component 6/Channel 31/]
+Channel Type=Boolean Input
+Name=clk 1
+Serial Number=31
+
+[/Component 6/Channel 32/]
+Channel Type=Floating Point Input
+Name=out
+Serial Number=32
+
+[/Component 6/File/]
+Filename=../result/floating-0507.txt
+Path Type=Relative Document
+
+[/Component 6/Sheet/]
+Pos=344,112
+
+[/Component 7/]
+Serial Number=48
+Type=Boolean/Gates/AND
+
+[/Component 7/Sheet/]
+Pos=160,48
+
+[/Component 7/connPack/Input/]
+Connector Count=2
+
+[/Component 8/]
+Serial Number=21
+Type=Wire/Wire
+
+[/Component 8/Connections/]
+Number=2
+
+[/Component 8/Connections/Connection 0/]
+Component=17
+Connector=Output
+
+[/Component 8/Connections/Connection 1/]
+Component=18
+Connector=Trigger
+
+[/Component 8/Property/]
+Type=wire/property/boolean
+
+[/Component 9/]
+Serial Number=45
+Type=Wire/Wire
+
+[/Component 9/Connections/]
+Number=2
+
+[/Component 9/Connections/Connection 0/]
+Component=43
+Connector=Output
+
+[/Component 9/Connections/Connection 1/]
+Component=40
+Connector=Input A
+
+[/Component 9/Property/]
+Type=wire/property/floating point
+
+[/Document Property/]
+Last View=Sheet View
+Sheet Pos=0,0
+User Pos=0,0
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Fastest=true
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Simulation/]
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=msec
+
+[/Property/]
+Last Serial Number=62
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

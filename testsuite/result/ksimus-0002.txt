@@ -1,0 +1,17 @@
+Line;Time;Clock;Gate;
+1;0;Wahr;Falsch;
+2;0.01;Wahr;Wahr;
+3;0.02;Falsch;Wahr;
+4;0.03;Wahr;Falsch;
+5;0.04;Falsch;Wahr;
+6;0.05;Wahr;Falsch;
+7;0.11;Wahr;Falsch;
+8;0.12;Falsch;Wahr;
+9;0.13;Wahr;Falsch;
+10;0.14;Falsch;Wahr;
+11;0.15;Wahr;Falsch;
+12;0.21;Wahr;Falsch;
+13;0.22;Falsch;Wahr;
+14;0.23;Wahr;Falsch;
+15;0.24;Falsch;Wahr;
+16;0.25;Wahr;Falsch;

@@ -1,0 +1,492 @@
+[/]
+Components=24
+Document Type=KSimus
+Document Version=KSimus 0.3.5
+
+[/Component 0/]
+Serial Number=2
+Type=Boolean/Gates/Clock Generator
+
+[/Component 0/High Time/]
+Time=1
+Unit=Ticks
+
+[/Component 0/Low Time/]
+Time=1
+Unit=Ticks
+
+[/Component 0/Sheet/]
+Pos=40,8
+
+[/Component 0/Start Delay/]
+Time=0
+Unit=sec
+
+[/Component 1/]
+Serial Number=3
+Type=Boolean/Gates/Clock Generator
+
+[/Component 1/High Time/]
+Time=5000000000
+Unit=sec
+
+[/Component 1/Low Time/]
+Time=5000000000
+Unit=sec
+
+[/Component 1/Sheet/]
+Pos=24,328
+
+[/Component 1/Start Delay/]
+Time=50
+Unit=Ticks
+
+[/Component 10/]
+Serial Number=27
+Type=Boolean/Gates/AND
+
+[/Component 10/Sheet/]
+Pos=144,88
+
+[/Component 10/connPack/Input/]
+Connector Count=2
+
+[/Component 11/]
+Serial Number=32
+Type=Boolean/Gates/AND
+
+[/Component 11/Sheet/]
+Pos=144,176
+
+[/Component 11/connPack/Input/]
+Connector Count=4
+
+[/Component 12/]
+Serial Number=34
+Type=Boolean/Gates/AND
+
+[/Component 12/Conn0/]
+Neg=true
+
+[/Component 12/Sheet/]
+Pos=144,256
+
+[/Component 12/connPack/Input/]
+Connector Count=4
+
+[/Component 13/]
+Serial Number=5
+Type=Wire/Wire
+
+[/Component 13/Connections/]
+Number=2
+
+[/Component 13/Connections/Connection 0/]
+Component=3
+Connector=Output
+
+[/Component 13/Connections/Connection 1/]
+Component=4
+Connector=Trigger
+
+[/Component 13/Property/]
+Type=wire/property/boolean
+
+[/Component 14/]
+Serial Number=20
+Type=Wire/Wire
+
+[/Component 14/Connections/]
+Number=5
+
+[/Component 14/Connections/Connection 0/]
+Component=2
+Connector=Output
+
+[/Component 14/Connections/Connection 1/]
+Component=15
+Connector=Input B
+
+[/Component 14/Connections/Connection 2/]
+Component=15
+Connector=Input A
+
+[/Component 14/Connections/Connection 3/]
+Component=32
+Connector=Input A
+
+[/Component 14/Connections/Connection 4/]
+Component=34
+Connector=Input A
+
+[/Component 14/Property/]
+Type=wire/property/boolean
+
+[/Component 15/]
+Serial Number=21
+Type=Wire/Wire
+
+[/Component 15/Connections/]
+Number=5
+
+[/Component 15/Connections/Connection 0/]
+Component=6
+Connector=Output
+
+[/Component 15/Connections/Connection 1/]
+Component=14
+Connector=Input B
+
+[/Component 15/Connections/Connection 2/]
+Component=14
+Connector=Input A
+
+[/Component 15/Connections/Connection 3/]
+Component=32
+Connector=Input B
+
+[/Component 15/Connections/Connection 4/]
+Component=34
+Connector=Input B
+
+[/Component 15/Property/]
+Type=wire/property/boolean
+
+[/Component 16/]
+Serial Number=22
+Type=Wire/Wire
+
+[/Component 16/Connections/]
+Number=2
+
+[/Component 16/Connections/Connection 0/]
+Component=15
+Connector=Output
+
+[/Component 16/Connections/Connection 1/]
+Component=1
+Connector=Input 1
+
+[/Component 16/Property/]
+Type=wire/property/boolean
+
+[/Component 17/]
+Serial Number=23
+Type=Wire/Wire
+
+[/Component 17/Connections/]
+Number=2
+
+[/Component 17/Connections/Connection 0/]
+Component=14
+Connector=Output
+
+[/Component 17/Connections/Connection 1/]
+Component=1
+Connector=Input 2
+
+[/Component 17/Property/]
+Type=wire/property/boolean
+
+[/Component 18/]
+Serial Number=28
+Type=Wire/Wire
+
+[/Component 18/Connections/]
+Number=5
+
+[/Component 18/Connections/Connection 0/]
+Component=24
+Connector=Output
+
+[/Component 18/Connections/Connection 1/]
+Component=27
+Connector=Input B
+
+[/Component 18/Connections/Connection 2/]
+Component=27
+Connector=Input A
+
+[/Component 18/Connections/Connection 3/]
+Component=32
+Connector=Input C
+
+[/Component 18/Connections/Connection 4/]
+Component=34
+Connector=Input C
+
+[/Component 18/Property/]
+Type=wire/property/boolean
+
+[/Component 19/]
+Serial Number=29
+Type=Wire/Wire
+
+[/Component 19/Connections/]
+Number=5
+
+[/Component 19/Connections/Connection 0/]
+Component=25
+Connector=Output
+
+[/Component 19/Connections/Connection 1/]
+Component=26
+Connector=Input B
+
+[/Component 19/Connections/Connection 2/]
+Component=26
+Connector=Input A
+
+[/Component 19/Connections/Connection 3/]
+Component=32
+Connector=Input D
+
+[/Component 19/Connections/Connection 4/]
+Component=34
+Connector=Input D
+
+[/Component 19/Property/]
+Type=wire/property/boolean
+
+[/Component 2/]
+Serial Number=4
+Type=Control/Close
+
+[/Component 2/Sheet/]
+Pos=280,320
+
+[/Component 20/]
+Serial Number=30
+Type=Wire/Wire
+
+[/Component 20/Connections/]
+Number=2
+
+[/Component 20/Connections/Connection 0/]
+Component=27
+Connector=Output
+
+[/Component 20/Connections/Connection 1/]
+Component=1
+Connector=Input 5
+
+[/Component 20/Property/]
+Type=wire/property/boolean
+
+[/Component 21/]
+Serial Number=31
+Type=Wire/Wire
+
+[/Component 21/Connections/]
+Number=2
+
+[/Component 21/Connections/Connection 0/]
+Component=26
+Connector=Output
+
+[/Component 21/Connections/Connection 1/]
+Component=1
+Connector=Input 6
+
+[/Component 21/Property/]
+Type=wire/property/boolean
+
+[/Component 22/]
+Serial Number=33
+Type=Wire/Wire
+
+[/Component 22/Connections/]
+Number=2
+
+[/Component 22/Connections/Connection 0/]
+Component=32
+Connector=Output
+
+[/Component 22/Connections/Connection 1/]
+Component=1
+Connector=Input 11
+
+[/Component 22/Property/]
+Type=wire/property/boolean
+
+[/Component 23/]
+Serial Number=35
+Type=Wire/Wire
+
+[/Component 23/Connections/]
+Number=2
+
+[/Component 23/Connections/Connection 0/]
+Component=34
+Connector=Output
+
+[/Component 23/Connections/Connection 1/]
+Component=1
+Connector=Input 12
+
+[/Component 23/Property/]
+Type=wire/property/boolean
+
+[/Component 3/]
+Serial Number=6
+Type=Boolean/Gates/Clock Generator
+
+[/Component 3/High Time/]
+Time=2
+Unit=Ticks
+
+[/Component 3/Low Time/]
+Time=2
+Unit=Ticks
+
+[/Component 3/Sheet/]
+Pos=40,48
+
+[/Component 3/Start Delay/]
+Time=0
+Unit=sec
+
+[/Component 4/]
+Add Connector Names=true
+Add Line Numbers=true
+Add Time Stamp=true
+Last Serial Number=24
+Number of channels=6
+Serial List=1,2,5,6,11,12
+Serial Number=1
+Type=Recorder/Text Recorder
+
+[/Component 4/Channel 1/]
+Channel Type=Boolean Input
+Name=Clock 1
+Serial Number=1
+
+[/Component 4/Channel 11/]
+Channel Type=Boolean Input
+Name=And
+Serial Number=11
+
+[/Component 4/Channel 12/]
+Channel Type=Boolean Input
+Name=Nand
+Serial Number=12
+
+[/Component 4/Channel 2/]
+Channel Type=Boolean Input
+Name=Clock 2
+Serial Number=2
+
+[/Component 4/Channel 5/]
+Channel Type=Boolean Input
+Name=Clock 3
+Serial Number=5
+
+[/Component 4/Channel 6/]
+Channel Type=Boolean Input
+Name=Clock 4
+Serial Number=6
+
+[/Component 4/File/]
+Filename=../result/ksimus-0011.txt
+Path Type=Relative Document
+
+[/Component 4/Sheet/]
+Pos=296,88
+
+[/Component 5/]
+Serial Number=14
+Type=Boolean/Gates/AND
+
+[/Component 5/Sheet/]
+Pos=144,48
+
+[/Component 5/connPack/Input/]
+Connector Count=2
+
+[/Component 6/]
+Serial Number=15
+Type=Boolean/Gates/AND
+
+[/Component 6/Sheet/]
+Pos=144,8
+
+[/Component 6/connPack/Input/]
+Connector Count=2
+
+[/Component 7/]
+Serial Number=24
+Type=Boolean/Gates/Clock Generator
+
+[/Component 7/High Time/]
+Time=4
+Unit=Ticks
+
+[/Component 7/Low Time/]
+Time=4
+Unit=Ticks
+
+[/Component 7/Sheet/]
+Pos=40,88
+
+[/Component 7/Start Delay/]
+Time=0
+Unit=sec
+
+[/Component 8/]
+Serial Number=25
+Type=Boolean/Gates/Clock Generator
+
+[/Component 8/High Time/]
+Time=8
+Unit=Ticks
+
+[/Component 8/Low Time/]
+Time=8
+Unit=Ticks
+
+[/Component 8/Sheet/]
+Pos=40,128
+
+[/Component 8/Start Delay/]
+Time=0
+Unit=sec
+
+[/Component 9/]
+Serial Number=26
+Type=Boolean/Gates/AND
+
+[/Component 9/Sheet/]
+Pos=144,128
+
+[/Component 9/connPack/Input/]
+Connector Count=2
+
+[/Document Property/]
+Last View=Sheet View
+Sheet Pos=0,0
+User Pos=0,0
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Simulation/]
+Sychronized=true
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=msec
+
+[/Property/]
+Last Serial Number=35
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

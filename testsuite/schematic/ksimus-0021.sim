@@ -1,0 +1,197 @@
+[/]
+Components=10
+Document Type=KSimus
+Document Version=KSimus 0.3.5
+
+[/Component 0/]
+Serial Number=2
+Type=Boolean/Gates/Clock Generator
+
+[/Component 0/High Time/]
+Time=1
+Unit=Ticks
+
+[/Component 0/Low Time/]
+Time=1
+Unit=Ticks
+
+[/Component 0/Sheet/]
+Pos=40,48
+
+[/Component 0/Start Delay/]
+Time=0
+Unit=sec
+
+[/Component 1/]
+Serial Number=3
+Type=Boolean/Gates/Clock Generator
+
+[/Component 1/High Time/]
+Time=5000000000
+Unit=sec
+
+[/Component 1/Low Time/]
+Time=5000000000
+Unit=sec
+
+[/Component 1/Sheet/]
+Pos=48,328
+
+[/Component 1/Start Delay/]
+Time=10
+Unit=Ticks
+
+[/Component 2/]
+Serial Number=4
+Type=Control/Close
+
+[/Component 2/Sheet/]
+Pos=304,320
+
+[/Component 3/]
+Add Connector Names=true
+Add Line Numbers=true
+Add Time Stamp=true
+Last Serial Number=32
+Number of channels=3
+Serial List=1,31,32
+Serial Number=1
+Type=Recorder/Text Recorder
+
+[/Component 3/Channel 1/]
+Channel Type=Boolean Input
+Name=Clock 1
+Serial Number=1
+
+[/Component 3/Channel 31/]
+Channel Type=Floating Point Input
+Name=Floating Point Input 1
+Serial Number=31
+
+[/Component 3/Channel 32/]
+Channel Type=Floating Point Input
+Name=Floating Point Input 2
+Serial Number=32
+
+[/Component 3/File/]
+Filename=../result/ksimus-0021.txt
+Path Type=Relative Document
+
+[/Component 3/Sheet/]
+Pos=296,80
+
+[/Component 4/]
+Serial Number=36
+Type=Control/Simulation Time
+
+[/Component 4/Sheet/]
+Pos=32,80
+
+[/Component 5/]
+Serial Number=37
+Type=Control/Tick Time
+
+[/Component 5/Sheet/]
+Pos=32,128
+
+[/Component 6/]
+Serial Number=5
+Type=Wire/Wire
+
+[/Component 6/Connections/]
+Number=2
+
+[/Component 6/Connections/Connection 0/]
+Component=3
+Connector=Output
+
+[/Component 6/Connections/Connection 1/]
+Component=4
+Connector=Trigger
+
+[/Component 6/Property/]
+Type=wire/property/boolean
+
+[/Component 7/]
+Serial Number=38
+Type=Wire/Wire
+
+[/Component 7/Connections/]
+Number=2
+
+[/Component 7/Connections/Connection 0/]
+Component=36
+Connector=Output
+
+[/Component 7/Connections/Connection 1/]
+Component=1
+Connector=Input 31
+
+[/Component 7/Property/]
+Type=wire/property/floating point
+
+[/Component 8/]
+Serial Number=39
+Type=Wire/Wire
+
+[/Component 8/Connections/]
+Number=2
+
+[/Component 8/Connections/Connection 0/]
+Component=37
+Connector=Output
+
+[/Component 8/Connections/Connection 1/]
+Component=1
+Connector=Input 32
+
+[/Component 8/Property/]
+Type=wire/property/floating point
+
+[/Component 9/]
+Serial Number=40
+Type=Wire/Wire
+
+[/Component 9/Connections/]
+Number=2
+
+[/Component 9/Connections/Connection 0/]
+Component=2
+Connector=Output
+
+[/Component 9/Connections/Connection 1/]
+Component=1
+Connector=Input 1
+
+[/Component 9/Property/]
+Type=wire/property/boolean
+
+[/Document Property/]
+Last View=Sheet View
+Sheet Pos=0,0
+User Pos=0,0
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Simulation/]
+Sychronized=true
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=msec
+
+[/Property/]
+Last Serial Number=40
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

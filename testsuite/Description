@@ -1,0 +1,412 @@
+############################################################################
+############################################################################
+    KSimus
+############################################################################
+############################################################################
+
+ksimus-0000.sim
+  Test clock generator
+  Test text recorder
+
+ksimus-0001.sim
+ksimus-0002.sim
+  Test text recorder
+
+ksimus-001x.sim
+  Test AND / NAND gate
+
+ksimus-002x.sim
+  Test simulation time
+  Test tick time
+  Different timings
+
+ksimus-003x.sim
+  Test external connector boolean in
+  Test external connector boolean out
+  Test external connector floating-point in
+  Test external connector floating-point out
+  Different timings
+
+############################################################################
+############################################################################
+    Boolean
+############################################################################
+############################################################################
+
+boolean-001x.sim
+  Test OR / NOR gate
+
+boolean-002x.sim
+  Test XOR / XNOR gate
+
+boolean-0010x.sim
+  Test RS flip flop
+
+boolean-0011x.sim
+  Test D Latch
+
+boolean-0012x.sim
+  Test JK flip flop
+  Test JK MS flip flop
+
+boolean-0013x.sim
+  Test Multiple D Latches
+
+boolean-0014x.sim
+  Test mono flop
+
+boolean-0020x.sim
+  Test counter with RC and RB
+
+  boolean-00200.sim
+  clock up 1:1
+  count 0-15
+
+  boolean-00201.sim
+  clock up 1:1
+  count 3-10
+
+  boolean-00202.sim
+  clock down 1:1
+
+  boolean-00203.sim
+  clock down 1:1
+  count 5-13
+  reset 8
+
+  boolean-00210.sim
+  clock up 1:2
+  clock down 1:3
+
+  boolean-00211.sim
+  clock up 1:2
+  clock reset 1:10 level
+
+  boolean-00212.sim
+  clock up 1:1
+  clock reset 10:1 edge
+
+  boolean-00213.sim
+  clock up 1:1
+  6 bit
+
+  boolean-00214.sim
+  clock up 1:1
+  16 bit
+
+############################################################################
+############################################################################
+    Floatingpoint
+############################################################################
+############################################################################
+
+floating-00xx.sim
+  Test wave generator
+
+  floating-0010.sim
+  sinus different amplitude and offset 10ms time base
+
+  floating-0011.sim
+  sinus different periode 10ms time base
+
+  floating-0012.sim
+  sinus different amplitude and offset 100ms time base
+
+  floating-0013.sim
+  sinus different amplitude and offset 1ms time base
+
+  floating-0014.sim
+  rectangle different amplitude and offset 10ms time base
+
+  floating-0015.sim
+  rectangle different periode 10ms time base
+
+  floating-0016.sim
+  rectangle different amplitude and offset 100ms time base
+
+  floating-0017.sim
+  rectangle different amplitude and offset 1ms time base
+
+  floating-0018.sim
+  sawtooth different amplitude and offset 10ms time base
+
+  floating-0019.sim
+  sawtooth different periode 10ms time base
+
+  floating-0020.sim
+  sawtooth different amplitude and offset 100ms time base
+
+  floating-0021.sim
+  sawtooth different amplitude and offset 1ms time base
+
+  floating-0022.sim
+  triangular different amplitude and offset 10ms time base
+
+  floating-0023.sim
+  triangular different periode 10ms time base
+
+  floating-0024.sim
+  triangular different amplitude and offset 100ms time base
+
+  floating-0025.sim
+  triangular different amplitude and offset 1ms time base
+
+  floating-0026.sim
+  dirac different amplitude and offset 10ms time base
+
+  floating-0027.sim
+  dirac different periode 10ms time base
+
+  floating-0028.sim
+  dirac different amplitude and offset 100ms time base
+
+  floating-0029.sim
+  dirac different amplitude and offset 1ms time base
+
+############################################################################
+
+floating-01xx.sim
+  Test arithmtics
+
+  floating-0100.sim
+  absolute
+
+  floating-0101.sim
+  absolute
+  reset 1000
+
+  floating-0110.sim
+  add 2 inputs
+
+  floating-0111.sim
+  add 3 inputs
+
+  floating-0112.sim
+  add 2 inputs
+  reset 1000
+
+  floating-0120.sim
+  div 2 inputs
+
+  floating-0121.sim
+  div 2 inputs
+  reset 1000
+
+  floating-0130.sim
+  mul 2 inputs
+
+  floating-0131.sim
+  mul 3 inputs
+
+  floating-0132.sim
+  mul 2 inputs
+  reset 1000
+
+  floating-0140.sim
+  remainder 2 inputs
+
+  floating-0141.sim
+  remainder 2 inputs
+  reset 1000
+
+  floating-0150.sim
+  sub 2 inputs
+
+  floating-0151.sim
+  sub 2 inputs
+  reset 1000
+
+floating-02xx.sim
+  Test arithmtics - log & exp
+
+  floating-0200.sim
+  exp
+
+  floating-0201.sim
+  exp
+  reset 1000
+
+  floating-0210.sim
+  log
+
+  floating-0211.sim
+  log
+  reset 1000
+
+floating-03xx.sim
+  Test arithmtics - trigonometrics
+
+  floating-0300.sim
+  acos
+
+  floating-0301.sim
+  acos
+  reset 1000
+
+  floating-0310.sim
+  asin
+
+  floating-0311.sim
+  asin
+  reset 1000
+
+  floating-0320.sim
+  atan
+
+  floating-0321.sim
+  atan
+  reset 1000
+
+  floating-0330.sim
+  cos
+
+  floating-0331.sim
+  cos
+  reset 1000
+
+  floating-0340.sim
+  sin
+
+  floating-0341.sim
+  sin
+  reset 1000
+
+  floating-0350.sim
+  tan
+
+  floating-0351.sim
+  tan
+  reset 1000
+
+floating-04xx.sim
+  Test conditionals
+
+  floating-0400.sim
+  equal
+
+  floating-0401.sim
+  equal
+  reset true
+
+  floating-0410.sim
+  larger
+
+  floating-0411.sim
+  larger
+  reset true
+
+  floating-0420.sim
+  larger equal
+
+  floating-0421.sim
+  larger equal
+  reset true
+
+  floating-0430.sim
+  lesser
+
+  floating-0431.sim
+  lesser
+  reset true
+
+  floating-0440.sim
+  lesser equal
+
+  floating-0441.sim
+  lesser equal
+  reset true
+
+floating-05xx.sim
+  Test controls
+
+  floating-0500.sim
+  data selector
+
+  floating-0501.sim
+  data selector
+  4 Channels
+
+  floating-0502.sim
+  data selector
+  adress latch level
+
+  floating-0503.sim
+  data selector
+  adress latch edge
+
+  floating-0504.sim
+  data selector
+  output latch level
+
+  floating-0505.sim
+  data selector
+  output latch edge
+
+  floating-0506.sim
+  data selector
+  16 Channels
+
+  floating-0507.sim
+  data selector
+  reset -1
+
+  floating-0510.sim
+  latch
+  1 Channel
+  enable 2:2 edge
+
+  floating-0511.sim
+  latch
+  1 Channel
+  enable 1:1 edge
+
+  floating-0512.sim
+  latch
+  1 Channel
+  enable 2:2 level
+
+  floating-0513.sim
+  latch
+  1 Channel
+  enable 1:1 level
+
+  floating-0514.sim
+  latch
+  26 Channel
+  enable 1:1 edge
+
+  floating-0515.sim
+  latch
+  26 Channel
+  enable 1:1 level
+
+  floating-0516.sim
+  latch
+  26 Channel
+  enable 1:1 level
+  reset -1
+
+  floating-0520.sim
+  max / min
+  2 Channel
+
+  floating-0521.sim
+  max / min
+  3 Channel
+
+  floating-0522.sim
+  max / min
+  10 Channel
+
+  floating-0523.sim
+  max / min
+  2 Channel
+  reset -99
+
+
+
+
+
+
+
+
