@@ -1,3 +1,10 @@
+	18.02.2002
+* Fix: ConnectorPack renames also existing connectors
+* New: ConnectorPropertyWidget will be deleted if the according connector is deleted.
+* New: KSimDoubleSpinBox with alignment adjust
+* New: PropertyWidget reactivate destructor
+* New: Component and ComponentAddOn have a new virtual function menuExecuted (call by KSimEditor)
+* New: KSimWidgetList has new function getActiveWidget
 	04.02.2002
 * Change: Version 0.3.4.cvs
 * New: Improve class KSimDoubleEdit	
