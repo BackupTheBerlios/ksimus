@@ -68,7 +68,9 @@ const ComponentInfo DataSelectorInfo(
                      I18N_NOOP("Floating Point/Control/Data Selector"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-control-dataSelect");
 
 
 #define DEFAULT_RESET_VALUE  0.0
@@ -136,9 +138,9 @@ void DataSelector::calculate()
 	Float1Out::calculate();
 	
 	
-	if ((getLatchAddress()->getWire() == 0) || getLatchAddress()->getInput())
+	if ((getLatchAddress()->isHidden()) || getLatchAddress()->getInput())
 	{
-		// Fetch address if "Latch Address Input" is not connected or enabled
+		// Fetch address if "Latch Address Input" is hidden or enabled
 		unsigned int mask = 1;
 		m_addressLatch = 0;
 		FOR_EACH_CONNECTOR(it, *getAddressPack()->getConnList())
@@ -152,9 +154,9 @@ void DataSelector::calculate()
 	}
 	
 	
-	if ((getLatchOutput()->getWire() == 0) || getLatchOutput()->getInput())
+	if ((getLatchOutput()->isHidden()) || getLatchOutput()->getInput())
 	{
-		// Fetch output value if "Latch Output" is not connected or enabled
+		// Fetch output value if "Latch Output" is hidden or enabled
 		if (m_addressLatch < getInputPack()->getConnectorCount())
 		{
 			ConnectorFloatIn * in = (ConnectorFloatIn *)getInputPack()->getConnList()->at(m_addressLatch);
