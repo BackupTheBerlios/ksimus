@@ -128,11 +128,10 @@ void ConvertBoolTriState2Bool::calculate()
 		}
 		m_lockRecursion = false;
 	}
-/*	else
+	else
 	{
-		m_connActiveOut->setOutput(m_connIn->isActive(), true);
-		m_connDataOut->setOutput(m_connIn->getInput(), true);
-	}*/
+		executeNext();
+	}
 //	KSIMDEBUG("ConvertBoolTriState2Bool::calculate()");
 }
 
