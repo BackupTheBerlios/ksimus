@@ -45,7 +45,7 @@
 #include "datarecorderchannelfloat.h"
 #include "widgetcontrolbutton.h"
 #include "zoomwidget.h"
-
+#include "textrec.h"
 
 // Forward declaration
 
@@ -79,6 +79,7 @@ static const ComponentInfoList & getDistComponents()
 		
 		// Add your component info here
 		pDistComponents->append(getDataRecorderInfo());
+		pDistComponents->append(getTextRecInfo());
 	}
 	
 	return *pDistComponents;
@@ -205,13 +206,14 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 const ComponentInfo * getDataRecorderInfo()
 {
 	static const ComponentInfo Info(i18n("DataRecorder-Component", "Data Recorder"),
-	                                QString::fromLatin1("Data Recorder"),
-	                                i18n("DataRecorder-Component", "Data Recorder"),
+	                                QString::fromLatin1("Recorder/Data Recorder"),
+	                                i18n("DataRecorder-Component", "Recorder/Data Recorder"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
 	                                QString::null,
-	                                QString::fromLatin1("kapp-features"));
+	                                QString::fromLatin1("kapp-features"),
+	                                QString::fromLatin1("Data Recorder"));
 	return &Info;
 }
 

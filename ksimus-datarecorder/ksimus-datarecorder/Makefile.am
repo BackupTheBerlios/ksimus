@@ -18,10 +18,10 @@ libksimus_datarecorder_la_LDFLAGS = -avoid-version -module -no-undefined
 
 libksimus_datarecorder_la_METASOURCES = AUTO
 
-libksimus_datarecorder_la_SOURCES = datarecorderchannelfloat.cpp zoomwidget.cpp widgetcontrolbutton.cpp channelpositionwidget.cpp datarecorderchannelboolean.cpp datarecorderwidget.cpp datarecorderview.cpp datarecorderdataview.cpp datarecorderchannelbase.cpp datarecorder.cpp 
+libksimus_datarecorder_la_SOURCES = textrec.cpp datarecorderchannelfloat.cpp zoomwidget.cpp widgetcontrolbutton.cpp channelpositionwidget.cpp datarecorderchannelboolean.cpp datarecorderwidget.cpp datarecorderview.cpp datarecorderdataview.cpp datarecorderchannelbase.cpp datarecorder.cpp 
 
 
-EXTRA_DIST = datarecorder.cpp datarecorder.h datarecorderchannelbase.cpp datarecorderchannelbase.h datarecorderdataview.cpp datarecorderdataview.h datarecorderview.cpp datarecorderview.h datarecorderwidget.cpp datarecorderwidget.h datarecorderchannelboolean.cpp datarecorderchannelboolean.h channelpositionwidget.cpp channelpositionwidget.h widgetcontrolbutton.cpp widgetcontrolbutton.h zoomwidget.cpp zoomwidget.h datarecorderchannelfloat.cpp datarecorderchannelfloat.h 
+EXTRA_DIST = datarecorder.cpp datarecorder.h datarecorderchannelbase.cpp datarecorderchannelbase.h datarecorderdataview.cpp datarecorderdataview.h datarecorderview.cpp datarecorderview.h datarecorderwidget.cpp datarecorderwidget.h datarecorderchannelboolean.cpp datarecorderchannelboolean.h channelpositionwidget.cpp channelpositionwidget.h widgetcontrolbutton.cpp widgetcontrolbutton.h zoomwidget.cpp zoomwidget.h datarecorderchannelfloat.cpp datarecorderchannelfloat.h textrec.cpp textrec.h 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # this 10 paths are KDE specific. Use them:
