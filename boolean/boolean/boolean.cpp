@@ -44,7 +44,7 @@
 
 // Project-Includes
 
-namespace LIB_NAMESPACE
+namespace KSimLibBoolean
 {
 
 
@@ -108,7 +108,7 @@ static const WirePropertyInfoPtr distributeWireProperty[] =
 /******************************************************************************************
  ******************************************************************************************
  **
- **  No changes required below !!!
+ **  Changes only the namespace below !!!
  **
  ******************************************************************************************
  ******************************************************************************************/
@@ -116,7 +116,7 @@ static const WirePropertyInfoPtr distributeWireProperty[] =
 KInstance * instance = 0;
 const PackageInfo * packageInfo = 0;
 
-};  //namespace LIB_NAMESPACE
+};  //namespace KSimLibBoolean
 
 
 
@@ -127,23 +127,23 @@ extern "C"
 
 		KSIMDEBUG("Init Package " PACKAGE_NAME);
 			
-		if (LIB_NAMESPACE::instance == 0)
+		if (KSimLibBoolean::instance == 0)
 		{
-			LIB_NAMESPACE::instance = new KInstance(PACKAGE_LOWER_NAME);
+			KSimLibBoolean::instance = new KInstance(PACKAGE_LOWER_NAME);
 		}
 	
-		if (LIB_NAMESPACE::packageInfo == 0)
+		if (KSimLibBoolean::packageInfo == 0)
 		{
-			LIB_NAMESPACE::packageInfo = new PackageInfo( PACKAGE_NAME,
-			                                              LIB_NAMESPACE::instance,
-	  		                                            VERSION,      // version from config.h
-	    		                                          LIB_NAMESPACE::distributeComponent,
-	      		                                        LIB_NAMESPACE::distributeConnector,
-	        		                                      LIB_NAMESPACE::distributeWireProperty);
+			KSimLibBoolean::packageInfo = new PackageInfo( PACKAGE_NAME,
+			                                               KSimLibBoolean::instance,
+	  		                                             VERSION,      // version from config.h
+	    		                                           KSimLibBoolean::distributeComponent,
+	      		                                         KSimLibBoolean::distributeConnector,
+	        		                                       KSimLibBoolean::distributeWireProperty);
 	  }
 	
 
-		return LIB_NAMESPACE::packageInfo;
+		return KSimLibBoolean::packageInfo;
 	}
 }
 

@@ -58,18 +58,18 @@
 /******************************************************************************************
  ******************************************************************************************
  **
- **  No changes required below !!!
+ **  Changes only the namespace below !!!
  **
  ******************************************************************************************
  ******************************************************************************************/
 
-namespace LIB_NAMESPACE
+namespace KSimLibBoolean
 {
 extern KInstance * instance;
 extern const PackageInfo * packageInfo;
 
 
-};  //namespace LIB_NAMESPACE
+};  //namespace KSimLibBoolean
 
 /** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
 extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
