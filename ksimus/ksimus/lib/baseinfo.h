@@ -24,7 +24,7 @@
   *@author Rasmus Diekenbrock
   */
 
-enum eInfoType { INFO_COMPONENT, INFO_CONNECTOR, INFO_WIREPROPERTY };
+enum eInfoType { INFO_COMPONENT, INFO_CONNECTOR, INFO_WIREPROPERTY, INFO_IMPLICITCONVERTER };
 
 class QString;
 

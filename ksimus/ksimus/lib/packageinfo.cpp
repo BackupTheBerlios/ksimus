@@ -33,13 +33,15 @@ PackageInfo::PackageInfo(const QString packageName,
                          const char * packageVersion,
                          const ComponentInfoList & componentList,
                          const ConnectorInfoList & connectorList,
-                         const WirePropertyInfoList & wirePropertyList)
+                         const WirePropertyInfoList & wirePropertyList,
+                         const ImplicitConverterInfoList & implicitConverterList)
 	:	m_packageName(packageName),
 		m_instance(instance),
 		m_packageVersion(packageVersion),
 		m_componentList(componentList),
 		m_connectorList(connectorList),
-		m_wirePropertyList(wirePropertyList)
+		m_wirePropertyList(wirePropertyList),
+		m_implicitConverterList(implicitConverterList)
 {
 }
 
@@ -74,6 +76,11 @@ const ConnectorInfoList & PackageInfo::getConnectorList() const
 const WirePropertyInfoList & PackageInfo::getWirePropertyList() const
 {
 	return m_wirePropertyList;
+};
+
+const ImplicitConverterInfoList & PackageInfo::getImplicitConverterList() const
+{
+	return m_implicitConverterList;
 };
 
 

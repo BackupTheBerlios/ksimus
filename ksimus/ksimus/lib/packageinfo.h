@@ -31,6 +31,7 @@
 #include "componentinfo.h"
 #include "connectorinfo.h"
 #include "wirepropertyinfo.h"
+#include "implicitconverterinfo.h"
 
 // Forward declaration
 
@@ -48,9 +49,9 @@ public:
 	            const char * packageVersion,
 	            const ComponentInfoList & componentList,
 	            const ConnectorInfoList & connectorList,
-	            const WirePropertyInfoList & wirePropertyList
-);
-
+	            const WirePropertyInfoList & wirePropertyList,
+	            const ImplicitConverterInfoList & implicitConverterList
+	);
 
 //	~PackageInfo();
 
@@ -61,6 +62,7 @@ public:
 	const ComponentInfoList & getComponentList() const;
 	const ConnectorInfoList & getConnectorList() const;
 	const WirePropertyInfoList & getWirePropertyList() const;
+	const ImplicitConverterInfoList & getImplicitConverterList() const;
 	
 	
 	
@@ -72,6 +74,7 @@ private:
 	const ComponentInfoList & m_componentList;
 	const ConnectorInfoList & m_connectorList;
 	const WirePropertyInfoList & m_wirePropertyList;
+	const ImplicitConverterInfoList & m_implicitConverterList;
 };
 
 #endif
