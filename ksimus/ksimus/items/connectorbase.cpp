@@ -146,10 +146,10 @@ public:
 
 // Helper class
 // Creates immediatly a QBitmap from a XPM (used in static initializer)
-class ConnectorBase_Bitmap : public QBitmap
+class ConnectorBase::XpmBitmap : public QBitmap
 {
 public:
-	ConnectorBase_Bitmap(const char * const xpm[])
+	XpmBitmap(const char * const xpm[])
 	{
 		*static_cast<QBitmap *>(this) = QImage(xpm);
 		setMask(*this); // selfMask 
@@ -781,39 +781,12 @@ void ConnectorBase::draw (QPainter * p) const
 	}
 }
 
-
-static inline void ConnectorBase_drawLine2(QPainter * p, int x, int y, int w, int h,
-                                           const QColor & color, const Qt::PenStyle style)
-{
-	if (Qt::SolidLine == style)
-	{
-		p->setPen(QPen(color, 0));
-		p->setBrush(color);
-		p->drawRect(x, y, w, h+2);
-	}
-	else
-	{
-		w += x;
-		h += y;
-		p->setPen(QPen(color, 1, style));
-		p->drawLine(x, y,   w, h);
-		p->drawLine(x, y+1, w, h+1);
-	}
-}
-
-
-
-static void ConnectorBase_drawLine(QPainter * p,
-                                   const ConnOrientationType orient,
-                                   int x, int y,
-                                   const QColor & color,
-                                   const Qt::PenStyle style,
-                                   const bool wired)
+void ConnectorBase::drawLine(QPainter * p, ConnOrientationType orient, int x, int y, 
+                             const QColor & color, Qt::PenStyle style, bool wired)
 {
 	if (Qt::SolidLine == style)
 	{
 		// use rect
-//		p->setPen(QPen(color, 0, Qt::SolidLine));
 		p->setPen(color);
 		p->setBrush(color);
 	}
@@ -829,7 +802,7 @@ static void ConnectorBase_drawLine(QPainter * p,
 		{
 			x--;
 			y += gridY / 2;
-			int h = wired ? (-gridY * 3 / 2) : -gridY ;
+			int h = wired ? (-gridY * 3 / 2) : -gridY;
 			if (Qt::SolidLine == style)
 			{
 				p->drawRect(x, y - 1, 2, h);
@@ -848,7 +821,7 @@ static void ConnectorBase_drawLine(QPainter * p,
 		{
 			y--;
 			x -= gridX / 2;
-			int w = wired ? (gridX * 3 / 2) : gridX ;
+			int w = wired ? (gridX * 3 / 2) : gridX;
 			if (Qt::SolidLine == style)
 			{
 				p->drawRect(x, y, w, 2);
@@ -867,7 +840,7 @@ static void ConnectorBase_drawLine(QPainter * p,
 		{
 			x--;
 			y -= gridY / 2;
-			int h = wired ? (gridY * 3 / 2) : gridY ;
+			int h = wired ? (gridY * 3 / 2) : gridY;
 			if (Qt::SolidLine == style)
 			{
 				p->drawRect(x, y, 2, h);
@@ -886,7 +859,7 @@ static void ConnectorBase_drawLine(QPainter * p,
 		{
 			x += gridX / 2;
 			y --;
-			int w = wired ? -(gridX * 3 / 2) : -gridX ;
+			int w = wired ? -(gridX * 3 / 2) : -gridX;
 			if (Qt::SolidLine == style)
 			{
 				p->drawRect(x - 1, y, w, 2);
@@ -909,11 +882,8 @@ static void ConnectorBase_drawLine(QPainter * p,
 
 
 
-static void ConnectorBase_drawCircle(QPainter * p,
-                                     const ConnOrientationType orient,
-                                     int x, int y,
-                                     const QColor & color,
-                                     const bool inner)
+void ConnectorBase::drawCircle(QPainter * p, ConnOrientationType orient,
+                               int x, int y, const QColor & color, bool inner)
 {
 	// The "outter" bubble
 	static const char * const xpmOutter[] =
@@ -928,7 +898,7 @@ static void ConnectorBase_drawCircle(QPainter * p,
 		"......",
 		" .... "
 	};
-	static ConnectorBase_Bitmap mapOutter(xpmOutter);
+	static ConnectorBase::XpmBitmap mapOutter(xpmOutter);
 
 	// The "inner" bubble
 	static const char * const xpmInner[] =
@@ -943,7 +913,7 @@ static void ConnectorBase_drawCircle(QPainter * p,
 		"  ..  ",
 		"  ..  "
 	};
-	static ConnectorBase_Bitmap mapInner(xpmInner);
+	static ConnectorBase::XpmBitmap mapInner(xpmInner);
 
 	p->setPen(color);
 	switch (orient)
@@ -984,20 +954,20 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 
 	if (colorScheme.isDualColor())
 	{
-		ConnectorBase_drawLine(p, orient, x, y, colorScheme.getBackgroundColor(), SolidLine, (getWire() != 0));
-		ConnectorBase_drawLine(p, orient, x, y, colorScheme.getForegroundColor(), DotLine, (getWire() != 0));
+		drawLine(p, orient, x, y, colorScheme.getBackgroundColor(), SolidLine, (getWire() != 0));
+		drawLine(p, orient, x, y, colorScheme.getForegroundColor(), DotLine, (getWire() != 0));
 		if (isNegated())
 		{
-			ConnectorBase_drawCircle(p, orient, x, y, colorScheme.getBackgroundColor(), false);
-			ConnectorBase_drawCircle(p, orient, x, y, colorScheme.getForegroundColor(), true);
+			drawCircle(p, orient, x, y, colorScheme.getBackgroundColor(), false);
+			drawCircle(p, orient, x, y, colorScheme.getForegroundColor(), true);
 		}
 	}
 	else
 	{
-		ConnectorBase_drawLine(p, orient, x, y, colorScheme.getColor(), SolidLine, (getWire() != 0));
+		drawLine(p, orient, x, y, colorScheme.getColor(), SolidLine, (getWire() != 0));
 		if (isNegated())
 		{
-			ConnectorBase_drawCircle(p, orient, x, y, colorScheme.getColor(), false);
+			drawCircle(p, orient, x, y, colorScheme.getColor(), false);
 		}
 	}
 

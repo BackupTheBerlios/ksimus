@@ -49,10 +49,10 @@
 
 // Helper class
 // Creates immediatly a QBitmap from a XPM (used in static initializer)
-class WireSV_Bitmap : public QBitmap
+class WireSV::XpmBitmap : public QBitmap
 {
 public:
-	WireSV_Bitmap(const char * const xpm[])
+	XpmBitmap(const char * const xpm[])
 	{
 		*static_cast<QBitmap *>(this) = QImage(xpm);
 		setMask(*this); // selfMask 
@@ -220,7 +220,7 @@ void WireSV::draw(QPainter * p)
 			"......",
 			" .... "
 		};
-		static WireSV_Bitmap mapOutter(xpmOutter);
+		static XpmBitmap mapOutter(xpmOutter);
 
 		if (colorScheme.isDualColor())
 		{
@@ -237,7 +237,7 @@ void WireSV::draw(QPainter * p)
 				"  ..  ",
 				"  ..  "
 			};
-			static WireSV_Bitmap mapInner(xpmInner);
+			static XpmBitmap mapInner(xpmInner);
 
 			for (unsigned int j = 1; j < routeList->count(); j++)
 			{

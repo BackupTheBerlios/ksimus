@@ -110,6 +110,10 @@ public:
 protected:
 	void protectConnectorEdgeing(bool ena);
 	CPointListList * routeList;
+	
+private:
+	class XpmBitmap;
+	
 };
 
 

@@ -343,6 +343,14 @@ private:
 	WireProperty * m_wireProperty;
 	ImplicitConverter * m_implicitConverter;
 	
+	// Some internal things:
+	class XpmBitmap;
+	static void drawLine(QPainter * p, ConnOrientationType orient, int x, int y, 
+	                     const QColor & color, Qt::PenStyle style, bool wired);
+	static void drawCircle(QPainter * p, ConnOrientationType orient, int x, int y,
+	                       const QColor & color, bool inner);
+
+	
 signals:
 	/** This signal is emitted immediately after the connector is connected to a wire.
 		*/
