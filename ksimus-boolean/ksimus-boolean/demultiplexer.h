@@ -91,13 +91,11 @@ public:
 	  * because each connector has also a property widget. If you reduce the connector count
 	  * some of these propert widgets have no valid connector. This function delays the connector
 	  * count modification until all property widgets are removed.
-	  *
-	  * The default implementation calls the @ref ComponentAddOn::menuExecuted functions.
 	  */
 	virtual void menuExecuted();
 	
-	void setChannelCount(int count);
-	void setChannelCountDelayed(int count);
+	void setChannelCount(unsigned int count);
+	void setChannelCountDelayed(unsigned int count);
 	unsigned int getChannelCount() const;
 	unsigned int getMinChannelCount() const;
 	

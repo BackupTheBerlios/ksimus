@@ -242,7 +242,7 @@ void Demultiplexer::slotDeleteChannel()
 	setChannelCount(getChannelCount()-1);
 }
 
-void Demultiplexer::setChannelCount(int count)
+void Demultiplexer::setChannelCount(unsigned int count)
 {
 	if (count < MIN_CHANNELS) count = MIN_CHANNELS;
 	if (count > MAX_CHANNELS) count = MAX_CHANNELS;
@@ -284,7 +284,7 @@ unsigned int Demultiplexer::getMinChannelCount() const
 	return QMAX(getOutputPack()->getNumberOfNotDeletableConnectors(), i);
 }
 
-void Demultiplexer::setChannelCountDelayed(int count)
+void Demultiplexer::setChannelCountDelayed(unsigned int count)
 {
 	tempConnCount = count;
 	tempConnCountOwner = this;
