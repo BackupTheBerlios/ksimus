@@ -175,8 +175,8 @@ int DataRecorderChannelFloat::drawData(QPaintDevice * paintDev,
 	QPainter painter(paintDev);
 	painter.setPen(getLineColor());
 	
-	int verticalOffset = qRound((getVerticalOffset() * height) / verticalDivs);
-	int verticalGain = qRound((getVerticalGain() * height) / verticalDivs);
+	double verticalOffset = (getVerticalOffset() * height) / verticalDivs;
+	double verticalGain = (getVerticalGain() * height) / verticalDivs;
 
 	if (index >= m_data->count())
 		return m_data->count();	// Nothing to draw
@@ -184,15 +184,15 @@ int DataRecorderChannelFloat::drawData(QPaintDevice * paintDev,
 	if (stopSample >= m_data->count())
 		stopSample = m_data->count()-1; // Limit samples
 		
-	vertPos = lastVertPos = qRound(height - (verticalGain * getData(index) + verticalOffset));
+	vertPos = lastVertPos = height - qRound(verticalGain * getData(index) + verticalOffset);
 	
 	while(index < stopSample)
 	{
 		index++;
 		counter++;
-		vertPos = qRound(height - (verticalGain * getData(index) + verticalOffset));
+		vertPos = height - qRound(verticalGain * getData(index) + verticalOffset);
 		horiPos = horizontalOffset + qRound(counter / samplePerPixel);
-		if(lastVertPos != vertPos)		// Speed up static signals
+//		if(lastVertPos != vertPos)		// Speed up static signals
 		{
 			painter.drawLine(lastHoriPos, lastVertPos, horiPos, vertPos);
 			lastVertPos = vertPos;
@@ -200,7 +200,7 @@ int DataRecorderChannelFloat::drawData(QPaintDevice * paintDev,
 		}
 	}
 	// Draw final line
-	painter.drawLine(lastHoriPos, lastVertPos, horiPos, vertPos);
+//	painter.drawLine(lastHoriPos, lastVertPos, horiPos, vertPos);
 	return index-1;
 }
 
