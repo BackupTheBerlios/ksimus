@@ -33,6 +33,11 @@ DataRecorderView::DataRecorderView(Component * comp, eViewType viewType)
 	: CompView(comp,viewType)
 {
 	setPlace(QRect(0, 0, 7*gridX, 5*gridY));
+	enableRotation(true);
+	enableConnectorSpacingTop(false);
+//	enableConnectorSpacingRight(bool enable = true);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
 }
 
 DataRecorderView::~DataRecorderView()
@@ -40,14 +45,8 @@ DataRecorderView::~DataRecorderView()
 }
 void DataRecorderView::draw(QPainter * p)
 {
-	QRect rect(getPlace().topLeft()+QPoint(gridX+1,1),
-							getPlace().bottomRight()-QPoint(gridX-0,1));
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-	p->drawText(rect, AlignCenter, "Data\nRec");
+	drawFrame(p);
+	p->drawText(getDrawingPlace(), AlignCenter, "Data\nRec");
 
 	CompView::draw(p);
 }

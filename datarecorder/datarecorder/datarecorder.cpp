@@ -360,7 +360,7 @@ void DataRecorder::arrangeChannelInputs()
 	
 		QRect place = getSheetView()->getPlace();
 		place.setHeight(newHeight);
-		getSheetView()->setPlace(place);
+		getSheetView()->setPlace(place, true);
 		
 	}
 	
