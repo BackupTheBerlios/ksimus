@@ -6,10 +6,10 @@ libtools_a_METASOURCES = AUTO
 
 noinst_LIBRARIES = libtools.a
 
-libtools_a_SOURCES = ksimbooleanbox.cpp ksimpackagefilewidget.cpp ksimfilelistselectorui.ui ksimfilelistselector.cpp ksimtimespinbox.cpp ksimunit.cpp ksimexponentstep.cpp ksimdoublespinbox.cpp loglistitem.cpp loglistdialogwidget.cpp loglist.cpp llicompsel.cpp propertywidget.cpp ksimlineedit.cpp enumdict.cpp simulationtiming.cpp simulationtimingwidget.cpp ksimtimeserver.cpp ksimtimeselectorwidget.cpp ksimtimelabel.cpp ksimtimebase.cpp ksimtime.cpp ksimgriddialog.cpp ksimgrid.cpp ksimdoubleedit.cpp 
+libtools_a_SOURCES = ksimbaseuint.cpp ksimtype.cpp ksimbooleanbox.cpp ksimpackagefilewidget.cpp ksimfilelistselectorui.ui ksimfilelistselector.cpp ksimtimespinbox.cpp ksimunit.cpp ksimexponentstep.cpp ksimdoublespinbox.cpp loglistitem.cpp loglistdialogwidget.cpp loglist.cpp llicompsel.cpp propertywidget.cpp ksimlineedit.cpp enumdict.cpp simulationtiming.cpp simulationtimingwidget.cpp ksimtimeserver.cpp ksimtimeselectorwidget.cpp ksimtimelabel.cpp ksimtimebase.cpp ksimtime.cpp ksimgriddialog.cpp ksimgrid.cpp ksimdoubleedit.cpp 
 
 
-EXTRA_DIST = ksimdoubleedit.cpp ksimdoubleedit.h ksimgrid.cpp ksimgrid.h ksimgriddialog.cpp ksimgriddialog.h ksimtime.cpp ksimtime.h ksimtimebase.cpp ksimtimebase.h ksimtimelabel.cpp ksimtimelabel.h ksimtimeselectorwidget.cpp ksimtimeselectorwidget.h ksimtimeserver.cpp ksimtimeserver.h simulationtimingwidget.cpp simulationtimingwidget.h simulationtiming.cpp simulationtiming.h enumdict.cpp enumdict.h ksimlineedit.cpp ksimlineedit.h propertywidget.cpp propertywidget.h llicompsel.cpp llicompsel.h loglist.cpp loglist.h loglistdialogwidget.cpp loglistdialogwidget.h loglistitem.cpp loglistitem.h ksimdoublespinbox.cpp ksimdoublespinbox.h ksimexponentstep.cpp ksimexponentstep.h ksimunit.cpp ksimunit.h ksimtimespinbox.cpp ksimtimespinbox.h ksimfilelistselector.cpp ksimfilelistselector.h ksimfilelistselectorui.ui ksimpackagefilewidget.cpp ksimpackagefilewidget.h ksimbooleanbox.cpp ksimbooleanbox.h 
+EXTRA_DIST = ksimdoubleedit.cpp ksimdoubleedit.h ksimgrid.cpp ksimgrid.h ksimgriddialog.cpp ksimgriddialog.h ksimtime.cpp ksimtime.h ksimtimebase.cpp ksimtimebase.h ksimtimelabel.cpp ksimtimelabel.h ksimtimeselectorwidget.cpp ksimtimeselectorwidget.h ksimtimeserver.cpp ksimtimeserver.h simulationtimingwidget.cpp simulationtimingwidget.h simulationtiming.cpp simulationtiming.h enumdict.cpp enumdict.h ksimlineedit.cpp ksimlineedit.h propertywidget.cpp propertywidget.h llicompsel.cpp llicompsel.h loglist.cpp loglist.h loglistdialogwidget.cpp loglistdialogwidget.h loglistitem.cpp loglistitem.h ksimdoublespinbox.cpp ksimdoublespinbox.h ksimexponentstep.cpp ksimexponentstep.h ksimunit.cpp ksimunit.h ksimtimespinbox.cpp ksimtimespinbox.h ksimfilelistselector.cpp ksimfilelistselector.h ksimfilelistselectorui.ui ksimpackagefilewidget.cpp ksimpackagefilewidget.h ksimbooleanbox.cpp ksimbooleanbox.h ksimtype.cpp ksimtype.h ksimbaseuint.cpp ksimbaseuint.h 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_includes)/ksimus/
@@ -60,6 +60,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/ksimpackagefilewidget.h $(kde_includes)/ksimus/ksimpackagefilewidget.h
 	$(mkinstalldirs) $(kde_includes)/ksimus/
 	$(INSTALL_DATA) $(srcdir)/ksimbooleanbox.h $(kde_includes)/ksimus/ksimbooleanbox.h
+	$(mkinstalldirs) $(kde_includes)/ksimus/
+	$(INSTALL_DATA) $(srcdir)/ksimtype.h $(kde_includes)/ksimus/ksimtype.h
+	$(mkinstalldirs) $(kde_includes)/ksimus/
+	$(INSTALL_DATA) $(srcdir)/ksimbaseuint.h $(kde_includes)/ksimus/ksimbaseuint.h
 
 uninstall-local:
 	-rm -f $(kde_includes)/ksimus/ksimdoubleedit.h
@@ -86,6 +90,8 @@ uninstall-local:
 	-rm -f $(kde_includes)/ksimus/ksimfilelistselector.h
 	-rm -f $(kde_includes)/ksimus/ksimpackagefilewidget.h
 	-rm -f $(kde_includes)/ksimus/ksimbooleanbox.h
+	-rm -f $(kde_includes)/ksimus/ksimtype.h
+	-rm -f $(kde_includes)/ksimus/ksimbaseuint.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 
