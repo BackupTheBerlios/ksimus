@@ -50,7 +50,7 @@ extern const ComponentInfo DFlipFlopInfo;
   *@author Rasmus Diekenbrock
   */
 
-class DFlipFlop : public FlipFlopBase
+class DFlipFlop : public KSimLibBoolean::FlipFlopBase
 {
 	Q_OBJECT
 

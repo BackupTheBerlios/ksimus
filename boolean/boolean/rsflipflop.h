@@ -45,7 +45,7 @@ namespace KSimLibBoolean
 
 extern const ComponentInfo RSFlipFlopInfo;
 
-class RSFlipFlop : public FlipFlopBase
+class RSFlipFlop : public KSimLibBoolean::FlipFlopBase
 {
 Q_OBJECT
 

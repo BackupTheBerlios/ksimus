@@ -53,7 +53,7 @@ extern const ComponentInfo MonoFlopInfo;
   *@author Rasmus Diekenbrock
   */
 
-class MonoFlop : public FlipFlopBase
+class MonoFlop : public KSimLibBoolean::FlipFlopBase
 {
 	Q_OBJECT
 
@@ -116,7 +116,7 @@ private:
 //###############################################################
 //###############################################################
 
-class MonoFlopPropertyGeneralWidget : public FlipFlopBasePropertyGeneralWidget
+class MonoFlopPropertyGeneralWidget : public KSimLibBoolean::FlipFlopBasePropertyGeneralWidget
 {
 	Q_OBJECT
 

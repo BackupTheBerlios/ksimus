@@ -49,7 +49,7 @@ extern const ComponentInfo JKMSFlipFlopInfo;
   *@author Rasmus Diekenbrock
   */
 
-class JKFlipFlopBase : public FlipFlopBase
+class JKFlipFlopBase : public KSimLibBoolean::FlipFlopBase
 {
 	Q_OBJECT
 
@@ -88,7 +88,7 @@ private:
   * @author Rasmus Diekenbrock
   */
 
-class JKFlipFlop : public JKFlipFlopBase
+class JKFlipFlop : public KSimLibBoolean::JKFlipFlopBase
 {
 	Q_OBJECT
 
@@ -156,7 +156,7 @@ private:
 //###############################################################
 //###############################################################
 
-class JKFlipFlopPropertyGeneralWidget : public FlipFlopBasePropertyGeneralWidget
+class JKFlipFlopPropertyGeneralWidget : public KSimLibBoolean::FlipFlopBasePropertyGeneralWidget
 {
 	Q_OBJECT
 
