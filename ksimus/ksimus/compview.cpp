@@ -17,6 +17,7 @@
 
 // C-Includes
 #include <math.h>
+#include <limits.h>
 
 // QT-Includes
 #include <qevent.h>
