@@ -1,3 +1,9 @@
+	04.02.2002
+* New: Improve class KSimDoubleEdit	
+* New: KSimEditor event filter fetches key press and release events
+* New: Store size of  Package Files Widget
+* New: Brazilian portuguese translation from Renato Arruda. Thanks!
+* New: Floating Point connectors and wire
 	23.01.2002
 * Change: Version 0.3.3
 	22.01.2002
