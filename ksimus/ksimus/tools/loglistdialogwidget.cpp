@@ -51,7 +51,7 @@ void LogListDialogWidget::initView()
 	mainLayout->addWidget(box,0,0);
 
 	
-	new QLabel(i18n("Show :"),box);
+	new QLabel(i18n("Show:"),box);
 	new QLabel(i18n("Popup at:"),box);
 		
 	
