@@ -41,11 +41,8 @@ namespace KSimLibFloatingPoint
 {
 
 /**Component for converting a boolean value in a floating point value.
+  *
   *@author Rasmus Diekenbrock
-  */
-/**A waveform generator.
-	*
-  * @author Rasmus Diekenbrock
   */
 
 class ConvertBoolFloat : public Component
@@ -95,7 +92,7 @@ private:
 
 //###############################################################
 
-/** The view for the floating point waveform generator.
+/** The view of the @ref ConvertBoolFloat.
 	*
   * @author Rasmus Diekenbrock
   */

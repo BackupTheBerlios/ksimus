@@ -43,6 +43,7 @@ namespace KSimLibFloatingPoint
 {
 
 /**Component for converting a floating point value in a boolean value.
+  *
   *@author Rasmus Diekenbrock
   */
 
@@ -98,7 +99,7 @@ protected:
 
 //###############################################################
 
-/** View class for @ref ConvertFloatBool views.
+/** View class of @ref ConvertFloatBool.
   *
   * @author Rasmus Diekenbrock
   */
