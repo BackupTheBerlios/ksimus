@@ -42,3 +42,7 @@ void KSimTimeServer::addTick()
 	m_time += m_timePerTick.raw();
 }
 
+const KSimTimeBase & KSimTimeServer::getTime() const
+{
+	return (const KSimTimeBase &)*this;
+}

@@ -32,6 +32,7 @@ public:
 
 	void setTick(const KSimTimeBase & time);
 	const KSimTimeBase & getTick() const;
+	const KSimTimeBase & getTime() const;
 	
 	void addTick();
 
