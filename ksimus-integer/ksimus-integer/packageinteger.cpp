@@ -414,7 +414,7 @@ static void initPackage(KLocale * ksimusLocale)
 
 extern "C"
 {
-	const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
+	const PackageInfo * init_ksimus_package(KLocale * ksimusLocale)
 	{
 		if (!KSimLibInteger::isPackageInitialized)
 		{

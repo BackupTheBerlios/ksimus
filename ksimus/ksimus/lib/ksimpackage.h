@@ -87,11 +87,6 @@ enum eResult { NEW, OPENED, BAD_FILE, TRY_AGAIN };
 		*/
 	const PackageInfo * getPackageInfo() const;
 
-	/** Returns the init function name. The function must follow the naming pattern
-	  * "init_libname".
-	  */
-	QCString getInitFunctionName() const;
-	
 private:
 	QString m_filename;
 	eResult m_error;

@@ -126,9 +126,9 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 	  else
 	  {
 			#ifdef USE_DLFCN
-				void *sym = dlsym(m_fileHandle, getInitFunctionName());
+				void *sym = dlsym(m_fileHandle, "init_ksimus_package");
 			#else
-				void *sym = lt_dlsym(m_fileHandle, getInitFunctionName());
+				void *sym = lt_dlsym(m_fileHandle, "init_ksimus_package");
 			#endif
 				
 			if (sym)
@@ -199,21 +199,3 @@ const PackageInfo * KSimPackageHandle::getPackageInfo() const
 	return m_packageInfo;
 }
 
-QCString KSimPackageHandle::getInitFunctionName() const
-{
-	int i;
-	QCString funcname;
-	QFileInfo fi(getFilename());
-	QString filename(fi.baseName());
-	
-	// Relaces "-" with "_"
-	while (-1 != (i = filename.find(QString::fromLatin1("-"))))
-	{
-		filename.replace(i, 1, QString::fromLatin1("_"));
-	}
-	
-	
-	funcname.sprintf("init_%s", filename.latin1());
-	
-	return funcname;
-}
