@@ -245,29 +245,6 @@ int ExternalConnector::checkCircuit()
 	return error;
 }
 
-/*void ExternalConnector::checkProperty(QStringList & errorMsg)
-{
-	bool nameUnique(true);
-	
-	FOR_EACH_COMP(it, *getContainer()->getComponentList())
-	{	
-		if(  (it.current()->isExtConn())
-			&& (it.current() != this)
-			&& (it.current()->getName() == getName()))
-		{
-			nameUnique = false;
-			break;
-		}
-	}
-	
-	if(!nameUnique)
-	{
-		errorMsg.append(i18n("Name of External Connectors have to be unique (%1).").arg(getName()));
-	}
-	
-	Component::checkProperty(errorMsg);
-} */
-
 /** Save ExternalConnector properties */
 void ExternalConnector::save(KSimData & file) const
 {

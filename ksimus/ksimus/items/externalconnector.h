@@ -78,16 +78,6 @@ public:
 	*/
 	virtual int checkCircuit();
 	
-	/** Checks the component property. The functions is called after the
-	*		property dialog.
-	*   Eg. all connectors have unique names.
-	*		The implementations checks the name of the externalconnectros (have to be unique) and
-	*		calls the default implementation.
-	*
-	*   Append the message to errorMsg.
-	*/
-//	virtual void checkProperty(QStringList & errorMsg);
-	
 	bool isInput() const { return m_flags.input; };
 	
 	/** save component properties */
