@@ -619,4 +619,4 @@ void BooleanCounterPropertyWidget::limit()
 //###############################################################
 
 }; //namespace KSimLibBoolean
-	
+

@@ -403,4 +403,4 @@ void BoolTriStateXIn1Out1EnaView::draw(QPainter * p)
 //###############################################################
 
 }; //namespace KSimLibBoolean
-	
+
