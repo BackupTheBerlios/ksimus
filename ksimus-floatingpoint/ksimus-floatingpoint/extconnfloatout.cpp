@@ -90,6 +90,10 @@ void ExtConnFloatOut::calculate()
 		}
 		setRecursionLocked(false);
 	}
+	else
+	{
+		executeNext();
+	}
 }
 //###############################################################
 

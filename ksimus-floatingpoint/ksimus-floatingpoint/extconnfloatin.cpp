@@ -96,7 +96,11 @@ void ExtConnFloatIn::reset()
 
 	if (!getUsedExternalConn()->isConnected())
 	{
-		getUsedExternalConn()->copyData(&m_defaultValue);
+		ConnectorFloatOut * out = (ConnectorFloatOut *)getInternalConn();
+		ConnectorFloatIn * in = (ConnectorFloatIn *)getUsedExternalConn();
+
+		in->copyData(&m_defaultValue);
+		out->setOutput(in->getInput(), false);
 	}
 }
 
@@ -117,6 +121,10 @@ void ExtConnFloatIn::calculate()
 			out->getWireProperty()->execute();
 		}
 		setRecursionLocked(false);
+	}
+	else
+	{
+		executeNext();
 	}
 }
 
