@@ -1,3 +1,9 @@
+	20.04.2002
+* New package naming ksimus-datarecorder
+* Improve i18n
+* Update graph synchron to view update
+* New: Version 0.3.5-cvs
+* New: version check code in configure.in.in
 	20.03.2002
 * New: Version 0.3.4
 	07.03.2002
