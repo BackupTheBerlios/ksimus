@@ -9,8 +9,7 @@
 * Fix: Error at BooleanCounter caused in changes from 02.05.2002
 	19.05.2002
 * Change: Data transport layer redesigned. Faster execution, easier component
-  implementation, no delay for external connectors (up to now the delay was 0
-  or 1 cycle)
+  implementation, no delay for external connectors (up to now the delay was 0 or 1 cycle)
 	02.05.2002
 * Fix: unsaved reset state of the flip flops
 * New: Component execution is event triggered now (earlier versions are cycle based)
