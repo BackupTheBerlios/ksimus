@@ -6,10 +6,10 @@ libitems_a_METASOURCES = AUTO
 
 noinst_LIBRARIES = libitems.a
 
-libitems_a_SOURCES = connectorboolinedgepropertywidget.cpp connectorboolinedge.cpp connectorlabel.cpp externalconnector.cpp extconnboolout.cpp extconnboolin.cpp wirepropertyboolean.cpp wireproperty.cpp connectorpropertywidget.cpp connectorpropertydialog.cpp connectorlist.cpp connectorbooloutpropertywidget.cpp connectorboolout.cpp connectorboolinpropertywidget.cpp connectorboolin.cpp connectorbase.cpp 
+libitems_a_SOURCES = connectorpack.cpp componentlayout.cpp connectorboolinedgepropertywidget.cpp connectorboolinedge.cpp connectorlabel.cpp externalconnector.cpp extconnboolout.cpp extconnboolin.cpp wirepropertyboolean.cpp wireproperty.cpp connectorpropertywidget.cpp connectorpropertydialog.cpp connectorlist.cpp connectorbooloutpropertywidget.cpp connectorboolout.cpp connectorboolinpropertywidget.cpp connectorboolin.cpp connectorbase.cpp 
 
 
-EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h 
+EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h componentlayout.cpp componentlayout.h connectorpack.cpp connectorpack.h 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_includes)/ksimus/
@@ -44,6 +44,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/connectorboolinedge.h $(kde_includes)/ksimus/connectorboolinedge.h
 	$(mkinstalldirs) $(kde_includes)/ksimus/
 	$(INSTALL_DATA) $(srcdir)/connectorboolinedgepropertywidget.h $(kde_includes)/ksimus/connectorboolinpropertywidget.h
+	$(mkinstalldirs) $(kde_includes)/ksimus/
+	$(INSTALL_DATA) $(srcdir)/componentlayout.h $(kde_includes)/ksimus/componentlayout.h
+	$(mkinstalldirs) $(kde_includes)/ksimus/
+	$(INSTALL_DATA) $(srcdir)/connectorpack.h $(kde_includes)/ksimus/connectorpack.h
 
 uninstall-local:
 	-rm -f $(kde_includes)/ksimus/connectorbase.h
@@ -62,6 +66,8 @@ uninstall-local:
 	-rm -f $(kde_includes)/ksimus/connectorlabel.h
 	-rm -f $(kde_includes)/ksimus/connectorboolinedge.h
 	-rm -f $(kde_includes)/ksimus/connectorboolinpropertywidget.h
+	-rm -f $(kde_includes)/ksimus/componentlayout.h
+	-rm -f $(kde_includes)/ksimus/connectorpack.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 
