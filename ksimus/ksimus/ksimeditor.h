@@ -35,7 +35,6 @@ class CompContainer;
 class ConnectorBase;
 class Wire;
 class ComponentInfo;
-class KSimEditorCursor;
 class KPrinter;
 
 /** The KSimEditor class provides the view widget for the KSimusApp instance.	
@@ -47,42 +46,40 @@ class KPrinter;
  * @version KDevelop version 0.4 code generation
  */
 
-enum EditorModeType { 	EM_SELECT = 0, EM_INSERT, EM_INSERT_MOVE,
-						EM_PAST, EM_PAST_MOVE,
-						EM_MOVE_OR_SELECT, EM_MOVE, EM_MOVE_COPY,
-						EM_RECT_SELECT, EM_SINGLE_SELECT,
-						EM_SPECIAL, EM_COMP_RESIZE_B, EM_COMP_RESIZE_F, EM_WIRE, EM_RESIZE_MAP };
-							
-enum EditorViewType {	EV_NOTVALID = 0,
-						EV_SHEETVIEW,
-						EV_USERVIEW };
-	
+enum EditorModeType { EM_SELECT = 0, EM_INSERT, EM_INSERT_MOVE,
+                      EM_PAST, EM_PAST_MOVE,
+                      EM_MOVE_OR_SELECT, EM_MOVE, EM_MOVE_COPY,
+                      EM_RECT_SELECT, EM_SINGLE_SELECT,
+                      EM_SPECIAL, EM_COMP_RESIZE_B, EM_COMP_RESIZE_F, EM_WIRE, EM_RESIZE_MAP };
+
+enum EditorViewType { EV_NOTVALID = 0,
+                      EV_SHEETVIEW,
+                      EV_USERVIEW };
 
 
 class KSimEditor : public QWidget
 {
-  Q_OBJECT
+class Cursor;
+	Q_OBJECT
 
-/*  friend class KSimusApp;
-  friend class KSimusDoc; */
-  friend class KSimUndo;
+	friend class KSimUndo;
 
 public:
 	
-    /** Constructor for the main view */
-    KSimEditor(QWidget *parent = 0, const char *name=0);
-    /** Destructor for the main view */
-    ~KSimEditor();
+	/** Constructor for the main view */
+	KSimEditor(QWidget *parent = 0, const char *name=0);
+	/** Destructor for the main view */
+	~KSimEditor();
 
-    /** returns a pointer to the document connected to the view instance. Mind that this method requires a KSimusApp instance as a parent
-     * widget to get to the window document pointer by calling the KSimusApp::getDocument() method.
-     *
-     * @see KSimusApp#getDocument
-     */
-    KSimusDoc *getDoc() const;
-    KSimusApp *getApp() const;
-    KSimusView *getView() const;
-    CompContainer * getContainer() const;
+	/** returns a pointer to the document connected to the view instance. Mind that this method requires a KSimusApp instance as a parent
+	  * widget to get to the window document pointer by calling the KSimusApp::getDocument() method.
+	  *
+	  * @see KSimusApp#getDocument
+	  */
+	KSimusDoc *getDoc() const;
+	KSimusApp *getApp() const;
+	KSimusView *getView() const;
+	CompContainer * getContainer() const;
 
 	/** contains the implementation for printing functionality */
 	void print(KPrinter *pPrinter);
@@ -90,8 +87,8 @@ public:
 		updateDrawMap() doesn't update the widget. update() will do that.*/
 	void updateDrawMap();
 	
-    /** All views of the document redraw and show the drawMap */
-    void refresh();
+	/** All views of the document redraw and show the drawMap */
+	void refresh();
 	void setEditorMode(EditorModeType newMode);
 	
 	/** Sets the type of view */
@@ -155,7 +152,7 @@ protected: // Protected methods
   /** Sets a proper cursor. */
 	void setEditorCursor(QPoint * pMousePos, eHitType hit) const;
 	
-private:	
+private:
 	/** Displays the status message msg delayed */
 	void delayedStatusHelpMsg(const QString & msg);
 	
@@ -188,7 +185,7 @@ private:
 	int resizeDir;
 	
 	const ComponentInfo * m_insertCI;
-	KSimEditorCursor * m_myCursor;
+	Cursor * m_myCursor;
 	
 
 public slots: // Public slots

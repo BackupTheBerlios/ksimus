@@ -87,7 +87,7 @@
 #include "wire.cur"
 #include "wire_mask.cur"
 
-class KSimEditorCursor
+class KSimEditor::Cursor
 {
 public:
 	enum KSimCursorType { arrowCursor, upArrowCursor, crossCursor, waitCursor, ibeamCursor,
@@ -95,8 +95,8 @@ public:
 	                      sizeAllCursor, blankCursor, splitVCursor, splitHCursor,
 	                      pointingHandCursor, forbiddenCursor, wireCursor };
 	
-	KSimEditorCursor(KSimEditor * editor);
-	~KSimEditorCursor() {};
+	Cursor(KSimEditor * editor);
+	~Cursor() {};
 	
 	void set(KSimCursorType newCursor);
 	void setNow(KSimCursorType newCursor);
@@ -107,10 +107,9 @@ private:
 	KSimCursorType m_current;
 	KSimEditor * m_editor;
 	QCursor * m_wireCursor;
-	
 };
 
-KSimEditorCursor::KSimEditorCursor(KSimEditor * editor)
+KSimEditor::Cursor::Cursor(KSimEditor * editor)
 	:	m_editor(editor)
 {
 	// Wire cursor
@@ -122,7 +121,7 @@ KSimEditorCursor::KSimEditorCursor(KSimEditor * editor)
 	setNow(arrowCursor);
 };
 
-void KSimEditorCursor::set(KSimCursorType newCursor)
+void KSimEditor::Cursor::set(KSimCursorType newCursor)
 {
 	if(get() != newCursor)
 	{
@@ -130,7 +129,7 @@ void KSimEditorCursor::set(KSimCursorType newCursor)
 	}
 }
 
-void KSimEditorCursor::setNow(KSimCursorType newCursor)
+void KSimEditor::Cursor::setNow(KSimCursorType newCursor)
 {
 	m_current = newCursor;
 	
@@ -182,7 +181,7 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	drawMap = new QPixmap;
 	CHECK_PTR(drawMap);
 	
-	m_myCursor = new KSimEditorCursor(this);
+	m_myCursor = new KSimEditor::Cursor(this);
 	CHECK_PTR(m_myCursor);
 	
 	setMouseTracking(true);
@@ -1223,27 +1222,27 @@ void KSimEditor::setEditorCursor(QPoint * pMousePos, eHitType hit) const
 	{
 		case EM_INSERT:
 		case EM_PAST:
-				m_myCursor->set(KSimEditorCursor::crossCursor);
+				m_myCursor->set(KSimEditor::Cursor::crossCursor);
 			break;
 			
 		case EM_RESIZE_MAP:
 			if (   ((resizeDir ^ (RS_Left|RS_Up)) == 0)
 				|| ((resizeDir ^ (RS_Right|RS_Down)) == 0) )
-				m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+				m_myCursor->set(KSimEditor::Cursor::sizeFDiagCursor);
 			else
-				m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
+				m_myCursor->set(KSimEditor::Cursor::sizeBDiagCursor);
 			break;
 			
 		case EM_COMP_RESIZE_B:
-				m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
+				m_myCursor->set(KSimEditor::Cursor::sizeBDiagCursor);
 			break;
 		
 		case EM_COMP_RESIZE_F:
-				m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+				m_myCursor->set(KSimEditor::Cursor::sizeFDiagCursor);
 			break;
 		
 		case EM_WIRE:
-				m_myCursor->set(KSimEditorCursor::wireCursor);
+				m_myCursor->set(KSimEditor::Cursor::wireCursor);
 			break;
 		
 		default:
@@ -1263,12 +1262,12 @@ void KSimEditor::setEditorCursor(QPoint * pMousePos, eHitType hit) const
 					if ( ((myMousePos.x()<= RS_HANDLE_SIZE) && (myMousePos.y()<= RS_HANDLE_SIZE))
 					   ||((myMousePos.x()>= size.width()-RS_HANDLE_SIZE) && (myMousePos.y()>= size.height()-RS_HANDLE_SIZE)) )
 					{
-						m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+						m_myCursor->set(KSimEditor::Cursor::sizeFDiagCursor);
 					}
 					else if ( ((myMousePos.x()<= RS_HANDLE_SIZE) && (myMousePos.y()>= size.height()-RS_HANDLE_SIZE))
 					        ||((myMousePos.x()>= size.width()-RS_HANDLE_SIZE) && (myMousePos.y()<= RS_HANDLE_SIZE)))
 					{
-						m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
+						m_myCursor->set(KSimEditor::Cursor::sizeBDiagCursor);
 					}
 					else
 					{
@@ -1282,27 +1281,27 @@ void KSimEditor::setEditorCursor(QPoint * pMousePos, eHitType hit) const
 							case NO_HIT:
 							case SPECIAL_HIT:
 							case NORMAL_HIT:
-								m_myCursor->set(KSimEditorCursor::arrowCursor);
+								m_myCursor->set(KSimEditor::Cursor::arrowCursor);
 								break;
 				
 							case CONNECTOR_HIT:
 							case WIRE_HIT:
-								m_myCursor->set(KSimEditorCursor::wireCursor);
+								m_myCursor->set(KSimEditor::Cursor::wireCursor);
 								break;
 					
 							case COMP_RESIZE_F_HIT:
-								m_myCursor->set(KSimEditorCursor::sizeFDiagCursor);
+								m_myCursor->set(KSimEditor::Cursor::sizeFDiagCursor);
 								break;
 					
 							case COMP_RESIZE_B_HIT:
-								m_myCursor->set(KSimEditorCursor::sizeBDiagCursor);
+								m_myCursor->set(KSimEditor::Cursor::sizeBDiagCursor);
 							break;
 						}
 					}
 				}
 				else
 				{
-					m_myCursor->set(KSimEditorCursor::arrowCursor);
+					m_myCursor->set(KSimEditor::Cursor::arrowCursor);
 				}
 				break;
 			}
@@ -1754,17 +1753,32 @@ void KSimEditor::componentPopup(bool connectorHit)
 		
 		if (res == idx)
 		{
-			ComponentPropertyDialog * dia;
-			dia = new ComponentPropertyDialog(comp, i18n("Component Properties"));
-			comp->initPropertyDialog(dia);
-			dia->exec();
-			delete dia;
+			ComponentPropertyDialog::execute(comp, i18n("Component Properties"));
 		}
 		else if (res == connIdx)
 		{
-			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn, i18n("Connector Properties"));
+			ConnectorPropertyDialog::execute(comp->getConnList(), conn, i18n("Connector Properties"));
+/*			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn, i18n("Connector Properties"));
+
+			// Load last size
+			KConfig * config=kapp->config();
+			QString group(config->group());
+			config->setGroup("Connector/Property Dialog");
+			QSize size=config->readSizeEntry("Geometry");
+			config->setGroup(group);
+			if(!size.isEmpty())
+			{
+				dia->resize(size);
+			}
+	
 			dia->exec();
-			delete dia;
+
+			// Save size
+			config->setGroup("Connector/Property Dialog");
+			config->writeEntry("Geometry", dia->size());
+			config->setGroup(group);
+
+			delete dia;*/
 		}
 		else if (res == rot0Idx)
 		{
@@ -1890,11 +1904,7 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	}
 	else if (res == idProperty)
 	{
-		ComponentPropertyDialog * dia;
-		dia = new ComponentPropertyDialog(wire, i18n("Component Properties"));
-		wire->initPropertyDialog(dia);
-		dia->exec();
-		delete dia;
+		ComponentPropertyDialog::execute(wire, i18n("Component Properties"));
 	}
 	else if (res == addWatchItemIdx)
 	{
