@@ -647,7 +647,7 @@ ComponentMap * Component::getUserMap() const
 
 ConnectorBase * Component::searchConnector(const QString & name) const
 {
-	ConnectorBase * conn = 0;
+	ConnectorBase * conn = (ConnectorBase *)0;
 	
 	FOR_EACH_CONNECTOR(it,*getConnList())
 	{
@@ -682,7 +682,7 @@ KInstance * Component::getInstance() const
 		
 		return instance;
 	}
-	return 0;
+	return (KInstance *)0;
 }
 
 static void addLog(Component * comp, unsigned int priority, const QString & msg)
