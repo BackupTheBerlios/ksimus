@@ -24,12 +24,12 @@
 #include <qstring.h>
 
 // include KDE files
-#include <kconfigbase.h>
 
 // include project files
 #include "resource.h"
 #include "ksimdebug.h"
 #include "ksimgrid.h"
+#include "ksimdata.h"
 
 static const char * sGridStyle	= "Style";
 static const char * sGridColor	= "Color";
@@ -93,16 +93,30 @@ void KSimGrid::draw(QPainter * p, const QRect &rect) const
 	if (!m_enabled || (m_style == GridNone))
 		return;
 		
-	int x,y;
+	int x,y,dx,dy;
+	
+	if (isGlobalGridEnabled())
+	{
+		//Default grid size
+		dx = gridX;
+		dy = gridY;
+	}
+	else
+	{
+		//User grid size
+		dx = m_gridX;
+		dy = m_gridY;
+	}	
+	
 	p->save();
 	p->setPen(QPen(*m_color, 0));
 	
 	if (m_style == GridDots)
 	{
 		// Dots on crosspoints
-		for (y=rect.y(); y < rect.height(); y+=m_gridY)
+		for (y=rect.y(); y < rect.height(); y+=dy)
 		{
-			for (x=rect.x(); x < rect.width(); x+=m_gridX)
+			for (x=rect.x(); x < rect.width(); x+=dx)
 			{
 				p->drawPoint(x,y);
 			}
@@ -142,15 +156,16 @@ void KSimGrid::draw(QPainter * p, const QRect &rect) const
 		}
 		
 		p->setPen(QPen(*m_color, 0, penStyle));
-		for (y=rect.y(); y < rect.height(); y+=m_gridY)
+		for (y=rect.y(); y < rect.height(); y+=dy)
 		{
 			p->drawLine(rect.x(),y,rect.width(),y);
 		}
-		for (x=rect.x(); x < rect.width(); x+=m_gridX)
+		for (x=rect.x(); x < rect.width(); x+=dx)
 		{
 			p->drawLine(x,rect.y(),x,rect.height());
 		}
 	}
+	p->restore();
 }
 	
 void KSimGrid::setEnable(bool enable)
@@ -234,29 +249,50 @@ unsigned int KSimGrid::getGridY() const
 }
 
 /** Save grid property */
-void KSimGrid::save(KConfigBase & file) const
+void KSimGrid::save(KSimData & file) const
 {
-	file.writeEntry(sGridStyle, (int)m_style);
-	file.writeEntry(sGridColor, *m_color);
+	if (m_style != GridDots)
+	{
+		file.writeEntry(sGridStyle, (int)m_style);
+	}
+	if (*m_color != Qt::gray)
+	{
+		file.writeEntry(sGridColor, *m_color);
+	}
 	
-	file.writeEntry(sGridX, m_gridX);
-	file.writeEntry(sGridY, m_gridY);
-	file.writeEntry(sEnable, m_enabled);
-	file.writeEntry(sGlobaleEna, m_useGlobalGrid);
+	if (m_gridX != gridX)
+	{
+		file.writeEntry(sGridX, m_gridX);
+	}
+	
+	if (m_gridY != gridY)
+	{
+		file.writeEntry(sGridY, m_gridY);
+	}
+	
+	if (m_enabled == false)
+	{
+		file.writeEntry(sEnable, false);
+	}
+	
+	if (m_useGlobalGrid == false)
+	{
+		file.writeEntry(sGlobaleEna, false);
+	}
 	
 }
 
 /** Load grid property */
-void KSimGrid::load(KConfigBase & file)
+void KSimGrid::load(KSimData & file)
 {
-	QColor defColor(Qt::lightGray);
+	QColor defColor(Qt::gray);
 	
-	m_style = (GRIDSTYLE)file.readNumEntry(sGridStyle, (int)GridNone);
+	m_style = (GRIDSTYLE)file.readNumEntry(sGridStyle, (int)GridDots);
 	*m_color = file.readColorEntry(sGridColor,&defColor);
-	m_gridX = file.readNumEntry(sGridX, m_gridX);
-	m_gridY = file.readNumEntry(sGridY, m_gridY);
-	m_enabled = file.readBoolEntry(sEnable, m_enabled);
-	m_useGlobalGrid = file.readBoolEntry(sGlobaleEna, m_useGlobalGrid);
+	m_gridX = file.readNumEntry(sGridX, gridX);
+	m_gridY = file.readNumEntry(sGridY, gridY);
+	m_enabled = file.readBoolEntry(sEnable, true);
+	m_useGlobalGrid = file.readBoolEntry(sGlobaleEna, true);
 	
 }
 

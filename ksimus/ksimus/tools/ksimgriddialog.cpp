@@ -158,6 +158,13 @@ void KSimGridDialogWidget::cancelPressed()
 void KSimGridDialogWidget::defaultPressed()
 {
 	PropertyWidget::defaultPressed();
+	
+	m_gridWork->setEnable(true);
+	m_gridWork->setColor(gray);
+	m_gridWork->setStyle(GridDots);
+	m_gridWork->enableGlobalGrid(true);
+	initData();
+	
 }
 
 

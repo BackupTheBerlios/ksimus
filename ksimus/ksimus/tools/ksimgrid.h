@@ -24,7 +24,7 @@ class QPainter;
 class QSize;
 class QRect;
 
-class KConfigBase;
+class KSimData;
 
 
 /**Manage grid
@@ -77,9 +77,9 @@ public:
 	unsigned int getGridY() const;
 
 	/** Save grid property */
-	void save(KConfigBase & file) const;
+	void save(KSimData & file) const;
 	/** Load grid property */
-	void load(KConfigBase & file);
+	void load(KSimData & file);
 	
 
 	const KSimGrid & operator=(const KSimGrid & grid);

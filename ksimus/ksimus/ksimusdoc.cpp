@@ -50,9 +50,17 @@
 
 static const char * sDocProperty = "Document Property/";
 static const char * sTiming      = "Timing/";
+static const char * sSheetGrid   = "Sheet Grid/";
+static const char * sUserGrid    = "User Grid/";
 static const char * sLastView    = "Last View";
 static const char * sSheetPos    = "Sheet Pos";
 static const char * sUserPos     = "User Pos";
+
+
+#define DEFAULT_GRID_STYLE	GridDots
+#define DEFAULT_GRID_COLOR	gray
+
+
 
 KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	:	QObject(parent, name),
@@ -71,8 +79,8 @@ KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	m_container = new CompContainer(this);
 	m_undo = new KSimUndo(this);
 	
-	m_sheetGrid = new KSimGrid(GridDots, lightGray);
-	m_userGrid = new KSimGrid(GridDots, gray);
+	m_sheetGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
+	m_userGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
 	
 	m_timing = new SimulationTiming(this);
 }
@@ -402,6 +410,14 @@ void KSimusDoc::loadProperty(KSimData & config)
 			config.setGroup(group);
 		}
 			
+		config.setGroup(group + sSheetGrid);
+		getSheetGrid()->load(config);
+		config.setGroup(group);
+			
+		config.setGroup(group + sUserGrid);
+		getUserGrid()->load(config);
+		config.setGroup(group);
+		
 		config.setGroup(baseGroup);
 	}
 }
@@ -445,7 +461,15 @@ void KSimusDoc::saveProperty(KSimData & config) const
 	config.setGroup(group);
 	
 	
+	config.setGroup(group + sSheetGrid);
+	getSheetGrid()->save(config);
 	
+	config.setGroup(group + sUserGrid);
+	getUserGrid()->save(config);
+	
+
+	
+		
 	config.setGroup(baseGroup);
 }
 
@@ -491,6 +515,9 @@ void KSimusDoc::deleteContents()
 	if (m_files)
 		delete m_files;	
 	m_files = new KSimFile();
+	
+	*m_sheetGrid = KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
+	*m_userGrid = KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
 	
 	bool res = m_files->setupDir();
 	if (!res)

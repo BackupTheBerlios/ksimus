@@ -83,8 +83,7 @@ void ModuleSV::draw(QPainter * p)
 			break;
 			
 		case MV_PIXMAP:
-			p->drawPixmap(place.x()+gridX, place.y()+gridY,
-						*mod->getModuleContainer()->getModuleData()->getPixmap());
+			p->drawPixmap(gridX, gridY, *mod->getModuleContainer()->getModuleData()->getPixmap());
 			break;
 			
 		case MV_USERVIEW:
@@ -104,11 +103,9 @@ void ModuleSV::drawGeneric(QPainter * p, QRect & place)
 	p->save();
 	p->setPen(QPen(black, 2));
 	p->setBrush(NoBrush);
-	p->drawRect(place.x()+gridX+1, place.y()+gridY+1,
-				place.width()-gridX*2-1, place.height()-gridY*2-1);
-	p->drawText(place.x()+gridX+1, place.y()+gridY+1,
-				place.width()-gridX*2-1, place.height()-gridY*2-1,
-				AlignCenter, "Module");
+	p->drawRect(gridX+1, gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1);
+	p->drawText(gridX+1, gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1,
+	            AlignCenter, "Module");
 	p->restore();
 }	
 
