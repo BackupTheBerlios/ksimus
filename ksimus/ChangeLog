@@ -1,4 +1,9 @@
+	13.01.2002
+* New: Gates (not GUI objects) are rotatable now.
+* New: Wire cursor (Thanks for design to Marika Nitscher)
+* New: More sensitive cursors at the editor
 	06.01.2002
+* New: Delete option for components
 * New: Schematic and User Interface resize dialog
 * Fix: Past large component parts into small Schematic and User Interface views.
 * Fix: Schematic and User Interface resizing bug.
