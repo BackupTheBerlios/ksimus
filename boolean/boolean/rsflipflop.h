@@ -24,10 +24,12 @@
 
 // KDE-Includes
 
-// Project-Includes
-#include "flipflopbase.h"
+// KSimus-Includes
 #include "ksimus/compview.h"
 #include "ksimus/componentinfo.h"
+
+// Project-Includes
+#include "flipflopbase.h"
 
 // Forward declaration
 class ConnectorBoolOut;
