@@ -62,7 +62,7 @@ const ComponentInfo * getBoolean7SegmentInfo()
 	                                QString::fromLatin1("Boolean/Output/7 Segment Display"),
 	                                i18n("Component", "Boolean/Output/7 Segment Display"),
 	                                QString::null,
-	                                VA_SHEETVIEW,
+	                                VA_SHEET_AND_USER,
 	                                create,
 	                                QString::null,
 	                                QString::fromLatin1("component-boolean-7segment"));
