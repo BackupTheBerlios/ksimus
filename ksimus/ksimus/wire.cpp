@@ -682,7 +682,7 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorBase * start,
 	else
 	{
 		ASSERT (0);
-		return 0;
+		return (const WirePropertyInfo *)0;
 	}
 }
 
