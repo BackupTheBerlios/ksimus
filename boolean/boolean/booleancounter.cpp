@@ -293,8 +293,8 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 //		m_ctrlBlock->getLeft()->addSpace(1);
 		
 		m_ctrlBlock->getRight()->addSpace(1);
-		m_ctrlBlock->getRight()->addConnector(getCounter()->getOutputBorrow());
 		m_ctrlBlock->getRight()->addConnector(getCounter()->getOutputCarry());
+		m_ctrlBlock->getRight()->addConnector(getCounter()->getOutputBorrow());
 //		m_ctrlBlock->getRight()->addSpace(1);
 		
 		m_layout->getRight()->addSpace(1);
