@@ -70,11 +70,11 @@ const ComponentInfo ClockGeneratorInfo
 ClockGeneratorView::ClockGeneratorView(Component * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
-	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	setPlace(QRect(0, 0, 4*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);
-//	enableConnectorSpacingRight(bool enable = true);
+//	enableConnectorSpacingRight(false);
 	enableConnectorSpacingBottom(false);
-//	enableConnectorSpacingLeft(false);
+	enableConnectorSpacingLeft(false);
 	enableRotation(true);
 }
 
@@ -85,10 +85,10 @@ void ClockGeneratorView::draw(QPainter * p)
 	drawFrame(p);
 
 	// 8 Steps (width)
-	#define XSTEP      (((5*gridX - 2*gridX) - 2) / 8)
-	#define XPOS(step) ((XSTEP * step) + 1*gridX + gridX/2 -1)
+	#define XSTEP      (((4*gridX - 1*gridX) - 2) / 8)
+	#define XPOS(step) ((XSTEP * step) + 0*gridX + gridX/2 -1)
 	// heigth
-	#define YPOS(high) ((high ? 2*gridY : 3*gridY) -1)
+	#define YPOS(high) ((high ? 1*gridY : 2*gridY) -1)
 	
 	
 	p->setPen(QPen(black, 1));
@@ -117,7 +117,7 @@ ClockGenerator::ClockGenerator(CompContainer * container, const ComponentInfo * 
 		m_lowTime(getTimeServer()),
 		m_time(getTimeServer())
 {
-	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"), QPoint(4,2));
+	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"), QPoint(3,1));
 	CHECK_PTR(m_out);
 	
 	// Initializes the sheet view
