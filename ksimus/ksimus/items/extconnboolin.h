@@ -73,7 +73,7 @@ protected:
 	bool m_defaultState;
 
 private:
-	static const char * sDefaultState;
+	static const char * const sDefaultState;
 };
 
 //###############################################################

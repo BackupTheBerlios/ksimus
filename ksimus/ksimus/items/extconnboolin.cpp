@@ -39,7 +39,7 @@
 
 #define DEFAULT_STATE   false
 
-const char * ExtConnBoolIn::sDefaultState = "Default State";
+const char * const ExtConnBoolIn::sDefaultState = "Default State";
 
 Component * ExtConnBoolIn::create(CompContainer * container, const ComponentInfo * ci)
 {

@@ -15,12 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
-static const char * sPixPos     = "PixPos";
-static const char * sPixOrient  = "PixOrient";
-static const char * sUserPos    = "UserPos";
-static const char * sUserOrient = "UserOrient";
-static const char * sOption     = "Optional";
-static const char * sOptionEna  = "Optional Enabled";
+static const char * const sPixPos     = "PixPos";
+static const char * const sPixOrient  = "PixOrient";
+static const char * const sUserPos    = "UserPos";
+static const char * const sUserOrient = "UserOrient";
+static const char * const sOption     = "Optional";
+static const char * const sOptionEna  = "Optional Enabled";
 
 // QT-Includes
 #include <qpainter.h>

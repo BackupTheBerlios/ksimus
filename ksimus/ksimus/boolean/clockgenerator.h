@@ -77,9 +77,9 @@ protected:
 	KSimTime m_time;
 
 private:
-	static const char * sStartDelay;
-	static const char * sHighTime;
-	static const char * sLowTime;
+	static const char * const sStartDelay;
+	static const char * const sHighTime;
+	static const char * const sLowTime;
 
 };
 

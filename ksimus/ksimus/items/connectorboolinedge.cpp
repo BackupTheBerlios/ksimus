@@ -55,7 +55,7 @@ const ConnectorInfo * getConnectorBoolInEdgeInfo()
 
 
 int ConnectorBoolInEdge::s_idSensitive;
-static const char * sSensitive = "Edge sensitive";
+static const char * const sSensitive = "Edge sensitive";
 
 
 ConnectorBoolInEdge::ConnectorBoolInEdge(Component * comp, const QString & name,

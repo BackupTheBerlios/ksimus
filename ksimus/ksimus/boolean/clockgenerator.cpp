@@ -45,9 +45,9 @@
 // Project-Includes
 
 
-const char * ClockGenerator::sStartDelay = "Start Delay/";
-const char * ClockGenerator::sHighTime   = "High Time/";
-const char * ClockGenerator::sLowTime    = "Low Time/";
+const char * const ClockGenerator::sStartDelay = "Start Delay/";
+const char * const ClockGenerator::sHighTime   = "High Time/";
+const char * const ClockGenerator::sLowTime    = "Low Time/";
 
 Component * ClockGenerator::create(CompContainer * container, const ComponentInfo * ci)
 {

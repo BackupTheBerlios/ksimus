@@ -39,9 +39,9 @@
 #define DELETE_LAST_ONLY  0x0002L
 
 
-static const char * sGroup          = "connPack/%1/";
-static const char * sConnectorCount = "Connector Count";
-static const char * sConn           = "Conn%1/";
+static const char * const sGroup          = "connPack/%1/";
+static const char * const sConnectorCount = "Connector Count";
+static const char * const sConn           = "Conn%1/";
 
 
 
