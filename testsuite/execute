@@ -11,16 +11,18 @@ if test -z $1; then
 };
 else
 {
-	EXECUTE_MASK=$1
+	EXECUTE_MASK=$*
 };
 fi
+
+let TEST_CNT=0
 
 
 rm $DIR_RESULT/*.txt
 
 for file in $EXECUTE_MASK; do
 	echo execute $file
-	ksimus --execute $file 2>&1 /dev/null
+	ksimus --execute $file
 
 	BASENAME=`basename $file .sim`
 
@@ -30,8 +32,18 @@ for file in $EXECUTE_MASK; do
 	REFERENCE_FILE=$DIR_REFERENCE/$BASENAME.txt
 	echo reference file $REFERENCE_FILE
 
-	test -e $RESULT_FILE || echo $file: No result file || exit
-	test -e $REFERENCE_FILE || echo $file: No reference file || exit
+	if test ! -e $RESULT_FILE; then
+	{
+		echo $file: No result file
+		exit
+	};
+	fi
+	if test ! -e $REFERENCE_FILE; then
+	{
+		echo $file: No reference file
+		exit
+	};
+	fi
 
 	DIFF=`diff $RESULT_FILE $REFERENCE_FILE`
 
@@ -39,6 +51,7 @@ for file in $EXECUTE_MASK; do
 	{
 		echo $file: OK
 		echo
+		let TEST_CNT+=1
 	};
 	else
 	{
@@ -48,6 +61,9 @@ for file in $EXECUTE_MASK; do
 	};
 	fi
 done;
+
+echo
+echo Schematics tested: $TEST_CNT
 
 
 
