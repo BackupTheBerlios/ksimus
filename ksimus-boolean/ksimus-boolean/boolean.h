@@ -43,17 +43,14 @@ class KLocale;
  ******************************************************************************************/
 
 /**  Enter the package name. E.g. "Boolean" */
-#define PACKAGE_NAME              "Boolean"
+#define KSIMUS_PACKAGE_NAME              "Boolean"
 
 /**  Enter the lower case package name. E.g. "boolean" */
-#define PACKAGE_LOWER_NAME        "ksimus-boolean"
-
-/**  Enter the library namespace. Format KSimLib + package name. E.g. KSimLibBoolean */
-#define LIB_NAMESPACE             KSimLibBoolean
+#define KSIMUS_PACKAGE_LOWER_NAME        "ksimus-boolean"
 
 /**  Enter the init function name. Format init_lib + lower case package name.
      E.g. init_libboolean  (use "_" instead of "-") */
-#define PACKAGE_INIT_FUNCTION     init_libksimus_boolean
+#define KSIMUS_PACKAGE_INIT_FUNCTION     init_libksimus_boolean
 
 
 
@@ -74,6 +71,6 @@ extern const PackageInfo * packageInfo;
 };  //namespace KSimLibBoolean
 
 /** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
-extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
+extern "C" const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
 
 #endif

@@ -63,14 +63,14 @@ class ZoomWidgetVar;
  ******************************************************************************************/
 
 /**  Enter the package name. E.g. "Boolean" */
-#define PACKAGE_NAME              "DataRecorder"
+#define KSIMUS_PACKAGE_NAME              "DataRecorder"
 
 /**  Enter the lower case package name. E.g. "ksimus-boolean" */
-#define PACKAGE_LOWER_NAME        "ksimus-datarecorder"
+#define KSIMUS_PACKAGE_LOWER_NAME        "ksimus-datarecorder"
 
 /**  Enter the init function name. Format init_lib + lower case package name. E.g. init_libboolean
      E.g. init_libboolean  (use "_" instead of "-") */
-#define PACKAGE_INIT_FUNCTION     init_libksimus_datarecorder
+#define KSIMUS_PACKAGE_INIT_FUNCTION     init_libksimus_datarecorder
 
 
 
@@ -88,8 +88,8 @@ const ComponentInfo * getDataRecorderInfo();
 
 };  //namespace KSimLibDataRecorder
 
-/** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
-extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
+/** The init function. KSIMUS_PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
+extern "C" const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
 
 
 

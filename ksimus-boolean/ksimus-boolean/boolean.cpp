@@ -211,14 +211,14 @@ const PackageInfo * packageInfo = 0;
 
 extern "C"
 {
-	const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
+	const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
 	{
 
-//		KSIMDEBUG("Init Package " PACKAGE_NAME);
+//		KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
 			
 		if (KSimLibBoolean::instance == 0)
 		{
-			KSimLibBoolean::instance = new KInstance(PACKAGE_LOWER_NAME);
+			KSimLibBoolean::instance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
 			CHECK_PTR(KSimLibBoolean::instance);
 			CHECK_PTR(ksimusLocale);
 			// add translation
@@ -227,7 +227,7 @@ extern "C"
 	
 		if (KSimLibBoolean::packageInfo == 0)
 		{
-			KSimLibBoolean::packageInfo = new PackageInfo( PACKAGE_NAME,
+			KSimLibBoolean::packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
 			                                               KSimLibBoolean::instance,
 			                                               VERSION,      // version from config.h
 			                                               KSimLibBoolean::getDistComponents(),
