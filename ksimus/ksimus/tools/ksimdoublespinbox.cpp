@@ -148,6 +148,7 @@ void KSimDoubleSpinBox::init()
   QSpinBox::setMinValue(QSPINBOX_LOWER_LIMIT);
   QSpinBox::setMaxValue(QSPINBOX_UPPER_LIMIT);
   setFocusPolicy(QWidget::WheelFocus);
+	setAlignment(AlignRight);
 }
 
 
@@ -532,6 +533,15 @@ void KSimDoubleSpinBox::setFormat(int fieldwidth, char format, int precision)
 	setUpdateRequired();
 }
 
+void KSimDoubleSpinBox::setAlignment(int flag)
+{
+	editor()->setAlignment(flag);
+}
+	
+int KSimDoubleSpinBox::alignment() const
+{
+	return editor()->alignment();
+}
 
 
 void KSimDoubleSpinBox::setUpdateRequired(bool update)

@@ -174,6 +174,12 @@ public:
 	*/
 	void setFormat(int fieldwidth=0, char format = 'g', int precision = -1);
 
+	/** Sets the alignment of the editor. */
+	void setAlignment(int flag);
+	
+	/** Returns the alignment of the editor. */
+	int alignment() const;
+
 public slots:	
 	/** Sets the current value.
 	*/
