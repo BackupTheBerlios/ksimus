@@ -1,3 +1,5 @@
+	27.05.2002
+* New: Class RowLayoutWidget supports an easy layout management like QGrid but with flexible layout adjustments
 	20.05.2002
 * Fix: Overflow in floating point channels
 * Fix: Possible crash if Datarecorder will be deleted.
