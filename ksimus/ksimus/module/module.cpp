@@ -34,7 +34,6 @@
 #include "moduledata.h"
 #include "connectorbase.h"
 #include "connectorlist.h"
-#include "componentinfo.h"
 #include "connectorinfo.h"
 #include "compcontainer.h"
 #include "resource.h"
