@@ -269,6 +269,7 @@ void LogList::mousePressEvent(QMouseEvent * ev)
 			                                       KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
 			                                       KDialogBase::Ok,
 			                                       this);
+			CHECK_PTR(dialog);
 			QWidget * wid = dialog->plainPage();
 			
 			LogListDialogWidget * child = new LogListDialogWidget(this, wid, i18n("Log Window Properties"));
