@@ -23,7 +23,6 @@ class ConnectorLibrary;
 class WirePropertyLibrary;
 class ImplicitConverterLibrary;
 class QStringList;
-class LibraryPrivate;
 class PackageInfo;
 
 /**Contains all Component Info, Wire Info, ...
@@ -32,6 +31,8 @@ class PackageInfo;
 
 class Library
 {
+class Private;
+
 public: 
 	Library();
 	~Library();
@@ -40,7 +41,9 @@ public:
 	const ConnectorLibrary * getConnectorLib() const;
 	const WirePropertyLibrary * getWirePropertyLib() const;
 	const ImplicitConverterLibrary * getImplicitConverterLib() const;
-	const QStringList & getMessages() const { return *m_messages; };
+	const QStringList & getInfoMessages() const;
+	const QStringList & getErrorMessages() const;
+	void clearMessageLists();
 	
 protected:
 	void insertPackage(const PackageInfo * packageInfo);
@@ -58,12 +61,11 @@ protected:
 
 
 private:
-	LibraryPrivate * m_p;
+	Private * m_p;
 	ComponentLibrary * m_componentLibrary;
 	ConnectorLibrary * m_connectorLibrary;
 	WirePropertyLibrary * m_wirePropertyLibrary;
 	ImplicitConverterLibrary * m_implicitConverterLibrary;
-	QStringList * m_messages;
 };
 
 extern Library * g_library;

@@ -178,17 +178,18 @@ Library * g_library = 0;
 //#############################################################################
 //#############################################################################
 
-class LibraryPrivate
+class Library::Private
 {
 public:
-	LibraryPrivate()
+	Private()
 	{
 		m_handleList.setAutoDelete(true);
 	};
 	
 	QList<KSimPackageHandle> m_handleList;
 	QStringList m_moduleList;
-
+	QStringList m_infoMessages;
+	QStringList m_errorMessages;
 };
 
 #define FOR_EACH_HANDLE(_it_,_handleList_)	\
@@ -205,10 +206,7 @@ Library::Library()
 	new PackageInfo(QString::fromLatin1("KSimus"), KGlobal::instance(), VERSION, getDistComponents(),
 	                getDistConnector(), getDistWireProperty(), getImplicitConverterProperty());
 	
-	m_p = new LibraryPrivate;
-	
-	m_messages = new QStringList;
-	CHECK_PTR(m_messages);
+	m_p = new Private();
 	
 	m_componentLibrary = new ComponentLibrary;
 	CHECK_PTR(m_componentLibrary);
@@ -246,7 +244,6 @@ Library::~Library()
 	delete m_wirePropertyLibrary;
 	delete m_connectorLibrary;
 	delete m_componentLibrary;
-	delete m_messages;
 	delete m_p;
 }
 
@@ -319,8 +316,6 @@ void Library::loadPackageFiles()
 							msg = i18n ("Load package %1 %2").arg(package->getPackageInfo()->getPackageName())
 							                                 .arg(QString::fromLatin1(package->getPackageInfo()->getPackageVersion()));
 							msg += " (" + package->getFilename() + ")";
-							m_messages->append(msg);
-//							KSIMDEBUG(msg);
 							
 							// Add package to lib
 							insertPackage(package->getPackageInfo());
@@ -331,23 +326,24 @@ void Library::loadPackageFiles()
 							}
 							else
 							{
-								msg = i18n("Contains no KInstance!");
-								m_messages->append(msg);
+								msg += i18n("\nContains no KInstance!");
 								KSIMDEBUG(msg);
 							}
+							m_p->m_infoMessages.append(msg);
+//							KSIMDEBUG(msg);
 							end = false;
 						}
 						else
 						{
 							msg = i18n ("Package %1 has no components.").arg(package->getFilename());
 							KSIMDEBUG(msg);
-							m_messages->append(msg);
+							m_p->m_errorMessages.append(msg);
 						}
 						break;
 						
 					case KSimPackageHandle::BAD_FILE:
 						msg = i18n ("Package %1: %2").arg(package->getFilename()).arg(package->errorMsg());
-						m_messages->append(msg);
+						m_p->m_errorMessages.append(msg);
 						KSIMDEBUG(msg);
 						m_p->m_handleList.remove(package);
 						break;
@@ -366,7 +362,7 @@ void Library::loadPackageFiles()
 		if (!it1.current()->isOpened())
 		{
 			msg = i18n ("Package %1: %2").arg(it1.current()->getFilename()).arg(it1.current()->errorMsg());
-			m_messages->append(msg);
+			m_p->m_errorMessages.append(msg);
 			KSIMDEBUG(msg);
 			m_p->m_handleList.remove(it1.current());
 		}
@@ -386,15 +382,11 @@ void Library::addPackageDirs()
 	
 	config->setGroup("Packages");
 	
-	QStringList dirList;
+	QStringList dirList(config->readListEntry("Directories"));
 	
-	dirList = config->readListEntry("Directories");
-	
-	unsigned int u;
-		
-	for (u = 0; u < dirList.count(); u++)
+	for(QStringList::ConstIterator it = dirList.begin(); it != dirList.end(); ++it)
 	{
-		scanPackageDir(dirList[u]);
+		scanPackageDir(*it);
 	}
 
 	config->setGroup(group);
@@ -407,16 +399,13 @@ void Library::scanPackageDir(const QString & dirname)
 	if (fi.exists() && fi.isDir() && fi.isReadable())
 	{
 		QDir dir(dirname);
+		QStringList list(dir.entryList(QDir::Dirs | QDir::Readable));
 		
-		QStringList list = dir.entryList(QDir::Dirs | QDir::Readable);
-		
-		unsigned int u;
-		
-		for (u = 0; u < list.count(); u++)
+		for(QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
 		{
-			if ((list[u] != QString::fromLatin1(".")) && (list[u] != QString::fromLatin1("..")))
+			if ((*it != QString::fromLatin1(".")) && (*it != QString::fromLatin1("..")))
 			{
-				scanPackageDir(dirname + list[u]);
+				scanPackageDir(dirname + *it);
 			}
 		}
 		
@@ -438,15 +427,33 @@ void Library::addPackageFiles()
 	
 	config->setGroup("Packages");
 	
-	QStringList fileList;
+	QStringList fileList(config->readListEntry("Files"));
 	
-	fileList = config->readListEntry("Files");
-	
-	unsigned int u;
-		
-	for (u = 0; u < fileList.count(); u++)
+	for(QStringList::ConstIterator it = fileList.begin(); it != fileList.end(); ++it)
 	{
-		makeHandle(fileList[u]);
+		QFileInfo fileInfo (*it);
+		if(!fileInfo.exists())
+		{
+			QString msg(i18n("Package %1: File does not exist.").arg(fileInfo.filePath()));
+			m_p->m_errorMessages.append(msg);
+			KSIMDEBUG(msg)
+		}
+		else if(!fileInfo.isFile())
+		{
+			QString msg(i18n("Package %1: Is not a file.").arg(fileInfo.filePath()));
+			m_p->m_errorMessages.append(msg);
+			KSIMDEBUG(msg)
+		}
+		else if(!fileInfo.isReadable())
+		{
+			QString msg(i18n("Package %1: File is not readable.").arg(fileInfo.filePath()));
+			m_p->m_errorMessages.append(msg);
+			KSIMDEBUG(msg)
+		}
+		else
+		{
+			makeHandle(fileInfo.filePath());
+		}
 	}
 
 	config->setGroup(group);
@@ -468,22 +475,20 @@ void Library::makeHandle(const QString & filename)
 	
 	if (!found)
 	{
-		KSimPackageHandle * package;
 /*		QString msg = i18n("Found package %1").arg(filename);
 		KSIMDEBUG(msg);
-		m_messages->append(msg);*/
-		package = new KSimPackageHandle(filename);
+		m_p->m_infoMessages.append(msg);*/
+		KSimPackageHandle * package = new KSimPackageHandle(filename);
+		CHECK_PTR(package);
 		m_p->m_handleList.append(package);
 	}
 }
 
 void Library::makeHandle(const QStringList & filenames)
 {
-	unsigned int u;
-	
-	for (u = 0; u < filenames.count(); u++)
+	for(QStringList::ConstIterator it = filenames.begin(); it != filenames.end(); ++it)
 	{
-		makeHandle(filenames[u]);
+		makeHandle(*it);
 	}
 }
 
@@ -495,15 +500,11 @@ void Library::addModuleDirs()
 
 	config->setGroup("Modules");
 
-	QStringList dirList;
+	QStringList dirList(config->readListEntry("Directories"));
 
-	dirList = config->readListEntry("Directories");
-
-	unsigned int u;
-
-	for (u = 0; u < dirList.count(); u++)
+	for(QStringList::ConstIterator it = dirList.begin(); it != dirList.end(); ++it)
 	{
-		scanModuleDir(dirList[u]);
+		scanModuleDir(*it);
 	}
 
 	config->setGroup(group);
@@ -518,16 +519,14 @@ void Library::scanModuleDir(const QString & dirname)
 	{
 		QDir dir(dirname);
 
-		QStringList list = dir.entryList(QDir::Dirs | QDir::Readable);
+		QStringList list(dir.entryList(QDir::Dirs | QDir::Readable));
 
-		unsigned int u;
-
-		for (u = 0; u < list.count(); u++)
+		for(QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
 		{
-			//KSIMDEBUG(list[u]);
-			if ((list[u] != QString::fromLatin1(".")) && (list[u] != QString::fromLatin1("..")))
+			//KSIMDEBUG(*it);
+			if ((*it != QString::fromLatin1(".")) && (*it != QString::fromLatin1("..")))
 			{
-				scanModuleDir(dirname + list[u]);
+				scanModuleDir(dirname + *it);
 			}
 		}
 
@@ -548,11 +547,28 @@ void Library::addModuleFiles()
 	config->setGroup("Modules");
 	QStringList fileList(config->readListEntry("Files"));
 
-	unsigned int u;
-
-	for (u = 0; u < fileList.count(); u++)
+	for(QStringList::ConstIterator it = fileList.begin(); it != fileList.end(); ++it)
 	{
-		loadModule(fileList[u]);
+		QFileInfo fileInfo (*it);
+		if(!fileInfo.exists())
+		{
+			QString msg(i18n("Module %1: File does not exist.").arg(fileInfo.filePath()));
+			m_p->m_errorMessages.append(msg);
+			KSIMDEBUG(msg)
+		}
+		else if(!fileInfo.isFile())
+		{
+			QString msg(i18n("Module %1: Is not a file.").arg(fileInfo.filePath()));
+			m_p->m_errorMessages.append(msg);
+			KSIMDEBUG(msg)
+		}
+		else if(!fileInfo.isReadable())
+		{
+			QString msg(i18n("Module %1: File is not readable.").arg(fileInfo.filePath()));
+			m_p->m_errorMessages.append(msg);
+			KSIMDEBUG(msg)
+		}
+		loadModule(fileInfo.filePath());
 	}
 
 	config->setGroup(group);
@@ -562,7 +578,7 @@ void Library::loadModule(const QString & filename)
 {
 	bool found = false;
 
-	for (QStringList::Iterator it = m_p->m_moduleList.begin(); it != m_p->m_moduleList.end(); ++it)
+	for (QStringList::ConstIterator it = m_p->m_moduleList.begin(); it != m_p->m_moduleList.end(); ++it)
 	{
 		if (*it == filename)
 		{
@@ -578,16 +594,33 @@ void Library::loadModule(const QString & filename)
 		{
 			m_componentLibrary->insert(mi, 0);
 			QString msg = i18n("Load module %1 (%2)").arg(mi->getName()).arg(filename);
-			m_messages->append(msg);
+			m_p->m_infoMessages.append(msg);
 			//KSIMDEBUG(msg);
 		}
 		else
 		{
 			// No valid module
-			QString msg = i18n ("The file %1 contains no valid module!").arg(filename);
-			m_messages->append(msg);
+			QString msg = i18n ("Module %1: File contains no valid module.").arg(filename);
+			m_p->m_errorMessages.append(msg);
 			//KSIMDEBUG(msg);
 		}
 		m_p->m_moduleList.append(filename);
 	}
 }
+
+void Library::clearMessageLists()
+{
+	m_p->m_infoMessages.clear();
+	m_p->m_errorMessages.clear();
+}
+
+const QStringList & Library::getInfoMessages() const
+{
+	return m_p->m_infoMessages;
+};
+
+const QStringList & Library::getErrorMessages() const
+{
+	return m_p->m_errorMessages;
+};
+
