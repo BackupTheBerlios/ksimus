@@ -35,13 +35,12 @@
 namespace KSimLibBoolean
 {
 
-
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanConstant::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new BooleanConstant(container, ci);
 }
 
-const ComponentInfo * getBooleanConstantTrue()
+const ComponentInfo * BooleanConstant::getStaticTrueInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Const True"),
 	                                QString::fromLatin1("Boolean/Input/Const True"),
@@ -54,7 +53,7 @@ const ComponentInfo * getBooleanConstantTrue()
 	return &Info;
 }
 
-const ComponentInfo * getBooleanConstantFalse()
+const ComponentInfo * BooleanConstant::getStaticFalseInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Const False"),
 	                                QString::fromLatin1("Boolean/Input/Const False"),
@@ -105,7 +104,7 @@ BooleanConstantView::BooleanConstantView(BooleanConstant * comp, eViewType viewT
 
 void BooleanConstantView::setConnPos()
 {
-	if (getComponent()->getInfo() == getBooleanConstantTrue())
+	if (getComponent()->getInfo() == BooleanConstant::getStaticTrueInfo())
 	{
 		// True
 		getConnector()->setGridPos(1,2);
@@ -127,7 +126,7 @@ void BooleanConstantView::draw(QPainter * p)
 	
 	QPoint pos(0,0);
 	
-	if (getComponent()->getInfo() == getBooleanConstantTrue())
+	if (getComponent()->getInfo() == BooleanConstant::getStaticTrueInfo())
 	{
 		#define dia 12
 		// True
@@ -179,7 +178,7 @@ BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo 
 
 void BooleanConstant::reset()
 {
-	if (getInfo() == getBooleanConstantTrue())
+	if (getInfo() == BooleanConstant::getStaticTrueInfo())
 	{
   	getOutputConnector()->setOutput(true);
   }

@@ -46,8 +46,6 @@ namespace KSimLibBoolean
   *@author Rasmus Diekenbrock
   */
 
-const ComponentInfo * getConvertBool2BoolTristateInfo();
-
 class ConvertBool2BoolTristate : public Component
 {
 
@@ -67,6 +65,10 @@ public:
 	ConnectorBoolIn * getInputActiveIn() const { return m_connActiveIn; };
 	ConnectorBoolTristate * getOutput() const { return m_connOut; };
 	
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
+
 private:
 	ConnectorBoolIn * m_connDataIn;
 	ConnectorBoolIn * m_connActiveIn;

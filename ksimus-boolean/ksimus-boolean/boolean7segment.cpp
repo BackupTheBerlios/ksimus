@@ -49,13 +49,13 @@ namespace KSimLibBoolean
 //#######################################################################
 //#######################################################################
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Boolean7Segment::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Boolean7Segment(container, ci);
 }
 
 
-const ComponentInfo * getBoolean7SegmentInfo()
+const ComponentInfo * Boolean7Segment::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "7 Segment Display"),
 	                                QString::fromLatin1("Boolean/Output/7 Segment Display"),
@@ -225,6 +225,7 @@ void Boolean7SegmentView::resize()
 		get7Seg()->getInput4()->setGridPos(connPos);
 		connPos.ry() += deltaPlace;
 		get7Seg()->getInput8()->setGridPos(connPos);
+		#undef connectors
 	}
 }
 
@@ -254,6 +255,10 @@ Boolean7SegmentWidgetView::Boolean7SegmentWidgetView(Boolean7SegmentView * cv, Q
 
 
 //###############################################################
+
+#undef DEFAULT_FOREGROUND
+#undef DEFAULT_BACKGROUND
+#undef DEFAULT_ENA_FRAME
 
 }; //namespace KSimLibBoolean
 

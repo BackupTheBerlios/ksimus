@@ -51,12 +51,12 @@ namespace KSimLibBoolean
 //###############################################################
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * JKFlipFlop::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new JKFlipFlop(container, ci);
 }
 
-const ComponentInfo * getJKFlipFlopInfo()
+const ComponentInfo * JKFlipFlop::getStaticJKInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "JK Flip Flop"),
 	                                QString::fromLatin1("Boolean/Flip Flop/JK-FF"),
@@ -69,7 +69,7 @@ const ComponentInfo * getJKFlipFlopInfo()
 	return &Info;
 }
 
-const ComponentInfo * getJKMSFlipFlopInfo()
+const ComponentInfo * JKFlipFlop::getStaticJKMSInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "JK Master Slave Flip Flop"),
 	                                QString::fromLatin1("Boolean/Flip Flop/JK-MS-FF"),
@@ -91,7 +91,7 @@ const ComponentInfo * getJKMSFlipFlopInfo()
 
 JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	: FlipFlopBase(container, ci),
-		m_isMaterSlave(false),
+		m_isMasterSlave(false),
 		m_lastClk(false),
 		m_lastJ(false),
 		m_lastK(false)
@@ -130,7 +130,7 @@ JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
 		new JKFlipFlopView(this, SHEET_VIEW);
 	}
 	
-	if (ci == getJKMSFlipFlopInfo())
+	if (ci == JKFlipFlop::getStaticJKMSInfo())
 	{
 		setMasterSlaveEnabled(true);
 	}	

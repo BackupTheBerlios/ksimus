@@ -34,8 +34,6 @@
 namespace KSimLibBoolean
 {
 
-const ImplicitConverterInfo * getImplicitConverterBoolTristate2BoolInfo();
-
 class ImplicitConverterBoolTristate2Bool : public ImplicitConverter
 {
    Q_OBJECT
@@ -46,6 +44,9 @@ public:
 
 	/** The converting function. Is called by the connector if converting is needed. */
 	virtual const void * convert(const void * data);
+
+	static const ImplicitConverterInfo * getStaticInfo();
+	static ImplicitConverter * create(ConnectorBase * connector);
 
 private:
 	bool m_result;

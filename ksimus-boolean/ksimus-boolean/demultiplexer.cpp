@@ -55,13 +55,13 @@ namespace KSimLibBoolean
 //###############################################################
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Demultiplexer::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Demultiplexer(container, ci);
 }
 
 
-const ComponentInfo * getDemultiplexerInfo()
+const ComponentInfo * Demultiplexer::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Demultiplexer"),
 	                                QString::fromLatin1("Boolean/Mux & Demux/Demultiplexer"),
@@ -85,6 +85,8 @@ const ComponentInfo * getDemultiplexerInfo()
 //###############################################################
 //###############################################################
 
+unsigned int Demultiplexer::tempConnCount;
+Demultiplexer * Demultiplexer::tempConnCountOwner = (Demultiplexer *)0;
 
 Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
@@ -280,9 +282,6 @@ unsigned int Demultiplexer::getMinChannelCount() const
 	return QMAX(getOutputPack()->getNumberOfNotDeletableConnectors(), i);
 }
 
-static unsigned int tempConnCount;
-static Demultiplexer * tempConnCountOwner = (Demultiplexer *)0;
-
 void Demultiplexer::setChannelCountDelayed(int count)
 {
 	tempConnCount = count;
@@ -439,5 +438,15 @@ void DemultiplexerPropertyGeneralWidget::defaultPressed()
 
 //###############################################################
 //###############################################################
+
+
+#undef MIN_CHANNELS
+#undef MAX_CHANNELS
+#undef DEFAULT_CHANNELS
+#undef MIN_ADRESS
+#undef MAX_ADRESS
+#undef DEFAULT_ADRESS
+
+
 
 };  //namespace KSimLibBoolean

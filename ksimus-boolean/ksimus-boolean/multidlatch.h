@@ -49,12 +49,6 @@ class KSimBooleanBox;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getMultiDLatchInfo();
-
-/**A multiple D latch.
-  *@author Rasmus Diekenbrock
-  */
-
 class MultiDLatch : public Component
 {
 
@@ -116,6 +110,8 @@ public:
 	ConnectorBoolInEdge * getInputEnable() const { return m_inputEnable; };
 
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private slots:
 	void slotAddChannel();

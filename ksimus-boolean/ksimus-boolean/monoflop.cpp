@@ -52,12 +52,12 @@ namespace KSimLibBoolean
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * MonoFlop::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new MonoFlop(container, ci);
 }
 
-const ComponentInfo * getMonoFlopInfo()
+const ComponentInfo * MonoFlop::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Mono Flop"),
 	                                QString::fromLatin1("Boolean/Flip Flop/Mono Flop"),
@@ -74,8 +74,8 @@ const ComponentInfo * getMonoFlopInfo()
 //###############################################################
 //###############################################################
 
-static const char * sHighTime   = "High Time/";
-static const char * sRetrigger  = "Retrigger";
+static const char * const sMonoFlop_HighTime   = "High Time/";
+static const char * const sMonoFlop_Retrigger  = "Retrigger";
 
 
 MonoFlop::MonoFlop(CompContainer * container, const ComponentInfo * ci)
@@ -160,14 +160,14 @@ void MonoFlop::save(KSimData & file) const
 	
 	QString oldGroup(file.group());
 	
-	file.setGroup(oldGroup + sHighTime);
+	file.setGroup(oldGroup + sMonoFlop_HighTime);
 	m_highTime.save(file);
 
 	file.setGroup(oldGroup);
 	
 	if (!getRetrigger())   // Save false state only (default is true!)
 	{
-		file.writeEntry(sRetrigger, false);
+		file.writeEntry(sMonoFlop_Retrigger, false);
 	}
 }
 		
@@ -180,9 +180,9 @@ bool MonoFlop::load(KSimData & file, bool copyLoad)
 	
 	ok = FlipFlopBase::load(file, copyLoad);
 	
-	setRetrigger( file.readBoolEntry(sRetrigger, true) );
+	setRetrigger( file.readBoolEntry(sMonoFlop_Retrigger, true) );
 	
-	newGroup = oldGroup + sHighTime;
+	newGroup = oldGroup + sMonoFlop_HighTime;
 	if (file.hasGroup(newGroup))
 	{
 		file.setGroup(newGroup);

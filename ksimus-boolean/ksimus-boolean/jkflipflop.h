@@ -41,9 +41,6 @@ class CompContainer;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getJKFlipFlopInfo();
-const ComponentInfo * getJKMSFlipFlopInfo();
-
 
 //###############################################################
 //###############################################################
@@ -92,10 +89,13 @@ public:
 	ConnectorBoolInEdge * getClockInputConnector() const { return m_inClk; };
 	
 	/** Enables Master Slave. */
-	void setMasterSlaveEnabled(bool ena) { m_isMaterSlave = ena; };
+	void setMasterSlaveEnabled(bool ena) { m_isMasterSlave = ena; };
 	/** Returns true, if Master Slave is enabled. */
-	bool isMasterSlaveEnabled() const { return m_isMaterSlave; };
+	bool isMasterSlaveEnabled() const { return m_isMasterSlave; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticJKInfo();
+	static const ComponentInfo * getStaticJKMSInfo();
 
 protected:
 	/** Executes the simulation of a single edge JK FF */
@@ -107,7 +107,7 @@ protected:
 	ConnectorBoolIn * m_inK;
 	ConnectorBoolInEdge * m_inClk;
 	
-	bool m_isMaterSlave;
+	bool m_isMasterSlave;
 	bool m_lastClk;
 	bool m_lastJ;
 	bool m_lastK;

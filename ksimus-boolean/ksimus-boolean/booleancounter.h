@@ -48,8 +48,6 @@ class ConnectorLabel;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getBooleanCounterInfo();
-
 /**a simple boolean counter.
   *@author Rasmus Diekenbrock
   */
@@ -106,6 +104,8 @@ public:
 	void setBits(unsigned int bits);
 	unsigned int getMinBits() const;
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 
 protected:

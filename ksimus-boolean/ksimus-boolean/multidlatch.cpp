@@ -56,14 +56,14 @@ namespace KSimLibBoolean
 //###############################################################
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * MultiDLatch::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new MultiDLatch(container, ci);
 }
 
 
 
-const ComponentInfo * getMultiDLatchInfo()
+const ComponentInfo * MultiDLatch::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Multiple D Latches"),
 	                                QString::fromLatin1("Boolean/Flip Flop/Multiple D Latches"),
@@ -416,6 +416,11 @@ void MultiDLatchPropertyGeneralWidget::defaultPressed()
 	m_resetValue->setValue(DEFAULT_RESET_VALUE);
 	m_channels->setValue(QMAX(DEFAULT_CHANNELS, m_min));
 }
+
+#undef DEFAULT_RESET_VALUE
+#undef MIN_CHANNELS
+#undef MAX_CHANNELS
+#undef DEFAULT_CHANNELS
 
 
 //###############################################################

@@ -39,13 +39,12 @@
 namespace KSimLibBoolean
 {
 
-
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ConvertBool2BoolTristate::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ConvertBool2BoolTristate(container, ci);
 }
 
-const ComponentInfo * getConvertBool2BoolTristateInfo()
+const ComponentInfo * ConvertBool2BoolTristate::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean to Boolean Tristate"),
 	                                QString::fromLatin1("Converter/Boolean to Boolean Tristate"),

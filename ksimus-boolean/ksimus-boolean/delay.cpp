@@ -44,12 +44,12 @@ namespace KSimLibBoolean
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Delay::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Delay(container, ci);
 }
 
-const ComponentInfo * getDelayInfo()
+const ComponentInfo * Delay::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Delay"),
 	                                QString::fromLatin1("Boolean/Timing/Delay"),

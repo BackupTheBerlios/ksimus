@@ -51,8 +51,6 @@ class KSimBooleanBox;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getMultiplexerInfo();
-
 /**A boolean multiplexer.
   *@author Rasmus Diekenbrock
   */
@@ -110,7 +108,10 @@ public:
 	ConnectorBoolInEdge * getLatchOutput() const { return m_latchOutput; };
 	ConnectorBoolInEdge * getLatchAddress() const { return m_latchAddress; };
 
-
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+	static unsigned int tempConnCount;
+	static Multiplexer * tempConnCountOwner;
 
 private slots:
 	void slotAddChannel();

@@ -41,9 +41,6 @@ class KSimTimeSpinBox;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getDelayInfo();
-
-
 //###############################################################
 //###############################################################
 
@@ -80,6 +77,9 @@ public:
 
 	void setDelayTime(const KSimTimeBase & delay) { m_delayTime = delay; };
 	const KSimTimeBase & getDelayTime()const { return m_delayTime; };
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private:
 	ConnectorBoolIn * m_input;

@@ -38,12 +38,12 @@
 namespace KSimLibBoolean
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanXor::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new BooleanXor(container, ci);
 }
 
-const ComponentInfo * getBooleanXorInfo()
+const ComponentInfo * BooleanXor::getStaticXorInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Exclusive OR"),
 	                                QString::fromLatin1("Boolean/Gates/XOR"),
@@ -56,7 +56,7 @@ const ComponentInfo * getBooleanXorInfo()
 	return &Info;
 }
 
-const ComponentInfo * getBooleanXnorInfo()
+const ComponentInfo * BooleanXor::getStaticXnorInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Exclusive NOR"),
 	                                QString::fromLatin1("Boolean/Gates/XNOR"),
@@ -91,7 +91,7 @@ BooleanXor::BooleanXor(CompContainer * container, const ComponentInfo * ci)
 	: BooleanXIn1Out(container, ci)
 {
 	// make Xnor
-	if (ci == getBooleanXnorInfo())
+	if (ci == BooleanXor::getStaticXnorInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}

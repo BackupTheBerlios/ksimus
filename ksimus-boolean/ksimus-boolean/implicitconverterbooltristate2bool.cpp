@@ -36,7 +36,7 @@ namespace KSimLibBoolean
 //###############################################################################################
 
 
-static ImplicitConverter * create(ConnectorBase * connector)
+ImplicitConverter * ImplicitConverterBoolTristate2Bool::create(ConnectorBase * connector)
 {
 	ImplicitConverter * ic;
 	ic = new ImplicitConverterBoolTristate2Bool(connector);
@@ -44,7 +44,7 @@ static ImplicitConverter * create(ConnectorBase * connector)
 	return ic;
 }
 
-const ImplicitConverterInfo * getImplicitConverterBoolTristate2BoolInfo()
+const ImplicitConverterInfo * ImplicitConverterBoolTristate2Bool::getStaticInfo()
 {
 	static const ImplicitConverterInfo Info(QString::fromLatin1("Implicit Converter Boolean Tristate to Boolean"),
 	                                        QString::fromLatin1("implicitconverter/BooleanTristate2Boolean"),
@@ -54,9 +54,8 @@ const ImplicitConverterInfo * getImplicitConverterBoolTristate2BoolInfo()
 	return &Info;
 }
 
-
 ImplicitConverterBoolTristate2Bool::ImplicitConverterBoolTristate2Bool(ConnectorBase * connector)
-	: ImplicitConverter(connector, getImplicitConverterBoolTristate2BoolInfo())
+	: ImplicitConverter(connector, getStaticInfo())
 {
 }
 

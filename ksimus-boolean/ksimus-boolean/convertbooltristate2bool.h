@@ -41,9 +41,6 @@ class ConnectorBoolTristate;
 namespace KSimLibBoolean
 {
 
-
-const ComponentInfo * getConvertBoolTristate2BoolInfo();
-
 class ConvertBoolTristate2Bool : public Component
 {
 
@@ -58,6 +55,9 @@ public:
 	
 	/** Executes the simulation of this component */
 	virtual void calculate();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 	
 private:

@@ -56,13 +56,13 @@ namespace KSimLibBoolean
 //###############################################################
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Multiplexer::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Multiplexer(container, ci);
 }
 
 
-const ComponentInfo * getMultiplexerInfo()
+const ComponentInfo * Multiplexer::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Multiplexer"),
 	                                QString::fromLatin1("Boolean/Mux & Demux/Multiplexer"),
@@ -87,6 +87,8 @@ const ComponentInfo * getMultiplexerInfo()
 //###############################################################
 //###############################################################
 
+unsigned int Multiplexer::tempConnCount;
+Multiplexer * Multiplexer::tempConnCountOwner = (Multiplexer *)0;
 
 Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	: Boolean1Out(container, ci)
@@ -273,8 +275,6 @@ unsigned int Multiplexer::getMinChannelCount() const
 	return QMAX(getInputPack()->getNumberOfNotDeletableConnectors(), i);
 }
 
-static unsigned int tempConnCount;
-static Multiplexer * tempConnCountOwner = (Multiplexer *)0;
 
 void Multiplexer::setChannelCountDelayed(int count)
 {
@@ -447,6 +447,13 @@ void MultiplexerPropertyGeneralWidget::defaultPressed()
 	m_channels->setValue(QMAX(DEFAULT_CHANNELS, getComponent()->getMinChannelCount()));
 }
 
+#undef DEFAULT_RESET_STATE
+#undef MIN_CHANNELS
+#undef MAX_CHANNELS
+#undef DEFAULT_CHANNELS
+#undef MIN_ADRESS
+#undef MAX_ADRESS
+#undef DEFAULT_ADRESS
 
 //###############################################################
 //###############################################################

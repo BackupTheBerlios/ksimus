@@ -36,9 +36,6 @@
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getBooleanXorInfo();
-const ComponentInfo * getBooleanXnorInfo();
-
 
 class BooleanXor : public BooleanXIn1Out
 {
@@ -48,6 +45,10 @@ public:
 	
 	/** Executes the simulation of this component */
 	virtual void calculate();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticXorInfo();
+	static const ComponentInfo * getStaticXnorInfo();
 };
 
 //###############################################################

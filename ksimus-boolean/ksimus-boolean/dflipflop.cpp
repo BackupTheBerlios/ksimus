@@ -48,12 +48,12 @@ namespace KSimLibBoolean
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * DFlipFlop::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new DFlipFlop(container, ci);
 }
 
-const ComponentInfo * getDFlipFlopInfo()
+const ComponentInfo * DFlipFlop::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "D Latch"),
 	                                QString::fromLatin1("Boolean/Flip Flop/D Latch"),

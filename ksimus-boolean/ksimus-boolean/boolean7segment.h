@@ -40,8 +40,6 @@ namespace KSimLibBoolean
 {
 
 
-const ComponentInfo * getBoolean7SegmentInfo();
-
 //#######################################################################
 //#######################################################################
 
@@ -63,11 +61,13 @@ public:
 	/** Reset all simulation variables */
 	virtual void reset();
 
-  ConnectorBoolIn * getInput1() const { return m_in1; };
-  ConnectorBoolIn * getInput2() const { return m_in2; };
-  ConnectorBoolIn * getInput4() const { return m_in4; };
-  ConnectorBoolIn * getInput8() const { return m_in8; };
-	
+	ConnectorBoolIn * getInput1() const { return m_in1; };
+	ConnectorBoolIn * getInput2() const { return m_in2; };
+	ConnectorBoolIn * getInput4() const { return m_in4; };
+	ConnectorBoolIn * getInput8() const { return m_in8; };
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 protected: // Protected attributes
 	int m_number;

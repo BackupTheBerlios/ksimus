@@ -71,38 +71,38 @@ namespace KSimLibBoolean
  ************************************************************************************/
 static const ComponentInfoList & getDistComponents()
 {
-	static ComponentInfoList * pDistComponents = 0;
+	static ComponentInfoList * pDistComponents = (ComponentInfoList *)0;
 
-	if (pDistComponents == 0)
+	if (pDistComponents == (ComponentInfoList *)0)
 	{
 		// Initialize
 		pDistComponents = new ComponentInfoList;
 		CHECK_PTR(pDistComponents);
 
 		// Add your component info here
-		pDistComponents->append(getIdentityInfo());
-		pDistComponents->append(getInverterInfo());
-		pDistComponents->append(getBooleanOrInfo());
-		pDistComponents->append(getBooleanNorInfo());
-		pDistComponents->append(getBooleanXorInfo());
-		pDistComponents->append(getBooleanXnorInfo());
-		pDistComponents->append(getRSFlipFlopInfo());
-		pDistComponents->append(getJKFlipFlopInfo());
-		pDistComponents->append(getJKMSFlipFlopInfo());
-		pDistComponents->append(getDFlipFlopInfo());
-		pDistComponents->append(getMonoFlopInfo());
-		pDistComponents->append(getBooleanCounterInfo());
-		pDistComponents->append(getBooleanConstantTrue());
-		pDistComponents->append(getBooleanConstantFalse());
-		pDistComponents->append(getBoolean7SegmentInfo());
-		pDistComponents->append(getMultiDLatchInfo());
-		pDistComponents->append(getMultiplexerInfo());
-		pDistComponents->append(getDemultiplexerInfo());
-		pDistComponents->append(getDelayInfo());
+		pDistComponents->append(Inverter::getStaticIdentityInfo());
+		pDistComponents->append(Inverter::getStaticInverterInfo());
+		pDistComponents->append(BooleanOr::getStaticOrInfo());
+		pDistComponents->append(BooleanOr::getStaticNorInfo());
+		pDistComponents->append(BooleanXor::getStaticXorInfo());
+		pDistComponents->append(BooleanXor::getStaticXnorInfo());
+		pDistComponents->append(RSFlipFlop::getStaticInfo());
+		pDistComponents->append(JKFlipFlop::getStaticJKInfo());
+		pDistComponents->append(JKFlipFlop::getStaticJKMSInfo());
+		pDistComponents->append(DFlipFlop::getStaticInfo());
+		pDistComponents->append(MonoFlop::getStaticInfo());
+		pDistComponents->append(BooleanCounter::getStaticInfo());
+		pDistComponents->append(BooleanConstant::getStaticTrueInfo());
+		pDistComponents->append(BooleanConstant::getStaticFalseInfo());
+		pDistComponents->append(Boolean7Segment::getStaticInfo());
+		pDistComponents->append(MultiDLatch::getStaticInfo());
+		pDistComponents->append(Multiplexer::getStaticInfo());
+		pDistComponents->append(Demultiplexer::getStaticInfo());
+		pDistComponents->append(Delay::getStaticInfo());
 
 		// Tristate
-		pDistComponents->append(getConvertBool2BoolTristateInfo());
-		pDistComponents->append(getConvertBoolTristate2BoolInfo());
+		pDistComponents->append(ConvertBool2BoolTristate::getStaticInfo());
+		pDistComponents->append(ConvertBoolTristate2Bool::getStaticInfo());
 		pDistComponents->append(ExtConnBoolTristateIn::getStaticInfo());
 		pDistComponents->append(ExtConnBoolTristateOut::getStaticInfo());
 		pDistComponents->append(BoolTristateAnd::getStaticAndInfo());
@@ -127,9 +127,9 @@ static const ComponentInfoList & getDistComponents()
  ************************************************************************************/
 static const ConnectorInfoList & getDistConnector()
 {
-	static ConnectorInfoList * pDistConnector = 0;
+	static ConnectorInfoList * pDistConnector = (ConnectorInfoList *)0;
 	
-	if (pDistConnector == 0)
+	if (pDistConnector == (ConnectorInfoList *)0)
 	{
 		// Initialize
 		pDistConnector = new ConnectorInfoList;
@@ -153,9 +153,9 @@ static const ConnectorInfoList & getDistConnector()
  ******************************************************************************************/
 static const WirePropertyInfoList & getDistWireProperty()
 {
-	static WirePropertyInfoList * pDistWireProp = 0;
+	static WirePropertyInfoList * pDistWireProp = (WirePropertyInfoList *)0;
 
-	if (pDistWireProp == 0)
+	if (pDistWireProp == (WirePropertyInfoList *)0)
 	{
 		// Initialize
 		pDistWireProp = new WirePropertyInfoList;
@@ -175,21 +175,21 @@ static const WirePropertyInfoList & getDistWireProperty()
  **
  ******************************************************************************************
  ******************************************************************************************/
-static const ImplicitConverterInfoList & getImplicitConverterProperty()
+static const ImplicitConverterInfoList & getDistImplicitConverterProperty()
 {
-	static ImplicitConverterInfoList * pImplicitConverterProp = 0;
+	static ImplicitConverterInfoList * pDistImplicitConverterProp = (ImplicitConverterInfoList *)0;
 
-	if (pImplicitConverterProp == 0)
+	if (pDistImplicitConverterProp == (ImplicitConverterInfoList *)0)
 	{
 		// Initialize
-		pImplicitConverterProp = new ImplicitConverterInfoList;
-		CHECK_PTR(pImplicitConverterProp);
+		pDistImplicitConverterProp = new ImplicitConverterInfoList;
+		CHECK_PTR(pDistImplicitConverterProp);
 
 		// Add your implicit converter info here
-		pImplicitConverterProp->append(getImplicitConverterBoolTristate2BoolInfo());
+		pDistImplicitConverterProp->append(ImplicitConverterBoolTristate2Bool::getStaticInfo());
 	}
 
-	return *pImplicitConverterProp;
+	return *pDistImplicitConverterProp;
 }
 
 
@@ -202,8 +202,8 @@ static const ImplicitConverterInfoList & getImplicitConverterProperty()
  ******************************************************************************************
  ******************************************************************************************/
 
-KInstance * instance = 0;
-const PackageInfo * packageInfo = 0;
+KInstance * instance = (KInstance *)0;
+const PackageInfo * packageInfo = (const PackageInfo *)0;
 
 };  //namespace KSimLibBoolean
 
@@ -216,7 +216,7 @@ extern "C"
 
 //		KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
 			
-		if (KSimLibBoolean::instance == 0)
+		if (KSimLibBoolean::instance == (KInstance *)0)
 		{
 			KSimLibBoolean::instance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
 			CHECK_PTR(KSimLibBoolean::instance);
@@ -225,7 +225,7 @@ extern "C"
 			ksimusLocale->insertCatalogue(KSimLibBoolean::instance->instanceName());
 		}
 	
-		if (KSimLibBoolean::packageInfo == 0)
+		if (KSimLibBoolean::packageInfo == (const PackageInfo *)0)
 		{
 			KSimLibBoolean::packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
 			                                               KSimLibBoolean::instance,
@@ -233,7 +233,7 @@ extern "C"
 			                                               KSimLibBoolean::getDistComponents(),
 			                                               KSimLibBoolean::getDistConnector(),
 			                                               KSimLibBoolean::getDistWireProperty(),
-			                                               KSimLibBoolean::getImplicitConverterProperty());
+			                                               KSimLibBoolean::getDistImplicitConverterProperty());
 		}
 	
 

@@ -50,12 +50,12 @@
 namespace KSimLibBoolean
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanCounter::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new BooleanCounter(container, ci);
 }
 
-const ComponentInfo * getBooleanCounterInfo()
+const ComponentInfo * BooleanCounter::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Counter with RCO and RBO"),
 	                                QString::fromLatin1("Boolean/Counter/with RCO and RBO"),
@@ -617,6 +617,15 @@ void BooleanCounterPropertyWidget::limit()
 }
 	
 //###############################################################
+
+
+#undef MIN_BIT
+#undef MAX_BIT
+#undef DEFAULT_BIT
+#undef DEFAULT_MIN
+#undef DEFAULT_MAX
+#undef DEFAULT_RESET
+
 
 }; //namespace KSimLibBoolean
 

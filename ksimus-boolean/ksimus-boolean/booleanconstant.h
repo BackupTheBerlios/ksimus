@@ -39,13 +39,6 @@ class ConnectorBoolOut;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getBooleanConstantTrue();
-const ComponentInfo * getBooleanConstantFalse();
-
-
-//###############################################################
-//###############################################################
-
 
 /**Boolean constant component.
   *@author Rasmus Diekenbrock
@@ -62,6 +55,11 @@ public:
 	
 	ConnectorBoolOut * getOutputConnector() const { return m_out; };
 	
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticTrueInfo();
+	static const ComponentInfo * getStaticFalseInfo();
+
 private:
 	ConnectorBoolOut * m_out;
 };

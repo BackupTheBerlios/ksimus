@@ -41,12 +41,12 @@
 namespace KSimLibBoolean
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanOr::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new BooleanOr(container, ci);
 }
 
-const ComponentInfo * getBooleanOrInfo()
+const ComponentInfo * BooleanOr::getStaticOrInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean OR"),
 	                                QString::fromLatin1("Boolean/Gates/OR"),
@@ -59,7 +59,7 @@ const ComponentInfo * getBooleanOrInfo()
 	return &Info;
 }
 
-const ComponentInfo * getBooleanNorInfo()
+const ComponentInfo * BooleanOr::getStaticNorInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean NOR"),
 	                                QString::fromLatin1("Boolean/Gates/NOR"),
@@ -98,7 +98,7 @@ BooleanOr::BooleanOr(CompContainer * container, const ComponentInfo * ci)
 	: BooleanXIn1Out(container, ci)
 {
 	// make Nor
-	if (ci == getBooleanNorInfo())
+	if (ci == BooleanOr::getStaticNorInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}

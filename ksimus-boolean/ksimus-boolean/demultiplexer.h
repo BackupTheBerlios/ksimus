@@ -49,8 +49,6 @@ class QLabel;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getDemultiplexerInfo();
-
 /**A boolean multiplexer.
   *@author Rasmus Diekenbrock
   */
@@ -110,6 +108,10 @@ public:
 	ConnectorBoolIn * getInputConn() const { return m_inputConn; };
 
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+	static unsigned int tempConnCount;
+	static Demultiplexer * tempConnCountOwner;
 
 private slots:
 	void slotAddChannel();

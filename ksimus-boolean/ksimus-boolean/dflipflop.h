@@ -40,8 +40,6 @@ class ComponentLayout;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getDFlipFlopInfo();
-
 
 //###############################################################
 //###############################################################
@@ -68,6 +66,9 @@ public:
 	/** Returns the "Clk" input connector.
 	  */
 	ConnectorBoolInEdge * getEnableInputConnector() const { return m_inEna; };
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 private:
 	ConnectorBoolIn * m_inD;

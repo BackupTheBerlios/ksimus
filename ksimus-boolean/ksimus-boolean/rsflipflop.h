@@ -43,8 +43,6 @@ class ConnectorBoolIn;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getRSFlipFlopInfo();
-
 class RSFlipFlop : public KSimLibBoolean::FlipFlopBase
 {
 Q_OBJECT
@@ -56,6 +54,9 @@ public:
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
@@ -68,6 +69,8 @@ public:
 	RSFlipFlopView(RSFlipFlop * comp, eViewType viewType);
 //	~RSFlipFlopView();
 	virtual void draw(QPainter * p);
+
+	RSFlipFlop* getRSFF() { return (RSFlipFlop *) getComponent(); };
 };
 
 

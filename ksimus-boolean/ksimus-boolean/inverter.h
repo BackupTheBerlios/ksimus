@@ -38,13 +38,6 @@ class ConnectorBoolIn;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getInverterInfo();
-const ComponentInfo * getIdentityInfo();
-
-
-//###############################################################
-//###############################################################
-
 /**A Inverter and a Identity gate.
   *@author Rasmus Diekenbrock
   */
@@ -61,6 +54,10 @@ public:
 	virtual void calculate();
 
 	ConnectorBoolIn * getInputConnector() const { return m_input; };
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInverterInfo();
+	static const ComponentInfo * getStaticIdentityInfo();
 
 private:
 	ConnectorBoolIn * m_input;

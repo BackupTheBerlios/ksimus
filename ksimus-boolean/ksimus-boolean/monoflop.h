@@ -43,12 +43,6 @@ class KSimBooleanBox;
 namespace KSimLibBoolean
 {
 
-const ComponentInfo * getMonoFlopInfo();
-
-
-//###############################################################
-//###############################################################
-
 /**A MonoFlop.
   *@author Rasmus Diekenbrock
   */
@@ -87,6 +81,8 @@ public:
   void setHighTimeUnitList(const QString & unitList) { m_highTimeUnitList = unitList; };
   QString getHighTimeUnitList() const { return m_highTimeUnitList; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
   		
 private:

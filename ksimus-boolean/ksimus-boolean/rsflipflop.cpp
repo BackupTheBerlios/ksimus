@@ -40,12 +40,12 @@ namespace KSimLibBoolean
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * RSFlipFlop::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new RSFlipFlop(container, ci);
 }
 
-const ComponentInfo * getRSFlipFlopInfo()
+const ComponentInfo * RSFlipFlop::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "RS Flip Flop"),
 	                                QString::fromLatin1("Boolean/Flip Flop/RS-FF"),
@@ -106,8 +106,6 @@ void RSFlipFlop::calculate()
 //###############################################################
 //###############################################################
 
-#define getRSFF() ((RSFlipFlop *) getComponent())
-
 RSFlipFlopView::RSFlipFlopView(RSFlipFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
@@ -141,9 +139,6 @@ void RSFlipFlopView::draw(QPainter * p)
 
 	CompView::draw(p);
 }
-
-#undef getRSFF()
-
 
 //###############################################################
 //###############################################################

@@ -39,12 +39,12 @@ namespace KSimLibBoolean
 {
 
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * Inverter::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new Inverter(container, ci);
 }
 
-const ComponentInfo * getInverterInfo()
+const ComponentInfo * Inverter::getStaticInverterInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Inverter"),
 	                                QString::fromLatin1("Boolean/Gates/Inverter"),
@@ -57,7 +57,7 @@ const ComponentInfo * getInverterInfo()
 	return &Info;
 }
 
-const ComponentInfo * getIdentityInfo()
+const ComponentInfo * Inverter::getStaticIdentityInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Identity"),
 	                                QString::fromLatin1("Boolean/Gates/Identity"),
@@ -90,7 +90,7 @@ Inverter::Inverter(CompContainer * container, const ComponentInfo * ci)
 	}
 	
 	// make inverter
-	if (ci == getInverterInfo())
+	if (ci == Inverter::getStaticInverterInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}
