@@ -273,8 +273,8 @@ RandomPropertyGeneralWidget::RandomPropertyGeneralWidget(Random * comp, QWidget 
 	addToolTip(str, m_seed);
 	str = i18n("FloatingPoint",
 	           "<p>Set an individual or a random seed here.</p>"
-	           "<table><tr><td><b>Individual seed</b></td><td> The random number generator is initialized with a random seed is used after each reset of the circuit.</td></tr>"
-	           "<tr><td><b>Random seed</b></td><td> The random number generator is initialized with an individual seed after each reset of the circuit (Range: 1 - %1).</td></tr></table>")
+	           "<table><tr><td><b>Random seed</b></td><td> The random number generator is initialized with a random seed after each reset of the circuit.</td></tr>"
+	           "<tr><td><b>Individual seed</b></td><td> The random number generator is initialized with an individual seed after each reset of the circuit (Range: 1 - %1).</td></tr></table>")
 	           .arg(MAX_SEED);
 	addWhatsThis(str, m_useSeed, lab);
 	addWhatsThis(str, m_seed);
