@@ -29,7 +29,6 @@
 #include <klocale.h>
 
 // KSimus-Includes
-//#include <ksimus/ksimdebug.h>
 
 // Project-Includes
 #include "ksimdoublespinbox.h"
