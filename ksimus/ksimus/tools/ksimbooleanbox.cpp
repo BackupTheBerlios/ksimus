@@ -41,7 +41,8 @@ KSimBoolTristateBox::KSimBoolTristateBox(bool value, bool active, QWidget *paren
 	setValue(value, active);
 }
 
-KSimBoolTristateBox::KSimBoolTristateBox(KSimBoolTriState state, QWidget *parent=0, const char *name=0)
+KSimBoolTristateBox::KSimBoolTristateBox(KSimBoolTriState state, QWidget *parent, const char *name)
+	: QComboBox(parent,name)
 {
 	init();
 	setValue(state);
