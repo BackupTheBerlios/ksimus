@@ -70,8 +70,8 @@ const ComponentInfo * ClockGenerator::getStaticInfo()
 //###############################################################
 
 
-ClockGeneratorView::ClockGeneratorView(Component * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ClockGeneratorView::ClockGeneratorView(Component * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 4*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);
@@ -129,7 +129,7 @@ ClockGenerator::ClockGenerator(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ClockGeneratorView(this, SHEET_VIEW);
+		new ClockGeneratorView(this, SHEET_VIEW, "ClockGeneratorSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	

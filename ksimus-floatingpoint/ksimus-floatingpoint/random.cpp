@@ -113,7 +113,7 @@ Random::Random(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new RandomView(this, SHEET_VIEW);
+		new RandomView(this, SHEET_VIEW, "RandomSV");
 	}
 	
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -193,8 +193,8 @@ ComponentPropertyBaseWidget * Random::createGeneralProperty(QWidget *parent)
 //###############################################################
 //###############################################################
 
-RandomView::RandomView(Random * comp, eViewType viewType)
-	: CompView(comp, viewType)
+RandomView::RandomView(Random * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -218,13 +218,13 @@ void RandomView::draw(QPainter * p)
 	
 	if (getRandom()->getEnableConnector()->isHidden())
 	{
-		KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Rnd");
+		KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("Rnd"));
 	}
 	else
 	{
 		QRect place = getDrawingPlace();
 		place.rTop() += 4;
-		KSimEmbFont::getFont10()->drawText(p, place, AlignTop | AlignHCenter, "Rnd");
+		KSimEmbFont::getFont10()->drawText(p, place, AlignTop | AlignHCenter, QString::fromLatin1("Rnd"));
 	}
 	
 	CompView::draw(p);

@@ -69,7 +69,7 @@ const ComponentInfo * getModuleBaseInfo()
 //###############################################################
 
 ModuleSV::ModuleSV(Component * comp, eViewType viewType)
-	: CompView(comp, viewType)
+	: CompView(comp, viewType, "ModuleSV")
 {
 	widgetList = new KSimWidgetList();
 	CHECK_PTR(widgetList);

@@ -101,7 +101,7 @@ ConvertBoolFloat::ConvertBoolFloat(CompContainer * container, const ComponentInf
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ConvertBoolFloatView(this, SHEET_VIEW);
+		new ConvertBoolFloatView(this, SHEET_VIEW, "ConvertBoolFloatSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -187,8 +187,8 @@ void ConvertBoolFloat::setFalseValue(double value)
 //###############################################################
 
 
-ConvertBoolFloatView::ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ConvertBoolFloatView::ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);

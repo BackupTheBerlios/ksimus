@@ -64,7 +64,7 @@ IntegerAdd::IntegerAdd(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerXIn1OutView(this, SHEET_VIEW, "Add");
+		new IntegerXIn1OutView(this, SHEET_VIEW, QString::fromLatin1("Add"), "IntegerAddSV");
 	}
 }
 

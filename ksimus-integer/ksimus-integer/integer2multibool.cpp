@@ -97,7 +97,7 @@ Integer2MultiBool::Integer2MultiBool(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "Integer2MultiBoolSV");
 	}
 }
 
@@ -220,8 +220,8 @@ void Integer2MultiBool::addConn(ConnectorBase * conn)
 //###############################################################
 
 
-Integer2MultiBool::View::View(Integer2MultiBool * comp, eViewType viewType)
-	: CompView(comp, viewType)
+Integer2MultiBool::View::View(Integer2MultiBool * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 	enableRotation(true);
@@ -241,7 +241,7 @@ Integer2MultiBool::View::View(Integer2MultiBool * comp, eViewType viewType)
 		layout->getRight()->addConnectorPack(comp->getOutputConnectorPack());
 
 //		new ComponentLayoutBlockContentText(layout->getBlock(), "Int -> Bool", AlignTop|AlignHCenter, 270.0);
-		new ComponentLayoutBlockContentText(layout->getBlock(), "Int -> Bool", AlignCenter, 270.0);
+		new ComponentLayoutBlockContentText(layout->getBlock(), QString::fromLatin1("Int->Bool"), AlignCenter, 270.0);
 	}
 }
 /*Integer2MultiBool::View::~View()

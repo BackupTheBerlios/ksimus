@@ -144,7 +144,7 @@ private slots:
 class Integer2MultiBool::View : public CompView
 {
 public:
-	View(Integer2MultiBool * comp, eViewType viewType);
+	View(Integer2MultiBool * comp, eViewType viewType, const char * name);
 //	~View();
 
 	Integer2MultiBool* getInteger2MultiBool() { return (Integer2MultiBool*) getComponent(); };

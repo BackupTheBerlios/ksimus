@@ -83,7 +83,7 @@ ControlPause::ControlPause(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ControlPauseView(this, SHEET_VIEW);
+		new ControlPauseView(this, SHEET_VIEW, "ControlPauseSV");
 		getTriggerConnector()->setGridPos(0, getSheetView()->getPlace().height() / gridY / 2);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -162,8 +162,8 @@ int ControlPauseView::height = 0;
 int ControlPauseView::width = 0;
 
 
-ControlPauseView::ControlPauseView(ControlPause * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ControlPauseView::ControlPauseView(ControlPause * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (!pIcon)
 	{

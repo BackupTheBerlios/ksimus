@@ -134,7 +134,7 @@ class BooleanButtonView : public CompViewSize
 {
 
 public:	
-	BooleanButtonView(BooleanButton * comp, eViewType viewType);
+	BooleanButtonView(BooleanButton * comp, eViewType viewType, const char * name);
 //	virtual ~BooleanButtonView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

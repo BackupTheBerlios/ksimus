@@ -97,7 +97,7 @@ friend class BooleanLed;
 	Q_OBJECT
 
 public:	
-	BooleanLedView(Component * comp, eViewType viewType);
+	BooleanLedView(Component * comp, eViewType viewType, const char * name);
 	virtual ~BooleanLedView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

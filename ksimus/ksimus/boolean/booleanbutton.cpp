@@ -97,12 +97,12 @@ BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BooleanButtonView(this, SHEET_VIEW);
+		new BooleanButtonView(this, SHEET_VIEW, "BooleanButtonSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new BooleanButtonView(this, USER_VIEW);
+		new BooleanButtonView(this, USER_VIEW, "BooleanButtonUV");
 	}
 
 	if(ci == getStaticToggleButtonInfo())
@@ -329,8 +329,8 @@ const QString & BooleanButton::getDefaultButtonText() const
 //##########################################################################################
 //##########################################################################################
 
-BooleanButtonView::BooleanButtonView(BooleanButton * comp, eViewType viewType)
-	: CompViewSize(comp, viewType)
+BooleanButtonView::BooleanButtonView(BooleanButton * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp, viewType, name)
 {
 	if(viewType == SHEET_VIEW)
 	{

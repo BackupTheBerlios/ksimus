@@ -61,7 +61,7 @@ friend class Module;
 public:
 	template <class T> class AutoPixmap;
 
-	CompView(Component * comp, eViewType viewType);
+	CompView(Component * comp, eViewType viewType, const char * name);
 	virtual ~CompView();
 	
 	/** Manage the mouse pressed event if required  */
@@ -359,7 +359,7 @@ class CompViewSizePrivate;
 	Q_OBJECT
 
 public:
-	CompViewSize(Component * comp, eViewType viewType);
+	CompViewSize(Component * comp, eViewType viewType, const char * name);
 	virtual ~CompViewSize();
 	
 	/** Manage the mouse pressed event if required  */

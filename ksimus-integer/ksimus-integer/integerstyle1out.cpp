@@ -137,8 +137,8 @@ ComponentPropertyBaseWidget * IntegerStyle1Out::createGeneralProperty(QWidget *p
 //###############################################################
 
 
-IntegerStyle1OutView::IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType viewType)
-	: CompViewSize(comp, viewType)
+IntegerStyle1OutView::IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 //	enableRotation(true);

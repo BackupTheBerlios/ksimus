@@ -138,7 +138,7 @@ class DataSelectorView : public CompView
 	Q_OBJECT
 
 public:
-	DataSelectorView(DataSelector * comp, eViewType viewType);
+	DataSelectorView(DataSelector * comp, eViewType viewType, const char * name);
 //	~DataSelectorView();
 	
 	DataSelector* getComponent() { return (DataSelector*) CompView::getComponent(); };

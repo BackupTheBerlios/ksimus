@@ -116,7 +116,7 @@ private:
 class RandomView : public CompView
 {
 public:
-	RandomView(Random * comp, eViewType viewType);
+	RandomView(Random * comp, eViewType viewType, const char * name);
 //	~RandomView();
 	virtual void draw(QPainter * p);
 	

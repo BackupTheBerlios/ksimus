@@ -62,7 +62,7 @@ IntegerAbs::IntegerAbs(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Integer1In1OutView(this, SHEET_VIEW, "Abs");
+		new Integer1In1OutView(this, SHEET_VIEW, QString::fromLatin1("Abs"), "IntegerAbsSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

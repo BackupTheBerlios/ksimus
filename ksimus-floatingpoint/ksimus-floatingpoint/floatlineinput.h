@@ -118,7 +118,7 @@ class FloatLineInputView : public CompViewSize
 	Q_OBJECT
 
 public:	
-	FloatLineInputView(FloatLineInput * comp, eViewType viewType);
+	FloatLineInputView(FloatLineInput * comp, eViewType viewType, const char * name);
 //	virtual ~FloatLineInputView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

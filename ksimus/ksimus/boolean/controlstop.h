@@ -99,7 +99,7 @@ private:
 class ControlStopView : public CompView
 {
 public:
-	ControlStopView(ControlStop * comp, eViewType viewType);
+	ControlStopView(ControlStop * comp, eViewType viewType, const char * name);
 	~ControlStopView();
 	
 	virtual void draw(QPainter * p);

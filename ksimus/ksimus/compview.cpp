@@ -242,8 +242,8 @@ public:
 
 KSIMDEBUG_INSTANCE_COUNTER(CompView);
 
-CompView::CompView(Component * comp, eViewType viewType)
-	:	QObject(),
+CompView::CompView(Component * comp, eViewType viewType, const char * name)
+	:	QObject(comp, name),
 		ComponentItem(comp),
 		m_viewChanged(false)
 {
@@ -1188,8 +1188,8 @@ public:
 
 #define HANDLE_THICK 2
 
-CompViewSize::CompViewSize(Component * comp, eViewType viewType)
-	: 	CompView(comp, viewType)
+CompViewSize::CompViewSize(Component * comp, eViewType viewType, const char * name)
+	: 	CompView(comp, viewType, name)
 {
 	m_ps = new CompViewSizePrivate();
 	CHECK_PTR(m_ps);

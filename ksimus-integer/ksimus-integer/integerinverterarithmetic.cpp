@@ -65,7 +65,7 @@ IntegerArithmeticInverter::IntegerArithmeticInverter(CompContainer * container, 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Integer1In1OutView(this, SHEET_VIEW, "*(-1)");
+		new Integer1In1OutView(this, SHEET_VIEW, QString::fromLatin1("Inv"), "IntegerArithmeticInverterSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

@@ -80,12 +80,12 @@ FloatLineOutput::FloatLineOutput(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatLineOutputView(this, SHEET_VIEW);
+		new FloatLineOutputView(this, SHEET_VIEW, "FloatLineOutputSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new FloatLineOutputView(this, USER_VIEW);
+		new FloatLineOutputView(this, USER_VIEW, "FloatLineOutputUV");
 	}
 }
 
@@ -122,8 +122,8 @@ void FloatLineOutput::reset()
 
 
 
-FloatLineOutputView::FloatLineOutputView(FloatLineOutput * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+FloatLineOutputView::FloatLineOutputView(FloatLineOutput * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{

@@ -134,7 +134,7 @@ public:
 	
 
 protected:
-	IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType viewType);
+	IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType viewType, const char * name);
 	
 private:	
 	ComponentLayoutSimple * m_layout;

@@ -61,7 +61,7 @@ FloatDivider::FloatDivider(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Div"));
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Div"), "FloatDividerSV");
 	}
 
 	getInputA()->setName(i18n("FloatingPoint", "Dividend"), true);

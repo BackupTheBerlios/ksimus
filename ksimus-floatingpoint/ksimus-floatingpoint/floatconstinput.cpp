@@ -76,7 +76,7 @@ FloatConstInput::FloatConstInput(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatConstInputView(this, SHEET_VIEW);
+		new FloatConstInputView(this, SHEET_VIEW, "FloatConstInputSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -132,8 +132,8 @@ void FloatConstInput::updateValue(double val)
 
 
 
-FloatConstInputView::FloatConstInputView(FloatConstInput * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+FloatConstInputView::FloatConstInputView(FloatConstInput * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{

@@ -76,12 +76,12 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		Float1OutView * view = new Float1OutView(this, SHEET_VIEW);
+		Float1OutView * view = new Float1OutView(this, SHEET_VIEW, QString::fromLatin1("Add"), "FloatAddSV");
 		
 		view->getComponentLayout()->getLeft()->addSpace(1);
 		view->getComponentLayout()->getLeft()->addConnectorPack(getInputConnectorPack());
 		
-		new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Add");
+// todo 		new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Add");
 	}
 
 }

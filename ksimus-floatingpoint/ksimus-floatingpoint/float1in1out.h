@@ -86,7 +86,7 @@ class Float1In1OutView : public CompView
 
 public:
 //	~Float1In1OutView();
-	Float1In1OutView(Float1In1Out * comp, eViewType viewType, const QString & text);
+	Float1In1OutView(Float1In1Out * comp, eViewType viewType, const QString & text, const char * name);
 };
 
 

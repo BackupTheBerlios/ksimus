@@ -40,8 +40,8 @@ static const char * const sOptionEna  = "Optional Enabled";
 #include "connectorlist.h"
 #include "compcontainer.h"
 
-ExternalConnectorSV::ExternalConnectorSV(Component * comp)
-	: CompView(comp, SHEET_VIEW)
+ExternalConnectorSV::ExternalConnectorSV(Component * comp, const char * name)
+	: CompView(comp, SHEET_VIEW, name)
 {
 	setPlace( QRect(0, 0, 5*gridX, 3*gridY) );
 	enableRotation(true);
@@ -83,8 +83,8 @@ void ExternalConnectorSV::draw(QPainter * p)
 
 //###############################################################
 
-ExternalConnectorMultipleOutputSV::ExternalConnectorMultipleOutputSV(Component * comp)
-	: CompView(comp, SHEET_VIEW)
+ExternalConnectorMultipleOutputSV::ExternalConnectorMultipleOutputSV(Component * comp, const char * name)
+	: CompView(comp, SHEET_VIEW, name)
 {
 	setPlace( QRect(0, 0, 5*gridX, 3*gridY) );
 	enableRotation(true);
@@ -183,12 +183,12 @@ ExternalConnector::ExternalConnector(CompContainer * container, const ComponentI
 	{
 		if (multiOutput)
 		{
-			CompView * cv = new ExternalConnectorMultipleOutputSV(this);
+			CompView * cv = new ExternalConnectorMultipleOutputSV(this, "ExternalConnectorMultipleOutputSV");
 			CHECK_PTR(cv);
 		}
 		else
 		{
-			CompView * cv = new ExternalConnectorSV(this);
+			CompView * cv = new ExternalConnectorSV(this, "ExternalConnectorSV");
 			CHECK_PTR(cv);
 		}
 	}

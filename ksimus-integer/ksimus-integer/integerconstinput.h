@@ -106,7 +106,7 @@ private:
 class IntegerConstInputView : public CompViewSize
 {
 public:
-	IntegerConstInputView(IntegerConstInput * comp, eViewType viewType);
+	IntegerConstInputView(IntegerConstInput * comp, eViewType viewType, const char * name);
 //	virtual ~IntegerConstInputView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

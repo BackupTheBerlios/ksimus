@@ -145,7 +145,7 @@ class IntegerLatch::View : public CompView
 {
 
 public:
-	View(IntegerLatch * comp, eViewType viewType);
+	View(IntegerLatch * comp, eViewType viewType, const char * name);
 //	~View();
 	
 	IntegerLatch* getComponent() { return (IntegerLatch*) CompView::getComponent(); };

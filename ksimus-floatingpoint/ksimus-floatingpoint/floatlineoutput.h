@@ -78,7 +78,7 @@ class FloatLineOutputView : public CompViewSize
 	Q_OBJECT
 
 public:	
-	FloatLineOutputView(FloatLineOutput * comp, eViewType viewType);
+	FloatLineOutputView(FloatLineOutput * comp, eViewType viewType, const char * name);
 //	virtual ~FloatLineOutputView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

@@ -75,12 +75,12 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		Float1OutView * view = new Float1OutView(this, SHEET_VIEW);
+		Float1OutView * view = new Float1OutView(this, SHEET_VIEW, QString::fromLatin1("Mul"), "FloatMultiplierSV");
 		
 		view->getComponentLayout()->getLeft()->addSpace(1);
 		view->getComponentLayout()->getLeft()->addConnectorPack(getInputConnectorPack());
 		
-		new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Mul");
+		// TODO new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Mul");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

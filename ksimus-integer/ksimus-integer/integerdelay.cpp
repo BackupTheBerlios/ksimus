@@ -82,7 +82,7 @@ IntegerDelay::IntegerDelay(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "IntegerDelaySV");
 	}
 	
 	m_delayTime.setValue(1, unit_sec);
@@ -206,8 +206,8 @@ ComponentPropertyBaseWidget * IntegerDelay::createGeneralProperty(QWidget *paren
 //###############################################################
 //###############################################################
 
-IntegerDelay::View::View(IntegerDelay * comp, eViewType viewType)
-	: CompView(comp, viewType)
+IntegerDelay::View::View(IntegerDelay * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -228,7 +228,7 @@ IntegerDelay::View::View(IntegerDelay * comp, eViewType viewType)
 void IntegerDelay::View::draw(QPainter * p)
 {
 	drawFrame(p);
-	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Dly");
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("Dly"));
 	
 	CompView::draw(p);
 }

@@ -62,8 +62,8 @@ Integer1In1Out::Integer1In1Out(CompContainer * container, const ComponentInfo * 
 
 
 
-Integer1In1OutView::Integer1In1OutView(Integer1In1Out * comp, eViewType viewType, const QString & text)
-	: CompView(comp, viewType)
+Integer1In1OutView::Integer1In1OutView(Integer1In1Out * comp, eViewType viewType, const QString & text, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);

@@ -63,7 +63,7 @@ FloatRemainder::FloatRemainder(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Mod"));
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Mod"), "FloatRemainderSV");
 	}
 
 	getInputA()->setName(i18n("FloatingPoint", "Dividend"), true);

@@ -101,7 +101,7 @@ class IntegerLineOutputView : public CompViewSize
 	Q_OBJECT
 
 public:	
-	IntegerLineOutputView(IntegerLineOutput * comp, eViewType viewType);
+	IntegerLineOutputView(IntegerLineOutput * comp, eViewType viewType, const char * name);
 //	virtual ~IntegerLineOutputView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

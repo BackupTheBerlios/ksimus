@@ -86,7 +86,7 @@ class FloatConstInputView : public CompViewSize
 	Q_OBJECT
 
 public:	
-	FloatConstInputView(FloatConstInput * comp, eViewType viewType);
+	FloatConstInputView(FloatConstInput * comp, eViewType viewType, const char * name);
 //	virtual ~FloatConstInputView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

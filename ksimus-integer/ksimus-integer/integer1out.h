@@ -122,7 +122,7 @@ signals:
 class Integer1OutView : public CompView
 {
 public:
-	Integer1OutView(Integer1Out * comp, eViewType viewType, const QString & text);
+	Integer1OutView(Integer1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~Integer1OutView();
 	
 	Integer1Out* getInteger1Out() { return (Integer1Out*) getComponent(); };

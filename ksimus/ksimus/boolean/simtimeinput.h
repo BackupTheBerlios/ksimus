@@ -61,7 +61,7 @@ protected:
 class SimTimeInputView : public CompView
 {
 public:
-	SimTimeInputView(SimTimeInput * comp, eViewType viewType);
+	SimTimeInputView(SimTimeInput * comp, eViewType viewType, const char * name);
 	
 	virtual void draw(QPainter * p);
 };
@@ -99,7 +99,7 @@ protected:
 class TickTimeInputView : public CompView
 {
 public:
-	TickTimeInputView(TickTimeInput * comp, eViewType viewType);
+	TickTimeInputView(TickTimeInput * comp, eViewType viewType, const char * name);
 	
 	virtual void draw(QPainter * p);
 };

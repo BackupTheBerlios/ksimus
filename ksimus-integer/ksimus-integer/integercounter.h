@@ -132,7 +132,7 @@ protected:
 class IntegerCounterBaseView : public CompView
 {
 public:
-	IntegerCounterBaseView(IntegerCounterBase * comp, eViewType viewType);
+	IntegerCounterBaseView(IntegerCounterBase * comp, eViewType viewType, const char * name);
 //	~IntegerCounterView();
 	
 	IntegerCounterBase * getCounterBase() const { return (IntegerCounterBase*) getComponent(); };
@@ -225,7 +225,7 @@ protected:
 class IntegerCounterClkUpClkDownView : public IntegerCounterBaseView
 {
 public:
-	IntegerCounterClkUpClkDownView(IntegerCounterClkUpClkDown * comp, eViewType viewType);
+	IntegerCounterClkUpClkDownView(IntegerCounterClkUpClkDown * comp, eViewType viewType, const char * name);
 //	~IntegerCounterClkUpClkDownView();
 
 	IntegerCounterClkUpClkDown * getCounterClkUpClkDown() const { return (IntegerCounterClkUpClkDown*) getComponent(); };
@@ -270,7 +270,7 @@ protected:
 class IntegerCounterClkUpClkDownLoadView : public IntegerCounterClkUpClkDownView
 {
 public:
-	IntegerCounterClkUpClkDownLoadView(IntegerCounterClkUpClkDownLoad * comp, eViewType viewType);
+	IntegerCounterClkUpClkDownLoadView(IntegerCounterClkUpClkDownLoad * comp, eViewType viewType, const char * name);
 //	~IntegerCounterClkUpClkDownLoadView();
 
 	IntegerCounterClkUpClkDownLoad * getCounterClkUpClkDownLoad() const { return (IntegerCounterClkUpClkDownLoad*) getComponent(); };
@@ -315,7 +315,7 @@ protected:
 class IntegerCounterClkDirView : public IntegerCounterBaseView
 {
 public:
-	IntegerCounterClkDirView(IntegerCounterClkDir * comp, eViewType viewType);
+	IntegerCounterClkDirView(IntegerCounterClkDir * comp, eViewType viewType, const char * name);
 //	~IntegerCounterClkDirView();
 
 	IntegerCounterClkDir * getCounterClkDir() const { return (IntegerCounterClkDir*) getComponent(); };
@@ -359,7 +359,7 @@ protected:
 class IntegerCounterClkDirLoadView : public IntegerCounterClkDirView
 {
 public:
-	IntegerCounterClkDirLoadView(IntegerCounterClkDirLoad * comp, eViewType viewType);
+	IntegerCounterClkDirLoadView(IntegerCounterClkDirLoad * comp, eViewType viewType, const char * name);
 //	~IntegerCounterClkDirLoadView();
 
 	IntegerCounterClkDirLoad * getCounterClkDirLoad() const { return (IntegerCounterClkDirLoad*) getComponent(); };

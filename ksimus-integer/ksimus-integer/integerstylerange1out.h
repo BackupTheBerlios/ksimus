@@ -134,8 +134,8 @@ class IntegerStyleRange1OutView : public IntegerStyle1OutView
 	Q_OBJECT
 
 public:	
-	IntegerStyleRange1OutView(IntegerStyleRange1Out * comp, eViewType viewType)
-	:	IntegerStyle1OutView(comp, viewType) {};
+	IntegerStyleRange1OutView(IntegerStyleRange1Out * comp, eViewType viewType, const char * name)
+	:	IntegerStyle1OutView(comp, viewType, name) {};
 	
 	IntegerStyleRange1Out* getComponent() { return (IntegerStyleRange1Out*) IntegerStyle1OutView::getComponent(); };
 };

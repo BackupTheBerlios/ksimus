@@ -98,12 +98,12 @@ FloatLineInput::FloatLineInput(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatLineInputView(this, SHEET_VIEW);
+		new FloatLineInputView(this, SHEET_VIEW, "FloatLineInputSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new FloatLineInputView(this, USER_VIEW);
+		new FloatLineInputView(this, USER_VIEW, "FloatLineInputUV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -232,8 +232,8 @@ ComponentPropertyBaseWidget * FloatLineInput::createGeneralProperty(QWidget *par
 //############################################################################
 //############################################################################
 
-FloatLineInputView::FloatLineInputView(FloatLineInput * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+FloatLineInputView::FloatLineInputView(FloatLineInput * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType,name)
 {
 	enableRotation(false);
 	

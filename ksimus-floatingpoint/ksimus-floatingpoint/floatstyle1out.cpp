@@ -131,8 +131,8 @@ ComponentPropertyBaseWidget * FloatStyle1Out::createGeneralProperty(QWidget *par
 //###############################################################
 
 
-FloatStyle1OutView::FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType)
-	: CompViewSize(comp, viewType)
+FloatStyle1OutView::FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 //	enableRotation(true);

@@ -75,12 +75,12 @@ IntegerLineInput::IntegerLineInput(CompContainer * container, const ComponentInf
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerLineInputView(this, SHEET_VIEW);
+		new IntegerLineInputView(this, SHEET_VIEW, "IntegerLineInputSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new IntegerLineInputView(this, USER_VIEW);
+		new IntegerLineInputView(this, USER_VIEW, "IntegerLineInputUV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -166,8 +166,8 @@ ComponentPropertyBaseWidget * IntegerLineInput::createGeneralProperty(QWidget *p
 //############################################################################
 //############################################################################
 
-IntegerLineInputView::IntegerLineInputView(IntegerLineInput * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+IntegerLineInputView::IntegerLineInputView(IntegerLineInput * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	enableRotation(false);
 	

@@ -123,7 +123,7 @@ public:
 	
 
 protected:
-	FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType);
+	FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType, const char * name);
 	
 private:	
 	ComponentLayoutSimple * m_layout;

@@ -66,7 +66,7 @@ IntegerMin::IntegerMin(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerXIn1OutView(this, SHEET_VIEW, "Min");
+		new IntegerXIn1OutView(this, SHEET_VIEW, QString::fromLatin1("Min"), "IntegerMinSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

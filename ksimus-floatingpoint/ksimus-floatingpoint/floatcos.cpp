@@ -121,7 +121,7 @@ FloatCos::FloatCos(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("cos"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("cos"), "FloatCosSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -144,7 +144,7 @@ FloatACos::FloatACos(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ncos"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ncos"), "FloatACosSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -167,7 +167,7 @@ FloatCosh::FloatCosh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("cos\nhyp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("cos\nhyp"), "FloatCoshSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -190,7 +190,7 @@ FloatACosh::FloatACosh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ncos\nhyp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ncos\nhyp"), "FloatACoshSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

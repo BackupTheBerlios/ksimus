@@ -43,7 +43,7 @@ class QGroupBox;
 class ExternalConnectorSV : public CompView
 {
 public:
-	ExternalConnectorSV(Component * comp);
+	ExternalConnectorSV(Component * comp, const char * name);
 	~ExternalConnectorSV();
 	virtual void draw(QPainter * p);
 };
@@ -53,7 +53,7 @@ public:
 class ExternalConnectorMultipleOutputSV : public CompView
 {
 public:
-	ExternalConnectorMultipleOutputSV(Component * comp);
+	ExternalConnectorMultipleOutputSV(Component * comp, const char * name);
 	~ExternalConnectorMultipleOutputSV();
 	virtual void draw(QPainter * p);
 };

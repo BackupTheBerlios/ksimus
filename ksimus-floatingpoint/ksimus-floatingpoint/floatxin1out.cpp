@@ -65,8 +65,8 @@ FloatXIn1Out::FloatXIn1Out(CompContainer * container, const ComponentInfo * ci)
 
 
 
-FloatXIn1OutView::FloatXIn1OutView(FloatXIn1Out * comp, eViewType viewType, const QString & text)
-	: CompView(comp, viewType)
+FloatXIn1OutView::FloatXIn1OutView(FloatXIn1Out * comp, eViewType viewType, const QString & text, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);

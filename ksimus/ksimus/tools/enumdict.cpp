@@ -41,7 +41,7 @@ EnumBaseDict::EnumBaseDict(const tData * pData, int size, bool caseSensitive, bo
 	{
 		// Resize QDict if size is to small
 		KSIMDEBUG(QString::fromLatin1("EnumBaseDict::EnumBaseDict i(%1) > size(%2) (%3)")
-		          .arg(i).arg(size).arg(pData->name));
+		          .arg(i).arg(size).arg(QString::fromLatin1(pData->name)));
 		m_dict->resize(getGreaterPrim(i));
 	}
 	

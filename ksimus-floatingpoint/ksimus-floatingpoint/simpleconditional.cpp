@@ -143,7 +143,7 @@ SimpleConditional::SimpleConditional(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "SimpleConditionalSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -242,8 +242,8 @@ ComponentPropertyBaseWidget * SimpleConditional::createGeneralProperty(QWidget *
 }
 
 
-SimpleConditional::View::View(SimpleConditional * comp, eViewType viewType)
-	: CompView(comp, viewType)
+SimpleConditional::View::View(SimpleConditional * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	enableConnectorSpacingTop(false);
 	enableConnectorSpacingBottom(false);

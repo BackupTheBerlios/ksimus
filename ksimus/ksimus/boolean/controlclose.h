@@ -99,7 +99,7 @@ class ControlCloseView : public CompView
 {
 
 public:
-	ControlCloseView(ControlClose * comp, eViewType viewType);
+	ControlCloseView(ControlClose * comp, eViewType viewType, const char * name);
 	~ControlCloseView();
 	
 	virtual void draw(QPainter * p);

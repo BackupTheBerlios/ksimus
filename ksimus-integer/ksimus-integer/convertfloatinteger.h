@@ -108,7 +108,7 @@ protected:
 class ConvertFloatInteger::View : public CompView
 {
 public:
-	View(ConvertFloatInteger * comp, eViewType viewType);
+	View(ConvertFloatInteger * comp, eViewType viewType, const char * name);
 //	~View();
 	
 	virtual void draw(QPainter * p);

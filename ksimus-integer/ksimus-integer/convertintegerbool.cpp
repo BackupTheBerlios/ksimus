@@ -93,7 +93,7 @@ ConvertIntegerBool::ConvertIntegerBool(CompContainer * container, const Componen
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "ConvertIntegerBoolSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -217,8 +217,8 @@ ComponentPropertyBaseWidget * ConvertIntegerBool::createGeneralProperty(QWidget 
 //###############################################################
 
 
-ConvertIntegerBool::View::View(ConvertIntegerBool * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ConvertIntegerBool::View::View(ConvertIntegerBool * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);

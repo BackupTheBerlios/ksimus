@@ -87,7 +87,7 @@ private:
 class ClockGeneratorView : public CompView
 {
 public:
-	ClockGeneratorView(Component * comp, eViewType viewType);
+	ClockGeneratorView(Component * comp, eViewType viewType, const char * name);
 	
 	virtual void draw(QPainter * p);
 };

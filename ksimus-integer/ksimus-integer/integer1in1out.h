@@ -90,7 +90,7 @@ class Integer1In1OutView : public CompView
 	Q_OBJECT
 
 public:
-	Integer1In1OutView(Integer1In1Out * comp, eViewType viewType, const QString & text);
+	Integer1In1OutView(Integer1In1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~Integer1In1OutView();
 };
 

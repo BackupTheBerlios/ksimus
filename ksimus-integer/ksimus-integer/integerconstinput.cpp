@@ -75,7 +75,7 @@ IntegerConstInput::IntegerConstInput(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerConstInputView(this, SHEET_VIEW);
+		new IntegerConstInputView(this, SHEET_VIEW, "IntegerConstInputSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -142,8 +142,8 @@ void IntegerConstInput::updateValue(const KSimBaseInt & val)
 
 
 
-IntegerConstInputView::IntegerConstInputView(IntegerConstInput * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+IntegerConstInputView::IntegerConstInputView(IntegerConstInput * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{

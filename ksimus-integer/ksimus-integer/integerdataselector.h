@@ -138,7 +138,7 @@ class IntegerDataSelectorView : public CompView
 	Q_OBJECT
 
 public:
-	IntegerDataSelectorView(IntegerDataSelector * comp, eViewType viewType);
+	IntegerDataSelectorView(IntegerDataSelector * comp, eViewType viewType, const char * name);
 //	~IntegerDataSelectorView();
 	
 	IntegerDataSelector* getComponent() { return (IntegerDataSelector*) CompView::getComponent(); };

@@ -91,12 +91,12 @@ BooleanLed::BooleanLed(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BooleanLedView(this, SHEET_VIEW);
+		new BooleanLedView(this, SHEET_VIEW, "BooleanLedSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new BooleanLedView(this, USER_VIEW);
+		new BooleanLedView(this, USER_VIEW, "BooleanLedUV");
 	}
 }
 
@@ -203,8 +203,8 @@ void BooleanLed::setOffColor(const QColor & color)
 //############################################################################
 
 
-BooleanLedView::BooleanLedView(Component * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+BooleanLedView::BooleanLedView(Component * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -242,7 +242,7 @@ QWidget * BooleanLedView::createCompViewWidget(QWidget * parent)
 
 void BooleanLedView::resize()
 {
-	CompViewSize::resize();	
+	CompViewSize::resize();
 
 	if (getViewType() == SHEET_VIEW)
 	{

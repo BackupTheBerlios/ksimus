@@ -104,7 +104,7 @@ FloatExp::FloatExp(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("exp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("exp"), "FloatExpSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -127,7 +127,7 @@ FloatPow::FloatPow(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("pow"));
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("pow"), "SV");
 	}
 	getInputA()->setName(i18n("FloatingPoint", "Base"));
 	getInputB()->setName(i18n("FloatingPoint", "Power"));
@@ -152,7 +152,7 @@ FloatSqrt::FloatSqrt(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sqrt"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sqrt"), "SV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

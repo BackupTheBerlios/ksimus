@@ -63,7 +63,7 @@ FloatMax::FloatMax(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatXIn1OutView(this, SHEET_VIEW, "Max");
+		new FloatXIn1OutView(this, SHEET_VIEW, QString::fromLatin1("Max"), "FloatMaxSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

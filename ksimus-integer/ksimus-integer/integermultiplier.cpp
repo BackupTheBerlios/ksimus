@@ -64,7 +64,7 @@ IntegerMultiplier::IntegerMultiplier(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerXIn1OutView(this, SHEET_VIEW, "Mul");
+		new IntegerXIn1OutView(this, SHEET_VIEW, QString::fromLatin1("Mul"), "IntegerMultiplierSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

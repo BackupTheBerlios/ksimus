@@ -125,7 +125,7 @@ IntegerLatch::IntegerLatch(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "IntegerLatchSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -295,8 +295,8 @@ void IntegerLatch::menuExecuted()
 //###############################################################
 
 
-IntegerLatch::View::View(IntegerLatch * comp, eViewType viewType)
-	: CompView(comp, viewType)
+IntegerLatch::View::View(IntegerLatch * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -318,10 +318,10 @@ IntegerLatch::View::View(IntegerLatch * comp, eViewType viewType)
 		
 		layout->setMinSize(4,5);
 
-		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "Latch", AlignCenter, 0.0);
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), QString::fromLatin1("Latch"), AlignCenter, 0.0);
 	
-		new ConnectorLabel(getComponent()->getInputReset(), "R");
-		new ConnectorLabel(getComponent()->getInputEnable(), "E");
+		new ConnectorLabel(getComponent()->getInputReset(), QString::fromLatin1("R"));
+		new ConnectorLabel(getComponent()->getInputEnable(), QString::fromLatin1("E"));
 	}
 }
 

@@ -188,8 +188,8 @@ void IntegerCounterBase::initPropertyDialog(ComponentPropertyDialog * dialog)
 //###############################################################
 //###############################################################
 
-IntegerCounterBaseView::IntegerCounterBaseView(IntegerCounterBase * comp, eViewType viewType)
-	: CompView(comp, viewType)
+IntegerCounterBaseView::IntegerCounterBaseView(IntegerCounterBase * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -209,11 +209,11 @@ IntegerCounterBaseView::IntegerCounterBaseView(IntegerCounterBase * comp, eViewT
 		m_layout->getFuncBlock()->getRight()->addSpace(1);
 		m_layout->getFuncBlock()->getRight()->addConnector(getCounterBase()->getOutput());
 		
-		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), "CTR", (AlignHCenter | AlignTop), 0.0);
+		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), QString::fromLatin1("CTR"), (AlignHCenter | AlignTop), 0.0);
 		
-		new ConnectorLabel(getCounterBase()->getInputClear(), "R");
-		new ConnectorLabel(getCounterBase()->getOutputMin(), "Min");
-		new ConnectorLabel(getCounterBase()->getOutputMax(), "Max");
+		new ConnectorLabel(getCounterBase()->getInputClear(), QString::fromLatin1("R"));
+		new ConnectorLabel(getCounterBase()->getOutputMin(), QString::fromLatin1("Min"));
+		new ConnectorLabel(getCounterBase()->getOutputMax(), QString::fromLatin1("Max"));
 	}
 }
 
@@ -368,7 +368,7 @@ IntegerCounterClkUpClkDown::IntegerCounterClkUpClkDown(CompContainer * container
 	// Initializes the sheet view
 	if (getSheetMap() && (ci == getStaticInfo()))
 	{
-		new IntegerCounterClkUpClkDownView(this, SHEET_VIEW);
+		new IntegerCounterClkUpClkDownView(this, SHEET_VIEW, "IntegerCounterClkUpClkDownSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -434,8 +434,8 @@ void IntegerCounterClkUpClkDown::checkProperty(QStringList & errorMsg)
 //###############################################################
 //###############################################################
 
-IntegerCounterClkUpClkDownView::IntegerCounterClkUpClkDownView(IntegerCounterClkUpClkDown * comp, eViewType viewType)
-	: IntegerCounterBaseView(comp, viewType)
+IntegerCounterClkUpClkDownView::IntegerCounterClkUpClkDownView(IntegerCounterClkUpClkDown * comp, eViewType viewType, const char * name)
+	: IntegerCounterBaseView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -443,8 +443,8 @@ IntegerCounterClkUpClkDownView::IntegerCounterClkUpClkDownView(IntegerCounterClk
 		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkUpClkDown()->getInputClockDown());
 //		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
 
-		new ConnectorLabel(getCounterClkUpClkDown()->getInputClockUp(), "Up");
-		new ConnectorLabel(getCounterClkUpClkDown()->getInputClockDown(), "Do");
+		new ConnectorLabel(getCounterClkUpClkDown()->getInputClockUp(), QString::fromLatin1("Up"));
+		new ConnectorLabel(getCounterClkUpClkDown()->getInputClockDown(), QString::fromLatin1("Do"));
 	}
 }
 
@@ -488,7 +488,7 @@ IntegerCounterClkUpClkDownLoad::IntegerCounterClkUpClkDownLoad(CompContainer * c
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerCounterClkUpClkDownLoadView(this, SHEET_VIEW);
+		new IntegerCounterClkUpClkDownLoadView(this, SHEET_VIEW, "IntegerCounterClkUpClkDownLoadSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -562,8 +562,8 @@ void IntegerCounterClkUpClkDownLoad::calculate()
 //###############################################################
 //###############################################################
 
-IntegerCounterClkUpClkDownLoadView::IntegerCounterClkUpClkDownLoadView(IntegerCounterClkUpClkDownLoad * comp, eViewType viewType)
-	: IntegerCounterClkUpClkDownView(comp, viewType)
+IntegerCounterClkUpClkDownLoadView::IntegerCounterClkUpClkDownLoadView(IntegerCounterClkUpClkDownLoad * comp, eViewType viewType, const char * name)
+	: IntegerCounterClkUpClkDownView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -573,7 +573,7 @@ IntegerCounterClkUpClkDownLoadView::IntegerCounterClkUpClkDownLoadView(IntegerCo
 		getComponentLayout()->getFuncBlock()->getLeft()->addSpace(1);
 		getComponentLayout()->getFuncBlock()->getLeft()->addConnector(getCounterClkUpClkDownLoad()->getInputCounter());
 
-		new ConnectorLabel(getCounterClkUpClkDownLoad()->getInputLoadEnable(), "Ld");
+		new ConnectorLabel(getCounterClkUpClkDownLoad()->getInputLoadEnable(), QString::fromLatin1("Ld"));
 	}
 }
 
@@ -623,7 +623,7 @@ IntegerCounterClkDir::IntegerCounterClkDir(CompContainer * container, const Comp
 	// Initializes the sheet view
 	if (getSheetMap() && (ci == getStaticInfo()))
 	{
-		new IntegerCounterClkDirView(this, SHEET_VIEW);
+		new IntegerCounterClkDirView(this, SHEET_VIEW, "IntegerCounterClkDirSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -682,8 +682,8 @@ void IntegerCounterClkDir::calculate()
 //###############################################################
 //###############################################################
 
-IntegerCounterClkDirView::IntegerCounterClkDirView(IntegerCounterClkDir * comp, eViewType viewType)
-	: IntegerCounterBaseView(comp, viewType)
+IntegerCounterClkDirView::IntegerCounterClkDirView(IntegerCounterClkDir * comp, eViewType viewType, const char * name)
+	: IntegerCounterBaseView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -691,8 +691,8 @@ IntegerCounterClkDirView::IntegerCounterClkDirView(IntegerCounterClkDir * comp, 
 		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkDir()->getInputClock());
 //		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
 
-		new ConnectorLabel(getCounterClkDir()->getInputDir(), "Dir");
-		new ConnectorLabel(getCounterClkDir()->getInputClock(), "Clk");
+		new ConnectorLabel(getCounterClkDir()->getInputDir(), QString::fromLatin1("Dir"));
+		new ConnectorLabel(getCounterClkDir()->getInputClock(), QString::fromLatin1("Clk"));
 	}
 }
 
@@ -735,7 +735,7 @@ IntegerCounterClkDirLoad::IntegerCounterClkDirLoad(CompContainer * container, co
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerCounterClkDirLoadView(this, SHEET_VIEW);
+		new IntegerCounterClkDirLoadView(this, SHEET_VIEW, "IntegerCounterClkDirLoadSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -813,8 +813,8 @@ void IntegerCounterClkDirLoad::calculate()
 //###############################################################
 //###############################################################
 
-IntegerCounterClkDirLoadView::IntegerCounterClkDirLoadView(IntegerCounterClkDirLoad * comp, eViewType viewType)
-	: IntegerCounterClkDirView(comp, viewType)
+IntegerCounterClkDirLoadView::IntegerCounterClkDirLoadView(IntegerCounterClkDirLoad * comp, eViewType viewType, const char * name)
+	: IntegerCounterClkDirView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -824,7 +824,7 @@ IntegerCounterClkDirLoadView::IntegerCounterClkDirLoadView(IntegerCounterClkDirL
 		getComponentLayout()->getFuncBlock()->getLeft()->addSpace(1);
 		getComponentLayout()->getFuncBlock()->getLeft()->addConnector(getCounterClkDirLoad()->getInputCounter());
 
-		new ConnectorLabel(getCounterClkDirLoad()->getInputLoadEnable(), "Ld");
+		new ConnectorLabel(getCounterClkDirLoad()->getInputLoadEnable(), QString::fromLatin1("Ld"));
 	}
 }
 

@@ -141,7 +141,7 @@ private:
 class FloatLatch::View : public CompView
 {
 public:
-	View(FloatLatch * comp, eViewType viewType);
+	View(FloatLatch * comp, eViewType viewType, const char * name);
 //	~View();
 	
 	FloatLatch* getComponent() { return (FloatLatch*) CompView::getComponent(); };

@@ -120,7 +120,7 @@ private:
 class WaveformGeneratorView : public Float1OutView
 {
 public:
-	WaveformGeneratorView(WaveformGenerator * comp, eViewType viewType);
+	WaveformGeneratorView(WaveformGenerator * comp, eViewType viewType, const char * name);
 	~WaveformGeneratorView();
 	
 	virtual void draw(QPainter * p);

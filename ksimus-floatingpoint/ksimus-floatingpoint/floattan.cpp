@@ -144,7 +144,7 @@ FloatTan::FloatTan(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("tan"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("tan"), "FloatTanSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -167,7 +167,7 @@ FloatATan::FloatATan(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan"), "FloatATanSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -190,7 +190,7 @@ FloatATan2::FloatATan2(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan\n2"));
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan\n2"), "FloatATan2SV");
 	}
 	getInputA()->setName(i18n("FloatingPoint", "Input X"));
 	getInputB()->setName(i18n("FloatingPoint", "Input Y"));
@@ -215,7 +215,7 @@ FloatTanh::FloatTanh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("tan\nhyp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("tan\nhyp"), "FloatTanhSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -238,7 +238,7 @@ FloatATanh::FloatATanh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan\nhyp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan\nhyp"), "FloatATanhSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

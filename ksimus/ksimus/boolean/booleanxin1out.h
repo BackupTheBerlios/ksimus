@@ -87,17 +87,13 @@ private:
   * @author Rasmus Diekenbrock
   */
 
-class BooleanXIn1OutView : public Boolean1OutView
+class BooleanXIn1OutView : public CompView
 {
-
-Q_OBJECT
-
 public:
+	BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~BooleanXIn1OutView();
 
 protected:
-	BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType);
-
 };
 
 

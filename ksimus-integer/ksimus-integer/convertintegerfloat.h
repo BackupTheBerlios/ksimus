@@ -77,7 +77,7 @@ private:
 class ConvertIntegerFloat::View : public CompView
 {
 public:
-	View(ConvertIntegerFloat * comp, eViewType viewType);
+	View(ConvertIntegerFloat * comp, eViewType viewType, const char * name);
 //	~View();
 	
 	virtual void draw(QPainter * p);

@@ -61,7 +61,7 @@ IntegerSubtractor::IntegerSubtractor(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Integer2In1OutView(this, SHEET_VIEW, "Sub");
+		new Integer2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Sub"), "IntegerSubtractorSV");
 	}
 
 	getInputA()->setName(i18n("Integer", "Minuend"));

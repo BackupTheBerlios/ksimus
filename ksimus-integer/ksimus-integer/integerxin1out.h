@@ -88,7 +88,7 @@ private:
 class IntegerXIn1OutView : public CompView
 {
 public:
-	IntegerXIn1OutView(IntegerXIn1Out * comp, eViewType viewType, const QString & text);
+	IntegerXIn1OutView(IntegerXIn1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~IntegerXIn1OutView();
 };
 

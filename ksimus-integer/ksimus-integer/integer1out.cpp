@@ -141,8 +141,8 @@ ComponentPropertyBaseWidget * Integer1Out::createGeneralProperty(QWidget *parent
 //###############################################################
 
 
-Integer1OutView::Integer1OutView(Integer1Out * comp, eViewType viewType, const QString & text)
-	: CompView(comp, viewType)
+Integer1OutView::Integer1OutView(Integer1Out * comp, eViewType viewType, const QString & text, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);

@@ -154,47 +154,32 @@ ComponentPropertyBaseWidget * Boolean1Out::createGeneralProperty(QWidget *parent
 //###############################################################
 
 
-Boolean1OutView::Boolean1OutView(Boolean1Out * comp, eViewType viewType)
-	: CompView(comp, viewType)
+Boolean1OutView::Boolean1OutView(Boolean1Out * comp, eViewType viewType, const QString & text, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
-/*		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
-
-		m_layout->getRight()->addStretch(2);
-		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
-		m_layout->getRight()->addStretch(2);
-
-		m_layout->updateLayout();*/
-		m_layout = new ComponentLayoutSimple(this);
-		CHECK_PTR(m_layout);
-
-		((ComponentLayoutSimple*)m_layout)->getRight()->addStretch(2);
-		((ComponentLayoutSimple*)m_layout)->getRight()->addConnector(comp->getOutputConnector(),0);
-		((ComponentLayoutSimple*)m_layout)->getRight()->addStretch(2);
-
-//		m_layout->updateLayout();
-	}
-	else
-	{
-		m_layout = 0;
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
+	
+		layout->setMinSize(3, 5);
+		
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector(),0);
+		layout->getRight()->addStretch(2);
+	
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getBlock(), text);
+		}
 	}
 }
 /*Boolean1OutView::~Boolean1OutView()
 {
 }*/
-
-void Boolean1OutView::draw(QPainter * p)
-{
-	drawFrame(p);
-	
-	CompView::draw(p);
-}
-
 
 //###############################################################
 //###############################################################

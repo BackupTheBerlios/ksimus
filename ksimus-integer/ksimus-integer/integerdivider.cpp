@@ -63,7 +63,7 @@ IntegerDivider::IntegerDivider(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Integer2In1OutView(this, SHEET_VIEW, "Div");
+		new Integer2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Div"), "IntegerDividerSV");
 	}
 
 	getInputA()->setName(i18n("Integer", "Dividend"), true);

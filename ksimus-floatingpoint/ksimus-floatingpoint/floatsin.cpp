@@ -119,7 +119,7 @@ FloatSin::FloatSin(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sin"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sin"), "FloatSinSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -142,7 +142,7 @@ FloatASin::FloatASin(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\nsin"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\nsin"), "FloatASinSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -165,7 +165,7 @@ FloatSinh::FloatSinh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sin\nhyp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sin\nhyp"), "FloatSinhSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -188,7 +188,7 @@ FloatASinh::FloatASinh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\nsin\nhyp"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\nsin\nhyp"), "FloatASinhSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

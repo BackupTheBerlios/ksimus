@@ -135,7 +135,7 @@ IntegerDataSelector::IntegerDataSelector(CompContainer * container, const Compon
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerDataSelectorView(this, SHEET_VIEW);
+		new IntegerDataSelectorView(this, SHEET_VIEW, "IntegerDataSelectorSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -300,8 +300,8 @@ void IntegerDataSelector::menuExecuted()
 //###############################################################
 
 
-IntegerDataSelectorView::IntegerDataSelectorView(IntegerDataSelector * comp, eViewType viewType)
-	: CompView(comp, viewType)
+IntegerDataSelectorView::IntegerDataSelectorView(IntegerDataSelector * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -325,10 +325,10 @@ IntegerDataSelectorView::IntegerDataSelectorView(IntegerDataSelector * comp, eVi
 		
 		layout->getFuncBlock()->setMinSize(4,5);
 	
-		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "MUX", AlignCenter, 270.0);
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), QString::fromLatin1("MUX"), AlignCenter, 270.0);
 	
-		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
-		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
+		new ConnectorLabel(getComponent()->getLatchOutput(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getComponent()->getLatchAddress(), QString::fromLatin1("EA"));
 	
 		unsigned int i = 1;
 		FOR_EACH_CONNECTOR(it, *getComponent()->getInputPack()->getConnList())

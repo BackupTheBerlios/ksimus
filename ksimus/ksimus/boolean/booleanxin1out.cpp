@@ -27,6 +27,7 @@
 #include "resource.h"
 #include "ksimdebug.h"
 #include "connectorboolin.h"
+#include "connectorboolout.h"
 #include "connectorpack.h"
 #include "componentlayout.h"
 
@@ -61,13 +62,30 @@ BooleanXIn1Out::BooleanXIn1Out(CompContainer * container, const ComponentInfo * 
 
 
 
-BooleanXIn1OutView::BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType)
-	: Boolean1OutView(comp, viewType)
+BooleanXIn1OutView::BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType, const QString & text, const char * name)
+	: CompView(comp, viewType, name)
 {
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableRotation(true);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		((ComponentLayoutSimple*)getComponentLayout())->getLeft()->addSpace(1);
-		((ComponentLayoutSimple*)getComponentLayout())->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
+	
+		layout->setMinSize(3, 5);
+
+		layout->getLeft()->addSpace(1);
+		layout->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+		
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector());
+		layout->getRight()->addStretch(2);
+		
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getBlock(), text);
+		}
 	}
 }
 

@@ -155,7 +155,7 @@ IntegerConditional::IntegerConditional(CompContainer * container, const Componen
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "IntegerConditionalSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -255,8 +255,8 @@ ComponentPropertyBaseWidget * IntegerConditional::createGeneralProperty(QWidget 
 //###############################################################
 //###############################################################
 
-IntegerConditional::View::View(IntegerConditional * comp, eViewType viewType)
-	: CompView(comp, viewType)
+IntegerConditional::View::View(IntegerConditional * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	enableConnectorSpacingTop(false);
 	enableConnectorSpacingBottom(false);

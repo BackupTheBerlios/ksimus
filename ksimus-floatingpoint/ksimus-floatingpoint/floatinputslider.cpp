@@ -85,17 +85,16 @@ FloatInputSlider::FloatInputSlider(CompContainer * container, const ComponentInf
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatInputSliderView(this, SHEET_VIEW);
+		new FloatInputSliderView(this, SHEET_VIEW, "FloatInputSliderSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new FloatInputSliderView(this, USER_VIEW);
+		new FloatInputSliderView(this, USER_VIEW, "FloatInputSliderSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
 }
-
 
 void FloatInputSlider::reset()
 {
@@ -181,8 +180,8 @@ ComponentPropertyBaseWidget * FloatInputSlider::createGeneralProperty(QWidget *p
 
 
 
-FloatInputSliderView::FloatInputSliderView(FloatInputSlider * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+FloatInputSliderView::FloatInputSliderView(FloatInputSlider * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	enableRotation(false);
 	

@@ -83,7 +83,7 @@ ControlClose::ControlClose(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ControlCloseView(this, SHEET_VIEW);
+		new ControlCloseView(this, SHEET_VIEW, "ControlCloseSV");
 		getTriggerConnector()->setGridPos(0, getSheetView()->getPlace().height() / gridY / 2);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -162,8 +162,8 @@ int ControlCloseView::height = 0;
 int ControlCloseView::width = 0;
 
 
-ControlCloseView::ControlCloseView(ControlClose * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ControlCloseView::ControlCloseView(ControlClose * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (!pIcon)
 	{

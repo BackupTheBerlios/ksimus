@@ -100,7 +100,7 @@ ConvertFloatInteger::ConvertFloatInteger(CompContainer * container, const Compon
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "ConvertFloatIntegerSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -197,8 +197,8 @@ ComponentPropertyBaseWidget * ConvertFloatInteger::createGeneralProperty(QWidget
 //###############################################################
 
 
-ConvertFloatInteger::View::View(ConvertFloatInteger * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ConvertFloatInteger::View::View(ConvertFloatInteger * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);

@@ -62,7 +62,7 @@ IntegerRemainder::IntegerRemainder(CompContainer * container, const ComponentInf
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Integer2In1OutView(this, SHEET_VIEW, "Mod");
+		new Integer2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Mod"), "IntegerRemainderSV");
 	}
 
 	getInputA()->setName(i18n("Integer", "Dividend"), true);

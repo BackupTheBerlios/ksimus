@@ -111,7 +111,7 @@ class ConvertFloatBoolView : public CompView
 	Q_OBJECT
 
 public:
-	ConvertFloatBoolView(ConvertFloatBool * comp, eViewType viewType);
+	ConvertFloatBoolView(ConvertFloatBool * comp, eViewType viewType, const char * name);
 //	~ConvertFloatBoolView();
 	
 	virtual void draw(QPainter * p);

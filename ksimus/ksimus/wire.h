@@ -78,7 +78,7 @@ class WireSV: public CompView
 Q_OBJECT
 
 public:
-	WireSV(Component * comp);
+	WireSV(Component * comp, const char * name);
 	~WireSV();
 	virtual void draw(QPainter * p);
 	virtual void drawBound(QPainter * p);

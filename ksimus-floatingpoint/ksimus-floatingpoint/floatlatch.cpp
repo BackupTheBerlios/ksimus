@@ -127,7 +127,7 @@ FloatLatch::FloatLatch(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "FloatLatchSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -297,8 +297,8 @@ void FloatLatch::menuExecuted()
 //###############################################################
 
 
-FloatLatch::View::View(FloatLatch * comp, eViewType viewType)
-	: CompView(comp, viewType)
+FloatLatch::View::View(FloatLatch * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 	if (viewType == SHEET_VIEW)
@@ -320,10 +320,10 @@ FloatLatch::View::View(FloatLatch * comp, eViewType viewType)
 		
 		layout->setMinSize(4,5);
 
-		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "Latch", AlignCenter, 0.0);
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), QString::fromLatin1("Latch"), AlignCenter, 0.0);
 	
-		new ConnectorLabel(getComponent()->getInputReset(), "R");
-		new ConnectorLabel(getComponent()->getInputEnable(), "E");
+		new ConnectorLabel(getComponent()->getInputReset(), QString::fromLatin1("R"));
+		new ConnectorLabel(getComponent()->getInputEnable(), QString::fromLatin1("E"));
 	}
 }
 

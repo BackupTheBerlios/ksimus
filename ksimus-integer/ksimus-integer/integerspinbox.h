@@ -164,7 +164,7 @@ class IntegerSpinboxView : public CompViewSize
 	Q_OBJECT
 
 public:
-	IntegerSpinboxView(IntegerSpinbox * comp, eViewType viewType);
+	IntegerSpinboxView(IntegerSpinbox * comp, eViewType viewType, const char * name);
 //	virtual ~IntegerSpinboxView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

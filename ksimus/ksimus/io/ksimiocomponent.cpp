@@ -106,7 +106,7 @@ KSimIoComponent::KSimIoComponent(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new KSimIoComponentView(this, SHEET_VIEW);
+		new KSimIoComponentView(this, SHEET_VIEW, "KSimIoComponentSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -376,8 +376,8 @@ unsigned int KSimIoComponent::getNextSerial()
 //###############################################################
 
 
-KSimIoComponentView::KSimIoComponentView(KSimIoComponent * comp, eViewType viewType)
-	: CompView(comp, viewType)
+KSimIoComponentView::KSimIoComponentView(KSimIoComponent * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 3*gridX, 3*gridY));
 	enableRotation(true);

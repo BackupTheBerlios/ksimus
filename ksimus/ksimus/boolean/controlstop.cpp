@@ -81,7 +81,7 @@ ControlStop::ControlStop(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ControlStopView(this, SHEET_VIEW);
+		new ControlStopView(this, SHEET_VIEW, "ControlStopSV");
 		getTriggerConnector()->setGridPos(0, getSheetView()->getPlace().height() / gridY / 2);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -160,8 +160,8 @@ int ControlStopView::height = 0;
 int ControlStopView::width = 0;
 
 
-ControlStopView::ControlStopView(ControlStop * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ControlStopView::ControlStopView(ControlStop * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (!pIcon)
 	{

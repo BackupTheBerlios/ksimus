@@ -344,7 +344,7 @@ QPixmap KSimIcon::load(const char * name, KIcon::Group group, KIcon::States stat
 	if (defIcon->name == 0)
 	{
 		KSIMDEBUG(QString::fromLatin1("FIXME: Icon not in repository! Name=%1 Group=%2, State=%3")
-		                              .arg(name)
+		                              .arg(QString::fromLatin1(name))
 		                              .arg((int) group)
 		                              .arg((int) state));
 	}
@@ -369,7 +369,7 @@ QPixmap KSimIcon::load(const char * name, KIcon::Group group, KIcon::States stat
 	if (defIcon->name != 0)
 	{
 		KSIMDEBUG(QString::fromLatin1("Use icon from repository! Name=%1 Group=%2, State=%3")
-		                            .arg(name)
+		                            .arg(QString::fromLatin1(name))
 		                            .arg((int) group)
 		                            .arg((int) state));
 		return QPixmap(defIcon->xpm);

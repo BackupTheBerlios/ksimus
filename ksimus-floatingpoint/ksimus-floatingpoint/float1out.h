@@ -114,7 +114,7 @@ class Float1OutView : public CompView
 	Q_OBJECT
 
 public:
-	Float1OutView(Float1Out * comp, eViewType viewType, const QString & text = QString::null);
+	Float1OutView(Float1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~Float1OutView();
 	
 	ComponentLayoutSimple * getComponentLayout() const { return m_layout; };

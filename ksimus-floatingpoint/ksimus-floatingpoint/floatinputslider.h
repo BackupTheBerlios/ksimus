@@ -105,7 +105,7 @@ class FloatInputSliderView : public CompViewSize
 	Q_OBJECT
 
 public:	
-	FloatInputSliderView(FloatInputSlider * comp, eViewType viewType);
+	FloatInputSliderView(FloatInputSlider * comp, eViewType viewType, const char * name);
 //	virtual ~FloatInputSliderView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

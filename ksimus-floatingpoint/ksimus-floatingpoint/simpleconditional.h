@@ -108,7 +108,7 @@ protected:
 class SimpleConditional::View : public CompView
 {
 public:
-	View(SimpleConditional * comp, eViewType viewType);
+	View(SimpleConditional * comp, eViewType viewType, const char * name);
 //	~View();
 	
 	virtual void draw(QPainter * p);

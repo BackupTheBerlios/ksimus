@@ -14,3 +14,5 @@ stamp-h
 stamp-h.in
 ksimus.kdevelop.pcs
 ksimus.kdevses
+debug
+autom4te.cache

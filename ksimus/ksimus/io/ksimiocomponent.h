@@ -97,7 +97,7 @@ class KSimIoComponentView : public CompView
 {
    Q_OBJECT
 public:
-	KSimIoComponentView(KSimIoComponent * comp, eViewType viewType);
+	KSimIoComponentView(KSimIoComponent * comp, eViewType viewType, const char * name);
 
 	virtual void draw(QPainter * p);
 	void updateLayout();

@@ -67,7 +67,7 @@ FloatAbs::FloatAbs(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("Abs"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("Abs"), "FloatAbsSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

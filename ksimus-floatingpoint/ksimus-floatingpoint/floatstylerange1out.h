@@ -126,8 +126,8 @@ class FloatStyleRange1OutView : public KSimLibFloatingPoint::FloatStyle1OutView
 	Q_OBJECT
 
 public:	
-	FloatStyleRange1OutView(FloatStyleRange1Out * comp, eViewType viewType)
-		:	FloatStyle1OutView(comp, viewType) {};
+	FloatStyleRange1OutView(FloatStyleRange1Out * comp, eViewType viewType, const char * name)
+		:	FloatStyle1OutView(comp, viewType, name) {};
 	
 	FloatStyleRange1Out* getComponent() { return (FloatStyleRange1Out*) FloatStyle1OutView::getComponent(); };
 };

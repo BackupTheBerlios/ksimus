@@ -95,7 +95,7 @@ private:
 class IntegerDelay::View : public CompView
 {
 public:
-	View(IntegerDelay * comp, eViewType viewType);
+	View(IntegerDelay * comp, eViewType viewType, const char * name);
 //	~View();
 	virtual void draw(QPainter * p);
 	

@@ -138,7 +138,7 @@ DataSelector::DataSelector(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new DataSelectorView(this, SHEET_VIEW);
+		new DataSelectorView(this, SHEET_VIEW, "DataSelectorSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -302,8 +302,8 @@ void DataSelector::menuExecuted()
 //###############################################################
 
 
-DataSelectorView::DataSelectorView(DataSelector * comp, eViewType viewType)
-	: CompView(comp, viewType)
+DataSelectorView::DataSelectorView(DataSelector * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 	if (viewType == SHEET_VIEW)
@@ -327,10 +327,10 @@ DataSelectorView::DataSelectorView(DataSelector * comp, eViewType viewType)
 		
 		layout->getFuncBlock()->setMinSize(4,5);
 	
-		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "MUX", AlignCenter, 270.0);
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), QString::fromLatin1("MUX"), AlignCenter, 270.0);
 	
-		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
-		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
+		new ConnectorLabel(getComponent()->getLatchOutput(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getComponent()->getLatchAddress(), QString::fromLatin1("EA"));
 	
 		unsigned int i = 1;
 		FOR_EACH_CONNECTOR(it, *getComponent()->getInputPack()->getConnList())

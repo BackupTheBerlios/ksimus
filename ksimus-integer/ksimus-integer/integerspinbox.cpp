@@ -88,12 +88,12 @@ IntegerSpinbox::IntegerSpinbox(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerSpinboxView(this, SHEET_VIEW);
+		new IntegerSpinboxView(this, SHEET_VIEW, "IntegerSpinboxSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new IntegerSpinboxView(this, USER_VIEW);
+		new IntegerSpinboxView(this, USER_VIEW, "IntegerSpinboxUV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -288,7 +288,7 @@ void IntegerSpinbox::checkProperty(QStringList & errorMsg)
 	IntegerStyleRange1Out::checkProperty(errorMsg);
 
 	bool ok;
-	QStringList list = QStringList::split("\n", getConstantList());
+	QStringList list(QStringList::split(QString::fromLatin1("\n"), getConstantList()));
 	QStringList::ConstIterator it = list.begin();
 
 	for(; it != list.end(); ++it)
@@ -305,8 +305,8 @@ void IntegerSpinbox::checkProperty(QStringList & errorMsg)
 //############################################################################
 //############################################################################
 
-IntegerSpinboxView::IntegerSpinboxView(IntegerSpinbox * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+IntegerSpinboxView::IntegerSpinboxView(IntegerSpinbox * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	enableRotation(false);
 	
@@ -441,7 +441,7 @@ void IntegerSpinboxWidgetView::setConstantList(const QString & text)
 	m_spinbox->clearConstantList();
 
 	bool ok;
-	QStringList list = QStringList::split("\n", text);
+	QStringList list(QStringList::split(QString::fromLatin1("\n"), text));
 	QStringList::ConstIterator it = list.begin();
 
 	for(; it != list.end(); ++it)

@@ -1,3 +1,7 @@
+	7.3.2004
+* CompView uses the object name now
+* Use explicit conversion fom const char * to QString
+* Component Pow: Fix swapped inputs.
 	6.3.2004
 * add missing calls to BASECLASS::calculate()
 * Include moc file into source files

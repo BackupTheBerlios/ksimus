@@ -90,7 +90,7 @@ ConvertIntegerFloat::ConvertIntegerFloat(CompContainer * container, const Compon
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "ConvertIntegerFloatSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -129,8 +129,8 @@ void ConvertIntegerFloat::calculate()
 //###############################################################
 
 
-ConvertIntegerFloat::View::View(ConvertIntegerFloat * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ConvertIntegerFloat::View::View(ConvertIntegerFloat * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);

@@ -59,8 +59,8 @@ const ComponentInfo * SimTimeInput::getStaticInfo()
 //###############################################################
 
 
-SimTimeInputView::SimTimeInputView(SimTimeInput * comp, eViewType viewType)
-	: CompView(comp, viewType)
+SimTimeInputView::SimTimeInputView(SimTimeInput * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -96,7 +96,7 @@ SimTimeInput::SimTimeInput(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new SimTimeInputView(this, SHEET_VIEW);
+		new SimTimeInputView(this, SHEET_VIEW, "SimTimeInputSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -146,8 +146,8 @@ const ComponentInfo * TickTimeInput::getStaticInfo()
 //###############################################################
 
 
-TickTimeInputView::TickTimeInputView(TickTimeInput * comp, eViewType viewType)
-	: CompView(comp, viewType)
+TickTimeInputView::TickTimeInputView(TickTimeInput * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -181,7 +181,7 @@ TickTimeInput::TickTimeInput(CompContainer * container, const ComponentInfo * ci
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new TickTimeInputView(this, SHEET_VIEW);
+		new TickTimeInputView(this, SHEET_VIEW, "TickTimeInputSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);

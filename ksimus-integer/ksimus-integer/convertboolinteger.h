@@ -104,7 +104,7 @@ private:
 class ConvertBoolInteger::View : public CompView
 {
 public:
-	View(ConvertBoolInteger * comp, eViewType viewType);
+	View(ConvertBoolInteger * comp, eViewType viewType, const char * name);
 //	~View();
 	
 	virtual void draw(QPainter * p);

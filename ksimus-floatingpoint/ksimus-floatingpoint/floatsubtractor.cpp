@@ -64,7 +64,7 @@ FloatSubtractor::FloatSubtractor(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Sub"));
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Sub"), "FloatSubtractorSV");
 	}
 
 	getInputA()->setName(i18n("FloatingPoint", "Minuend"));

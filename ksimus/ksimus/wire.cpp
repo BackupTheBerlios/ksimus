@@ -109,8 +109,8 @@ bool WireColorScheme::isDualColor() const
 
 //###############################################################
 
-WireSV::WireSV(Component * comp)
-	: CompView(comp, SHEET_VIEW)
+WireSV::WireSV(Component * comp, const char * name)
+	: CompView(comp, SHEET_VIEW, name)
 {
 	CompView::updateSheetMap(false);
 	routeList = new CPointListList;
@@ -383,7 +383,7 @@ Wire::Wire(CompContainer * container, const ComponentInfo * ci)
 {
 //	m_isWire = true;
 	setComponentType(eWire);
-	new WireSV(this);
+	new WireSV(this, "WireSV");
 	getConnList()->setAutoDelete (false);
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);

@@ -83,12 +83,12 @@ IntegerLineOutput::IntegerLineOutput(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerLineOutputView(this, SHEET_VIEW);
+		new IntegerLineOutputView(this, SHEET_VIEW, "IntegerLineOutputSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new IntegerLineOutputView(this, USER_VIEW);
+		new IntegerLineOutputView(this, USER_VIEW, "IntegerLineOutputUV");
 	}
 }
 
@@ -163,8 +163,8 @@ void IntegerLineOutput::setBase(KSimBaseInt::eBaseType base)
 
 
 
-IntegerLineOutputView::IntegerLineOutputView(IntegerLineOutput * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+IntegerLineOutputView::IntegerLineOutputView(IntegerLineOutput * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{

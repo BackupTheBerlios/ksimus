@@ -113,23 +113,13 @@ protected:
 
 class Boolean1OutView : public CompView
 {
-
-	Q_OBJECT
-
 public:
+	Boolean1OutView(Boolean1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~Boolean1OutView();
-	
-	virtual void draw(QPainter * p);
-	
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-	
 
 protected:
-	Boolean1OutView(Boolean1Out * comp, eViewType viewType);
 	
 private:	
-	ComponentLayout * m_layout;
-
 };
 
 //###############################################################

@@ -84,7 +84,7 @@ FloatLog::FloatLog(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("log"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("log"), "FloatLogSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -107,7 +107,7 @@ FloatLog10::FloatLog10(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("log\n10"));
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("log\n10"), "FloatLog10SV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

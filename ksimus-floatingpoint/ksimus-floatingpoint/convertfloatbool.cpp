@@ -92,7 +92,7 @@ ConvertFloatBool::ConvertFloatBool(CompContainer * container, const ComponentInf
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ConvertFloatBoolView(this, SHEET_VIEW);
+		new ConvertFloatBoolView(this, SHEET_VIEW, "ConvertFloatBoolSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -210,8 +210,8 @@ ComponentPropertyBaseWidget * ConvertFloatBool::createGeneralProperty(QWidget *p
 //###############################################################
 
 
-ConvertFloatBoolView::ConvertFloatBoolView(ConvertFloatBool * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ConvertFloatBoolView::ConvertFloatBoolView(ConvertFloatBool * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 3*gridY));
 	enableConnectorSpacingTop(false);

@@ -99,7 +99,7 @@ private:
 class ConvertBoolFloatView : public CompView
 {
 public:
-	ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType viewType);
+	ConvertBoolFloatView(ConvertBoolFloat * comp, eViewType viewType, const char * name);
 //	~ConvertBoolFloatView();
 	
 	virtual void draw(QPainter * p);

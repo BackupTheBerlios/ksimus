@@ -111,8 +111,8 @@ Component::~Component()
 {
 	delete m_addonList;
 	delete m_connList;
-	delete m_sheetView;
-	delete m_userView;
+//	delete m_sheetView;
+//	delete m_userView;
 	delete m_p;
 	KSIMDEBUG_INSTANCE_DEC(Component);
 }

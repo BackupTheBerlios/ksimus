@@ -72,7 +72,7 @@ const ComponentInfo * Delay::getStaticInfo()
 class Delay::View : public CompView
 {
 public:
-	View(Delay * comp, eViewType viewType);
+	View(Delay * comp, eViewType viewType, const char * name);
 //	~View();
 	virtual void draw(QPainter * p);
 	
@@ -80,8 +80,8 @@ public:
 
 };
 
-Delay::View::View(Delay * comp, eViewType viewType)
-	: CompView(comp, viewType)
+Delay::View::View(Delay * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -102,7 +102,7 @@ Delay::View::View(Delay * comp, eViewType viewType)
 void Delay::View::draw(QPainter * p)
 {
 	drawFrame(p);
-	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Dly");
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("Dly"));
 	
 	CompView::draw(p);
 }
@@ -128,7 +128,7 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "DelaySV");
 	}
 	
 	m_delayTime.setValue(1, unit_sec);

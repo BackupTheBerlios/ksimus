@@ -120,7 +120,7 @@ WaveformGenerator::WaveformGenerator(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new WaveformGeneratorView(this, SHEET_VIEW);
+		new WaveformGeneratorView(this, SHEET_VIEW, "WaveformGeneratorSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -434,8 +434,8 @@ const char * WaveformGeneratorView::Private::dirac[]={
 //###############################################################
 
 
-WaveformGeneratorView::WaveformGeneratorView(WaveformGenerator * comp, eViewType viewType)
-		: Float1OutView(comp, viewType)
+WaveformGeneratorView::WaveformGeneratorView(WaveformGenerator * comp, eViewType viewType, const char * name)
+		: Float1OutView(comp, viewType, QString::null, name)
 {
 	if (viewType == SHEET_VIEW)
 	{

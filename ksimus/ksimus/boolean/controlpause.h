@@ -98,7 +98,7 @@ private:
 class ControlPauseView : public CompView
 {
 public:
-	ControlPauseView(ControlPause * comp, eViewType viewType);
+	ControlPauseView(ControlPause * comp, eViewType viewType, const char * name);
 	~ControlPauseView();
 	
 	virtual void draw(QPainter * p);

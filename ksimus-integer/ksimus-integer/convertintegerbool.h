@@ -109,7 +109,7 @@ protected:
 class ConvertIntegerBool::View : public CompView
 {
 public:
-	View(ConvertIntegerBool * comp, eViewType viewType);
+	View(ConvertIntegerBool * comp, eViewType view, const char * name);
 //	~View();
 
 	virtual void draw(QPainter * p);

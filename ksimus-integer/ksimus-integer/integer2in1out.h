@@ -89,7 +89,7 @@ class Integer2In1OutView : public CompView
 {
 
 public:
-	Integer2In1OutView(Integer2In1Out * comp, eViewType viewType, const QString & text);
+	Integer2In1OutView(Integer2In1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~Integer2In1OutView();
 };
 

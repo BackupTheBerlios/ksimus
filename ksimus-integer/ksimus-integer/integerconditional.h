@@ -108,7 +108,7 @@ class IntegerConditional::View : public CompView
 friend class IntegerConditional::PropertyGeneralWidget;
 
 public:
-	View(IntegerConditional * comp, eViewType viewType);
+	View(IntegerConditional * comp, eViewType view, const char * name);
 	~View();
 
 	virtual void draw(QPainter * p);
