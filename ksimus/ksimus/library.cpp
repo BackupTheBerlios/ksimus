@@ -34,6 +34,8 @@
 #include "connectorlibrary.h"
 #include "wirepropertylibrary.h"
 #include "implicitconverterlibrary.h"
+#include "ksimiodevicelibrary.h"
+#include "ksimiojoinlibrary.h"
 
 #include "extconnboolin.h"
 #include "extconnboolout.h"
@@ -56,6 +58,9 @@
 
 #include "implicitconverter.h"
 
+#include "ksimiodevice.h"
+#include "ksimiojoinboolin.h"
+
 #include "boolean/booleanbutton.h"
 #include "boolean/booleanled.h"
 #include "boolean/booleanand.h"
@@ -64,6 +69,7 @@
 #include "boolean/controlclose.h"
 #include "boolean/controlstop.h"
 #include "boolean/controlpause.h"
+#include "ksimiocomponent.h"
 
 #include "ksimdebug.h"
 
@@ -71,44 +77,72 @@
 //#############################################################################
 //#############################################################################
 
-
-static const ComponentInfoList & getDistComponents()
+class Library::Private
 {
-	static ComponentInfoList * pDistComponents = 0;
+public:
+	Private()
+	{
+		m_handleList.setAutoDelete(true);
+	};
+
+	QList<KSimPackageHandle> m_handleList;
+	QStringList m_moduleList;
+	QStringList m_infoMessages;
+	QStringList m_errorMessages;
+
+	// removed from globale scope
+	static const ComponentInfoList & getDistComponents();
+	static const ConnectorInfoList & getDistConnector();
+	static const WirePropertyInfoList & getDistWireProperty();
+	static const ImplicitConverterInfoList & getImplicitConverterProperty();
+	static const KSimIoDeviceInfoList & getIoDeviceProperty();
+	static const KSimIoJoinInfoList & getIoJoinProperty();
+};
+
+#define FOR_EACH_HANDLE(_it_,_handleList_)	\
+		for(QListIterator<KSimPackageHandle> _it_(_handleList_);_it_.current();++_it_)
+
+
+//#############################################################################
+//#############################################################################
+
+
+const ComponentInfoList & Library::Private::getDistComponents()
+{
+	static ComponentInfoList * pDistComponents = (ComponentInfoList *)0;
 	
-	if (pDistComponents == 0)
+	if (pDistComponents == (ComponentInfoList *)0)
 	{
 		// Initialize
 		pDistComponents = new ComponentInfoList;
 		CHECK_PTR(pDistComponents);
 		
 		// Add your component info here
-		pDistComponents->append(getBooleanAndInfo());
-		pDistComponents->append(getBooleanNandInfo());
-		pDistComponents->append(getBooleanButtonInfo());
-		pDistComponents->append(getBooleanToggleButtonInfo());
-		pDistComponents->append(getExtConnBoolInInfo());
-		pDistComponents->append(getExtConnBoolOutInfo());
-		pDistComponents->append(getBooleanLedInfo());
-		pDistComponents->append(getClockGeneratorInfo());
-		pDistComponents->append(getSimTimeInputInfo());
-		pDistComponents->append(getTickTimeInputInfo());
-		pDistComponents->append(getControlCloseInfo());
-		pDistComponents->append(getControlStopInfo());
-		pDistComponents->append(getControlPauseInfo());
+		pDistComponents->append(BooleanAnd::getStaticAndInfo());
+		pDistComponents->append(BooleanAnd::getStaticNandInfo());
+		pDistComponents->append(BooleanButton::getStaticButtonInfo());
+		pDistComponents->append(BooleanButton::getStaticToggleButtonInfo());
+		pDistComponents->append(ExtConnBoolIn::getStaticInfo());
+		pDistComponents->append(ExtConnBoolOut::getStaticInfo());
+		pDistComponents->append(BooleanLed::getStaticInfo());
+		pDistComponents->append(ClockGenerator::getStaticInfo());
+		pDistComponents->append(SimTimeInput::getStaticInfo());
+		pDistComponents->append(TickTimeInput::getStaticInfo());
+		pDistComponents->append(ControlClose::getStaticInfo());
+		pDistComponents->append(ControlStop::getStaticInfo());
+		pDistComponents->append(ControlPause::getStaticInfo());
+		pDistComponents->append(KSimIoComponent::getStaticInfo());
 	}
 	
 	return *pDistComponents;
 }
 
 
-
-
-static const ConnectorInfoList & getDistConnector()
+const ConnectorInfoList & Library::Private::getDistConnector()
 {
-	static ConnectorInfoList * pDistConnector = 0;
+	static ConnectorInfoList * pDistConnector = (ConnectorInfoList *)0;
 	
-	if (pDistConnector == 0)
+	if (pDistConnector == (ConnectorInfoList *)0)
 	{
 		// Initialize
 		pDistConnector = new ConnectorInfoList;
@@ -128,12 +162,11 @@ static const ConnectorInfoList & getDistConnector()
 }
 
 
-	
-static const WirePropertyInfoList & getDistWireProperty()
+const WirePropertyInfoList & Library::Private::getDistWireProperty()
 {
-	static WirePropertyInfoList * pDistWireProp = 0;
+	static WirePropertyInfoList * pDistWireProp = (WirePropertyInfoList *)0;
 	
-	if (pDistWireProp == 0)
+	if (pDistWireProp == (WirePropertyInfoList *)0)
 	{
 		// Initialize
 		pDistWireProp = new WirePropertyInfoList;
@@ -153,11 +186,11 @@ static const WirePropertyInfoList & getDistWireProperty()
 	return *pDistWireProp;
 }
 
-static const ImplicitConverterInfoList & getImplicitConverterProperty()
+const ImplicitConverterInfoList & Library::Private::getImplicitConverterProperty()
 {
-	static ImplicitConverterInfoList * pImplicitConverterProp = 0;
+	static ImplicitConverterInfoList * pImplicitConverterProp = (ImplicitConverterInfoList *)0;
 
-	if (pImplicitConverterProp == 0)
+	if (pImplicitConverterProp == (ImplicitConverterInfoList *)0)
 	{
 		// Initialize
 		pImplicitConverterProp = new ImplicitConverterInfoList;
@@ -171,30 +204,42 @@ static const ImplicitConverterInfoList & getImplicitConverterProperty()
 	return *pImplicitConverterProp;
 }
 
-	
-
-Library * g_library = 0;
-
-//#############################################################################
-//#############################################################################
-
-class Library::Private
+const KSimIoDeviceInfoList & Library::Private::getIoDeviceProperty()
 {
-public:
-	Private()
+	static KSimIoDeviceInfoList * pIoDeviceProp = (KSimIoDeviceInfoList *)0;
+
+	if (pIoDeviceProp == (KSimIoDeviceInfoList *)0)
 	{
-		m_handleList.setAutoDelete(true);
-	};
-	
-	QList<KSimPackageHandle> m_handleList;
-	QStringList m_moduleList;
-	QStringList m_infoMessages;
-	QStringList m_errorMessages;
-};
+		// Initialize
+		pIoDeviceProp = new KSimIoDeviceInfoList;
+		CHECK_PTR(pIoDeviceProp);
 
-#define FOR_EACH_HANDLE(_it_,_handleList_)	\
-		for(QListIterator<KSimPackageHandle> _it_(_handleList_);_it_.current();++_it_)
+		// Add your io devices info here
+		pIoDeviceProp->append(KSimIoDeviceTest::getStaticInfo());
+	}
 
+	return *pIoDeviceProp;
+}
+
+const KSimIoJoinInfoList & Library::Private::getIoJoinProperty()
+{
+	static KSimIoJoinInfoList * pIoJoinProp = (KSimIoJoinInfoList *)0;
+
+	if (pIoJoinProp == (KSimIoJoinInfoList *)0)
+	{
+		// Initialize
+		pIoJoinProp = new KSimIoJoinInfoList;
+		CHECK_PTR(pIoJoinProp);
+
+		// Add your io join info here
+		pIoJoinProp->append(KSimIoJoinBoolIn::getStaticInfo());
+		pIoJoinProp->append(KSimIoJoinBoolOut::getStaticInfo());
+	}
+
+	return *pIoJoinProp;
+}
+
+Library * g_library = (Library *)0;
 
 //#############################################################################
 //#############################################################################
@@ -203,8 +248,13 @@ public:
 Library::Library()
 {
 	PackageInfo * KSimusPackageInfo =
-	new PackageInfo(QString::fromLatin1("KSimus"), KGlobal::instance(), VERSION, getDistComponents(),
-	                getDistConnector(), getDistWireProperty(), getImplicitConverterProperty());
+	new PackageInfo(QString::fromLatin1("KSimus"),
+	                KGlobal::instance(),
+	                VERSION,
+	                Library::Private::getDistComponents(),
+	                Library::Private::getDistConnector(),
+	                Library::Private::getDistWireProperty(),
+	                Library::Private::getImplicitConverterProperty());
 	
 	m_p = new Private();
 	
@@ -225,7 +275,21 @@ Library::Library()
 	m_implicitConverterLibrary = new ImplicitConverterLibrary;
 	CHECK_PTR(m_implicitConverterLibrary);
 
+	m_ioDeviceLibrary = new KSimIoDeviceLibrary;
+	CHECK_PTR(m_ioDeviceLibrary);
+
+	m_ioJoinLibrary = new KSimIoJoinLibrary;
+	CHECK_PTR(m_ioJoinLibrary);
+
+	m_packageList = new QList<PackageInfo>;
+	CHECK_PTR(m_packageList);
+
 	insertPackage(KSimusPackageInfo);
+
+  // TODO
+	m_ioDeviceLibrary->insert(Library::Private::getIoDeviceProperty(), KSimusPackageInfo);
+	m_ioJoinLibrary->insert(Library::Private::getIoJoinProperty(), KSimusPackageInfo);
+
 		
 	loadPackageFiles();
 
@@ -236,14 +300,19 @@ Library::Library()
 	m_connectorLibrary->resize();
 	m_wirePropertyLibrary->resize();
 	m_implicitConverterLibrary->resize();
+	m_ioDeviceLibrary->resize();
+	m_ioJoinLibrary->resize();
 }
 
 Library::~Library()
 {
+	delete m_ioJoinLibrary;
+	delete m_ioDeviceLibrary;
 	delete m_implicitConverterLibrary;
 	delete m_wirePropertyLibrary;
 	delete m_connectorLibrary;
 	delete m_componentLibrary;
+	delete m_packageList;
 	delete m_p;
 }
 
@@ -268,8 +337,25 @@ const ImplicitConverterLibrary * Library::getImplicitConverterLib() const
 	return m_implicitConverterLibrary;
 }
 
+const KSimIoDeviceLibrary * Library::getIoDeviceLib() const
+{
+	return m_ioDeviceLibrary;
+}
+
+const KSimIoJoinLibrary * Library::getIoJoinLib() const
+{
+	return m_ioJoinLibrary;
+}
+
+const QList<PackageInfo> * Library::getPackageList() const
+{
+	return m_packageList;
+}
+
 void Library::insertPackage(const PackageInfo * packageInfo)
 {
+	m_packageList->append(packageInfo);
+	
 	m_componentLibrary->insert(packageInfo->getComponentList(), packageInfo);
 	
 	m_connectorLibrary->insert(packageInfo->getConnectorList(), packageInfo);

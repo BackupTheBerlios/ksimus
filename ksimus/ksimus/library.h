@@ -18,10 +18,23 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
+// C-Includes
+
+
+// QT-Includes
+#include <qlist.h>
+
+// KDE-Includes
+
+// Project-Includes
+
+// Forward declaration
 class ComponentLibrary;
 class ConnectorLibrary;
 class WirePropertyLibrary;
 class ImplicitConverterLibrary;
+class KSimIoDeviceLibrary;
+class KSimIoJoinLibrary;
 class QStringList;
 class PackageInfo;
 
@@ -41,6 +54,9 @@ public:
 	const ConnectorLibrary * getConnectorLib() const;
 	const WirePropertyLibrary * getWirePropertyLib() const;
 	const ImplicitConverterLibrary * getImplicitConverterLib() const;
+	const KSimIoDeviceLibrary * getIoDeviceLib() const;
+	const KSimIoJoinLibrary * getIoJoinLib() const;
+	const QList<PackageInfo> * getPackageList() const;
 	const QStringList & getInfoMessages() const;
 	const QStringList & getErrorMessages() const;
 	void clearMessageLists();
@@ -66,6 +82,9 @@ private:
 	ConnectorLibrary * m_connectorLibrary;
 	WirePropertyLibrary * m_wirePropertyLibrary;
 	ImplicitConverterLibrary * m_implicitConverterLibrary;
+	KSimIoDeviceLibrary * m_ioDeviceLibrary;
+	KSimIoJoinLibrary * m_ioJoinLibrary;
+	QList<PackageInfo> * m_packageList;
 };
 
 extern Library * g_library;
