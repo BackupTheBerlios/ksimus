@@ -206,13 +206,15 @@ void BooleanCounter::calculate()
 	bool up(getInputClockUp()->getInput() && !getInputClockUp()->isHidden());	
 	bool down(getInputClockDown()->getInput() && !getInputClockDown()->isHidden());
 	
+	bool updateRequiered(m_borrow || m_carry);
+	
 	m_borrow = false;
 	m_carry = false;
 	
 	if (clear)
 	{
 		m_cnt = getMinCount();
-		setOutput();
+		updateRequiered = true;
 	}
 	else
 	{
@@ -225,13 +227,13 @@ void BooleanCounter::calculate()
 			if (m_cnt < getMaxCount())
 			{
 				m_cnt++;
-				setOutput();
+				updateRequiered = true;
 			}
 			else
 			{
 				m_cnt = getMinCount();
 				m_carry = true;
-				setOutput();
+				updateRequiered = true;
 			}
 		}
 		else if (down)
@@ -239,15 +241,19 @@ void BooleanCounter::calculate()
 			if (m_cnt > getMinCount())
 			{
 				m_cnt--;
-				setOutput();
+				updateRequiered = true;
 			}
 			else
 			{
 				m_cnt = getMaxCount();
 				m_borrow = true;
-				setOutput();
+				updateRequiered = true;
 			}
 		}
+	}
+	if (updateRequiered)
+	{
+		setOutput();
 	}
 }
 
