@@ -62,6 +62,8 @@ public slots:
 	void setBackgroundColor(const QColor & color);
 	/** Enables / disables the frame. */
 	void setFrameEnabled(bool enaFrame);
+	/** Sets the font. */
+	void setSpecialFont(const QFont & font);
 
 
 private slots:

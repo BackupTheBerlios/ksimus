@@ -33,6 +33,7 @@ class QVBox;
 class QVGroupBox;
 class QCheckBox;
 class KColorButton;
+class QLabel;
 
 /**Style property dialog for ComponentStyle class
   *@author Rasmus Diekenbrock
@@ -69,20 +70,36 @@ public:
 	  */
 	QVGroupBox * getFrameBox() const { return m_frameGroup; };
 
+	/** Returns the widget which is used as layout for the frame properties.
+	  * Add additional frame items to this widget.
+	  */
+	QVGroupBox * getFontBox() const { return m_fontGroup; };
 
 	ComponentStyle * getCompStyle() { return (ComponentStyle *)getComponent(); };
 
+	
+protected slots:
+	void slotFontDialog();
+
+
 protected:
 	QVBox * m_vBox;
+	
 	QVGroupBox * m_colorGroup;
-	QVGroupBox * m_frameGroup;
 	QCheckBox * m_defaultColors;
 	KColorButton * m_foreGround;
 	KColorButton * m_backGround;
-	QCheckBox * m_enaFrame;
 	QColor m_foreColor;
 	QColor m_backColor;
+	
+	QVGroupBox * m_frameGroup;
+	QCheckBox * m_enaFrame;
 
+	QVGroupBox * m_fontGroup;
+	QCheckBox * m_defaultFont;
+	QPushButton * m_fontButton;
+	QFont m_font;
+	QLabel * m_exampleFont;
 };
 
 #endif

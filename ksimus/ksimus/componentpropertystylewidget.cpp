@@ -31,6 +31,8 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kcolorbtn.h>
+#include <kfontdialog.h>
+#include <kapp.h>
 
 // Project-Includes
 #include "componentpropertystylewidget.h"
@@ -101,6 +103,26 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	addWhatsThis(str, m_enaFrame);
 	
 	
+	// Font Group	
+	m_fontGroup = new QVGroupBox(i18n("Font:"), getVBox(), "Style Font Box");
+	CHECK_PTR(m_fontGroup);
+	
+	// Font Group - Default Font
+	m_defaultFont = new QCheckBox(i18n("Use default font"), getFontBox(), "Font default");
+	CHECK_PTR(m_defaultFont);
+	str = i18n("Check the box if component have to use the default (the application) font.");
+	addToolTip(str, m_defaultFont);
+	addWhatsThis(str, m_defaultFont);
+	
+	// Font Group - Font Dialog Button
+  m_fontButton = new QPushButton(i18n("Select font"), getFontBox(), "Font Button");
+	CHECK_PTR(m_fontButton);
+	
+	m_exampleFont = new QLabel(getFontBox(), "Font Example");
+	CHECK_PTR(m_fontButton);
+	
+
+
   //######## Setup values
   //*** color ***
   // Ena color box
@@ -123,7 +145,23 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	// frame ena
 	m_enaFrame->setChecked(getCompStyle()->isFrameEnabled());
 		
+
+  //*** font ***
+  // Ena color box
+	if (!getCompStyle()->isFontAdjustmentEnabled())
+		getFontBox()->hide();
+	m_defaultFont->setChecked(getCompStyle()->isDefaultFontEnabled());
+	m_fontButton->setDisabled(getCompStyle()->isDefaultFontEnabled());
+	connect(m_defaultFont, SIGNAL(toggled(bool)), m_fontButton, SLOT(setDisabled(bool)));
+	connect(m_fontButton, SIGNAL(clicked()), this, SLOT(slotFontDialog()));
+	m_font = getCompStyle()->getFont();
+	m_exampleFont->setFont(m_font);
+	m_exampleFont->setText(m_font.family());
+	connect(m_defaultFont, SIGNAL(toggled(bool)), m_exampleFont, SLOT(setDisabled(bool)));
 	
+
+
+		
 	
 	// Set main layout
 	layout = new QGridLayout(this,2,1);
@@ -141,12 +179,6 @@ void ComponentPropertyStyleWidget::acceptPressed()
 {
 	ComponentPropertyBaseWidget::acceptPressed();
 
-	if (getCompStyle()->isDefaultColorEnabled() != m_defaultColors->isChecked())
-	{
-		changeData();
-		getCompStyle()->setDefaultColorEnabled(m_defaultColors->isChecked());
-	}
-
 	if (getCompStyle()->getForegroundColor() != m_foreGround->color())
 	{
 		changeData();
@@ -159,12 +191,32 @@ void ComponentPropertyStyleWidget::acceptPressed()
 		getCompStyle()->setBackgroundColor(m_backGround->color());
 	}
 
+	// First set colors and then set
+	if (getCompStyle()->isDefaultColorEnabled() != m_defaultColors->isChecked())
+	{
+		changeData();
+		getCompStyle()->setDefaultColorEnabled(m_defaultColors->isChecked());
+	}
+
 	if (getCompStyle()->isFrameEnabled() != m_enaFrame->isChecked())
 	{
 		changeData();
 		getCompStyle()->setFrameEnabled(m_enaFrame->isChecked());
 	}
 
+	
+	if (getCompStyle()->getFont() != m_font)
+	{
+		changeData();
+		getCompStyle()->setFont(m_font);
+	}
+	
+	// First set font and then set
+	if (getCompStyle()->isDefaultFontEnabled() != m_defaultFont->isChecked())
+	{
+		changeData();
+		getCompStyle()->setDefaultFontEnabled(m_defaultFont->isChecked());
+	}
 }
 
 void ComponentPropertyStyleWidget::defaultPressed()
@@ -185,6 +237,23 @@ void ComponentPropertyStyleWidget::defaultPressed()
 	m_backGround->setColor(getCompStyle()->getDefaultBackgroundColor());
 	
 	m_enaFrame->setChecked(getCompStyle()->isFrameAdjustmentEnabled());
+
+	m_defaultFont->setChecked(getCompStyle()->isFontAdjustmentEnabled());
+	m_font = KApplication::font();
+	m_exampleFont->setFont(m_font);
+	m_exampleFont->setText(m_font.family());
 	
 }
 
+void ComponentPropertyStyleWidget::slotFontDialog()
+{
+	QFont newFont(m_font);
+	
+	int result = KFontDialog::getFont(newFont);
+	if(result == KFontDialog::Accepted)
+	{
+		m_font = newFont;
+		m_exampleFont->setFont(m_font);
+		m_exampleFont->setText(m_font.family());
+	}
+}

@@ -25,6 +25,7 @@
 #include "compviewhbox.h"
 #include "ksimwidget.h"
 #include "componentstyle.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
@@ -97,11 +98,13 @@ void CompViewHBox::init()
 		connect(compStyle, SIGNAL(signalFrameEnabled(bool)), this, SLOT(setFrameEnabled(bool)));
 		connect(compStyle, SIGNAL(signalForegroundColor(const QColor &)), this, SLOT(setForegroundColor(const QColor &)));
 		connect(compStyle, SIGNAL(signalBackgroundColor(const QColor &)), this, SLOT(setBackgroundColor(const QColor &)));
+		connect(compStyle, SIGNAL(signalFont(const QFont &)), this, SLOT(setSpecialFont(const QFont &)));
 		
 		// Set special values
 		setForegroundColor(compStyle->getForegroundColor());
 		setBackgroundColor(compStyle->getBackgroundColor());
 		setFrameEnabled(compStyle->isFrameEnabled());
+		setSpecialFont(compStyle->getFont());
 	}
 		
 }
@@ -132,12 +135,14 @@ void CompViewHBox::setForegroundColor(const QColor & color)
 	
 	pal.setColor(QPalette::Active, QColorGroup::Foreground, newColor);
 	setPalette(pal);
+	update();
 }
 
 void CompViewHBox::setBackgroundColor(const QColor & color)
 {
 	QPalette pal = palette();
 	QColor newColor(color);
+	
 	
 	if (!newColor.isValid() && (parent()->inherits("QWidget")))
 	{
@@ -147,6 +152,7 @@ void CompViewHBox::setBackgroundColor(const QColor & color)
 	
 	pal.setColor(QPalette::Active, QColorGroup::Background, newColor);
 	setPalette(pal);
+	update();
 }
 
 void CompViewHBox::setFrameEnabled(bool enaFrame)
@@ -160,5 +166,11 @@ void CompViewHBox::setFrameEnabled(bool enaFrame)
 	{
 		setFrameStyle(QFrame::NoFrame);
 	}
+	update();
 }
 
+void CompViewHBox::setSpecialFont(const QFont & font)
+{
+	setFont(font);	
+	update();
+}
