@@ -1,3 +1,6 @@
+	20.05.2002
+* Fix: Add missing undo code at FloatConstInput
+
 	19.05.2002
 * Change: Data transport layer redesigned. Faster execution, easier component
   implementation, no delay for external connectors (up to now the delay was 0
