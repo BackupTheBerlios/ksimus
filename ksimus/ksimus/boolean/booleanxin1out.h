@@ -55,14 +55,17 @@ class ConnectorPack;
 
 class BooleanXIn1Out : public Boolean1Out
 {
-public: 
+
+Q_OBJECT
+
+public:
 // ~BooleanXIn1Out();
 
 	/** Returns the input connector pack.
 	  */
 	ConnectorPack * getInputConnectorPack() const { return m_inPack; };
 
-	
+
 protected:
 	BooleanXIn1Out(CompContainer * container, const ComponentInfo * ci);
 
@@ -88,9 +91,11 @@ private:
 class BooleanXIn1OutView : public Boolean1OutView
 {
 
+Q_OBJECT
+
 public:
 //	~BooleanXIn1OutView();
-	
+
 protected:
 	BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType);
 
@@ -110,6 +115,9 @@ protected:
 
 class BooleanXIn1OutPropertyGeneralWidget : public Boolean1OutPropertyGeneralWidget
 {
+
+Q_OBJECT
+
 public:
 	BooleanXIn1OutPropertyGeneralWidget(BooleanXIn1Out * comp, QWidget *parent=0, const char *name=0)
 		:	Boolean1OutPropertyGeneralWidget(comp, parent, name) {};
