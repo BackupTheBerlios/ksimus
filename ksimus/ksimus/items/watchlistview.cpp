@@ -59,7 +59,7 @@ WatchListView::WatchListView(QWidget *parent, const char *name )
 
 WatchListView::~WatchListView()
 {
-	KSIMDEBUG("WatchListView::~WatchListView()");
+//	KSIMDEBUG("WatchListView::~WatchListView()");
 }
 
 unsigned int WatchListView::countSelected() const
@@ -82,11 +82,11 @@ void WatchListView::slotRightButtonPressed(QListViewItem * lvi, const QPoint & p
 //		KSIMDEBUG("Multi Selection");
 		QPopupMenu popup;
 		
-		idEnableBreakSelected = popup.insertItem(i18n("watchpoint break enable", "Enable selected break conditions"));
-		idDisableBreakSelected = popup.insertItem(i18n("watchpoint break enable", "Disable selected break conditions"));
+		idEnableBreakSelected = popup.insertItem(i18n("watchpoint enable trigger", "Enable selected triggers"));
+		idDisableBreakSelected = popup.insertItem(i18n("watchpoint disable trigger", "Disable selected triggers"));
 		idDelete = popup.insertItem(i18n("watchpoint delete", "Delete selected watchpoints"));
 		popup.insertSeparator();
-		idDisableBreakAll = popup.insertItem(i18n("watchpoint break enable", "Disable all break conditions"));
+		idDisableBreakAll = popup.insertItem(i18n("watchpoint disable trigger", "Disable all triggers"));
 		idDeleteAll = popup.insertItem(i18n("watchpoint delete", "Delete all watchpoints"));
 		
 		
@@ -122,18 +122,18 @@ void WatchListView::slotRightButtonPressed(QListViewItem * lvi, const QPoint & p
 		
 		if (wib->isBreakEnabled())
 		{
-			idEnableBreak = popup.insertItem(i18n("watchpoint break enable", "Disable break condition"));
+			idEnableBreak = popup.insertItem(i18n("watchpoint disable trigger", "Disable trigger"));
 		}
 		else
 		{
-			idEnableBreak = popup.insertItem(i18n("watchpoint break enable", "Enable break condition"));
+			idEnableBreak = popup.insertItem(i18n("watchpoint enable trigger", "Enable trigger"));
 		}
 		idDelete = popup.insertItem(i18n("watchpoint delete", "Delete selected watchpoint"));
 		popup.insertSeparator();
-		idPropertyDialog = popup.insertItem(i18n("watchpoint property", "Watchpoint settings"));
-		popup.insertSeparator();
-		idDisableBreakAll = popup.insertItem(i18n("watchpoint break enable", "Disable all break conditions"));
+		idDisableBreakAll = popup.insertItem(i18n("watchpoint disable trigger", "Disable all triggers"));
 		idDeleteAll = popup.insertItem(i18n("watchpoint delete", "Delete all watchpoints"));
+		popup.insertSeparator();
+		idPropertyDialog = popup.insertItem(i18n("watchpoint property", "Watchpoint settings"));
 		
 		int id = popup.exec(pos);
 		

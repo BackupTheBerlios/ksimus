@@ -123,10 +123,6 @@ void WatchItemBooleanBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerBox->insertItem(i18n("Boolean Trigger", "True state"), (int)TrueState);
 
 	m_triggerBox->setCurrentItem((int)m_triggerType);
-
-/*	QGridLayout * layout = new QGridLayout(parent);
-	CHECK_PTR(layout);
-	layout->addWidget(m_triggerBox, 0,0);*/
 }
 
 void WatchItemBooleanBase::triggerPropertyOkPressed()

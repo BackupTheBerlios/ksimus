@@ -62,6 +62,13 @@ public:
 	  */
 	WireProperty * getWireProperty() { return m_wireProperty; };
 	const WireProperty * getWireProperty() const { return m_wireProperty; };
+	
+	/** Returns true if watch item is a connector watch. */
+	bool isConnectorWatch() const { return getConnector() != (const ConnectorBase *)0; };
+	
+	/** Returns true if watch item is a connector watch. */
+	bool isWirePropertyWatch() const { return getWireProperty() != (const WireProperty *)0; };
+	
 	/** Return the pointer to the view item.
 	  */
 	WatchViewItem * getViewItem() { return m_watchViewItem; };

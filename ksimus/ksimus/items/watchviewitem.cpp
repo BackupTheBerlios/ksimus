@@ -47,7 +47,7 @@ WatchViewItem::WatchViewItem(WatchItemBase * watch, WatchListView * listview)
 
 WatchViewItem::~WatchViewItem()
 {
-	KSIMDEBUG_VAR("WatchViewItem::~WatchViewItem()", text(NAME_COL));
+//	KSIMDEBUG_VAR("WatchViewItem::~WatchViewItem()", text(NAME_COL));
 }
 
 void WatchViewItem::setValueText(const QString & value)

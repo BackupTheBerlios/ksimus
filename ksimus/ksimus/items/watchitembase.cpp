@@ -66,7 +66,7 @@ WatchItemBase::WatchItemBase(WireProperty * wireProperty)
 
 WatchItemBase::~WatchItemBase()
 {
-	KSIMDEBUG("WatchItemBase::~WatchItemBase()");
+//	KSIMDEBUG("WatchItemBase::~WatchItemBase()");
 	getWatchWidget()->delWatchItem(this);
 	delete m_watchViewItem;
 }
@@ -205,7 +205,7 @@ void WatchItemBase::slotNameChanged()
 
 void WatchItemBase::executePropertyDialog(QWidget * parent)
 {
-	KSimDialog dia(i18n("Watchpoint dialog caption","Watchpoint property"), parent);
+	KSimDialog dia(i18n("Watchpoint dialog caption","Watchpoint Setting"), parent);
 
 	QWidget * wid = dia.addVBoxPage(getWatchName());
 	PropertyWidget * propWid = createPropertyWidget(wid);
@@ -220,19 +220,19 @@ PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 	PropertyWidget * wid = new PropertyWidget(1, parent, "Watchpoint Dialog");
 	CHECK_PTR(wid);
 
-	wid->setLeftColStretch(0);
+/*	wid->setLeftColStretch(0);
 	wid->setCenterColStretch(0);
 	wid->setRightColStretch(1);
 	
 	wid->setTopRowStretch(0);
 	wid->setCenterRowStretch(0);
-	wid->setBottomRowStretch(1);
+	wid->setBottomRowStretch(1);*/
 
-	m_propertyWidget_enaCheckBox = new QCheckBox(i18n("watchpoint break enable", "Enable break condition"), wid, "watchpoint break enable");
+	m_propertyWidget_enaCheckBox = new QCheckBox(i18n("watchpoint enable trigger", "Enable trigger"), wid, "watchpoint enable trigger");
 	CHECK_PTR(m_propertyWidget_enaCheckBox);
-	PropertyWidget::addToolTip(i18n("Enables the break function of the watchpoint."),
+	PropertyWidget::addToolTip(i18n("Enables the trigger function of the watchpoint."),
 	                           m_propertyWidget_enaCheckBox);
-	PropertyWidget::addWhatsThis(i18n("Enables the break function of the watchpoint.\n\n"
+	PropertyWidget::addWhatsThis(i18n("Enables the trigger function of the watchpoint.\n\n"
 	                                  "The trigger condition below is checked each simulation cycle if the box is checked.\n"
 	                                  "The simulation is paused after a count of trigger events are occurred. Set the count "
 	                                  "of trigger events in the spinbox below."),

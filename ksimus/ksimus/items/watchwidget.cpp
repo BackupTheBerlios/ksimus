@@ -167,7 +167,7 @@ WatchWidget::WatchWidget(KSimusApp * app, QWidget *parent, const char *name )
 
 WatchWidget::~WatchWidget()
 {
-	KSIMDEBUG("WatchWidget::~WatchWidget()");
+//	KSIMDEBUG("WatchWidget::~WatchWidget()");
 	while(m_watchItemList.count())
 	{
 		// The item removes itself from the list !!!!
@@ -517,7 +517,7 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 
 	QWidget * rowWid = newRowHBox("rowWid riseByAdd");
 	CHECK_PTR(rowWid);
-	m_p->riseByAdd = new QCheckBox(i18n("Watch settings", "Show by adding watchpoint"), rowWid, "riseByAdd");
+	m_p->riseByAdd = new QCheckBox(i18n("Watch settings", "Rise watch view if watchpoint is added"), rowWid, "riseByAdd");
 	CHECK_PTR(m_p->riseByAdd);
 	addToolTip(i18n("Rises the watch view if a new watchpoint is added."),
 	           m_p->riseByAdd);
