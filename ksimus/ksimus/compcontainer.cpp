@@ -353,8 +353,6 @@ void CompContainer::delComponent(Component * delComp)
 	ASSERT(delComp);
 	// Exist component in list
 	ASSERT(-1 != components->find(delComp));
-
-	ConnectorBase *conn;
 	
 	emit signalDelete(delComp);
 
@@ -364,11 +362,12 @@ void CompContainer::delComponent(Component * delComp)
 	{
 		FOR_EACH_CONNECTOR(it, *delComp->getConnList())
 		{
-			if (it.current()->getWire())
+			Wire * wire = it.current()->getWire();
+			if (wire)
 			{
 				// Add to undo
-				undoRemove(it.current()->getWire());
-				undoReload(it.current()->getWire());
+				undoRemove(wire);
+				undoReload(wire);
 			}
 		}
 	}
@@ -385,12 +384,16 @@ void CompContainer::delComponent(Component * delComp)
 	// remove connections (do not if wire)
 	if (!delComp->isWire())
 	{
-		for (conn = delComp->getConnList()->first(); conn;
-		     conn = delComp->getConnList()->next())
+		FOR_EACH_CONNECTOR(it, *delComp->getConnList())
 		{
-			if (0 != conn->getWire())
+			ConnectorBase *conn;
+			for (conn = delComp->getConnList()->first(); conn;
+				conn = delComp->getConnList()->next())
 			{
-				delConnection(conn);
+				if (0 != conn->getWire())
+				{
+					delConnection(conn);
+				}
 			}
 		}
 	}
@@ -740,13 +743,22 @@ void CompContainer::delConnection(ConnectorBase * delConn)
 	Returns a 0-pointer if no component found */
 Component * CompContainer::searchComponentBySerialNumber(unsigned int number)
 {
-	Component * comp;
+/*	Component * comp;
 	for (comp = components->first(); comp; comp = components->next())
 	{
 		if (comp->getSerialNumber() == number)
 			break;
 	}
 
+	return comp;*/
+	
+	Component * comp = components->first();
+	
+	while(comp && (comp->getSerialNumber() != number))
+	{
+		comp = components->next();
+	}
+	
 	return comp;
 }
 
@@ -807,6 +819,7 @@ void CompContainer::drawUserView(QPainter * p) const
 
 void CompContainer::drawComponents(QPainter * p, CompViewList * cvList) const
 {
+/*
 //	QFont newFont(QString::fromLatin1("helvetica"),12);
 	QFont newFont;
 	//newFont.setRawName("-Misc-Fixed-Medium-R-Normal--7-70-75-75-C-50-ISO10646-1");
@@ -814,12 +827,10 @@ void CompContainer::drawComponents(QPainter * p, CompViewList * cvList) const
 //	newFont.setFixedPitch(true);
 //	newFont.setStyleHint( QFont::TypeWriter );
 	p->setFont(newFont);
-/*	KSIMDEBUG_VAR("FONT debug: ", p->font().family());
-	KSIMDEBUG_VAR("FONT debug: ", p->font().pointSize());*/
 //	getLogList()->logDebug("CompContainer::drawComponents");
 
 	QWMatrix::setTransformationMode(QWMatrix::Areas );
-
+*/
 	FOR_EACH_COMPVIEW(it, *cvList)
 	{
 		if (!it.current()->isHidden())

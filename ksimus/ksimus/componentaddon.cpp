@@ -51,6 +51,8 @@ public:
 //########################################################################
 //########################################################################
 
+KSIMDEBUG_INSTANCE_COUNTER(ComponentAddOn);
+
 
 ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName, bool unique)
 	: QObject(component),
@@ -77,6 +79,8 @@ ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName,
 	}
 	
 	component->m_addonList->append(this);
+	
+	KSIMDEBUG_INSTANCE_INC(ComponentAddOn);
 }
 
 ComponentAddOn::~ComponentAddOn()
@@ -87,6 +91,8 @@ ComponentAddOn::~ComponentAddOn()
 		getComponent()->m_addonList->take();
 	}
 	delete m_uiData;
+	
+	KSIMDEBUG_INSTANCE_DEC(ComponentAddOn);
 }
 	
 void ComponentAddOn::save(KSimData & ) const

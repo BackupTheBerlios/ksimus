@@ -51,6 +51,8 @@ public:
 
 
 
+KSIMDEBUG_INSTANCE_COUNTER(ImplicitConverter);
+
 ImplicitConverter::ImplicitConverter(ConnectorBase * connector, const ImplicitConverterInfo * implicitConverterInfo)
 	:	QObject(connector, implicitConverterInfo->getName().latin1())
 {
@@ -58,6 +60,7 @@ ImplicitConverter::ImplicitConverter(ConnectorBase * connector, const ImplicitCo
 	CHECK_PTR(m_p);
 
 //	KSIMDEBUG_VAR("ImplicitConverter::ImplicitConverter", connector->getName());
+	KSIMDEBUG_INSTANCE_INC(ImplicitConverter);
 
 }
 
@@ -65,6 +68,7 @@ ImplicitConverter::~ImplicitConverter()
 {
 //	KSIMDEBUG_VAR("ImplicitConverter::~ImplicitConverter", m_p->implicitConverterInfo->getName());
 	delete m_p;
+	KSIMDEBUG_INSTANCE_DEC(ImplicitConverter);
 }
 
 const ImplicitConverterInfo * ImplicitConverter::getInfo() const

@@ -1,3 +1,6 @@
+	2.3.2004
+* Fix some drawing issues
+* Add the new embedded font
 	18.1.2004
 * Fix some drawing issues with rotated components
 * Clean up some drawing routines

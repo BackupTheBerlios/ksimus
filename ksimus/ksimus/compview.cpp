@@ -240,6 +240,8 @@ public:
 //############################################################################
 
 
+KSIMDEBUG_INSTANCE_COUNTER(CompView);
+
 CompView::CompView(Component * comp, eViewType viewType)
 	:	QObject(),
 		ComponentItem(comp),
@@ -272,12 +274,15 @@ CompView::CompView(Component * comp, eViewType viewType)
 	}
 				
 	updateSheetMap(true);
+	
+	KSIMDEBUG_INSTANCE_INC(CompView);
 }
 
 CompView::~CompView()
 {
 	updateSheetMap(false);
 	delete m_p;
+	KSIMDEBUG_INSTANCE_DEC(CompView);
 }
 
 /** Returns the type of view

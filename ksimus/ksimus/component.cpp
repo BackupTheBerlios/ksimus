@@ -85,6 +85,7 @@ public:
 //#######################################################################
 //#######################################################################
 
+KSIMDEBUG_INSTANCE_COUNTER(Component);
 
 Component::Component(CompContainer * container, const ComponentInfo * ci)
 	: QObject((QObject*)0, ci->getName().latin1()),
@@ -103,6 +104,7 @@ Component::Component(CompContainer * container, const ComponentInfo * ci)
 	m_connList->setAutoDelete(true);
 	m_p = new Private();
 	CHECK_PTR(m_p);
+	KSIMDEBUG_INSTANCE_INC(Component);
 }
 	
 Component::~Component()
@@ -112,6 +114,7 @@ Component::~Component()
 	delete m_sheetView;
 	delete m_userView;
 	delete m_p;
+	KSIMDEBUG_INSTANCE_DEC(Component);
 }
 
 /** Returns the name of the component.

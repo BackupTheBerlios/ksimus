@@ -42,6 +42,8 @@
 
 // Forward declaration
 
+KSIMDEBUG_INSTANCE_COUNTER(WatchItemBase);
+
 WatchItemBase::WatchItemBase(ConnectorBase * connector)
 	:	QObject(connector),
 		m_wireProperty((WireProperty *)0),
@@ -51,6 +53,7 @@ WatchItemBase::WatchItemBase(ConnectorBase * connector)
 	init();
 	connect(connector, SIGNAL(signalSetName(const QString &)), SLOT(slotNameChanged()));
 	connect(connector->getComponent(), SIGNAL(signalSetName(const QString &)), SLOT(slotNameChanged()));
+	KSIMDEBUG_INSTANCE_INC(WatchItemBase);
 }
 
 WatchItemBase::WatchItemBase(WireProperty * wireProperty)
@@ -61,6 +64,7 @@ WatchItemBase::WatchItemBase(WireProperty * wireProperty)
 {
 	init();
 	connect(wireProperty->getWire(), SIGNAL(signalSetName(const QString &)), SLOT(slotNameChanged()));
+	KSIMDEBUG_INSTANCE_INC(WatchItemBase);
 }
 
 
@@ -69,6 +73,7 @@ WatchItemBase::~WatchItemBase()
 //	KSIMDEBUG("WatchItemBase::~WatchItemBase()");
 	getWatchWidget()->delWatchItem(this);
 	delete m_watchViewItem;
+	KSIMDEBUG_INSTANCE_DEC(WatchItemBase);
 }
 
 void WatchItemBase::init()

@@ -159,6 +159,8 @@ public:
 
 
 
+KSIMDEBUG_INSTANCE_COUNTER(ConnectorBase);
+
 ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QString & i18nName,
                              const QPoint & pos, ConnOrientationType orient,
                              ConnDirType dir, const ConnectorInfo * ci)
@@ -182,11 +184,13 @@ ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QStri
 	connect(comp->getDoc(), SIGNAL(signalPreReset()), SLOT(slotPreReset()));
 
 	comp->addConnector(this);
+	KSIMDEBUG_INSTANCE_INC(ConnectorBase);
 }
 
 ConnectorBase::~ConnectorBase()
 {
 	delete m_p;
+	KSIMDEBUG_INSTANCE_DEC(ConnectorBase);
 }
 
 /** Returns the related document */

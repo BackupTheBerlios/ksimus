@@ -33,7 +33,7 @@
         <ksimus/>
       </runarguments>
       <customdirectory>/</customdirectory>
-      <programargs>/home/rasmus/tmp/test.sim</programargs>
+      <programargs/>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
       <envvars/>

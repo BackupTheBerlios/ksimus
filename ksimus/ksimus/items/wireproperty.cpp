@@ -39,6 +39,8 @@
 #include "module.h"
 
 
+KSIMDEBUG_INSTANCE_COUNTER(WireProperty);
+
 WireProperty::WireProperty(Wire * wire, const WirePropertyInfo * wirePropertyInfo)
 	:	QObject(wire),
 		ComponentItem(wire),
@@ -47,10 +49,12 @@ WireProperty::WireProperty(Wire * wire, const WirePropertyInfo * wirePropertyInf
 		m_outputCounter(0),
 		m_tristateCounter(0)
 {
+	KSIMDEBUG_INSTANCE_INC(WireProperty);
 }
 
 WireProperty::~WireProperty()
 {
+	KSIMDEBUG_INSTANCE_DEC(WireProperty);
 }
 
 /** save wire properties */
