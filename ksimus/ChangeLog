@@ -1,3 +1,8 @@
+	24.11.2002
+* New: Connector class ConnectorBoolTriStateSpecial used for boolean tristate External Connector
+* Change: External Connector handling within modules improve. This change results in a more
+  clear connector using.
+* New: Improve Boolean Tristate Watch view
 	18.11.2002
 * New: Boolean Tristate Connector extended. Works inside modules now.
 * Change: The negated connector property is moved from the boolean connector classes into the base connector class
