@@ -21,13 +21,13 @@
 
 #include <kdebug.h>
 
-#ifdef DEBUG
+#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
 #define __DEBUG_INFO__        __FILE__ << "(" << __LINE__ << ") "
-#define KSIMDEBUG(str) 	 	 {kdDebug() << __DEBUG_INFO__ << str << endl;}
+#define KSIMDEBUG(str)       {kdDebug() << __DEBUG_INFO__ << str << endl;}
 #define KSIMDEBUG_VAR(str,x) {kdDebug() << __DEBUG_INFO__ << str << " " << #x << " = " << x << endl;}
 #define KSIMDEBUG_FUNCTION   {kdDebug() << k_funcinfo << endl;}
 #else
-#define KSIMDEBUG(str) 	
+#define KSIMDEBUG(str)
 #define KSIMDEBUG_VAR(str,x)
 #define KSIMDEBUG_FUNCTION
 #endif
