@@ -175,7 +175,7 @@
 	05.01.2002
 * Change: Version 0.3.2
 * Fix: Beautify examples
-* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre the bug message.
+* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre for the bug message.
 * New: Command line option --simpleVersion returns only the KSimus version.
 	03.01.2002
 * Fix: i18n problems with Boolean1Out, BooleanLed, ClockGenerator, ExtConnBoolIn, ExtConnBoolOut
