@@ -357,6 +357,10 @@ private:
 	/** Private attributes. */
 	Private * m_p;
 
+	/** Internal helper function. */
+	static void addLog(Component * comp, unsigned int priority, const QString & msg);
+
+
 signals:
 	void signalSetName(const QString & newName);
 

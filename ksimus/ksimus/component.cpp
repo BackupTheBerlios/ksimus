@@ -685,7 +685,7 @@ KInstance * Component::getInstance() const
 	return (KInstance *)0;
 }
 
-static void addLog(Component * comp, unsigned int priority, const QString & msg)
+void Component::addLog(Component * comp, unsigned int priority, const QString & msg)
 {
 	QString str = comp->requestTopLevelName() + QString::fromLatin1(" - ") + msg;
 	LLICompSel * lli;
