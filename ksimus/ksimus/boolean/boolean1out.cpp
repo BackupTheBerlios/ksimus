@@ -197,7 +197,7 @@ Boolean1OutPropertyGeneralWidget::Boolean1OutPropertyGeneralWidget(Boolean1Out *
 	m_resetState = new KSimBooleanBox(getBoolean1Out()->getResetState(), getGrid(), "ResetState");
 	CHECK_PTR(m_resetState);
 	
-	QString tip(i18n("Change the reset state of the component here"));
+	QString tip(i18n("Changes the reset state of the component to true or false."));
 	QToolTip::add(m_resetState, tip);
 	QWhatsThis::add(m_resetState, tip);
 
