@@ -63,11 +63,14 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 
 
 const ComponentInfo MultiDLatchInfo(
-                     I18N_NOOP("Mutliple D Latches"),
-                     I18N_NOOP("Boolean/Flip Flop/Mutliple D Latches"),
+                     I18N_NOOP("Multiple D Latches"),
+                     I18N_NOOP("Boolean/Flip Flop/Multiple D Latches"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,	
+                     QString::null,
+                     "component-boolean-multiple-d-latches"
+                     );
 
 
 #define DEFAULT_RESET_VALUE  false
@@ -120,9 +123,9 @@ void MultiDLatch::calculate()
 {
 	Component::calculate();
 	
-	if (getInputReset()->getInput())
+	if (getInputReset()->getInput() && !getInputReset()->isHidden())
 	{
-		m_values.fill(getResetValue());
+		m_values.fill(false);
 	}
 	else if (getInputEnable()->getInput())
 	{
