@@ -1,3 +1,5 @@
+	14.01.2002
+* Change: Boolean7Segment uses ComponentStyle and friends (adjust color and frame)
 	13.01.2002
 * New: Gates (not GUI objects) are rotatable now.
 	06.01.2002
