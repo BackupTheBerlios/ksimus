@@ -55,13 +55,13 @@
 #include "ksimiodevice.h"
 #include "ksimiodevicelist.h"
 
-static const char * sDocProperty = "Document Property/";
-static const char * sTiming      = "Timing/";
-static const char * sSheetGrid   = "Sheet Grid/";
-static const char * sUserGrid    = "User Grid/";
-static const char * sLastView    = "Last View";
-static const char * sSheetPos    = "Sheet Pos";
-static const char * sUserPos     = "User Pos";
+static const char * const sDocProperty = "Document Property/";
+static const char * const sTiming      = "Timing/";
+static const char * const sSheetGrid   = "Sheet Grid/";
+static const char * const sUserGrid    = "User Grid/";
+static const char * const sLastView    = "Last View";
+static const char * const sSheetPos    = "Sheet Pos";
+static const char * const sUserPos     = "User Pos";
 
 
 #define DEFAULT_GRID_STYLE	GridDots
@@ -347,7 +347,7 @@ bool KSimusDoc::openDocument(const KURL& url, const char */*format =0*/)
 	}
 	else
 	{
-		KMessageBox::error(0,i18n("File access failed!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Open Document"));
+		KMessageBox::error(getApp(),i18n("File access failed!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Open Document"));
 		return false;
 	}
 }
@@ -366,7 +366,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 		if (file.exists() && !file.isWritable())
 		{
 			// File is not writable
-			KMessageBox::sorry(0,i18n("File is not writable"),i18n("Save Document"));
+			KMessageBox::sorry(getApp(),i18n("File is not writable"),i18n("Save Document"));
 			res = false;
 		}
 		else
@@ -394,7 +394,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 			if (!file.exists())
 			{
 				// Ups, file does not exist
-				KMessageBox::error(0,i18n("Ups, file does not exist after writing it!"),i18n("Save Document"));
+				KMessageBox::error(getApp(),i18n("Ups, file does not exist after writing it!"),i18n("Save Document"));
 				setURL(oldUrl); // Restore old name
 				res = false;
 			}
@@ -407,7 +407,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 	}
 	else
 	{
-/*		KMessageBox::sorry(0,i18n("No network access allowed"),i18n("Save Document"));
+/*		KMessageBox::sorry(getApp(),i18n("No network access allowed"),i18n("Save Document"));
 		res = false;*/
 		KTempFile tmpFile;
 		
@@ -421,7 +421,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 				
 		if(!KIO::NetAccess::upload( tmpFile.name(), url ))
 		{
-			KMessageBox::error(0,i18n("File not writen!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Save Document"));
+			KMessageBox::error(getApp(),i18n("File not writen!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Save Document"));
 			setURL(oldUrl); // Restore old name
 			res = false;
 		}

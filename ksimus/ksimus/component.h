@@ -314,9 +314,9 @@ public:
 	bool isZeroDelayComponent() const;
 
 		
-	static const char * sSerialNumber;
-	static const char * sType;
-	static const char * sName;
+	static const char * const sSerialNumber;
+	static const char * const sType;
+	static const char * const sName;
 
 // Protected attributes
 protected:

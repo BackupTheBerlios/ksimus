@@ -31,6 +31,7 @@
 #include "componentaddon.h"
 #include "connectorbase.h"
 #include "connectorlist.h"
+#include "ksimus.h"
 #include "ksimusdoc.h"
 #include "ksimundo.h"
 #include "compview.h"
@@ -48,12 +49,12 @@
 
 
 
-static const char * sSheet = "Sheet/";
-static const char * sUser  = "User/";
+static const char * const sSheet = "Sheet/";
+static const char * const sUser  = "User/";
 
-const char * Component::sSerialNumber = "Serial Number";
-const char * Component::sType = "Type";
-const char * Component::sName = "Name";
+const char * const Component::sSerialNumber = "Serial Number";
+const char * const Component::sType = "Type";
+const char * const Component::sName = "Name";
 
 
 //#######################################################################
@@ -87,7 +88,7 @@ public:
 
 
 Component::Component(CompContainer * container, const ComponentInfo * ci)
-	: QObject(0, ci->getName()),
+	: QObject((QObject*)0, ci->getName().latin1()),
 	  m_sheetView(0),
 	  m_userView(0),
 	  m_container(container),
@@ -488,7 +489,7 @@ unsigned int Component::executePropertyCheck()
 
 //		logError(errText);
 
-		KMessageBox::error(0, errText, caption);
+		KMessageBox::error(getDoc()->getApp(), errText, caption);
 
 		// Restore data
 		if(getUndo())
