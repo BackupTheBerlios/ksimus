@@ -7,23 +7,11 @@ Name=SR-Buttons
 Serial Number=1
 Type=Module
 
-[/Component 0/Conn0/]
-Name=Output
-
-[/Component 0/Conn1/]
-Name=/Output
-
-[/Component 0/Conn2/]
-Name=Set
-
-[/Component 0/Conn3/]
-Name=Reset
-
 [/Component 0/Sheet/]
 Pos=424,112
 
 [/Component 0/User/]
-Pos=0,64
+Pos=208,64
 
 [/Component 1/]
 Serial Number=2
@@ -84,59 +72,59 @@ Connector=Input B
 Type=wire/property/boolean
 
 [/Component 12/]
-Serial Number=11
+Serial Number=13
 Type=Wire/Wire
 
 [/Component 12/Connections/]
-Number=2
+Number=3
 
 [/Component 12/Connections/Connection 0/]
-Component=2
+Component=14
 Connector=Output
 
 [/Component 12/Connections/Connection 1/]
-Component=1
-Connector=Set
+Component=3
+Connector=Input A
+
+[/Component 12/Connections/Connection 2/]
+Component=2
+Connector=Input A
 
 [/Component 12/Property/]
 Type=wire/property/boolean
 
 [/Component 13/]
-Serial Number=12
+Serial Number=11
 Type=Wire/Wire
 
 [/Component 13/Connections/]
 Number=2
 
 [/Component 13/Connections/Connection 0/]
-Component=3
+Component=2
 Connector=Output
 
 [/Component 13/Connections/Connection 1/]
 Component=1
-Connector=Reset
+Connector=(extConn) 15
 
 [/Component 13/Property/]
 Type=wire/property/boolean
 
 [/Component 14/]
-Serial Number=13
+Serial Number=12
 Type=Wire/Wire
 
 [/Component 14/Connections/]
-Number=3
+Number=2
 
 [/Component 14/Connections/Connection 0/]
-Component=14
+Component=3
 Connector=Output
 
 [/Component 14/Connections/Connection 1/]
-Component=3
-Connector=Input A
-
-[/Component 14/Connections/Connection 2/]
-Component=2
-Connector=Input A
+Component=1
+Connector=(extConn) 17
 
 [/Component 14/Property/]
 Type=wire/property/boolean
@@ -194,7 +182,7 @@ Pos=8,104
 Size=96,24
 
 [/Component 6/User/]
-Pos=0,32
+Pos=0,72
 Size=96,24
 
 [/Component 7/]
@@ -207,7 +195,7 @@ Pos=8,152
 Size=96,24
 
 [/Component 7/User/]
-Pos=0,128
+Pos=0,96
 Size=96,24
 
 [/Component 8/]
@@ -270,6 +258,7 @@ Time=500000000
 Unit=msec
 
 [/Property/]
+Last Serial Number=12
 Sheetsize=1000,504
 Usersize=1000,504
 

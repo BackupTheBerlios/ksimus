@@ -55,30 +55,28 @@ Pos=0,64
 Size=96,24
 
 [/Component 4/]
-Color=255,0,0
 Serial Number=6
 Type=Boolean/Output/LED
 
 [/Component 4/Sheet/]
 Pos=264,64
-Size=40,24
+Size=32,24
 
 [/Component 4/User/]
 Pos=0,96
-Size=40,24
+Size=24,24
 
 [/Component 5/]
-Color=255,0,0
 Serial Number=7
 Type=Boolean/Output/LED
 
 [/Component 5/Sheet/]
 Pos=264,136
-Size=40,24
+Size=32,24
 
 [/Component 5/User/]
 Pos=0,128
-Size=40,24
+Size=24,24
 
 [/Component 6/]
 Serial Number=3
@@ -180,6 +178,7 @@ Time=500000000
 Unit=msec
 
 [/Property/]
+Last Serial Number=0
 Sheetsize=1000,504
 Usersize=1000,504
 

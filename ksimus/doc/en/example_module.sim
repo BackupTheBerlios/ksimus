@@ -23,17 +23,16 @@ Pos=512,208
 Connector Count=2
 
 [/Component 10/]
-Color=255,0,0
 Serial Number=22
 Type=Boolean/Output/LED
 
 [/Component 10/Sheet/]
 Pos=640,256
-Size=40,24
+Size=32,24
 
 [/Component 10/User/]
-Pos=80,24
-Size=40,24
+Pos=96,24
+Size=24,24
 
 [/Component 11/]
 Name=/Output
@@ -240,11 +239,11 @@ Type=Boolean/Output/LED
 
 [/Component 4/Sheet/]
 Pos=640,144
-Size=40,24
+Size=32,24
 
 [/Component 4/User/]
-Pos=80,0
-Size=40,24
+Pos=96,0
+Size=24,24
 
 [/Component 5/]
 Name=Output
@@ -326,6 +325,7 @@ Time=500000000
 Unit=msec
 
 [/Property/]
+Last Serial Number=0
 Sheetsize=1000,504
 Usersize=120,48
 
