@@ -153,11 +153,11 @@ QString KSimFile::relativePath (const QString & filename, const QString & relPat
 	QStringList rl(QStringList::split('/',relPath));
 	QString result;
 
-	unsigned int common = 0;
-	unsigned int i;
+	int common = 0;
+	int i;
 
 	// Find common part
-	while ((common < fl.count()) && (common < rl.count()) && (fl[common] == rl[common]))
+	while ((common < (int)fl.count()) && (common < (int)rl.count()) && (fl[common] == rl[common]))
 	{
 		kdDebug() << fl[common] << endl;
 		common++;
@@ -165,7 +165,7 @@ QString KSimFile::relativePath (const QString & filename, const QString & relPat
 
 	// Change dir up to the common part
 	i = common;
-	while (i < rl.count())
+	while (i < (int)rl.count())
 	{
 		result += "../";
 		i++;
@@ -173,12 +173,12 @@ QString KSimFile::relativePath (const QString & filename, const QString & relPat
 
 	// Append the path to the file
 	i = common;
-	while (i < fl.count()-1)
+	while (i < (int)fl.count()-1)
 	{
 		result += fl[i] + '/';
 		i++;
 	};
-	if (i < fl.count())
+	if (i < (int)fl.count())
 	{
 		result += fl[i];
 	};
