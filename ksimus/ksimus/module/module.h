@@ -46,6 +46,8 @@ public:
 	virtual void draw(QPainter * p);
 	static void drawGeneric(QPainter * p, QRect & place);
 	static void drawGeneric(QPainter * p, QSize & size);
+	/** Draws the CompView to a printer. Widget are also drawn. */
+	virtual void print(QPainter * paint);
 	
 	/** Creates a new Widget  */
 	QWidget * createCompViewWidget(QWidget * parent);

@@ -74,12 +74,12 @@ ModuleSV::~ModuleSV()
 void ModuleSV::draw(QPainter * p)
 {
 	Module * mod = (Module *) getComponent();
-	QRect place(getPlace());
+	QSize size(getPlace().size());
 		
 	switch(mod->getModuleContainer()->getModuleData()->getModuleView())
 	{
 		case MV_GENERIC:
-			drawGeneric(p, place);
+			drawGeneric(p, size);
 			break;
 			
 		case MV_PIXMAP:
@@ -103,8 +103,8 @@ void ModuleSV::drawGeneric(QPainter * p, QRect & place)
 	p->save();
 	p->setPen(QPen(black, 2));
 	p->setBrush(NoBrush);
-	p->drawRect(gridX+1, gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1);
-	p->drawText(gridX+1, gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1,
+	p->drawRect(place.x() + gridX+1, place.y() + gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1);
+	p->drawText(place.x() + gridX+1, place.y() + gridY+1, place.width()-gridX*2-1, place.height()-gridY*2-1,
 	            AlignCenter, "Module");
 	p->restore();
 }	
@@ -113,6 +113,21 @@ void ModuleSV::drawGeneric(QPainter * p, QSize & size)
 {
 	QRect place (QPoint(0,0), size);
 	drawGeneric(p,place);
+}
+
+void ModuleSV::print(QPainter * paint)
+{
+	draw(paint);
+
+  QWidget * pWid;
+	if (widgetList && (pWid = widgetList->getFirstWidget()))
+	{
+		// Reset the compView translation (a little bit ugly :)
+		paint->restore();
+		paint->drawPixmap(pWid->pos(), QPixmap::grabWidget(pWid));
+		// Push one
+		paint->save();
+	}
 }
 
 /**  */
@@ -283,7 +298,7 @@ void Module::reloadModule()
 	
 	if ((mdata->getModuleView() == MV_PIXMAP) && (!mdata->isPixmapFileValid()))
 	{
-		logWarning(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(getModuleFile()));
+		logWarning(i18n("Pixmap file '%1' is not valid! Switch to generic view.").arg(mdata->getPixmapFile()));
 		mdata->setModuleView(MV_GENERIC);
 	}
 

@@ -374,7 +374,7 @@ void ModuleDialog::posSelected(QPoint & pos, bool insert, ConnOrientationType or
 				}
 			}
 			
-			if (insert && selectedConn && (selectedConn->getPixmapPos() != pos))
+			if (insert && selectedConn && (selectedConn->getUserViewPos() != pos))
 			{
 				modifyExternals(i18n("Change Connector Position"));
 				if (extConn)
