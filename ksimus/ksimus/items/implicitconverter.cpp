@@ -109,11 +109,11 @@ const void * ImplicitConverterBoolean2Float::convert(const void * data)
 {
 	if (!data || ((*(const bool *) data) == false))
 	{
-		m_result = 0;
+		m_result = 0.0;
 	}
 	else
 	{
-		m_result = 1;
+		m_result = 1.0;
 	}
 
 	return &m_result;
