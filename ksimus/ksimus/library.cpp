@@ -50,6 +50,8 @@
 #include "wirepropertyboolean.h"
 #include "wirepropertyfloatingpoint.h"
 
+#include "implicitconverter.h"
+
 #include "boolean/booleanbutton.h"
 #include "boolean/booleanled.h"
 #include "boolean/booleanand.h"
@@ -134,6 +136,11 @@ static const WirePropertyInfoList & getDistWireProperty()
 		// Add your wireproperty info here
 		pDistWireProp->append(getWirePropertyBooleanInfo());
 		pDistWireProp->append(getPropertyFloatingPointInfo());
+
+		// Some "error" WireProperties
+		pDistWireProp->append(getWirePropertyInvalidDifferentOutputsInfo());
+		pDistWireProp->append(getWirePropertyInvalidIncompatibleInputsInfo());
+		pDistWireProp->append(getWirePropertyInvalidDifferentInputsNoOutputInfo());
 	}
 	
 	return *pDistWireProp;
@@ -150,6 +157,7 @@ static const ImplicitConverterInfoList & getImplicitConverterProperty()
 		CHECK_PTR(pImplicitConverterProp);
 
 		// Add your implicit converter info here
+		pImplicitConverterProp->append(getImplicitConverterBoolean2FloatInfo());
 	}
 
 	return *pImplicitConverterProp;

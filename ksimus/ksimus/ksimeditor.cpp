@@ -1852,22 +1852,30 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	CHECK_PTR(menu);
 	KSimUndo * undo = getDoc()->getUndo();
 	CHECK_PTR(undo);
-	Component * comp = getContainer()->getFirstCompView()->getComponent();
+	Wire * wire = (Wire*)getContainer()->getFirstCompView()->getComponent();
 	int res,idDelete, idTruncate, idProperty, addWatchItemIdx;
+	WireProperty * wp = wire->getWireProperty();
 
 	idDelete = menu->insertItem(i18n("&Delete wire"));
 	idTruncate = menu->insertItem(i18n("&Truncate wire"));
 	
-	if (comp->getConnList()->count() <= 2)
+	if (wire->getConnList()->count() <= 2)
 	{
 		// No truncate
 		menu->setItemEnabled(idTruncate, false);
 	}
 		
-	comp->initPopupMenu(menu);
+	wire->initPopupMenu(menu);
 
-	menu->insertSeparator();
-	addWatchItemIdx = menu->insertItem(i18n("&Add wire to watch view"));
+	if (wp->inherits("WirePropertyInvalidBase"))
+	{
+		addWatchItemIdx = 0;
+	}
+	else
+	{
+		menu->insertSeparator();
+		addWatchItemIdx = menu->insertItem(i18n("&Add wire to watch view"));
+	}
 
 
 	menu->insertSeparator();
@@ -1879,7 +1887,7 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	if(res == idDelete)
 	{
 		undo->begin(i18n("Delete Wire"));
-		getContainer()->delComponent(comp);
+		getContainer()->delComponent(wire);
 		undo->end();
 		getDoc()->setModified();
 		getContainer()->routeComponents();
@@ -1888,7 +1896,7 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	else if (res == idTruncate)
 	{
 		undo->begin(i18n("Truncate Wire"));
-		getContainer()->truncateWire((Wire*)comp, pos);
+		getContainer()->truncateWire(wire, pos);
 		undo->end();
 		getDoc()->setModified();
 		getContainer()->routeComponents();
@@ -1897,14 +1905,14 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	else if (res == idProperty)
 	{
 		ComponentPropertyDialog * dia;
-		dia = new ComponentPropertyDialog(comp, i18n("Component Properties"));
-		comp->initPropertyDialog(dia);
+		dia = new ComponentPropertyDialog(wire, i18n("Component Properties"));
+		wire->initPropertyDialog(dia);
 		dia->exec();
 		delete dia;
 	}
 	else if (res == addWatchItemIdx)
 	{
-		WireProperty * wp = ((Wire*)comp)->getWireProperty();
+		WireProperty * wp = wire->getWireProperty();
 
 		if (wp)
 		{
@@ -1927,9 +1935,9 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	}
 	
 	// Not deleted ?
-	if (getContainer()->getComponentList()->find(comp) != -1)
+	if (getContainer()->getComponentList()->find(wire) != -1)
 	{
-		comp->menuExecuted();
+		wire->menuExecuted();
 	}
 	
 	delete menu;

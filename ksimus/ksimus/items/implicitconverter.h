@@ -22,7 +22,6 @@
 
 // QT includes
 #include <qobject.h>
-#include <qlist.h>
 
 // KDE includes
 
@@ -42,11 +41,11 @@ class Private;
 
    Q_OBJECT
 
-public: 
+public:
 	~ImplicitConverter();
 
 	/** The converting function. Is called by the connector if converting is needed. */
-	virtual void * convert(void * data) = 0;
+	virtual const void * convert(const void * data) = 0;
 
 	/** Returns the associated ImplicitConverterInfo. */
 	const ImplicitConverterInfo * getInfo() const;
@@ -57,5 +56,29 @@ protected:
 private:
 	Private * m_p;
 };
+
+
+//###############################################################################################
+//###############################################################################################
+
+
+const ImplicitConverterInfo * getImplicitConverterBoolean2FloatInfo();
+
+class ImplicitConverterBoolean2Float : public ImplicitConverter
+{
+   Q_OBJECT
+
+public:
+	ImplicitConverterBoolean2Float(ConnectorBase * connector);
+	~ImplicitConverterBoolean2Float();
+
+	/** The converting function. Is called by the connector if converting is needed. */
+	virtual const void * convert(const void * data);
+
+private:
+	double m_result;
+};
+
+
 
 #endif

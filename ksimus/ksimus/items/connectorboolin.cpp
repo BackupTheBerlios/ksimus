@@ -91,7 +91,7 @@ const WireColorScheme & ConnectorBoolIn::getColorScheme() const
 */
 void ConnectorBoolIn::reset()
 {
-	ConnectorBase::reset();
+	ConnectorInputBase::reset();
 	
 	m_data = false;
 }

@@ -36,8 +36,11 @@
 #include "wirepropertylibrary.h"
 #include "wirepropertyinfo.h"
 #include "componentmap.h"
-
 #include "wireproperty.h"
+#include "implicitconverterlibrary.h"
+
+// Forward declaration
+
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
 {
@@ -65,15 +68,17 @@ WireColorScheme::WireColorScheme()
 {
 }
 
-WireColorScheme::WireColorScheme(QColor wireColor)
+WireColorScheme::WireColorScheme(QColor wireColor, unsigned int width)
 	:	m_foreground(wireColor),
-		m_background()
+		m_background(),
+		m_width(width)
 {
 }
 
-WireColorScheme::WireColorScheme(QColor wireForegroundColor, QColor wireBackgroundColor)
+WireColorScheme::WireColorScheme(QColor wireForegroundColor, QColor wireBackgroundColor, unsigned int width)
 	:	m_foreground(wireForegroundColor),
-		m_background(wireBackgroundColor)
+		m_background(wireBackgroundColor),
+		m_width(width)
 {
 }
 	
@@ -81,20 +86,6 @@ bool WireColorScheme::isDualColor() const
 {
 	return m_background.isValid();
 }
-
-const QColor & WireColorScheme::getColor() const
-{
-	return m_foreground;
-}
-const QColor & WireColorScheme::getForegroundColor() const
-{
-	return m_foreground;
-}
-const QColor & WireColorScheme::getBackgroundColor() const
-{
-	return m_background;
-}
-
 
 //###############################################################
 
@@ -115,7 +106,7 @@ WireSV::~WireSV()
 
 void WireSV::draw(QPainter * p)
 {
-	CPointList * list;
+/*	CPointList * list;
 	QPoint * first;
 	int step = 0;
 	bool ready = false;
@@ -151,7 +142,7 @@ void WireSV::draw(QPainter * p)
 				ready = true;
 				if (colorScheme.isDualColor())
 				{
-					p->setPen(QPen(colorScheme.getForegroundColor(), 2, /*DashLine*/ DotLine));
+					p->setPen(QPen(colorScheme.getForegroundColor(), 2, DotLine));
 					p->setBrush(colorScheme.getForegroundColor());
 				}
 				break;
@@ -181,7 +172,48 @@ void WireSV::draw(QPainter * p)
 			}
 		}
 	}
-	while(!ready);
+	while(!ready);*/
+
+	CPointList * list;
+	QPoint p1,p2;
+	Wire * wire = (Wire*)getComponent();
+
+	const WireColorScheme & colorScheme = (wire->m_wireProperty)
+	                             ? wire->m_wireProperty->getColorScheme()
+	                             : wire->getConnList()->at(0)->getColorScheme();
+
+	p->setPen(QPen(colorScheme.getForegroundColor(), colorScheme.getWidth()));
+	p->setBrush(colorScheme.getForegroundColor());
+
+	for (unsigned int j = 0; j < routeList->count(); j++)
+	{
+		list = routeList->at(j);
+		p1 = QPoint(list->at(0)->x()*gridX+gridX/2, list->at(0)->y()*gridY+gridY/2);
+		
+		for (unsigned int i = 1; i < list->count(); i++)
+		{
+			p2 = QPoint(list->at(i)->x()*gridX+gridX/2, list->at(i)->y()*gridY+gridY/2);
+			
+			if (colorScheme.isDualColor())
+			{
+				p->setPen(QPen(colorScheme.getBackgroundColor(), colorScheme.getWidth()));
+				p->setBrush(colorScheme.getBackgroundColor());
+				p->drawLine(p1, p2);
+				p->setPen(QPen(colorScheme.getForegroundColor(), colorScheme.getWidth(), DotLine));
+				p->setBrush(colorScheme.getForegroundColor());
+			}
+			p->drawLine(p1, p2);
+			
+			p1 = p2;
+		}
+	}
+
+	p->setPen(QPen(colorScheme.getForegroundColor(), colorScheme.getWidth()));
+	p->setBrush(colorScheme.getForegroundColor());
+	for (unsigned int j = 1; j < routeList->count(); j++)
+	{
+		p->drawEllipse(routeList->at(j)->at(0)->x()*gridX+gridX/2-3, routeList->at(j)->at(0)->y()*gridY+gridY/2-3, 6 , 6);
+	}
 }
 
 void WireSV::drawBound(QPainter *)
@@ -517,9 +549,9 @@ bool Wire::load(KSimData & file, bool copyLoad)
 */
 const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 {
-	const char * outputType = 0;
+	QString outputType;
 	const WirePropertyInfo * wirePropInfo = 0;
-	bool searchFailed = false;
+	bool outputFound = false;
 	
 	CHECK_PTR(list);
 	
@@ -528,27 +560,29 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 	{
 		if (it.current()->isOutput() || it.current()->isTriState())
 		{
-			if (outputType)
-			{
-				// Compare data types
-				if (strcmp(outputType, it.current()->getConnInfo()->getDataType()))
-				{
-					// Different
-					searchFailed = true;
-					KSIMDEBUG("Different outputs");
-					KSIMDEBUG_VAR("",outputType);
-					KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());
-				}
-			}
-			else
+			if (outputType.isNull())
 			{
 				// Store first output
 				outputType = it.current()->getConnInfo()->getDataType();
+				outputFound = true;
+			}
+			else
+			{
+				// Compare data types
+				if (outputType != it.current()->getConnInfo()->getDataType())
+				{
+					// Different
+					KSIMDEBUG("Different outputs");
+					KSIMDEBUG_VAR("",outputType);
+					KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());
+					
+					return getWirePropertyInvalidDifferentOutputsInfo();
+				}
 			}
 		}
 	}
 	
-	if (!outputType)
+	if (outputType.isNull())
 	{
 		// No output found
 		// First Input set dataType
@@ -563,29 +597,43 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 		{
 			// Only same typedata at the moment !!!
 			// Compare data types
-			if (strcmp(outputType, it.current()->getConnInfo()->getDataType()))
+			if (outputType != it.current()->getConnInfo()->getDataType())
 			{
 				// Different
-				searchFailed = true;
 				KSIMDEBUG("Different dataTypes");
 				KSIMDEBUG_VAR("",outputType);
 				KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());
+				
+				if (outputFound)
+				{
+					const ImplicitConverterInfo * ici = g_library->getImplicitConverterLib()
+					              ->findDataType(outputType, it.current()->getConnInfo()->getDataType());
+					if (!ici)
+					{
+						// No implicit converter found
+						return getWirePropertyInvalidIncompatibleInputsInfo();
+					}
+				}
+				else
+				{
+					return getWirePropertyInvalidDifferentInputsNoOutputInfo();
+				}
 			}
 		}
 	}
 		
 	// Search wirePropertyInfo
-	if (outputType && !searchFailed)
+	if (!outputType.isNull())
 	{
 		// Output found
-		wirePropInfo = g_library->getWirePropertyLib()->findDataType(QString::fromLatin1(outputType));
+		wirePropInfo = g_library->getWirePropertyLib()->findDataType(outputType);
 		
 		if (!wirePropInfo)
 		{
 			KSIMDEBUG_VAR("dataType not found", outputType);
 		}
 	}
-	return wirePropInfo;	
+	return wirePropInfo;
 }
 	
 
@@ -656,7 +704,7 @@ void Wire::setPropertyInfo(const WirePropertyInfo * wirePropInfo)
 		m_wireProperty = wirePropInfo->create(this);
 	}
 }
-		
+
 
 /** Returns the current wire property info. */
 const WirePropertyInfo * Wire::getPropertyInfo() const
@@ -703,9 +751,3 @@ void Wire::setupCircuit()
 	}
 }
 
-/** Reset all simulation variables
-*		The implementaion clears the data cache */
-void Wire::reset()
-{
-	Component::reset();
-}

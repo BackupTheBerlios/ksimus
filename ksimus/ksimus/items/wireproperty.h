@@ -152,6 +152,122 @@ protected:
 //##################################################################################
 //##################################################################################
 
+class WirePropertyInvalidBase : public WireProperty
+{
+
+	Q_OBJECT
+
+public:
+//	virtual ~WirePropertyInvalidBase();
+
+	/** Setup the Wire property for a new circuit execution.
+	  * Copies this wire property into the connected connectors.
+	  */
+	virtual void setupCircuit();
+
+	/** Executes the WireProperty. This means copies the data from the output connector
+	  * to the input connector. */
+	virtual void execute();
+
+	/** Returns a pointer to the data that's read from the wire.
+	  * Reads the data of the output. If no output connector is present a null pointer is returned. */
+	virtual const void * readoutData() const;
+
+	/** Get the colors for the wire property. */
+	virtual const WireColorScheme & getColorScheme() const;
+
+protected:
+	WirePropertyInvalidBase(Wire * wire, const WirePropertyInfo * wirePropertyInfo);
+};
+
+
+//##################################################################################
+//##################################################################################
+
+const WirePropertyInfo * getWirePropertyInvalidDifferentOutputsInfo();
+
+class WirePropertyInvalidDifferentOutputs : public WirePropertyInvalidBase
+{
+
+	Q_OBJECT
+
+public:
+	WirePropertyInvalidDifferentOutputs(Wire * wire);
+//	virtual ~WirePropertyInvalidDifferentOutputs();
+
+	/** Checks the connected component.
+		eg. No output connected or more than one connected.
+		Returns the number of errors.
+	*/
+	virtual int checkCircuit();
+
+	/** Returns the error message. */
+	static QString getErrorMsg();
+
+private:
+	static QString m_errorMsg;
+};
+
+
+//##################################################################################
+//##################################################################################
+
+const WirePropertyInfo * getWirePropertyInvalidIncompatibleInputsInfo();
+
+class WirePropertyInvalidIncompatibleInputs : public WirePropertyInvalidBase
+{
+
+	Q_OBJECT
+
+public:
+	WirePropertyInvalidIncompatibleInputs(Wire * wire);
+//	virtual ~WirePropertyInvalidIncompatibleInputs();
+
+	/** Checks the connected component.
+		eg. No output connected or more than one connected.
+		Returns the number of errors.
+	*/
+	virtual int checkCircuit();
+
+	/** Returns the error message. */
+	static QString getErrorMsg();
+
+private:
+	static QString m_errorMsg;
+};
+
+
+//##################################################################################
+//##################################################################################
+
+const WirePropertyInfo * getWirePropertyInvalidDifferentInputsNoOutputInfo();
+
+class WirePropertyInvalidDifferentInputsNoOutput : public WirePropertyInvalidBase
+{
+
+	Q_OBJECT
+
+public:
+	WirePropertyInvalidDifferentInputsNoOutput(Wire * wire);
+//	virtual ~WirePropertyInvalidDifferentInputsNoOutput();
+
+	/** Checks the connected component.
+		eg. No output connected or more than one connected.
+		Returns the number of errors.
+	*/
+	virtual int checkCircuit();
+
+	/** Returns the error message. */
+	static QString getErrorMsg();
+
+private:
+	static QString m_errorMsg;
+};
+
+
+//##################################################################################
+//##################################################################################
+
 
 class WirePropertyList : public QList<WireProperty>
 {

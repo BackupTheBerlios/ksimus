@@ -85,7 +85,7 @@ const WireColorScheme & ConnectorFloatIn::getColorScheme() const
 */
 void ConnectorFloatIn::reset()
 {
-	ConnectorBase::reset();
+	ConnectorInputBase::reset();
 	
 	m_data = 0.0;
 }

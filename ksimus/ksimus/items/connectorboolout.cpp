@@ -90,7 +90,7 @@ const WireColorScheme & ConnectorBoolOut::getColorScheme() const
 */
 void ConnectorBoolOut::reset()
 {
-	ConnectorBase::reset();
+	ConnectorOutputBase::reset();
 	
 	m_data = isNegated();
 }

@@ -36,11 +36,15 @@
 #include "connectorbase.h"
 #include "simulationexecute.h"
 #include "wireproperty.h"
+#include "wirepropertyinfo.h"
 #include "wirepropertymultipleoutput.h"
 #include "watchwidget.h"
+#include "library.h"
 
 #include "connectorpropertywidget.h"
 #include "ksimdebug.h"
+
+#include "implicitconverterlibrary.h"
 
 static const char * sName = "Name";
 static const char * sNegType = "Neg";
@@ -142,7 +146,8 @@ ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QStri
 		m_wire(0),
 		m_negType(false),
 		m_myActions(KSimAction::ALL),
-		m_wireProperty(0)
+		m_wireProperty(0),
+		m_implicitConverter((ImplicitConverter *)0)
 {
 	m_p = new ConnectorBasePrivate();
 	CHECK_PTR(m_p);
@@ -514,6 +519,49 @@ WireProperty * ConnectorBase::getWireProperty() const
 void ConnectorBase::setWireProperty(WireProperty * wireProperty)
 {
 	m_wireProperty = wireProperty;
+	
+	if (m_implicitConverter)
+	{
+		delete m_implicitConverter;
+		m_implicitConverter = 0;
+	}
+
+	if (m_wireProperty)
+	{
+		// ==> New wire property
+		if(m_wireProperty->getInfo()->getDataType() != getConnInfo()->getDataType())
+		{
+			// ==> different data types
+			if(!isInput())
+			{
+				// This should not be happend if output or tristate connector
+				KSIMDEBUG("Different dataTypes");
+				KSIMDEBUG_VAR("",m_wireProperty->getInfo()->getDataType());
+				KSIMDEBUG_VAR("",getConnInfo()->getDataType());
+				ASSERT(0);
+			}
+			const ImplicitConverterInfo * ici = g_library->getImplicitConverterLib()
+			     ->findDataType(m_wireProperty->getInfo()->getDataType(), getConnInfo()->getDataType());
+			if (!ici)
+			{
+				// This should not be happend if output or tristate connector
+				KSIMDEBUG("Impicit Convert not found");
+				KSIMDEBUG_VAR("",m_wireProperty->getInfo()->getDataType());
+				KSIMDEBUG_VAR("",getConnInfo()->getDataType());
+				ASSERT(0);
+			}
+			m_implicitConverter = ici->create(this);
+			CHECK_PTR(m_implicitConverter);
+			if (!m_implicitConverter)
+			{
+				// This should not be happend if output or tristate connector
+				KSIMDEBUG("Impicit Convert not found");
+				KSIMDEBUG_VAR("",m_wireProperty->getInfo()->getDataType());
+				KSIMDEBUG_VAR("",getConnInfo()->getDataType());
+				ASSERT(0);
+			}
+		}
+	}
 }
 
 /** Adds the component in the list for execute next cycle. */

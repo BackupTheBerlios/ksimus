@@ -54,17 +54,19 @@ class WireColorScheme
 {
 public:
 	WireColorScheme();
-	WireColorScheme(QColor wireColor);
-	WireColorScheme(QColor wireForegroundColor, QColor wireBackgroundColor);
+	WireColorScheme(QColor wireColor, unsigned int width = 2);
+	WireColorScheme(QColor wireForegroundColor, QColor wireBackgroundColor, unsigned int width = 2);
 	
 	bool isDualColor() const;
-	const QColor & getColor() const;
-	const QColor & getForegroundColor() const;
-	const QColor & getBackgroundColor() const;
+	const QColor & getColor() const { return m_foreground; };
+	const QColor & getForegroundColor() const { return m_foreground; };
+	const QColor & getBackgroundColor() const { return m_background; };
+	unsigned int getWidth() const { return m_width; }
 
 private:
 	QColor m_foreground;
 	QColor m_background;
+	unsigned int m_width;
 };
 
 
@@ -151,9 +153,6 @@ public:
 	  * Calls the setup functions of wire properties.
 	  */
 	virtual void setupCircuit();
-	
-	/** Reset all simulation variables */
-	virtual void reset();
 	
 	/** Set a new wire property info. */
 	void setPropertyInfo(const WirePropertyInfo * wirePropInfo);

@@ -29,6 +29,7 @@
 #include "types.h"
 #include "componentitem.h"
 #include "ksimaction.h"
+#include "implicitconverter.h"
 
 class QPainter;
 class KSimData;
@@ -74,7 +75,20 @@ public:
 	  * Reimplementations is required. */
 	virtual void copyData(const void * pData) = 0;
 	
-	/**    */
+	/** The function putData() is called if new data has to copied into a input connector.
+	  * This function calls the implicit converter before calling copyData() if a converter
+	  * is available. */
+	void putData(const void * pData)
+	{
+		if (m_implicitConverter)
+		{
+			copyData(m_implicitConverter->convert(pData));
+		}
+		else
+		{
+			copyData(pData);
+		}
+	};
 
 	/** Returns the related document. */
 	KSimusDoc * getDoc() const;
@@ -319,6 +333,7 @@ private:
 	
 	KSimAction m_myActions;
 	WireProperty * m_wireProperty;
+	ImplicitConverter * m_implicitConverter;
 	
 signals:
 	/** This signal is emitted immediately after the connector is connected to a wire.

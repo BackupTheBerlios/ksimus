@@ -279,13 +279,13 @@ void WirePropertySingleOutput::execute()
 	const void * pData = m_outConnector->readoutData();
 	FOR_EACH_CONNECTOR(it, *m_inConnectorList)
 	{
-		it.current()->copyData(pData);
+		it.current()->putData(pData);
 		it.current()->executeComponentNext();
 	}
 	
 	FOR_EACH_CONNECTOR(it, *m_inZeroDelayConnectorList)
 	{
-		it.current()->copyData(pData);
+		it.current()->putData(pData);
 	}
 	
 	FOR_EACH_COMP(itExt, *m_zeroDelayList)
@@ -294,3 +294,221 @@ void WirePropertySingleOutput::execute()
 		itExt.current()->calculate();
 	}
 }
+
+
+//##################################################################################
+//##################################################################################
+
+
+WirePropertyInvalidBase::WirePropertyInvalidBase(Wire * wire, const WirePropertyInfo * wirePropertyInfo)
+	: WireProperty(wire, wirePropertyInfo)
+{
+}
+
+/*WirePropertyInvalid::~WirePropertyInvalid()
+{
+} */
+
+void WirePropertyInvalidBase::setupCircuit()
+{
+	return;
+}
+
+void WirePropertyInvalidBase::execute()
+{
+	return;
+}
+
+const void * WirePropertyInvalidBase::readoutData() const
+{
+	return (const void *)0;
+}
+
+	/** Get the colors for the wire property. */
+const WireColorScheme & WirePropertyInvalidBase::getColorScheme() const
+{
+	static WireColorScheme colorScheme(Qt::black, Qt::white);
+
+	return colorScheme;
+}
+
+
+//##################################################################################
+//##################################################################################
+
+static WireProperty * createWirePropertyInvalidDifferentOutputs(Wire * wire)
+{
+	WireProperty * wp;
+	wp = new WirePropertyInvalidDifferentOutputs(wire);
+	CHECK_PTR(wp);
+	return wp;
+}
+
+
+const WirePropertyInfo * getWirePropertyInvalidDifferentOutputsInfo()
+{
+	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Invalid Different Outputs"),
+	                                   QString::fromLatin1("wire/property/invalid different outputs"),
+	                                   QString::fromLatin1("Invalid Different Outputs"),
+	                                   createWirePropertyInvalidDifferentOutputs );
+	return &Info;
+}
+
+
+QString WirePropertyInvalidDifferentOutputs::m_errorMsg = QString();
+
+
+WirePropertyInvalidDifferentOutputs::WirePropertyInvalidDifferentOutputs(Wire * wire)
+	:	WirePropertyInvalidBase(wire, getWirePropertyInvalidDifferentOutputsInfo())
+{
+	logWarning(getErrorMsg());
+};
+
+/*WirePropertyInvalidDifferentOutputs::~WirePropertyInvalidDifferentOutputs()
+{
+
+} */
+
+	/** Checks the connected component.
+		eg. No output connected or more than one connected.
+		Returns the number of errors.
+	*/
+int WirePropertyInvalidDifferentOutputs::checkCircuit()
+{
+	logError(getErrorMsg());
+
+	return 1;
+}
+
+	/** Returns the error message. */
+QString WirePropertyInvalidDifferentOutputs::getErrorMsg()
+{
+	if (m_errorMsg.isNull())
+	{
+		m_errorMsg = i18n("The wire is connected to output connectors with different data types.");
+	}
+
+	return m_errorMsg;
+}
+
+
+//##################################################################################
+//##################################################################################
+
+static WireProperty * createWirePropertyInvalidIncompatibleInputs(Wire * wire)
+{
+	WireProperty * wp;
+	wp = new WirePropertyInvalidIncompatibleInputs(wire);
+	CHECK_PTR(wp);
+	return wp;
+}
+
+
+const WirePropertyInfo * getWirePropertyInvalidIncompatibleInputsInfo()
+{
+	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Invalid Incompatible Inputs"),
+	                                   QString::fromLatin1("wire/property/invalid incompatible inputs"),
+	                                   QString::fromLatin1("Invalid Incompatible Inputs"),
+	                                   createWirePropertyInvalidIncompatibleInputs );
+	return &Info;
+}
+
+
+QString WirePropertyInvalidIncompatibleInputs::m_errorMsg = QString();
+
+
+WirePropertyInvalidIncompatibleInputs::WirePropertyInvalidIncompatibleInputs(Wire * wire)
+	:	WirePropertyInvalidBase(wire, getWirePropertyInvalidDifferentOutputsInfo())
+{
+	logWarning(getErrorMsg());
+};
+
+/*WirePropertyInvalidIncompatibleInputs::~WirePropertyInvalidIncompatibleInputs()
+{
+
+} */
+
+	/** Checks the connected component.
+		eg. No output connected or more than one connected.
+		Returns the number of errors.
+	*/
+int WirePropertyInvalidIncompatibleInputs::checkCircuit()
+{
+	logError(getErrorMsg());
+
+	return 1;
+}
+
+	/** Returns the error message. */
+QString WirePropertyInvalidIncompatibleInputs::getErrorMsg()
+{
+	if (m_errorMsg.isNull())
+	{
+		m_errorMsg = i18n("The wire is connected to input connectors with incompatible data types.");
+	}
+
+	return m_errorMsg;
+}
+
+
+//##################################################################################
+//##################################################################################
+
+static WireProperty * createWirePropertyInvalidDifferentInputsNoOutput(Wire * wire)
+{
+	WireProperty * wp;
+	wp = new WirePropertyInvalidDifferentInputsNoOutput(wire);
+	CHECK_PTR(wp);
+	return wp;
+}
+
+
+const WirePropertyInfo * getWirePropertyInvalidDifferentInputsNoOutputInfo()
+{
+	static const WirePropertyInfo Info(QString::fromLatin1("Wire Property Invalid Different Inputs No Output"),
+	                                   QString::fromLatin1("wire/property/invalid different inputs no output"),
+	                                   QString::fromLatin1("Invalid Different Inputs No Output"),
+	                                   createWirePropertyInvalidDifferentInputsNoOutput );
+	return &Info;
+}
+
+
+QString WirePropertyInvalidDifferentInputsNoOutput::m_errorMsg = QString();
+
+
+WirePropertyInvalidDifferentInputsNoOutput::WirePropertyInvalidDifferentInputsNoOutput(Wire * wire)
+	:	WirePropertyInvalidBase(wire, getWirePropertyInvalidDifferentInputsNoOutputInfo())
+{
+	logWarning(getErrorMsg());
+};
+
+/*WirePropertyInvalidDifferentInputsNoOutput::~WirePropertyInvalidDifferentInputsNoOutput()
+{
+
+} */
+
+	/** Checks the connected component.
+		eg. No output connected or more than one connected.
+		Returns the number of errors.
+	*/
+int WirePropertyInvalidDifferentInputsNoOutput::checkCircuit()
+{
+	logError(getErrorMsg());
+
+	return 1;
+}
+
+	/** Returns the error message. */
+QString WirePropertyInvalidDifferentInputsNoOutput::getErrorMsg()
+{
+	if (m_errorMsg.isNull())
+	{
+		m_errorMsg = i18n("The wire is connected to input connectors with different data types.");
+	}
+
+	return m_errorMsg;
+}
+
+
+
+
