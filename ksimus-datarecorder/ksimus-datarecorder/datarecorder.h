@@ -33,6 +33,7 @@
 #include "datarecorderchannelbase.h"
 
 // Forward declaration
+class KLocale;
 class ConnectorBase;
 class ConnectorInputList;
 
@@ -88,7 +89,7 @@ const ComponentInfo * getDataRecorderInfo();
 };  //namespace KSimLibDataRecorder
 
 /** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
-extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
+extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
 
 
 

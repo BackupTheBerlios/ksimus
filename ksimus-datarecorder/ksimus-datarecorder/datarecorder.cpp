@@ -180,7 +180,7 @@ const PackageInfo * packageInfo = 0;
 
 extern "C"
 {
-	const PackageInfo * PACKAGE_INIT_FUNCTION()
+	const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
 	{
 
 //		KSIMDEBUG("Init Package " PACKAGE_NAME);
@@ -188,6 +188,10 @@ extern "C"
 		if (KSimLibDataRecorder::instance == 0)
 		{
 			KSimLibDataRecorder::instance = new KInstance(PACKAGE_LOWER_NAME);
+			CHECK_PTR(KSimLibDataRecorder::instance);
+			CHECK_PTR(ksimusLocale);
+			// add translation
+			ksimusLocale->insertCatalogue(KSimLibDataRecorder::instance->instanceName());
 		}
 	
 		if (KSimLibDataRecorder::packageInfo == 0)

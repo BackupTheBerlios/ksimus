@@ -28,6 +28,7 @@
 #include "ksimus/componentinfo.h"
 
 // Forward declaration
+class KLocale;
 
 /** The boolean package
   * @author Rasmus Diekenbrock
@@ -73,6 +74,6 @@ extern const PackageInfo * packageInfo;
 };  //namespace KSimLibBoolean
 
 /** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
-extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
+extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale);
 
 #endif

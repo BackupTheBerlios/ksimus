@@ -20,6 +20,7 @@
 // QT-Includes
 
 // KDE-Includes
+#include <klocale.h>
 
 // KSimus-Includes
 #include "ksimus/packageinfo.h"
@@ -187,7 +188,7 @@ const PackageInfo * packageInfo = 0;
 
 extern "C"
 {
-	const PackageInfo * PACKAGE_INIT_FUNCTION()
+	const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
 	{
 
 //		KSIMDEBUG("Init Package " PACKAGE_NAME);
@@ -195,6 +196,10 @@ extern "C"
 		if (KSimLibBoolean::instance == 0)
 		{
 			KSimLibBoolean::instance = new KInstance(PACKAGE_LOWER_NAME);
+			CHECK_PTR(KSimLibBoolean::instance);
+			CHECK_PTR(ksimusLocale);
+			// add translation
+			ksimusLocale->insertCatalogue(KSimLibBoolean::instance->instanceName());
 		}
 	
 		if (KSimLibBoolean::packageInfo == 0)
