@@ -73,9 +73,9 @@ void ComponentBlockLayout::drawSheetView (QPainter *p) const
 	if (isDrawFrame() || !getText().isEmpty())
 	{	
 		QRect rect(DoubleLayout::getRect(false));
-		QRect rectView(getComponent()->getSheetView()->getPlace());
+//		QRect rectView(getComponent()->getSheetView()->getPlace());
 	
-		rect.moveBy(rectView.topLeft().x(),rectView.topLeft().y());
+//		rect.moveBy(rectView.topLeft().x(),rectView.topLeft().y());
 		rect.rLeft() ++;
 		rect.rTop() ++;
 		p->save();
@@ -116,9 +116,9 @@ void ComponentControlBlock::drawSheetView(QPainter *p) const
 	if (isDrawFrame() || !getText().isEmpty())
 	{	
 		QRect rect(DoubleLayout::getRect(false));
-		QRect rectView(getComponent()->getSheetView()->getPlace());
+//		QRect rectView(getComponent()->getSheetView()->getPlace());
 	
-		rect.moveBy(rectView.topLeft().x(),rectView.topLeft().y());
+//		rect.moveBy(rectView.topLeft().x(),rectView.topLeft().y());
 		rect.rLeft() ++;
 		rect.rTop() ++;
 		p->save();

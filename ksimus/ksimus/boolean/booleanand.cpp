@@ -67,10 +67,7 @@ void BooleanAndView::draw(QPainter * p)
 {
 	BooleanXIn1OutView::draw(p);
 	
-	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
-							getWidgetPlace().bottomRight());
-	
-	p->drawText(rect, AlignCenter, "&");
+	p->drawText(getDrawingPlace(), AlignCenter, "&");
 }
 
 

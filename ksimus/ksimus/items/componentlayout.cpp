@@ -529,11 +529,6 @@ void ComponentLayout::updateLayout()
   else
   {
 		// Component side used?
-/*		leftConn = getLeft()->getItemList()->count() != 0;
-		rightConn = getRight()->getItemList()->count() != 0;
-		topConn = getTop()->getItemList()->count() != 0;
-		bottomConn = getBottom()->getItemList()->count() != 0;*/
-	
 		getSheetView()->enableConnectorSpacingLeft(leftConn);
 		getSheetView()->enableConnectorSpacingRight(rightConn);
 		getSheetView()->enableConnectorSpacingTop(topConn);
@@ -553,25 +548,7 @@ void ComponentLayout::updateLayout()
 		
 		m_currentSize = QSize(sizeX * gridX, sizeY * gridY);
 		
-		QRect newPlace(getSheetView()->getPos(), m_currentSize);
-		QSize mapSize(getComponent()->getContainer()->getSheetSize());
-		
-		if (getComponent()->getContainer()->isVisible())
-		{
-			if (newPlace.bottom() > mapSize.height())
-				newPlace.moveBy(0, mapSize.height() - newPlace.bottom());
-		
-			if (newPlace.right() > mapSize.width())
-				newPlace.moveBy(mapSize.width() - newPlace.right(), 0);
-		
-			if (newPlace.top() < 0)
-				newPlace.moveBy(0, - newPlace.top());
-		
-			if (newPlace.left() < 0)
-				newPlace.moveBy( -newPlace.left(), 0);
-		}
-		
-		getSheetView()->setPlace(newPlace);
+		getSheetView()->setPlace(QRect(getSheetView()->getPos(), m_currentSize), true);
 	}
 	
  	unsigned int i;
