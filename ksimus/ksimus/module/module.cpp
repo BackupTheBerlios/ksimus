@@ -516,10 +516,20 @@ void Module::reloadModule()
 			
 			conn->setGridPos(*(posList->at(i)));
 				
-			if (mdata->getModuleView() == MV_PIXMAP)
-				conn->setOrientation(*mdata->getPixmapConnOrient()->at(i));
-			else if (mdata->getModuleView() == MV_USERVIEW)
-				conn->setOrientation(*mdata->getUserViewConnOrient()->at(i));
+			switch(mdata->getModuleView())
+			{
+				case MV_GENERIC:
+					conn->setOrientation(extConn->getExternalConn()->getOrientation());
+					break;
+				case MV_PIXMAP:
+					conn->setOrientation(*mdata->getPixmapConnOrient()->at(i));
+					break;
+				case MV_USERVIEW:
+					conn->setOrientation(*mdata->getUserViewConnOrient()->at(i));
+					break;
+				default:
+					break;
+			}
 		}
 		else
 		{
