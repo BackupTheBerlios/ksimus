@@ -19,6 +19,7 @@
 
 #include <qmessagebox.h>
 #include <qpainter.h>
+#include <qprogressdialog.h>
 
 #include <klocale.h>
 
@@ -105,6 +106,7 @@ CompContainer::CompContainer(KSimusDoc * parent)
 		
 	setVisible(true);
 	enableRouting(true);
+	setRefreshEnabled(true);
 	setCostMapVisible(false);
 	
 	hitConn = 0;
@@ -162,6 +164,7 @@ CompContainer::CompContainer(Component * parent)
 	
 	setVisible(false);
 	enableRouting(false);
+	setRefreshEnabled(false);
 	setCostMapVisible(false);
 	
 	hitConn = 0;
@@ -853,17 +856,34 @@ eHitType CompContainer::isCompViewHit(const QPoint * pos, const CompViewList * v
 bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 {
 	unsigned int numOfComp;
+	unsigned int loadedCompCounter = 0;
+	unsigned int lastCompCounter = !loadedCompCounter;
 	unsigned int err = 0;
 	QString baseGroup;
+	
+	bool storedRefresh(isRefreshEnabled());
+	
+	setRefreshEnabled(false);		//No refrehes during loading
 	
 	// Correct group is selected by caller !!!
 	baseGroup = file.group();
 	
 	numOfComp = file.readUnsignedNumEntry("Components", 0);
+	
 
+	QProgressDialog progress(i18n("Loading..."), QString::null, numOfComp, getApp(), "progress", TRUE);
+	progress.setMinimumDuration(1000);
+	
 	// First load components (no wires)
 	for (unsigned int i=0;i < numOfComp; i++)
 	{
+		if (((loadedCompCounter & 0x7) == 0) && (loadedCompCounter != lastCompCounter))
+		{
+			lastCompCounter = loadedCompCounter;
+			progress.setProgress(loadedCompCounter);
+			qApp->processEvents();
+		}
+		
 		Component * comp;
 		QString id;
 		unsigned int serialNo;
@@ -875,6 +895,7 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		// No Wire ?
 		if (id != WireInfo.getLibName())
 		{
+			loadedCompCounter++;
 			bool compExist = false;
 			FOR_EACH_COMP(it, *components)
 			{
@@ -931,6 +952,13 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 	// Then load wires
 	for (unsigned int i=0;i < numOfComp; i++)
 	{
+		if (((loadedCompCounter & 0x7) == 0) && (loadedCompCounter != lastCompCounter))
+		{
+			lastCompCounter = loadedCompCounter;
+			progress.setProgress(loadedCompCounter);
+			qApp->processEvents();
+		}
+		
 		Component * comp;
 		QString id;
 		unsigned int serialNo;
@@ -942,6 +970,7 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		// Wire ?
 		if (id == WireInfo.getLibName())
 		{
+			loadedCompCounter++;
 			bool compExist = false;
 			FOR_EACH_COMP(it, *components)
 			{
@@ -992,8 +1021,15 @@ bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 		}
 	}
 	
+	
+	progress.setProgress(numOfComp);
+	
 	file.setGroup(baseGroup);
-	routeComponents();
+	
+	setRefreshEnabled(storedRefresh);		//Restore refreh property
+	refresh();
+	
+//	routeComponents();
   return true;
 }
 
@@ -1162,6 +1198,18 @@ void CompContainer::setVisible(bool enable)
 {
 	visible = enable;
 }
+
+void CompContainer::refresh()
+{
+	if(isRefreshEnabled())
+	{
+		routeComponents();
+		getDoc()->slotUpdateAllViews(0);
+	}
+}
+
+
+
 /** Searches for new routes */
 bool CompContainer::routeComponents()
 {

@@ -97,15 +97,16 @@ int ComponentMap::getPlace(QRect & place) const
 
 void ComponentMap::addPlace(QRect & place, mapItem value)
 {
-	int i,j;
+	int i,j, index;
 	
 	QRect _place = place.normalize();
 	
-    for (i=_place.top(); i <= _place.bottom(); i++)
-    {
-    	for (j=_place.left(); j <= _place.right(); j++)
-    	{
-			map->at( getIndex(j,i) ) += value;
+	for (i=_place.top(); i <= _place.bottom(); i++)
+	{
+		index = getIndex(_place.left(), i);
+		for (j=_place.left(); j <= _place.right(); j++)
+		{
+				map->at(index++) += value;
 		}
 	}
 }    		

@@ -435,8 +435,10 @@ void Component::setModified() const
 /** Reroute all component and update views */
 void Component::refresh() const
 {
-	getContainer()->routeComponents();
-	getDoc()->slotUpdateAllViews(0);
+	getContainer()->refresh();
+	
+/*	getContainer()->routeComponents();
+	getDoc()->slotUpdateAllViews(0);*/
 }
 
 /** Shows a status message in the application status line */

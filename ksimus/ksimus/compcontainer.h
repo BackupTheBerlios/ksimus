@@ -168,6 +168,11 @@ public:
 	void enableRouting(bool enable) { routingEnabled = enable; };
 	bool isRoutingEnabled() const { return routingEnabled; };
 	
+	void setRefreshEnabled(bool enable) { m_refreshEnabled = enable; };
+	bool isRefreshEnabled() const { return m_refreshEnabled; };
+	
+	void refresh();
+	
 	/** Checks the circuit and returns the result. Returns the number of errors. */
 	int checkCircuit();
 	/** Resets all components */
@@ -256,8 +261,10 @@ protected:
 	/** true, if components are displayed */
 	bool visible;
 	bool costMapVisible;
-	/** true, if routing allowed */
+	/** true, if routing is allowed */
 	bool routingEnabled;
+	/** true, if refresh (routing/redraw) is allowed */
+	bool m_refreshEnabled;
 	/** calls KSimUndo->remove(comp), if parent a document */
 	void undoRemove(Component * comp);
 	/** calls KSimUndo->reload(comp), if parent a document */
