@@ -2,7 +2,7 @@
 
 SUBDIRS = ksimus po doc 
 
-EXTRA_DIST = ksimus.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO ksimus.lsm 
+EXTRA_DIST = ksimus.kdevprj admin AUTHORS COPYING INSTALL README TODO ksimus.lsm ChangeLog 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 
@@ -23,9 +23,6 @@ MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 configure.files
 package-messages:
 	$(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
-
-# Removed 04.07.2002 (KSimus 0.3.5)
-#EXTRA_DIST = admin
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
