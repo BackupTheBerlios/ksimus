@@ -1,3 +1,6 @@
+	25.12.2001
+* New: Components BooleanCounter and BooleanConstant and some helper classes
+* Fix: Moc problem with namespaces
 	19.12.2001
 * Change: Better accept/default/cancel mechanism for PropertyWidget. The virtual slots are splitted
   up to one virtual function and one slot.
