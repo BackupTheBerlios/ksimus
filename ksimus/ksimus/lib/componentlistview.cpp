@@ -267,14 +267,14 @@ void ComponentListView::slotHideMe()
 
 void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoint & p, int c)
 {
-	if (item)
+/*	if (item)
 	{
 		KSIMDEBUG_VAR("item",item->text(0));
 	}
 	else
 	{
 		KSIMDEBUG("item == 0");
-	}
+	}*/
 	
 	int foldAll = 0;
 	int unfoldAll = 0;
