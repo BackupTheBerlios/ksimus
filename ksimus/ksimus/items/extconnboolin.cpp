@@ -92,9 +92,14 @@ void ExtConnBoolIn::reset()
 {
 	ExternalConnector::reset();
 
+	
 	if (!getUsedExternalConn()->isConnected())
 	{
-		getUsedExternalConn()->copyData(&m_defaultState);
+		ConnectorBoolOut * out = (ConnectorBoolOut *)getInternalConn();
+		ConnectorBoolIn * in = (ConnectorBoolIn *)getUsedExternalConn();
+
+		in->copyData(&m_defaultState);
+		out->setOutput(in->getInput(), false);
 	}
 }
 
@@ -118,7 +123,7 @@ void ExtConnBoolIn::calculate()
 	}
 	else
 	{
-		out->setOutput(in->getInput());
+		executeNext();
 	}
 }
 

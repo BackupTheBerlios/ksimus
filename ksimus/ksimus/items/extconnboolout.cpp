@@ -73,6 +73,21 @@ ExtConnBoolOut::~ExtConnBoolOut()
 {
 }
 
+void ExtConnBoolOut::reset()
+{
+	ExternalConnector::reset();
+
+
+//	if (!getUsedExternalConn()->isConnected())
+	{
+		ConnectorBoolOut * out = (ConnectorBoolOut *)getInternalConn();
+		ConnectorBoolIn * in = (ConnectorBoolIn *)getUsedExternalConn();
+
+//		in->copyData(&m_defaultState);
+		out->setOutput(in->getInput(), false);
+	}
+}
+
 void ExtConnBoolOut::calculate()
 {
 	ConnectorBoolOut * out = (ConnectorBoolOut *)getUsedExternalConn();
@@ -93,6 +108,6 @@ void ExtConnBoolOut::calculate()
 	}
 	else
 	{
-		out->setOutput(in->getInput());
+		executeNext();
 	}
 }

@@ -35,6 +35,9 @@ public:
 	ExtConnBoolOut(CompContainer * container, const ComponentInfo * ci);
 	~ExtConnBoolOut();
 	
+	/** Reset all simulation variables */
+	virtual void reset();
+
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
