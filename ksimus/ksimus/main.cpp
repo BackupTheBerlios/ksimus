@@ -24,6 +24,7 @@
 
 #include "ksimus.h"
 #include "ksimdebug.h"
+#include "config.h"
 
 // INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
 static const char *description =

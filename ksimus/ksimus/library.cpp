@@ -25,6 +25,7 @@
 #include <kconfig.h>
 #include <kapp.h>
 
+#include "config.h"
 #include "library.h"
 #include "packageinfo.h"
 
