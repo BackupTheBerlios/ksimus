@@ -23,13 +23,13 @@ cflags=
 cppflags=
 cxxflags=\s-O3 -g2 -Wall
 ldadd=-lltdl -lkdeprint $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
-ldflags=\s           -rdynamic
+ldflags=\s            -rdynamic
 path_to_bin_program=ksimus
 
 [General]
-AMChanged=false
+AMChanged=true
 author=Rasmus Diekenbrock
-configure_args=--prefix=/opt/kde2 --with-qt-dir=/usr/lib/qt2 --enable-debug\s
+configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --prefix=/opt/kde2 --with-qt-dir=/usr/lib/qt2 --enable-debug\s
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 execute_args=/home/rasmus/tmp/test*.sim
@@ -43,7 +43,7 @@ project_type=normal_kde2
 sgml_file=/home/rasmus/Projekte/ksimus/doc/en/index.docbook
 short_info=The main program.
 sub_dir=ksimus/
-version=0.3.5-1
+version=0.3.6-pre1
 version_control=CVS
 workspace=1
 
