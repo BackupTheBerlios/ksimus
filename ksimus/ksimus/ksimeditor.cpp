@@ -1345,7 +1345,8 @@ bool KSimEditor::eventFilter( QObject * obj, QEvent * ev)
 				                        mapFromGlobal(((QWidget*)obj)->mapToGlobal(((QMouseEvent*)ev)->pos())),
 				                        ((QMouseEvent*)ev)->button(),
 				                        ((QMouseEvent*)ev)->state() );
-				return event(&mouseEv);
+				/*return*/ event(&mouseEv);  // FIX for KDE3
+				return true;
 			}
 			break;
 			
@@ -1354,7 +1355,8 @@ bool KSimEditor::eventFilter( QObject * obj, QEvent * ev)
 			case QEvent::FocusIn:
 			case QEvent::FocusOut:
 			{
-				return event(ev);
+				/*return*/ event(ev);  // FIX for KDE3
+				return true;
 			}
 			break;
 			
