@@ -64,12 +64,18 @@ int getGreaterPrim(int number)
 
 
 #include "componentblocklayout.h"
-#include "ksimbaseuint.h"
 #include "ksimdoubleedit.h"
 #include "ksimfilename.h"
 #include "optionalconnector.h"
 #include "ksimbooltristatebox.h"
 #include "ksimbooltristate.h"
+#include "ksimbaseuint.h"
+#include "ksimbaseuintedit.h"
+#include "ksimbaseuintbaseselection.h"
+#include "ksimbaseint.h"
+#include "ksimbaseintedit.h"
+#include "ksimbaseintbaseselection.h"
+#include "ksimbaseintspinbox.h"
 
 void ksimusDummyFunction()
 {
@@ -82,13 +88,19 @@ void ksimusDummyFunction()
 //#########################################################################
 //#########################################################################
 	new ComponentControlBlock((CompView *)0, (ComponentLayout *)0);
-	new KSimBaseUInt();
 	new KSimDoubleEdit((QWidget*) 0);
 	new KSimFilename((Component*)0);
 	new OptionalConnector((Component *) 0, QString::null);
 	new KSimBoolTristateBox((QWidget*) 0);
 	new KSimBoolTristate();
-}	
+	new KSimBaseUInt();
+	new KSimBaseUIntEdit();
+	new KSimBaseUIntBaseSelection();
+	new KSimBaseInt();
+	new KSimBaseIntEdit();
+	new KSimBaseIntBaseSelection();
+	new KSimBaseIntSpinBox();
+}
 
 
 

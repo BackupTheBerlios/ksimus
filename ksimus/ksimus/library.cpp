@@ -51,10 +51,13 @@
 #include "connectorbooltristate.h"
 #include "connectorfloatin.h"
 #include "connectorfloatout.h"
+#include "connectorintegerin.h"
+#include "connectorintegerout.h"
 
 #include "wirepropertyboolean.h"
 #include "wirepropertybooltristate.h"
 #include "wirepropertyfloatingpoint.h"
+#include "wirepropertyinteger.h"
 
 #include "implicitconverter.h"
 
@@ -157,6 +160,8 @@ const ConnectorInfoList & Library::Private::getDistConnector()
 		pDistConnector->append(getConnectorFloatOutInfo());
 		pDistConnector->append(getConnectorBoolTristateInfo());
 		pDistConnector->append(getConnectorBoolTristateSpecialInfo());
+		pDistConnector->append(ConnectorIntegerIn::getStaticInfo());
+		pDistConnector->append(ConnectorIntegerOut::getStaticInfo());
 	}
 	
 	return *pDistConnector;
@@ -177,6 +182,7 @@ const WirePropertyInfoList & Library::Private::getDistWireProperty()
 		pDistWireProp->append(getWirePropertyBooleanInfo());
 		pDistWireProp->append(getPropertyFloatingPointInfo());
 		pDistWireProp->append(getWirePropertyBoolTristateInfo());
+		pDistWireProp->append(WirePropertyInteger::getStaticInfo());
 
 		// Some "error" WireProperties
 		pDistWireProp->append(getWirePropertyInvalidDifferentOutputsInfo());
