@@ -546,9 +546,9 @@ eHitType CompView::isHit(int x, int y) const
 			p = mapFromRotation(p);
 		}
 		
-		for (	conn = getComponent()->getConnList()->first();
-				conn;
-				conn = getComponent()->getConnList()->next())
+		for (conn = getComponent()->getConnList()->first();
+		     conn;
+		     conn = getComponent()->getConnList()->next())
 		{
 			if (CONNECTOR_HIT == conn->isHit(p.x(),p.y()))
 			{
