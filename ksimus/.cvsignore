@@ -10,4 +10,3 @@ configure.in
 libtool
 stamp-h
 stamp-h.in
-subdirs
