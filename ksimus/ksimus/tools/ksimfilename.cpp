@@ -34,6 +34,7 @@
 #include "ksimfile.h"
 #include "component.h"
 #include "ksimdata.h"
+#include "ksimicon.h"
 
 
 // Forward declaration
@@ -401,7 +402,6 @@ bool KSimFilename::load(KSimData & config, const char * pGroup, const KSimFilena
 #include <klocale.h>
 #include <kdialog.h>
 #include <kfiledialog.h>
-#include <kiconloader.h>
 
 #include "ksimlineedit.h"
 		
@@ -451,7 +451,7 @@ KSimFilenameWidget::KSimFilenameWidget(KSimFilename & fileInfo, int mask, QWidge
 	
 	m_p->m_filenameDialogButton = new QPushButton(this, "KSimFilenameWidget m_filenameDialogButton");
 	CHECK_PTR(m_p->m_filenameDialogButton);	
-	m_p->m_filenameDialogButton->setPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("fileopen.png"),KIcon::Toolbar));
+	m_p->m_filenameDialogButton->setPixmap(KSimIcon::load("fileopen", KIcon::Small));
 	connect(m_p->m_filenameDialogButton, SIGNAL(released()), SLOT(slotOpenFileDialog()));
 	tip = i18n("Opens a file dialog.");
 	QToolTip::add(m_p->m_filenameDialogButton, tip);

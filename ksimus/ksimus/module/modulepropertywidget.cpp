@@ -32,13 +32,13 @@
 #include <kdialog.h>
 #include <kapp.h>
 #include <kfiledialog.h>
-#include <kiconloader.h>
 
 // Project-Includes
 #include "moduledialog.h"
 #include "modulepropertywidget.h"
 #include "ksimdebug.h"
 #include "ksimlineedit.h"
+#include "ksimicon.h"
 
 
 //#define data (m_dialog->getData())
@@ -264,9 +264,7 @@ QWidget * ModulePropertyWidget::createPixmapFileWidget()
 
 	QPushButton * openFileDia = new QPushButton(m_fileBox);
 	CHECK_PTR(openFileDia);
-	QPixmap pix;
-	pix = KGlobal::iconLoader()->loadIcon(QString::fromLatin1("fileopen.png"),KIcon::Toolbar);
-	openFileDia->setPixmap(pix);
+	openFileDia->setPixmap(KSimIcon::load("fileopen", KIcon::Small));
 	connect(openFileDia, SIGNAL(released()), SLOT(slotPixmapOpenFileDialog()));
 
 	return m_fileBox;

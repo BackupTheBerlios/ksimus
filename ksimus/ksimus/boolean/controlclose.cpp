@@ -29,7 +29,6 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kiconloader.h>
 
 // Project-Includes
 #include "controlclose.h"
@@ -40,6 +39,7 @@
 #include "ksimusdoc.h"
 #include "ksimus.h"
 #include "ksimdata.h"
+#include "ksimicon.h"
 
 // Forward declaration
 
@@ -168,7 +168,7 @@ ControlCloseView::ControlCloseView(ControlClose * comp, eViewType viewType)
 {
 	if (!pIcon)
 	{
-		pIcon = new QPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("fileclose"),KIcon::Toolbar));
+		pIcon = new QPixmap(KSimIcon::load("fileclose", KIcon::Small));
 		CHECK_PTR(pIcon);
 		
 		width  = ((pIcon->width()  + 4 + gridX - 1) / gridX ) * gridX;

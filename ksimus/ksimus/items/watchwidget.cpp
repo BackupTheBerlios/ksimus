@@ -30,7 +30,6 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kiconloader.h>
 #include <kdialog.h>
 
 // Project-Includes
@@ -46,6 +45,7 @@
 #include "connectorbase.h"
 #include "ksimtimeserver.h"
 #include "ksimtime.h"
+#include "ksimicon.h"
 
 // Forward declaration
 
@@ -105,13 +105,13 @@ WatchWidget::WatchWidget(KSimusApp * app, QWidget *parent, const char *name )
 
 	m_stepBegin = new QPushButton(QString::null, buttonBox, "button begin");
 	CHECK_PTR(m_stepBegin);
-	m_stepBegin->setPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("start"),KIcon::Toolbar));
+	m_stepBegin->setPixmap(KSimIcon::load("start", KIcon::Small));
 	m_stepBegin->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepBegin, SIGNAL(clicked()), SLOT(slotStepBegin()));
 
 	m_stepBack = new QPushButton(QString::null, buttonBox, "button back");
 	CHECK_PTR(m_stepBack);
-	m_stepBack->setPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("back"),KIcon::Toolbar));
+	m_stepBack->setPixmap(KSimIcon::load("back", KIcon::Small));
 	m_stepBack->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepBack, SIGNAL(clicked()), SLOT(slotStepBack()));
 
@@ -121,13 +121,13 @@ WatchWidget::WatchWidget(KSimusApp * app, QWidget *parent, const char *name )
 
 	m_stepForward = new QPushButton(buttonBox, "button forward");
 	CHECK_PTR(m_stepForward);
-	m_stepForward->setPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("forward"),KIcon::Toolbar));
+	m_stepForward->setPixmap(KSimIcon::load("forward", KIcon::Small));
 	m_stepForward->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepForward, SIGNAL(clicked()), SLOT(slotStepForward()));
 
 	m_stepEnd = new QPushButton(QString::null, buttonBox, "button end");
 	CHECK_PTR(m_stepEnd);
-	m_stepEnd->setPixmap(KGlobal::iconLoader()->loadIcon(QString::fromLatin1("finish"),KIcon::Toolbar));
+	m_stepEnd->setPixmap(KSimIcon::load("finish", KIcon::Small));
 	m_stepEnd->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
 	connect(m_stepEnd, SIGNAL(clicked()), SLOT(slotStepEnd()));
 
