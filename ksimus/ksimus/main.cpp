@@ -82,6 +82,10 @@ int main(int argc, char *argv[])
 					{
 						ksimus->show();
 					}
+					else
+					{
+						ksimus->showMinimized();
+					}
 				}
 			}
 			else
