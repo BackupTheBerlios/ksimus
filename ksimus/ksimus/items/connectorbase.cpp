@@ -500,6 +500,8 @@ bool ConnectorBase::initPopupMenu(QPopupMenu * popup)
 		
 	connect(popup, SIGNAL(highlighted(int)), SLOT(popupMenuHighlighted(int)));
 
+	emit signalInitPopupMenu(popup);
+	
 	return true;
 }	
 

@@ -270,6 +270,8 @@ signals:
 	/** This signal is emmited, if the connector name is chanched.*/
 	void signalSetName(const QString & newName);
 
+	/** Add menu items depend on connetor properties */
+	void signalInitPopupMenu(QPopupMenu * popup);
 };
 
 
