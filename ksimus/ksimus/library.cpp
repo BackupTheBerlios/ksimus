@@ -158,6 +158,7 @@ static const ImplicitConverterInfoList & getImplicitConverterProperty()
 
 		// Add your implicit converter info here
 		pImplicitConverterProp->append(getImplicitConverterBoolean2FloatInfo());
+		pImplicitConverterProp->append(getImplicitConverterFloat2BooleanInfo());
 	}
 
 	return *pImplicitConverterProp;
