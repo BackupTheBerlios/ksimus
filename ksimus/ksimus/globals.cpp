@@ -84,6 +84,7 @@ int getGreaterPrim(int number)
 
 #include "componentblocklayout.h"
 #include "ksimbaseuint.h"
+#include "ksimdoubleedit.h"
 
 void ksimusDummyFunction()
 {
@@ -97,6 +98,7 @@ void ksimusDummyFunction()
 //#########################################################################
 	new ComponentControlBlock((CompView *)0, (ComponentLayout *)0);
 	new KSimBaseUInt();
+	new KSimDoubleEdit((QWidget*) 0);
 }	
 
 
