@@ -52,12 +52,12 @@ public:
 
 
 ImplicitConverter::ImplicitConverter(ConnectorBase * connector, const ImplicitConverterInfo * implicitConverterInfo)
-	:	QObject(connector)
+	:	QObject(connector, implicitConverterInfo->getName().latin1())
 {
 	m_p = new Private(implicitConverterInfo);
 	CHECK_PTR(m_p);
 
-//	KSIMDEBUG_VAR("ImplicitConverter::ImplicitConverter", implicitConverterInfo->getName());
+//	KSIMDEBUG_VAR("ImplicitConverter::ImplicitConverter", connector->getName());
 
 }
 
