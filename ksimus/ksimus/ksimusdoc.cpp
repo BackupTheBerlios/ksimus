@@ -28,11 +28,11 @@
 // include files for KDE
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <ksimpleconfig.h>
 #include <kio/job.h>
 #include <kio/netaccess.h>
 
 // application specific includes
+#include "ksimdata.h"
 #include "globals.h"
 #include "ksimusdoc.h"
 #include "ksimus.h"
@@ -286,7 +286,7 @@ bool KSimusDoc::openDocument(const KURL& url, const char */*format =0*/)
 			setNamed(false);
 		}
 		
-		KSimpleConfig file(tmpfile);
+		KSimData file(tmpfile);
 		file.setGroup("/");
 		getContainer()->load(file);
 		loadProperty(file);
@@ -336,12 +336,13 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 			}
 			
 			setURL(url);
-			KSimpleConfig file(url.path());
-			file.setGroup("/");
-			saveProperty(file);
-			getContainer()->save(file);
-			
-			file.sync();
+			{
+				KSimData file(url.path());
+				file.setGroup("/");
+				saveProperty(file);
+				getContainer()->save(file);
+//			file.sync();
+			}
 			chmod(url.path(), oldMode);
 			
 			setModified(false);
@@ -356,7 +357,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 }
 
 /** Load document property */
-void KSimusDoc::loadProperty(KConfigBase & config)
+void KSimusDoc::loadProperty(KSimData & config)
 {
 	QString baseGroup = config.group();
 	QString tmp = baseGroup + sDocProperty;
@@ -379,7 +380,7 @@ void KSimusDoc::loadProperty(KConfigBase & config)
 }
 
 /** Save document property */
-void KSimusDoc::saveProperty(KConfigBase & config) const
+void KSimusDoc::saveProperty(KSimData & config) const
 {
 	QString baseGroup = config.group();
 	QString group;

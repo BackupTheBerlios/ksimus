@@ -19,7 +19,7 @@
 #define ENUMDICT_H
 
 
-class KConfigBase;
+class KSimData;
 class QString;
 template<class type> class Q_EXPORT QDict;
 
@@ -49,9 +49,9 @@ public:
 	int find(const char * name, int defaultValue) const;
 	const char * find(int value) const;
 
-	void save(KConfigBase & conf, const QString & key, int value) const;
-	int load(const KConfigBase & conf, const QString & key, int defaultValue) const;
-	const int * load(const KConfigBase & conf, const QString & key) const;
+	void save(KSimData & conf, const char * key, int value) const;
+	int load(const KSimData & conf, const char * key, int defaultValue) const;
+	const int * load(const KSimData & conf, const char * key) const;
 
 protected:	
 	EnumBaseDict(const tData * pData);
@@ -108,17 +108,17 @@ public:
 	/** Converts an enum to a string. If the enum does not exist in EnumDict<T>::data the
 			function returns a null pointer. */
 	const char * find(T value) const;
-	/** Saves the enum in a @ref KConfigBase object. The enum is stored as string.
+	/** Saves the enum in a @ref KSimData object. The enum is stored as string.
 		*/
-	void save(KConfigBase & conf, const QString & key, T value) const;
-	/** Load an enum from a @ref KConfigBase object. The enum is expected as string. If the string
+	void save(KSimData & conf, const char * key, T value) const;
+	/** Load an enum from a @ref KSimData object. The enum is expected as string. If the string
 			does not exist in EnumDict<T>::data the	function returns the defaultValue.
 		*/
-	T load(const KConfigBase & conf, const QString & key, T defaultValue) const;
-	/** Load an enum from a @ref KConfigBase object. The enum is expected as string. If the string
+	T load(const KSimData & conf, const char * key, T defaultValue) const;
+	/** Load an enum from a @ref KSimData object. The enum is expected as string. If the string
 			does not exist in EnumDict<T>::data the	function returns a null pointer.
 		*/
-	const T * load(const KConfigBase & conf, const QString & key) const;
+	const T * load(const KSimData & conf, const char * key) const;
 	
 private:
 		/** Stores the relation between one string and one enum. */
@@ -149,19 +149,19 @@ const char * EnumDict<T>::find(T value) const
 }
 
 template<class T>
-void EnumDict<T>::save(KConfigBase & conf, const QString & key, T value) const
+void EnumDict<T>::save(KSimData & conf, const char * key, T value) const
 {
 	EnumBaseDict::save(conf, key, (int) value);
 }
 	
 template<class T>
-T EnumDict<T>::load(const KConfigBase & conf, const QString & key, T defaultValue) const
+T EnumDict<T>::load(const KSimData & conf, const char * key, T defaultValue) const
 {
 	return (T) EnumBaseDict::load(conf, key, (int) defaultValue);
 }
 
 template<class T>
-const T * EnumDict<T>::load(const KConfigBase & conf, const QString & key) const
+const T * EnumDict<T>::load(const KSimData & conf, const char * key) const
 {
 	return (const T *) EnumBaseDict::load(conf, key);
 }

@@ -20,11 +20,11 @@
 #include <qmessagebox.h>
 #include <qpainter.h>
 
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 #include "compcontainer.h"
 
+#include "ksimdata.h"
 #include "globals.h"
 #include "resource.h"
 #include "connectorbase.h"
@@ -543,7 +543,7 @@ void CompContainer::copyComponent(ComponentList * compList)
 		}
 	}
 
-	KSimpleConfig file (fileName);
+	KSimData file (fileName);
 	saveComponents(file, compList);
 }
 
@@ -580,7 +580,7 @@ void CompContainer::pastComponent(ComponentList * compList, QPoint * relMove)
 	QListIterator<Component> itNew(*container->getComponentList());
 	
 	{
-		KSimpleConfig file (fileName);
+		KSimData file (fileName);
 		// Dont track delete wire
 		if (getUndo()) getUndo()->pause(true);
 		container->loadComponents(file, true);	//copy load
@@ -850,7 +850,7 @@ eHitType CompContainer::isCompViewHit(const QPoint * pos, const CompViewList * v
 	Reload component, if component (ID) exist
 	copyLoad is true, if the load function is used as a copy function
 	Returns true if successful */
-bool CompContainer::loadComponents(KSimpleConfig & file, bool copyLoad)
+bool CompContainer::loadComponents(KSimData & file, bool copyLoad)
 {
 	unsigned int numOfComp;
 	unsigned int err = 0;
@@ -998,7 +998,7 @@ bool CompContainer::loadComponents(KSimpleConfig & file, bool copyLoad)
 }
 
 /** Saves the component */
-bool CompContainer::saveComponents(KSimpleConfig & file, ComponentList * compList) const
+bool CompContainer::saveComponents(KSimData & file, ComponentList * compList) const
 {
 	QString baseGroup = file.group();
 	
@@ -1022,7 +1022,7 @@ bool CompContainer::saveComponents(KSimpleConfig & file, ComponentList * compLis
 }
 	
 /** Loads the complete sheet */
-bool CompContainer::load(KSimpleConfig & file)
+bool CompContainer::load(KSimData & file)
 {
 	bool result = true;
 	
@@ -1034,7 +1034,7 @@ bool CompContainer::load(KSimpleConfig & file)
 }
 
 /** Saves the complete sheet */
-bool CompContainer::save(KSimpleConfig & file) const
+bool CompContainer::save(KSimData & file) const
 {
 	bool result = true;
 
@@ -1045,7 +1045,7 @@ bool CompContainer::save(KSimpleConfig & file) const
 }
 
 /** Saves the properties */
-bool CompContainer::saveProperty(KSimpleConfig & file) const
+bool CompContainer::saveProperty(KSimData & file) const
 {
 	QString group;
 	QString oldGrp = file.group();
@@ -1066,7 +1066,7 @@ bool CompContainer::saveProperty(KSimpleConfig & file) const
 }
 
 /** Loads the properties */
-bool CompContainer::loadProperty(KSimpleConfig & file)
+bool CompContainer::loadProperty(KSimData & file)
 {
 	QString oldGrp = file.group();
 	

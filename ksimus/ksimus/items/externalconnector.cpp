@@ -25,10 +25,10 @@ static const char * sUserOrient = "UserOrient";
 #include <qpointarray.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "externalconnector.h"
 #include "resource.h"
 #include "connectorbase.h"
@@ -142,7 +142,7 @@ void ExternalConnector::checkProperty(QStringList & errorMsg)
 }
 
 /** Save ExternalConnector properties */
-void ExternalConnector::save(KSimpleConfig & file) const
+void ExternalConnector::save(KSimData & file) const
 {
 	Component::save(file);	
 	
@@ -169,7 +169,7 @@ void ExternalConnector::save(KSimpleConfig & file) const
 /** Load ExternalConnector properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool ExternalConnector::load(KSimpleConfig & file, bool copyLoad)
+bool ExternalConnector::load(KSimData & file, bool copyLoad)
 {
 	bool ok;
 	

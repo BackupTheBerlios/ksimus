@@ -23,10 +23,10 @@
 #include <qobjectlist.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "compview.h"
 #include "component.h"
 #include "componentaddon.h"
@@ -471,7 +471,7 @@ QPoint CompView::mapToGrid(QPoint pos)
 }
 
 /** save CompView properties */
-void CompView::save(KSimpleConfig & file) const
+void CompView::save(KSimData & file) const
 {
 	file.writeEntry(sPos, getPos());
 	if (isHidden())
@@ -480,7 +480,7 @@ void CompView::save(KSimpleConfig & file) const
 
 /** Load CompView properties
 	Returns true if successful */
-bool CompView::load(KSimpleConfig & file)
+bool CompView::load(KSimData & file)
 {
 	setPos(file.readPointEntry(sPos));
 	setHide(file.readBoolEntry(sHide, false));
@@ -880,7 +880,7 @@ eHitType CompViewSize::isHit(int x, int y) const
 }
 
 /** save CompViewSize properties */
-void CompViewSize::save(KSimpleConfig & file) const
+void CompViewSize::save(KSimData & file) const
 {
 	file.writeEntry(sSize, getPlace().size());
 	CompView::save(file);
@@ -888,7 +888,7 @@ void CompViewSize::save(KSimpleConfig & file) const
 
 /** Load CompViewSize properties
 	Returns true if successful */
-bool CompViewSize::load(KSimpleConfig & file)
+bool CompViewSize::load(KSimData & file)
 {
 	bool ok;
 	// Load size first, then load pos!!!

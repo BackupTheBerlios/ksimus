@@ -23,8 +23,7 @@
 #include <qdict.h>
 #include <qstring.h>
 
-#include "kconfigbase.h"
-
+#include "ksimdata.h"
 #include "ksimtime.h"
 #include "ksimdebug.h"
 #include "ksimtimeserver.h"
@@ -110,7 +109,7 @@ KSimTimeBase::~KSimTimeBase()
 {
 }
 
-bool KSimTimeBase::load(KConfigBase & config)
+bool KSimTimeBase::load(KSimData & config)
 {
 	bool loadOk = true;
 	
@@ -151,7 +150,7 @@ bool KSimTimeBase::load(KConfigBase & config)
 	return loadOk;
 }
 
-void KSimTimeBase::save(KConfigBase & config) const
+void KSimTimeBase::save(KSimData & config) const
 {
 	char tmp[40];
 	sprintf(tmp,"%lli",m_time);

@@ -23,10 +23,10 @@
 #include <qsize.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "resource.h"
 #include "component.h"
 #include "compview.h"
@@ -78,7 +78,7 @@ public:
 	~KSimUndoPrivate() {};
 	
 	
-	KSimpleConfig * file;
+	KSimData * file;
 	unsigned int undoDepth;
 	unsigned int redoDepth;
 	unsigned int undoFileCounter;
@@ -143,7 +143,7 @@ void KSimUndo::begin_(const QString & description)
 	}
 		
 	// Create new undo file
-	m_p->file = new KSimpleConfig(*filename);
+	m_p->file = new KSimData(*filename);
 	m_p->file->setGroup(sUndoGrp);
 	m_p->file->writeEntry(sDesc, description);
 	m_p->file->writeEntry(sModi, parentDoc->isModified());
@@ -194,7 +194,7 @@ void KSimUndo::beginRedo(const QString & description)
 	}
 		
 	// Create new redo file
-	m_p->file = new KSimpleConfig(*filename);
+	m_p->file = new KSimData(*filename);
 	m_p->file->setGroup(sUndoGrp);
 	m_p->file->writeEntry(sDesc, description);
 	
@@ -360,7 +360,7 @@ void KSimUndo::undo()
 	else
 	{
 		// Open undo file
-		KSimpleConfig * file = new KSimpleConfig(m_p->undoFileList.last());
+		KSimData * file = new KSimData(m_p->undoFileList.last());
 	
 		file->setGroup(sUndoGrp);
 		QString desc = file->readEntry(sDesc, sNoDesc);
@@ -397,7 +397,7 @@ void KSimUndo::hiddenUndo()
 	else
 	{
 		// Open undo file
-		KSimpleConfig * file = new KSimpleConfig(m_p->undoFileList.last());
+		KSimData * file = new KSimData(m_p->undoFileList.last());
 	
 		file->setGroup(sUndoGrp);
 		
@@ -430,7 +430,7 @@ void KSimUndo::redo()
 	else
 	{
 		// Open redo file
-		KSimpleConfig * file = new KSimpleConfig(m_p->redoFileList.last());
+		KSimData * file = new KSimData(m_p->redoFileList.last());
 	
 		file->setGroup(sUndoGrp);
 		
@@ -460,7 +460,7 @@ void KSimUndo::redo()
 }
 	
 /** Executes the common parts of undo and redo */
-void KSimUndo::doCommon(KSimpleConfig * file)
+void KSimUndo::doCommon(KSimData * file)
 {
 	QStrList numList;
 	QSize newSheetSize, newUserSize, size;

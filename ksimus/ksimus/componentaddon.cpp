@@ -20,9 +20,9 @@
 // QT-Includes
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "component.h"
 #include "componentaddon.h"
 #include "ksimaction.h"
@@ -47,11 +47,11 @@ ComponentAddOn::~ComponentAddOn()
 	getComponent()->m_addonList->removeRef(this);
 }
 	
-void ComponentAddOn::save(KSimpleConfig & ) const
+void ComponentAddOn::save(KSimData & ) const
 {
 }
 
-bool ComponentAddOn::load(KSimpleConfig & )
+bool ComponentAddOn::load(KSimData & )
 {
 	return true;
 }
@@ -105,7 +105,7 @@ ComponentAddOnList::ComponentAddOnList()
 
 /** Save all component add on's properties.
 	*/
-void ComponentAddOnList::save(KSimpleConfig & file) const
+void ComponentAddOnList::save(KSimData & file) const
 {
 	QString group(file.group());
 	FOR_EACH_COMPONENT_ADDON(it, *this)
@@ -120,7 +120,7 @@ void ComponentAddOnList::save(KSimpleConfig & file) const
 	/** Load all component add on's properties.
 		*	Returns true if successful.
 		*/
-bool ComponentAddOnList::load(KSimpleConfig & file)
+bool ComponentAddOnList::load(KSimData & file)
 {
 	bool res = true;
 	QString group(file.group());

@@ -37,7 +37,7 @@ class Component;
 class CompView;
 class ComponentList;
 class CompViewList;
-class KSimpleConfig;
+class KSimData;
 
 
 
@@ -101,7 +101,7 @@ private:
 	void begin_(const QString & description);
 	void beginRedo(const QString & description);
 	/** Executes the common parts of undo and redo */
-	void doCommon(KSimpleConfig * file);
+	void doCommon(KSimData * file);
 
 signals:
 	void undoAllowed(bool yes);

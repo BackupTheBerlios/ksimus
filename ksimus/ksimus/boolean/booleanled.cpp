@@ -28,9 +28,9 @@
 // KDE-Includes
 #include <klocale.h>
 #include <kled.h>
-#include <ksimpleconfig.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "booleanled.h"
 #include "connectorboolin.h"
 #include "componentinfo.h"
@@ -135,7 +135,7 @@ void BooleanLed::initPropertyDialog(ComponentPropertyDialog * dialog)
 }
 
 /** save component properties */
-void BooleanLed::save(KSimpleConfig & file) const
+void BooleanLed::save(KSimData & file) const
 {
 	Component::save(file);
 	
@@ -145,7 +145,7 @@ void BooleanLed::save(KSimpleConfig & file) const
 /** load component properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool BooleanLed::load(KSimpleConfig & file, bool copyLoad)
+bool BooleanLed::load(KSimData & file, bool copyLoad)
 {
 	*m_color = file.readColorEntry("Color",&red);
 	

@@ -18,11 +18,11 @@
 
 // Include C-Header
 #include <qpainter.h>
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 
 // Include Project-Header
+#include "ksimdata.h"
 #include "compcontainer.h"
 #include "wire.h"
 #include "ksimdebug.h"
@@ -164,13 +164,13 @@ void WireSV::setPos(const QPoint &)
 {
 }
 /** save WireSV properties - not used !!! */
-void WireSV::save(KSimpleConfig &) const
+void WireSV::save(KSimData &) const
 {
 }
 
 /** Load WireSV properties - not used !!!
 	Returns true if successful */
-bool WireSV::load(KSimpleConfig &)
+bool WireSV::load(KSimData &)
 {
 	return true;
 }
@@ -285,7 +285,7 @@ void Wire::delConnector(ConnectorBase * conn)
 }
 
 /** save wire properties */
-void Wire::save(KSimpleConfig & file) const
+void Wire::save(KSimData & file) const
 {
 	ConnectorBase * conn;
 	QString baseGroup;
@@ -328,7 +328,7 @@ void Wire::save(KSimpleConfig & file) const
 /** Load wire properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool Wire::load(KSimpleConfig & file, bool copyLoad)
+bool Wire::load(KSimData & file, bool copyLoad)
 {
 	bool ok;
 	QString str;

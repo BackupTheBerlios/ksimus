@@ -22,9 +22,9 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <ksimpleconfig.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "connectorboolinedgepropertywidget.h"
 #include "connectorboolinedge.h"
 #include "component.h"
@@ -172,7 +172,7 @@ void ConnectorBoolInEdge::slotToggleEdgeSensitive()
 
 /** Load properties
 	Returns true if successful */
-bool ConnectorBoolInEdge::load(KSimpleConfig & file)
+bool ConnectorBoolInEdge::load(KSimData & file)
 {
 	bool res = ConnectorBoolIn::load(file);
 	
@@ -182,7 +182,7 @@ bool ConnectorBoolInEdge::load(KSimpleConfig & file)
 }
 	
 /** Save properties */
-void ConnectorBoolInEdge::save(KSimpleConfig & file) const
+void ConnectorBoolInEdge::save(KSimData & file) const
 {
 	ConnectorBoolIn::save(file);
 	

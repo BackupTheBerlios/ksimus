@@ -35,7 +35,7 @@
 #define KSIMTIME_UNITS	9
 
 class QString;
-class KConfigBase;
+class KSimData;
 class KSimTimeServer;
 
 typedef signed long long KSimTimeType;
@@ -70,8 +70,8 @@ public:
 
 	const KSimTimeBase & operator=(const KSimTimeBase & time);
 	
-	bool load(KConfigBase & config);
-	void save(KConfigBase & config) const;
+	bool load(KSimData & config);
+	void save(KSimData & config) const;
 
 	int tenth_nsec() const;
 	int nsec() const;

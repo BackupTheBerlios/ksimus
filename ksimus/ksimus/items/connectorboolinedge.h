@@ -80,9 +80,9 @@ public:
 
 	/** Load properties.
 		Returns true if successful. */
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 	/** Save properties. */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 
 private slots:
 	/** Display a status help message for popup menu entries, if highlighted */

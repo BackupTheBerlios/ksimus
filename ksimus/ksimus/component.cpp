@@ -19,12 +19,12 @@
 #include <qvbox.h>
 #include <qpopupmenu.h>
 
-#include <ksimpleconfig.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 
 #include "resource.h"
 
+#include "ksimdata.h"
 #include "component.h"
 #include "compcontainer.h"
 #include "componentinfo.h"
@@ -122,7 +122,7 @@ const char * Component::getType() const
 }	
 
 /** save component properties */
-void Component::save(KSimpleConfig & file) const
+void Component::save(KSimData & file) const
 {
 	QString group;
 	
@@ -183,7 +183,7 @@ void Component::save(KSimpleConfig & file) const
 /** Load component properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool Component::load(KSimpleConfig & file, bool)
+bool Component::load(KSimData & file, bool)
 {
 	QString group;
 	bool ok = true;

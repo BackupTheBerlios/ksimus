@@ -21,9 +21,9 @@
 // QT-Includes
 
 // KDE-Includes
-#include "ksimpleconfig.h"
 
 // Project-Includes
+#include "ksimdata.h"
 #include "ksimtime.h"
 #include "ksimdebug.h"
 

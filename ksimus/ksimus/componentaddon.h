@@ -32,7 +32,7 @@
 
 // Forward declaration
 class Component;
-class KSimpleConfig;
+class KSimData;
 class QStringList;
 class ComponentPropertyDialog;
 class QPopupMenu;
@@ -52,12 +52,12 @@ public:
 	/** Save component add on's properties.
 		* The default implementation does nothing.
 		*/
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** Load component add on's properties.
 		*	Returns true if successful.
 		* The default implementation does nothing.
 		*/
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 	/** Draw the sheet view.
 		* The default implementation does nothing.
 		*/
@@ -124,12 +124,12 @@ public:
 	
 	/** Save all component add on's properties.
 		*/
-	void save(KSimpleConfig & file) const;
+	void save(KSimData & file) const;
 	/** Load all component add on's properties.
 		*	Returns true if successful.
 		* This function takes care about the KSimAction information.
 		*/
-	bool load(KSimpleConfig & file);
+	bool load(KSimData & file);
 	/** Draw the sheet view.
 		* This function takes care about the KSimAction information.
 		*/

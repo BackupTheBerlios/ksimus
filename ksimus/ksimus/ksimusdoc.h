@@ -31,7 +31,7 @@
 #include <kurl.h>
 
 // forward declaration of the KSimus classes
-class KConfigBase;
+class KSimData;
 class KSimusView;
 class KSimusApp;
 class KSimEditor;
@@ -119,9 +119,9 @@ class KSimusDoc : public QObject
 	void redo();
 
 	/** Load document property */
-	void loadProperty(KConfigBase & config);
+	void loadProperty(KSimData & config);
 	/** Save document property */
-	void saveProperty(KConfigBase & config) const;
+	void saveProperty(KSimData & config) const;
 	
 	/** True, if cost map is displayed */
 	bool isCostMapVisible() const;

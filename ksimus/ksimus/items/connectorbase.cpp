@@ -20,10 +20,10 @@
 #include <qpopupmenu.h>
 
 // KDE includes
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 // Project includes
+#include "ksimdata.h"
 #include "resource.h"
 #include "component.h"
 #include "compcontainer.h"
@@ -458,7 +458,7 @@ const void * ConnectorBase::getWireData() const
 
 /** Load properties
 	Returns true if successful */
-bool ConnectorBase::load(KSimpleConfig & file)
+bool ConnectorBase::load(KSimData & file)
 {
 	setName(file.readEntry(sName, getInitName()));
 	setNegate(file.readBoolEntry(sNegType, isInitNegate()));
@@ -467,7 +467,7 @@ bool ConnectorBase::load(KSimpleConfig & file)
 }
 	
 /** Save properties */
-void ConnectorBase::save(KSimpleConfig & file) const
+void ConnectorBase::save(KSimData & file) const
 {
 	// save only if set
 	if (!m_p->name.isEmpty())

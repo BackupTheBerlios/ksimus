@@ -17,11 +17,11 @@
 
 #include <qdict.h>
 
-#include <kconfigbase.h>
 
 #include "enumdict.h"
 #include "globals.h"
 #include "ksimdebug.h"
+#include "ksimdata.h"
 
 EnumBaseDict::EnumBaseDict(const tData * pData)
 	: m_data(pData)
@@ -83,12 +83,12 @@ const char * EnumBaseDict::find(int value) const
 }
 
 
-void EnumBaseDict::save(KConfigBase & conf, const QString & key, int value) const
+void EnumBaseDict::save(KSimData & conf, const char * key, int value) const
 {
 	conf.writeEntry(key, find(value));
 }
 
-int EnumBaseDict::load(const KConfigBase & conf, const QString & key, int defaultValue) const
+int EnumBaseDict::load(const KSimData & conf, const char * key, int defaultValue) const
 {
 	QString str;
 	int res;
@@ -100,7 +100,7 @@ int EnumBaseDict::load(const KConfigBase & conf, const QString & key, int defaul
 	return res;
 }
 	
-const int * EnumBaseDict::load(const KConfigBase & conf, const QString & key) const
+const int * EnumBaseDict::load(const KSimData & conf, const char * key) const
 {
 	QString str;
 	const int * res;

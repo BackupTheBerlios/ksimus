@@ -21,9 +21,9 @@
 #include <qtimer.h>
 
 // KDE-Includes
-#include <kconfigbase.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "simulationtiming.h"
 #include "ksimusdoc.h"
 #include "ksimtimebase.h"
@@ -77,7 +77,7 @@ void SimulationTiming::reset()
 	m_simulationTime->reset();
 }
 
-void SimulationTiming::load(KConfigBase & config)
+void SimulationTiming::load(KSimData & config)
 {
 	QString group;
 
@@ -109,7 +109,7 @@ void SimulationTiming::load(KConfigBase & config)
   updateTickTime();
 }
 
-void SimulationTiming::save(KConfigBase & config) const
+void SimulationTiming::save(KSimData & config) const
 {
 	QString group;
 

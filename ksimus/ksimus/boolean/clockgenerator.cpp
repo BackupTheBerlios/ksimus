@@ -28,9 +28,9 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <ksimpleconfig.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "clockgenerator.h"
 #include "resource.h"
 //#include "connectorboolin.h"
@@ -195,7 +195,7 @@ void ClockGenerator::initPropertyDialog(ComponentPropertyDialog * dialog)
 }
 
 /** save component properties */
-void ClockGenerator::save(KSimpleConfig & file) const
+void ClockGenerator::save(KSimData & file) const
 {
 	Component::save(file);
 	
@@ -214,7 +214,7 @@ void ClockGenerator::save(KSimpleConfig & file) const
 }
 		
 
-bool ClockGenerator::load(KSimpleConfig & file, bool copyLoad)
+bool ClockGenerator::load(KSimData & file, bool copyLoad)
 {
 	QString oldGroup(file.group());
 	QString newGroup;

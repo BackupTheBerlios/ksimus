@@ -20,10 +20,10 @@
 #include <qrect.h>
 #include <qsize.h>
 #include <qpopupmenu.h>
-#include <ksimpleconfig.h>
 #include <kfiledialog.h>
 #include <klocale.h>
 
+#include "ksimdata.h"
 #include "ksimdebug.h"
 #include "module.h"
 #include "moduledata.h"
@@ -230,7 +230,7 @@ const QString & Module::getModuleFile() const
 	return moduleFile;
 }
 	
-void Module::save(KSimpleConfig & file) const
+void Module::save(KSimData & file) const
 {
 	file.writeEntry(sModFile, moduleFile);
 //	file.writeEntry(sConnector, getConnList()->count());
@@ -241,7 +241,7 @@ void Module::save(KSimpleConfig & file) const
 /** load module properties
 *   copyLoad is true, if the load function is used as a copy function
 *	Returns true if successful */
-bool Module::load(KSimpleConfig & file, bool copyLoad)
+bool Module::load(KSimData & file, bool copyLoad)
 {
 //	unsigned int connNo;//,i;
 	
@@ -275,7 +275,7 @@ void Module::reloadModule()
 	
 	
 	// open file
-	KSimpleConfig file(moduleFile);
+	KSimData file(moduleFile);
 
 	// Load all components from file
 	file.setGroup("/");

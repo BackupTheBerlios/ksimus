@@ -76,11 +76,11 @@ public:
 	~Module();
 
 	/** save module properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load module properties
 	*   copyLoad is true, if the load function is used as a copy function
 		Returns true if successful */
-	virtual bool load(KSimpleConfig & file, bool copyLoad);
+	virtual bool load(KSimData & file, bool copyLoad);
 	
 	/** Checks the component
 	*   eg. all required inputs are connected.

@@ -34,7 +34,7 @@
 #include "types.h"
 #include "ksimaction.h"
 
-class KSimpleConfig;
+class KSimData;
 class QStringList;
 
 class QPopupMenu;
@@ -71,11 +71,11 @@ public:
 	/** Returns the component type */
 	const char * getType() const;
 	/** save component properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load component properties
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-	virtual bool load(KSimpleConfig & file, bool copyLoad);
+	virtual bool load(KSimData & file, bool copyLoad);
 	/** The sheet view of the component */
 	CompView * getSheetView() const { return m_sheetView; };
 	/** The user view of the component */

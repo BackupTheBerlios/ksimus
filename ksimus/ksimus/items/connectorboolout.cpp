@@ -21,10 +21,10 @@
 #include <qpopupmenu.h>
 
 // KDE includes
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 // Project includes
+#include "ksimdata.h"
 #include "connectorinfo.h"
 #include "connectorboolout.h"
 #include "connectorbooloutpropertywidget.h"
@@ -155,7 +155,7 @@ void ConnectorBoolOut::reset()
 
 /** Load properties
 	Returns true if successful */
-bool ConnectorBoolOut::load(KSimpleConfig & file)
+bool ConnectorBoolOut::load(KSimData & file)
 {
 	bool res;
 	res = ConnectorOutputBase::load(file);
@@ -166,7 +166,7 @@ bool ConnectorBoolOut::load(KSimpleConfig & file)
 }
 	
 /** Save properties */
-void ConnectorBoolOut::save(KSimpleConfig & file) const
+void ConnectorBoolOut::save(KSimData & file) const
 {
 	ConnectorOutputBase::save(file);
 	

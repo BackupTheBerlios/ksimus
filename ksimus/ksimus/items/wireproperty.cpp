@@ -15,11 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <ksimpleconfig.h>
 #include <klocale.h>
 
 #include "wireproperty.h"
 
+#include "ksimdata.h"
 #include "wirepropertyinfo.h"
 #include "wire.h"
 #include "ksimdebug.h"
@@ -41,14 +41,14 @@ WireProperty::~WireProperty()
 }
 
 /** save wire properties */
-void WireProperty::save(KSimpleConfig &) const
+void WireProperty::save(KSimData &) const
 {
 	// nothing to do
 }
 
 /** load wire properties
 	Returns true if successful */
-bool WireProperty::load(KSimpleConfig &)
+bool WireProperty::load(KSimData &)
 {
 	// nothing to do
 	return true;

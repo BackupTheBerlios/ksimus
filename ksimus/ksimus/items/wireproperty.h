@@ -24,7 +24,7 @@
 class Wire;
 class WirePropertyInfo;
 class QPopupMenu;
-class KSimpleConfig;
+class KSimData;
 class QPainter;
 
 /**Base class for all wire properties
@@ -40,10 +40,10 @@ public:
 	virtual ~WireProperty();
 	
 	/** Save wire properties. */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** Load wire properties.
 		*	Returns true if successful. */
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 
 	/** Checks the connected component.
 	*   eg. No output connected or more than one connected.

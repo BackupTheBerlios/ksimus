@@ -68,10 +68,10 @@ public:
 	/** New position of the wire view */
 	virtual void setPos(const QPoint & pos);
 	/** save component properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load component properties
 	*	Returns true if successful */
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 	
 	const CPointListList * getRouteList() const;
 		
@@ -102,11 +102,11 @@ public:
 	void delConnector(ConnectorBase * conn);
 	
 	/** save wire properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load wire properties
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-	virtual bool load(KSimpleConfig & file, bool copyLoad);
+	virtual bool load(KSimData & file, bool copyLoad);
 
 	/** Shift the result of calculation to output
 	*		The implementaion clears the data cache */

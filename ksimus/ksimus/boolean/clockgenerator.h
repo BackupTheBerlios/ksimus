@@ -63,11 +63,11 @@ public:
 	virtual void initPropertyDialog(ComponentPropertyDialog * dialog);
 	
 	/** save component properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load component properties
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-	virtual bool load(KSimpleConfig & file, bool copyLoad);
+	virtual bool load(KSimData & file, bool copyLoad);
 	
 protected:
 	bool m_result;

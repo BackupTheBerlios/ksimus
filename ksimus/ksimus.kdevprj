@@ -111,7 +111,7 @@ install_location=
 type=DATA
 
 [ksimus/Makefile.am]
-files=ksimus/main.cpp,ksimus/ksimus.cpp,ksimus/ksimus.h,ksimus/ksimusdoc.cpp,ksimus/ksimusdoc.h,ksimus/ksimusview.cpp,ksimus/ksimusview.h,ksimus/ksimusui.rc,ksimus/ksimus.desktop,ksimus/ksimus.xpm,ksimus/mini-ksimus.xpm,ksimus/basewindow.cpp,ksimus/basewindow.h,ksimus/compcontainer.h,ksimus/component.cpp,ksimus/component.h,ksimus/componentitem.cpp,ksimus/componentitem.h,ksimus/componentmap.cpp,ksimus/componentmap.h,ksimus/compview.cpp,ksimus/compview.h,ksimus/displaywidget.cpp,ksimus/displaywidget.h,ksimus/globals.cpp,ksimus/globals.h,ksimus/ksimfile.cpp,ksimus/ksimfile.h,ksimus/ksimundo.cpp,ksimus/ksimundo.h,ksimus/types.h,ksimus/wire.cpp,ksimus/wire.h,ksimus/resource.h,ksimus/ksimwidget.cpp,ksimus/ksimwidget.h,ksimus/ksimeditor.cpp,ksimus/ksimeditor.h,ksimus/compviewwidget.cpp,ksimus/compviewwidget.h,ksimus/ksimdebug.h,ksimus/componentpropertybasewidget.cpp,ksimus/componentpropertybasewidget.h,ksimus/componentpropertygeneralwidget.cpp,ksimus/componentpropertygeneralwidget.h,ksimus/componentpropertydialog.cpp,ksimus/componentpropertydialog.h,ksimus/componentpropertyinfowidget.cpp,ksimus/componentpropertyinfowidget.h,ksimus/library.cpp,ksimus/library.h,ksimus/compcontainer.cpp,ksimus/componentaddon.cpp,ksimus/componentaddon.h,ksimus/ksimaction.cpp,ksimus/ksimaction.h
+files=ksimus/main.cpp,ksimus/ksimus.cpp,ksimus/ksimus.h,ksimus/ksimusdoc.cpp,ksimus/ksimusdoc.h,ksimus/ksimusview.cpp,ksimus/ksimusview.h,ksimus/ksimusui.rc,ksimus/ksimus.desktop,ksimus/ksimus.xpm,ksimus/mini-ksimus.xpm,ksimus/basewindow.cpp,ksimus/basewindow.h,ksimus/compcontainer.h,ksimus/component.cpp,ksimus/component.h,ksimus/componentitem.cpp,ksimus/componentitem.h,ksimus/componentmap.cpp,ksimus/componentmap.h,ksimus/compview.cpp,ksimus/compview.h,ksimus/displaywidget.cpp,ksimus/displaywidget.h,ksimus/globals.cpp,ksimus/globals.h,ksimus/ksimfile.cpp,ksimus/ksimfile.h,ksimus/ksimundo.cpp,ksimus/ksimundo.h,ksimus/types.h,ksimus/wire.cpp,ksimus/wire.h,ksimus/resource.h,ksimus/ksimwidget.cpp,ksimus/ksimwidget.h,ksimus/ksimeditor.cpp,ksimus/ksimeditor.h,ksimus/compviewwidget.cpp,ksimus/compviewwidget.h,ksimus/ksimdebug.h,ksimus/componentpropertybasewidget.cpp,ksimus/componentpropertybasewidget.h,ksimus/componentpropertygeneralwidget.cpp,ksimus/componentpropertygeneralwidget.h,ksimus/componentpropertydialog.cpp,ksimus/componentpropertydialog.h,ksimus/componentpropertyinfowidget.cpp,ksimus/componentpropertyinfowidget.h,ksimus/library.cpp,ksimus/library.h,ksimus/compcontainer.cpp,ksimus/componentaddon.cpp,ksimus/componentaddon.h,ksimus/ksimaction.cpp,ksimus/ksimaction.h,ksimus/ksimdata.cpp,ksimus/ksimdata.h
 sub_dirs=tools,module,boolean,lib,items
 type=prog_main
 
@@ -542,6 +542,18 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(kde_includes)/ksimus/ksimaction.h
+type=HEADER
+
+[ksimus/ksimdata.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/ksimdata.h]
+dist=true
+install=true
+install_location=$$(kde_includes)/ksimus/ksimdata.h
 type=HEADER
 
 [ksimus/ksimdebug.h]

@@ -43,7 +43,7 @@ class Component;
 class ComponentMap;
 class ConnectorBase;
 class KSimEditor;
-class KSimpleConfig;
+class KSimData;
 class QMouseEvent;
 class QPainter;
 
@@ -132,10 +132,10 @@ public:
 	QPoint mapToGrid(QPoint pos);
 
 	/** save component properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load component properties
 		Returns true if successful */
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 
     /** Returns the type of view
     	@see enum eViewType */
@@ -266,10 +266,10 @@ public:
 	virtual eHitType isHit(int x, int y) const;
 	
 	/** save component properties */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	/** load component properties
 		Returns true if successful */
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 	/** Set the minimum size of the view */
 	void setMinSize(int width, int height);
 	/** Set the minimum size of the view*/

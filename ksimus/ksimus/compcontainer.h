@@ -39,7 +39,7 @@ class ComponentMap;
 class KSimusApp;
 class KSimusDoc;
 class KSimUndo;
-class KSimpleConfig;
+class KSimData;
 class ModuleData;
 class LogList;
 class Component;
@@ -134,17 +134,17 @@ public:
 	/** Load components from file
 	*   copyLoad is true, if the load function is used as a copy function
 	*	Returns true if successful */
-	bool loadComponents(KSimpleConfig & file, bool copyLoad = false);
+	bool loadComponents(KSimData & file, bool copyLoad = false);
 	/** Saves the component */
-	bool saveComponents(KSimpleConfig & file, ComponentList * compList) const;
+	bool saveComponents(KSimData & file, ComponentList * compList) const;
 	/** Loads the complete sheet */
-	bool load(KSimpleConfig & filename);
+	bool load(KSimData & filename);
 	/** Saves the properties */
-	bool saveProperty(KSimpleConfig & filename) const;
+	bool saveProperty(KSimData & filename) const;
 	/** Loads the properties */
-	bool loadProperty(KSimpleConfig & filename);
+	bool loadProperty(KSimData & filename);
 	/** Saves the complete sheet */
-	bool save(KSimpleConfig & filename) const;
+	bool save(KSimData & filename) const;
 	/** Deletes all components */
 	void deleteAll();
 	/** Seareches for new routes */

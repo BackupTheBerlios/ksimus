@@ -31,7 +31,7 @@
 #include "ksimaction.h"
 
 class QPainter;
-class KSimpleConfig;
+class KSimData;
 
 class QPopupMenu;
 class KSimusDoc;
@@ -158,9 +158,9 @@ public:
 	
 	/** Load properties.
 		Returns true if successful. */
-	virtual bool load(KSimpleConfig & file);
+	virtual bool load(KSimData & file);
 	/** Save properties. */
-	virtual void save(KSimpleConfig & file) const;
+	virtual void save(KSimData & file) const;
 	
 	/** Set the connected wire. Null, if not connected. */
 	void setWire(Wire * newWire);

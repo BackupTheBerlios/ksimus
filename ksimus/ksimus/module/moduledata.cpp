@@ -28,9 +28,9 @@
 #include <qstringlist.h>
 
 // KDE-Includes
-#include <ksimpleconfig.h>
 
 // Project-Includes
+#include "ksimdata.h"
 #include "moduledata.h"
 #include "module.h"
 #include "ksimusdoc.h"
@@ -518,7 +518,7 @@ void ModuleData::setupUserViewData()
 }
 
 /** save module properties */
-void ModuleData::save(KSimpleConfig & file)
+void ModuleData::save(KSimData & file)
 {
 	moduleViewDict.save(file, sViewType, m_moduleView);
 		
@@ -581,7 +581,7 @@ void ModuleData::save(KSimpleConfig & file)
 
 /** Load module properties
 	Returns true if successful */
-bool ModuleData::load(KSimpleConfig & file)
+bool ModuleData::load(KSimData & file)
 {
 	m_moduleView = moduleViewDict.load(file, sViewType, MV_GENERIC);
 	
@@ -640,7 +640,7 @@ bool ModuleData::load(KSimpleConfig & file)
 							
 const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 {
-	KSimpleConfig file(filename);
+	KSimData file(filename);
 	file.setGroup("/Property/Module/");
 	
 	ModuleViewType moduleView = moduleViewDict.load(file, sViewType, MV_NONE);

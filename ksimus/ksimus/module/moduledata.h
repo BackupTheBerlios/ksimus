@@ -33,7 +33,7 @@
 class QString;
 class QSize;
 class QPixmap;
-class KSimpleConfig;
+class KSimData;
 class CompContainer;
 class ComponentList;
 class CompViewList;
@@ -125,10 +125,10 @@ public:
 	void setupUserViewData();
 
 	/** save module properties. */
-	void save(KSimpleConfig & file);
+	void save(KSimData & file);
 	/** load module properties.
 		Returns true if successful. */
-	bool load(KSimpleConfig & file);
+	bool load(KSimData & file);
 
 	/** Creates a Module Info and return the pointer. The function returns a null pointer if
 			file is not a valid module.

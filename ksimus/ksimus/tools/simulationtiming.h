@@ -29,7 +29,7 @@
 
 // Forward declaration
 class QTimer;
-class KConfigBase;
+class KSimData;
 class KSimusDoc;
 class KSimTimeServer;
 class KSimTimeBase;
@@ -52,8 +52,8 @@ public:
 	bool running() const { return m_running; };
 	void reset();
 
-	void load(KConfigBase & config);
-	void save(KConfigBase & config) const;
+	void load(KSimData & config);
+	void save(KSimData & config) const;
 	
 	void updateTickTime();
 	
