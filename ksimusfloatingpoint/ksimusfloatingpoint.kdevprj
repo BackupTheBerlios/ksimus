@@ -24,7 +24,7 @@ ldadd=
 ldflags=-shared
 
 [General]
-AMChanged=true
+AMChanged=false
 author=Rasmus Diekenbrock
 configure_args=--prefix=/opt/kde2
 email=ksimus@gmx.de
@@ -38,7 +38,7 @@ project_type=kpart_plugin
 sgml_file=/home/rasmus/Projekte/ksimusfloatingpoint/doc/en/index.docbook
 short_info=
 sub_dir=ksimusfloatingpoint/
-version=0.3.4.cvs
+version=0.3.4
 version_control=None
 workspace=1
 

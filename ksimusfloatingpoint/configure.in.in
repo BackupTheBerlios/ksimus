@@ -1,6 +1,6 @@
 #MIN_CONFIG
 
-AM_INIT_AUTOMAKE(ksimusfloatingpoint,0.3.4.cvs)
+AM_INIT_AUTOMAKE(ksimusfloatingpoint,0.3.4)
 
 AC_DEFUN(CHECK_KSIMUS_HEADER,
 [
