@@ -579,8 +579,8 @@ bool KSimDoubleSpinBox::eventFilter(QObject * obj, QEvent * ev)
 					{
 						execRmbMenu(id);
 					}
-					delete popup;
 				}
+				delete popup;
 				return true;
 			}
 			break;
