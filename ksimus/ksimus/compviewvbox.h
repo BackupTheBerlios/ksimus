@@ -20,8 +20,8 @@
 
 #include "compviewhbox.h"
 
-/** @ref QHBox class for compViews.
-  * Use this class like @ref CompViewWidget or @ref CompViewHBox but with more features.
+/** @ref QVBox class for compViews.
+  * Use this class like @ref CompViewHBox.
   *@author Rasmus Diekenbrock
   */
 
