@@ -56,7 +56,7 @@ const ComponentInfo BooleanButtonInfo(I18N_NOOP("Button"),
                                       VA_SHEET_AND_USER,
                                       createBooleanButton,	
                                       QString::null,
-                                      "ComponentButton");
+                                      "component-button");
 
 //###############################################################
 //###############################################################
@@ -72,7 +72,7 @@ const ComponentInfo BooleanToggleButtonInfo(I18N_NOOP("TButton"),
                                             VA_SHEET_AND_USER,
                                             createBooleanToggleButton,	
                                             QString::null,
-                                            "ComponentTButton");
+                                            "component-button");
 
 const ComponentInfoList BooleanButtonList = { &BooleanButtonInfo, &BooleanToggleButtonInfo, 0 };
 										

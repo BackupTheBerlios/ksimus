@@ -48,8 +48,9 @@ const ComponentInfo SimTimeInputInfo
 									I18N_NOOP("Control/Simulation Time"),
 									QString::null,
 									VA_SHEETVIEW,
-									create
-								);
+									create,
+									QString::null,
+									"component-sim-time");
 
 //###############################################################
 //###############################################################
@@ -125,11 +126,12 @@ static Component * createTick(CompContainer * container, const ComponentInfo * c
 const ComponentInfo TickTimeInputInfo
 								(	
 									I18N_NOOP("Tick time"),
-									I18N_NOOP("Control/Tick time"),
+									I18N_NOOP("Control/Tick Time"),
 									QString::null,
 									VA_SHEETVIEW,
-									createTick
-								);
+									createTick,
+									QString::null,
+									"component-tick-time");
 
 //###############################################################
 //###############################################################

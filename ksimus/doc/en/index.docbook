@@ -1026,7 +1026,7 @@ See also <link linkend="example-module">Module Example</link>
 <!-- ########################            Components         ######################## -->
 <!-- ############################################################################### -->
 <chapter id="Components">
-<title>Components Reference</title>
+<title>Component Reference</title>
 &component_part;
 
 

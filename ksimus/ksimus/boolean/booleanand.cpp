@@ -45,15 +45,17 @@ const ComponentInfo BooleanAndInfo(I18N_NOOP("Boolean AND"),
                                    I18N_NOOP("Boolean/Gates/AND"),
                                    QString::null,
                                    VA_SHEETVIEW,
-                                   create
-                                  );
+                                   create,	
+                                   QString::null,
+                                   "component-boolean-and");
 
 const ComponentInfo BooleanNandInfo(I18N_NOOP("Boolean NAND"),
                                     I18N_NOOP("Boolean/Gates/NAND"),
                                     QString::null,
                                     VA_SHEETVIEW,
-                                    create
-                                   );
+                                    create,	
+                                    QString::null,
+                                    "component-boolean-nand");
 
 const ComponentInfoList BooleanAndList = { &BooleanAndInfo, &BooleanNandInfo, 0 };
 

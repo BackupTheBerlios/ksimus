@@ -1,52 +1,513 @@
 
-<para>
-&Components; are the smallest building blocks a &schematic;. Connect the &components;
-with &wires; and create in this way your &schematic;.
-</para>
+<simplelist>
+<member><link linkend="component-boolean-and">Boolean AND Gate</link></member>
+<member><link linkend="component-boolean-nand">Boolean NAND Gate</link></member>
+<member><link linkend="component-clock-generator">Clock Generator</link></member>
+</simplelist>
 
-<sect1 id="ComponentButton">
-<title>Button</title>
+<sect1 id="component-boolean-gates">
+<title>Boolean Gates</title>
 
-<para>
-<anchor id="ComponentTButton"/>
-Currently there exists two button types:
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################          Boolean Gate AND     ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
 
+<sect2 id="component-boolean-and">
+<title>Boolean AND Gate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a logic AND gate. The output is high if all inputs are
+high. The output is low if one or more inputs are low.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-A simple button which is activeted as long as the user press the button.
-</para></listitem>
+User definable input count (2-26 inputs).
+</para></listitem><listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+Use the component popup menu to add a new or remove a input (Currently you can only remove
+the last input which has to be unconnected).
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_bool_and.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="4">
+<thead>
+<row><entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>Low</entry>     <entry>Low</entry>     <entry></entry> <entry>Low</entry>  </row>
+<row><entry>Low</entry>     <entry>High</entry>    <entry></entry> <entry>Low</entry>  </row>
+<row><entry>High</entry>    <entry>Low</entry>     <entry></entry> <entry>Low</entry>  </row>
+<row><entry>High</entry>    <entry>High</entry>    <entry></entry> <entry>High</entry> </row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Gates -> AND</para></sect3>
+
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################         Boolean Gate NAND     ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-nand">
+<title>Boolean NAND Gate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a logic NAND gate. The output is low if all inputs are
+high. The output is high if one or more inputs are low.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
 <listitem><para>
-A toggle button which changes the state each time the user press the button.
-</para></listitem>
-</itemizedlist>
+User definable input count (2-26 inputs).
+</para></listitem><listitem><para>
+All inputs and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+Use the component popup menu to add a new or remove a input (Currently you can only remove
+the last input which has to be unconnected).
+</para></listitem></itemizedlist></sect3>
 
-</para>
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_bool_nand.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
 
-<para>
-Location in &componentSupplier;:
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="4">
+<thead>
+<row><entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>Low</entry>     <entry>Low</entry>     <entry></entry> <entry>High</entry></row>
+<row><entry>Low</entry>     <entry>High</entry>    <entry></entry> <entry>High</entry></row>
+<row><entry>High</entry>    <entry>Low</entry>     <entry></entry> <entry>High</entry></row>
+<row><entry>High</entry>    <entry>High</entry>    <entry></entry> <entry>Low</entry> </row>
+</tbody>
+</tgroup></informaltable></para></sect3>
 
-<variablelist>
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Gates -> NAND</para></sect3>
 
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Boolean</guimenuitem>
-<guimenuitem>Input</guimenuitem>
-<guimenuitem>Button</guimenuitem>
-</menuchoice></term>
-<listitem><para><action> </action></para></listitem> </varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Boolean</guimenuitem>
-<guimenuitem>Input</guimenuitem>
-<guimenuitem>Toggle Button</guimenuitem>
-</menuchoice></term>
-<listitem><para><action> </action></para></listitem> </varlistentry>
-
-</variablelist>
+</sect2>
 
 
-</para>
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################       Clock Generator         ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-clock-generator">
+<title>Clock Generator</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a Clock Generator with a free definable timing. The Clock Generator supports a
+start delay, a high level duration and a low level duration.
+</para><para>
+The time can be given in a time unit (ps,ns,&micro;s,ms,s) or in simulation cycles (ticks). Press the
+left mouse button in the input line and see the available manipulation options. The input of new
+delay time with one of the available unit works well. Or use the mouse wheel for changing the value
+in a 1-2-5 scheme.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+The clock generator supports a defineable start delay.
+</para></listitem><listitem><para>
+The high level duration and the low level duration are independent definable.
+</para></listitem><listitem><para>
+If the high level or the low level duration is shorter than a simulation cycle the duration is
+extended to one simulation cycle.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_clk_gen.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Gates -> Clock Generator</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+</sect1>
+<sect1 id="component-inputs">
+<title>Inputs</title>
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<simplelist>
+<member><link linkend="component-button">Button / Toggle Button</link></member>
+</simplelist>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################        (Toggle) Button        ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-button">
+<title>Button / Toggle Button</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a button with selectable toggle property.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The output is negatable.
+</para></listitem><listitem><para>
+Activate or deactivate the toggle property.
+</para></listitem><listitem><para>
+User definable button text. The button text is the same as the component name.
+</para></listitem><listitem><para>
+The font of the button text is user definable.
+</para></listitem><listitem><para>
+The button is free resizable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state (only in toggle mode). The output adopts
+this state during the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_button.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Input -> Button</para>
+<para>Boolean -> Input -> Toggle Button</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+</sect1>
+<sect1 id="component-Outputs">
+<title>Outputs</title>
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<simplelist>
+<member><link linkend="component-led">LED</link></member>
+</simplelist>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################             LED               ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-led">
+<title>LED</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a LED with selectable colors.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input is negatable.
+</para></listitem><listitem><para>
+Three predefined color schemes (red, green, orange) or user defined color schemes.
+</para></listitem><listitem><para>
+The LED is free resizable.
+</para></listitem><listitem><para>
+Selectable frame in the User View.
+</para></listitem><listitem><para>
+The LED is displayed in the user view.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_led.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="component_led_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Boolean -> Output -> LED</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+</sect1>
+<sect1 id="component-ext-conns">
+<title>External Connector</title>
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<simplelist>
+<member><link linkend="component-ext-conn-bool-in">External Connector Boolean Input</link></member>
+<member><link linkend="component-ext-conn-bool-out">External Connector Boolean Output</link></member>
+</simplelist>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################  External Connector Bool In   ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-ext-conn-bool-in">
+<title>External Connector Boolean Input</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external boolean input connector is used as an input for &modules;. See also chapter &extConn;.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input and output is negatable. If the input connector is negated, the input connector of
+the module is also negated as default.
+</para></listitem><listitem><para>
+The name of the external connector is used as default name of the input connector of the module.
+</para></listitem><listitem><para>
+The external connector is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_ext_conn_bool_in.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>External Connector -> Bool Input</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################  External Connector Bool Out  ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-ext-conn-bool-out">
+<title>External Connector Boolean Output</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The external boolean output connector is used as an output for &modules;. See also chapter &extConn;.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input and output is negatable. If the output connector is negated, the output connector of
+the module is also negated as default.
+</para></listitem><listitem><para>
+The name of the external connector is used as default name of the output connector of the module.
+</para></listitem><listitem><para>
+The external connector is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_ext_conn_bool_out.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>External Connector -> Bool Output</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+</sect1>
+<sect1 id="component-controls">
+<title>Controls</title>
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<simplelist>
+<member><link linkend="component-sim-time">Simulation Time</link></member>
+<member><link linkend="component-tick-time">Simulation Time</link></member>
+</simplelist>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################         Simulation Time       ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-sim-time">
+<title>Simulation Time</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Simulation Time returns the elapsed time since the simulation start.
+The time is measured in seconds.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The external connector is rotatable.
+</para></listitem><listitem><para>
+The component is not very useful without the KSimus Floating Point package.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_sim_time.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Control -> Simulation Time</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################           Tick Time           ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-tick-time">
+<title>Tick Time</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Tick Time returns the duration of a simulation cycle. The duration is measured in seconds.
+This value will not be changed during the simulation.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The external connector is rotatable.
+</para></listitem><listitem><para>
+The component is not very useful without the KSimus Floating Point package.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_tick_time.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Control -> Tick Time</para>
+</sect3>
+
+</sect2>
+
+
 
 
 </sect1>

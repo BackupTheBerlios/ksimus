@@ -33,7 +33,9 @@ const ComponentInfo ExtConnBoolInInfo (	I18N_NOOP("External Connector Boolean In
 																				I18N_NOOP("External Connector/Bool Input"),
 																				QString::null,
 																				VA_SHEETVIEW,
-																				create );
+																				create,
+											                  QString::null,
+											                  "component-ext-conn-bool-in");
 
 //###############################################################
 

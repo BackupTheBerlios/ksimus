@@ -60,8 +60,9 @@ const ComponentInfo ClockGeneratorInfo
 									I18N_NOOP("Boolean/Gates/Clock Generator"),
 									QString::null,
 									VA_SHEETVIEW,
-									create2
-								);
+									create2,	
+                  QString::null,
+                  "component-clock-generator");
 
 //###############################################################
 //###############################################################

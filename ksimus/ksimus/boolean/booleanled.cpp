@@ -56,7 +56,9 @@ const ComponentInfo BooleanLedInfo(I18N_NOOP("LED"),
                                    I18N_NOOP("Boolean/Output/LED"),
                                    QString::null,
                                    VA_SHEET_AND_USER,
-                                   createBooleanLed	);
+                                   createBooleanLed,	
+                                   QString::null,
+                                   "component-led");
 
 
 //############################################################################
