@@ -45,26 +45,26 @@ Component * BoolTriStateAnd::create(CompContainer * container, const ComponentIn
 const ComponentInfo * BoolTriStateAnd::getStaticAndInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean AND with TriState output"),
-	                                QString::fromLatin1("Boolean/Gates/AND TriState"),
-	                                i18n("Component", "Boolean/Gates/AND with TriState output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/AND TriState"),
+	                                i18n("Component", "Boolean/Tristate/Gates/AND with TriState output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create,
+	                                create/* TODO,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-and"));
+	                                QString::fromLatin1("component-boolean-and")*/);
 	return &Info;
 }
 
 const ComponentInfo * BoolTriStateAnd::getStaticNandInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean NAND with TriState output"),
-	                                QString::fromLatin1("Boolean/Gates/NAND TriState"),
-	                                i18n("Component", "Boolean/Gates/NAND with TriState output"),
+	                                QString::fromLatin1("Boolean/Tristate/Gates/NAND TriState"),
+	                                i18n("Component", "Boolean/Tristate/Gates/NAND with TriState output"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create,
+	                                create /* TODO,
 	                                QString::null,
-	                                QString::fromLatin1("component-boolean-nand"));
+	                                QString::fromLatin1("component-boolean-nand") */);
 	return &Info;
 }
 
