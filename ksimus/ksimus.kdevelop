@@ -1,0 +1,156 @@
+<?xml version = '1.0'?>
+<kdevelop>
+  <general>
+    <author>Rasmus Diekenbrock</author>
+    <email>ksimus@gmx.de</email>
+    <version>0.3.7-cvs</version>
+    <projectmanagement>KDevKDEAutoProject</projectmanagement>
+    <primarylanguage>C++</primarylanguage>
+    <keywords>
+      <keyword>C++</keyword>
+      <keyword>Code</keyword>
+      <keyword>Qt</keyword>
+      <keyword>KDE</keyword>
+    </keywords>
+    <projectdirectory>.</projectdirectory>
+    <absoluteprojectpath>false</absoluteprojectpath>
+    <description></description>
+    <ignoreparts>
+      <part>ClearCase-Unterstützung (KDevelop)</part>
+      <part>Perforce-Unterstützung (KDevelop)</part>
+    </ignoreparts>
+    <secondaryLanguages/>
+  </general>
+  <kdevautoproject>
+    <general>
+      <activetarget>ksimus/ksimus</activetarget>
+      <useconfiguration>debug</useconfiguration>
+    </general>
+    <run>
+      <mainprogram>ksimus</mainprogram>
+      <directoryradio>executable</directoryradio>
+      <runarguments>
+        <ksimus/>
+      </runarguments>
+      <customdirectory>/</customdirectory>
+      <programargs>/home/rasmus/tmp/test4.sim</programargs>
+      <terminal>false</terminal>
+      <autocompile>true</autocompile>
+      <envvars/>
+    </run>
+    <configurations>
+      <optimized>
+        <builddir>optimized</builddir>
+        <ccompiler>kdevgccoptions</ccompiler>
+        <cxxcompiler>kdevgppoptions</cxxcompiler>
+        <f77compiler>kdevg77options</f77compiler>
+        <cxxflags>-O2 -g0</cxxflags>
+      </optimized>
+      <debug>
+        <configargs>--enable-debug=full -C --prefix=/opt/kde3</configargs>
+        <builddir>debug</builddir>
+        <ccompiler>kdevgccoptions</ccompiler>
+        <cxxcompiler>kdevgppoptions</cxxcompiler>
+        <f77compiler>kdevg77options</f77compiler>
+        <cxxflags>-O0 -g3</cxxflags>
+        <topsourcedir/>
+        <cppflags/>
+        <ldflags/>
+        <ccompilerbinary/>
+        <cxxcompilerbinary/>
+        <f77compilerbinary/>
+        <cflags/>
+        <f77flags/>
+      </debug>
+    </configurations>
+    <make>
+      <envvars>
+        <envvar value="1" name="WANT_AUTOCONF_2_5" />
+        <envvar value="1" name="WANT_AUTOMAKE_1_6" />
+      </envvars>
+      <abortonerror>true</abortonerror>
+      <numberofjobs>2</numberofjobs>
+      <dontact>false</dontact>
+      <makebin></makebin>
+    </make>
+  </kdevautoproject>
+  <kdevfileview>
+    <groups>
+      <group pattern="*.cpp;*.cxx;*.h" name="Sources" />
+      <group pattern="*.ui" name="User Interface" />
+      <group pattern="*.png" name="Icons" />
+      <group pattern="*.po;*.ts" name="Translations" />
+      <group pattern="*" name="Others" />
+    </groups>
+    <tree>
+      <hidepatterns>*.o,*.lo,CVS</hidepatterns>
+      <hidenonprojectfiles>false</hidenonprojectfiles>
+    </tree>
+  </kdevfileview>
+  <kdevdoctreeview>
+    <ignoretocs>
+      <toc>gtk</toc>
+      <toc>gnustep</toc>
+      <toc>python</toc>
+      <toc>php</toc>
+      <toc>perl</toc>
+    </ignoretocs>
+    <projectdoc>
+      <userdocDir>html/</userdocDir>
+      <apidocDir>html/</apidocDir>
+    </projectdoc>
+    <ignoreqt_xml/>
+    <ignoredoxygen/>
+    <ignorekdocs/>
+    <ignoredevhelp/>
+  </kdevdoctreeview>
+  <kdevdebugger>
+    <general>
+      <dbgshell>libtool</dbgshell>
+      <programargs></programargs>
+      <gdbpath></gdbpath>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
+      <breakonloadinglibs>true</breakonloadinglibs>
+      <separatetty>false</separatetty>
+      <floatingtoolbar>false</floatingtoolbar>
+    </general>
+    <display>
+      <staticmembers>false</staticmembers>
+      <demanglenames>true</demanglenames>
+    </display>
+  </kdevdebugger>
+  <kdevfilecreate>
+    <filetypes/>
+    <useglobaltypes>
+      <type ext="ui" />
+      <type ext="cpp" />
+      <type ext="h" />
+    </useglobaltypes>
+  </kdevfilecreate>
+  <kdevcppsupport>
+    <references>
+      <pcs>Qt</pcs>
+      <pcs>KDElibs</pcs>
+    </references>
+    <codecompletion>
+      <includeGlobalFunctions>true</includeGlobalFunctions>
+      <includeTypes>true</includeTypes>
+      <includeEnums>true</includeEnums>
+      <includeTypedefs>false</includeTypedefs>
+      <automaticCodeCompletion>true</automaticCodeCompletion>
+      <automaticArgumentsHint>true</automaticArgumentsHint>
+      <automaticHeaderCompletion>true</automaticHeaderCompletion>
+      <codeCompletionDelay>250</codeCompletionDelay>
+      <argumentsHintDelay>400</argumentsHintDelay>
+      <headerCompletionDelay>250</headerCompletionDelay>
+    </codecompletion>
+  </kdevcppsupport>
+  <cppsupportpart>
+    <filetemplates>
+      <interfacesuffix>.h</interfacesuffix>
+      <implementationsuffix>.cpp</implementationsuffix>
+    </filetemplates>
+  </cppsupportpart>
+</kdevelop>

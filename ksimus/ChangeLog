@@ -1,3 +1,7 @@
+	18.1.2004
+* Fix some drawing issues with rotated components
+* Clean up some drawing routines
+* Change to KDevelop3 (great IDE)
 	11.10.2003
 * New: Class KSimSpinBox is a replacement for QSpinBox
 * Change: Use KSimSpinBox instead of QSpinBox in some component dialogs
