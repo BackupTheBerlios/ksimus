@@ -1,3 +1,8 @@
+	19.10.2002
+* New: Version 0.3.5-1
+* Fix: The configure failed on Somaris because an incorrect comparison. Thanks to Salman Sheikh for the fix.
+* Fix: The handbook generation failed after update to KDE 3.0.4, libxml2 2.4.25 and libxslt 1.0.21. This is fixed now.
+* Fix: Remove double definition of EXTRA_DIST which cause to fail with some combination of autoconf and automake.
 	12.10.2002
 * New: Version 0.3.5
 	10.10.2002
@@ -63,7 +68,7 @@
 	05.01.2002
 * Change: Version 0.3.2
 * New: Check KSimus header and version during configure.
-* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre the bug message.
+* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre who sends the bug message.
 	29.12.2001
 * Change: Version 0.3.1
 	28.12.2001
