@@ -41,6 +41,9 @@
 // Forward declaration
 
 
+#define FLAGS_RESET_TRUE			0x0001;
+#define FLAGS_RESET_INIT_TRUE	0x0002;
+
 //###############################################################
 //###############################################################
 
@@ -48,7 +51,7 @@
 Boolean1Out::Boolean1Out(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci),
 		m_state(false),
-		m_resetState(false)
+		m_flags(0)
 {
 	
 	m_out = new ConnectorBoolOut (this, "Output");
@@ -66,6 +69,38 @@ void Boolean1Out::updateOutput()
 	getOutputConnector()->setOutput(getState());
 }
 
+void Boolean1Out::setResetState(bool resetState, bool init)
+{
+	if (resetState)
+	{
+		m_flags |= FLAGS_RESET_TRUE;
+		if (init)
+		{
+			m_flags |= FLAGS_RESET_INIT_TRUE;
+		}
+	}
+	else
+	{
+		m_flags &= ~FLAGS_RESET_TRUE;
+		if (init)
+		{
+			m_flags &= ~FLAGS_RESET_INIT_TRUE;
+		}
+	}
+}
+	
+bool Boolean1Out::getResetState() const
+{
+	return m_flags & FLAGS_RESET_TRUE;
+};
+	
+bool Boolean1Out::getResetStateInit() const
+{
+	return m_flags & FLAGS_RESET_INIT_TRUE;
+};
+	
+
+
 void Boolean1Out::reset()
 {
 	Component::reset();
@@ -79,9 +114,9 @@ void Boolean1Out::save(KSimData & file) const
 {
 	Component::save(file);
 	
-	if (getResetState())   // Save true state only (defualt is false!)
+	if (getResetState() != getResetStateInit())
 	{
-		file.writeEntry("Reset State", true);
+		file.writeEntry("Reset State", getResetState());
 	}
 }
 
@@ -90,7 +125,7 @@ void Boolean1Out::save(KSimData & file) const
 *	Returns true if successful */
 bool Boolean1Out::load(KSimData & file, bool copyLoad)
 {
-	setResetState( file.readBoolEntry("Reset State", false) );
+	setResetState( file.readBoolEntry("Reset State", getResetStateInit()) );
 	
 	return Component::load(file, copyLoad);
 }

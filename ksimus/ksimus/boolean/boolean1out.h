@@ -76,11 +76,15 @@ public:
 	/** Returns the current component state. */
 	bool getState() const { return m_state; };
 	
-	/** Sets the reset state. The component gets this state each call @ref reset. */
-	void setResetState(bool resetState) { m_resetState = resetState; };
+	/** Sets the reset state. The component gets this state each call @ref reset.
+	 *  If init is true, the reset State is used as init value. The resetState is
+	 *  only saved, if the current resetState is not equal to resetState set as init value.*/
+	void setResetState(bool resetState, bool init = false);
 	
 	/** Returns the reset state. The component gets this state each call @ref reset. */
-	bool getResetState() const { return m_resetState; };
+	bool getResetState() const;
+	/** Returns the reset state. The component gets this state each call @ref reset. */
+	bool getResetStateInit() const;
 	
 	
 	/** Creates the general property page for the property dialog.
@@ -95,7 +99,7 @@ protected:
 	Boolean1Out(CompContainer * container, const ComponentInfo * ci);
 	
 	bool m_state;
-	bool m_resetState;
+	Q_UINT32 m_flags;
 	ConnectorBoolOut * m_out;
 
 };
