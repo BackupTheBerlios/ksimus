@@ -1,4 +1,11 @@
 	25.12.2001
+* Change: Connector class constructors uses "const QString &" instead "const char *" for name
+* Change: Unique feature of ComponentAddOn is now selectable
+* Change: ConnectorLabel does not use unqiue feature of ComponentAddOn
+* Change: ConnectorPropertyDialog inherits ComponentItem (Code reuse!).
+* Change: Beautify Property Check error mesg.
+* Fix: Avoid unnecessarily debug messages from KSimEditor::wirePopup(...).
+* Fix: ConnectorPack::setConnectorCount(...) delete allway connector bug
 * New: ConnectorPack::getNumberOfDeletableConnectors() and getNumberOfNotDeletableConnectors()
 * Change: ConnectorPack::getDeletableConnector() is not longer virtual.
 * New: KSimBaseUIntLineEdit and KSimBaseUIntValidator
