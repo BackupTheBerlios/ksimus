@@ -1,7 +1,7 @@
 /***************************************************************************
             implicitconverterbooltristate2bool.cpp  -  description
                              -------------------
-    begin                : Mit Nov 13 2002
+    begin                : Wed Nov 13 2002
     copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/

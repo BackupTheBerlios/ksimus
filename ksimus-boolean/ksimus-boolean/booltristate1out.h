@@ -1,7 +1,7 @@
 /***************************************************************************
                         booltristate1out.h  -  description
                              -------------------
-    begin                : Fre Nov 15 2001
+    begin                : Fri Nov 15 2001
     copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/

@@ -1,7 +1,7 @@
 /***************************************************************************
                           implicitconverter.h  -  description
                              -------------------
-    begin                : Mit Aug 14 2002
+    begin                : Wed Aug 14 2002
     copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/

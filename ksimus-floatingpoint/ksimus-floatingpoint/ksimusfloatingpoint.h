@@ -1,7 +1,7 @@
 /***************************************************************************
                           ksimusfloatingpoint.h  -  description
                              -------------------
-    begin                : Fre Feb  1 18:30:45 CET 2002
+    begin                : Fri Feb  1 18:30:45 CET 2002
     copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/

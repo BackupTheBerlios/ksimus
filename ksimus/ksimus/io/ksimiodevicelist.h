@@ -1,7 +1,7 @@
 /***************************************************************************
                           ksimiodevicelist.h  -  description
                              -------------------
-    begin                : Sam Apr 5 2003
+    begin                : Sat Apr 5 2003
     copyright            : (C) 2003 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
