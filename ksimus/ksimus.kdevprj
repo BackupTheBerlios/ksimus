@@ -34,7 +34,7 @@ dir_where_make_will_be_called=
 email=ksimus@gmx.de
 execute_args=/home/rasmus/tmp/test*.sim
 kdevprj_version=1.3
-lfv_open_groups=GNU,Headers,Others,User Interface
+lfv_open_groups=GNU,Headers,Others,Sources,User Interface
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am,ksimus/io/Makefile.am
 modifyMakefiles=true
@@ -477,7 +477,7 @@ install_location=$$(kde_icondir)/hicolor/32x32/apps/ksimus.png
 type=DATA
 
 [ksimus/io/Makefile.am]
-files=ksimus/io/ksimiodevice.cpp,ksimus/io/ksimiodevice.h,ksimus/io/ksimiopin.cpp,ksimus/io/ksimiopin.h,ksimus/io/ksimiojoin.cpp,ksimus/io/ksimiojoin.h,ksimus/io/ksimiodeviceoverviewwidget.cpp,ksimus/io/ksimiodeviceoverviewwidget.h,ksimus/io/ksimiodevicelist.cpp,ksimus/io/ksimiodevicelist.h,ksimus/io/ksimiodevicepropertydialog.cpp,ksimus/io/ksimiodevicepropertydialog.h,ksimus/io/ksimiodevicepropertybasewidget.cpp,ksimus/io/ksimiodevicepropertybasewidget.h,ksimus/io/ksimiodevicepropertygeneralwidget.cpp,ksimus/io/ksimiodevicepropertygeneralwidget.h,ksimus/io/ksimiojoinboolin.cpp,ksimus/io/ksimiojoinboolin.h,ksimus/io/ksimiocomponent.cpp,ksimus/io/ksimiocomponent.h,ksimus/io/ksimiopinselectionwidget.cpp,ksimus/io/ksimiopinselectionwidget.h,ksimus/io/ksimiopinselectiondialog.cpp,ksimus/io/ksimiopinselectiondialog.h,ksimus/io/ksimiostorage.cpp,ksimus/io/ksimiostorage.h,ksimus/io/ksimiojoinboolout.cpp,ksimus/io/ksimiojoinboolout.h
+files=ksimus/io/ksimiodevice.cpp,ksimus/io/ksimiodevice.h,ksimus/io/ksimiopin.cpp,ksimus/io/ksimiopin.h,ksimus/io/ksimiojoin.cpp,ksimus/io/ksimiojoin.h,ksimus/io/ksimiodeviceoverviewwidget.cpp,ksimus/io/ksimiodeviceoverviewwidget.h,ksimus/io/ksimiodevicelist.cpp,ksimus/io/ksimiodevicelist.h,ksimus/io/ksimiodevicepropertydialog.cpp,ksimus/io/ksimiodevicepropertydialog.h,ksimus/io/ksimiodevicepropertybasewidget.cpp,ksimus/io/ksimiodevicepropertybasewidget.h,ksimus/io/ksimiodevicepropertygeneralwidget.cpp,ksimus/io/ksimiodevicepropertygeneralwidget.h,ksimus/io/ksimiojoinboolin.cpp,ksimus/io/ksimiojoinboolin.h,ksimus/io/ksimiocomponent.cpp,ksimus/io/ksimiocomponent.h,ksimus/io/ksimiopinselectionwidget.cpp,ksimus/io/ksimiopinselectionwidget.h,ksimus/io/ksimiopinselectiondialog.cpp,ksimus/io/ksimiopinselectiondialog.h,ksimus/io/ksimiostorage.cpp,ksimus/io/ksimiostorage.h,ksimus/io/ksimiojoinboolout.cpp,ksimus/io/ksimiojoinboolout.h,ksimus/io/ksimiodevicepropertypinwidget.cpp,ksimus/io/ksimiodevicepropertypinwidget.h
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=io
 sub_dirs=
@@ -567,6 +567,18 @@ install=true
 install_location=$$(pkgincludedir)/ksimiodevicepropertygeneralwidget.h
 type=HEADER
 
+[ksimus/io/ksimiodevicepropertypinwidget.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/io/ksimiodevicepropertypinwidget.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimus/io/ksimiojoin.cpp]
 dist=true
 install=false
@@ -652,7 +664,7 @@ install_location=
 type=HEADER
 
 [ksimus/items/Makefile.am]
-files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h,ksimus/items/connectorfloatin.cpp,ksimus/items/connectorfloatin.h,ksimus/items/connectorfloatout.cpp,ksimus/items/connectorfloatout.h,ksimus/items/wirepropertyfloatingpoint.cpp,ksimus/items/wirepropertyfloatingpoint.h,ksimus/items/optionalfunction.cpp,ksimus/items/optionalfunction.h,ksimus/items/optionalconnector.cpp,ksimus/items/optionalconnector.h,ksimus/items/wirepropertymultipleoutput.cpp,ksimus/items/wirepropertymultipleoutput.h,ksimus/items/watchitembase.cpp,ksimus/items/watchitembase.h,ksimus/items/watchviewitem.cpp,ksimus/items/watchviewitem.h,ksimus/items/watchlistview.cpp,ksimus/items/watchlistview.h,ksimus/items/watchitemboolean.cpp,ksimus/items/watchitemboolean.h,ksimus/items/watchwidget.cpp,ksimus/items/watchwidget.h,ksimus/items/watchbreak_xpm.xpm,ksimus/items/watchitemfloatingpoint.cpp,ksimus/items/watchitemfloatingpoint.h,ksimus/items/implicitconverter.cpp,ksimus/items/implicitconverter.h,ksimus/items/connectorbooltristate.cpp,ksimus/items/connectorbooltristate.h,ksimus/items/watchitembooltristate.cpp,ksimus/items/watchitembooltristate.h,ksimus/items/wirepropertybooltristate.cpp,ksimus/items/wirepropertybooltristate.h
+files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h,ksimus/items/connectorfloatin.cpp,ksimus/items/connectorfloatin.h,ksimus/items/connectorfloatout.cpp,ksimus/items/connectorfloatout.h,ksimus/items/wirepropertyfloatingpoint.cpp,ksimus/items/wirepropertyfloatingpoint.h,ksimus/items/optionalfunction.cpp,ksimus/items/optionalfunction.h,ksimus/items/optionalconnector.cpp,ksimus/items/optionalconnector.h,ksimus/items/wirepropertymultipleoutput.cpp,ksimus/items/wirepropertymultipleoutput.h,ksimus/items/watchitembase.cpp,ksimus/items/watchitembase.h,ksimus/items/watchviewitem.cpp,ksimus/items/watchviewitem.h,ksimus/items/watchlistview.cpp,ksimus/items/watchlistview.h,ksimus/items/watchitemboolean.cpp,ksimus/items/watchitemboolean.h,ksimus/items/watchwidget.cpp,ksimus/items/watchwidget.h,ksimus/items/watchbreak_xpm.xpm,ksimus/items/watchitemfloatingpoint.cpp,ksimus/items/watchitemfloatingpoint.h,ksimus/items/implicitconverter.cpp,ksimus/items/implicitconverter.h,ksimus/items/connectorbooltristate.cpp,ksimus/items/connectorbooltristate.h,ksimus/items/watchitembooltristate.cpp,ksimus/items/watchitembooltristate.h,ksimus/items/wirepropertybooltristate.cpp,ksimus/items/wirepropertybooltristate.h,ksimus/items/connectorintegerin.cpp,ksimus/items/connectorintegerin.h,ksimus/items/connectorintegerout.cpp,ksimus/items/connectorintegerout.h,ksimus/items/wirepropertyinteger.cpp,ksimus/items/wirepropertyinteger.h,ksimus/items/watchiteminteger.cpp,ksimus/items/watchiteminteger.h
 sub_dirs=
 type=static_library
 
@@ -798,6 +810,30 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/connectorfloatout.h
+type=HEADER
+
+[ksimus/items/connectorintegerin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorintegerin.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/connectorintegerin.h
+type=HEADER
+
+[ksimus/items/connectorintegerout.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorintegerout.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/connectorintegerout.h
 type=HEADER
 
 [ksimus/items/connectorlabel.cpp]
@@ -998,6 +1034,18 @@ install=false
 install_location=
 type=HEADER
 
+[ksimus/items/watchiteminteger.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/watchiteminteger.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimus/items/watchlistview.cpp]
 dist=true
 install=false
@@ -1078,8 +1126,20 @@ type=SOURCE
 
 [ksimus/items/wirepropertyfloatingpoint.h]
 dist=true
+install=true
+install_location=$$(pkgincludedir)/wirepropertyfloatingpoint.h
+type=HEADER
+
+[ksimus/items/wirepropertyinteger.cpp]
+dist=true
 install=false
 install_location=
+type=SOURCE
+
+[ksimus/items/wirepropertyinteger.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/wirepropertyinteger.h
 type=HEADER
 
 [ksimus/items/wirepropertymultipleoutput.cpp]
@@ -1693,7 +1753,7 @@ install_location=$$(pkgincludedir)/resource.h
 type=HEADER
 
 [ksimus/tools/Makefile.am]
-files=ksimus/tools/ksimdoubleedit.cpp,ksimus/tools/ksimdoubleedit.h,ksimus/tools/ksimgrid.cpp,ksimus/tools/ksimgrid.h,ksimus/tools/ksimgriddialog.cpp,ksimus/tools/ksimgriddialog.h,ksimus/tools/ksimtime.cpp,ksimus/tools/ksimtime.h,ksimus/tools/ksimtimebase.cpp,ksimus/tools/ksimtimebase.h,ksimus/tools/ksimtimelabel.cpp,ksimus/tools/ksimtimelabel.h,ksimus/tools/ksimtimeselectorwidget.cpp,ksimus/tools/ksimtimeselectorwidget.h,ksimus/tools/ksimtimeserver.cpp,ksimus/tools/ksimtimeserver.h,ksimus/tools/simulationtimingwidget.cpp,ksimus/tools/simulationtimingwidget.h,ksimus/tools/simulationtiming.cpp,ksimus/tools/simulationtiming.h,ksimus/tools/enumdict.cpp,ksimus/tools/enumdict.h,ksimus/tools/ksimlineedit.cpp,ksimus/tools/ksimlineedit.h,ksimus/tools/propertywidget.cpp,ksimus/tools/propertywidget.h,ksimus/tools/llicompsel.cpp,ksimus/tools/llicompsel.h,ksimus/tools/loglist.cpp,ksimus/tools/loglist.h,ksimus/tools/loglistdialogwidget.cpp,ksimus/tools/loglistdialogwidget.h,ksimus/tools/loglistitem.cpp,ksimus/tools/loglistitem.h,ksimus/tools/ksimdoublespinbox.cpp,ksimus/tools/ksimdoublespinbox.h,ksimus/tools/ksimexponentstep.cpp,ksimus/tools/ksimexponentstep.h,ksimus/tools/ksimunit.cpp,ksimus/tools/ksimunit.h,ksimus/tools/ksimtimespinbox.cpp,ksimus/tools/ksimtimespinbox.h,ksimus/tools/ksimfilelistselector.cpp,ksimus/tools/ksimfilelistselector.h,ksimus/tools/ksimfilelistselectorui.ui,ksimus/tools/ksimpackagefilewidget.cpp,ksimus/tools/ksimpackagefilewidget.h,ksimus/tools/ksimbooleanbox.cpp,ksimus/tools/ksimbooleanbox.h,ksimus/tools/ksimtype.cpp,ksimus/tools/ksimtype.h,ksimus/tools/ksimbaseuint.cpp,ksimus/tools/ksimbaseuint.h,ksimus/tools/mapsizeswidget.cpp,ksimus/tools/mapsizeswidget.h,ksimus/tools/simulationexecute.cpp,ksimus/tools/simulationexecute.h,ksimus/tools/ksimfilename.cpp,ksimus/tools/ksimfilename.h,ksimus/tools/rowlayoutwidget.cpp,ksimus/tools/rowlayoutwidget.h,ksimus/tools/rowlayoutwidgethelper.cpp,ksimus/tools/rowlayoutwidgethelper.h,ksimus/tools/ksimdialog.cpp,ksimus/tools/ksimdialog.h,ksimus/tools/ksimbooltristatebox.cpp,ksimus/tools/ksimbooltristatebox.h,ksimus/tools/ksimbooltristate.cpp,ksimus/tools/ksimbooltristate.h,ksimus/tools/ksimmodulefilewidget.cpp,ksimus/tools/ksimmodulefilewidget.h,ksimus/tools/ksimicon.cpp,ksimus/tools/ksimicon.h
+files=ksimus/tools/ksimdoubleedit.cpp,ksimus/tools/ksimdoubleedit.h,ksimus/tools/ksimgrid.cpp,ksimus/tools/ksimgrid.h,ksimus/tools/ksimgriddialog.cpp,ksimus/tools/ksimgriddialog.h,ksimus/tools/ksimtime.cpp,ksimus/tools/ksimtime.h,ksimus/tools/ksimtimebase.cpp,ksimus/tools/ksimtimebase.h,ksimus/tools/ksimtimelabel.cpp,ksimus/tools/ksimtimelabel.h,ksimus/tools/ksimtimeselectorwidget.cpp,ksimus/tools/ksimtimeselectorwidget.h,ksimus/tools/ksimtimeserver.cpp,ksimus/tools/ksimtimeserver.h,ksimus/tools/simulationtimingwidget.cpp,ksimus/tools/simulationtimingwidget.h,ksimus/tools/simulationtiming.cpp,ksimus/tools/simulationtiming.h,ksimus/tools/enumdict.cpp,ksimus/tools/enumdict.h,ksimus/tools/ksimlineedit.cpp,ksimus/tools/ksimlineedit.h,ksimus/tools/propertywidget.cpp,ksimus/tools/propertywidget.h,ksimus/tools/llicompsel.cpp,ksimus/tools/llicompsel.h,ksimus/tools/loglist.cpp,ksimus/tools/loglist.h,ksimus/tools/loglistdialogwidget.cpp,ksimus/tools/loglistdialogwidget.h,ksimus/tools/loglistitem.cpp,ksimus/tools/loglistitem.h,ksimus/tools/ksimdoublespinbox.cpp,ksimus/tools/ksimdoublespinbox.h,ksimus/tools/ksimexponentstep.cpp,ksimus/tools/ksimexponentstep.h,ksimus/tools/ksimunit.cpp,ksimus/tools/ksimunit.h,ksimus/tools/ksimtimespinbox.cpp,ksimus/tools/ksimtimespinbox.h,ksimus/tools/ksimfilelistselector.cpp,ksimus/tools/ksimfilelistselector.h,ksimus/tools/ksimfilelistselectorui.ui,ksimus/tools/ksimpackagefilewidget.cpp,ksimus/tools/ksimpackagefilewidget.h,ksimus/tools/ksimbooleanbox.cpp,ksimus/tools/ksimbooleanbox.h,ksimus/tools/ksimtype.cpp,ksimus/tools/ksimtype.h,ksimus/tools/ksimbaseuint.cpp,ksimus/tools/ksimbaseuint.h,ksimus/tools/mapsizeswidget.cpp,ksimus/tools/mapsizeswidget.h,ksimus/tools/simulationexecute.cpp,ksimus/tools/simulationexecute.h,ksimus/tools/ksimfilename.cpp,ksimus/tools/ksimfilename.h,ksimus/tools/rowlayoutwidget.cpp,ksimus/tools/rowlayoutwidget.h,ksimus/tools/rowlayoutwidgethelper.cpp,ksimus/tools/rowlayoutwidgethelper.h,ksimus/tools/ksimdialog.cpp,ksimus/tools/ksimdialog.h,ksimus/tools/ksimbooltristatebox.cpp,ksimus/tools/ksimbooltristatebox.h,ksimus/tools/ksimbooltristate.cpp,ksimus/tools/ksimbooltristate.h,ksimus/tools/ksimmodulefilewidget.cpp,ksimus/tools/ksimmodulefilewidget.h,ksimus/tools/ksimicon.cpp,ksimus/tools/ksimicon.h,ksimus/tools/ksimbaseint.cpp,ksimus/tools/ksimbaseint.h,ksimus/tools/ksimbaseintedit.cpp,ksimus/tools/ksimbaseintedit.h,ksimus/tools/ksimbaseintbaseselection.cpp,ksimus/tools/ksimbaseintbaseselection.h,ksimus/tools/ksimbaseuintbaseselection.cpp,ksimus/tools/ksimbaseuintbaseselection.h,ksimus/tools/ksimbaseuintedit.cpp,ksimus/tools/ksimbaseuintedit.h,ksimus/tools/ksimbaseintspinbox.cpp,ksimus/tools/ksimbaseintspinbox.h
 sub_dirs=
 type=static_library
 
@@ -1709,6 +1769,54 @@ install=true
 install_location=$$(pkgincludedir)/enumdict.h
 type=HEADER
 
+[ksimus/tools/ksimbaseint.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/tools/ksimbaseint.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimbaseint.h
+type=HEADER
+
+[ksimus/tools/ksimbaseintbaseselection.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/tools/ksimbaseintbaseselection.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimbaseintbaseselection.h
+type=HEADER
+
+[ksimus/tools/ksimbaseintedit.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/tools/ksimbaseintedit.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimbaseintedit.h
+type=HEADER
+
+[ksimus/tools/ksimbaseintspinbox.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/tools/ksimbaseintspinbox.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimbaseintspinbox.h
+type=HEADER
+
 [ksimus/tools/ksimbaseuint.cpp]
 dist=true
 install=false
@@ -1719,6 +1827,30 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/ksimbaseuint.h
+type=HEADER
+
+[ksimus/tools/ksimbaseuintbaseselection.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/tools/ksimbaseuintbaseselection.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimbaseuintbaseselection.h
+type=HEADER
+
+[ksimus/tools/ksimbaseuintedit.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/tools/ksimbaseuintedit.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimbaseuintedit.h
 type=HEADER
 
 [ksimus/tools/ksimbooleanbox.cpp]

@@ -2,6 +2,13 @@
 
 AM_INIT_AUTOMAKE(ksimus,0.3.7-cvs)
 
+AC_DEFUN(KSIMUS_CHECK_LTDL_H,
+[
+  AC_CHECK_HEADER(ltdl.h, , [ AC_MSG_ERROR(The header file ltdl.h is part of libtool. Please check the installation.) ])
+])
+
+KSIMUS_CHECK_LTDL_H
+
 CPPFLAGS="$CPPFLAGS -Wno-long-long"
 CXXFLAGS="$CXXFLAGS -fPIC"
 LDFLAGS="$LDFLAGS -rdynamic"
