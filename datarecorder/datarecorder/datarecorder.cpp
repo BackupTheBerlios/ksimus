@@ -171,8 +171,9 @@ const ComponentInfo DataRecorderInfo(I18N_NOOP("Data Recorder"),
                                      I18N_NOOP("Data Recorder"),
                                      QString::null,
                                      VA_SHEETVIEW,
-                                     create
-                                     );
+                                     create,
+                                     QString::null,
+                                     "kapp-features");
 
 
 //#################################################################

@@ -1,15 +1,23 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
-  <!ENTITY test '<application>Test</application>'>
-  <!ENTITY kapp "&test;"><!-- replace test here -->
+
+  <!ENTITY packageName 'Data Recorder'>
+  <!ENTITY ksimusPackage '<application>KSimus Package &packageName;</application>'>
+  <!ENTITY kapp "&ksimusPackage;"><!-- replace test here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
-  
-  
+  <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
+
+
+
+  <!ENTITY todo '<para>[TODO]</para>'>
+
+
+
   <!-- Do not define any other entities; instead, use the entities
        from kde-genent.entities and $LANG/user.entities. -->
 ]>
-<!-- kdoctemplate v0.8 October 1 1999 
+<!-- kdoctemplate v0.8 October 1 1999
      Minor update to "Credits and Licenses" section on August 24, 2000
      Removed "Revision history" section on 22 January 2001   -->
 
@@ -41,15 +49,15 @@ thanks ;-).
 as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
-<title>The Test Handbook</title>
+<title>The &packageName; Package Handbook</title>
 
 <authorgroup>
 <author>
-<firstname>George</firstname>
-<othername>N.</othername>
-<surname>Ugnacious</surname>
+<firstname>Rasmus</firstname>
+<!-- <othername>N.</othername> -->
+<surname>Diekenbrock</surname>
 <affiliation>
-<address><email>gnu@kde.org</email></address>
+<address>&kappmail;</address>
 </affiliation>
 </author>
 </authorgroup>
@@ -57,9 +65,9 @@ as Authors, publish date, the abstract, and Keywords -->
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 <copyright>
-<year>1999</year>
-<year>2000</year>
-<holder>George N. Ugnacious</holder>
+<year>2001</year>
+<year>2002</year>
+<holder>Rasmus Diekenbrock</holder>
 </copyright>
 <!-- Translators: put here the copyright notice of the translation -->
 <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook 
@@ -73,15 +81,14 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>03/04/1999</date>
-<releaseinfo>1.01.00</releaseinfo>
+<date>04/03/2002</date>
+<releaseinfo>0.01.00</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para>
-&test; is an application specially designed to do nothing you would
-ever want.
+The package &packageName; contains some floating point related components for KSimus.
 </para>
 </abstract>
 
@@ -91,10 +98,14 @@ Please at least include KDE, the KDE package it is in, the name
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
-<keyword>nothing</keyword>
-<keyword>nothing else</keyword>
+<keyword>KSimus</keyword>
+<keyword>Simulate</keyword>
+<keyword>Simulation</keyword>
+<keyword>Logic</keyword>
+<keyword>Floating-point</keyword>
+<keyword>Floating</keyword>
+<keyword>Point</keyword>
+<keyword>Package</keyword>
 </keywordset>
 
 </bookinfo>
@@ -117,24 +128,28 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-&kapp; is a program that lets you do absolutely nothing. Please report
-any problems or feature requests to the KDE mailing lists.
+The &packageName; Package contains a graphical data recorder for KSimus.
 </para>
+
 </chapter>
 
 <chapter id="using-kapp">
-<title>Using Test</title>
+<title>Using the &packageName; package</title>
 
 <!-- This chapter should tell the user how to use your app. You should use as
 many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
 your application. -->
 
 <para>
+Install this package and KSimus will use it automatically (after a restart of KSimus).
+</para>
+
+<para>
 
 <!-- Note that all graphics should be in .png format. Use no gifs because of
 patent issues. -->
 
-<screenshot>
+<!-- <screenshot>
 <screeninfo>Here's a screenshot of &kapp;</screeninfo>
 	<mediaobject>
 	  <imageobject>
@@ -147,98 +162,173 @@ patent issues. -->
 	    <phrase>Screenshot</phrase>
 	  </textobject>
 	</mediaobject>
+</screenshot> -->
+</para>
+</chapter>
+
+
+<chapter id="kapp-features">
+<title>&packageName; package features</title>
+
+<para>
+The component DataRecorder records boolean and floating point values. The values are shown
+like a storage oszilloscope it does.
+</para>
+
+<para>
+In the current version the DataRecorder uses a separate window for displaying the values. In a
+future version it will be also possible to place the data view inside the schematic and user view.
+</para>
+
+
+<para>
+The schematic view of the DataRecorder:
+</para>
+
+
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="schematic_1.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="schematic_2.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="schematic_3.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+</para>
+
+<para>
+The DataRecorder can connect any combination of boolean and floating point connectors.
+</para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of the popup menu</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="popupmenu.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Popup Menu</phrase>
+	  </textobject>
+	</mediaobject>
 </screenshot>
 </para>
 
-
-<sect1 id="kapp-features">
-<title>More Kapp features</title>
-
-<para>It slices! It dices! and it comes with a free toaster!</para>
 <para>
-The Squiggle Tool <guiicon><inlinemediaobject>
+There are four additional items at the component popup menu:
+</para>
+<itemizedlist>
+<listitem>
+<para>Erase Connector</para>
+<para>Removes the connector on which the mouse has pointed when you pressed the right mouse button.
+The connector must be not connected.</para>
+</listitem>
+
+<listitem>
+<para>Open</para>
+<para>Opens the data view (see below).</para>
+</listitem>
+
+<listitem>
+<para>Add boolean connector</para>
+<para>Adds a new boolean channel.</para>
+</listitem>
+
+<listitem>
+<para>Add floating point connector</para>
+<para>Adds a new floating point channel.</para>
+</listitem>
+</itemizedlist>
+
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of a data view</screeninfo>
+	<mediaobject>
 	  <imageobject>
-	    <imagedata fileref="squiggle.png" format="PNG"/>
-	  </imageobject>
-	  <imageobject>
-	    <imagedata fileref="squiggle.eps" format="EPS"/>
+	    <imagedata fileref="dataview.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Squiggle</phrase>
+	    <phrase>Date view</phrase>
 	  </textobject>
-</inlinemediaobject></guiicon> is used to draw squiggly lines all over
-the &test; main window. It's not a bug, it's a feature!
+	</mediaobject>
+</screenshot>
 </para>
 
-</sect1>
-</chapter>
-
-<chapter id="commands">
-<title>Command Reference</title>
-
-<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
-application windows and their menubar and toolbar commands for easy reference.
-Also include any keys that have a special function but have no equivalent in the
-menus or toolbars. This may not be necessary for small apps or apps with no tool
-or menu bars. -->
-
-<sect1 id="kapp-mainwindow">
-<title>The main Test window</title>
-<para></para>
-
-<sect2>
-<title>The File Menu</title>
 <para>
-<variablelist>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>n</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>New</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Creates a new document</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>s</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Save</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Saves the document</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>q</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Quit</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Quits</action> &kapp;</para></listitem>
-</varlistentry>
-</variablelist>
+The screenshot above shows the data view with three functions:
 </para>
 
-</sect2>
+<itemizedlist>
+<listitem>
+<para>f1(t) = sin(t)</para>
+<para>This is the black line.</para>
+</listitem>
 
-</sect1>
+<listitem>
+<para>f2(t) = t</para>
+<para>This is the red line.</para>
+</listitem>
+
+<listitem>
+<para>f3(t) = f1(t)/f(2t) = sin(t)/t </para>
+<para>This is the green line.</para>
+</listitem>
+</itemizedlist>
+
+<para>
+The the data view has on the left side a panel with one button for each channel and a
+zoom control. On the right side is the data area.
+</para>
+
+<para>
+The buttons on the panel are named like the related connectors. Left on each button is a small
+colored rectangle. This color is used to draw the line of this channel. A press on a button opens
+or closes a control window for the channel.
+</para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of a channel control window</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="channelcontrol.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Control window</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+The first item in the control window shows the channel name which is also the related connector name.
+Changes in this item will change the channel name as well as the connector name. The second item is a
+offset control and the third item is a gain control. Changes at this items cause an immediately update
+of the data area. The last item let you change the color of the line.
+</para>
+
+
+
+
 </chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################          Developers           ######################## -->
+<!-- ############################################################################### -->
 
 <chapter id="developers">
-<title>Developer's Guide to Test</title>
+<title>Developer's Guide to the &packageName; Package</title>
 
 <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
 used for apps that use plugins or that provide their own scripting hooks
 and/or development libraries. -->
 
-<para>
-Programming &test; plugins is a joy to behold. Just read through the next
-66 pages of API's to learn how!
-</para>
+
+&todo;
+
+
 
 <!-- Use refentries to describe APIs.  Refentries are fairly complicated and you
 should consult the docbook reference for further details. The example below was
@@ -262,6 +352,8 @@ application work. -->
 &reporting.bugs;
 &updating.documentation;
 
+&todo;
+<!--
 <qandaset id="faqlist">
 <qandaentry>
 <question>
@@ -282,6 +374,7 @@ installed.</para>
 </answer>
 </qandaentry>
 </qandaset>
+-->
 </chapter>
 
 <chapter id="credits">
@@ -297,8 +390,10 @@ distribution. -->
 &kapp;
 </para>
 <para>
-Program copyright 1997 John Q. Hacker <email>jqh@kde.org</email>
+Program copyright 2002 Rasmus Diekenbrock &kappmail;
 </para>
+
+<!--
 <para>
 Contributors:
 <itemizedlist>
@@ -308,26 +403,25 @@ Contributors:
 </listitem>
 </itemizedlist>
 </para>
+-->
 
 <para>
-Documentation copyright 1999 George N. Ugnacious <email>gnu@kde.org</email>
+Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
-&underFDL;               <!-- FDL: do not remove. Commercial development should -->
+&underFDL;               <!-- FDL: do not remove. Commercial development should
+ -->
 <!-- replace this with their copyright and either remove it or re-set this.-->
 
-<!-- Determine which license your application is licensed under, 
+<!-- Determine which license your application is licensed under,
      and delete all the remaining licenses below:
 
-     (NOTE:  All documentation are licensed under the FDL, 
+     (NOTE:  All documentation are licensed under the FDL,
      regardless of what license the application uses) -->
 
 &underGPL;        	 <!-- GPL License -->
-&underBSDLicense;        <!-- BSD License -->
-&underArtisticLicense;   <!-- BSD Artistic License -->
-&underX11License;        <!-- X11 License  -->
 
 </chapter>
 
@@ -338,44 +432,29 @@ Documentation copyright 1999 George N. Ugnacious <email>gnu@kde.org</email>
 <title>How to obtain Test</title>
 
 <para>
-&test; is part of the KDE project
-<ulink url="http://www.kde.org">http://www.kde.org</ulink>.
-&test; can be found in the kdeutils package on
-<ulink url="ftp://ftp.kde.org/pub/kde/">ftp://ftp.kde.org/pub/kde/</ulink>, the
-main ftp site of the KDE project. </para>
+The &packageName; Package can be found on
+<ulink url="http://ksimus.berlios.de">http://ksimus.berlios.de</ulink>, the
+main site of the KSimus project. </para>
+
 </sect1>
 
 <sect1 id="requirements">
 <title>Requirements</title>
 
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport,
-kdelibs, or kdebase.
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
-
 <para>
-In order to successfully use &test;, you need KDE 1.1. Foobar.lib is required
-in order to support the advanced &test; features. &test; uses about 5 megs of
-memory to run, but this may vary depending on your platform and
-configuration.
+In order to successfully use the package &packageName;, you need the installed KSimus.
 </para>
 
 <para>
-All required libraries as well as &test; itself can be found
-on <ulink url="ftp://ftp.kapp.org">The &test; home page</ulink>.
+KSimus as well as the package &packageName; itself can be found
+on <ulink url="http://ksimus.berlios.de">The KSimus home page</ulink>.
 </para>
 
 <!-- For a list of updates, you may refer to the application web site
 or the ChangeLog file, or ... -->
 <para>
 You can find a list of changes at <ulink
-url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
+url="http://ksimus.berlios.de/news.html">http://ksimus.berlios.de/news.html</ulink>.
 </para>
 </sect1>
 
@@ -383,8 +462,8 @@ url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
 <title>Compilation and Installation</title>
 
 <para>
-In order to compile and install KApp on your system, type the following in the base
-directory of the Icon Editor distribution:
+In order to compile and install the &packageName; package on your system, type the following in the base
+directory of the distribution:
 <screen width="40">
 <prompt>%</prompt> <userinput>./configure</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -392,11 +471,12 @@ directory of the Icon Editor distribution:
 </screen>
 </para>
 
-<para>Since KApp uses autoconf and automake you should have not trouble compiling it.
+<para>Since the &packageName; package uses autoconf and automake you should have not trouble compiling it.
 Should you run into problems please report them to the KDE mailing lists.</para>
 
 </sect1>
 
+<!--
 <sect1 id="configuration">
 <title>Configuration</title>
 
@@ -404,6 +484,7 @@ Should you run into problems please report them to the KDE mailing lists.</para>
 dicer-toaster daemon first, or KApp won't work !</para>
 
 </sect1>
+-->
 
 </appendix>
 
