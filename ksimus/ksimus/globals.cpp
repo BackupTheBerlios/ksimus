@@ -82,7 +82,7 @@ int getGreaterPrim(int number)
 //#########################################################################
 //#########################################################################
 
-#include "componentlayout.h"
+//#include "componentlayout.h"
 
 void ksimusDummyFunction()
 {
@@ -94,7 +94,7 @@ void ksimusDummyFunction()
 //
 //#########################################################################
 //#########################################################################
-	new ComponentLayout((Component *)0);
+//	new ComponentLayout((Component *)0);
 }	
 
 
