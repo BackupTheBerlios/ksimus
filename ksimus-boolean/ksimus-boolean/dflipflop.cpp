@@ -102,7 +102,7 @@ DFlipFlop::DFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new DFlipFlopView(this, SHEET_VIEW);
+		new DFlipFlopView(this, SHEET_VIEW, "DFlipFlopSV");
 	}
 	
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -135,20 +135,20 @@ void DFlipFlop::calculate()
 //###############################################################
 //###############################################################
 
-DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
-	: CompView(comp, viewType)
+DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 //	setPlace(QRect(0, 0, 7*gridX, 7*gridY));
 	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
-		new ConnectorLabel(getDFF()->getOutputConnector(), "Q");
-		new ConnectorLabel(getDFF()->getNotOutputConnector(), "Q");
-		new ConnectorLabel(getDFF()->getSetInputConnector(), "S");
-		new ConnectorLabel(getDFF()->getResetInputConnector(), "R");
-		new ConnectorLabel(getDFF()->getEnableInputConnector(), "E");
-		new ConnectorLabel(getDFF()->getDataInputConnector(), "D");
+		new ConnectorLabel(getDFF()->getOutputConnector(), QString::fromLatin1("Q"));
+		new ConnectorLabel(getDFF()->getNotOutputConnector(), QString::fromLatin1("Q"));
+		new ConnectorLabel(getDFF()->getSetInputConnector(), QString::fromLatin1("S"));
+		new ConnectorLabel(getDFF()->getResetInputConnector(), QString::fromLatin1("R"));
+		new ConnectorLabel(getDFF()->getEnableInputConnector(), QString::fromLatin1("E"));
+		new ConnectorLabel(getDFF()->getDataInputConnector(), QString::fromLatin1("D"));
 	
 		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);

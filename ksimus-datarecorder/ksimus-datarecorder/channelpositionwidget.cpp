@@ -71,7 +71,7 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	CHECK_PTR(label);
 	m_p->offset = new KSimDoubleSpinBox(0.0, -1000.0, 1000.0, 0.5, this, "Offset");
 	CHECK_PTR(m_p->offset);
-	m_p->offset->setSuffix(" Div");
+	m_p->offset->setSuffix(QString::fromLatin1(" Div"));
 	m_p->offset->setValue(0.0);
 	label->setBuddy(m_p->offset);
 	connect(m_p->offset,SIGNAL(valueChanged(double)),SLOT(slotOffsetChanged(double)));
@@ -81,7 +81,7 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	m_p->gain = new KSimDoubleSpinBox(1.0, 0.001, 10000.0, 0.1, this, "Gain");
 	CHECK_PTR(m_p->gain);
 	m_p->gain->setNewExponentSteps(1.0, 2.0, 5.0);
-	m_p->gain->setSuffix(" Div");
+	m_p->gain->setSuffix(QString::fromLatin1(" Div"));
 	m_p->gain->setValue(1.0);
 	label->setBuddy(m_p->gain);
 	connect(m_p->gain,SIGNAL(valueChanged(double)),SLOT(slotGainChanged(double)));

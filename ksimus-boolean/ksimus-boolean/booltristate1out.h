@@ -123,7 +123,7 @@ private:
 class BoolTristate1OutView : public CompView
 {
 public:
-	BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType, const QString & text);
+	BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~BoolTristate1OutView();
 	
 	BoolTristate1Out * getBoolTristate1Out() const { return (BoolTristate1Out*) getComponent(); };
@@ -226,7 +226,7 @@ class BoolTristate1Out1EnaView : public CompView
 	Q_OBJECT
 
 public:
-	BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType, const QString & text);
+	BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType, const QString & text, const char * name);
 //	~BoolTristate1Out1EnaView();
 
 	BoolTristate1Out1Ena * getBoolTristate1Out1Ena() const { return (BoolTristate1Out1Ena*) getComponent(); };
@@ -300,7 +300,7 @@ class BoolTristateXIn1Out1EnaView : public CompView
 	Q_OBJECT
 
 public:
-	BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType, const QString & text);
+	BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType, const QString & text, const char * name);
 //	~BoolTristateXIn1Out1EnaView();
 
 	BoolTristateXIn1Out1Ena * getBoolTristateXIn1Out1Ena() const { return (BoolTristateXIn1Out1Ena*) getComponent(); };

@@ -66,7 +66,7 @@ public:
 class RSFlipFlopView : public CompView
 {
 public:
-	RSFlipFlopView(RSFlipFlop * comp, eViewType viewType);
+	RSFlipFlopView(RSFlipFlop * comp, eViewType viewType, const char * name);
 //	~RSFlipFlopView();
 	virtual void draw(QPainter * p);
 

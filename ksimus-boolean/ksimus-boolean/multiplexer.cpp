@@ -136,7 +136,7 @@ Multiplexer::Multiplexer(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new MultiplexerView(this, SHEET_VIEW);
+		new MultiplexerView(this, SHEET_VIEW, "MultiplexerSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -302,8 +302,8 @@ void Multiplexer::menuExecuted()
 //###############################################################
 
 
-MultiplexerView::MultiplexerView(Multiplexer * comp, eViewType viewType)
-	: CompView(comp, viewType)
+MultiplexerView::MultiplexerView(Multiplexer * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -326,10 +326,10 @@ MultiplexerView::MultiplexerView(Multiplexer * comp, eViewType viewType)
 		
 		layout->setMinSize(4,5);
 		
-		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "MUX", AlignCenter, 270.0);
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), QString::fromLatin1("MUX"), AlignCenter, 270.0);
 	
-		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
-		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
+		new ConnectorLabel(getComponent()->getLatchOutput(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getComponent()->getLatchAddress(), QString::fromLatin1("EA"));
 	
 		unsigned int i = 1;
 		FOR_EACH_CONNECTOR(it, *getComponent()->getInputPack()->getConnList())

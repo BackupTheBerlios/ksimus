@@ -61,13 +61,13 @@ const ComponentInfo * ConvertBoolTristate2Bool::getStaticInfo()
 class ConvertBoolTristate2Bool::View : public CompView
 {
 public:
-	View(ConvertBoolTristate2Bool * comp, eViewType viewType);
+	View(ConvertBoolTristate2Bool * comp, eViewType viewType, const char * name);
 	
 	virtual void draw(QPainter * p);
 };
 
-ConvertBoolTristate2Bool::View::View(ConvertBoolTristate2Bool * comp, eViewType viewType)
-	: CompView(comp, viewType)
+ConvertBoolTristate2Bool::View::View(ConvertBoolTristate2Bool * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -120,7 +120,7 @@ ConvertBoolTristate2Bool::ConvertBoolTristate2Bool(CompContainer * container, co
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "ConvertBoolTristate2BoolSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 }

@@ -210,7 +210,7 @@ DataRecorder::DataRecorder(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new DataRecorderView(this, SHEET_VIEW);
+		new DataRecorderView(this, SHEET_VIEW, "DataRecorderSV");
 	}
 	m_channelList = new DataRecorderChannelList;
 	m_channelList->setAutoDelete(true);

@@ -135,7 +135,7 @@ friend class BooleanCounter;
 	Q_OBJECT
 
 public:
-	BooleanCounterView(BooleanCounter * comp, eViewType viewType);
+	BooleanCounterView(BooleanCounter * comp, eViewType viewType, const char * name);
 //	~BooleanCounterView();
 
 	BooleanCounter * getCounter() const { return (BooleanCounter*) getComponent(); };

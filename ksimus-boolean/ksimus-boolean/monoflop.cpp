@@ -97,7 +97,7 @@ MonoFlop::MonoFlop(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new MonoFlopView(this, SHEET_VIEW);
+		new MonoFlopView(this, SHEET_VIEW, "MonoFlopSV");
 	}
 	
 	m_highTime.setValue(0.5, unit_sec);
@@ -210,18 +210,18 @@ ComponentPropertyBaseWidget * MonoFlop::createGeneralProperty(QWidget *parent)
 //###############################################################
 //###############################################################
 
-MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
-	: CompView(comp, viewType)
+MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 //	setPlace(QRect(0, 0, 7*gridX, 7*gridY));
 	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
-		new ConnectorLabel(getMF()->getOutputConnector(), "Q");
-		new ConnectorLabel(getMF()->getNotOutputConnector(), "Q");
-		new ConnectorLabel(getMF()->getSetInputConnector(), "T");
-		new ConnectorLabel(getMF()->getResetInputConnector(), "R");
+		new ConnectorLabel(getMF()->getOutputConnector(), QString::fromLatin1("Q"));
+		new ConnectorLabel(getMF()->getNotOutputConnector(), QString::fromLatin1("Q"));
+		new ConnectorLabel(getMF()->getSetInputConnector(), QString::fromLatin1("T"));
+		new ConnectorLabel(getMF()->getResetInputConnector(), QString::fromLatin1("R"));
 	
 		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);

@@ -127,7 +127,7 @@ JKFlipFlop::JKFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new JKFlipFlopView(this, SHEET_VIEW);
+		new JKFlipFlopView(this, SHEET_VIEW, "JKFlipFlopSV");
 	}
 	
 	if (ci == JKFlipFlop::getStaticJKMSInfo())
@@ -268,21 +268,21 @@ void JKFlipFlop::reset()
 //###############################################################
 
 
-JKFlipFlopView::JKFlipFlopView(JKFlipFlop * comp, eViewType viewType)
-	: CompView(comp, viewType)
+JKFlipFlopView::JKFlipFlopView(JKFlipFlop * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 //	setPlace(QRect(0, 0, 7*gridX, 7*gridY));
 	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
-		new ConnectorLabel(getJKFF()->getOutputConnector(), "Q");
-		new ConnectorLabel(getJKFF()->getNotOutputConnector(), "Q");
-		new ConnectorLabel(getJKFF()->getSetInputConnector(), "S");
-		new ConnectorLabel(getJKFF()->getResetInputConnector(), "R");
-		new ConnectorLabel(getJKFF()->getJInputConnector(), "J");
-		new ConnectorLabel(getJKFF()->getKInputConnector(), "K");
-		new ConnectorLabel(getJKFF()->getClockInputConnector(), "C");
+		new ConnectorLabel(getJKFF()->getOutputConnector(), QString::fromLatin1("Q"));
+		new ConnectorLabel(getJKFF()->getNotOutputConnector(), QString::fromLatin1("Q"));
+		new ConnectorLabel(getJKFF()->getSetInputConnector(), QString::fromLatin1("S"));
+		new ConnectorLabel(getJKFF()->getResetInputConnector(), QString::fromLatin1("R"));
+		new ConnectorLabel(getJKFF()->getJInputConnector(), QString::fromLatin1("J"));
+		new ConnectorLabel(getJKFF()->getKInputConnector(), QString::fromLatin1("K"));
+		new ConnectorLabel(getJKFF()->getClockInputConnector(), QString::fromLatin1("C"));
 	
 		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);

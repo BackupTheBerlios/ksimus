@@ -82,7 +82,7 @@ private:
 class DFlipFlopView : public CompView
 {
 public:
-	DFlipFlopView(DFlipFlop * comp, eViewType viewType);
+	DFlipFlopView(DFlipFlop * comp, eViewType viewType, const char * name);
 //	~DFlipFlopView();
 //	virtual void draw(QPainter * p);
 

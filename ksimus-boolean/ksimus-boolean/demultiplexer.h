@@ -138,7 +138,7 @@ class DemultiplexerView : public CompView
 	Q_OBJECT
 
 public:
-	DemultiplexerView(Demultiplexer * comp, eViewType viewType);
+	DemultiplexerView(Demultiplexer * comp, eViewType viewType, const char * name);
 //	~DemultiplexerView();
 	
 	Demultiplexer* getComponent() { return (Demultiplexer*) CompView::getComponent(); };

@@ -97,7 +97,7 @@ class TextRecView : public CompView
 	Q_OBJECT
 
 public:	
-	TextRecView(Component * comp, eViewType viewType);
+	TextRecView(Component * comp, eViewType viewType, const char * name);
 	virtual ~TextRecView();
 	
 	virtual void draw(QPainter * p);

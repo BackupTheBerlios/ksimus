@@ -69,7 +69,7 @@ RSFlipFlop::RSFlipFlop(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new RSFlipFlopView(this, SHEET_VIEW);
+		new RSFlipFlopView(this, SHEET_VIEW, "RSFlipFlopSV");
 	}
 	
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -106,8 +106,8 @@ void RSFlipFlop::calculate()
 //###############################################################
 //###############################################################
 
-RSFlipFlopView::RSFlipFlopView(RSFlipFlop * comp, eViewType viewType)
-	: CompView(comp, viewType)
+RSFlipFlopView::RSFlipFlopView(RSFlipFlop * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);
@@ -116,16 +116,16 @@ RSFlipFlopView::RSFlipFlopView(RSFlipFlop * comp, eViewType viewType)
 	enableConnectorSpacingBottom(false);
 
 	getRSFF()->getOutputConnector()->setGridPos(4,1);
-	new ConnectorLabel(getRSFF()->getOutputConnector(), "Q");
+	new ConnectorLabel(getRSFF()->getOutputConnector(), QString::fromLatin1("Q"));
 	
 	getRSFF()->getNotOutputConnector()->setGridPos(4,3);
-	new ConnectorLabel(getRSFF()->getNotOutputConnector(), "Q");
+	new ConnectorLabel(getRSFF()->getNotOutputConnector(), QString::fromLatin1("Q"));
 	
 	getRSFF()->getSetInputConnector()->setGridPos(0,1);
-	new ConnectorLabel(getRSFF()->getSetInputConnector(), "S");
+	new ConnectorLabel(getRSFF()->getSetInputConnector(), QString::fromLatin1("S"));
 	
 	getRSFF()->getResetInputConnector()->setGridPos(0,3);
-	new ConnectorLabel(getRSFF()->getResetInputConnector(), "R");
+	new ConnectorLabel(getRSFF()->getResetInputConnector(), QString::fromLatin1("R"));
 	
 	
 }

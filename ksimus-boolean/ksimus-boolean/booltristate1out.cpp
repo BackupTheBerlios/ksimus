@@ -142,8 +142,8 @@ ComponentPropertyBaseWidget * BoolTristate1Out::createGeneralProperty(QWidget *p
 //###############################################################
 
 
-BoolTristate1OutView::BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType, const QString & text)
-	: CompView(comp, viewType)
+BoolTristate1OutView::BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType, const QString & text, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);
@@ -273,8 +273,8 @@ void BoolTristate1Out1EnaView::init(eViewType viewType)
 }*/
 
 
-BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType, const QString & text)
-	:	CompView(comp, viewType)
+BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType, const QString & text, const char * name)
+	:	CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	if (viewType == SHEET_VIEW)
@@ -328,8 +328,8 @@ BoolTristateXIn1Out1Ena::BoolTristateXIn1Out1Ena(CompContainer * container, cons
 //###############################################################
 //###############################################################
 
-BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType, const QString & text)
-	:	CompView(comp, viewType)
+BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType, const QString & text, const char * name)
+	:	CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	if (viewType == SHEET_VIEW)

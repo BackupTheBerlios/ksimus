@@ -100,7 +100,7 @@ private:
 class MonoFlopView : public CompView
 {
 public:
-	MonoFlopView(MonoFlop * comp, eViewType viewType);
+	MonoFlopView(MonoFlop * comp, eViewType viewType, const char * name);
 //	~MonoFlopView();
 //	virtual void draw(QPainter * p);
 

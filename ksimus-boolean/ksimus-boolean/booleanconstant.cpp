@@ -66,7 +66,7 @@ const ComponentInfo * BooleanConstantFalse::getStaticInfo()
 class BooleanConstantFalse::View : public CompView
 {
 public:
-	View(BooleanConstantFalse * comp, eViewType viewType);
+	View(BooleanConstantFalse * comp, eViewType viewType, const char * name);
 	~View();
 	
 	virtual void draw(QPainter * p);
@@ -80,8 +80,8 @@ private:
 unsigned int BooleanConstantFalse::View::m_instanceCnt = 0;
 QBitmap * BooleanConstantFalse::View::m_bitmap = 0;
 
-BooleanConstantFalse::View::View(BooleanConstantFalse * comp, eViewType viewType)
-	:	CompView(comp, viewType)
+BooleanConstantFalse::View::View(BooleanConstantFalse * comp, eViewType viewType, const char * name)
+	:	CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 3*gridX, 3*gridY));
 	enableRotation(true);
@@ -136,7 +136,7 @@ BooleanConstantFalse::BooleanConstantFalse(CompContainer * container, const Comp
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "BooleanConstantFalseSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -183,7 +183,7 @@ const ComponentInfo * BooleanConstantTrue::getStaticInfo()
 class BooleanConstantTrue::View : public CompView
 {
 public:
-	View(BooleanConstantTrue * comp, eViewType viewType);
+	View(BooleanConstantTrue * comp, eViewType viewType, const char * name);
 	~View();
 	
 	virtual void draw(QPainter * p);
@@ -197,8 +197,8 @@ private:
 unsigned int BooleanConstantTrue::View::m_instanceCnt = 0;
 QBitmap * BooleanConstantTrue::View::m_bitmap = 0;
 
-BooleanConstantTrue::View::View(BooleanConstantTrue * comp, eViewType viewType)
-	:	CompView(comp, viewType)
+BooleanConstantTrue::View::View(BooleanConstantTrue * comp, eViewType viewType, const char * name)
+	:	CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 3*gridX, 3*gridY));
 	enableRotation(true);
@@ -255,7 +255,7 @@ BooleanConstantTrue::BooleanConstantTrue(CompContainer * container, const Compon
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW, "BooleanConstantSV");
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);

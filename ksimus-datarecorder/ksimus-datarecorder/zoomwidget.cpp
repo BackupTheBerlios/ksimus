@@ -47,29 +47,29 @@ const KSimUnitList & ZoomWidget::getTimeDivList()
 	
 	if (!list)
 	{
-		list = new KSimUnitListStatic("Time/Div");
+		list = new KSimUnitListStatic(QString::fromLatin1("Time/Div"));
 		
-		*list << new KSimProportionalUnit("ns/Div", 1e-9, 0.0, 1000.0)
-		      << new KSimProportionalUnit("µs/Div", 1e-6, 1.0, 1000.0)
-		      << new KSimProportionalUnit("ms/Div", 1e-3, 1.0, 1000.0)
-		      << new KSimProportionalUnit("s/Div",  1e-0, 1.0, DBL_MAX)
+		*list << new KSimProportionalUnit(QString::fromLatin1("ns/Div"), 1e-9, 0.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("µs/Div"), 1e-6, 1.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("ms/Div"), 1e-3, 1.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("s/Div"),  1e-0, 1.0, DBL_MAX)
 		      // Some Shorties / malformed
-		      << new KSimProportionalUnit("us/Div", 1e-6, true)
-		      << new KSimProportionalUnit("ns/D",   1e-9, true)
-		      << new KSimProportionalUnit("µs/D",   1e-6, true)
-		      << new KSimProportionalUnit("us/D",   1e-6, true)
-		      << new KSimProportionalUnit("ms/D",   1e-3, true)
-		      << new KSimProportionalUnit("s/D",    1e-0, true)
-		      << new KSimProportionalUnit("ns",     1e-9, true)
-		      << new KSimProportionalUnit("µs",     1e-6, true)
-		      << new KSimProportionalUnit("us",     1e-6, true)
-		      << new KSimProportionalUnit("ms",     1e-3, true)
-		      << new KSimProportionalUnit("s",      1e-0, true)
-		      << new KSimProportionalUnit("n",      1e-9, true)
-		      << new KSimProportionalUnit("µ",      1e-6, true)
-		      << new KSimProportionalUnit("u",      1e-6, true)
-		      << new KSimProportionalUnit("m",      1e-3, true);
-		list->setDefaultUnit("s/Div");
+		      << new KSimProportionalUnit(QString::fromLatin1("us/Div"), 1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("ns/D"),   1e-9, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("µs/D"),   1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("us/D"),   1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("ms/D"),   1e-3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("s/D"),    1e-0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("ns"),     1e-9, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("µs"),     1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("us"),     1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("ms"),     1e-3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("s"),      1e-0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("n"),      1e-9, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("µ"),      1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("u"),      1e-6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("m"),      1e-3, true);
+		list->setDefaultUnit(QString::fromLatin1("s/Div"));
 	}
 	return *list;
 }
@@ -80,24 +80,24 @@ const KSimUnitList & ZoomWidget::getSampleDivList()
 	
 	if (!list)
 	{
-		list = new KSimUnitListStatic("Sample/Div");
+		list = new KSimUnitListStatic(QString::fromLatin1("Sample/Div"));
 		
-		*list << new KSimProportionalUnit("Sample/Div",  1e0, 0.0, 1000.0)
-		      << new KSimProportionalUnit("kSample/Div", 1e3, 1.0, 1000.0)
-		      << new KSimProportionalUnit("MSample/Div", 1e6, 1.0, DBL_MAX / 1e6)
+		*list << new KSimProportionalUnit(QString::fromLatin1("Sample/Div"),  1e0, 0.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("kSample/Div"), 1e3, 1.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("MSample/Div"), 1e6, 1.0, DBL_MAX / 1e6)
 		      // Some Shorties / malformed
-		      << new KSimProportionalUnit("S/Div",  1e0, true)
-		      << new KSimProportionalUnit("kS/Div", 1e3, true)
-		      << new KSimProportionalUnit("MS/Div", 1e6, true)
-		      << new KSimProportionalUnit("S/D",    1e0, true)
-		      << new KSimProportionalUnit("kS/D",   1e3, true)
-		      << new KSimProportionalUnit("MS/D",   1e6, true)
-		      << new KSimProportionalUnit("S",      1e0, true)
-		      << new KSimProportionalUnit("kS",     1e3, true)
-		      << new KSimProportionalUnit("MS",     1e6, true)
-		      << new KSimProportionalUnit("k",      1e3, true)
-		      << new KSimProportionalUnit("M",      1e6, true);
-		list->setDefaultUnit("Sample/Div");
+		      << new KSimProportionalUnit(QString::fromLatin1("S/Div"),  1e0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("kS/Div"), 1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("MS/Div"), 1e6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("S/D"),    1e0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("kS/D"),   1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("MS/D"),   1e6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("S"),      1e0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("kS"),     1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("MS"),     1e6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("k"),      1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("M"),      1e6, true);
+		list->setDefaultUnit(QString::fromLatin1("Sample/Div"));
 	}
 	return *list;
 }
@@ -108,24 +108,24 @@ const KSimUnitList & ZoomWidget::getSamplePixelList()
 	
 	if (!list)
 	{
-		list = new KSimUnitListStatic("Sample/Pixel");
+		list = new KSimUnitListStatic(QString::fromLatin1("Sample/Pixel"));
 		
-		*list << new KSimProportionalUnit("Sample/Pixel",  1e0, 0.0, 1000.0)
-		      << new KSimProportionalUnit("kSample/Pixel", 1e3, 1.0, 1000.0)
-		      << new KSimProportionalUnit("MSample/Pixel", 1e6, 1.0, DBL_MAX / 1e6)
+		*list << new KSimProportionalUnit(QString::fromLatin1("Sample/Pixel"),  1e0, 0.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("kSample/Pixel"), 1e3, 1.0, 1000.0)
+		      << new KSimProportionalUnit(QString::fromLatin1("MSample/Pixel"), 1e6, 1.0, DBL_MAX / 1e6)
 		      // Some Shorties / malformed
-		      << new KSimProportionalUnit("S/Pixel",  1e0, true)
-		      << new KSimProportionalUnit("kS/Pixel", 1e3, true)
-		      << new KSimProportionalUnit("MS/Pixel", 1e6, true)
-		      << new KSimProportionalUnit("S/P",    1e0, true)
-		      << new KSimProportionalUnit("kS/P",   1e3, true)
-		      << new KSimProportionalUnit("MS/P",   1e6, true)
-		      << new KSimProportionalUnit("S",      1e0, true)
-		      << new KSimProportionalUnit("kS",     1e3, true)
-		      << new KSimProportionalUnit("MS",     1e6, true)
-		      << new KSimProportionalUnit("k",      1e3, true)
-		      << new KSimProportionalUnit("M",      1e6, true);
-		list->setDefaultUnit("Sample/Pixel");
+		      << new KSimProportionalUnit(QString::fromLatin1("S/Pixel"),  1e0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("kS/Pixel"), 1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("MS/Pixel"), 1e6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("S/P"),    1e0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("kS/P"),   1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("MS/P"),   1e6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("S"),      1e0, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("kS"),     1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("MS"),     1e6, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("k"),      1e3, true)
+		      << new KSimProportionalUnit(QString::fromLatin1("M"),      1e6, true);
+		list->setDefaultUnit(QString::fromLatin1("Sample/Pixel"));
 	}
 	return  *list;
 }
@@ -151,7 +151,7 @@ ZoomWidget::ZoomWidget(DataRecorderDataView * recorderDV, QWidget *parent, const
 	connect(m_time, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
 	connect(m_time, SIGNAL(undoRequest()), this, SLOT(slotUndoRequest()));
 	
-  m_label = new QLabel("----", this, "zoom label");
+  m_label = new QLabel(QString::fromLatin1("----"), this, "zoom label");
 	CHECK_PTR(m_label);
 
 	updateMinZoom();

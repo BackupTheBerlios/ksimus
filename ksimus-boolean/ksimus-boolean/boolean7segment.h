@@ -89,7 +89,7 @@ class Boolean7SegmentView : public CompViewSize
 	Q_OBJECT
 
 public:	
-	Boolean7SegmentView(Boolean7Segment * comp, eViewType viewType);
+	Boolean7SegmentView(Boolean7Segment * comp, eViewType viewType, const char * name);
 //	virtual ~Boolean7SegmentView();
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);

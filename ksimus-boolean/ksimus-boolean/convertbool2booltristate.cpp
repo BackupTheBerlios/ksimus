@@ -90,7 +90,7 @@ ConvertBool2BoolTristate::ConvertBool2BoolTristate(CompContainer * container, co
 	if (getSheetMap())
 	{
 //		new ConvertBool2BoolTristateView(this, SHEET_VIEW);
-		CompView * sheetView = new CompView(this, SHEET_VIEW);
+		CompView * sheetView = new CompView(this, SHEET_VIEW, "ConvertBool2BoolTristateSV");
 		Q_CHECK_PTR(sheetView);
 		
 		ComponentLayout * layout = new ComponentLayout(sheetView, false);

@@ -127,7 +127,7 @@ protected:
 class JKFlipFlopView : public CompView
 {
 public:
-	JKFlipFlopView(JKFlipFlop * comp, eViewType viewType);
+	JKFlipFlopView(JKFlipFlop * comp, eViewType viewType, const char * name);
 //	~JKFlipFlopView();
 //	virtual void draw(QPainter * p);
 

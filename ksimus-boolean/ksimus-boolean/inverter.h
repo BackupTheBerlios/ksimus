@@ -70,7 +70,7 @@ private:
 class InverterView : public CompView
 {
 public:
-	InverterView(Inverter * comp, eViewType viewType);
+	InverterView(Inverter * comp, eViewType viewType, const char * name);
 //	~InverterView();
 	virtual void draw(QPainter * p);
 	

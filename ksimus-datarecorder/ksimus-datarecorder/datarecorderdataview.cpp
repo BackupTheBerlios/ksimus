@@ -526,7 +526,7 @@ void DataRecorderDataViewDivGrid::preDraw(QPaintDevice * paintDev, const DataRec
 			double time = (double)(i+offset)*info.getSamplePerPixel() * getDataRecorder()->getTimeServer().getTick().getValue(unit_sec);
 			const KSimUnitBase * unit = KSimUnitListStatic::getTimeUnitList().findPrefered(time);
 			
-			QString str = "%1 %2";
+			QString str("%1 %2");
 			str = str.arg(unit->toUnit(time)).arg(unit->getUnitString());
 			
 			paint.drawText(i-100,info.getPixmapHeight()-height,200,height,

@@ -97,7 +97,7 @@ private:
 class DelayView : public CompView
 {
 public:
-	DelayView(Delay * comp, eViewType viewType);
+	DelayView(Delay * comp, eViewType viewType, const char * name);
 //	~DelayView();
 	virtual void draw(QPainter * p);
 	

@@ -139,7 +139,7 @@ class MultiplexerView : public CompView
 	Q_OBJECT
 
 public:
-	MultiplexerView(Multiplexer * comp, eViewType viewType);
+	MultiplexerView(Multiplexer * comp, eViewType viewType, const char * name);
 //	~MultiplexerView();
 	
 	Multiplexer* getComponent() { return (Multiplexer*) CompView::getComponent(); };

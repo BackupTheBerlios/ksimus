@@ -48,7 +48,7 @@ class DataRecorderView : public CompView
 	Q_OBJECT
 
 public:
-	DataRecorderView(Component * comp, eViewType viewType);
+	DataRecorderView(Component * comp, eViewType viewType, const char * name);
 	virtual ~DataRecorderView();
 	
 	virtual void draw(QPainter * p);

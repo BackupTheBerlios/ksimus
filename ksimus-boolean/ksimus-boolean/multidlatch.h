@@ -139,7 +139,7 @@ class MultiDLatchView : public CompView
 	Q_OBJECT
 
 public:
-	MultiDLatchView(MultiDLatch * comp, eViewType viewType);
+	MultiDLatchView(MultiDLatch * comp, eViewType viewType, const char * name);
 //	~MultiDLatchView();
 	
 	MultiDLatch* getComponent() { return (MultiDLatch*) CompView::getComponent(); };

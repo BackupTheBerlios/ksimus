@@ -126,7 +126,7 @@ MultiDLatch::MultiDLatch(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new MultiDLatchView(this, SHEET_VIEW);
+		new MultiDLatchView(this, SHEET_VIEW, "MultiDLatchSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -296,8 +296,8 @@ void MultiDLatch::menuExecuted()
 //###############################################################
 
 
-MultiDLatchView::MultiDLatchView(MultiDLatch * comp, eViewType viewType)
-	: CompView(comp, viewType)
+MultiDLatchView::MultiDLatchView(MultiDLatch * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -318,10 +318,10 @@ MultiDLatchView::MultiDLatchView(MultiDLatch * comp, eViewType viewType)
 		
 		m_layout->setMinSize(4,5);
 	
-		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), "Latch", AlignCenter);
+		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), QString::fromLatin1("Latch"), AlignCenter);
 
-		new ConnectorLabel(getComponent()->getInputReset(), "R");
-		new ConnectorLabel(getComponent()->getInputEnable(), "E");
+		new ConnectorLabel(getComponent()->getInputReset(), QString::fromLatin1("R"));
+		new ConnectorLabel(getComponent()->getInputEnable(), QString::fromLatin1("E"));
 	}
 }
 

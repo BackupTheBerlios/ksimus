@@ -114,12 +114,12 @@ Boolean7Segment::Boolean7Segment(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new Boolean7SegmentView(this, SHEET_VIEW);
+		new Boolean7SegmentView(this, SHEET_VIEW, "Boolean7SegmentSV");
 	}
 	// Initializes the user view
 	if (getUserMap())
 	{
-		new Boolean7SegmentView(this, USER_VIEW);
+		new Boolean7SegmentView(this, USER_VIEW, "Boolean7SegmentUV");
 	}
 }
 
@@ -173,8 +173,8 @@ void Boolean7Segment::reset()
 
 
 
-Boolean7SegmentView::Boolean7SegmentView(Boolean7Segment * comp, eViewType viewType)
-	: CompViewSize(comp,viewType)
+Boolean7SegmentView::Boolean7SegmentView(Boolean7Segment * comp, eViewType viewType, const char * name)
+	: CompViewSize(comp,viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{

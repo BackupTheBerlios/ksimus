@@ -87,7 +87,7 @@ Inverter::Inverter(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new InverterView(this, SHEET_VIEW);
+		new InverterView(this, SHEET_VIEW, "IdentitySV");
 	}
 	
 	// make inverter
@@ -114,8 +114,8 @@ void Inverter::calculate()
 //###############################################################
 //###############################################################
 
-InverterView::InverterView(Inverter * comp, eViewType viewType)
-	: CompView(comp, viewType)
+InverterView::InverterView(Inverter * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -137,7 +137,7 @@ void InverterView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "1");
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("1"));
 	
 	CompView::draw(p);
 }

@@ -140,7 +140,7 @@ Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new DemultiplexerView(this, SHEET_VIEW);
+		new DemultiplexerView(this, SHEET_VIEW, "DemultiplexerSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -307,8 +307,8 @@ void Demultiplexer::menuExecuted()
 //###############################################################
 
 
-DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType)
-	: CompView(comp, viewType)
+DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -332,10 +332,10 @@ DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType)
 		
 		layout->getFuncBlock()->setMinSize(4,5);
 	
-		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "DMUX", AlignCenter, 270.0);
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), QString::fromLatin1("DMUX"), AlignCenter, 270.0);
 	
-		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
-		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
+		new ConnectorLabel(getComponent()->getLatchOutput(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getComponent()->getLatchAddress(), QString::fromLatin1("EA"));
 	
 		unsigned int i = 1;
 		FOR_EACH_CONNECTOR(it, *getComponent()->getOutputPack()->getConnList())

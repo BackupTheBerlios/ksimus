@@ -84,7 +84,7 @@ BoolTristateXor::BoolTristateXor(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTristateXIn1Out1EnaView(this, SHEET_VIEW, "=1");
+		new BoolTristateXIn1Out1EnaView(this, SHEET_VIEW, QString::fromLatin1("=1"), "BoolTristateXorSV");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

@@ -37,8 +37,8 @@
 namespace KSimLibDataRecorder
 {
 
-DataRecorderView::DataRecorderView(Component * comp, eViewType viewType)
-	: CompView(comp,viewType)
+DataRecorderView::DataRecorderView(Component * comp, eViewType viewType, const char * name)
+	: CompView(comp,viewType,name)
 {
 	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 	enableRotation(true);
@@ -55,9 +55,9 @@ void DataRecorderView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	QFont newFont("helvetica",10);
+	QFont newFont(QString::fromLatin1("helvetica"),10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Data\nRec");
+	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Data\nRec"));
 
 	CompView::draw(p);
 }

@@ -76,7 +76,7 @@ private:
 class Boolean2In1OutView : public CompView
 {
 public:
-	Boolean2In1OutView(Boolean2In1Out * comp, eViewType viewType, const QString & text);
+	Boolean2In1OutView(Boolean2In1Out * comp, eViewType viewType, const QString & text, const char * name);
 //	~Boolean2In1OutView();
 };
 

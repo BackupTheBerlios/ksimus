@@ -85,7 +85,7 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new DelayView(this, SHEET_VIEW);
+		new DelayView(this, SHEET_VIEW, "DelaySV");
 	}
 	
 	m_delayTime.setValue(1, unit_sec);
@@ -216,8 +216,8 @@ ComponentPropertyBaseWidget * Delay::createGeneralProperty(QWidget *parent)
 //###############################################################
 //###############################################################
 
-DelayView::DelayView(Delay * comp, eViewType viewType)
-	: CompView(comp, viewType)
+DelayView::DelayView(Delay * comp, eViewType view, const char * name)
+	: CompView(comp, view, name)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableConnectorSpacingTop(false);
@@ -239,7 +239,7 @@ void DelayView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Dly");
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("Dly"));
 	
 	CompView::draw(p);
 }

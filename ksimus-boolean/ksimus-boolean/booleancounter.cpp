@@ -73,9 +73,9 @@ const ComponentInfo * BooleanCounter::getStaticInfo()
 #define MIN_BIT         2
 #define MAX_BIT        16
 #define DEFAULT_BIT     4
-#define DEFAULT_MIN    "0x0"
-#define DEFAULT_MAX    "0xF"
-#define DEFAULT_RESET  "0x0"
+#define DEFAULT_MIN    QString::fromLatin1("0x0")
+#define DEFAULT_MAX    QString::fromLatin1("0xF")
+#define DEFAULT_RESET  QString::fromLatin1("0x0")
 
 
 
@@ -159,7 +159,7 @@ BooleanCounter::BooleanCounter(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BooleanCounterView(this, SHEET_VIEW);
+		new BooleanCounterView(this, SHEET_VIEW, "BooleanCounterSV");
 	}
 	
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -327,8 +327,8 @@ unsigned int BooleanCounter::getMinBits() const
 //###############################################################
 //###############################################################
 
-BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType)
-	: CompView(comp, viewType)
+BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType, const char * name)
+	: CompView(comp, viewType, name)
 {
 	if (viewType == SHEET_VIEW)
 	{
@@ -350,16 +350,16 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 		m_layout->getFuncBlock()->getRight()->addSpace(1);
 		m_layout->getFuncBlock()->getRight()->addConnectorPack(getCounter()->getOutputCounter());
 		
-		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), "CTR", AlignTop|AlignHCenter);
+		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), QString::fromLatin1("CTR"), AlignTop|AlignHCenter);
 		
 		m_layout->setMinSize(5,7);
 	
-		new ConnectorLabel(getCounter()->getInputClear(), "R");
-		new ConnectorLabel(getCounter()->getInputClockUp(), "Up");
-		new ConnectorLabel(getCounter()->getInputClockDown(), "Do");
+		new ConnectorLabel(getCounter()->getInputClear(), QString::fromLatin1("R"));
+		new ConnectorLabel(getCounter()->getInputClockUp(), QString::fromLatin1("Up"));
+		new ConnectorLabel(getCounter()->getInputClockDown(), QString::fromLatin1("Do"));
 
-		new ConnectorLabel(getCounter()->getOutputCarry(), "RC");
-		new ConnectorLabel(getCounter()->getOutputBorrow(), "RB");
+		new ConnectorLabel(getCounter()->getOutputCarry(), QString::fromLatin1("RC"));
+		new ConnectorLabel(getCounter()->getOutputBorrow(), QString::fromLatin1("RB"));
 		
 		unsigned int i = 1;
 		FOR_EACH_CONNECTOR(it, *getCounter()->getOutputCounter()->getConnList())
@@ -490,10 +490,10 @@ void BooleanCounterPropertyWidget::defaultPressed()
 	
 	getBitsWidget()->setValue(getCounter()->getBits());
 	
-	getMinValueWidget()->setText("0x0");
-	getResetValueWidget()->setText("0x0");
+	getMinValueWidget()->setText(QString::fromLatin1("0x0"));
+	getResetValueWidget()->setText(QString::fromLatin1("0x0"));
 	
-	getMaxValueWidget()->setText(QString("0x%1").arg((1 << getCounter()->getBits())-1, 0, 16));
+	getMaxValueWidget()->setText(QString::fromLatin1("0x%1").arg((1 << getCounter()->getBits())-1, 0, 16));
 }
 
 

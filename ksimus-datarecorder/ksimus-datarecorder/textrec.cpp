@@ -68,7 +68,7 @@ namespace KSimLibDataRecorder
 
 #define DEFAULT_FLAGS      (FLAG_HEADER_DATE | FLAG_CONN_NAMES | FLAG_LINE_NO | FLAG_TIME_STAMP)
 
-#define DEFAULT_FILENAME   "text-recorder.log"
+#define DEFAULT_FILENAME   QString::fromLatin1("text-recorder.log")
 #define DEFAULT_PATH_TYPE  KSimFilename::PATH_RELATIVE_DOCUMENT
 #define DEFAULT_SEPARATOR  QString::fromLatin1(";")
 
@@ -184,8 +184,8 @@ int ConnectorContainerList::compareItems(QCollection::Item di1, QCollection::Ite
 
 
 
-TextRecView::TextRecView(Component * comp, eViewType viewType)
-	: CompView(comp,viewType)
+TextRecView::TextRecView(Component * comp, eViewType viewType, const char * name)
+	: CompView(comp,viewType,name)
 {
 	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 	enableRotation(true);
@@ -203,9 +203,9 @@ void TextRecView::draw(QPainter * p)
 {
 	drawFrame(p);
 	
-	QFont newFont("helvetica",10);
+	QFont newFont(QString::fromLatin1("helvetica"),10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Text\nRec");
+	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Text\nRec"));
 
 	CompView::draw(p);
 }
@@ -241,7 +241,7 @@ TextRec::TextRec(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new TextRecView(this, SHEET_VIEW);
+		new TextRecView(this, SHEET_VIEW, "TextRecSV");
 	}
 	
 	m_connectorContainerList = new ConnectorContainerList;
@@ -699,7 +699,7 @@ void TextRec::slotAddBoolChannel()
 {
 	ConnectorContainer * connCont;
 	undoChangeProperty(i18n("Add channel"));
-	connCont = newConnector("Boolean Input");
+	connCont = newConnector(QString::fromLatin1("Boolean Input"));
 	if (connCont)
 	{
 		appendConnector(connCont);
@@ -711,7 +711,7 @@ void TextRec::slotAddFloatChannel()
 {
 	ConnectorContainer * connCont;
 	undoChangeProperty(i18n("Add channel"));
-	connCont = newConnector("Floating Point Input");
+	connCont = newConnector(QString::fromLatin1("Floating Point Input"));
 	if (connCont)
 	{
 		appendConnector(connCont);

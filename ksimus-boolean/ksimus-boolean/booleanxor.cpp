@@ -30,7 +30,6 @@
 #include "ksimus/connectorboolout.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/connectorpack.h"
-#include "ksimus/componentlayout.h"
 
 // Forward declaration
 
@@ -86,24 +85,7 @@ BooleanXor::BooleanXor(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		CompView * sheetView = new CompView(this, SHEET_VIEW);
-		Q_CHECK_PTR(sheetView);
-		
-		ComponentLayout * layout = new ComponentLayout(sheetView, false);
-		Q_CHECK_PTR(layout);
-		layout->setMinSize(3,3);
-
-		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
-		Q_CHECK_PTR(block);
-
-		block->getLeft()->addSpace(1);
-		block->getLeft()->addConnectorPack(getInputConnectorPack());
-
-		block->getRight()->addStretch(1);
-		block->getRight()->addConnector(getOutputConnector(),0);
-		block->getRight()->addStretch(1);
-
-		new ComponentLayoutBlockContentText(block, "=1");
+		new BooleanXIn1OutView(this, SHEET_VIEW, QString::fromLatin1("=1"), "BooleanXorSV");
 	}
 	
 	getAction().disable(KSimAction::UPDATEVIEW);
