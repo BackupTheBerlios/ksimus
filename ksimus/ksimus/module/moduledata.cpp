@@ -52,6 +52,8 @@
 
 // Forward declaration
 
+
+/*
 // min. generic size
 #define minX	8
 #define minY	7
@@ -60,20 +62,20 @@
 //###### Some statics
 //################################################################################
 
-static const char * sViewType 			= "ViewType";
-static const char * sPixmapFile 		= "PixFile";
-static const char * sModuleName 		= "Module Name";
+static const char * sViewType       = "ViewType";
+static const char * sPixmapFile     = "PixFile";
+static const char * sModuleName     = "Module Name";
 static const char * sModuleLibNames = "Module Lib Names";
-static const char * sShortDescr 		= "Short Descr";
-static const char * sPixmapStore	= "Pixmap Store";
-static const char * sPixmapData = "Pixmap Data";
+static const char * sShortDescr     = "Short Descr";
+static const char * sPixmapStore    = "Pixmap Store";
+static const char * sPixmapData     = "Pixmap Data";
 
 EnumDict<ModuleViewType>::tData EnumDict<ModuleViewType>::data[]
-      = { {"Generic",    MV_GENERIC},
-          {"User View",  MV_USERVIEW},
-          {"Pixmap",     MV_PIXMAP},
-          {"None",       MV_NONE},
-          {0,           (ModuleViewType)0}};
+      = { {"Generic",       MV_GENERIC},
+          {"User View",     MV_USERVIEW},
+          {"Pixmap",        MV_PIXMAP},
+          {"None",          MV_NONE},
+          {(const char *)0, (ModuleViewType)0}};
 
 static const EnumDict<ModuleViewType> & getModuleViewDict()
 {
@@ -86,13 +88,83 @@ EnumDict<ModulePixmapStoreType>::tData EnumDict<ModulePixmapStoreType>::data[]
       = { {"Absolute",         MPS_ABSOLTUE},
           {"Relative Module",  MPS_RELATIVE_MODULE},
           {"Internal",         MPS_INTERNAL},
-          {0,                 (ModulePixmapStoreType)0}};
+          {(const char *)0,    (ModulePixmapStoreType)0}};
 
 static const EnumDict<ModulePixmapStoreType> & getModulePixmapStoreDict()
 {
 	static EnumDict<ModulePixmapStoreType> modulePixmapStoreDict;
 	return modulePixmapStoreDict;
 }
+*/
+
+
+EnumDict<ModuleViewType>::tData EnumDict<ModuleViewType>::data[]
+      = { {"Generic",       MV_GENERIC},
+          {"User View",     MV_USERVIEW},
+          {"Pixmap",        MV_PIXMAP},
+          {"None",          MV_NONE},
+          {(const char *)0, (ModuleViewType)0}};
+
+
+EnumDict<ModulePixmapStoreType>::tData EnumDict<ModulePixmapStoreType>::data[]
+      = { {"Absolute",         MPS_ABSOLTUE},
+          {"Relative Module",  MPS_RELATIVE_MODULE},
+          {"Internal",         MPS_INTERNAL},
+          {(const char *)0,    (ModulePixmapStoreType)0}};
+
+
+class ModuleData::Private
+{
+public:
+
+// min. generic size
+static const unsigned int minX;
+static const unsigned int minY;
+
+//################################################################################
+//###### Some statics
+//################################################################################
+
+static const char * sViewType;
+static const char * sPixmapFile;
+static const char * sModuleName;
+static const char * sModuleLibNames;
+static const char * sShortDescr;
+static const char * sPixmapStore;
+static const char * sPixmapData;
+
+
+static const EnumDict<ModuleViewType> & getModuleViewDict()
+{
+	static EnumDict<ModuleViewType> moduleViewDict;
+	return moduleViewDict;
+}
+
+
+static const EnumDict<ModulePixmapStoreType> & getModulePixmapStoreDict()
+{
+	static EnumDict<ModulePixmapStoreType> modulePixmapStoreDict;
+	return modulePixmapStoreDict;
+}
+
+};
+
+
+// min. generic size
+const unsigned int ModuleData::Private::minX = 8;
+const unsigned int ModuleData::Private::minY = 7;
+
+
+const char * ModuleData::Private::sViewType       = "ViewType";
+const char * ModuleData::Private::sPixmapFile     = "PixFile";
+const char * ModuleData::Private::sModuleName     = "Module Name";
+const char * ModuleData::Private::sModuleLibNames = "Module Lib Names";
+const char * ModuleData::Private::sShortDescr     = "Short Descr";
+const char * ModuleData::Private::sPixmapStore    = "Pixmap Store";
+const char * ModuleData::Private::sPixmapData     = "Pixmap Data";
+
+
+
 
 
 
@@ -375,8 +447,8 @@ void ModuleData::setupGenericData()
 	}
 
 	// Calculate and set module size
-	x = minX;
-	y = minY;
+	x = Private::minX;
+	y = Private::minY;
 	if (y < (m_inList->count() * 2) + 3)
 		y = m_inList->count() * 2 + 3;
 	if (y < (m_outList->count() * 2) + 3)
@@ -502,27 +574,27 @@ void ModuleData::setupUserViewData()
 /** save module properties */
 void ModuleData::save(KSimData & file)
 {
-	getModuleViewDict().save(file, sViewType, m_moduleView);
+	Private::getModuleViewDict().save(file, Private::sViewType, m_moduleView);
 		
 	switch(m_pixmapStore)
 	{
 		case MPS_ABSOLTUE:
 			if(!m_pixmapFile.isEmpty())
-				file.writeEntry(sPixmapFile, m_pixmapFile);
+				file.writeEntry(Private::sPixmapFile, m_pixmapFile);
 			break;
 		case MPS_RELATIVE_MODULE:
 			if(!m_pixmapFile.isEmpty())
-				file.writeEntry(sPixmapFile, getRelativePath());
+				file.writeEntry(Private::sPixmapFile, getRelativePath());
  			break;
 		
 		case MPS_INTERNAL:
 			{
 				if(m_pixmap)
 				{
-					file.writeEntry(sPixmapData, *m_pixmap);
+					file.writeEntry(Private::sPixmapData, *m_pixmap);
 				}
 				if(!m_pixmapFile.isEmpty())
-					file.writeEntry(sPixmapFile, m_pixmapFile);
+					file.writeEntry(Private::sPixmapFile, m_pixmapFile);
 			}
 			break;
 		default:
@@ -530,45 +602,45 @@ void ModuleData::save(KSimData & file)
 			break;
 	}
 
-	getModulePixmapStoreDict().save(file, sPixmapStore, m_pixmapStore);
+	Private::getModulePixmapStoreDict().save(file, Private::sPixmapStore, m_pixmapStore);
 	
 	if(!m_moduleName.isEmpty())
-		file.writeEntry(sModuleName, m_moduleName);
+		file.writeEntry(Private::sModuleName, m_moduleName);
 
 	if(!m_moduleLibNames.isEmpty())
-		file.writeEntry(sModuleLibNames, m_moduleLibNames);
+		file.writeEntry(Private::sModuleLibNames, m_moduleLibNames);
 
 	if(!m_shortDescr.isEmpty())
-		file.writeEntry(sShortDescr, m_shortDescr);
+		file.writeEntry(Private::sShortDescr, m_shortDescr);
 }
 
 /** Load module properties
 	Returns true if successful */
 bool ModuleData::load(KSimData & file)
 {
-	m_moduleView = getModuleViewDict().load(file, sViewType, MV_GENERIC);
+	m_moduleView = Private::getModuleViewDict().load(file, Private::sViewType, MV_GENERIC);
 	
-	m_pixmapStore = getModulePixmapStoreDict().load(file, sPixmapStore, MPS_ABSOLTUE);
+	m_pixmapStore = Private::getModulePixmapStoreDict().load(file, Private::sPixmapStore, MPS_ABSOLTUE);
 	
 	switch(m_pixmapStore)
 	{
 		case MPS_ABSOLTUE:
-			m_pixmapFile = file.readEntry(sPixmapFile);
+			m_pixmapFile = file.readEntry(Private::sPixmapFile);
 			break;
 		
 		case MPS_RELATIVE_MODULE:
-			setRelativePath(file.readEntry(sPixmapFile));
+			setRelativePath(file.readEntry(Private::sPixmapFile));
 			break;
 		
 		case MPS_INTERNAL:
 			{
-				m_pixmapFile = file.readEntry(sPixmapFile);
+				m_pixmapFile = file.readEntry(Private::sPixmapFile);
 				if (!m_pixmap)
 				{
 					m_pixmap = new QPixmap;
 					CHECK_PTR(m_pixmap);
 				}
-				*m_pixmap = file.readPixmapEntry(sPixmapData);
+				*m_pixmap = file.readPixmapEntry(Private::sPixmapData);
 				// Round up to next valid size and add connector space
 				m_pixmapSize = QSize( (((m_pixmap->width()  + 3*gridX - 1)/gridX)*gridX),
 				                      (((m_pixmap->height() + 3*gridY - 1)/gridY)*gridY) );
@@ -581,10 +653,10 @@ bool ModuleData::load(KSimData & file)
 	}
 	
 	
-	m_moduleName = file.readEntry(sModuleName);
+	m_moduleName = file.readEntry(Private::sModuleName);
 	
-	m_moduleLibNames = file.readEntry(sModuleLibNames);
-	m_shortDescr = file.readEntry(sShortDescr);
+	m_moduleLibNames = file.readEntry(Private::sModuleLibNames);
+	m_shortDescr = file.readEntry(Private::sShortDescr);
 	
 	return true;
 }
@@ -594,16 +666,16 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 	KSimData file(filename, KSimData::versionAsIs, true);   // Read only
 	file.setGroup("/Property/Module/");
 	
-	ModuleViewType moduleView = getModuleViewDict().load(file, sViewType, MV_NONE);
+	ModuleViewType moduleView = Private::getModuleViewDict().load(file, Private::sViewType, MV_NONE);
 	if(moduleView == MV_NONE)
 	{
 		// No module
 		return (const ModuleInfo *)0;
 	}
 	
-	QString moduleName = file.readEntry(sModuleName);
-	QString moduleLibNames = file.readEntry(sModuleLibNames);
-	QString shortDescr = file.readEntry(sShortDescr);
+	QString moduleName = file.readEntry(Private::sModuleName);
+	QString moduleLibNames = file.readEntry(Private::sModuleLibNames);
+	QString shortDescr = file.readEntry(Private::sShortDescr);
 	QString libName;
 	QString addLibNames;
 	

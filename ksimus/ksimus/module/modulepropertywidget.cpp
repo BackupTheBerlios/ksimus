@@ -41,7 +41,7 @@
 #include "ksimlineedit.h"
 
 
-#define data (m_dialog->getData())
+//#define data (m_dialog->getData())
 
 // Forward declaration
 
@@ -144,6 +144,9 @@ ModulePropertyWidget::~ModulePropertyWidget()
 {
 }
 	
+ModuleData * ModulePropertyWidget::getData() const { return m_dialog->getData(); };
+
+
 QString ModulePropertyWidget::getModuleName() const
 {
 	return m_leModuleName->text();
@@ -164,18 +167,18 @@ QString ModulePropertyWidget::getPixmalFile() const
 	
 void ModulePropertyWidget::setup()
 {
-	setModuleName(data->getModuleName());	
-	setModuleLibNames(data->getModuleLibNames());
-	setShortDescr(data->getShortDescr());
-	setPixmapFile(data->getPixmapFile());
-	data->loadPixmap(getPixmalFile());
+	setModuleName(getData()->getModuleName());	
+	setModuleLibNames(getData()->getModuleLibNames());
+	setShortDescr(getData()->getShortDescr());
+	setPixmapFile(getData()->getPixmapFile());
+	getData()->loadPixmap(getPixmalFile());
 
-	m_leModuleName->setEnabled(data->getModuleView() != MV_NONE);
-	m_leModuleLibNames->setEnabled(data->getModuleView() != MV_NONE);
-	m_leShortDescr->setEnabled(data->getModuleView() != MV_NONE);
-	m_fileBox->setEnabled(data->getModuleView() == MV_PIXMAP);
+	m_leModuleName->setEnabled(getData()->getModuleView() != MV_NONE);
+	m_leModuleLibNames->setEnabled(getData()->getModuleView() != MV_NONE);
+	m_leShortDescr->setEnabled(getData()->getModuleView() != MV_NONE);
+	m_fileBox->setEnabled(getData()->getModuleView() == MV_PIXMAP);
 	
-	switch(data->getPixmapStore())
+	switch(getData()->getPixmapStore())
 	{
 		case MPS_ABSOLTUE:
 			m_storeAbsolute->setChecked(true);
@@ -190,10 +193,10 @@ void ModulePropertyWidget::setup()
 			break;
 		
 		default:
-			KSIMDEBUG_VAR("Unknown store type",data->getPixmapStore());
+			KSIMDEBUG_VAR("Unknown store type", getData()->getPixmapStore());
 	}
 	
-	m_storeBox->setEnabled(data->getModuleView() == MV_PIXMAP);
+	m_storeBox->setEnabled(getData()->getModuleView() == MV_PIXMAP);
 }
 
 void ModulePropertyWidget::setModuleName(const QString & name)
@@ -223,29 +226,29 @@ void ModulePropertyWidget::setPixmapFile(const QString & name)
 void ModulePropertyWidget::slotModuleNameChanged()
 {
 	m_dialog->modifyProperties(i18n("Change Module Name"));
-	data->setModuleName(getModuleName());
+	getData()->setModuleName(getModuleName());
 	emit changed();
 }
 
 void ModulePropertyWidget::slotModuleLibNamesChanged()
 {
 	m_dialog->modifyProperties(i18n("Change Module Library Names"));
-	data->setModuleLibNames(getModuleLibNames());
+	getData()->setModuleLibNames(getModuleLibNames());
 	emit changed();
 }
 
 void ModulePropertyWidget::slotShortDescrChanged()
 {
 	m_dialog->modifyProperties(i18n("Change Short Description"));
-	data->setShortDescr(getShortDescr());
+	getData()->setShortDescr(getShortDescr());
 	emit changed();
 }
 
 void ModulePropertyWidget::slotPixmapFileChanged()
 {
 	m_dialog->modifyProperties(i18n("Change Image File"));
-//	data->loadPixmap(getPixmalFile());
-	data->setPixmapFile(getPixmalFile());
+//	getData()->loadPixmap(getPixmalFile());
+	getData()->setPixmapFile(getPixmalFile());
 	emit changed();
 }
 
@@ -286,30 +289,30 @@ void ModulePropertyWidget::slotPixmapOpenFileDialog()
 
 void ModulePropertyWidget::slotStoreAbsoluteChanged()
 {
-	if (data->getPixmapStore() != MPS_ABSOLTUE)
+	if (getData()->getPixmapStore() != MPS_ABSOLTUE)
 	{
 		m_dialog->modifyProperties(i18n("Change Store Location to Absolute"));
-		data->setPixmapStore(MPS_ABSOLTUE);
+		getData()->setPixmapStore(MPS_ABSOLTUE);
 		emit changed();
 	}
 }
 
 void ModulePropertyWidget::slotStoreRelativeChanged()
 {
-	if (data->getPixmapStore() != MPS_RELATIVE_MODULE)
+	if (getData()->getPixmapStore() != MPS_RELATIVE_MODULE)
 	{
 		m_dialog->modifyProperties(i18n("Change Store Location to Relative"));
-		data->setPixmapStore(MPS_RELATIVE_MODULE);
+		getData()->setPixmapStore(MPS_RELATIVE_MODULE);
 		emit changed();
 	}
 }
 
 void ModulePropertyWidget::slotStoreInternalChanged()
 {
-	if (data->getPixmapStore() != MPS_INTERNAL)
+	if (getData()->getPixmapStore() != MPS_INTERNAL)
 	{
 		m_dialog->modifyProperties(i18n("Change Store Location to Internal"));
-		data->setPixmapStore(MPS_INTERNAL);
+		getData()->setPixmapStore(MPS_INTERNAL);
 		emit changed();
 	}
 }

@@ -31,9 +31,6 @@
 
 // Forward declaration
 
-#define data (m_dialog->getData())
-
-
 TypeSelection::TypeSelection(ModuleDialog * dialog, QWidget * parent, const char * name)
 	:	QVButtonGroup(i18n("View selection"),parent,name),
 		m_dialog(dialog)
@@ -83,7 +80,7 @@ TypeSelection::~TypeSelection()
 
 void TypeSelection::setup()
 {
-	setButton((int)data->getModuleView());
+	setButton((int)m_dialog->getData()->getModuleView());
 }
 
 void TypeSelection::slotClicked(int id)

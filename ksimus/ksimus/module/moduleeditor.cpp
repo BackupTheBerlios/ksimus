@@ -40,7 +40,7 @@
 // Forward declaration
 
 
-#define mdata (m_dialog->mdata)
+//#define mdata (m_dialog->mdata)
 
 ModuleEditor::ModuleEditor(ModuleDialog * dialog, QWidget * parent, const char *name)
 	:	QWidget(parent,name),
@@ -161,7 +161,7 @@ void ModuleEditor::redrawMap()
 {
 	CHECK_PTR(m_drawMap);
 
-	switch(mdata->getModuleView())
+	switch(m_dialog->mdata->getModuleView())
 	{
 		case MV_NONE:
 			if(m_userView)
@@ -180,12 +180,12 @@ void ModuleEditor::redrawMap()
 				m_userView = 0;
 			}
 			// calculate view layout
-			calGeometric(mdata->getGenericSize());
+			calGeometric(m_dialog->mdata->getGenericSize());
 			resize(m_viewSize);
 			m_drawMap->resize(m_viewSize);
 			m_drawMap->fill();			
 			QPainter p (m_drawMap);
-			QRect rect(QPoint(m_viewOffsetX,m_viewOffsetY), mdata->getGenericSize());
+			QRect rect(QPoint(m_viewOffsetX,m_viewOffsetY), m_dialog->mdata->getGenericSize());
 			ModuleSV::drawGeneric(&p, rect);
 			drawConn(&p);
 			break;
@@ -209,7 +209,7 @@ void ModuleEditor::redrawMap()
 		}
 		
 		default:
-			KSIMDEBUG_VAR("unknown viewType", (int)mdata->getModuleView());
+			KSIMDEBUG_VAR("unknown viewType", (int)m_dialog->mdata->getModuleView());
 			break;
 	}
 }
@@ -217,16 +217,16 @@ void ModuleEditor::redrawMap()
 /** Setup the m_drawMap for the pixmap view */
 void ModuleEditor::updateDrawMapPixmapView()
 {
-	if(mdata->isPixmapFileValid())
+	if(m_dialog->mdata->isPixmapFileValid())
 	{
 		// calculate view layout
-		calGeometric(mdata->getPixmapSize());
+		calGeometric(m_dialog->mdata->getPixmapSize());
 		
 		resize(m_viewSize);
 		m_drawMap->resize(m_viewSize);
 		m_drawMap->fill();			
 		QPainter p (m_drawMap);
-		p.drawPixmap(m_viewOffsetX+gridX, m_viewOffsetY+gridY, *(mdata->getPixmap()));
+		p.drawPixmap(m_viewOffsetX+gridX, m_viewOffsetY+gridY, *(m_dialog->mdata->getPixmap()));
 		drawConn(&p);
 	}
 	else
@@ -238,8 +238,8 @@ void ModuleEditor::updateDrawMapPixmapView()
 /** Setup the m_drawMap for the user view */
 void ModuleEditor::updateDrawMapUserView()
 {
-	const QSize & userViewSize = mdata->getUserViewSize();
-	CompViewList * viewList = mdata->getUserViewList();
+	const QSize & userViewSize = m_dialog->mdata->getUserViewSize();
+	CompViewList * viewList = m_dialog->mdata->getUserViewList();
 	
 	// calculate view layout
 	calGeometric(userViewSize);
@@ -318,7 +318,7 @@ void ModuleEditor::updateDrawMapMessage(const QString & message)
 void ModuleEditor::drawConn(QPainter *p)
 {
 	unsigned int i = 0;
-	ExternalConnector * extConn /* = (ExternalConnector*)mdata->getExternalList()->at(i)*/;
+	ExternalConnector * extConn /* = (ExternalConnector*)m_dialog->mdata->getExternalList()->at(i)*/;
 	ConnOrientationType orient;
 	QPoint pos;
 	
@@ -328,17 +328,17 @@ void ModuleEditor::drawConn(QPainter *p)
 	drawConnArea(p, m_leftArea);
 	drawConnArea(p, m_rightArea);
 	
-	for(i=0; i< mdata->getExternalList()->count(); i++)
+	for(i=0; i< m_dialog->mdata->getExternalList()->count(); i++)
 	{
-		extConn = (ExternalConnector*)mdata->getExternalList()->at(i);
+		extConn = (ExternalConnector*)m_dialog->mdata->getExternalList()->at(i);
 		
-		switch (mdata->getModuleView())
+		switch (m_dialog->mdata->getModuleView())
 		{
 			default:
-				KSIMDEBUG_VAR("unknown viewType", (int)mdata->getModuleView());
+				KSIMDEBUG_VAR("unknown viewType", (int)m_dialog->mdata->getModuleView());
 			case MV_GENERIC:
 				orient = extConn->getExternalConn()->getOrientation();
-				pos = *mdata->getGenericConnPos()->at(i);
+				pos = *m_dialog->mdata->getGenericConnPos()->at(i);
 				break;
 			
 			case MV_PIXMAP:

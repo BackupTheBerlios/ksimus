@@ -35,6 +35,7 @@ class KSimLineEdit;
 class ModuleDialog;
 class QVButtonGroup;
 class QRadioButton;
+class ModuleData;
 
 /**Property widget for modules
   *@author Rasmus Diekenbrock
@@ -68,6 +69,7 @@ public slots:
 
 private:
 	QWidget * createPixmapFileWidget();
+	ModuleData * getData() const;
 	
 	ModuleDialog * m_dialog;
 	KSimLineEdit * m_leModuleName;
