@@ -53,6 +53,7 @@
 #include "boolean/booleanled.h"
 #include "boolean/booleanand.h"
 #include "boolean/clockgenerator.h"
+#include "boolean/simtimeinput.h"
 #include "ksimdebug.h"
 
 
@@ -63,6 +64,8 @@ ComponentInfoList distComponent = { &ExtConnBoolInInfo,
                                     &ExtConnBoolOutInfo,
                                     &BooleanLedInfo,
                                     &ClockGeneratorInfo,
+                                    &SimTimeInputInfo,
+                                    &TickTimeInputInfo,
                                     0 };
 
 ConnectorInfoList distConnector = { &ConnectorBoolInInfo,
@@ -118,6 +121,8 @@ Library::Library()
 
 	m_componentLibrary->insert(BooleanButtonList, KSimusPackageInfo);
 	m_componentLibrary->insert(BooleanAndList, KSimusPackageInfo);
+	
+	
 	
 	m_componentLibrary->insertInternal(&WireInfo);
 	m_componentLibrary->insertInternal(&ModuleBaseInfo);
