@@ -106,7 +106,7 @@ public:
 		*/
 	virtual bool load(KSimData & file);
 	
-	/** Set the connector name here. The set connector name before calling first @see setConnectorCount
+	/** Set the connector name here. The set connector name before calling first @ref setConnectorCount
 	  * Don't forget the following %1.
 	  */
 	void setConnectorName(const QString & connName);
@@ -136,7 +136,7 @@ public slots:
 
 protected:
 	/** The function creates a name for a new connector. Per default it is the pack name and a letter or
-	  * a number depenning on the setting of @see setLetter.
+	  * a number depenning on the setting of @ref setLetter.
 	  */
 	virtual QString createNewName();
 	/** Returns the next connector to delete or zero if all connector are connected.
@@ -146,8 +146,8 @@ protected:
 private: 		//functions
 	/** This internal function adds a new connector.
 	  *
-	  * It tests the maximum connector count (set by @see setConnectorMaximum) and if the maximum is
-	  * not reached it creates a new connector and after that emits the signal @see signalAddConnector.
+	  * It tests the maximum connector count (set by @ref setConnectorMaximum) and if the maximum is
+	  * not reached it creates a new connector and after that emits the signal @ref signalAddConnector.
 	  * The function returns a pointer to the created connector.
 	  */
 	ConnectorBase * internalAddConnector();
@@ -155,8 +155,8 @@ private: 		//functions
 	/** This functions deletes a coonnector.
 	  *
 	  * The function tests if one or the last connector is not connected and deletets it. The signal
-	  * @see signalDeleteConnector is emitted before the connector is deleted and the signal
-	  * @see signalDeletedConnector is emitted after the connector is deleted. The function returns
+	  * @ref signalDeleteConnector is emitted before the connector is deleted and the signal
+	  * @ref signalDeletedConnector is emitted after the connector is deleted. The function returns
 	  * true, if a connector is deleted and false if no connector is deleted.
 	  */
 	bool internalDeleteConnector();

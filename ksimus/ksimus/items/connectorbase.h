@@ -295,7 +295,7 @@ protected:
 	 *             or the status bar.
 	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
 	 * @param orient Sets the orientation of the connector.
-	 * @param ci     Sets the connector info (@see ConnectorInfo):
+	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorInputBase(	Component * comp,
 						const char * name,

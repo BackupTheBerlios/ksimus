@@ -84,7 +84,7 @@ private:
 //#######################################################################
 //#######################################################################
 
-/** A list which contains @see CompLayoutBaseItem elements.
+/** A list which contains @ref CompLayoutBaseItem elements.
   * @author Rasmus Diekenbrock
   */
 
@@ -311,7 +311,7 @@ public:
 public slots:
 	/** Calculates uns sets new component size and connector positions. */
 	void updateLayout();
-	/** Actually calls @see updateLayout().*/
+	/** Actually calls @ref updateLayout().*/
 	void slotResizeView();
 
 

@@ -47,7 +47,7 @@ public:
 	
 	/**
 	 * Constructs a boolean input connector. Like the constructor above, but creates also a
-	 * connector label (@see ConnectorLabel).
+	 * connector label (@ref ConnectorLabel).
 	 *
 	 * @param comp  Component which contains this connector.
 	 * @param name  The name of the connector. This name is shown at the property view
@@ -82,7 +82,7 @@ protected:
 	 *             or the status bar.
 	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
 	 * @param orient Sets the orientation of the connector.
-	 * @param ci     Sets the connector info (@see ConnectorInfo):
+	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
 	ConnectorBoolIn(	Component * comp,
 						const char * name,
