@@ -21,7 +21,7 @@ Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
 Column Separator=,
-Last Serial Number=53
+Last Serial Number=57
 Number of channels=4
 Serial List=1,2,29,33
 Serial Number=10
@@ -91,85 +91,85 @@ Connector=Summand B
 Type=wire/property/floating point
 
 [/Component 12/]
-Serial Number=62
+Serial Number=69
 Type=Wire/Wire
 
 [/Component 12/Connections/]
-Number=5
+Number=2
 
 [/Component 12/Connections/Connection 0/]
-Component=1
+Component=66
 Connector=Output
 
 [/Component 12/Connections/Connection 1/]
-Component=60
-Connector=Input
-
-[/Component 12/Connections/Connection 2/]
-Component=59
-Connector=Input
-
-[/Component 12/Connections/Connection 3/]
-Component=58
-Connector=Input
-
-[/Component 12/Connections/Connection 4/]
-Component=22
-Connector=Summand A
+Component=10
+Connector=Input 2
 
 [/Component 12/Property/]
 Type=wire/property/floating point
 
 [/Component 13/]
-Serial Number=63
+Serial Number=70
 Type=Wire/Wire
 
 [/Component 13/Connections/]
 Number=2
 
 [/Component 13/Connections/Connection 0/]
-Component=58
+Component=67
 Connector=Output
 
 [/Component 13/Connections/Connection 1/]
 Component=10
-Connector=Input 2
+Connector=Input 29
 
 [/Component 13/Property/]
 Type=wire/property/floating point
 
 [/Component 14/]
-Serial Number=64
+Serial Number=71
 Type=Wire/Wire
 
 [/Component 14/Connections/]
 Number=2
 
 [/Component 14/Connections/Connection 0/]
-Component=59
+Component=68
 Connector=Output
 
 [/Component 14/Connections/Connection 1/]
 Component=10
-Connector=Input 29
+Connector=Input 33
 
 [/Component 14/Property/]
 Type=wire/property/floating point
 
 [/Component 15/]
-Serial Number=65
+Serial Number=73
 Type=Wire/Wire
 
 [/Component 15/Connections/]
-Number=2
+Number=5
 
 [/Component 15/Connections/Connection 0/]
-Component=60
+Component=1
 Connector=Output
 
 [/Component 15/Connections/Connection 1/]
-Component=10
-Connector=Input 33
+Component=68
+Connector=Input
+
+[/Component 15/Connections/Connection 2/]
+Component=67
+Connector=Input
+
+[/Component 15/Connections/Connection 3/]
+Component=66
+Connector=Input
+
+[/Component 15/Connections/Connection 4/]
+Component=22
+Connector=Summand A
 
 [/Component 15/Property/]
 Type=wire/property/floating point
@@ -219,27 +219,27 @@ Pos=96,64
 Size=56,24
 
 [/Component 6/]
-Serial Number=58
-Type=Floating Point/Arithmetic/Trigonometric/hyperbolic/asinh(x)
+Serial Number=66
+Type=Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)
 
 [/Component 6/Sheet/]
-Pos=192,96
+Pos=192,88
 
 [/Component 7/]
 Reset Value=1000
-Serial Number=59
-Type=Floating Point/Arithmetic/Trigonometric/hyperbolic/asinh(x)
+Serial Number=67
+Type=Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)
 
 [/Component 7/Sheet/]
-Pos=192,144
+Pos=192,128
 
 [/Component 8/]
 Reset Value=-1000
-Serial Number=60
-Type=Floating Point/Arithmetic/Trigonometric/hyperbolic/asinh(x)
+Serial Number=68
+Type=Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)
 
 [/Component 8/Sheet/]
-Pos=192,192
+Pos=192,168
 
 [/Component 9/]
 Serial Number=21
@@ -281,7 +281,7 @@ Time=500000000
 Unit=ms
 
 [/Property/]
-Last Serial Number=65
+Last Serial Number=73
 Sheetsize=1000,504
 Usersize=1000,504
 
