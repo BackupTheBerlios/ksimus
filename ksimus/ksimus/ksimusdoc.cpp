@@ -52,6 +52,9 @@
 
 #include "simulationexecute.h"
 
+#include "ksimiodevice.h"
+#include "ksimiodevicelist.h"
+
 static const char * sDocProperty = "Document Property/";
 static const char * sTiming      = "Timing/";
 static const char * sSheetGrid   = "Sheet Grid/";
@@ -627,6 +630,17 @@ bool KSimusDoc::simulationCheckCirciut()
 	getApp()->getLogList()->info(i18n("Start circuit check ..."));
 	
 	errorCounter = getContainer()->checkCircuit();
+
+	QStringList errorMsg;
+	KSimIoDeviceList::getList()->checkCircuit(this, errorMsg);
+	if (errorMsg.count())
+	{
+		errorCounter += errorMsg.count();
+		for (unsigned int i = 0; i < errorMsg.count(); i++)
+		{
+			getApp()->getLogList()->error(errorMsg[i]);
+		}
+	}
 	
 	if (!errorCounter)
 	{
