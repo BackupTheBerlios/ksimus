@@ -5,7 +5,7 @@ lib_LTLIBRARIES = libksimus-boolean.la
 ## INCLUDES were found outside kdevelop specific part
 
 
-LDFLAGS =   -shared
+LDFLAGS =    -shared
 
 libksimus_boolean_la_METASOURCES = AUTO
 
