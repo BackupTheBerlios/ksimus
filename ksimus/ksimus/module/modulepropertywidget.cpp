@@ -113,6 +113,8 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	// User View Attribute
 	tooltip = i18n("Check the box, if your module should also have a view in user interface (User view only).");
 	m_userViewAtrriute = new QCheckBox(i18n("User Interface"),this);
+	CHECK_PTR(m_userViewAtrriute);
+ 	m_userViewAtrriute->setFocusPolicy(ClickFocus);
   QToolTip::add(m_userViewAtrriute,tooltip);
   QWhatsThis::add(m_userViewAtrriute,tooltip);
   connect(m_userViewAtrriute, SIGNAL(clicked()), SLOT(slotUserViewAtrriuteChanged()));
@@ -122,18 +124,24 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 
 	tooltip = i18n("Stores the absolute path of the pixmap (Image view only).");
   m_storeAbsolute = new QRadioButton(i18n("Absolute path"), m_storeBox);
+	CHECK_PTR(m_storeAbsolute);
+ 	m_storeAbsolute->setFocusPolicy(ClickFocus);
   QToolTip::add(m_storeAbsolute,tooltip);
   QWhatsThis::add(m_storeAbsolute,tooltip);
   connect(m_storeAbsolute, SIGNAL(clicked()), SLOT(slotStoreAbsoluteChanged()));
 
 	tooltip = i18n("Stores the path of the pixmap relative to module file (Image view only).");
   m_storeRelative = new QRadioButton(i18n("Relative path"), m_storeBox);
+	CHECK_PTR(m_storeRelative);
+ 	m_storeRelative->setFocusPolicy(ClickFocus);
   QToolTip::add(m_storeRelative,tooltip);
   QWhatsThis::add(m_storeRelative,tooltip);
   connect(m_storeRelative, SIGNAL(clicked()), SLOT(slotStoreRelativeChanged()));
 
 	tooltip = i18n("Stores the pixmap into the module file (Image view only).");
   m_storeInternal = new QRadioButton(i18n("Internal"), m_storeBox);
+	CHECK_PTR(m_storeInternal);
+ 	m_storeInternal->setFocusPolicy(ClickFocus);
   QToolTip::add(m_storeInternal,tooltip);
   QWhatsThis::add(m_storeInternal,tooltip);
   connect(m_storeInternal, SIGNAL(clicked()), SLOT(slotStoreInternalChanged()));
