@@ -385,7 +385,7 @@ QString WirePropertyInvalidDifferentOutputs::getErrorMsg()
 {
 	if (m_errorMsg.isNull())
 	{
-		m_errorMsg = i18n("The wire is connected to output connectors with different data types.");
+		m_errorMsg = i18n("The wire is connected to output connectors with different data types.\n");
 	}
 
 	return m_errorMsg;
@@ -444,7 +444,7 @@ QString WirePropertyInvalidIncompatibleInputs::getErrorMsg()
 {
 	if (m_errorMsg.isNull())
 	{
-		m_errorMsg = i18n("The wire is connected to input connectors with incompatible data types.");
+		m_errorMsg = i18n("The wire is connected to one or more input connectors with incompatible data types.");
 	}
 
 	return m_errorMsg;
