@@ -805,7 +805,44 @@ void CompContainer::drawSheetView(QPainter * p) const
 	
 	FOR_EACH_COMPVIEW(it, *sheetViews)
 	{
+		p->save();
+		
+		if (it.current()->isNormalRotationEnabled())
+		{
+			double rot = it.current()->getRotation();
+			QRect rect(it.current()->getPlace());
+			
+			if((rot < 45.0) || (rot >= 315.0))
+			{
+				p->translate(rect.left(), rect.top());
+//				p->rotate(0.0);
+			}
+			else if(rot < 135.0)
+			{
+				p->translate(rect.left() + rect.width(), rect.top());
+				p->rotate(90.0);
+			}
+			else if(rot < 225.0)
+			{
+				p->translate(rect.right() + 1, rect.bottom() + 1);
+				p->rotate(180.0);
+			}
+			else
+			{
+				p->translate(rect.left(), rect.top() + rect.height());
+				p->rotate(270.0);
+			}
+		}
+		else
+		{
+			register QPoint pos(it.current()->getPos());
+			p->translate(pos.x(), pos.y());
+			p->rotate(it.current()->getRotation());
+		}
+		
 		it.current()->draw(p);
+		
+		p->restore();
 	}
 	p->restore();
 }
@@ -827,12 +864,24 @@ void CompContainer::drawUserView(QPainter * p) const
 	FOR_EACH_COMPVIEW(it, *userViews)
 	{
 		if (!it.current()->isHidden())
+		{
+			p->save();
+			
+			register QPoint pos(it.current()->getPos());
+			p->translate(pos.x(), pos.y());
+			if (it.current()->isRotationEnabled())
+			{
+				p->rotate(it.current()->getRotation());
+			}
+			
 			it.current()->draw(p);
+			p->restore();
+		}
 	}
 	p->restore();
 }
 
-eHitType CompContainer::isCompViewHit(const QPoint * pos, const CompViewList * viewList)
+eHitType CompContainer::isCompViewHit(const QPoint & pos, const CompViewList * viewList)
 {
 	eHitType hit = NO_HIT;
 
@@ -842,7 +891,7 @@ eHitType CompContainer::isCompViewHit(const QPoint * pos, const CompViewList * v
 	
 	FOR_EACH_COMPVIEW(it, *viewList)
 	{
-		hit = it.current()->isHit(pos->x(),pos->y());
+		hit = it.current()->isHit(pos.x(),pos.y());
 		if (hit != NO_HIT)
 		{
 			hitCompView = it.current();
@@ -1486,10 +1535,6 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 				QPoint pos;
 				pos.setX( a.at(i)->x()*gridX+gridX/2);
 				pos.setY( a.at(i)->y()*gridY+gridY/2);
-/*				if (CONNECTOR_HIT == isCompViewHit(&pos, sheetViews))
-				{
-					wire->addConnector(getFirstConnector());
-				}*/
 				conn = findConnWirePos(pos, conns);
 				if (conn)
 				{
@@ -1530,10 +1575,6 @@ void CompContainer::truncateWire(Wire * wire, int x, int y)
 				QPoint pos;
 				pos.setX( b.at(i)->x()*gridX+gridX/2);
 				pos.setY( b.at(i)->y()*gridY+gridY/2);
-/*				if (CONNECTOR_HIT == isCompViewHit(&pos, sheetViews))
-				{
-					wire->addConnector(getFirstConnector());
-				}*/
 				conn = findConnWirePos(pos, conns);
 				if (conn)
 				{
