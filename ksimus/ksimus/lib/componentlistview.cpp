@@ -20,6 +20,8 @@
 
 
 #include <klocale.h>
+#include <kinstance.h>
+#include <kapp.h>
 
 #include "library.h"
 #include "componentlibrary.h"
@@ -27,6 +29,7 @@
 #include "componentlistview.h"
 #include "componentlistviewitem.h"
 #include "componentdirectory.h"
+#include "packageinfo.h"
 
 #include "ksimdebug.h"
 
@@ -267,49 +270,72 @@ void ComponentListView::slotHideMe()
 
 void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoint & p, int c)
 {
-/*	if (item)
-	{
-		KSIMDEBUG_VAR("item",item->text(0));
-	}
-	else
-	{
-		KSIMDEBUG("item == 0");
-	}*/
-	
-	int foldAll = 0;
-	int unfoldAll = 0;
+	int idxFoldAll = 0;
+	int idxUnfoldAll = 0;
+	int idxHelp = 0;
 	int res;
+	QListViewItem * dirItem;
+	bool isDir;
 
 	if (!item) item = firstChild();
 	
-	if (item->childCount() == 0) item = item->parent();
-		
-	QPopupMenu * menu = new QPopupMenu();
-		
-	if (item == firstChild())
+	if (item->childCount() != 0)
 	{
-		foldAll = menu->insertItem(i18n("&Fold Tree"));
-		unfoldAll = menu->insertItem(i18n("&Unfold Tree"));
+		isDir = true;
+		dirItem = item;
 	}
 	else
 	{
-		foldAll = menu->insertItem(i18n("&Fold %1 Tree").arg(item->text(0)));
-		unfoldAll = menu->insertItem(i18n("&Unfold %1 Tree").arg(item->text(0)));
+		isDir = false;
+		dirItem = item->parent();
+	}
+	
+	QPopupMenu * menu = new QPopupMenu();
+		
+	if (dirItem == firstChild())
+	{
+		idxFoldAll = menu->insertItem(i18n("&Fold Tree"));
+		idxUnfoldAll = menu->insertItem(i18n("&Unfold Tree"));
+	}
+	else
+	{
+		idxFoldAll = menu->insertItem(i18n("&Fold %1 Tree").arg(dirItem->text(0)));
+		idxUnfoldAll = menu->insertItem(i18n("&Unfold %1 Tree").arg(dirItem->text(0)));
 	}	
 	menu->insertSeparator();
 	menu->insertItem(i18n("&Hide Component Supplier"),this, SLOT(slotHideMe()));
 	
+  if (!isDir)
+  {
+		ComponentListViewItem * clvi = (ComponentListViewItem *)item;
+		if ((clvi->getComponentInfo() != 0) && (clvi->getComponentInfo()->getHTMLDescr() != QString::null))
+		{
+			menu->insertSeparator();
+			idxHelp = menu->insertItem(i18n("&Help %1").arg(clvi->getComponentInfo()->getName()));
+		}
+	}
+
   res = menu->exec(QCursor::pos());
 
 
-  if (res == foldAll)
+  if (res == idxFoldAll)
   {
-		foldRecursive(item, true);
+		foldRecursive(dirItem, true);
 	}
-
-  if (res == unfoldAll)
+  else if (res == idxUnfoldAll)
   {
-		foldRecursive(item, false);
+		foldRecursive(dirItem, false);
+	}
+  else if (res == idxHelp)
+  {
+		ComponentListViewItem * clvi = (ComponentListViewItem *)item;
+		const ComponentInfo * ci = clvi->getComponentInfo();
+		const PackageInfo * pi = g_library->getComponentLib()->getPackageInfo(ci->getLibName());
+			
+		if (pi)
+		{
+			kapp->invokeHelp(ci->getHTMLDescr(), pi->getInstance()->instanceName());
+		}
 	}
 
 	delete menu;
