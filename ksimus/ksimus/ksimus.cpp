@@ -56,6 +56,7 @@
 #include "module.h"
 #include "loglist.h"
 #include "loglistitem.h"
+#include "loglistdialogwidget.h"
 #include "ksimpackagefilewidget.h"
 #include "mapsizeswidget.h"
 #include "watchwidget.h"
@@ -258,6 +259,7 @@ void KSimusApp::initActions()
 	settingGrid = new KAction(i18n("&Grid"), 0, this, SLOT(slotSettingGrid()), actionCollection(), "setting_grid");
 	settingPackageFiles  = new KAction(i18n("&Package Files"), 0, this, SLOT(slotSettingPackageFiles()), actionCollection(), "setting_packageFiles");
 	settingWatchWidget  = new KAction(i18n("&Watch"), 0, this, SLOT(slotSettingWatchWidget()), actionCollection(), "setting_watchWidget");
+	settingLogWidget  = new KAction(i18n("&Log Window"), 0, this, SLOT(slotSettingLogWidget()), actionCollection(), "setting_logWidget");
 	
 	
 	executeReset = new KAction(i18n("&Reset"), 0, this, SLOT(slotExecuteReset()), actionCollection(), "execute_reset");
@@ -305,6 +307,7 @@ void KSimusApp::initActions()
 	settingGrid->setToolTip(i18n("Setup grid"));
 	settingPackageFiles->setToolTip(i18n("Select packages"));
 	settingWatchWidget->setToolTip(i18n("General watch settings"));
+	settingLogWidget->setToolTip(i18n("Log Window Properties"));
 
 	connect(actionCollection(),SIGNAL(actionStatusText(const QString &)),SLOT(slotStatusHelpMsg(const QString &)));
 	actionCollection()->setHighlightingEnabled(true);
@@ -458,6 +461,9 @@ void KSimusApp::saveOptions()
 	config->writeEntry("Trace Size",getWatchWidget()->getTraceSize());
 	config->writeEntry("Rise by Add",getWatchWidget()->isRiseByAdd());
 	
+	// Log options
+	config->setGroup("Log Options");
+	getLogList()->save(*config);
 }
 
 
@@ -506,6 +512,9 @@ void KSimusApp::readOptions()
 		getWatchWidget()->setRiseByAdd(config->readBoolEntry("Rise by Add"));
 	}
 
+	// Log options
+	config->setGroup("Log Options");
+	getLogList()->load(*config);
 }
 
 void KSimusApp::saveProperties(KConfig *_cfg)
@@ -1052,6 +1061,31 @@ void KSimusApp::slotSettingWatchWidget()
 	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
 	connect(dia, SIGNAL(cancelClicked()), wid, SLOT(slotCancel()));
 //	connect(wid, SIGNAL(signalChangeData()), dia, SLOT(slotDataChanged()));
+	dia->exec();
+
+
+	delete dia;
+	slotStatusMsg(i18n("Ready."));
+}
+
+
+void KSimusApp::slotSettingLogWidget()
+{
+	slotStatusMsg(i18n("Setup log window..."));
+
+	KDialogBase * dia;
+	dia = new KDialogBase(KDialogBase::TreeList,
+	                      i18n("Log Window Properties"),
+	                      KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
+	                      KDialogBase::Ok,
+	                      this);
+	QVBox * page;
+	LogListDialogWidget * wid;
+	page = dia->addVBoxPage(i18n("Log Window Properties"));
+	wid = new LogListDialogWidget(getLogList(), page, "log property");
+	connect(dia, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
+	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
+	connect(dia, SIGNAL(cancelClicked()), wid, SLOT(slotCancel()));
 	dia->exec();
 
 

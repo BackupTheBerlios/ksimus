@@ -216,6 +216,7 @@ public slots:
 	void slotSettingGrid();
 	void slotSettingPackageFiles();
 	void slotSettingWatchWidget();
+	void slotSettingLogWidget();
 
 	/** toggles the statusbar
 	 */
@@ -299,6 +300,7 @@ private:
 	KAction* settingGrid;
 	KAction* settingPackageFiles;
 	KAction* settingWatchWidget;
+	KAction* settingLogWidget;
 	
 	KAction* executeReset;
 	KAction* executeStart;
