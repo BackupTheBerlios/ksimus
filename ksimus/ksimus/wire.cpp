@@ -572,9 +572,9 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 				if (outputType != it.current()->getConnInfo()->getDataType())
 				{
 					// Different
-					KSIMDEBUG("Different outputs");
+/*					KSIMDEBUG("Different outputs");
 					KSIMDEBUG_VAR("",outputType);
-					KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());
+					KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());*/
 					
 					return getWirePropertyInvalidDifferentOutputsInfo();
 				}
@@ -595,14 +595,13 @@ const WirePropertyInfo * Wire::findWirePropertyInfo(const ConnectorList * list)
 	{
 		if (it.current()->isInput())
 		{
-			// Only same typedata at the moment !!!
 			// Compare data types
 			if (outputType != it.current()->getConnInfo()->getDataType())
 			{
 				// Different
-				KSIMDEBUG("Different dataTypes");
+/*				KSIMDEBUG("Different dataTypes");
 				KSIMDEBUG_VAR("",outputType);
-				KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());
+				KSIMDEBUG_VAR("",it.current()->getConnInfo()->getDataType());*/
 				
 				if (outputFound)
 				{
