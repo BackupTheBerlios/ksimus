@@ -109,9 +109,11 @@ void BooleanLed::calculate()
 {
 	ComponentStyle::calculate();
 
-	if(m_onState != m_inConn->getInput())
+	bool in = m_inConn->getInput();
+
+	if(m_onState != in)
 	{
-		m_onState = m_inConn->getInput();
+		m_onState = in;
 		if (getSheetView())
 		{
 			((BooleanLedView*)getSheetView())->setViewChanged(true);
