@@ -38,7 +38,7 @@ project_type=kpart_plugin
 sgml_file=/localhome/lokal/boolean/doc/en/index.docbook
 short_info=
 sub_dir=boolean/
-version=0.1.1
+version=0.3.1.cvs
 version_control=None
 workspace=1
 
@@ -95,7 +95,7 @@ install_location=
 type=DATA
 
 [boolean/Makefile.am]
-files=boolean/boolean.cpp,boolean/boolean.h,boolean/lo16-app-boolean.png,boolean/booleanxor.cpp,boolean/booleanxor.h,boolean/booleanor.cpp,boolean/booleanor.h,boolean/boolean2in1out.cpp,boolean/boolean2in1out.h,boolean/rsflipflop.cpp,boolean/rsflipflop.h,boolean/flipflopbase.cpp,boolean/flipflopbase.h,boolean/jkflipflop.cpp,boolean/jkflipflop.h
+files=boolean/boolean.cpp,boolean/boolean.h,boolean/lo16-app-boolean.png,boolean/booleanxor.cpp,boolean/booleanxor.h,boolean/booleanor.cpp,boolean/booleanor.h,boolean/boolean2in1out.cpp,boolean/boolean2in1out.h,boolean/rsflipflop.cpp,boolean/rsflipflop.h,boolean/flipflopbase.cpp,boolean/flipflopbase.h,boolean/jkflipflop.cpp,boolean/jkflipflop.h,boolean/dflipflop.cpp,boolean/dflipflop.h,boolean/monoflop.cpp,boolean/monoflop.h
 sub_dirs=
 type=shared_library
 
@@ -147,6 +147,18 @@ install=false
 install_location=
 type=HEADER
 
+[boolean/dflipflop.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[boolean/dflipflop.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [boolean/flipflopbase.cpp]
 dist=true
 install=false
@@ -176,6 +188,18 @@ dist=true
 install=true
 install_location=$$(kde_icondir)/locolor/16x16/apps/boolean.png
 type=DATA
+
+[boolean/monoflop.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[boolean/monoflop.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 
 [boolean/rsflipflop.cpp]
 dist=true
