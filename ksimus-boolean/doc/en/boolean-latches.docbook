@@ -10,6 +10,7 @@
 <member>&BooleanJKFF;</member>
 <member>&BooleanDLatch;</member>
 <member>&BooleanMutliDLatch;</member>
+<member>&BooleanMonoFlop;</member>
 </simplelist>
 
 
