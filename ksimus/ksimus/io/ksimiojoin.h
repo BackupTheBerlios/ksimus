@@ -87,7 +87,7 @@ public:
 	virtual void reset();
 
 	/** executes the join */
-	virtual void calculate() const = 0;
+	virtual void calculate() const;
 
 	unsigned int getSerialID() const { return m_serialID; };
 	void setSerialID(unsigned int serial) { m_serialID = serial; };

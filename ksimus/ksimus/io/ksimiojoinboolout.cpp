@@ -84,6 +84,8 @@ ConnectorBase * KSimIoJoinBoolOut::createConnector()
 
 void KSimIoJoinBoolOut::calculate() const
 {
+	KSimIoJoin::calculate();
+	
 	bool value = ((ConnectorBoolIn *)getConnector())->getInput();
 
 	getDevice()->setIO(getPin()->getPinID(), &value);

@@ -111,7 +111,7 @@ void ExtConnBoolIn::calculate()
 	if (!isRecursionLocked())
 	{
 		setRecursionLocked(true);
-		//ExternalConnector::calculate();
+		ExternalConnector::calculate();
 	
 		out->setOutput(in->getInput(), false);
 		if (out->getWireProperty())

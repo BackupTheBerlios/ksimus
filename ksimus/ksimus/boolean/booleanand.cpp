@@ -112,7 +112,7 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void BooleanAnd::calculate()
 {
-//	BooleanXIn1Out::calculate();
+	BooleanXIn1Out::calculate();
 	
 	bool result = true;
 	

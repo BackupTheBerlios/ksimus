@@ -232,6 +232,10 @@ QString KSimIoJoin::getDeviceName() const
 	return m_p->deviceName;
 }
 
+void KSimIoJoin::calculate() const
+{
+}
+
 void KSimIoJoin::reset()
 {
 	ASSERT(m_pin != (const KSimIoPin*) 0);
