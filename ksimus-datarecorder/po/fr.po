@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 19:52+0200\n"
+"POT-Creation-Date: 2003-03-02 17:43+0100\n"
 "PO-Revision-Date: 2002-10-09 10:34GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -139,7 +139,9 @@ msgstr "Ajouter les données au fichier existant"
 msgid ""
 "If checked an exisiting file will not be deleted before a new simulations is "
 "started."
-msgstr "Si cette option est activée, un fichier existant ne sera pas supprimé avant le démarrage de la simulation."
+msgstr ""
+"Si cette option est activée, un fichier existant ne sera pas supprimé "
+"avant le démarrage de la simulation."
 
 #: textrec.cpp:939
 msgid "Add date and time at the top"
@@ -149,7 +151,9 @@ msgstr "Ajouter la date et l'heure au début"
 msgid ""
 "If checked the date and time of the simulation start is added top of the new "
 "data."
-msgstr "Si cette option est activée, la date et l'heure du début de la simulation seront ajoutés au début des nouvelles données."
+msgstr ""
+"Si cette option est activée, la date et l'heure du début de la simulation "
+"seront ajoutés au début des nouvelles données."
 
 #: textrec.cpp:946
 msgid "Add the connector names at the top"
@@ -157,7 +161,9 @@ msgstr "Ajouter le nom des connecteurs au début"
 
 #: textrec.cpp:949
 msgid "If checked the the connector names are added top of the new data."
-msgstr "Si cette option est activée, le nom des connecteurs sera ajouté au début des nouvelles données."
+msgstr ""
+"Si cette option est activée, le nom des connecteurs sera ajouté au début "
+"des nouvelles données."
 
 #: textrec.cpp:954
 msgid "Add line numbers"
@@ -165,7 +171,9 @@ msgstr "Ajouter les numéros de ligne"
 
 #: textrec.cpp:957
 msgid "If checked the lines in the log file are numbered."
-msgstr "Si cette option est activée, les lignes dans le fichier de log seront numérotées."
+msgstr ""
+"Si cette option est activée, les lignes dans le fichier de log seront "
+"numérotées."
 
 #: textrec.cpp:961
 msgid "Add time stamp"
@@ -175,7 +183,9 @@ msgstr "Horodatage"
 msgid ""
 "If checked a time stamp is added in front of each line (after the optional "
 "line number)."
-msgstr "Si cette option est activée, un horodatage sera ajouté au début de chaque ligne (après le numéro de ligne optionnel)."
+msgstr ""
+"Si cette option est activée, un horodatage sera ajouté au début de chaque "
+"ligne (après le numéro de ligne optionnel)."
 
 #: zoomwidget.cpp:219
 msgid ""
@@ -189,43 +199,43 @@ msgid ""
 "%1 s/div"
 msgstr "%1 s/div"
 
-#: datarecorder.cpp:232
+#: datarecorder.cpp:236
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
 msgstr "Enregistreur de données"
 
-#: datarecorder.cpp:234
+#: datarecorder.cpp:238
 msgid ""
 "_: DataRecorder-Component\n"
 "Recorder/Data Recorder"
 msgstr "Enregistreur/Enregistreur de données"
 
-#: datarecorder.cpp:589 datarecorderview.cpp:88
+#: datarecorder.cpp:595 datarecorderview.cpp:88
 msgid ""
 "_: DataRecorder\n"
 "&Open graph"
 msgstr "&Ouvrir le graphe"
 
-#: datarecorder.cpp:590
+#: datarecorder.cpp:596
 msgid ""
 "_: DataRecorder\n"
 "Add &boolean connector"
 msgstr "Ajouter un connecteur &logique"
 
-#: datarecorder.cpp:591
+#: datarecorder.cpp:597
 msgid ""
 "_: DataRecorder\n"
 "Add &floating point connector"
 msgstr "Ajouter un connecteur virgule &flottante"
 
-#: datarecorder.cpp:614 datarecorder.cpp:625
+#: datarecorder.cpp:620 datarecorder.cpp:631
 msgid ""
 "_: DataRecorder\n"
 "Add channel"
 msgstr "Ajout d'un canal"
 
-#: datarecorder.cpp:641
+#: datarecorder.cpp:647
 msgid ""
 "_: DataRecorder\n"
 "Remove channel"
@@ -242,4 +252,3 @@ msgid ""
 "_: DataRecorder\n"
 "&Zoom:"
 msgstr "&Zoom :"
-

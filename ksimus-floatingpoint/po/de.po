@@ -1,18 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of de.po to Deutsch
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Rasmus Diekenbrock <ksimus@gmx.de>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 19:48+0200\n"
-"PO-Revision-Date: 2002-10-01 19:52+0200\n"
-"Last-Translator: \n"
-"Language-Team:  <de@li.org>\n"
+"Project-Id-Version: de\n"
+"POT-Creation-Date: 2003-03-02 17:38+0100\n"
+"PO-Revision-Date: 2003-03-02 17:40+0100\n"
+"Last-Translator: Rasmus Diekenbrock <ksimus@gmx.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0\n"
 
 #: random.cpp:59
 msgid ""
@@ -26,7 +26,7 @@ msgid ""
 "Floating Point/Random/Random"
 msgstr "Floating Point/Random/Random"
 
-#: convertboolfloat.cpp:98 convertfloatbool.cpp:89 extconnfloatin.cpp:57
+#: convertboolfloat.cpp:98 convertfloatbool.cpp:89 extconnfloatin.cpp:75
 #: extconnfloatout.cpp:57 float1out.cpp:58 floatstyle1out.cpp:58 random.cpp:98
 msgid ""
 "_: FloatingPoint-Connector\n"
@@ -105,11 +105,14 @@ msgid ""
 "individual seed after each reset of the circuit (Range: 1 - "
 "%1).</td></tr></table>"
 msgstr ""
-"<p>Geben Sie hier an ob Sie einen individuellen oder zufälligen Initialisierungswert verwenden möchten.Set an individual or a random seed here.</p> "
-"<table><tr><td><b>Zufälliger Initialisierungswert</b></td> "
-"<td> Der Zufallszahlengenerator wird bei jedem Reset der Schaltung mit einem zufälligen Initialisierungswert initalisiert.</td></tr> "
-"<tr><td><b>Individueller Initialisierungswert</b></td> "
-"<td> Der Zufallszahlengenerator wird bei jedem Reset der Schaltung mit einem einstellbaren Initialisierungswert initalisiert (Bereich: 1 - "
+"<p>Geben Sie hier an ob Sie einen individuellen oder zufälligen "
+"Initialisierungswert verwenden möchten.Set an individual or a random seed "
+"here.</p> <table><tr><td><b>Zufälliger Initialisierungswert</b></td> <td> "
+"Der Zufallszahlengenerator wird bei jedem Reset der Schaltung mit einem "
+"zufälligen Initialisierungswert initalisiert.</td></tr> "
+"<tr><td><b>Individueller Initialisierungswert</b></td> <td> Der "
+"Zufallszahlengenerator wird bei jedem Reset der Schaltung mit einem "
+"einstellbaren Initialisierungswert initalisiert (Bereich: 1 - "
 "%1).</td></tr></table>"
 
 #: floatsin.cpp:47
@@ -173,7 +176,7 @@ msgid ""
 msgstr "Floating Point/Output/Label"
 
 #: convertboolfloat.cpp:93 convertfloatbool.cpp:84 delay.cpp:81
-#: extconnfloatin.cpp:64 extconnfloatout.cpp:64 float1in1out.cpp:50
+#: extconnfloatin.cpp:82 extconnfloatout.cpp:64 float1in1out.cpp:50
 #: floatlineoutput.cpp:73
 msgid ""
 "_: FloatingPoint-Connector\n"
@@ -756,25 +759,25 @@ msgid ""
 "Converter/Boolean to Float"
 msgstr "Converter/Boolean to Float"
 
-#: convertboolfloat.cpp:232
+#: convertboolfloat.cpp:236
 msgid ""
 "_: FloatingPoint\n"
 "True Value: "
 msgstr "Wahr-Wert: "
 
-#: convertboolfloat.cpp:237
+#: convertboolfloat.cpp:241
 msgid ""
 "_: FloatingPoint\n"
 "Sets the value which represents the true level."
 msgstr "Setzt den Wert der dem Wahr-Pegel entspricht."
 
-#: convertboolfloat.cpp:242
+#: convertboolfloat.cpp:246
 msgid ""
 "_: FloatingPoint\n"
 "False Value: "
 msgstr "Falsch-Wert: "
 
-#: convertboolfloat.cpp:247
+#: convertboolfloat.cpp:251
 msgid ""
 "_: FloatingPoint\n"
 "Sets the value which represents the false level."
@@ -943,49 +946,49 @@ msgid ""
 "Converter/Float to Boolean"
 msgstr "Converter/Float to Boolean"
 
-#: convertfloatbool.cpp:255
+#: convertfloatbool.cpp:260
 msgid ""
 "_: FloatingPoint\n"
 "True Threshold: "
 msgstr "Wahr-Schwellwert: "
 
-#: convertfloatbool.cpp:260
+#: convertfloatbool.cpp:265
 msgid ""
 "_: FloatingPoint\n"
 "Sets the threshold where the converter switch to true."
 msgstr "Setzt die Schwellwert an der der Konverter auf Wahr schaltet."
 
-#: convertfloatbool.cpp:267
+#: convertfloatbool.cpp:272
 msgid ""
 "_: FloatingPoint\n"
 "False Threshold: "
 msgstr "Falsch-Schwellwert: "
 
-#: convertfloatbool.cpp:272
+#: convertfloatbool.cpp:277
 msgid ""
 "_: FloatingPoint\n"
 "Sets the threshold where the converter switch to false."
 msgstr "Setzt den Schwellwert an der der Konverter auf Falsch schaltet."
 
-#: convertfloatbool.cpp:277
+#: convertfloatbool.cpp:282
 msgid ""
 "_: FloatingPoint\n"
 "Medium Threshold: "
 msgstr "Mittlerer Schwellwert: "
 
-#: convertfloatbool.cpp:282
+#: convertfloatbool.cpp:287
 msgid ""
 "_: FloatingPoint\n"
 "Shows the medium value between 'False Threshold' and 'True Threshold'."
 msgstr "Zeigt den Mittelwert zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
 
-#: convertfloatbool.cpp:286
+#: convertfloatbool.cpp:291
 msgid ""
 "_: FloatingPoint\n"
 "Hysteresis: "
 msgstr "Hysterese: "
 
-#: convertfloatbool.cpp:291
+#: convertfloatbool.cpp:296
 msgid ""
 "_: FloatingPoint\n"
 "Shows the hysteresis between 'False Threshold' and 'True Threshold'."
@@ -1075,17 +1078,32 @@ msgid ""
 "External Connector/Floating Point Output"
 msgstr "External Connector/Floating Point Output"
 
-#: extconnfloatin.cpp:36
+#: extconnfloatin.cpp:53
 msgid ""
 "_: Component\n"
 "External Connector Floating Point Input"
 msgstr "Externer Connector Gleitkomma Eingang"
 
-#: extconnfloatin.cpp:38
+#: extconnfloatin.cpp:55
 msgid ""
 "_: Component\n"
 "External Connector/Floating Point Input"
 msgstr "External Connector/Floating Point Input"
+
+#: extconnfloatin.cpp:163
+msgid ""
+"_: FloatingPoint\n"
+"Default value:"
+msgstr "Defaultwert:"
+
+#: extconnfloatin.cpp:168
+msgid ""
+"_: FloatingPoint\n"
+"Sets the value state of the external connector.\n"
+"This value is used if the external connector is not connected."
+msgstr ""
+"Setzt den Defaultwert des externen Anschlusses.\n"
+"Der Wert wird verwendet wenn der externe Anschluß nicht verbunden ist."
 
 #: floatlatch.cpp:67
 msgid ""

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 18:53+0200\n"
+"POT-Creation-Date: 2003-03-02 17:23+0100\n"
 "PO-Revision-Date: 2002-10-11 01:20+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -13,6 +13,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
+
+#: convertbool2booltristate.cpp:50
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean to Boolean Tristate"
+msgstr "Constante logique vraie"
+
+#: convertbool2booltristate.cpp:52
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Converter/Boolean to Boolean Tristate"
+msgstr "Constante logique vraie"
+
+#: convertbool2booltristate.cpp:73 convertbooltristate2bool.cpp:74
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"Input"
+msgstr "Entrée %1"
+
+#: convertbool2booltristate.cpp:80
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"Enable"
+msgstr "Enable"
+
+#: booltristate1out.cpp:62 convertbool2booltristate.cpp:86
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"Output"
+msgstr "Sortie %1"
 
 #: dflipflop.cpp:58
 msgid ""
@@ -50,6 +85,34 @@ msgid ""
 "_: Boolean\n"
 "Set input:"
 msgstr "Entrée Set :"
+
+#: convertbooltristate2bool.cpp:47
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean Tristate to Boolean"
+msgstr "Constante logique fausse"
+
+#: convertbooltristate2bool.cpp:49
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Converter/Boolean Tristate to Boolean"
+msgstr "Constante logique fausse"
+
+#: convertbooltristate2bool.cpp:81
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"Data Output"
+msgstr "Sortie %1"
+
+#: convertbooltristate2bool.cpp:89
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"Wire active"
+msgstr "Adresse %1"
 
 #: booleanconstant.cpp:46
 msgid ""
@@ -111,7 +174,7 @@ msgid ""
 "Set Input"
 msgstr "Entrée Set"
 
-#: flipflopbase.cpp:147 monoflop.cpp:268
+#: flipflopbase.cpp:147 monoflop.cpp:266
 msgid ""
 "_: Boolean\n"
 "Reset Input"
@@ -391,47 +454,95 @@ msgid ""
 "Trigger"
 msgstr "Trigger"
 
-#: monoflop.cpp:267
+#: monoflop.cpp:265
 msgid ""
 "_: Boolean\n"
 "Trigger Input"
 msgstr "Entrée trigger"
 
-#: monoflop.cpp:274
+#: monoflop.cpp:272
 msgid ""
 "_: Boolean\n"
 "Retrigger:"
 msgstr "Retrigger :"
 
-#: monoflop.cpp:280
+#: monoflop.cpp:278
 msgid ""
 "_: Boolean\n"
 "On"
 msgstr "Activé"
 
-#: monoflop.cpp:281
+#: monoflop.cpp:279
 msgid ""
 "_: Boolean\n"
 "Off"
 msgstr "Désactivé"
 
-#: monoflop.cpp:283
+#: monoflop.cpp:281
 msgid ""
 "_: Boolean\n"
 "Set here the retrigger mode."
 msgstr "Activez ici le mode retrigger."
 
-#: monoflop.cpp:289
+#: monoflop.cpp:287
 msgid ""
 "_: Boolean\n"
 "Time:"
 msgstr "Durée :"
 
-#: monoflop.cpp:295
+#: monoflop.cpp:293
 msgid ""
 "_: Boolean\n"
 "Set here the duration."
 msgstr "Choisissez ici la durée."
+
+#: extconnbooltristate.cpp:138
+msgid "Default State:"
+msgstr ""
+
+#: extconnbooltristate.cpp:144
+msgid ""
+"Sets the default state of the external connector.\n"
+"This state is used if the external connector is not connected."
+msgstr ""
+
+#: extconnbooltristate.cpp:190
+msgid ""
+"_: Component\n"
+"External Connector Boolean Tristate Input"
+msgstr ""
+
+#: extconnbooltristate.cpp:192
+msgid ""
+"_: Component\n"
+"External Connector/Bool Tristate Input"
+msgstr ""
+
+#: extconnbooltristate.cpp:210 extconnbooltristate.cpp:238
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"Internal"
+msgstr "Entrée %1"
+
+#: extconnbooltristate.cpp:217 extconnbooltristate.cpp:246
+#, fuzzy
+msgid ""
+"_: Connector\n"
+"External"
+msgstr "Enable"
+
+#: extconnbooltristate.cpp:264
+msgid ""
+"_: Component\n"
+"External Connector Boolean Tristate Output"
+msgstr ""
+
+#: extconnbooltristate.cpp:266
+msgid ""
+"_: Component\n"
+"External Connector/Bool Tristate Output"
+msgstr ""
 
 #: delay.cpp:54
 msgid ""
@@ -445,7 +556,7 @@ msgid ""
 "Boolean/Timing/Delay"
 msgstr "Logique/Temps/Retard"
 
-#: delay.cpp:80 demultiplexer.cpp:116
+#: delay.cpp:80 demultiplexer.cpp:116 inverter.cpp:83
 msgid ""
 "_: Boolean-Connector\n"
 "Input"
@@ -515,6 +626,58 @@ msgid ""
 "Boolean/Gates/NOR"
 msgstr "Logique/Porte/NON-OU"
 
+#: booltristateand.cpp:47
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean AND with Tristate output"
+msgstr "Constante logique vraie"
+
+#: booltristateand.cpp:49
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/AND with Tristate output"
+msgstr "Logique/Porte/NON-OU"
+
+#: booltristateand.cpp:60
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean NAND with Tristate output"
+msgstr "Constante logique vraie"
+
+#: booltristateand.cpp:62
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/NAND with Tristate output"
+msgstr "Logique/Porte/NON-OU"
+
+#: booltristate1out.cpp:186
+#, fuzzy
+msgid "Reset State: "
+msgstr "État initial :"
+
+#: booltristate1out.cpp:192
+#, fuzzy
+msgid "Changes the reset state of the component to true, false or inactive."
+msgstr "Changez l'état initial des canaux ici."
+
+#: booltristate1out.cpp:234
+#, fuzzy
+msgid ""
+"_: Boolean-Connector\n"
+"Enable Output"
+msgstr "Enable Latch Output"
+
+#: booltristate1out.cpp:316 multidlatch.cpp:110
+#, c-format
+msgid ""
+"_: Boolean-Connector\n"
+"Input %1"
+msgstr "Entrée %1"
+
 #: multidlatch.cpp:68
 msgid ""
 "_: Component\n"
@@ -526,13 +689,6 @@ msgid ""
 "_: Component\n"
 "Boolean/Flip Flop/Multiple D Latches"
 msgstr "Logique/Bascule/Registre"
-
-#: multidlatch.cpp:110
-#, c-format
-msgid ""
-"_: Boolean-Connector\n"
-"Input %1"
-msgstr "Entrée %1"
 
 #: multidlatch.cpp:206
 msgid ""
@@ -735,3 +891,86 @@ msgid ""
 "Output %1"
 msgstr "Sortie %1"
 
+#: inverter.cpp:49
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Inverter"
+msgstr "Retard"
+
+#: inverter.cpp:51
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Gates/Inverter"
+msgstr "Logique/Porte/OU"
+
+#: inverter.cpp:62
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Identity"
+msgstr "Retard"
+
+#: inverter.cpp:64
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Gates/Identity"
+msgstr "Logique/Porte/OU"
+
+#: booltristatexor.cpp:47
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean XOR with Tristate output"
+msgstr "Constante logique vraie"
+
+#: booltristatexor.cpp:49
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/XOR with Tristate output"
+msgstr "Logique/Porte/OU exclusif"
+
+#: booltristatexor.cpp:60
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean XNOR with Tristate output"
+msgstr "NON-OU logique"
+
+#: booltristatexor.cpp:62
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/XNOR with Tristate output"
+msgstr "Logique/Porte/NON-OU exclusif"
+
+#: booltristateor.cpp:47
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean OR with Tristate output"
+msgstr "Constante logique vraie"
+
+#: booltristateor.cpp:49
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/OR with Tristate output"
+msgstr "Logique/Porte/OU"
+
+#: booltristateor.cpp:60
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean NOR with Tristate output"
+msgstr "NON-OU logique"
+
+#: booltristateor.cpp:62
+#, fuzzy
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/NOR with Tristate output"
+msgstr "Logique/Porte/NON-OU"

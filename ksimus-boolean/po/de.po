@@ -1,18 +1,48 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of de.po to Deutsch
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Rasmus Diekenbrock <ksimus@gmx.de>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 18:53+0200\n"
-"PO-Revision-Date: 2002-10-09 23:47+0200\n"
-"Last-Translator: \n"
-"Language-Team:  <de@li.org>\n"
+"Project-Id-Version: de\n"
+"POT-Creation-Date: 2003-03-02 17:37+0100\n"
+"PO-Revision-Date: 2003-03-02 17:25+0100\n"
+"Last-Translator: Rasmus Diekenbrock <ksimus@gmx.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0\n"
+
+#: convertbool2booltristate.cpp:50
+msgid ""
+"_: Component\n"
+"Boolean to Boolean Tristate"
+msgstr "Boolean to Boolean Tristate"
+
+#: convertbool2booltristate.cpp:52
+msgid ""
+"_: Component\n"
+"Converter/Boolean to Boolean Tristate"
+msgstr "Converter/Boolean to Boolean Tristate"
+
+#: convertbool2booltristate.cpp:73 convertbooltristate2bool.cpp:74
+msgid ""
+"_: Connector\n"
+"Input"
+msgstr "Input"
+
+#: convertbool2booltristate.cpp:80
+msgid ""
+"_: Connector\n"
+"Enable"
+msgstr "Enable"
+
+#: booltristate1out.cpp:62 convertbool2booltristate.cpp:86
+msgid ""
+"_: Connector\n"
+"Output"
+msgstr "Output"
 
 #: dflipflop.cpp:58
 msgid ""
@@ -50,6 +80,30 @@ msgid ""
 "_: Boolean\n"
 "Set input:"
 msgstr "Set input:"
+
+#: convertbooltristate2bool.cpp:47
+msgid ""
+"_: Component\n"
+"Boolean Tristate to Boolean"
+msgstr "Boolean Tristate to Boolean"
+
+#: convertbooltristate2bool.cpp:49
+msgid ""
+"_: Component\n"
+"Converter/Boolean Tristate to Boolean"
+msgstr "Converter/Boolean Tristate to Boolean"
+
+#: convertbooltristate2bool.cpp:81
+msgid ""
+"_: Connector\n"
+"Data Output"
+msgstr "Data Output"
+
+#: convertbooltristate2bool.cpp:89
+msgid ""
+"_: Connector\n"
+"Wire active"
+msgstr "Wire active"
 
 #: booleanconstant.cpp:46
 msgid ""
@@ -111,7 +165,7 @@ msgid ""
 "Set Input"
 msgstr "Set Input"
 
-#: flipflopbase.cpp:147 monoflop.cpp:268
+#: flipflopbase.cpp:147 monoflop.cpp:266
 msgid ""
 "_: Boolean\n"
 "Reset Input"
@@ -391,47 +445,95 @@ msgid ""
 "Trigger"
 msgstr "Trigger"
 
-#: monoflop.cpp:267
+#: monoflop.cpp:265
 msgid ""
 "_: Boolean\n"
 "Trigger Input"
 msgstr "Triggereingang"
 
-#: monoflop.cpp:274
+#: monoflop.cpp:272
 msgid ""
 "_: Boolean\n"
 "Retrigger:"
 msgstr "Retrigger:"
 
-#: monoflop.cpp:280
+#: monoflop.cpp:278
 msgid ""
 "_: Boolean\n"
 "On"
 msgstr "Ein"
 
-#: monoflop.cpp:281
+#: monoflop.cpp:279
 msgid ""
 "_: Boolean\n"
 "Off"
 msgstr "Aus"
 
-#: monoflop.cpp:283
+#: monoflop.cpp:281
 msgid ""
 "_: Boolean\n"
 "Set here the retrigger mode."
 msgstr "Setzt den Retrigger-Modus."
 
-#: monoflop.cpp:289
+#: monoflop.cpp:287
 msgid ""
 "_: Boolean\n"
 "Time:"
 msgstr "Zeit:"
 
-#: monoflop.cpp:295
+#: monoflop.cpp:293
 msgid ""
 "_: Boolean\n"
 "Set here the duration."
 msgstr "Setzt die Pulsdauer."
+
+#: extconnbooltristate.cpp:138
+msgid "Default State:"
+msgstr "Defaultzustand:"
+
+#: extconnbooltristate.cpp:144
+msgid ""
+"Sets the default state of the external connector.\n"
+"This state is used if the external connector is not connected."
+msgstr ""
+"Setzt den Defaultzustand des externen Anschlusses.\n"
+"Der Zustand wird verwendet wenn der externe Anschluß nicht verbunden ist."
+
+#: extconnbooltristate.cpp:190
+msgid ""
+"_: Component\n"
+"External Connector Boolean Tristate Input"
+msgstr "External Connector Boolean Tristate Input"
+
+#: extconnbooltristate.cpp:192
+msgid ""
+"_: Component\n"
+"External Connector/Bool Tristate Input"
+msgstr "External Connector/Bool Tristate Input"
+
+#: extconnbooltristate.cpp:210 extconnbooltristate.cpp:238
+msgid ""
+"_: Connector\n"
+"Internal"
+msgstr "Internal"
+
+#: extconnbooltristate.cpp:217 extconnbooltristate.cpp:246
+msgid ""
+"_: Connector\n"
+"External"
+msgstr "External"
+
+#: extconnbooltristate.cpp:264
+msgid ""
+"_: Component\n"
+"External Connector Boolean Tristate Output"
+msgstr "External Connector Boolean Tristate Output"
+
+#: extconnbooltristate.cpp:266
+msgid ""
+"_: Component\n"
+"External Connector/Bool Tristate Output"
+msgstr "External Connector/Bool Tristate Output"
 
 #: delay.cpp:54
 msgid ""
@@ -445,7 +547,7 @@ msgid ""
 "Boolean/Timing/Delay"
 msgstr "Boolean/Timing/Delay"
 
-#: delay.cpp:80 demultiplexer.cpp:116
+#: delay.cpp:80 demultiplexer.cpp:116 inverter.cpp:83
 msgid ""
 "_: Boolean-Connector\n"
 "Input"
@@ -515,6 +617,52 @@ msgid ""
 "Boolean/Gates/NOR"
 msgstr "Boolean/Gates/NOR"
 
+#: booltristateand.cpp:47
+msgid ""
+"_: Component\n"
+"Boolean AND with Tristate output"
+msgstr "Boolean AND with Tristate output"
+
+#: booltristateand.cpp:49
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/AND with Tristate output"
+msgstr "Boolean/Tristate/Gates/AND with Tristate output"
+
+#: booltristateand.cpp:60
+msgid ""
+"_: Component\n"
+"Boolean NAND with Tristate output"
+msgstr "Boolean NAND with Tristate output"
+
+#: booltristateand.cpp:62
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/NAND with Tristate output"
+msgstr "Boolean/Tristate/Gates/NAND with Tristate output"
+
+#: booltristate1out.cpp:186
+msgid "Reset State: "
+msgstr "Resetzustand: "
+
+#: booltristate1out.cpp:192
+msgid "Changes the reset state of the component to true, false or inactive."
+msgstr ""
+"Ändert den Restetzustand der Komponente auf True, False oder Inactive."
+
+#: booltristate1out.cpp:234
+msgid ""
+"_: Boolean-Connector\n"
+"Enable Output"
+msgstr "Enable Output"
+
+#: booltristate1out.cpp:316 multidlatch.cpp:110
+#, c-format
+msgid ""
+"_: Boolean-Connector\n"
+"Input %1"
+msgstr "Input %1"
+
 #: multidlatch.cpp:68
 msgid ""
 "_: Component\n"
@@ -526,13 +674,6 @@ msgid ""
 "_: Component\n"
 "Boolean/Flip Flop/Multiple D Latches"
 msgstr "Boolean/Flip Flop/Multiple D Latches"
-
-#: multidlatch.cpp:110
-#, c-format
-msgid ""
-"_: Boolean-Connector\n"
-"Input %1"
-msgstr "Input %1"
 
 #: multidlatch.cpp:206
 msgid ""
@@ -735,6 +876,78 @@ msgid ""
 "Output %1"
 msgstr "Output %1"
 
+#: inverter.cpp:49
+msgid ""
+"_: Component\n"
+"Inverter"
+msgstr "Inverter"
+
+#: inverter.cpp:51
+msgid ""
+"_: Component\n"
+"Boolean/Gates/Inverter"
+msgstr "Boolean/Gates/Inverter"
+
+#: inverter.cpp:62
+msgid ""
+"_: Component\n"
+"Identity"
+msgstr "Identity"
+
+#: inverter.cpp:64
+msgid ""
+"_: Component\n"
+"Boolean/Gates/Identity"
+msgstr "Boolean/Gates/Identity"
+
+#: booltristatexor.cpp:47
+msgid ""
+"_: Component\n"
+"Boolean XOR with Tristate output"
+msgstr "Boolean XOR with Tristate output"
+
+#: booltristatexor.cpp:49
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/XOR with Tristate output"
+msgstr "Boolean/Tristate/Gates/XOR with Tristate output"
+
+#: booltristatexor.cpp:60
+msgid ""
+"_: Component\n"
+"Boolean XNOR with Tristate output"
+msgstr "Boolean XNOR with Tristate output"
+
+#: booltristatexor.cpp:62
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/XNOR with Tristate output"
+msgstr "Boolean/Tristate/Gates/XNOR with Tristate output"
+
+#: booltristateor.cpp:47
+msgid ""
+"_: Component\n"
+"Boolean OR with Tristate output"
+msgstr "Boolean OR with Tristate output"
+
+#: booltristateor.cpp:49
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/OR with Tristate output"
+msgstr "Boolean/Tristate/Gates/OR with Tristate output"
+
+#: booltristateor.cpp:60
+msgid ""
+"_: Component\n"
+"Boolean NOR with Tristate output"
+msgstr "Boolean NOR with Tristate output"
+
+#: booltristateor.cpp:62
+msgid ""
+"_: Component\n"
+"Boolean/Tristate/Gates/NOR with Tristate output"
+msgstr "Boolean/Tristate/Gates/NOR with Tristate output"
+
 #~ msgid "D Latch"
 #~ msgstr "D-Latch"
 
@@ -837,4 +1050,3 @@ msgstr "Output %1"
 #, fuzzy
 #~ msgid "KSimLibBoolean::RSFlipFlop"
 #~ msgstr "Boolean/Flip Flop/JK-FF"
-

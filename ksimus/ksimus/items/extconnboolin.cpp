@@ -167,7 +167,8 @@ ExtConnBoolInPropertyGeneralWidget::ExtConnBoolInPropertyGeneralWidget(ExtConnBo
 	m_defaultState = new KSimBooleanBox(this, "m_defaultState");
 	CHECK_PTR(m_defaultState);
 
-	str = i18n("Sets the default state of the external connector. Used if it is unconnected.");
+	str = i18n("Sets the default state of the external connector.\n"
+	           "This state is used if the external connector is not connected.");
 	addToolTip(str, lab, m_defaultState);
 	addWhatsThis(str, lab, m_defaultState);
 

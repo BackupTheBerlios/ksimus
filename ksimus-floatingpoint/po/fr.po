@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 19:48+0200\n"
+"POT-Creation-Date: 2003-03-02 17:38+0100\n"
 "PO-Revision-Date: 2002-10-09 10:51GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -26,7 +26,7 @@ msgid ""
 "Floating Point/Random/Random"
 msgstr "Virgule flottante/Aléatoire/Valeur aléatoire"
 
-#: convertboolfloat.cpp:98 convertfloatbool.cpp:89 extconnfloatin.cpp:57
+#: convertboolfloat.cpp:98 convertfloatbool.cpp:89 extconnfloatin.cpp:75
 #: extconnfloatout.cpp:57 float1out.cpp:58 floatstyle1out.cpp:58 random.cpp:98
 msgid ""
 "_: FloatingPoint-Connector\n"
@@ -103,11 +103,14 @@ msgid ""
 "individual seed after each reset of the circuit (Range: 1 - "
 "%1).</td></tr></table>"
 msgstr ""
-"<p>Choisissez entre une initialisation individuelle ou aléatoire ici.</p><table><tr><td><b>Initialisation "
-"aléatoire</b></td><td>Le générateur de nombres aléatoires est initialisé avec une valeur aléatoire après "
-"chaque réinitialisation du circuit.</td></tr><tr><td><b>Initialisation individuelle</b></td><td>Le générateur "
-"de nombres aléatoires est initialisé avec une valeur individuelle après chaque réinitialisation du circuit "
-"(Intervalle : 1 - %1).</td></tr></table>"
+"<p>Choisissez entre une initialisation individuelle ou aléatoire "
+"ici.</p><table><tr><td><b>Initialisation aléatoire</b></td><td>Le "
+"générateur de nombres aléatoires est initialisé avec une valeur "
+"aléatoire après chaque réinitialisation du "
+"circuit.</td></tr><tr><td><b>Initialisation individuelle</b></td><td>Le "
+"générateur de nombres aléatoires est initialisé avec une valeur "
+"individuelle après chaque réinitialisation du circuit (Intervalle : 1 - "
+"%1).</td></tr></table>"
 
 #: floatsin.cpp:47
 msgid ""
@@ -170,7 +173,7 @@ msgid ""
 msgstr "Virgule flottante/Sortie/Afficheur"
 
 #: convertboolfloat.cpp:93 convertfloatbool.cpp:84 delay.cpp:81
-#: extconnfloatin.cpp:64 extconnfloatout.cpp:64 float1in1out.cpp:50
+#: extconnfloatin.cpp:82 extconnfloatout.cpp:64 float1in1out.cpp:50
 #: floatlineoutput.cpp:73
 msgid ""
 "_: FloatingPoint-Connector\n"
@@ -430,7 +433,9 @@ msgstr "pow(base, puissance) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Exponentiation & Logarithms/pow(base,power)"
-msgstr "Virgule flottante/Arithmétique/Puissances et logarithmes/pow(base, puissance)"
+msgstr ""
+"Virgule flottante/Arithmétique/Puissances et logarithmes/pow(base, "
+"puissance)"
 
 #: floatexp.cpp:87
 msgid ""
@@ -442,7 +447,8 @@ msgstr "Racine carrée virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Exponentiation & Logarithms/square root"
-msgstr "Virgule flottante/Arithmétique/Puissances et logarithmes/Racine carrée"
+msgstr ""
+"Virgule flottante/Arithmétique/Puissances et logarithmes/Racine carrée"
 
 #: floatexp.cpp:168
 msgid ""
@@ -755,25 +761,25 @@ msgid ""
 "Converter/Boolean to Float"
 msgstr "Convertisseur/Logique vers virgule flottante"
 
-#: convertboolfloat.cpp:232
+#: convertboolfloat.cpp:236
 msgid ""
 "_: FloatingPoint\n"
 "True Value: "
 msgstr "Valeur vraie :"
 
-#: convertboolfloat.cpp:237
+#: convertboolfloat.cpp:241
 msgid ""
 "_: FloatingPoint\n"
 "Sets the value which represents the true level."
 msgstr "Paramètre la valeur qui représente le niveau vrai."
 
-#: convertboolfloat.cpp:242
+#: convertboolfloat.cpp:246
 msgid ""
 "_: FloatingPoint\n"
 "False Value: "
 msgstr "Valeur fausse :"
 
-#: convertboolfloat.cpp:247
+#: convertboolfloat.cpp:251
 msgid ""
 "_: FloatingPoint\n"
 "Sets the value which represents the false level."
@@ -854,8 +860,8 @@ msgstr ""
 "La notation dépend de la valeur et de la précision.\n"
 "La valeur est affichée en notation exponentielle si l'exposant est "
 "inférieur à -4 ou\n"
-"supérieur ou égal à la \"précision\" ; dans le cas contraire, la notation "
-"virgule fixe est utilisée."
+"supérieur ou égal à la \"précision\" ; dans le cas contraire, la "
+"notation virgule fixe est utilisée."
 
 #: floatlineinput.cpp:376
 msgid ""
@@ -942,49 +948,49 @@ msgid ""
 "Converter/Float to Boolean"
 msgstr "Convertisseur/Virgule flottante vers logique"
 
-#: convertfloatbool.cpp:255
+#: convertfloatbool.cpp:260
 msgid ""
 "_: FloatingPoint\n"
 "True Threshold: "
 msgstr "Seuil vrai :"
 
-#: convertfloatbool.cpp:260
+#: convertfloatbool.cpp:265
 msgid ""
 "_: FloatingPoint\n"
 "Sets the threshold where the converter switch to true."
 msgstr "Paramètre le seuil où le convertisseur bascule à la valeur vrai."
 
-#: convertfloatbool.cpp:267
+#: convertfloatbool.cpp:272
 msgid ""
 "_: FloatingPoint\n"
 "False Threshold: "
 msgstr "Seuil faux :"
 
-#: convertfloatbool.cpp:272
+#: convertfloatbool.cpp:277
 msgid ""
 "_: FloatingPoint\n"
 "Sets the threshold where the converter switch to false."
 msgstr "Paramètre le seuil où le convertisseur bascule à la valeur fausse."
 
-#: convertfloatbool.cpp:277
+#: convertfloatbool.cpp:282
 msgid ""
 "_: FloatingPoint\n"
 "Medium Threshold: "
 msgstr "Seuil médian :"
 
-#: convertfloatbool.cpp:282
+#: convertfloatbool.cpp:287
 msgid ""
 "_: FloatingPoint\n"
 "Shows the medium value between 'False Threshold' and 'True Threshold'."
 msgstr "Valeur médiane entre \"Seuil faux\" et \"Seuil vrai\""
 
-#: convertfloatbool.cpp:286
+#: convertfloatbool.cpp:291
 msgid ""
 "_: FloatingPoint\n"
 "Hysteresis: "
 msgstr "Hystérisis :"
 
-#: convertfloatbool.cpp:291
+#: convertfloatbool.cpp:296
 msgid ""
 "_: FloatingPoint\n"
 "Shows the hysteresis between 'False Threshold' and 'True Threshold'."
@@ -1074,17 +1080,31 @@ msgid ""
 "External Connector/Floating Point Output"
 msgstr "Connecteur externe/Sortie virgule flottante"
 
-#: extconnfloatin.cpp:36
+#: extconnfloatin.cpp:53
 msgid ""
 "_: Component\n"
 "External Connector Floating Point Input"
 msgstr "Entrée virgule flottante externe"
 
-#: extconnfloatin.cpp:38
+#: extconnfloatin.cpp:55
 msgid ""
 "_: Component\n"
 "External Connector/Floating Point Input"
 msgstr "Connecteur externe/Entrée virgule flottante"
+
+#: extconnfloatin.cpp:163
+#, fuzzy
+msgid ""
+"_: FloatingPoint\n"
+"Default value:"
+msgstr "Valeur initiale :"
+
+#: extconnfloatin.cpp:168
+msgid ""
+"_: FloatingPoint\n"
+"Sets the value state of the external connector.\n"
+"This value is used if the external connector is not connected."
+msgstr ""
 
 #: floatlatch.cpp:67
 msgid ""
@@ -1249,4 +1269,3 @@ msgid ""
 "_: Connector\n"
 "Factor %1"
 msgstr "Facteur %1"
-

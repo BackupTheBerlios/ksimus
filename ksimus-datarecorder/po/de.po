@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 19:52+0200\n"
+"POT-Creation-Date: 2003-03-02 17:43+0100\n"
 "PO-Revision-Date: 2002-10-01 20:07+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -125,7 +125,8 @@ msgstr "Separator zwischen Spalten:"
 
 #: textrec.cpp:921
 msgid "Edit the column separator here."
-msgstr "Geben Sie hier das Zeichen / den Text ein, der die Spalten separieren soll."
+msgstr ""
+"Geben Sie hier das Zeichen / den Text ein, der die Spalten separieren soll."
 
 #: textrec.cpp:929
 msgid "Switches:"
@@ -139,7 +140,9 @@ msgstr "Füge Daten an eine vorhandene Datei an:"
 msgid ""
 "If checked an exisiting file will not be deleted before a new simulations is "
 "started."
-msgstr "Wenn das Feld markiert ist wird die Datei gelöscht bevor eine neue Simulation gestartet wird."
+msgstr ""
+"Wenn das Feld markiert ist wird die Datei gelöscht bevor eine neue "
+"Simulation gestartet wird."
 
 #: textrec.cpp:939
 msgid "Add date and time at the top"
@@ -159,7 +162,9 @@ msgstr "Füge Anschlußnamen am Anfang ein"
 
 #: textrec.cpp:949
 msgid "If checked the the connector names are added top of the new data."
-msgstr "Wenn das Feld markiert ist werden die Anschlußnamen am Anfang des Dokuments eingetragen."
+msgstr ""
+"Wenn das Feld markiert ist werden die Anschlußnamen am Anfang des Dokuments "
+"eingetragen."
 
 #: textrec.cpp:954
 msgid "Add line numbers"
@@ -177,7 +182,9 @@ msgstr "Füge Zeitstempel ein"
 msgid ""
 "If checked a time stamp is added in front of each line (after the optional "
 "line number)."
-msgstr "Wenn das Feld markiert ist wird am Anfang jeder Zeile (jedoch nach der optionalen Zeilennummer) ein Zeitstempel eingefügt."
+msgstr ""
+"Wenn das Feld markiert ist wird am Anfang jeder Zeile (jedoch nach der "
+"optionalen Zeilennummer) ein Zeitstempel eingefügt."
 
 #: zoomwidget.cpp:219
 msgid ""
@@ -191,43 +198,43 @@ msgid ""
 "%1 s/div"
 msgstr "%1 s/div"
 
-#: datarecorder.cpp:232
+#: datarecorder.cpp:236
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
 msgstr "Data Recorder"
 
-#: datarecorder.cpp:234
+#: datarecorder.cpp:238
 msgid ""
 "_: DataRecorder-Component\n"
 "Recorder/Data Recorder"
 msgstr "Recorder/Data Recorder"
 
-#: datarecorder.cpp:589 datarecorderview.cpp:88
+#: datarecorder.cpp:595 datarecorderview.cpp:88
 msgid ""
 "_: DataRecorder\n"
 "&Open graph"
 msgstr "Öffne &Graph"
 
-#: datarecorder.cpp:590
+#: datarecorder.cpp:596
 msgid ""
 "_: DataRecorder\n"
 "Add &boolean connector"
 msgstr "Neuer &boolscher Anschluß"
 
-#: datarecorder.cpp:591
+#: datarecorder.cpp:597
 msgid ""
 "_: DataRecorder\n"
 "Add &floating point connector"
 msgstr "Neuer &floating point Anschluß"
 
-#: datarecorder.cpp:614 datarecorder.cpp:625
+#: datarecorder.cpp:620 datarecorder.cpp:631
 msgid ""
 "_: DataRecorder\n"
 "Add channel"
 msgstr "Neuer Kanal"
 
-#: datarecorder.cpp:641
+#: datarecorder.cpp:647
 msgid ""
 "_: DataRecorder\n"
 "Remove channel"
@@ -244,4 +251,3 @@ msgid ""
 "_: DataRecorder\n"
 "&Zoom:"
 msgstr "&Zoom:"
-

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-01 19:52+0200\n"
+"POT-Creation-Date: 2003-03-02 17:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,43 +189,43 @@ msgid ""
 "%1 s/div"
 msgstr ""
 
-#: datarecorder.cpp:232
+#: datarecorder.cpp:236
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
 msgstr ""
 
-#: datarecorder.cpp:234
+#: datarecorder.cpp:238
 msgid ""
 "_: DataRecorder-Component\n"
 "Recorder/Data Recorder"
 msgstr ""
 
-#: datarecorder.cpp:589 datarecorderview.cpp:88
+#: datarecorder.cpp:595 datarecorderview.cpp:88
 msgid ""
 "_: DataRecorder\n"
 "&Open graph"
 msgstr ""
 
-#: datarecorder.cpp:590
+#: datarecorder.cpp:596
 msgid ""
 "_: DataRecorder\n"
 "Add &boolean connector"
 msgstr ""
 
-#: datarecorder.cpp:591
+#: datarecorder.cpp:597
 msgid ""
 "_: DataRecorder\n"
 "Add &floating point connector"
 msgstr ""
 
-#: datarecorder.cpp:614 datarecorder.cpp:625
+#: datarecorder.cpp:620 datarecorder.cpp:631
 msgid ""
 "_: DataRecorder\n"
 "Add channel"
 msgstr ""
 
-#: datarecorder.cpp:641
+#: datarecorder.cpp:647
 msgid ""
 "_: DataRecorder\n"
 "Remove channel"

@@ -165,7 +165,8 @@ ExtConnFloatInPropertyGeneralWidget::ExtConnFloatInPropertyGeneralWidget(ExtConn
 
 	m_defaultValue = new KSimDoubleEdit(this, "m_defaultValue");
 	CHECK_PTR(m_defaultValue);
-	QString tip(i18n("FloatingPoint", "Sets the default value of the external connector. Used if it is unconnected."));
+	QString tip(i18n("FloatingPoint", "Sets the value state of the external connector.\n"
+	                                   "This value is used if the external connector is not connected."));
 	addToolTip(tip, m_defaultValue, m_defaultValueLabel);
 	addWhatsThis(tip, m_defaultValue, m_defaultValueLabel);
 
