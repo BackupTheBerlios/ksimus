@@ -41,6 +41,7 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/componentpropertydialog.h"
 #include "ksimus/optionalconnector.h"
+#include "ksimus/ksimbaseuintedit.h"
 
 // Forward declaration
 
@@ -437,7 +438,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	// Maximum count
 	lab = new QLabel(i18n("Boolean", "Maximum:"), this);
 	CHECK_PTR(lab);
-	m_maxValue = new KSimBaseUIntLineEdit(getCounter()->getMaxCount(), this, "Maximum");
+	m_maxValue = new KSimBaseUIntEdit(getCounter()->getMaxCount(), this, "Maximum");
 	CHECK_PTR(m_maxValue);
 	str = i18n("Boolean", "Sets the maximum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_maxValue);
@@ -447,7 +448,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	// Minimum count
 	lab = new QLabel(i18n("Boolean", "Minimum:"), this);
 	CHECK_PTR(lab);
-	m_minValue = new KSimBaseUIntLineEdit(getCounter()->getMinCount(), this, "Minimum");
+	m_minValue = new KSimBaseUIntEdit(getCounter()->getMinCount(), this, "Minimum");
 	CHECK_PTR(m_minValue);
 	str = i18n("Boolean", "Sets the minimum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_minValue);
@@ -457,7 +458,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	// Reset value
 	lab = new QLabel(i18n("Boolean", "Reset value:"), this);
 	CHECK_PTR(lab);
-	m_resetValue = new KSimBaseUIntLineEdit(getCounter()->getResetCount(), this, "Reset value");
+	m_resetValue = new KSimBaseUIntEdit(getCounter()->getResetCount(), this, "Reset value");
 	CHECK_PTR(m_resetValue);
 	str = i18n("Boolean", "Sets the reset counter value.\nThis value is also used if the counter is reseted.");
 	addToolTip(str, lab, m_resetValue);
@@ -521,7 +522,7 @@ void BooleanCounterPropertyWidget::defaultPressed()
 	getMinValueWidget()->setText("0x0");
 	getResetValueWidget()->setText("0x0");
 	
-	getMaxValueWidget()->setText(QString("0x%1").arg((1 << getCounter()->getBits())-1, 16));
+	getMaxValueWidget()->setText(QString("0x%1").arg((1 << getCounter()->getBits())-1, 0, 16));
 }
 
 

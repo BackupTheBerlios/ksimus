@@ -42,6 +42,7 @@ class ConnectorPack;
 class ComponentControlBlock;
 class ComponentLayout;
 class ConnectorLabel;
+class KSimBaseUIntEdit;
 
 //###############################################################
 //###############################################################
@@ -179,15 +180,15 @@ public:
 
 
 	QSpinBox * getBitsWidget() { return m_bits; };
-	KSimBaseUIntLineEdit * getMaxValueWidget() { return m_maxValue; };
-	KSimBaseUIntLineEdit * getMinValueWidget() { return m_minValue; };
-	KSimBaseUIntLineEdit * getResetValueWidget() { return m_resetValue; };
+	KSimBaseUIntEdit * getMaxValueWidget() { return m_maxValue; };
+	KSimBaseUIntEdit * getMinValueWidget() { return m_minValue; };
+	KSimBaseUIntEdit * getResetValueWidget() { return m_resetValue; };
 
 
 protected:
-	KSimBaseUIntLineEdit * m_maxValue;
-	KSimBaseUIntLineEdit * m_minValue;
-	KSimBaseUIntLineEdit * m_resetValue;
+	KSimBaseUIntEdit * m_maxValue;
+	KSimBaseUIntEdit * m_minValue;
+	KSimBaseUIntEdit * m_resetValue;
 	QSpinBox * m_bits;
 	
 
