@@ -29,7 +29,7 @@ class ComponentLibraryItem : public BaseLibraryItem
 {
 
 public:
-	ComponentLibraryItem(const ComponentInfo * ci, bool addToMenu);
+	ComponentLibraryItem(const ComponentInfo * ci, const PackageInfo * packageInfo, bool addToMenu);
 	virtual ~ComponentLibraryItem();
 	
 	const ComponentInfo * getComponentInfo() const;

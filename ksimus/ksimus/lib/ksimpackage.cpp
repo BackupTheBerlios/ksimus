@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 // C-Includes
-#include <dlfcn.h>
 
 
 // QT-Includes
@@ -39,16 +38,35 @@ KSimPackageHandle::KSimPackageHandle(const QString & filename)
 		m_errorMsg(QString::null),
 		m_fileHandle(0),
 		m_opened(false),
-		m_componentInfoList(0),
-		m_connectorInfoList(0),
-		m_wirePropertyInfoList(0)
+		m_packageInfo(0)
 {
+#ifdef USE_DLFCN
+	// nothing todo
+#else
+	int res = lt_dlinit();
+	if (res != 0)
+	{
+		KSIMDEBUG_VAR("ERROR: lt_dlinit()",lt_dlerror());
+	}
+#endif
 }
 
 KSimPackageHandle::~KSimPackageHandle()
 {
+	
+#ifdef USE_DLFCN
 	if (m_fileHandle)
 		dlclose(m_fileHandle);
+#else
+	if (m_fileHandle)
+		lt_dlclose(m_fileHandle);
+	int res = lt_dlexit();
+	
+	if (res != 0)
+	{
+		KSIMDEBUG_VAR("ERROR: lt_dlexit()",lt_dlerror());
+	}
+#endif
 }
 
 QString KSimPackageHandle::getFilename() const
@@ -65,7 +83,7 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 		m_errorMsg = i18n("Package %1 is already opened.").arg(getFilename());
 		m_error = OPENED;
 	}
-	else if(!fileInfo.exists())
+/*	else if(!fileInfo.exists())
 	{
 		m_errorMsg = i18n("File %1 not exist.").arg(getFilename());
 		m_error = BAD_FILE;
@@ -79,22 +97,54 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 	{
 		m_errorMsg = i18n("File %1 is not readable.").arg(getFilename());
 		m_error = BAD_FILE;
-	}
+	}*/
 	else
 	{
-		m_fileHandle = (void *) dlopen(getFilename(), RTLD_NOW);
+		#ifdef USE_DLFCN
+			m_fileHandle = dlopen(getFilename(), RTLD_NOW);
+		#else
+			m_fileHandle = lt_dlopenext(getFilename());
+		#endif
+		KSIMDEBUG_VAR("",getFilename());
 		if (m_fileHandle == 0)
 		{
-  		m_errorMsg = dlerror();
+			#ifdef USE_DLFCN
+  			m_errorMsg = dlerror();
+			#else
+	  		m_errorMsg = lt_dlerror();
+			#endif
 			m_error = TRY_AGAIN;
 	  }
 	  else
 	  {
-			m_componentInfoList = (const ComponentInfoList *) dlsym(m_fileHandle, "distributeComponents");
+			#ifdef USE_DLFCN
+				void *sym = dlsym(m_fileHandle, getInitFunctionName());
+			#else
+				void *sym = lt_dlsym(m_fileHandle, getInitFunctionName());
+			#endif
+	  		
+	    if (sym)
+	    {
+    		KSIMDEBUG("Exec init function 1");
+		    typedef const PackageInfo * (*t_func)();
+  		  t_func func = (t_func)sym;
+    		m_packageInfo = func();
+    		KSIMDEBUG_VAR("Exec init function",getFilename());
+    	}
+    	else
+    	{
+    		KSIMDEBUG_VAR("No init function",getFilename());
+    	}
 			
-			if (!m_componentInfoList)
+//			m_packageInfo = (const PackageInfo *) dlsym(m_fileHandle, "packageInfo");
+			
+			if (!m_packageInfo)
 			{
-			  m_errorMsg = dlerror();
+				#ifdef USE_DLFCN
+  				m_errorMsg = dlerror();
+				#else
+	  			m_errorMsg = lt_dlerror();
+				#endif
 				m_error = TRY_AGAIN;
 		  }
 		  else
@@ -108,7 +158,7 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 	
 	if (m_error == NEW)
 	{
-		// should never be
+		// should be never
 		KSIMDEBUG_VAR("m_error failed", getFilename());
 	}
 	
@@ -133,12 +183,22 @@ QString KSimPackageHandle::errorMsg() const
 
 
 
-bool KSimPackageHandle::hasComponents() const
+bool KSimPackageHandle::isPackage() const
 {
-	return (m_componentInfoList != 0);
+	return (m_packageInfo != 0);
 }
 
-const ComponentInfoList * KSimPackageHandle::getComponentInfoList() const
+const PackageInfo * KSimPackageHandle::getPackageInfo() const
 {
-	return m_componentInfoList;
+	return m_packageInfo;
+}
+
+QCString KSimPackageHandle::getInitFunctionName() const
+{
+	QCString funcname;
+	QFileInfo fi(getFilename());
+	
+	funcname.sprintf("init_%s", fi.baseName().latin1());
+	
+	return funcname;
 }

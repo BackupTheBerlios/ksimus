@@ -23,9 +23,12 @@
 
 #include <kstddirs.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <kconfig.h>
+#include <kapp.h>
 
 #include "library.h"
+#include "packageinfo.h"
 
 #include "componentlibrary.h"
 #include "connectorlibrary.h"
@@ -52,6 +55,40 @@
 #include "ksimdebug.h"
 
 
+//#############################################################################
+//#############################################################################
+
+ComponentInfoList distComponent = { &ExtConnBoolInInfo,
+                                    &ExtConnBoolOutInfo,
+                                    &BooleanLedInfo,
+                                    &ClockGeneratorInfo,
+                                    0 };
+
+/*	m_componentLibrary->insert(BooleanButtonList);
+	m_componentLibrary->insert(BooleanAndList); */
+
+ConnectorInfoList distConnector = { &ConnectorBoolInInfo,
+                                    &ConnectorBoolInEdgeInfo,
+                                    &ConnectorBoolOutInfo,
+                                    0 };
+	
+	
+WirePropertyInfoList distWireProp = { &wirePropertyBooleanInfo,
+                                    0 };
+	
+PackageInfo KSimusPackageInfo("KSimus", KGlobal::instance(), VERSION, distComponent, distConnector, distWireProp);
+
+
+
+
+
+
+
+
+
+
+
+
 Library * g_library = 0;
 
 //#############################################################################
@@ -69,6 +106,8 @@ public:
 
 };
 
+#define FOR_EACH_HANDLE(_it_,_handleList_)	\
+		for(QListIterator<KSimPackageHandle> _it_(_handleList_);_it_.current();++_it_)
 
 
 //#############################################################################
@@ -86,12 +125,12 @@ Library::Library()
 	m_componentLibrary = new ComponentLibrary;
 	CHECK_PTR(m_componentLibrary);
 
-	m_componentLibrary->insert(&ExtConnBoolInInfo);
+/*	m_componentLibrary->insert(&ExtConnBoolInInfo);
 	m_componentLibrary->insert(&ExtConnBoolOutInfo);
-	m_componentLibrary->insert(BooleanButtonList);
 	m_componentLibrary->insert(&BooleanLedInfo);
-	m_componentLibrary->insert(BooleanAndList);
-	m_componentLibrary->insert(&ClockGeneratorInfo);
+	m_componentLibrary->insert(&ClockGeneratorInfo);*/
+	m_componentLibrary->insert(BooleanButtonList, &KSimusPackageInfo);
+	m_componentLibrary->insert(BooleanAndList, &KSimusPackageInfo);
 	
 	m_componentLibrary->insertInternal(&WireInfo);
 	m_componentLibrary->insertInternal(&ModuleBaseInfo);
@@ -100,43 +139,20 @@ Library::Library()
 	m_connectorLibrary = new ConnectorLibrary;
 	CHECK_PTR(m_connectorLibrary);
 	
-	m_connectorLibrary->insert(&ConnectorBoolInInfo);
+/*	m_connectorLibrary->insert(&ConnectorBoolInInfo);
 	m_connectorLibrary->insert(&ConnectorBoolInEdgeInfo);
-	m_connectorLibrary->insert(&ConnectorBoolOutInfo);
+	m_connectorLibrary->insert(&ConnectorBoolOutInfo);*/
 
 	
 	m_wirePropertyLibrary = new WirePropertyLibrary;
 	CHECK_PTR(m_wirePropertyLibrary);
 	
-	m_wirePropertyLibrary->insert(&wirePropertyBooleanInfo);
+//	m_wirePropertyLibrary->insert(&wirePropertyBooleanInfo);
 	
-	
+	insertPackage(&KSimusPackageInfo);
+		
 	loadPackageFiles();
 
-
-//	const char * libname = "/localhome/lokal/boolean/boolean/.libs/libboolean.so";
-//	const char * libname = "/home/rasmus/boolean/boolean/.libs/libboolean.so";
-/*	const char * libname = "/opt/kde2/lib/ksimus/libboolean.so";
-	KSimPackageHandle * package = new KSimPackageHandle(libname);
-	
-	KSimPackageHandle::eResult result;
-	
-	result = package->open();
-	if (result != KSimPackageHandle::OPENED)
-	{
-		KSIMDEBUG(package->errorMsg());
-	}
-	else
-	{
-		if (package->hasComponents())
-		{
-			m_componentLibrary->insert(*package->getComponentInfoList());
-		}
-		else
-		{
-			KSIMDEBUG(QString("Package %1 has no components.").arg(package->getFilename()));
-		}
-	}*/
 }
 
 Library::~Library()
@@ -163,36 +179,62 @@ const WirePropertyLibrary * Library::getWirePropertyLib() const
 	return m_wirePropertyLibrary;
 }
 	
+
+void Library::insertPackage(const PackageInfo * packageInfo)
+{
+	if (packageInfo->getComponentList() != 0)
+	{
+		const ComponentInfoPtr * comp = packageInfo->getComponentList();
+		
+		while (*comp)
+		{
+			m_componentLibrary->insert(*comp, packageInfo);
+			comp++;
+		};
+	}
+	
+	if (packageInfo->getConnectorList() != 0)
+	{
+		const ConnectorInfoPtr * conn = packageInfo->getConnectorList();
+		
+		while (*conn)
+		{
+			m_connectorLibrary->insert(*conn, packageInfo);
+			conn++;
+		};
+	}
+	
+	if (packageInfo->getWirePropertyList() != 0)
+	{
+		const WirePropertyInfoPtr * wireProp = packageInfo->getWirePropertyList();
+		
+		while (*wireProp)
+		{
+			m_wirePropertyLibrary->insert(*wireProp, packageInfo);
+			wireProp++;
+		};
+	}
+}
+
+
+
 void Library::loadPackageFiles()
 {
-	
-	unsigned int i;
 	bool end;
 	KSimPackageHandle * package;
-/*	KStandardDirs dirs;
-	QStringList packageList = dirs.findAllResources("lib","ksimus/*.so", true, true);
+	QString msg;
 	
-	// Find packages
-	for (i = 0; i < packageList.count(); i++)
-	{
-		QString msg = i18n("Found package %1").arg(packageList[i]);
-		KSIMDEBUG(msg);
-		m_messages->append(msg);
-		package = new KSimPackageHandle(packageList[i]);
-    m_p->m_handleList.append(package);
-	}*/
-	
-	addPackageDirs();
 	addPackageFiles();
+	addPackageDirs();
 	
 	
 	// Open packages
 	do
 	{
 		end = true;
-		for (i = 0; i < m_p->m_handleList.count(); i++)
+		FOR_EACH_HANDLE(it, m_p->m_handleList)
 		{
-			package = m_p->m_handleList.at(i);
+			package = it.current();
 			if (!package->isOpened())
 			{
 				KSimPackageHandle::eResult result;
@@ -202,35 +244,37 @@ void Library::loadPackageFiles()
 				{
 					case KSimPackageHandle::NEW:
 						KSIMDEBUG(QString("ERROR: Package %1 returns NEW.").arg(package->getFilename()));
-						m_p->m_handleList.remove(i);
+						m_p->m_handleList.remove(package);
 						break;
 						
 					case KSimPackageHandle::OPENED:
-						if (package->hasComponents())
+						if (package->isPackage())
 						{
-							m_componentLibrary->insert(*package->getComponentInfoList());
-							QString msg = i18n ("Load package %1").arg(package->getFilename());
+							insertPackage(package->getPackageInfo());
+							msg = i18n ("Load package %1 %2").arg(package->getPackageInfo()->getPackageName())
+							                                 .arg(package->getPackageInfo()->getPackageVersion());
+							msg += " (" + package->getFilename() + ")";
 							m_messages->append(msg);
 							KSIMDEBUG(msg);
 							end = false;
 						}
 						else
 						{
-							QString msg = i18n ("Package %1 has no components.").arg(package->getFilename());
+							msg = i18n ("Package %1 has no components.").arg(package->getFilename());
 							KSIMDEBUG(msg);
 							m_messages->append(msg);
 						}
 						break;
 						
 					case KSimPackageHandle::BAD_FILE:
-						m_messages->append(package->errorMsg());
-						KSIMDEBUG(package->errorMsg());
+						msg = i18n ("Package %1: %2").arg(package->getFilename()).arg(package->errorMsg());
+						m_messages->append(msg);
+						KSIMDEBUG(msg);
 						m_p->m_handleList.remove(package);
 						break;
 					
 					case KSimPackageHandle::TRY_AGAIN:
-						m_messages->append(package->errorMsg());
-						KSIMDEBUG(package->errorMsg());
+						// try again
 						break;
 				}
 			}
@@ -238,7 +282,20 @@ void Library::loadPackageFiles()
 	}
 	while (!end);
 	
-
+	FOR_EACH_HANDLE(it, m_p->m_handleList)
+	{
+		if (!it.current()->isOpened())
+		{
+			msg = i18n ("Package %1: %2").arg(it.current()->getFilename()).arg(it.current()->errorMsg());
+			m_messages->append(msg);
+			KSIMDEBUG(msg);
+			m_p->m_handleList.remove(it.current());
+		}
+	}
+	
+	m_componentLibrary->resize();
+	m_connectorLibrary->resize();
+	m_wirePropertyLibrary->resize();
 }
 
 void Library::addPackageDirs()
@@ -283,10 +340,10 @@ void Library::scanPackageDir(const QString & dirname)
 			}
 		}
 		
-		list = dir.entryList(QDir::Files | QDir::Readable);
-		for (u = 0; u < list.count(); u++)
+		const QFileInfoList * infoList = dir.entryInfoList(QDir::Files | QDir::Readable);
+		for(QListIterator<QFileInfo> it(*infoList);it.current();++it)
 		{
-			makeHandle(dirname + list[u]);
+			makeHandle(dirname + it.current()->baseName());
 		}
 	}
 }
@@ -330,9 +387,9 @@ void Library::makeHandle(const QString & filename)
 	if (!found)
 	{
 		KSimPackageHandle * package;
-		QString msg = i18n("Found package %1").arg(filename);
+/*		QString msg = i18n("Found package %1").arg(filename);
 		KSIMDEBUG(msg);
-		m_messages->append(msg);
+		m_messages->append(msg);*/
 		package = new KSimPackageHandle(filename);
 		m_p->m_handleList.append(package);
 	}

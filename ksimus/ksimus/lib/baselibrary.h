@@ -28,13 +28,14 @@
 
 class BaseInfo;
 class BaseLibraryItem;
+class PackageInfo;
 
 class BaseLibrary : public QObject
 {
    Q_OBJECT
 
 public:
-	bool insert(const BaseInfo * bi);
+	bool insert(const BaseInfo * bi, const PackageInfo * packageInfo);
 	bool remove(const QString & libName);
 	bool remove(const BaseInfo * bi);
 	
@@ -48,6 +49,10 @@ public:
 	const QString & getName(const QString & libName) const;
 	const QString & getShortDescr(const QString & libName) const;
 	const QString & getHTMLDescr(const QString & libName) const;
+	
+	BaseLibraryItem * getItem(const QString & libName) const;
+	const PackageInfo * getPackageInfo(const QString & libName) const;
+	
 	
 	/** Resize QDict. Call after latest insert */
 	void resize();

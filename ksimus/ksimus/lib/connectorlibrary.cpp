@@ -27,13 +27,13 @@ ConnectorLibrary::~ConnectorLibrary()
 {
 }
 
-bool ConnectorLibrary::insert (const ConnectorInfo * ci)
+bool ConnectorLibrary::insert (const ConnectorInfo * ci, const PackageInfo * packageInfo)
 {
 	bool res;
 	
 	CHECK_PTR(ci);
 	
-	ConnectorLibraryItem * cli = new ConnectorLibraryItem(ci);
+	ConnectorLibraryItem * cli = new ConnectorLibraryItem(ci, packageInfo);
 	CHECK_PTR(cli);
 	
 	res = _insert_(cli);
@@ -41,7 +41,7 @@ bool ConnectorLibrary::insert (const ConnectorInfo * ci)
 	return res;
 }
 	
-bool ConnectorLibrary::insert (const ConnectorInfoList cil)
+bool ConnectorLibrary::insert (const ConnectorInfoList cil, const PackageInfo * packageInfo)
 {
 	bool res = true;
 	const ConnectorInfo * ci;
@@ -49,7 +49,7 @@ bool ConnectorLibrary::insert (const ConnectorInfoList cil)
 	
 	while ((ci = cil[idx++]))
 	{
-		res &= insert(ci);
+		res &= insert(ci, packageInfo);
 	}
 	return res;
 }

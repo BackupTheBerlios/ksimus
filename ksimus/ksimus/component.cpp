@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-//#include <qtabdialog.h>
 #include <qvbox.h>
 #include <qpopupmenu.h>
 
@@ -24,6 +23,7 @@
 
 #include "resource.h"
 
+#include "ksimdebug.h"
 #include "ksimdata.h"
 #include "component.h"
 #include "compcontainer.h"
@@ -39,6 +39,9 @@
 #include "componentpropertyinfowidget.h"
 #include "llicompsel.h"
 #include "loglist.h"
+#include "library.h"
+#include "componentlibrary.h"
+#include "packageinfo.h"
 
 
 
@@ -480,6 +483,28 @@ ConnectorBase * Component::searchConnector(const char * name)
 	return conn;
 }
 
+const PackageInfo * Component::getPackageInfo() const
+{
+	return g_library->getComponentLib()->getPackageInfo(getInfo()->getLibName());
+}
+
+KInstance * Component::getInstance() const
+{
+	const PackageInfo * pi = getPackageInfo();
+	
+	if (pi)
+	{
+		KInstance * instance = pi->getInstance();
+		
+		if (!instance)
+		{
+			KSIMDEBUG_VAR("No KInstance found", getInfo()->getLibName());
+		}
+		
+		return instance;
+	}
+	return 0;
+}
 
 static void addLog(Component * comp, unsigned int priority, const QString & msg)
 {

@@ -30,7 +30,7 @@ class ConnectorLibraryItem : public BaseLibraryItem
 {
 
 public:
-	ConnectorLibraryItem(const ConnectorInfo * ci);
+	ConnectorLibraryItem(const ConnectorInfo * ci, const PackageInfo * packageInfo);
 	
 	const ConnectorInfo * getConnectorInfo() const;
 	

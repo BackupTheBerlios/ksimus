@@ -20,7 +20,7 @@
 
 
 #include <qstring.h>
-/**The base class for all information class
+/**The base class for all information classes
   *@author Rasmus Diekenbrock
   */
 

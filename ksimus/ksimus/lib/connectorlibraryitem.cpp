@@ -19,8 +19,8 @@
 #include "connectorlibraryitem.h"
 #include "connectorinfo.h"
 
-ConnectorLibraryItem::ConnectorLibraryItem(const ConnectorInfo * ci)
-	:	BaseLibraryItem(ci)
+ConnectorLibraryItem::ConnectorLibraryItem(const ConnectorInfo * ci, const PackageInfo * packageInfo)
+	:	BaseLibraryItem(ci, packageInfo)
 {
 }
 

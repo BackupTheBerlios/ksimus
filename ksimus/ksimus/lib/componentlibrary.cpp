@@ -38,11 +38,11 @@ ComponentLibrary::~ComponentLibrary()
 	delete m_additionalLibNames;
 }
 
-bool ComponentLibrary::insert (const ComponentInfo * ci, bool addToMenu)
+bool ComponentLibrary::insert (const ComponentInfo * ci, const PackageInfo * packageInfo, bool addToMenu)
 {
 	bool res;
 	
-	ComponentLibraryItem * cli = new ComponentLibraryItem(ci, addToMenu);
+	ComponentLibraryItem * cli = new ComponentLibraryItem(ci, packageInfo, addToMenu);
 	CHECK_PTR(cli);
 	
 	res = _insert_(cli);
@@ -80,17 +80,17 @@ bool ComponentLibrary::insert (const ComponentInfo * ci, bool addToMenu)
 }	
 
 
-bool ComponentLibrary::insert (const ComponentInfo * ci)
+bool ComponentLibrary::insert (const ComponentInfo * ci, const PackageInfo * packageInfo)
 {
-	return insert(ci,true);
+	return insert(ci, packageInfo, true);
 }
 
 bool ComponentLibrary::insertInternal (const ComponentInfo * ci)
 {
-	return insert(ci,false);
+	return insert(ci, (const PackageInfo *)0, false);
 }
 
-bool ComponentLibrary::insert (const ComponentInfoList cil)
+bool ComponentLibrary::insert (const ComponentInfoList cil, const PackageInfo * packageInfo)
 {
 	bool res = true;
 	const ComponentInfo * ci;
@@ -98,7 +98,7 @@ bool ComponentLibrary::insert (const ComponentInfoList cil)
 	
 	while ((ci = cil[idx++]))
 	{
-		res &= insert(ci);
+		res &= insert(ci, packageInfo);
 	}
 	return res;
 }
@@ -175,6 +175,16 @@ bool ComponentLibrary::createComponent(Component * * newComp, CompContainer * co
 {
 	const ComponentInfo * ci = findLibName(libName);
 	
+	if (!ci)
+	{
+		// Search old lib name
+		ci = findOldLibName(libName);
+		if (ci)
+		{
+			KSIMDEBUG_VAR("Found old lib name:", libName);
+		}
+	}
+	
 	if (ci)
 	{
 		*newComp = ci->createComponent(container);
@@ -186,5 +196,10 @@ bool ComponentLibrary::createComponent(Component * * newComp, CompContainer * co
 		*newComp = 0;
 		return false;
 	}
+}
+
+ComponentLibraryItem * ComponentLibrary::getItem(const QString & libName) const
+{
+	return (ComponentLibraryItem *)BaseLibrary::getItem(libName);
 }
 

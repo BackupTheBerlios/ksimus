@@ -29,13 +29,13 @@ WirePropertyLibrary::~WirePropertyLibrary()
 {
 }
 	
-bool WirePropertyLibrary::insert (const WirePropertyInfo * wireInfo)
+bool WirePropertyLibrary::insert (const WirePropertyInfo * wireInfo, const PackageInfo * packageInfo)
 {
 	bool res;
 	
 	CHECK_PTR(wireInfo);
 	
-	WirePropertyLibraryItem * wli = new WirePropertyLibraryItem(wireInfo);
+	WirePropertyLibraryItem * wli = new WirePropertyLibraryItem(wireInfo, packageInfo);
 	CHECK_PTR(wli);
 	
 	res = _insert_(wli);
@@ -59,7 +59,7 @@ bool WirePropertyLibrary::insert (const WirePropertyInfo * wireInfo)
 	return res;
 }
 
-bool WirePropertyLibrary::insert (const WirePropertyInfoList wirePropertyInfoList)
+bool WirePropertyLibrary::insert (const WirePropertyInfoList wirePropertyInfoList, const PackageInfo * packageInfo)
 {
 	bool res = true;
 	const WirePropertyInfo * wi;
@@ -67,7 +67,7 @@ bool WirePropertyLibrary::insert (const WirePropertyInfoList wirePropertyInfoLis
 	
 	while ((wi = wirePropertyInfoList[idx++]))
 	{
-		res &= insert(wi);
+		res &= insert(wi, packageInfo);
 	}
 	return res;
 }

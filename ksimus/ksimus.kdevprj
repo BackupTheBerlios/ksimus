@@ -20,7 +20,7 @@ type=DATA
 addcxxflags=-Wno-long-long -fPIC -Iitems -I../items -I.. -Ilib -I../lib -Itools -I../tools -Imodule -I../module
 bin_program=ksimus
 cxxflags=\s-O3 -g2 -Wall
-ldadd=-ldl $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
+ldadd=-lltdl $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
 ldflags=-rdynamic
 path_to_bin_program=ksimus
 
@@ -31,7 +31,7 @@ configure_args=--with-qt-dir=/usr/lib/qt2 --prefix=/opt/kde2
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=GNU
+lfv_open_groups=GNU,Header
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am
 modifyMakefiles=true
@@ -737,7 +737,7 @@ install_location=$$(kde_includes)/ksimus/ksimwidget.h
 type=HEADER
 
 [ksimus/lib/Makefile.am]
-files=ksimus/lib/baseinfo.cpp,ksimus/lib/baseinfo.h,ksimus/lib/baselibrary.cpp,ksimus/lib/baselibrary.h,ksimus/lib/baselibraryitem.cpp,ksimus/lib/baselibraryitem.h,ksimus/lib/componentdirectory.cpp,ksimus/lib/componentdirectory.h,ksimus/lib/componentinfo.cpp,ksimus/lib/componentinfo.h,ksimus/lib/componentlibrary.cpp,ksimus/lib/componentlibrary.h,ksimus/lib/componentlibraryitem.cpp,ksimus/lib/componentlibraryitem.h,ksimus/lib/componentlistview.cpp,ksimus/lib/componentlistview.h,ksimus/lib/componentlistviewitem.cpp,ksimus/lib/componentlistviewitem.h,ksimus/lib/componentpopupmenu.cpp,ksimus/lib/componentpopupmenu.h,ksimus/lib/connectorinfo.cpp,ksimus/lib/connectorinfo.h,ksimus/lib/connectorlibrary.cpp,ksimus/lib/connectorlibrary.h,ksimus/lib/connectorlibraryitem.cpp,ksimus/lib/connectorlibraryitem.h,ksimus/lib/wirepropertyinfo.cpp,ksimus/lib/wirepropertyinfo.h,ksimus/lib/wirepropertylibrary.cpp,ksimus/lib/wirepropertylibrary.h,ksimus/lib/wirepropertylibraryitem.cpp,ksimus/lib/wirepropertylibraryitem.h,ksimus/lib/moduleinfo.cpp,ksimus/lib/moduleinfo.h,ksimus/lib/ksimpackage.cpp,ksimus/lib/ksimpackage.h
+files=ksimus/lib/baseinfo.cpp,ksimus/lib/baseinfo.h,ksimus/lib/baselibrary.cpp,ksimus/lib/baselibrary.h,ksimus/lib/baselibraryitem.cpp,ksimus/lib/baselibraryitem.h,ksimus/lib/componentdirectory.cpp,ksimus/lib/componentdirectory.h,ksimus/lib/componentinfo.cpp,ksimus/lib/componentinfo.h,ksimus/lib/componentlibrary.cpp,ksimus/lib/componentlibrary.h,ksimus/lib/componentlibraryitem.cpp,ksimus/lib/componentlibraryitem.h,ksimus/lib/componentlistview.cpp,ksimus/lib/componentlistview.h,ksimus/lib/componentlistviewitem.cpp,ksimus/lib/componentlistviewitem.h,ksimus/lib/componentpopupmenu.cpp,ksimus/lib/componentpopupmenu.h,ksimus/lib/connectorinfo.cpp,ksimus/lib/connectorinfo.h,ksimus/lib/connectorlibrary.cpp,ksimus/lib/connectorlibrary.h,ksimus/lib/connectorlibraryitem.cpp,ksimus/lib/connectorlibraryitem.h,ksimus/lib/wirepropertyinfo.cpp,ksimus/lib/wirepropertyinfo.h,ksimus/lib/wirepropertylibrary.cpp,ksimus/lib/wirepropertylibrary.h,ksimus/lib/wirepropertylibraryitem.cpp,ksimus/lib/wirepropertylibraryitem.h,ksimus/lib/moduleinfo.cpp,ksimus/lib/moduleinfo.h,ksimus/lib/ksimpackage.cpp,ksimus/lib/ksimpackage.h,ksimus/lib/packageinfo.cpp,ksimus/lib/packageinfo.h
 sub_dirs=
 type=static_library
 
@@ -919,6 +919,18 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(kde_includes)/ksimus/moduleinfo.h
+type=HEADER
+
+[ksimus/lib/packageinfo.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/lib/packageinfo.h]
+dist=true
+install=true
+install_location=$$(kde_includes)/ksimus/packageinfo.h
 type=HEADER
 
 [ksimus/lib/wirepropertyinfo.cpp]

@@ -18,19 +18,26 @@
 #ifndef KSIMPACKAGE_H
 #define KSIMPACKAGE_H
 
+//#define USE_DLFCN 1
+
+
 // C-Includes
+#ifdef USE_DLFCN
+#  include <dlfcn.h>
+#else
+#  include <ltdl.h>
+#endif
 
 // QT-Includes
 #include <qstring.h>
+#include <qcstring.h>
 
 // KDE-Includes
 
 // Project-Includes
-#include "componentinfo.h"
-#include "connectorinfo.h"
-#include "wirepropertyinfo.h"
 
 // Forward declaration
+class PackageInfo;
 
 /**This class handles the additional packages.
   *@author Rasmus Diekenbrock
@@ -48,6 +55,7 @@ enum eResult { NEW, OPENED, BAD_FILE, TRY_AGAIN };
 		* The package is not accessed during creation.
 		*/
 	KSimPackageHandle(const QString & filename);
+	
 	/** The destructor */
 	~KSimPackageHandle();
 	
@@ -70,25 +78,31 @@ enum eResult { NEW, OPENED, BAD_FILE, TRY_AGAIN };
   	*/
   QString errorMsg() const;
 	
-	/** Returns true, if the opened package distributes components.
+	/** Returns true, if the opened file is a package.
 		*/
-	bool hasComponents() const;
-	/** Returns a simple array of ComponentsInfo.
-		*	Returns a null pointer, if no componenets are distributed by the package,
-		* or package is not opened.
+	bool isPackage() const;
+	/** Returns the PackageInfo of the package.
+		*	Returns a null pointer, if no info is distributed by the package,
+		* package is not opened, or something else goes wrong.
 		*/
-	const ComponentInfoList * getComponentInfoList() const;
+	const PackageInfo * getPackageInfo() const;
 
-
+	/** Returns the init function name. The function must follow the naming pattern
+	  * "init_libname".
+	  */
+	QCString getInitFunctionName() const;
+	
 private:
 	QString m_filename;
 	eResult m_error;
 	QString m_errorMsg;	
+#ifdef USE_DLFCN
 	void * m_fileHandle;
+#else
+	lt_dlhandle m_fileHandle;
+#endif
 	bool m_opened;
-	const ComponentInfoList * m_componentInfoList;
-	const ConnectorInfoList * m_connectorInfoList;
-	const WirePropertyInfoList * m_wirePropertyInfoList;
+	const PackageInfo * m_packageInfo;
 };
 
 #endif

@@ -46,11 +46,11 @@ BaseLibrary::~BaseLibrary()
 	delete m_library;
 }
 
-bool BaseLibrary::insert(const BaseInfo * bi)
+bool BaseLibrary::insert(const BaseInfo * bi, const PackageInfo * packageInfo)
 {
 	bool res;
 	
-	BaseLibraryItem * bli = new BaseLibraryItem(bi);
+	BaseLibraryItem * bli = new BaseLibraryItem(bi, packageInfo);
 	CHECK_PTR(bli);
 	
 	res = _insert_(bli);
@@ -208,5 +208,35 @@ const BaseInfo * BaseLibrary::findIndex(int idx) const
 	BaseLibraryItem * bli = m_library->at(idx);
 	
 	return bli->getBaseInfo();
+}
+
+BaseLibraryItem * BaseLibrary::getItem(const QString & libName) const
+{
+	BaseLibraryItem * bli = m_libNames->find(libName);
+	
+	if (!bli)
+	{
+		KSIMDEBUG_VAR("No BaseLibraryItem found", libName);
+	}
+	
+	return bli;
+}
+
+const PackageInfo * BaseLibrary::getPackageInfo(const QString & libName) const
+{
+	BaseLibraryItem * bli = getItem(libName);
+	
+	if (bli)
+	{
+		const PackageInfo * pi = bli->getPackageInfo();
+		
+		if (!pi)
+		{
+			KSIMDEBUG_VAR("No PackageInfo found", libName);
+		}
+		
+		return pi;
+	}
+	return 0;
 }
 

@@ -19,8 +19,8 @@
 #include "wirepropertyinfo.h"
 
 
-WirePropertyLibraryItem::WirePropertyLibraryItem(const WirePropertyInfo * wireInfo)
-	:	BaseLibraryItem(wireInfo)
+WirePropertyLibraryItem::WirePropertyLibraryItem(const WirePropertyInfo * wireInfo, const PackageInfo * packageInfo)
+	:	BaseLibraryItem(wireInfo, packageInfo)
 {
 }
 

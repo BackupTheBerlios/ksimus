@@ -6,10 +6,10 @@ liblib_a_METASOURCES = AUTO
 
 noinst_LIBRARIES = liblib.a
 
-liblib_a_SOURCES = ksimpackage.cpp moduleinfo.cpp wirepropertylibraryitem.cpp wirepropertylibrary.cpp wirepropertyinfo.cpp connectorlibraryitem.cpp connectorlibrary.cpp connectorinfo.cpp componentpopupmenu.cpp componentlistviewitem.cpp componentlistview.cpp componentlibraryitem.cpp componentlibrary.cpp componentinfo.cpp componentdirectory.cpp baselibraryitem.cpp baselibrary.cpp baseinfo.cpp 
+liblib_a_SOURCES = packageinfo.cpp ksimpackage.cpp moduleinfo.cpp wirepropertylibraryitem.cpp wirepropertylibrary.cpp wirepropertyinfo.cpp connectorlibraryitem.cpp connectorlibrary.cpp connectorinfo.cpp componentpopupmenu.cpp componentlistviewitem.cpp componentlistview.cpp componentlibraryitem.cpp componentlibrary.cpp componentinfo.cpp componentdirectory.cpp baselibraryitem.cpp baselibrary.cpp baseinfo.cpp 
 
 
-EXTRA_DIST = baseinfo.cpp baseinfo.h baselibrary.cpp baselibrary.h baselibraryitem.cpp baselibraryitem.h componentdirectory.cpp componentdirectory.h componentinfo.cpp componentinfo.h componentlibrary.cpp componentlibrary.h componentlibraryitem.cpp componentlibraryitem.h componentlistview.cpp componentlistview.h componentlistviewitem.cpp componentlistviewitem.h componentpopupmenu.cpp componentpopupmenu.h connectorinfo.cpp connectorinfo.h connectorlibrary.cpp connectorlibrary.h connectorlibraryitem.cpp connectorlibraryitem.h wirepropertyinfo.cpp wirepropertyinfo.h wirepropertylibrary.cpp wirepropertylibrary.h wirepropertylibraryitem.cpp wirepropertylibraryitem.h moduleinfo.cpp moduleinfo.h ksimpackage.cpp ksimpackage.h 
+EXTRA_DIST = baseinfo.cpp baseinfo.h baselibrary.cpp baselibrary.h baselibraryitem.cpp baselibraryitem.h componentdirectory.cpp componentdirectory.h componentinfo.cpp componentinfo.h componentlibrary.cpp componentlibrary.h componentlibraryitem.cpp componentlibraryitem.h componentlistview.cpp componentlistview.h componentlistviewitem.cpp componentlistviewitem.h componentpopupmenu.cpp componentpopupmenu.h connectorinfo.cpp connectorinfo.h connectorlibrary.cpp connectorlibrary.h connectorlibraryitem.cpp connectorlibraryitem.h wirepropertyinfo.cpp wirepropertyinfo.h wirepropertylibrary.cpp wirepropertylibrary.h wirepropertylibraryitem.cpp wirepropertylibraryitem.h moduleinfo.cpp moduleinfo.h ksimpackage.cpp ksimpackage.h packageinfo.cpp packageinfo.h 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_includes)/ksimus/
@@ -48,6 +48,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/moduleinfo.h $(kde_includes)/ksimus/moduleinfo.h
 	$(mkinstalldirs) $(kde_includes)/ksimus/
 	$(INSTALL_DATA) $(srcdir)/ksimpackage.h $(kde_includes)/ksimus/ksimpackage.h
+	$(mkinstalldirs) $(kde_includes)/ksimus/
+	$(INSTALL_DATA) $(srcdir)/packageinfo.h $(kde_includes)/ksimus/packageinfo.h
 
 uninstall-local:
 	-rm -f $(kde_includes)/ksimus/baseinfo.h
@@ -68,6 +70,7 @@ uninstall-local:
 	-rm -f $(kde_includes)/ksimus/wirepropertylibraryitem.h
 	-rm -f $(kde_includes)/ksimus/moduleinfo.h
 	-rm -f $(kde_includes)/ksimus/ksimpackage.h
+	-rm -f $(kde_includes)/ksimus/packageinfo.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 

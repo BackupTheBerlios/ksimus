@@ -453,7 +453,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
               	setEditorMode(EM_SELECT);
               	break;
               }
-							((ComponentLibrary*)g_library->getComponentLib())->insert(mi);
+							((ComponentLibrary*)g_library->getComponentLib())->insert(mi, 0);
 							((Module*)newComp)->setModuleFile(getApp()->getModuleFile());
 						}
 					}

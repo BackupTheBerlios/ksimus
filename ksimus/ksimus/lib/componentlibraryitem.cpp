@@ -19,8 +19,8 @@
 
 #include "componentlibraryitem.h"
 
-ComponentLibraryItem::ComponentLibraryItem(const ComponentInfo * ci, bool addToMenu)
-	:	BaseLibraryItem(ci),
+ComponentLibraryItem::ComponentLibraryItem(const ComponentInfo * ci, const PackageInfo * packageInfo, bool addToMenu)
+	:	BaseLibraryItem(ci, packageInfo),
 	  m_addToMenu(addToMenu)
 {
 	if (!ci->getAdditionalLibNames().isEmpty())

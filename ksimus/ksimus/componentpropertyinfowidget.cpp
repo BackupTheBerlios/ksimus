@@ -32,6 +32,7 @@
 #include "compview.h"
 #include "componentinfo.h"
 #include "ksimdebug.h"
+#include "packageinfo.h"
 
 // Forward declaration
 
@@ -48,13 +49,24 @@ ComponentPropertyInfoWidget::ComponentPropertyInfoWidget(Component * comp, QWidg
 	
 	
 	
-	new QLabel(i18n("Name: "), m_grid);
+	new QLabel(i18n("Name:"), m_grid);
 	new QLabel(comp->getInfo()->getName(), m_grid);
 	
-	new QLabel(i18n("Library Name: "), m_grid);
+	new QLabel(i18n("Library Name:"), m_grid);
 	new QLabel(comp->getInfo()->getLibName(), m_grid);
 	
-	new QLabel(i18n("View Attribute: "), m_grid);
+	const PackageInfo * package = comp->getPackageInfo();
+	if(package)
+	{
+		// Package exists
+		new QLabel(i18n("Package Name:"), m_grid);
+		new QLabel(package->getPackageName(), m_grid);
+		
+		new QLabel(i18n("Package Version:"), m_grid);
+		new QLabel(package->getPackageVersion(), m_grid);
+	}		
+	
+	new QLabel(i18n("View Attribute:"), m_grid);
 	switch(comp->getInfo()->getViewAttr())
 	{
 		case VA_SHEETVIEW:
@@ -85,19 +97,19 @@ ComponentPropertyInfoWidget::ComponentPropertyInfoWidget(Component * comp, QWidg
 	}
 	new QLabel(str, m_grid);
 	
-	new QLabel(i18n("Serial Number: "), m_grid);
+	new QLabel(i18n("Serial Number:"), m_grid);
 	str.setNum(comp->getSerialNumber());
 	new QLabel(str, m_grid);
 	
 
 	if (comp->getSheetView())
 	{
-		new QLabel(i18n("Sheet Pos: "), m_grid);
+		new QLabel(i18n("Sheet Pos:"), m_grid);
 		str = QString(i18n("X: %1 Y: %2"))	.arg(comp->getSheetView()->getPos().x())
 											.arg(comp->getSheetView()->getPos().y());
 		new QLabel(str, m_grid);
 
-		new QLabel(i18n("Sheet Size: "), m_grid);
+		new QLabel(i18n("Sheet Size:"), m_grid);
 		str = QString(i18n("Width: %1 Height: %2"))	.arg(comp->getSheetView()->getPlace().width())
 													.arg(comp->getSheetView()->getPlace().height());
 		new QLabel(str, m_grid);
@@ -105,22 +117,17 @@ ComponentPropertyInfoWidget::ComponentPropertyInfoWidget(Component * comp, QWidg
 
 	if (comp->getUserView())
 	{
-		new QLabel(i18n("User Pos: "), m_grid);
+		new QLabel(i18n("User Pos:"), m_grid);
 		str = QString(i18n("X: %1 Y: %2"))	.arg(comp->getUserView()->getPos().x())
 											.arg(comp->getUserView()->getPos().y());
 		new QLabel(str, m_grid);
 
-		new QLabel(i18n("User Size: "), m_grid);
+		new QLabel(i18n("User Size:"), m_grid);
 		str = QString(i18n("Width: %1 Height: %2"))	.arg(comp->getUserView()->getPlace().width())
 													.arg(comp->getUserView()->getPlace().height());
 		new QLabel(str, m_grid);
 	}
 
-	//todo remove
-	new QLabel("Sizeof:", m_grid);
-	new QLabel(QString::number(sizeof(*this)), m_grid);
-	
-	
 	// Set main layout
 	layout = new QGridLayout(this,2,2);
 	layout->addWidget(m_grid,0,0);

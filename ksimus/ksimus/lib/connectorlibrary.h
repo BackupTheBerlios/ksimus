@@ -34,8 +34,8 @@ public:
 	ConnectorLibrary();
 	~ConnectorLibrary();
 
-	bool insert (const ConnectorInfo * ci);
-	bool insert (const ConnectorInfoList cil);
+	bool insert (const ConnectorInfo * ci, const PackageInfo * packageInfo);
+	bool insert (const ConnectorInfoList cil, const PackageInfo * packageInfo);
 	
 	bool create(ConnectorBase * * conn, Component * comp,	const QString & name, const QPoint & pos,const char * libName) const;
 

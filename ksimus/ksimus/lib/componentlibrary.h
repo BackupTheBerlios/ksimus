@@ -31,6 +31,7 @@ class ComponentLibraryItem;
 class Component;
 class CompContainer;
 class ComponentDirectorySubMenu;
+class PackageInfo;
 
 class ComponentLibrary : public BaseLibrary
 {
@@ -43,9 +44,9 @@ public:
 	ComponentLibrary();
 	~ComponentLibrary();
 	
-	bool insert (const ComponentInfo * ci);
+	bool insert (const ComponentInfo * ci, const PackageInfo * packageInfo);
 	bool insertInternal (const ComponentInfo * ci);
-	bool insert (const ComponentInfoList cil);
+	bool insert (const ComponentInfoList cil, const PackageInfo * packageInfo);
 	bool insertInternal (const ComponentInfoList cil);
 	bool remove(const QString & libName);
 	bool remove(const ComponentInfo * ci);
@@ -55,12 +56,15 @@ public:
 	const ComponentInfo * findIndex(int idx) const;
 	const ComponentInfo * findAdditionalLibName(const QString & additionalLibName) const;
 		
+	ComponentLibraryItem * getItem(const QString & libName) const;
+	
+	
 	/** Create a new component */
 	bool createComponent(Component * * newComp, CompContainer * container, const QString & libName) const;
 
 
 protected:		
-	bool insert (const ComponentInfo * ci, bool addToMenu);
+	bool insert (const ComponentInfo * ci, const PackageInfo * packageInfo, bool addToMenu);
 	QDict<ComponentLibraryItem> * m_additionalLibNames;
     ComponentDirectorySubMenu * m_dirBase;
 	

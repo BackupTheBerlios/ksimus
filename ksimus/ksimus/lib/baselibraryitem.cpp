@@ -20,8 +20,9 @@
 #include "baselibraryitem.h"
 #include "baseinfo.h"
 
-BaseLibraryItem::BaseLibraryItem(const BaseInfo * bi)
-	:	m_baseInfo(bi)
+BaseLibraryItem::BaseLibraryItem(const BaseInfo * bi, const PackageInfo * packageInfo)
+	:	m_baseInfo(bi),
+		m_packageInfo(packageInfo)
 {
 	if (!bi->getOldLibNames().isEmpty())
 	{
@@ -43,6 +44,11 @@ BaseLibraryItem::~BaseLibraryItem()
 const BaseInfo * BaseLibraryItem::getBaseInfo() const
 {
 	return m_baseInfo;
+}
+
+const PackageInfo * BaseLibraryItem::getPackageInfo() const
+{
+	return m_packageInfo;
 }
 
 QStringList * BaseLibraryItem::getOldLibNames() const

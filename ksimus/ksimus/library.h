@@ -23,6 +23,7 @@ class ConnectorLibrary;
 class WirePropertyLibrary;
 class QStringList;
 class LibraryPrivate;
+class PackageInfo;
 
 /**Contains all Component Info, Wire Info, ...
   *@author Rasmus Diekenbrock
@@ -40,6 +41,7 @@ public:
 	const QStringList & getMessages() const { return *m_messages; };
 	
 protected:
+	void insertPackage(const PackageInfo * packageInfo);
 	void loadPackageFiles();
 	void addPackageDirs();
 	void addPackageFiles();

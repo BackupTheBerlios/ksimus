@@ -26,6 +26,7 @@
 #include <qdatastream.h>
 #include <qcstring.h>
 #include <qstringlist.h>
+#include <qpixmap.h>
 
 // KDE-Includes
 

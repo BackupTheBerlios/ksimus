@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 bin_PROGRAMS = ksimus
 ksimus_SOURCES = ksimdata.cpp ksimaction.cpp componentaddon.cpp compcontainer.cpp library.cpp componentpropertyinfowidget.cpp componentpropertydialog.cpp componentpropertygeneralwidget.cpp componentpropertybasewidget.cpp compviewwidget.cpp ksimeditor.cpp ksimwidget.cpp wire.cpp ksimundo.cpp ksimfile.cpp globals.cpp displaywidget.cpp compview.cpp componentmap.cpp componentitem.cpp component.cpp basewindow.cpp ksimusview.cpp ksimusdoc.cpp ksimus.cpp main.cpp 
-ksimus_LDADD   = ./module/libmodule.a ./boolean/libboolean.a ./tools/libtools.a ./lib/liblib.a ./items/libitems.a -ldl $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT) $(LIBSOCKET)
+ksimus_LDADD   = ./module/libmodule.a ./boolean/libboolean.a ./tools/libtools.a ./lib/liblib.a ./items/libitems.a -lltdl $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT) $(LIBSOCKET)
 
 SUBDIRS = tools module boolean lib items 
 

@@ -28,7 +28,7 @@ class WirePropertyInfo;
 
 class WirePropertyLibraryItem : public BaseLibraryItem  {
 public: 
-	WirePropertyLibraryItem(const WirePropertyInfo * wireInfo);
+	WirePropertyLibraryItem(const WirePropertyInfo * wireInfo, const PackageInfo * packageInfo);
 	
 	const WirePropertyInfo * getWirePropertyInfo() const;
 	

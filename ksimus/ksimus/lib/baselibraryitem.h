@@ -22,6 +22,7 @@
 class BaseInfo;
 class QStringList;
 class QString;
+class PackageInfo;
 
 /**Item class for the base library class
   *@author Rasmus Diekenbrock
@@ -31,10 +32,11 @@ class BaseLibraryItem
 {
 
 public:
-	BaseLibraryItem(const BaseInfo * bi);
+	BaseLibraryItem(const BaseInfo * bi, const PackageInfo * packageInfo);
 	virtual ~BaseLibraryItem();
 
 	const BaseInfo * getBaseInfo() const;
+	const PackageInfo * getPackageInfo() const;
 	const QString & getName() const;
 	const QString & getLibName() const;
 	const QString & getShortDescr() const;
@@ -47,6 +49,7 @@ public:
 
 protected:
 	const BaseInfo * m_baseInfo;
+	const PackageInfo * m_packageInfo;
 	QStringList * m_oldLibNames;
 
 };

@@ -28,15 +28,15 @@
 #include <qobject.h>
 
 // Include KDE-Header
-#include <kapp.h>
 
 // Include Project-Header
 #include "types.h"
 #include "ksimaction.h"
 
+
+// Forward declaration
 class KSimData;
 class QStringList;
-
 class QPopupMenu;
 class KSimusDoc;
 class CompContainer;
@@ -51,6 +51,8 @@ class ComponentPropertyDialog;
 class ComponentPropertyBaseWidget;
 class KSimTimeServer;
 class ComponentAddOnList;
+class KInstance;
+class PackageInfo;
 
 /**Base class for all components
   *@author Rasmus Diekenbrock
@@ -220,6 +222,11 @@ public:
 	const ComponentInfo * getInfo() const { return m_info; };
 	/** Sets the info class for this component */
 	void setInfo(const ComponentInfo * info) { m_info = info; };
+	/** Returns the package info. Returns a null pointer if no package info is avaible.*/
+	const PackageInfo * getPackageInfo() const;
+	/** Returns the instance of the package. Returns a null pointer if no instance is avaible.*/
+	KInstance * getInstance() const;
+
 	
 	/** Appends a info to the log list.
 		*	The component is selectable during log list view. If the component is part of a module
