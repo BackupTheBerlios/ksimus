@@ -1,4 +1,5 @@
 	05.01.2002
+* Change: Version 0.3.2
 * Fix: Beautify examples
 * Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre the bug message.
 * New: Command line option --simpleVersion returns only the KSimus version.
