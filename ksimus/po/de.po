@@ -1,0 +1,1597 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-20 23:19+0100\n"
+"PO-Revision-Date: 2002-01-21 22:02GMT\n"
+"Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: lib/ksimpackage.cpp:83
+#, ycp-format
+msgid "Package %1 is already opened."
+msgstr "Paket %1 ist schon geöffnet."
+
+#: lib/componentlistview.cpp:291
+msgid "&Fold Tree"
+msgstr "&Schließe Verzeichnis"
+
+#: lib/componentlistview.cpp:292
+msgid "&Unfold Tree"
+msgstr "&Öffne Verzeichnis"
+
+#: lib/componentlistview.cpp:296
+#, ycp-format
+msgid "&Fold %1 Tree"
+msgstr "&Schließe Verzeichnis %1"
+
+#: lib/componentlistview.cpp:297
+#, ycp-format
+msgid "&Unfold %1 Tree"
+msgstr "&Öffne Verzeichnis %1"
+
+#: lib/componentlistview.cpp:300
+msgid "&Hide Component Supplier"
+msgstr "&Schließe Komponentenverzeichnisse"
+
+#: ksimeditor.cpp:681
+#, ycp-format
+msgid "The file %1 contains no valid module!"
+msgstr "Die Datei %1 enthält kein gültiges Modul."
+
+#: ksimeditor.cpp:682
+msgid "Open Module"
+msgstr "Öffne Modul"
+
+#: ksimeditor.cpp:694
+msgid "New Component"
+msgstr "Neue Komponente"
+
+#: ksimeditor.cpp:749 ksimeditor.cpp:1145
+msgid "Copy Components"
+msgstr "Kopiere Komponenten"
+
+#: ksimeditor.cpp:1130
+msgid "Move Components"
+msgstr "Verschiebe Komponenten"
+
+#: ksimeditor.cpp:1179
+msgid "Add connection"
+msgstr "Addiere Verbindung"
+
+#: ksimeditor.cpp:1595
+#, c-format
+msgid "Resize Map: %i,%i"
+msgstr "Verändere Kartengröße %i,%i"
+
+#: ksimeditor.cpp:1608
+msgid "Resizing schematic map"
+msgstr "Verändere Größe des Schaltbildes"
+
+#: ksimeditor.cpp:1621
+msgid "Resizing user interface map"
+msgstr "Verändere Größe des Benutzerinterfaces"
+
+#: ksimeditor.cpp:1668
+msgid "New component"
+msgstr "Neue Komponente"
+
+#: ksimeditor.cpp:1721
+msgid "Ro&tation"
+msgstr "Ro&tation"
+
+#: ksimeditor.cpp:1723
+msgid "&0 Degree"
+msgstr "&0 Grad"
+
+#: ksimeditor.cpp:1729
+msgid "&90 Degree"
+msgstr "&90 Grad"
+
+#: ksimeditor.cpp:1735
+msgid "&180 Degree"
+msgstr "&180 Grad"
+
+#: ksimeditor.cpp:1741
+msgid "&270 Degree"
+msgstr "&270 Grad"
+
+#: ksimeditor.cpp:1757 ksimeditor.cpp:1842
+msgid "P&roperties"
+msgstr "&Eigenschaften"
+
+#: ksimeditor.cpp:1758
+msgid "C&onnector Properties"
+msgstr "&Anschlusseigenschaften"
+
+#: ksimeditor.cpp:1778
+msgid "Rotation 0 Degree"
+msgstr "Rotation 0 Grad"
+
+#: ksimeditor.cpp:1786
+msgid "Rotation 90 Degree"
+msgstr "Rotation 90 Grad"
+
+#: ksimeditor.cpp:1794
+msgid "Rotation 180 Degree"
+msgstr "Rotation 180 Grad"
+
+#: ksimeditor.cpp:1802
+msgid "Rotation 270 Degree"
+msgstr "Rotation 270 Grad"
+
+#: ksimeditor.cpp:1830
+msgid "&Delete wire"
+msgstr "&Lösche Verbindung"
+
+#: ksimeditor.cpp:1831
+msgid "&Truncate wire"
+msgstr "&Unterbreche Verbindung"
+
+#: ksimeditor.cpp:1849
+msgid "Delete Wire"
+msgstr "Lösche Verbindung"
+
+#: ksimeditor.cpp:1858
+msgid "Truncate Wire"
+msgstr "Unterbreche Verbindung"
+
+#: ksimeditor.cpp:1903
+msgid "Cut Components"
+msgstr "Schneide Komponenten aus"
+
+#: ksimeditor.cpp:1916
+msgid "Delete Components"
+msgstr "Lösche Komponenten"
+
+#: componentpropertydialog.cpp:40
+msgid "Component Properties"
+msgstr "Komponenteneigenschaften"
+
+#: componentpropertydialog.cpp:100
+msgid "Change Component Properties"
+msgstr "Ändere Komponenteneigenschaften"
+
+#: componentpropertystylewidget.cpp:61
+msgid "Color:"
+msgstr "Farbe:"
+
+#: componentpropertystylewidget.cpp:65
+msgid "Use system colors"
+msgstr "Verwende Systemfarben"
+
+#: componentpropertystylewidget.cpp:67
+msgid "Check the box if the component have to use the color scheme of your system."
+msgstr ""
+"Markiere die Auswahlbox, wenn die Komponente das Farbschema von deinem "
+"System verwenden soll."
+
+#: componentpropertystylewidget.cpp:76
+msgid "Foreground Color:"
+msgstr "Vordergrundfarbe:"
+
+#: componentpropertystylewidget.cpp:80
+msgid "Select the foreground color."
+msgstr "Wähle die Vordergrundfarbe aus."
+
+#: componentpropertystylewidget.cpp:85
+msgid "Background Color:"
+msgstr "Hintergrundfarbe:"
+
+#: componentpropertystylewidget.cpp:89
+msgid "Select the background color."
+msgstr "Wähle die Hintergrundfarbe aus."
+
+#: componentpropertystylewidget.cpp:95
+msgid "Frame:"
+msgstr "Rahmen:"
+
+#: componentpropertystylewidget.cpp:99
+msgid "Enable frame in user interface"
+msgstr "Aktivere den Rahmen im Benutzerinterface"
+
+#: componentpropertystylewidget.cpp:101
+msgid "Check the box if component have to display a frame."
+msgstr ""
+"Markiere die Auswahlbox, wenn die Komponente einen Rahmen in der Ansicht für "
+"den Benutzer haben soll."
+
+#: componentpropertystylewidget.cpp:107
+msgid "Font:"
+msgstr "Zeichensatz:"
+
+#: componentpropertystylewidget.cpp:111
+msgid "Use default font"
+msgstr "Verwende den normalen Zeichensatz"
+
+#: componentpropertystylewidget.cpp:113
+msgid "Check the box if component have to use the default (the application) font."
+msgstr ""
+"Markiere die Auswahlbox, wenn die Komponente den voreingestellten "
+"Zeichensatz (der Applikation) verwenden soll."
+
+#: componentpropertystylewidget.cpp:118
+msgid "Select font"
+msgstr "Wähle Zeichensatz"
+
+#: componentstyle.cpp:317
+msgid "Style"
+msgstr "Stil"
+
+#: ksimusdoc.cpp:200
+msgid ""
+"The current file has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Die aktuelle Datei wurde modifiziert.\n"
+" Möchten sie die Datei speichern?"
+
+#: ksimusdoc.cpp:309
+msgid "File is not readable"
+msgstr "Die Datei ist nicht lesbar"
+
+#: ksimusdoc.cpp:309
+msgid "Open Document"
+msgstr "Öffne Dokument"
+
+#: ksimusdoc.cpp:327
+msgid "File is not writable"
+msgstr "Datei ist nicht beschreibbar"
+
+#: ksimusdoc.cpp:327 ksimusdoc.cpp:358
+msgid "Save Document"
+msgstr "Speichere Dokument"
+
+#: ksimusdoc.cpp:358
+msgid "No network access allowed"
+msgstr "Der Netzwerkzugriff ist nicht erlaubt"
+
+#: ksimusdoc.cpp:540
+msgid "Start circuit check ..."
+msgstr "Beginne Schaltungsüberprüfung ..."
+
+#: ksimusdoc.cpp:546
+msgid "Circuit check OK"
+msgstr "Schaltungsüberprüfung OK"
+
+#: ksimusdoc.cpp:547
+#, ycp-format
+msgid "Simulate %1 components"
+msgstr "Simuliere %1 Komponenten"
+
+#: ksimusdoc.cpp:551
+#, c-format
+msgid "Circuit check failed (%i errors)"
+msgstr "Schaltungsüberprüfung fehlgeschlagen (%i Fehler)"
+
+#: ksimfile.cpp:70
+#, c-format, ycp-format
+msgid "Can't find directory %1"
+msgstr "Finde Verzeichnis %1 nicht"
+
+#: ksimfile.cpp:89
+msgid "Can't create the session directory"
+msgstr "Kann Sitzungsverzeichnis nicht erstellen"
+
+#: ksimfile.cpp:94
+msgid "Can't enter the session directory"
+msgstr "Kann nicht Sitzungsverzeichnis wechseln"
+
+#: items/connectorboolinpropertywidget.cpp:40
+msgid "Negate"
+msgstr "Negiere"
+
+#: items/connectorboolinpropertywidget.cpp:42
+msgid "Negate the connector"
+msgstr "Negiere den Anschluss"
+
+#: items/connectorboolinedge.cpp:168
+#: items/connectorboolinedgepropertywidget.cpp:40
+msgid "&Edge sensitive"
+msgstr "&Flankenempfindlich "
+
+#: items/connectorboolinedge.cpp:186
+#: items/connectorboolinedgepropertywidget.cpp:42
+msgid "Toogles the sensitive (edge/level) of the connector"
+msgstr "Schaltet die Empfindlichkeit (Flanke/Pegel) des Anschlusses um"
+
+#: items/connectorboolin.cpp:119 items/connectorboolout.cpp:122
+msgid "&Negate connector"
+msgstr "&Negiere Anschlug"
+
+#: items/connectorboolin.cpp:137 items/connectorboolout.cpp:136
+msgid "Negate the boolean connector"
+msgstr "Negiere den booleschen Anschluss"
+
+#: items/connectorboolin.cpp:144 items/connectorboolout.cpp:144
+msgid "Negate connector"
+msgstr "Negiere Anschluss"
+
+#: items/extconnboolin.cpp:32
+msgid "External Connector Boolean Input"
+msgstr "Externer Anschluss boolescher Eingang"
+
+#: items/extconnboolin.cpp:33
+msgid "External Connector/Bool Input"
+msgstr "Externer Anschluss/Boolescher Eingang"
+
+#: boolean/boolean1out.cpp:57 boolean/booleanbutton.cpp:99
+#: boolean/clockgenerator.cpp:120 items/extconnboolin.cpp:45
+#: items/extconnboolout.cpp:42
+msgid "Output"
+msgstr "Ausgang"
+
+#: boolean/booleanled.cpp:78 boolean/booleanxin1out.cpp:45
+#: items/extconnboolin.cpp:47 items/extconnboolout.cpp:44
+msgid "Input"
+msgstr "Eingang"
+
+#: items/connectorbase.cpp:542
+msgid "&Disconnect wire"
+msgstr "&Löse Verbindung"
+
+#: items/connectorbase.cpp:551
+msgid "&Erase Connector"
+msgstr "&Lösche Anschluss"
+
+#: items/connectorbase.cpp:581
+msgid "Disconnect the wire"
+msgstr "Löse die Verbindung"
+
+#: items/connectorbase.cpp:586
+msgid "Erase connector"
+msgstr "Lösche Anschluss"
+
+#: items/connectorbase.cpp:597
+msgid "Disconnect wire"
+msgstr "Löse Verbindung"
+
+#: items/connectorbase.cpp:762
+#, ycp-format
+msgid "%1 is not connected"
+msgstr "%1 ist nicht angeschlossen"
+
+#: items/connectorpack.cpp:164
+msgid "Add connector"
+msgstr "Füge Anschluss hinzu"
+
+#: items/connectorpack.cpp:172 items/connectorpack.cpp:183
+msgid "Delete connector"
+msgstr "Lösche Anschluss"
+
+#: items/connectorpack.cpp:308
+#, c-format, ycp-format
+msgid "Add %1"
+msgstr "Füge %1 hinzu"
+
+#: items/connectorpack.cpp:312
+#, c-format, ycp-format
+msgid "Delete %2"
+msgstr "Lösche %2"
+
+#: items/connectorpropertywidget.cpp:101
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: items/connectorpropertywidget.cpp:114
+msgid "Change the name of the connector here"
+msgstr "Ändere den Namen des Anschlusses hier"
+
+#: componentpropertygeneralwidget.cpp:55 componentpropertyinfowidget.cpp:52
+#: items/connectorpropertywidget.cpp:115
+msgid "Name:"
+msgstr "Name:"
+
+#: items/connectorpropertywidget.cpp:127
+msgid "The shows the connector type."
+msgstr "Zeigt den Anschlusstyp."
+
+#: componentpropertygeneralwidget.cpp:67 items/connectorpropertywidget.cpp:128
+msgid "Type:"
+msgstr "Typ:"
+
+#: items/connectorpropertywidget.cpp:141
+msgid "Hidden"
+msgstr "Versteckt"
+
+#: items/connectorpropertywidget.cpp:143
+msgid "Hide the connector"
+msgstr "Versteckt den Anschluss"
+
+#: items/extconnboolout.cpp:31
+msgid "External Connector Boolean Output"
+msgstr "Externer Anschluss boolescher Ausgang"
+
+#: items/extconnboolout.cpp:32
+msgid "External Connector/Bool Output"
+msgstr "Externer Anschluss/Boolescher Ausgang"
+
+#: items/externalconnector.cpp:131
+#, ycp-format
+msgid "Name of External Connectors have to be unique (%1)."
+msgstr "Die Namen der externen Anschlüsse müssen eindeutig sein (%1)."
+
+#: items/connectorpropertydialog.cpp:46
+msgid "Connector Properties"
+msgstr "Anschlusseigenschaften"
+
+#: component.cpp:358 component.cpp:363 items/connectorpropertydialog.cpp:117
+#: items/connectorpropertydialog.cpp:122
+msgid "Property Errors"
+msgstr "Fehler der Eigenschaften"
+
+#: items/connectorpropertydialog.cpp:143
+msgid "Change Connector Properties"
+msgstr "Ändere Anschlusseigenschaften"
+
+#: items/wireproperty.cpp:93
+msgid "Wire without controlling output"
+msgstr "Verbindung ohne steuernden Ausgang"
+
+#: items/wireproperty.cpp:132
+msgid "Wire has more than one connected output"
+msgstr "Verbindung hat mehr als einen angeschlossenen Ausgang"
+
+#: items/wireproperty.cpp:138
+msgid "TriStates outputs are not allowed"
+msgstr "TriState-Ausgänge sind nicht erlaubt."
+
+#: tools/loglist.cpp:196
+msgid "&Remove Messages"
+msgstr "&Lösche Nachrichten"
+
+#: tools/loglist.cpp:198
+msgid "&Hide Log Window"
+msgstr "&Verstecke Protokollfenster"
+
+#: tools/loglist.cpp:208 tools/loglist.cpp:214
+msgid "Log Window Properties"
+msgstr "Eigenschaften des Protokollfensters"
+
+#: tools/ksimgriddialog.cpp:50
+msgid "&Enable Grid"
+msgstr "&Aktiviere Gitter"
+
+#: tools/ksimgriddialog.cpp:56
+msgid "Dots"
+msgstr "Punkte"
+
+#: tools/ksimgriddialog.cpp:57
+msgid "Dot Line"
+msgstr "Punkt-Linie"
+
+#: tools/ksimgriddialog.cpp:58
+msgid "Dash Line"
+msgstr "Strich-Linie"
+
+#: tools/ksimgriddialog.cpp:59
+msgid "Dash Dot Line"
+msgstr "Strich-Punkt-Linie"
+
+#: tools/ksimgriddialog.cpp:60
+msgid "Dash Dot Dot Line"
+msgstr "Strich-Punkt-Punkt-Linie"
+
+#: tools/ksimgriddialog.cpp:61
+msgid "Solid Line"
+msgstr "Durchgehende Linie"
+
+#: tools/ksimgriddialog.cpp:64
+msgid "&Style:"
+msgstr "&Stil:"
+
+#: tools/ksimgriddialog.cpp:72
+msgid "&Color:"
+msgstr "&Farbe"
+
+#: tools/ksimgriddialog.cpp:75
+msgid "&User defined grid"
+msgstr "&Anwender definiertes Raster"
+
+#: tools/ksimgriddialog.cpp:84
+msgid "&X:"
+msgstr "&X:"
+
+#: tools/ksimgriddialog.cpp:93
+msgid "&Y:"
+msgstr "&Y:"
+
+#: tools/ksimgriddialog.cpp:208 tools/ksimgriddialog.cpp:215
+msgid "Grid Properties"
+msgstr "Gittereigenschaften"
+
+#: tools/ksimpackagefilewidget.cpp:46
+msgid "Package directories:"
+msgstr "Paket-Verzeichnisse:"
+
+#: tools/ksimfilelistselector.cpp:181 tools/ksimpackagefilewidget.cpp:51
+msgid "Package files:"
+msgstr "Paket-Dateien:"
+
+#: tools/ksimfilelistselector.cpp:182 tools/ksimpackagefilewidget.cpp:52
+msgid ""
+"*.so|Package files (*.so)\n"
+"*|All files (*)"
+msgstr ""
+"*.so|Paket-Dateien (*.so)\n"
+"*|Alle Dateien (*)"
+
+#: tools/ksimpackagefilewidget.cpp:97
+msgid ""
+"KSimus packages are configured only during the application start.You have to "
+"restart ksimus if you want to apply the changes.\n"
+"This will be changed in a future version. Sorry!"
+msgstr ""
+"KSimus-Pakete werden nur während dem Start der Applikation konfiguriert. Sie "
+"müssen KSimus neustarten um die Änderungen zu aktivieren.\n"
+"Das wird sich einer zukünftigen Version ändern. Entschuldigung!"
+
+#: tools/ksimpackagefilewidget.cpp:100
+msgid "Restart required"
+msgstr "Neustart erforderlich"
+
+#: tools/ksimpackagefilewidget.cpp:122 tools/ksimpackagefilewidget.cpp:129
+msgid "Package Files"
+msgstr "Paket-Dateien"
+
+#: tools/ksimbooleanbox.cpp:55
+msgid "False"
+msgstr "Falsch"
+
+#: tools/ksimbooleanbox.cpp:56
+msgid "True"
+msgstr "Wahr"
+
+#: tools/mapsizeswidget.cpp:72
+msgid "Schematic size:"
+msgstr "Größe des Schaltbildes:"
+
+#: tools/mapsizeswidget.cpp:76 tools/mapsizeswidget.cpp:120
+msgid "Width:"
+msgstr "Breite:"
+
+#: tools/mapsizeswidget.cpp:84
+msgid "Adjusts the width of the Schematic."
+msgstr "Stellt die Breite des Schaltplans ein."
+
+#: tools/mapsizeswidget.cpp:90 tools/mapsizeswidget.cpp:133
+msgid "Height:"
+msgstr "Höhe:"
+
+#: tools/mapsizeswidget.cpp:98
+msgid "Adjusts the height of the Schematic."
+msgstr "Stellt die Höhe des Schaltplans ein."
+
+#: tools/mapsizeswidget.cpp:116
+msgid "User interface size:"
+msgstr "Größe des Benutzerinterfaces:"
+
+#: tools/mapsizeswidget.cpp:128
+msgid "Adjusts the width of the User Interface."
+msgstr "Stellt die Breite des Benutzerinterfaces ein."
+
+#: tools/mapsizeswidget.cpp:141
+msgid "Adjusts the height of the User Interface."
+msgstr "Stellt die Höhe des Benutzerinterfaces ein."
+
+#: tools/mapsizeswidget.cpp:222
+msgid "Change Map Size"
+msgstr "Ändere Plangröße"
+
+#: tools/loglistdialogwidget.cpp:54
+msgid "Show:"
+msgstr "Zeige:"
+
+#: tools/loglistdialogwidget.cpp:55
+msgid "Popup at:"
+msgstr "Öffne bei:"
+
+#: tools/loglistdialogwidget.cpp:58 tools/loglistdialogwidget.cpp:63
+msgid "Debug"
+msgstr "Debug"
+
+#: tools/loglistdialogwidget.cpp:68 tools/loglistdialogwidget.cpp:73
+msgid "Infos"
+msgstr "Infos"
+
+#: tools/loglistdialogwidget.cpp:78 tools/loglistdialogwidget.cpp:83
+msgid "Warnings"
+msgstr "Warnungen"
+
+#: tools/loglistdialogwidget.cpp:88 tools/loglistdialogwidget.cpp:93
+msgid "Errors"
+msgstr "Fehler"
+
+#: tools/simulationtimingwidget.cpp:53
+msgid "Execution speed:"
+msgstr "Ausführungsgeschwindigkeit:"
+
+#: tools/simulationtimingwidget.cpp:54
+msgid "Fast as possible"
+msgstr "So schnell wie möglich"
+
+#: tools/simulationtimingwidget.cpp:63
+msgid "Simulation time per tick:"
+msgstr "Simulationszeit pro Tick:"
+
+#: tools/simulationtimingwidget.cpp:64 tools/simulationtimingwidget.cpp:74
+msgid "Sychronized to execution speed"
+msgstr "Synchronisiert zur Ausführungszeit"
+
+#: tools/simulationtimingwidget.cpp:73
+msgid "View update speed:"
+msgstr "Geschwindigkeit zum Auffrischen der Anzeige:"
+
+#: tools/simulationtimingwidget.cpp:202
+msgid "Change Timing"
+msgstr "Ändere Zeitverhalten"
+
+#: tools/ksimfilelistselector.cpp:34
+msgid "Select File"
+msgstr "Wähle Datei"
+
+#: tools/ksimfilelistselector.cpp:85
+msgid "Select library"
+msgstr "Wähle Bibliothek"
+
+#: tools/ksimfilelistselector.cpp:167
+msgid "Select Directory"
+msgstr "Wähle Verzeichnis"
+
+#: tools/ksimfilelistselector.cpp:177
+msgid "Package directoires:"
+msgstr "Paket-Verzeichnis:"
+
+#: tools/ksimdoublespinbox.cpp:616
+msgid "Enable exponent steps"
+msgstr "Aktivere exponentielle Schritte"
+
+#: tools/ksimdoublespinbox.cpp:900
+msgid "Auto unit"
+msgstr "Automatische Einheit"
+
+#: tools/ksimunit.cpp:337
+msgid "Time Units"
+msgstr "Zeit-Einheiten"
+
+#: tools/ksimunit.cpp:360
+msgid "Length Units"
+msgstr "Längen-Einheiten"
+
+#: tools/ksimbaseuint.cpp:307
+msgid ""
+"\n"
+"The input line accepts binary, octal, decimal and hexadecimal values.\n"
+"See the following examples how to select the different bases:\n"
+"Binary: 0b11001\n"
+"Octal: 0o31\n"
+"Decimal: 25\n"
+"Hexadecimal: 0x19"
+msgstr ""
+"\n"
+"Die Eingabezeile akzeptiert binäre, oktale, dezimale und hexadezimale Wert.\n"
+"Siehe die folgenden Beispiele, wie man die unterschiedlichen Basen "
+"auswählt::\n"
+"Binär: 0b11001\n"
+"Oktal: 0o31\n"
+"Dezimal: 25\n"
+"Hexadezimal: 0x19"
+
+#: componentpropertyinfowidget.cpp:55
+msgid "Library Name:"
+msgstr "Katalogname:"
+
+#: componentpropertyinfowidget.cpp:62
+msgid "Package Name:"
+msgstr "Name des Pakets:"
+
+#: componentpropertyinfowidget.cpp:65
+msgid "Package Version:"
+msgstr "Paketversion:"
+
+#: componentpropertyinfowidget.cpp:69
+msgid "View Attribute:"
+msgstr "Ansichteigenschaften:"
+
+#: componentpropertyinfowidget.cpp:100
+msgid "Serial Number:"
+msgstr "Seriennummer:"
+
+#: componentpropertyinfowidget.cpp:107
+msgid "Sheet Pos:"
+msgstr "Position Schaltplan:"
+
+#: componentpropertyinfowidget.cpp:108 componentpropertyinfowidget.cpp:121
+#, ycp-format
+msgid "X: %1 Y: %2"
+msgstr "X: %1 Y: %2"
+
+#: componentpropertyinfowidget.cpp:112
+msgid "Sheet Size:"
+msgstr "Größe Schaltplan:"
+
+#: componentpropertyinfowidget.cpp:113 componentpropertyinfowidget.cpp:126
+#, ycp-format
+msgid "Width: %1 Height: %2"
+msgstr "Breite: %1 Höhe: %2"
+
+#: componentpropertyinfowidget.cpp:120
+msgid "User Pos:"
+msgstr "Position Benutzerinterface:"
+
+#: componentpropertyinfowidget.cpp:125
+msgid "User Size:"
+msgstr "Größe Benutzerinterface:"
+
+#: library.cpp:227
+#, ycp-format
+msgid "Load package %1 %2"
+msgstr "Lade Paket %1 %2"
+
+#: library.cpp:242
+msgid "Contains no KInstance!"
+msgstr "Enthält keine KInstance!"
+
+#: library.cpp:250
+#, ycp-format
+msgid "Package %1 has no components."
+msgstr "Paket %1 enthält keine Komponenten."
+
+#: library.cpp:257 library.cpp:276
+#, ycp-format
+msgid "Package %1: %2"
+msgstr "Paket %1: %2"
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Rasmus Diekenbrock"
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "ksimus@gmx.de"
+
+#: main.cpp:28
+msgid ""
+"KSimus is an application for simulating networks with boolean data type.\n"
+"Analog, string and some more data types are planned. Currently there exists "
+"only a few boolean\n"
+"components, but because of the modular character of KSimus extensions are "
+"easy to develop."
+msgstr ""
+"KSimus ist eine Applikation zum Simulieren von Netzwerken mit booleschen "
+"Datentypen.\n"
+"Analoge, String und einige andere Datentypen sind geplant. Momentan "
+"existieren nur einige\n"
+"boolesche Komponenten, aber durch den modularen Charakter von KSimus sind "
+"Erweiterungen\n"
+"einfach zu entwickeln."
+
+#: main.cpp:35
+msgid "file to open"
+msgstr "zu öffnende Datei"
+
+#: main.cpp:36
+msgid "Returns the version of KSimus"
+msgstr "Gibt die Version von KSimus zurück"
+
+#: main.cpp:44
+msgid "KSimus"
+msgstr "KSimus"
+
+#: componentpropertygeneralwidget.cpp:54
+msgid "Change the name of the component here"
+msgstr "Ändere den Namen der Komponente hier."
+
+#: componentpropertygeneralwidget.cpp:65
+msgid "Shows the component type."
+msgstr "Zeigt den Typ der Komponente"
+
+#: compcontainer.cpp:527 compcontainer.cpp:578
+msgid "File Error"
+msgstr "Dateifehler"
+
+#: compcontainer.cpp:528
+msgid "Cant remove file :"
+msgstr "Kann Datei nicht löschen :"
+
+#: compcontainer.cpp:529 compcontainer.cpp:580
+msgid ""
+"\n"
+"\n"
+"Abort copy/past function."
+msgstr ""
+"\n"
+"\n"
+"Breche Kopier- /Einfügefunktion ab."
+
+#: compcontainer.cpp:579
+msgid "Cant find file :"
+msgstr "Kann Datei nicht finden :"
+
+#: compcontainer.cpp:954
+msgid "Loading..."
+msgstr "Lade ..."
+
+#: compcontainer.cpp:1007 compcontainer.cpp:1082
+#, c-format, ycp-format
+msgid "Unknown Component %1"
+msgstr "Unbekannte Komponente %1"
+
+#: component.cpp:330
+#, ycp-format
+msgid "Connector names must be unique (%1)."
+msgstr "Anschlussnamen müssen eindeutig sein (%1)."
+
+#: component.cpp:580
+msgid "General"
+msgstr "Allgemein"
+
+#: component.cpp:604
+msgid "Connectors"
+msgstr "Anschlüsse"
+
+#: component.cpp:679
+msgid "&Hide User View"
+msgstr "&Verstecke Ansicht im Benutzerinterface"
+
+#: module/moduledialog.cpp:215
+msgid ""
+"List of the avilable external connectors.\n"
+"Select the connectors here and place it  at the \"Module Preview\" ."
+msgstr ""
+"Liste der verfügbaren externen Anschlüsse.\n"
+"Wähle einen Anschluss und platziere ihn in der \"Modulvorschau\"."
+
+#: module/moduledialog.cpp:222
+msgid "Connector Selection"
+msgstr "Anschlussauswahl"
+
+#: module/moduledialog.cpp:227
+msgid "used"
+msgstr "verwendet"
+
+#: module/moduledialog.cpp:233
+msgid "Connector Name"
+msgstr "Anschlussname"
+
+#: module/moduledialog.cpp:234
+msgid "Connector Type"
+msgstr "Anschlusstyp"
+
+#: module/moduledialog.cpp:246
+msgid ""
+"Preview of the module.\n"
+"Select the connectors at the \"Connector selection\" and place it here."
+msgstr ""
+"Vorschau des Moduls.\n"
+"Wähle einen Anschluss aus der \"Anschlussauswahl\" und platziere ihn hier."
+
+#: module/moduledialog.cpp:253
+msgid "Module Preview"
+msgstr "Modulvorschau"
+
+#: module/moduledialog.cpp:306
+msgid "Change Module View"
+msgstr "Ändere Modulansicht"
+
+#: module/moduledialog.cpp:344 module/moduledialog.cpp:379
+msgid "Change Connector Position"
+msgstr "Ändere Anschluss-Positionen"
+
+#: module/moduledialog.cpp:357 module/moduledialog.cpp:392
+msgid "Remove Connector"
+msgstr "Lösche Anschluss"
+
+#: module/module.cpp:289
+#, ycp-format
+msgid "Pixmap file '%1' is not valid! Switch to generic view."
+msgstr "Bilddatei '%1' ist nicht gültig! Schalte auf allgemeine Ansicht."
+
+#: module/module.cpp:569
+msgid "&Reload module"
+msgstr "&Modul neuladen"
+
+#: module/moduleeditor.cpp:171
+msgid "No view !"
+msgstr "Keine Ansicht !"
+
+#: module/moduleeditor.cpp:235
+msgid "Image file not valid !"
+msgstr "Bilddatei nicht gültig !"
+
+#: module/typeselection.cpp:38
+msgid "View selection"
+msgstr "Ansichtauswahl"
+
+#: module/typeselection.cpp:43
+msgid "&No Module"
+msgstr "&Kein Modul"
+
+#: module/typeselection.cpp:47
+msgid "Check, if this is not a module."
+msgstr "Markiere hier, wenn dies kein Modul ist."
+
+#: module/typeselection.cpp:52
+msgid "&Generic View"
+msgstr "&Allgemeine Ansicht"
+
+#: module/typeselection.cpp:56
+msgid "Check, if this is a module with a default view."
+msgstr "Markiere hier, wenn das Modul die Defaultansicht verwenden soll."
+
+#: module/typeselection.cpp:60
+msgid "&User View"
+msgstr "B&enutzerinterface"
+
+#: module/typeselection.cpp:64
+msgid "Check, if the module should have a view like the user interface."
+msgstr ""
+"Markiere hier, wenn das Modul das Benutzerinterface als Ansicht verwenden "
+"soll."
+
+#: module/typeselection.cpp:68
+msgid "&Image"
+msgstr "&Bild"
+
+#: module/typeselection.cpp:72
+msgid "Check, if this is a module with a image view."
+msgstr "Markiere hier, wenn das Modul ein Bild als Ansicht verwenden soll."
+
+#: module/modulepropertywidget.cpp:61
+msgid "Enter the module name here."
+msgstr "Gib hier den Modulnamen ein."
+
+#: module/modulepropertywidget.cpp:62
+msgid "Module Name:"
+msgstr "Modulname:"
+
+#: module/modulepropertywidget.cpp:74
+msgid ""
+"Describes the entry of the module at the component supplier.\n"
+"Separate subdirecotries by a slash\"/\".\n"
+"Separate library names by a semicolon \";\"."
+msgstr ""
+"Beschreibt den Eintrag im Komponentenverzeichnis.\n"
+"Separiere Unterverzeichnisse mit einem Schräger \"/\".\n"
+"Separiere verschiedene Einträge mit einem Semikolon \";\"."
+
+#: module/modulepropertywidget.cpp:75
+msgid "Library Names:"
+msgstr "Verzeichnisnamen:"
+
+#: module/modulepropertywidget.cpp:87
+msgid "Enter a short description of the module."
+msgstr "Gebe eine kurze Beschreibung des Moduls ein."
+
+#: module/modulepropertywidget.cpp:88
+msgid "Short Description:"
+msgstr "Kurze Beschreibung"
+
+#: module/modulepropertywidget.cpp:101
+msgid "Enter the path to image file (Image view only)."
+msgstr "Gebe den Pfad zum Bilddatei ein (nur Bildansicht)."
+
+#: module/modulepropertywidget.cpp:102
+msgid "Image &File:"
+msgstr "Bild&datei:"
+
+#: module/modulepropertywidget.cpp:114
+msgid ""
+"Check the box, if your module should also have a view in user interface "
+"(User view only)."
+msgstr ""
+"Markiere die Box, wenn das Modul auch im Benutzerinterface dargestellt "
+"werden soll. (nur Benutzeransicht)."
+
+#: ksimus.cpp:346 module/modulepropertywidget.cpp:115
+msgid "User Interface"
+msgstr "Benutzerinterface"
+
+#: module/modulepropertywidget.cpp:123
+msgid "Pixmap store location"
+msgstr "Speicherort der Bilddatei"
+
+#: module/modulepropertywidget.cpp:125
+msgid "Stores the absolute path of the pixmap (Image view only)."
+msgstr "Speicher den absoluten Pfad zur Bilddatei (nur Bildansicht)."
+
+#: module/modulepropertywidget.cpp:126
+msgid "Absolute path"
+msgstr "Absoluter Pfad"
+
+#: module/modulepropertywidget.cpp:133
+msgid "Stores the path of the pixmap relative to module file (Image view only)."
+msgstr ""
+"Speicher den Pfad zur Bilddatei relative zu diesem Dokument (nur "
+"Bildansicht)."
+
+#: module/modulepropertywidget.cpp:134
+msgid "Relative path"
+msgstr "Relativer Pfad"
+
+#: module/modulepropertywidget.cpp:141
+msgid "Stores the pixmap into the module file (Image view only)."
+msgstr "Speicher des Bild in diesem Dokument (nur Bildansicht)."
+
+#: module/modulepropertywidget.cpp:142
+msgid "Internal"
+msgstr "Intern"
+
+#: module/modulepropertywidget.cpp:242
+msgid "Change Module Name"
+msgstr "Ändere Modulname"
+
+#: module/modulepropertywidget.cpp:249
+msgid "Change Module Library Names"
+msgstr "Ändere Verzeichnisname"
+
+#: module/modulepropertywidget.cpp:256
+msgid "Change Short Description"
+msgstr "Ändere kurze Beschreibung"
+
+#: module/modulepropertywidget.cpp:263
+msgid "Change Image File"
+msgstr "Ändere Bilddatei"
+
+#: module/modulepropertywidget.cpp:294
+msgid "*|All files"
+msgstr "*|Alle Dateien"
+
+#: module/modulepropertywidget.cpp:295
+msgid "Load Image File..."
+msgstr "Lade Bilddatei ..."
+
+#: module/modulepropertywidget.cpp:306
+msgid "Change User View Atrriute"
+msgstr "Ändere Attribute zur Benutzeransicht"
+
+#: module/modulepropertywidget.cpp:324
+msgid "Change Store Location to Absolute"
+msgstr "Ändere Speicherort der Bilddatei nach absoluter Pfad."
+
+#: module/modulepropertywidget.cpp:334
+msgid "Change Store Location to Relative"
+msgstr "Ändere Speicherort der Bilddatei nach relativer Pfad."
+
+#: module/modulepropertywidget.cpp:344
+msgid "Change Store Location to Internal"
+msgstr "Ändere Speicherort der Bilddatei nach intern."
+
+#: rc.cpp:3
+msgid "E&xecute"
+msgstr "&Ausführen"
+
+#: wire.cpp:47
+msgid "Wire"
+msgstr "Verbindung"
+
+#: wire.cpp:623
+msgid "INTERNAL ERROR *** Wire has no property ***"
+msgstr "INTERNAL ERROR *** Wire has no property ***"
+
+#: compview.cpp:1256
+msgid "Resize"
+msgstr "Ändern der Größe"
+
+#: ksimundo.cpp:367
+#, c-format, ycp-format
+msgid "Undo: %1"
+msgstr "Undo: %1"
+
+#: ksimundo.cpp:438
+#, c-format, ycp-format
+msgid "Redo: %1"
+msgstr "Redo: %1"
+
+#: boolean/boolean1out.cpp:194 boolean/booleanbutton.cpp:382
+msgid "Reset State: "
+msgstr "Resetzustand:"
+
+#: boolean/boolean1out.cpp:200 boolean/booleanbutton.cpp:388
+msgid "Changes the reset state of the component to true or false."
+msgstr "Ändere den Resetzustand der Komponente auf Wahr oder Falsch"
+
+#: boolean/booleanbutton.cpp:53
+msgid "Button"
+msgstr "Taster"
+
+#: boolean/booleanbutton.cpp:54
+msgid "Boolean/Input/Button"
+msgstr "Boolesche/Eingang/Taster"
+
+#: boolean/booleanbutton.cpp:67
+msgid "TButton"
+msgstr "RTaster"
+
+#: boolean/booleanbutton.cpp:68
+msgid "Boolean/Input/Toggle Button"
+msgstr "Boolesche/Eingang/Rasttaster"
+
+#: boolean/booleanbutton.cpp:392
+msgid "Toggle Function:"
+msgstr "Rastfunktion:"
+
+#: boolean/booleanbutton.cpp:401
+msgid "Enables or disables the toggle feature."
+msgstr "Aktiviert oder deaktiviert die Rastfunktion."
+
+#: boolean/booleanled.cpp:55
+msgid "LED"
+msgstr "LED"
+
+#: boolean/booleanled.cpp:56
+msgid "Boolean/Output/LED"
+msgstr "Boolesche/Ausgang/LED"
+
+#: boolean/booleanled.cpp:139
+msgid "Color"
+msgstr "Farbe"
+
+#: boolean/booleanled.cpp:328
+msgid "Automatic colored"
+msgstr "Automatische Farbe"
+
+#: boolean/booleanled.cpp:331
+msgid "Red"
+msgstr "Rot"
+
+#: boolean/booleanled.cpp:333
+msgid "Green"
+msgstr "Grün"
+
+#: boolean/booleanled.cpp:335
+msgid "Orange"
+msgstr "Orange"
+
+#: boolean/booleanled.cpp:342
+msgid "User defined:"
+msgstr "Benutzerdefiniert:"
+
+#: boolean/booleanled.cpp:467
+msgid "Color On"
+msgstr "Farbe Ein"
+
+#: boolean/booleanled.cpp:470
+msgid "Color Off"
+msgstr "Farbe Aus"
+
+#: boolean/booleanled.cpp:473
+msgid "Result:"
+msgstr "Ergebnis:"
+
+#: boolean/clockgenerator.cpp:59
+msgid "Clock Generator"
+msgstr "Taktgenerator"
+
+#: boolean/clockgenerator.cpp:60
+msgid "Boolean/Gates/Clock Generator"
+msgstr "Boolesche/Gatter/Taktgenerator"
+
+#: boolean/clockgenerator.cpp:188 ksimus.cpp:907
+msgid "Timing"
+msgstr "Zeitverhalten"
+
+#: boolean/clockgenerator.cpp:276
+msgid "Start delay: "
+msgstr "Startverzögerung:"
+
+#: boolean/clockgenerator.cpp:283
+msgid "Delay before clock starts."
+msgstr "Verzögerung bevor der Takt startet."
+
+#: boolean/clockgenerator.cpp:287
+msgid "High time: "
+msgstr "Länge Wahr-Pegel:"
+
+#: boolean/clockgenerator.cpp:291
+msgid "Time of high level."
+msgstr "Zeitdauer für den Wahr-Pegel."
+
+#: boolean/clockgenerator.cpp:295
+msgid "Low time: "
+msgstr "Länge Falsch-Pegel:"
+
+#: boolean/clockgenerator.cpp:299
+msgid "Time of low level."
+msgstr "Zeitdauer für den Falsch-Pegel."
+
+#: boolean/booleanxin1out.cpp:47
+#, c-format, ycp-format
+msgid "Input %1"
+msgstr "Eingang %1"
+
+#: boolean/booleanand.cpp:44
+msgid "Boolean AND"
+msgstr "Boolesches AND"
+
+#: boolean/booleanand.cpp:45
+msgid "Boolean/Gates/AND"
+msgstr "Boolesche/Gatter/AND"
+
+#: boolean/booleanand.cpp:51
+msgid "Boolean NAND"
+msgstr "Boolesches NAND"
+
+#: boolean/booleanand.cpp:52
+msgid "Boolean/Gates/NAND"
+msgstr "Boolesche/Gatter/NAND"
+
+#: ksimus.cpp:194
+msgid "New &Window"
+msgstr "Neues &Fenster"
+
+#: ksimus.cpp:210
+msgid "&Insert Module..."
+msgstr "Modul &einfügen..."
+
+#: ksimus.cpp:215
+msgid "&Log View"
+msgstr "&Protokollfenster"
+
+#: ksimus.cpp:216
+msgid "&Component Supplier"
+msgstr "&Komponentenverzeichnis"
+
+#: ksimus.cpp:217
+msgid "&Fold Supplier"
+msgstr "Schließe &Verzeichnis"
+
+#: ksimus.cpp:218
+msgid "&Unfold Supplier"
+msgstr "&Öffne Verzeichnis"
+
+#: ksimus.cpp:220
+msgid "&Display Costmap"
+msgstr "Z&eige Kostenkarte"
+
+#: ksimus.cpp:221
+msgid "Map &Sizes"
+msgstr "&Größe der Pläne ändern"
+
+#: ksimus.cpp:222
+msgid "&Timing"
+msgstr "&Zeitverhalten"
+
+#: ksimus.cpp:223
+msgid "&Grid"
+msgstr "&Gitter"
+
+#: ksimus.cpp:224
+msgid "&Package Files"
+msgstr "&Paket-Dateien"
+
+#: ksimus.cpp:226
+msgid "&Reset"
+msgstr "&Reset"
+
+#: ksimus.cpp:228
+msgid "S&top"
+msgstr "S&top"
+
+#: ksimus.cpp:229
+msgid "&Pause"
+msgstr "&Pause"
+
+#: ksimus.cpp:233
+msgid "Opens a new application window"
+msgstr "Öffnet ein neues Fenster"
+
+#: ksimus.cpp:234
+msgid "Creates a new document"
+msgstr "Neues Dokument"
+
+#: ksimus.cpp:235
+msgid "Opens an existing document"
+msgstr "Öffnet existierendes Dokument"
+
+#: ksimus.cpp:236
+msgid "Opens a recently used file"
+msgstr "Öffnet ein kürzlich verwendete Datei"
+
+#: ksimus.cpp:237
+msgid "Saves the actual document"
+msgstr "Speicher das aktuelle Dokument"
+
+#: ksimus.cpp:238
+msgid "Saves the actual document as..."
+msgstr "Speicher das aktuelle Dokument als ..."
+
+#: ksimus.cpp:239
+msgid "Closes the actual document"
+msgstr "Schließt das aktuelle Dokument"
+
+#: ksimus.cpp:240
+msgid "Prints out the actual document"
+msgstr "Druckt das aktuelle Dokument"
+
+#: ksimus.cpp:241
+msgid "Quits the application"
+msgstr "Beendet die Applikation"
+
+#: ksimus.cpp:242
+msgid "Deletes the selected section"
+msgstr "Löscht den gewählten Bereich"
+
+#: ksimus.cpp:243
+msgid "Cuts the selected section and puts it to the clipboard"
+msgstr "Schneidet den gewählten Bereich aus und fügt ihn in die Zwischenablage ein."
+
+#: ksimus.cpp:244
+msgid "Copies the selected section to the clipboard"
+msgstr "Kopiert den gewählten Bereich in die Zwischenablage."
+
+#: ksimus.cpp:245
+msgid "Pastes the clipboard contents to actual position"
+msgstr "Fügt den Inhalt der Zwischenablage an die aktuelle Position ein."
+
+#: ksimus.cpp:246
+msgid "Insert a module to the current view"
+msgstr "Fügt ein Modul in die aktuelle Ansicht ein."
+
+#: ksimus.cpp:247
+msgid "Enables/disables the toolbar"
+msgstr "Aktiviert/Deaktiviert die Werkzeugleiste"
+
+#: ksimus.cpp:248
+msgid "Enables/disables the statusbar"
+msgstr "Aktiviert/Deaktiviert die Statuszeile"
+
+#: ksimus.cpp:252
+msgid "Enables/disables the log view"
+msgstr "Aktiviert/Deaktiviert das Protokollfenster"
+
+#: ksimus.cpp:254
+msgid "Enables/disables the component supplier"
+msgstr "Aktiviert/Deaktiviert das Komponentenverzeichnis"
+
+#: ksimus.cpp:256
+msgid "Folds component supplier"
+msgstr "Schließt die Komponentenverzeichnisse"
+
+#: ksimus.cpp:257
+msgid "Unfolds component supplier"
+msgstr "Öffnet die Komponentenverzeichnisse"
+
+#: ksimus.cpp:258
+msgid "Enables/disables display of the cost map"
+msgstr "Aktiviert/Deaktiviert die Ansicht der Kostenkarte"
+
+#: ksimus.cpp:260
+msgid "Resets simulation"
+msgstr "Setzt die Simulation zurück"
+
+#: ksimus.cpp:261
+msgid "Starts simulation"
+msgstr "Startet die Simulation"
+
+#: ksimus.cpp:262
+msgid "Stops simulation"
+msgstr "Stoppt die Simulation"
+
+#: ksimus.cpp:263
+msgid "Pause simulation"
+msgstr "Unterbricht die Simulation"
+
+#: ksimus.cpp:266
+msgid "Setup Schematic und User Interface size"
+msgstr "Setzt die Größe des Schaltplans und des Benutzerinterfaces"
+
+#: ksimus.cpp:267
+msgid "Setup simulation timing"
+msgstr "Einstellung des Zeitverhaltens der Simulation"
+
+#: ksimus.cpp:268
+msgid "Setup grid"
+msgstr "Einstellung des Gitters"
+
+#: ksimus.cpp:269
+msgid "Select packages"
+msgstr "Auswahl der Pakete"
+
+#: ksimus.cpp:282 ksimus.cpp:1170
+msgid "Time"
+msgstr "Zeit"
+
+#: ksimus.cpp:286 ksimus.cpp:364 ksimus.cpp:526 ksimus.cpp:546 ksimus.cpp:577
+#: ksimus.cpp:594 ksimus.cpp:643 ksimus.cpp:652 ksimus.cpp:665 ksimus.cpp:685
+#: ksimus.cpp:750 ksimus.cpp:865 ksimus.cpp:891 ksimus.cpp:917 ksimus.cpp:946
+#: ksimus.cpp:956 ksimus.cpp:991 ksimus.cpp:1054 ksimus.cpp:1071
+msgid "Ready."
+msgstr "Fertig."
+
+#: ksimus.cpp:330
+msgid "Schematic"
+msgstr "Schaltplan"
+
+#: ksimus.cpp:352
+msgid "Module"
+msgstr "Modul"
+
+#: ksimus.cpp:360 ksimus.cpp:551 ksimus.cpp:582
+msgid "Opening file..."
+msgstr "Öffne Datei..."
+
+#: ksimus.cpp:521
+msgid "Opening a new application window..."
+msgstr "Öffne neues Applikationsfenster"
+
+#: ksimus.cpp:532
+msgid "Creating new document..."
+msgstr "Erzeuge ein neues Dokument..."
+
+#: ksimus.cpp:561 ksimus.cpp:617 ksimus.cpp:741
+msgid ""
+"*.sim|KSimus files (*.sim)\n"
+"*|All files"
+msgstr ""
+"*.sim|KSimus Dokumente (*.sim)\n"
+"*|Alle Dateien"
+
+#: ksimus.cpp:563
+msgid "Open File..."
+msgstr "Öffne Datei..."
+
+#: ksimus.cpp:601
+msgid "Saving file..."
+msgstr "Speichere Datei..."
+
+#: ksimus.cpp:614
+msgid "Saving file with a new filename..."
+msgstr "Speichere Datei mit neuem Namen..."
+
+#: ksimus.cpp:648
+msgid "Closing file..."
+msgstr "Schließe Datei..."
+
+#: ksimus.cpp:657
+msgid "Printing..."
+msgstr "Drucke..."
+
+#: ksimus.cpp:670
+msgid "Exiting..."
+msgstr "Beende..."
+
+#: ksimus.cpp:709
+msgid "Deleting selection..."
+msgstr "Lösche Auswahl..."
+
+#: ksimus.cpp:715
+msgid "Cutting selection..."
+msgstr "Schneide Auswahl aus..."
+
+#: ksimus.cpp:723
+msgid "Copying selection to clipboard..."
+msgstr "Kopiere Auswahl in die Zwischenablage..."
+
+#: ksimus.cpp:731
+msgid "Inserting clipboard contents..."
+msgstr "Füge Inhalt der Zwischenablage ein..."
+
+#: ksimus.cpp:737
+msgid "Inserting a module..."
+msgstr "Füge ein Modul ein..."
+
+#: ksimus.cpp:742
+msgid "Insert Module..."
+msgstr "Füge Modul ein..."
+
+#: ksimus.cpp:755
+msgid "Toggling toolbar..."
+msgstr "Schalte Werkzeugleiste um..."
+
+#: ksimus.cpp:770
+msgid "Toggle the statusbar..."
+msgstr "Schalte die Statuszeile um..."
+
+#: ksimus.cpp:785
+msgid "Toggle the log view..."
+msgstr "Schalte das Protokollfenster um..."
+
+#: ksimus.cpp:800
+msgid "Hide the log view..."
+msgstr "Verstecke das Protokollfenster..."
+
+#: ksimus.cpp:812
+msgid "Toggle the component supplier..."
+msgstr "Schalte das Komponentenverzeichnis um..."
+
+#: ksimus.cpp:831
+msgid "Hide the component supplier..."
+msgstr "Verstecke das Komponentenverzeichnis..."
+
+#: ksimus.cpp:845
+msgid "Fold component supplier..."
+msgstr "Schließe Komponentenverzeichnisse..."
+
+#: ksimus.cpp:853
+msgid "Unfold component supplier..."
+msgstr "Öffne Komponentenverzeichnisse..."
+
+#: ksimus.cpp:872
+msgid "Setup map sizes..."
+msgstr "Einstellen der Plangrößen..."
+
+#: ksimus.cpp:876 ksimus.cpp:882
+msgid "Map Sizes"
+msgstr "Plangröße"
+
+#: ksimus.cpp:897
+msgid "Setup simulation timing..."
+msgstr "Einstellen des Simulationszeitverhalten..."
+
+#: ksimus.cpp:901
+msgid "Timings"
+msgstr "Zeitverhalten"
+
+#: ksimus.cpp:922
+msgid "Setup grid..."
+msgstr "Einstellen des Gitters..."
+
+#: ksimus.cpp:951
+msgid "Setup package files..."
+msgstr "Einstellen der Paket-Dateien..."
+
+#: ksimus.cpp:961
+msgid "Resets simulation..."
+msgstr "Rücksetzen der Simulation..."
+
+#: ksimus.cpp:968
+msgid "Starts simulation..."
+msgstr "Startet die Simulation..."
+
+#: ksimus.cpp:977
+msgid "Stops simulation..."
+msgstr "Stoppt die Simulation..."
+
+#: ksimus.cpp:988
+msgid "Pause simulation..."
+msgstr "Unterbricht die Simulation..."
+
+#: ksimus.cpp:1050
+msgid "Test Action..."
+msgstr "Testaktion..."
+
+#: ksimus.cpp:1077
+#, ycp-format
+msgid "Insert Component '%1' ..."
+msgstr "Füge Komponente '%1' ein..."
+
+#: ksimus.cpp:1086
+msgid "Past Components..."
+msgstr "Füge Komponenten ein..."
+
+#: ksimus.cpp:1096
+msgid "Move Components..."
+msgstr "Verschiebe Komponenten..."
+
+#: ksimus.cpp:1100
+msgid "Copy Components..."
+msgstr "Kopiere Komponenten..."
+
+#: ksimus.cpp:1105
+msgid "Select Components..."
+msgstr "Wähle Komponenten aus..."
+
+#: ksimus.cpp:1113
+msgid "Resize Component..."
+msgstr "Verändere die Größe der Komponente..."
+
+#: ksimus.cpp:1117
+msgid "Connect Components..."
+msgstr "Verbinde Komponenten..."
+
+#: ksimus.cpp:1121
+msgid "Resize Map..."
+msgstr "Verändere die Größe des Plans..."
+

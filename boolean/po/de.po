@@ -1,0 +1,322 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-20 23:25+0100\n"
+"PO-Revision-Date: 2002-01-21 19:52GMT\n"
+"Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: dflipflop.cpp:50
+msgid "D Latch"
+msgstr "D-Latch"
+
+#: dflipflop.cpp:51
+msgid "Boolean/Flip Flop/D Latch"
+msgstr "Boolesche/Flipflop/D Latch"
+
+#: dflipflop.cpp:67
+msgid "Data"
+msgstr "Daten"
+
+#: dflipflop.cpp:70
+msgid "Enable"
+msgstr "Aktiviere"
+
+#: booleanconstant.cpp:44
+msgid "Boolean Const True"
+msgstr "Boolesche Konstant Wahr"
+
+#: booleanconstant.cpp:45
+msgid "Boolean/Input/Const True"
+msgstr "Boolesche/Eingang/Konstant Wahr"
+
+#: booleanconstant.cpp:50
+msgid "Boolean Const False"
+msgstr "Boolesche Konstant Falsch"
+
+#: booleanconstant.cpp:51
+msgid "Boolean/Input/Const False"
+msgstr "Boolesche/Eingang/Konstant Falsch"
+
+#: boolean2in1out.cpp:67 booleanconstant.cpp:149 booleancounter.cpp:109
+msgid "Output"
+msgstr "Ausgang"
+
+#: flipflopbase.cpp:54
+msgid "/Output"
+msgstr "/Ausgang"
+
+#: flipflopbase.cpp:58
+msgid "Set"
+msgstr "Setzen"
+
+#: booleancounter.cpp:93 flipflopbase.cpp:61
+msgid "Reset"
+msgstr "Rücksetzen"
+
+#: flipflopbase.cpp:132
+msgid "Dominant Input:"
+msgstr "Dominanter Eingang:"
+
+#: flipflopbase.cpp:138
+msgid "Set Input"
+msgstr "Setze Eingang"
+
+#: flipflopbase.cpp:139 monoflop.cpp:255
+msgid "Reset Input"
+msgstr "Rücksetze Eingang"
+
+#: flipflopbase.cpp:141
+msgid "Set here dominant input."
+msgstr "Bestimme hier den dominanten Eingang."
+
+#: jkflipflop.cpp:58
+msgid "JK Flip Flop"
+msgstr "JK-Flipflop"
+
+#: jkflipflop.cpp:59
+msgid "Boolean/Flip Flop/JK-FF"
+msgstr "Boolesche/Flipflop/JK-FF"
+
+#: jkflipflop.cpp:65
+msgid "JK Master Slave Flip Flop"
+msgstr "JK-Master-Slave-Flipflop"
+
+#: jkflipflop.cpp:66
+msgid "Boolean/Flip Flop/JK-MS-FF"
+msgstr "Boolesche/Flipflop/JK-MS-FF"
+
+#: jkflipflop.cpp:88
+msgid "Clock"
+msgstr "Takt"
+
+#: jkflipflop.cpp:345
+msgid "Master Slave:"
+msgstr "Master-Slave:"
+
+#: jkflipflop.cpp:351
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: jkflipflop.cpp:352
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: jkflipflop.cpp:354
+msgid ""
+"Enables the Master Salve functionality.\n"
+"If disabled, the FF works in single edge mode."
+msgstr ""
+"Aktiviert die Master Salve Funktion\n"
+"Wenn deaktiviert, arbeitet das FF im einfachen Flanken-Modus."
+
+#: booleanxor.cpp:46
+msgid "Boolean Exclusive OR"
+msgstr "Boolesches Exclusiv Or"
+
+#: booleanxor.cpp:47
+msgid "Boolean/Gates/XOR"
+msgstr "Boolesche/Gatter/XOR"
+
+#: booleanxor.cpp:53
+msgid "Boolean Exclusive NOR"
+msgstr "Boolesches Exclusiv NOR"
+
+#: booleanxor.cpp:54
+msgid "Boolean/Gates/XNOR"
+msgstr "Boolesche/Gatter/XNOR"
+
+#: booleancounter.cpp:59
+msgid "Boolean Counter with RCO and RBO"
+msgstr "Boolescher Zähler mit RCO und RBO"
+
+#: booleancounter.cpp:60
+msgid "Boolean/Counter/with RCO and RBO"
+msgstr "Boolesche/Zähler/mit RCO und RBO"
+
+#: booleancounter.cpp:99
+msgid "Clock Up"
+msgstr "Takt aufwärts"
+
+#: booleancounter.cpp:104
+msgid "Clock Down"
+msgstr "Takt abwärts"
+
+#: booleancounter.cpp:111
+#, c-format, ycp-format
+msgid "Output %1"
+msgstr "Ausgang %1"
+
+#: booleancounter.cpp:114
+msgid "Ripple Borrow Out"
+msgstr "Unterlauf-Ausgang (Ripple Borrow Out)"
+
+#: booleancounter.cpp:118
+msgid "Ripple Carry Out"
+msgstr "Überlauf-Ausgang (Ripple Carry Out)"
+
+#: booleancounter.cpp:168
+msgid "Connector \"Clock Up\" or \"Clock Down\" must be visible."
+msgstr "Anschluss \"Takt aufwärts\" oder \"Takt abwärts\" muß sichtbar sind."
+
+#: booleancounter.cpp:253
+msgid "Counter"
+msgstr "Zähler"
+
+#: booleancounter.cpp:379
+msgid "Counter width:"
+msgstr "Zählerbreite:"
+
+#: booleancounter.cpp:385
+msgid " bit"
+msgstr " Bit"
+
+#: booleancounter.cpp:386
+msgid "Sets the counter width."
+msgstr "Stellt die Zählerbreite ein."
+
+#: booleancounter.cpp:391
+msgid "Maximum:"
+msgstr "Maximum:"
+
+#: booleancounter.cpp:395
+msgid ""
+"Sets the maximum counter value.\n"
+"This value is used if the counter wraps around."
+msgstr ""
+"Setzt den maximalen Zählerwert.\n"
+"Der Wert wird beim Überlauf des Zählers verwendet."
+
+#: booleancounter.cpp:401
+msgid "Minimum:"
+msgstr "Minimum:"
+
+#: booleancounter.cpp:405
+msgid ""
+"Sets the minimum counter value.\n"
+"This value is used if the counter wraps around."
+msgstr ""
+"Setzt den minimalen Zählerwert.\n"
+"Der Wert wird beim Unterlauf des Zählers verwendet."
+
+#: booleancounter.cpp:411
+msgid "Reset value:"
+msgstr "Resetwert:"
+
+#: booleancounter.cpp:415
+msgid ""
+"Sets the reset counter value.\n"
+"This value is also used if the counter is reseted."
+msgstr ""
+"Setzt den Resetwert des Zählers.\n"
+"Der Wert wird auch verwendet wenn der Zähler zurückgesetzt wird."
+
+#: booleancounter.cpp:422
+#, ycp-format
+msgid "Hint: minimum counter width is %1 bit"
+msgstr "Hinweis: minimale Zählerbreite ist %1 Bit."
+
+#: booleancounter.cpp:425
+msgid ""
+"This is the minimal possible counter width.\n"
+"This value depends on wired connectors."
+msgstr ""
+"Das ist die minimal mögliche Zählerbreite.\n"
+"Der Wert hängt von den verwendeten Anschlüssen ab."
+
+#: monoflop.cpp:60
+msgid "Mono Flop"
+msgstr "Monoflop"
+
+#: monoflop.cpp:61
+msgid "Boolean/Flip Flop/Mono Flop"
+msgstr "Boolesche/Flipflop/Monoflop"
+
+#: monoflop.cpp:83
+msgid "Trigger"
+msgstr "Trigger"
+
+#: monoflop.cpp:254
+msgid "Trigger Input"
+msgstr "Triggereingang"
+
+#: monoflop.cpp:261
+msgid "Retrigger:"
+msgstr "Retrigger:"
+
+#: monoflop.cpp:270
+msgid "Set here the retrigger mode."
+msgstr "Setzt den Retrigger-Modus."
+
+#: monoflop.cpp:276
+msgid "Time:"
+msgstr "Zeit:"
+
+#: monoflop.cpp:282
+msgid "Set here the duration."
+msgstr "Setzt die Zeitdauer."
+
+#: booleanor.cpp:49
+msgid "Boolean OR"
+msgstr "Boolesches Or"
+
+#: booleanor.cpp:50
+msgid "Boolean/Gates/OR"
+msgstr "Boolesche/Gatter/OR"
+
+#: booleanor.cpp:56
+msgid "Boolean NOR"
+msgstr "Boolesches NOR"
+
+#: booleanor.cpp:57
+msgid "Boolean/Gates/NOR"
+msgstr "Boolesche/Gatter/NOR"
+
+#: boolean2in1out.cpp:69
+msgid "Input A"
+msgstr "Eingang A"
+
+#: boolean2in1out.cpp:71
+msgid "Input B"
+msgstr "Eingang B"
+
+#: boolean7segment.cpp:58
+msgid "7 Segment Display"
+msgstr "7-Segmentanzeige"
+
+#: boolean7segment.cpp:59
+msgid "Boolean/Output/7 Segment Display"
+msgstr "Boolesche/Ausgang/7-Segmentanzeige"
+
+#: boolean7segment.cpp:88
+msgid "Input 1"
+msgstr "Eingang 1"
+
+#: boolean7segment.cpp:91
+msgid "Input 2"
+msgstr "Eingang 2"
+
+#: boolean7segment.cpp:94
+msgid "Input 4"
+msgstr "Eingang 4"
+
+#: boolean7segment.cpp:97
+msgid "Input 8"
+msgstr "Eingang 8"
+
+#: rsflipflop.cpp:48
+msgid "RS Flip Flop"
+msgstr "RS-Flipflop"
+
+#: rsflipflop.cpp:49
+msgid "Boolean/Flip Flop/RS-FF"
+msgstr "Boolesche/Flipflop/RS-FF"
+
