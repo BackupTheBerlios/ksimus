@@ -72,7 +72,7 @@ ConnectorFloatOut::ConnectorFloatOut(Component * comp, const QString & name, con
 
 void ConnectorFloatOut::init()
 {
-	setNegateEnabled(true);
+	setNegateEnabled(false);
 }
 
 // Get the colors for the connector

@@ -71,7 +71,7 @@ ConnectorFloatIn::ConnectorFloatIn(Component * comp, const QString & name, const
 
 void ConnectorFloatIn::init()
 {
-	setNegateEnabled(true);
+	setNegateEnabled(false);
 	m_data = 0.0;
 }
 
