@@ -142,9 +142,9 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 	}
 	g_appList->append(this);
 	
-/*	KSIMDEBUG(QString("LanguageList: %1").arg(KGlobal::locale()->languageList().join(" ")));
-	KSIMDEBUG(QString("Languages: %1").arg(KGlobal::locale()->languages()));
-	KGlobal::locale()->setLanguage("C");*/
+//	KSIMDEBUG(QString("LanguageList: %1").arg(KGlobal::locale()->languageList().join(" ")));
+//	KSIMDEBUG(QString("Languages: %1").arg(KGlobal::locale()->languages()));
+//	KGlobal::locale()->setLanguage("C");
 	
 	
 	if (!g_library)
