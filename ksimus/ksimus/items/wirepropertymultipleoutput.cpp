@@ -42,6 +42,9 @@ WirePropertyMultipleOutput::WirePropertyMultipleOutput(Wire * wire, const WirePr
 	m_connectorList = new ConnectorTriStateList();
 	CHECK_PTR(m_connectorList);
 	
+	m_connectorInputList = new ConnectorInputList();
+	CHECK_PTR(m_connectorInputList);
+
 	m_executeNextList = new ComponentList();
 	CHECK_PTR(m_executeNextList);
 	
@@ -58,6 +61,7 @@ WirePropertyMultipleOutput::WirePropertyMultipleOutput(Wire * wire, const WirePr
 WirePropertyMultipleOutput::~WirePropertyMultipleOutput()
 {
 	delete m_connectorList;
+	delete m_connectorInputList;
 	delete m_executeNextList;
 	delete m_zeroDelayList;
 	delete m_wirePropertyList;
@@ -97,6 +101,7 @@ void WirePropertyMultipleOutput::setupCircuit()
 	
 	Component * comp;
 	m_connectorList->clear();
+	m_connectorInputList->clear();
 	m_executeNextList->clear();
 	m_zeroDelayList->clear();
 	m_wirePropertyList->clear();
@@ -117,6 +122,27 @@ void WirePropertyMultipleOutput::setupCircuit()
 			if (comp->isModule() || comp->isExtConn())
 			{
 				// Nothing todo
+			}
+			else if (it.current()->inherits("ConnectorInputBase"))
+			{
+				if (-1 == m_connectorInputList->findRef((ConnectorInputBase*)it.current()))
+				{
+					m_connectorInputList->append((ConnectorInputBase*)it.current());
+					if (comp->isZeroDelayComponent())
+					{
+						KSIMDEBUG_VAR("In Zero", comp->getName());
+						// Component has to caclulate immediatly
+						if (-1 == m_zeroDelayList->findRef(comp))
+							m_zeroDelayList->append(comp);
+					}
+					else
+					{
+						KSIMDEBUG_VAR("In Next", comp->getName());
+						// Component has to caclulate in next cycle
+						if (-1 == m_executeNextList->findRef(comp))
+							m_executeNextList->append(comp);
+					}
+				}
 			}
 			else if (!it.current()->inherits("ConnectorTriStateBase"))
 			{

@@ -34,7 +34,7 @@ dir_where_make_will_be_called=
 email=ksimus@gmx.de
 execute_args=/home/rasmus/tmp/test*.sim
 kdevprj_version=1.3
-lfv_open_groups=GNU
+lfv_open_groups=GNU,Headers
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am
 modifyMakefiles=true
@@ -477,7 +477,7 @@ install_location=$$(kde_icondir)/hicolor/32x32/apps/ksimus.png
 type=DATA
 
 [ksimus/items/Makefile.am]
-files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h,ksimus/items/connectorfloatin.cpp,ksimus/items/connectorfloatin.h,ksimus/items/connectorfloatout.cpp,ksimus/items/connectorfloatout.h,ksimus/items/wirepropertyfloatingpoint.cpp,ksimus/items/wirepropertyfloatingpoint.h,ksimus/items/optionalfunction.cpp,ksimus/items/optionalfunction.h,ksimus/items/optionalconnector.cpp,ksimus/items/optionalconnector.h,ksimus/items/wirepropertymultipleoutput.cpp,ksimus/items/wirepropertymultipleoutput.h,ksimus/items/watchitembase.cpp,ksimus/items/watchitembase.h,ksimus/items/watchviewitem.cpp,ksimus/items/watchviewitem.h,ksimus/items/watchlistview.cpp,ksimus/items/watchlistview.h,ksimus/items/watchitemboolean.cpp,ksimus/items/watchitemboolean.h,ksimus/items/watchwidget.cpp,ksimus/items/watchwidget.h,ksimus/items/watchbreak_xpm.xpm,ksimus/items/watchitemfloatingpoint.cpp,ksimus/items/watchitemfloatingpoint.h,ksimus/items/implicitconverter.cpp,ksimus/items/implicitconverter.h
+files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h,ksimus/items/connectorfloatin.cpp,ksimus/items/connectorfloatin.h,ksimus/items/connectorfloatout.cpp,ksimus/items/connectorfloatout.h,ksimus/items/wirepropertyfloatingpoint.cpp,ksimus/items/wirepropertyfloatingpoint.h,ksimus/items/optionalfunction.cpp,ksimus/items/optionalfunction.h,ksimus/items/optionalconnector.cpp,ksimus/items/optionalconnector.h,ksimus/items/wirepropertymultipleoutput.cpp,ksimus/items/wirepropertymultipleoutput.h,ksimus/items/watchitembase.cpp,ksimus/items/watchitembase.h,ksimus/items/watchviewitem.cpp,ksimus/items/watchviewitem.h,ksimus/items/watchlistview.cpp,ksimus/items/watchlistview.h,ksimus/items/watchitemboolean.cpp,ksimus/items/watchitemboolean.h,ksimus/items/watchwidget.cpp,ksimus/items/watchwidget.h,ksimus/items/watchbreak_xpm.xpm,ksimus/items/watchitemfloatingpoint.cpp,ksimus/items/watchitemfloatingpoint.h,ksimus/items/implicitconverter.cpp,ksimus/items/implicitconverter.h,ksimus/items/connectorbooltristate.cpp,ksimus/items/connectorbooltristate.h,ksimus/items/watchitembooltristate.cpp,ksimus/items/watchitembooltristate.h,ksimus/items/wirepropertybooltristate.cpp,ksimus/items/wirepropertybooltristate.h
 sub_dirs=
 type=static_library
 
@@ -587,6 +587,18 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/connectorbooloutpropertywidget.h
+type=HEADER
+
+[ksimus/items/connectorbooltristate.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorbooltristate.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/connectorbooltristate.h
 type=HEADER
 
 [ksimus/items/connectorfloatin.cpp]
@@ -787,6 +799,18 @@ install=false
 install_location=
 type=HEADER
 
+[ksimus/items/watchitembooltristate.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/watchitembooltristate.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimus/items/watchitemfloatingpoint.cpp]
 dist=true
 install=false
@@ -857,6 +881,18 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/wirepropertyboolean.h
+type=HEADER
+
+[ksimus/items/wirepropertybooltristate.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/wirepropertybooltristate.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/wirepropertybooltristate.h
 type=HEADER
 
 [ksimus/items/wirepropertyfloatingpoint.cpp]

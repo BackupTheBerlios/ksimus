@@ -1,3 +1,5 @@
+	14.11.2002
+* New: Boolean Tristate Connector.
 	11.11.2002
 * Fix: Remove menu entry "Hide User View" if module with generic view.
 * Fix: Optional connector recognize the deletion of a connector.
