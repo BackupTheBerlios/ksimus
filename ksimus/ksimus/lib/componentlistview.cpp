@@ -36,9 +36,9 @@ ComponentListView::ComponentListView(QWidget *parent, const char *name )
 		m_currentView(APP_SHEET_VIEW),
 		componentRoot(0)
 {
-	addColumn("Component");
+	addColumn(i18n("Component"));
 	
-	componentRoot = new ComponentListViewItem(this,"Component");
+	componentRoot = new ComponentListViewItem(this, i18n("Component"));
 	CHECK_PTR(componentRoot);
 	componentRoot->setOpen(true);
 	
