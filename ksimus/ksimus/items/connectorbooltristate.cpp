@@ -154,6 +154,14 @@ KSimBoolTristate ConnectorBoolTristate::getInput() const
 	}
 }
 
+KSimBoolTristate ConnectorBoolTristate::getInputWithoutOutput() const
+{
+	WireStateBoolTristate res(m_inData.getTrue() - m_outData.getTrue(), m_inData.getFalse() - m_outData.getFalse());
+	return res.getTristate();
+}
+
+
+
 /** Returns a pointer to the data that's read from the component. */
 const void * ConnectorBoolTristate::readoutData() const
 {

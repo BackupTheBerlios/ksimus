@@ -96,6 +96,10 @@ public:
 /** Return the current wire state */
 	KSimBoolTristate getInput() const;
 	
+/** Return the current wire state without the own output state. Useful if you want to know the wire state
+  * witout the influence of the own output. Read before changing output state with setOutput! */
+	KSimBoolTristate getInputWithoutOutput() const;
+
 	// Get the colors for the connector
 	virtual const WireColorScheme & getColorScheme() const;
 	
