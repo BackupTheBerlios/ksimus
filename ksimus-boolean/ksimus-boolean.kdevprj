@@ -23,12 +23,12 @@ cflags=
 cppflags=
 cxxflags=\s-O3 -g2 -Wall
 ldadd=
-ldflags=\s -shared
+ldflags=\s  -shared
 
 [General]
 AMChanged=true
 author=Rasmus Diekenbrock
-configure_args=--prefix=/opt/kde2\s
+configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --prefix=/opt/kde2\s
 email=ksimus@gmx.de
 kdevprj_version=1.3
 lfv_open_groups=GNU,Headers,Sources,Translations
@@ -40,7 +40,7 @@ project_type=kpart_plugin
 sgml_file=/localhome/lokal/ksimus-boolean/doc/en/index.docbook
 short_info=The boolean package for KSimus
 sub_dir=ksimus-boolean/
-version=0.3.5
+version=0.3.5-1
 version_control=None
 workspace=1
 
@@ -60,7 +60,7 @@ User Interface=*.kdevdlg,*.ui,*.rc
 groups=Headers,Sources,User Interface,Translations,GNU,Others
 
 [Makefile.am]
-files=ksimus-boolean.kdevprj,AUTHORS,COPYING,ChangeLog,INSTALL,README,TODO,ksimus-boolean.lsm
+files=ksimus-boolean.kdevprj,admin,AUTHORS,COPYING,ChangeLog,INSTALL,README,TODO,ksimus-boolean.lsm
 sub_dirs=ksimus-boolean,po,doc
 type=normal
 
@@ -83,6 +83,12 @@ header_file=/home/rasmus/ksimus-boolean/ksimus-boolean/datarecorderdataview.h
 openfiles=Untitled.h,Untitled.cpp,/home/rasmus/ksimus-boolean/ksimus-boolean/boolean.h,/home/rasmus/ksimus-boolean/ksimus-boolean/datarecorderdataview.cpp,/home/rasmus/ksimus-boolean/ksimus-boolean/datarecorderchannelbase.cpp,/home/rasmus/ksimus-boolean/ksimus-boolean/datarecorderview.h,/home/rasmus/ksimus-boolean/ksimus-boolean/datarecorderdataview.h
 show_outputview=false
 show_treeview=false
+
+[admin]
+dist=true
+install=false
+install_location=
+type=DATA
 
 [doc/Makefile.am]
 sub_dirs=en
