@@ -67,7 +67,7 @@ const ComponentInfo * Delay::getStaticInfo()
 //###############################################################
 
 #define MAX_DEPTH    (1<<16)
-static const char * sDelayTime   = "Delay Time/";
+static const char * const sDelayTime   = "Delay Time/";
 
 
 Delay::Delay(CompContainer * container, const ComponentInfo * ci)
