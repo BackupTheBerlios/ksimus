@@ -47,6 +47,7 @@
 #include "ksimus/connectorboolin.h"
 #include "ksimus/library.h"
 #include "ksimus/connectorlibrary.h"
+#include "ksimus/optionalconnector.h"
 
 #include "config.h"
 
@@ -235,8 +236,11 @@ TextRec::TextRec(CompContainer * container, const ComponentInfo * ci)
 	                             i18n("DataRecorder-Connector Trigger", "T"));
 	CHECK_PTR(m_trigger);
 	getTrigger()->setEdgeSensitive(false, true);
-	getTrigger()->setHideEnabled(true);
-	getTrigger()->setHide(true, true);
+	// make Trigger Input optional
+	new OptionalConnector(getTrigger(),
+	                      QString::fromLatin1("Trigger Input"),
+	                      i18n("DataRecorder", "Trigger input:"));
+	
 	connect(getTrigger(),SIGNAL(signalProperty()),SLOT(slotTriggerProperty()));
 	
 	
@@ -919,9 +923,6 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 	addWhatsThis(tip, m_separator, m_separatorLabel);
 
 
-/*	m_switchLabel = new QLabel(i18n("Switches:"), this, "m_switchLabel");
-	CHECK_PTR(m_switchLabel);*/
-
 	QVBox * vbox = newRowVBox("vbox");
 	CHECK_PTR(vbox);
 	
@@ -967,18 +968,8 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 
 void TextRecPropertyGeneralWidget::acceptPressed()
 {
-	KSIMDEBUG("TextRecPropertyGeneralWidget::acceptPressed()");
-	
 	ComponentPropertyGeneralWidget::acceptPressed();
 
-	
-/*	if ((getComponent()->getFilename().getFilename() != getFilenameWidget()->getFilename())
-	  ||(getComponent()->getFilename().getPathType() != getFilenameWidget()->getPathType()))
-	{
-		changeData();
-		getComponent()->getFilename().setFilename(getFilenameWidget()->getFilename());
-		getComponent()->getFilename().setPathType(getFilenameWidget()->getPathType());
-	}*/
 	if (getComponent()->getFilename() != getFilenameWidget()->getFileInfo())
 	{
 		changeData();
