@@ -105,7 +105,7 @@ const ComponentInfo * getTextRecInfo()
 	                                VA_SHEETVIEW,
 	                                create,
 	                                QString::null,
-	                                QString::null /*QString::fromLatin1("kapp-features")*/);
+	                                QString::fromLatin1("component-datarecorder-textrecorder"));
 	return &Info;
 }
 //#############################################################################
@@ -961,7 +961,7 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 	m_timeStamp = new QCheckBox(i18n("Add time stamp"), butGrp, "m_timeStamp");
 	CHECK_PTR(m_timeStamp);
 	m_timeStamp->setChecked(comp->isTimeStampEnabled());
-	tip = i18n("If checked an time stamp is added in front of each line (after the optional line number).");
+	tip = i18n("If checked a time stamp is added in front of each line (after the optional line number).");
 	addToolTip(tip, m_timeStamp);
 	addWhatsThis(tip, m_timeStamp);
 }
