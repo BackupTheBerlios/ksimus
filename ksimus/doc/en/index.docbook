@@ -7,7 +7,9 @@
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
   <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
   <!ENTITY workingView '<link linkend="working-view">Working View</link>'>
+  <!ENTITY listView 'List View'>
   <!ENTITY componentSupplier 'Component Supplier'>
+  <!ENTITY watchView '<link linkend="watch-view">Watch View</link>'>
   <!ENTITY schematicView '<link linkend="working-view-schematic">Schematic View</link>'>
   <!ENTITY uiView '<link linkend="working-view-user">User Interface View</link>'>
   <!ENTITY moduleView '<link linkend="working-view-module">Module View</link>'>
@@ -34,12 +36,17 @@
   <!ENTITY schematic 'schematic'>
   <!ENTITY Schematic 'Schematic'>
 
+  <!ENTITY exampleRSFF '<link linkend="example-rsff">RS-FF Example</link>'> 
+
+
+
   <!ENTITY todo '<para>[TODO]</para>'>
 
 
   <!ENTITY example_rsff_part SYSTEM "example_rsff.docbook">
   <!ENTITY example_module_part SYSTEM "example_module.docbook">
   <!ENTITY modules_part SYSTEM "modules.docbook">
+  <!ENTITY watchview_part SYSTEM "watchview.docbook">
   <!ENTITY component_part SYSTEM "component.docbook">
 
   <!-- Do not define any other entities; instead, use the entities
@@ -109,8 +116,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>02/03/2002</date>
-<releaseinfo>0.01.00</releaseinfo>
+<date>2002-09-22</date>
+<releaseinfo>0.3.5</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -245,7 +252,11 @@ or menu bars. -->
 </screenshot>
 </para>
 
-<para>
+
+<informaltable frame="none">
+<tgroup cols="2">
+<tbody>
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble1.png" format="PNG"/>
@@ -254,10 +265,14 @@ or menu bars. -->
 	    <phrase>Menu bar</phrase>
 	  </textobject>
 </inlinemediaobject>
+</entry><entry>
 This is the menu bar.
-</para>
+</entry></row>
 
-<para>
+
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble2.png" format="PNG"/>
@@ -266,89 +281,131 @@ This is the menu bar.
 	    <phrase>Tool bar</phrase>
 	  </textobject>
 </inlinemediaobject>
+</entry><entry>
 This is the tool bar.
-</para>
+</entry></row>
 
-<para>
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble3.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Component Supplier</phrase>
+	    <phrase>List view tab bar</phrase>
 	  </textobject>
 </inlinemediaobject>
-This is the &componentSupplier;. The &componentSupplier; contains all available
-&components;. The number and types of available &components; depends on the loaded
-&kapp; packages. You can select a &component; by a click and place it on the
-&schematicView; or the &uiView;.
-</para>
+</entry><entry>
+This is the tab bar of the &listView;. The tab bar allows you to select the
+type of the current view. Here you can find the &componentSupplier; and &watchView;.
+</entry></row>
 
-<para>
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble4.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Working view tab bar</phrase>
+	    <phrase>List View</phrase>
 	  </textobject>
 </inlinemediaobject>
-This is the tab bar of the &workingView;. The tab bar allows you to select the
-type of the current view. Here you can find the &schematicView;, &uiView; and &moduleView;.
-</para>
+</entry><entry><para>
+This is the &listView;. It shows the &componentSupplier; or the &watchView;.
+</para><para>
+The &componentSupplier; contains all available
+&components;. The number and types of available &components; depends on the loaded
+&kapp; packages. You can select a &component; by a click and place it on the
+&schematicView; or the &uiView;.
+</para><para>
+The &watchView; shows a list of all watch points created by the user.
+</para></entry></row>
 
-<para>
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble5.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Working view</phrase>
+	    <phrase>Working view tab bar</phrase>
 	  </textobject>
 </inlinemediaobject>
-This is the &workingView;. The type of &workingView; changes depending on the
- selecting of the tab bar.
-</para>
+</entry><entry>
+This is the tab bar of the &workingView;. The tab bar allows you to select the
+type of the current view. Here you can find the &schematicView;, &uiView; and &moduleView;.
+</entry></row>
 
-<para>
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble6.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Log view</phrase>
+	    <phrase>Working view</phrase>
 	  </textobject>
 </inlinemediaobject>
-This is the log view. The log view informs you about some simulation states,
- actions or errors. If you click on a warning or error message the &component;
- or components, which cause the messages, are selected in the &workingView;.
-</para>
+</entry><entry>
+This is the &workingView;. The type of &workingView; changes depending on the
+ selecting of the tab bar.
+</entry></row>
 
-<para>
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble7.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Status bar</phrase>
+	    <phrase>Log view</phrase>
 	  </textobject>
 </inlinemediaobject>
-This is the status bar. The status bar informs you about the selected or
-executed  actions. If the mouse moves over a &component; or &connector;, the
-name is displayed.
-</para>
+</entry><entry>
+This is the log view. The log view informs you about some simulation states,
+ actions or errors. If you click on a warning or error message the &component;
+ or components, which cause the messages, are selected in the &workingView;.
+</entry></row>
 
-<para>
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
 <inlinemediaobject>
 	  <imageobject>
 	    <imagedata fileref="bubble8.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
+	    <phrase>Status bar</phrase>
+	  </textobject>
+</inlinemediaobject>
+</entry><entry>
+This is the status bar. The status bar informs you about the selected or
+executed  actions. If the mouse moves over a &component; or &connector;, the
+name is displayed.
+</entry></row>
+
+<row><entry><para></para></entry></row> <!-- A little spacer -->
+
+<row><entry valign="top">
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble9.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
 	    <phrase>Timer</phrase>
 	  </textobject>
 </inlinemediaobject>
-This is the simulation timer. The timer shows the past simulation time.
-</para>
+</entry><entry>
+This is the simulation timer. The timer shows the current simulation time.
+</entry></row>
+</tbody>
+</tgroup>
+</informaltable>
 </sect1>
 <!-- ############################################################################### -->
 <!-- ########################         Menu File             ######################## -->
@@ -490,6 +547,16 @@ possible.
 
 <varlistentry>
 <term><menuchoice>
+<!--<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>x</keycap></keycombo > </shortcut>-->
+<guimenu>Edit</guimenu>
+<guimenuitem>Delete</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Deletes the current selection.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
 <shortcut>
 <keycombo><keycap>Ctrl</keycap><keycap>x</keycap></keycombo > </shortcut>
 <guimenu>Edit</guimenu>
@@ -574,7 +641,7 @@ inserted to the &componentSupplier;.
 <guimenu>Execute</guimenu>
 <guimenuitem>Pause</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Pauses the simulation. This item is not supported yet.
+<listitem><para><action>Pauses the simulation.
 </action></para></listitem> </varlistentry>
 
 </variablelist>
@@ -608,7 +675,7 @@ inserted to the &componentSupplier;.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>b</keycap></keycombo></shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>B</keycap></keycombo></shortcut>
 <guimenu>Settings</guimenu>
 <guimenuitem>Show Log View</guimenuitem>
 </menuchoice></term>
@@ -618,11 +685,31 @@ inserted to the &componentSupplier;.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>t</keycap></keycombo></shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo></shortcut>
 <guimenu>Settings</guimenu>
 <guimenuitem>Show Component Supplier</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Shows or hides the &componentSupplier;.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<!--<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo></shortcut>-->
+<guimenu>Settings</guimenu>
+<guimenuitem>Fold Supplier</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Folds all directories of the &componentSupplier;.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<!--<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo></shortcut>-->
+<guimenu>Settings</guimenu>
+<guimenuitem>Unfold Supplier</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Unfolds all directories of the &componentSupplier;.
 </action></para></listitem> </varlistentry>
 
 <varlistentry>
@@ -632,6 +719,15 @@ inserted to the &componentSupplier;.
 </menuchoice></term>
 <listitem><para><action>
 Shows or hides the cost factors of the views. For debugging purpose only.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Map Sizes</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Opens a dialog which allows you to set the schematic size and the user interface size.
 </action></para></listitem> </varlistentry>
 
 <!-- ############################################################################### -->
@@ -846,6 +942,15 @@ The using of <guilabel>Package files</guilabel> is analog to the using of
 </para>
 </listitem> </varlistentry>
 
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Watch</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Opens the watch setting dialog. See also &watchView;.
+</action></para></listitem> </varlistentry>
+
 </variablelist>
 </para>
 </sect1>
@@ -1015,6 +1120,12 @@ See also <link linkend="example-module">Module Example</link>
 </para>
 </sect2>
 
+
+<!-- ############################################################################### -->
+<!-- ########################         Watch View            ######################## -->
+<!-- ############################################################################### -->
+
+&watchview_part;
 
 
 
@@ -1195,7 +1306,7 @@ information here.
 -->
 
 <para>
-In order to use &kapp; successfully, you need KDE 2.0.
+In order to use &kapp; successfully, you need KDE 2.2 or KDE 3.0.
 </para>
 
 <!--

@@ -427,6 +427,7 @@ The external connector is rotatable.
 <member><link linkend="component-tick-time">Tick Time</link></member>
 <member><link linkend="component-stop">Stop</link></member>
 <member><link linkend="component-close">Close</link></member>
+<member><link linkend="component-pause">Pause</link></member>
 </simplelist>
 
 
@@ -590,6 +591,48 @@ The number of required edges is adjustable.
 <!-- ################################## Location ################################### -->
 <sect3><title>Location</title>
 <para>Control -> Close</para>
+</sect3>
+
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################              Pause            ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-pause">
+<title>Pause</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Pause pauses the simulation if the input connector detects
+an adjustable number of edges (rising or falling edge).
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+The edge which pauses the simulation is selectable.
+</para></listitem><listitem><para>
+The number of required edges is adjustable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="component_pause.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title>
+<para>Control -> Pause</para>
 </sect3>
 
 </sect2>
