@@ -19,7 +19,7 @@ Pos=16,48
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=39
+Last Serial Number=47
 Number of channels=4
 Serial List=1,2,23,27
 Serial Number=10
@@ -246,7 +246,7 @@ Serial Number=17
 Type=Boolean/Gates/Clock Generator
 
 [/Component 2/High Time/]
-Time=1
+Time=2
 Unit=Ticks
 
 [/Component 2/Low Time/]
@@ -257,7 +257,7 @@ Unit=Ticks
 Pos=128,304
 
 [/Component 2/Start Delay/]
-Time=1000000000
+Time=11000000000
 Unit=s
 
 [/Component 3/]
