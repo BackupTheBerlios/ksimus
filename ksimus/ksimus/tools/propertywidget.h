@@ -57,6 +57,16 @@ public:
 	 */
 	virtual void cancelPressed();
 
+	/** Adds a tool tip to the widget. This is a simple wrapper for @ref QToolTip. */
+	static void addToolTip(const QString & text, QWidget * widget);
+	/** Adds a tool tip to the widgets. This is a simple wrapper for @ref QToolTip. */
+	static void addToolTip(const QString & text, QWidget * widget1, QWidget * widget2);
+
+	/** Adds a "what's this" to the widget. This is a simple wrapper for @ref WhatsThis. */
+	static void addWhatsThis(const QString & text, QWidget * widget);
+	/** Adds a "what's this" to the widgets. This is a simple wrapper for @ref WhatsThis. */
+	static void addWhatsThis(const QString & text, QWidget * widget1, QWidget * widget2);
+
 
 public slots:
 	/** The slot slotAccept() is called if user press the accept button.

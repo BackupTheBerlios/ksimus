@@ -18,6 +18,8 @@
 // C-Includes
 
 // QT-Includes
+#include <qtooltip.h>
+#include <qwhatsthis.h>
 
 // KDE-Includes
 
@@ -71,3 +73,24 @@ void PropertyWidget::changeData()
 	emit signalChangeData();
 }
 
+void PropertyWidget::addToolTip(const QString & text, QWidget * widget)
+{
+	QToolTip::add(widget, text);
+}
+
+void PropertyWidget::addToolTip(const QString & text, QWidget * widget1, QWidget * widget2)
+{
+	QToolTip::add(widget1, text);
+	QToolTip::add(widget2, text);
+}
+
+void PropertyWidget::addWhatsThis(const QString & text, QWidget * widget)
+{
+	QWhatsThis::add(widget, text);
+}
+
+void PropertyWidget::addWhatsThis(const QString & text, QWidget * widget1, QWidget * widget2)
+{
+	QWhatsThis::add(widget1, text);
+	QWhatsThis::add(widget2, text);
+}
