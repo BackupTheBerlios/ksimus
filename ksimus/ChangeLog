@@ -1,7 +1,12 @@
+	09.11.2002
+* New: External Connectors may be (user defined) optional know.
+* New: The External Connector Boolean Input has a user defineable state if not connected.
+	28.10.2002
+* New: Implicit data type converter floatingpoint to boolean.
 	27.10.2002
 * Fix: Remove incorrect default parameter which causes gcc 3.2 to fail. Thanks Gerhard und Aurelien.
 * New: Add new command line option 'hidden'.
-* New: Implicit data type convertes. For example now it is possible to connect a boolean output to
+* New: Implicit data type converters. For example now it is possible to connect a boolean output to
   a floatingpoint input.
 	19.10.2002
 * New: Version 0.3.5-1
