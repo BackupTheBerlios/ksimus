@@ -316,6 +316,8 @@ private:
 	bool m_saveAllowed;
 
 private slots:
+	/** changes the statusbar contents to the default message "Ready.". */
+	void slotStatusMsgDefault();
 
 signals:
 	void signalSelectCI(const ComponentInfo *ci);

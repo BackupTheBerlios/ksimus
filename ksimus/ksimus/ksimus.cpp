@@ -23,6 +23,7 @@
 #include <qtabwidget.h>
 #include <qvbox.h>
 #include <qstring.h>
+#include <qtimer.h>
 
 // include files for KDE
 #include <kprinter.h>
@@ -114,6 +115,8 @@ public:
 	ModuleDialog * moduleDialog;
 	eAppViewType currentView;
 	QString moduleFile;
+	QTimer * messageTimer;
+	
 };
 
 
@@ -164,7 +167,11 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 	
 	m_p = new Private();
 	CHECK_PTR(m_p);
-	
+
+	m_p->messageTimer = new QTimer(this, "KSimusApp::messageTimer");
+	CHECK_PTR(m_p->messageTimer);
+	connect(m_p->messageTimer, SIGNAL(timeout()), this, SLOT(slotStatusMsgDefault()));
+                                                                                    	
 	if (!g_appList)
 	{
 		g_appList = new KSimusAppList();
@@ -1175,18 +1182,31 @@ void KSimusApp::slotExecutePause()
 	
 void KSimusApp::slotStatusMsg(const QString &text)
 {
-  ///////////////////////////////////////////////////////////////////
-  // change status message permanently
-  statusBar()->clear();
-  statusBar()->changeItem(text, ID_STATUS_MSG);
+	///////////////////////////////////////////////////////////////////
+	// change status message permanently
+	statusBar()->clear();
+	statusBar()->changeItem(text, ID_STATUS_MSG);
+	m_p->messageTimer->stop();
+}
+
+void KSimusApp::slotStatusMsgDefault()
+{
+	///////////////////////////////////////////////////////////////////
+	// change status message to default
+	statusBar()->clear();
+	statusBar()->changeItem(i18n("Ready."), ID_STATUS_MSG);
+	m_p->messageTimer->stop();
 }
 
 void KSimusApp::slotStatusHelpMsg(const QString &text)
 {
-  ///////////////////////////////////////////////////////////////////
-  // change status message of whole statusbar temporary (text, msec)
-  statusBar()->message(text, 2000);
-//  KSIMDEBUG(text);
+	///////////////////////////////////////////////////////////////////
+	// change status message of whole statusbar temporary (text, msec)
+//	statusBar()->message(text, 2000);//  KSIMDEBUG(text);
+	statusBar()->clear();
+	statusBar()->changeItem(text, ID_STATUS_MSG);
+	m_p->messageTimer->start(2000, true);
+
 }
 
 
