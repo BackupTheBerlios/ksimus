@@ -1,4 +1,9 @@
+	17.12.2001
+* Fix: Truncate bug. Caused by the getWirePos change from 16.12.2001
 	16.12.2001
+* New: ComponentAddOnList::~ComponentAddOnList removes items from last to first.
+* Change: ConnectorBase::getWirePos returns the position one grid "in front" of the connector.
+* Change: ConnectorBase::draw draws connected connectors one grid longer.
 * New: Remove mechanism for component layouts
 * Change: New handle style for resizeable components.
 * Change: Use default background color in the user view (KSimEditor)
