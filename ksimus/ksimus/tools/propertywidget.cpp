@@ -33,9 +33,9 @@ PropertyWidget::PropertyWidget(QWidget *parent, const char *name )
 {
 }
 
-/*PropertyWidget::~PropertyWidget()
+PropertyWidget::~PropertyWidget()
 {
-}*/
+}
 
 
 void PropertyWidget::acceptPressed()

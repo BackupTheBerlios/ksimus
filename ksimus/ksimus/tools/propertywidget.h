@@ -41,7 +41,7 @@ public:
 	/** Creates the widget
 	*/
 	PropertyWidget(QWidget *parent=0, const char *name=0);
-//	~PropertyWidget();
+	~PropertyWidget();
 
 
 	/** The function acceptPressed() is called, if changes are accepted.
