@@ -1,3 +1,9 @@
+	25.12.2001
+* New: ConnectorPack::getNumberOfDeletableConnectors() and getNumberOfNotDeletableConnectors()
+* Change: ConnectorPack::getDeletableConnector() is not longer virtual.
+* New: KSimBaseUIntLineEdit and KSimBaseUIntValidator
+* Change: ComponentPropertyBaseWidget inherits ComponentItem. Remove old code.
+* Change: ComponentPropertyDialog inherits ComponentItem.
 	23.12.2001
 * New: Add tool tip and what's this to ClockGeneratorPropertyWidget.
 * New: Add some helper functions for tool tip and what's this to PropertyWidget
