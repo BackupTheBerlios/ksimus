@@ -34,6 +34,7 @@ class QVGroupBox;
 class QCheckBox;
 class KColorButton;
 class QLabel;
+class QPushButton;
 
 /**Style property dialog for ComponentStyle class
   *@author Rasmus Diekenbrock
