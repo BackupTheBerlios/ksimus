@@ -20,6 +20,7 @@
 #include <qrect.h>
 #include <qsize.h>
 #include <qpopupmenu.h>
+
 #include <kfiledialog.h>
 #include <klocale.h>
 
@@ -36,6 +37,7 @@
 #include "displaywidget.h"
 #include "ksimwidget.h"
 #include "externalconnector.h"
+#include "optionalconnector.h"
 
 static const char * sModFile = "ModuleFile";
 
@@ -277,9 +279,27 @@ void Module::reloadModule()
 	PointList * posList = 0;
 	unsigned int i;
 	ModuleData * mdata;
+
+	// remove optional connector if exist
+	if (getAddOnList())
+	{
+		QListIterator<ComponentAddOn> it(*getAddOnList());
+		while(it.current())
+		{
+			if(it.current()->inherits("OptionalConnector"))
+			{
+				delete it.current();
+			}
+			else
+			{
+				++it;
+			}
+		}
+	}
+
 	ConnectorList * oldConnList = new ConnectorList(*getConnList());
 	oldConnList->setAutoDelete(false);
-	
+
 	// Remove all information from container
 	m_moduleContainer->deleteAll();
 	mdata = m_moduleContainer->getModuleData();
@@ -331,7 +351,6 @@ void Module::reloadModule()
 		((ModuleSV*)getSheetView())->reload();
 	if(getUserView())
 		((ModuleSV*)getUserView())->reload();
-	
 	
 	// Search external connectors
 	mdata->searchExternals(m_moduleContainer->getComponentList());
@@ -448,6 +467,17 @@ void Module::reloadModule()
 				                 QString::fromLatin1("(extConn) %1").arg(extConn->getSerialNumber()),
 				                 extConn->getName(),
 				                 QPoint(0,0));
+			}
+			
+			// Create optional conn if required
+			if(extConn->isOptionalConn())
+			{
+				OptionalConnector * oc;
+				oc = new OptionalConnector(conn, QString::fromLatin1("OptionalExtCon ")+conn->getName(),
+				                           conn->getName());
+				CHECK_PTR(oc);
+				oc->setEnabled(extConn->isOptionalConnEnabled() || conn->isConnected());
+				
 			}
 			conn->setNegate(extConn->getExternalConn()->isNegated(),true);
 			
