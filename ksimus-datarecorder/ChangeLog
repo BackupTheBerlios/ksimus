@@ -1,3 +1,5 @@
+	18.06.2002
+* Change: use class OptionalConnector for optional connectors.
 	27.05.2002
 * New: Class RowLayoutWidget supports an easy layout management like QGrid but with flexible layout adjustments
 	20.05.2002
