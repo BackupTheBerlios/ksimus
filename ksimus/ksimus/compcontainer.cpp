@@ -726,12 +726,15 @@ void CompContainer::drawSheetView(QPainter * p) const
 {
 	p->save();
 
-	// Draw grid
-	getDoc()->getSheetGrid()->draw(p, getSheetSize());
-
-	if (isCostMapVisible())
+	// Draw grid and costmap if is root document
+	if (isParentDoc())
 	{
-		sheetMap->draw(p);
+		getDoc()->getSheetGrid()->draw(p, getSheetSize());
+
+		if (isCostMapVisible())
+		{
+			sheetMap->draw(p);
+		}
 	}
 
 	drawComponents(p, sheetViews);
@@ -743,12 +746,15 @@ void CompContainer::drawUserView(QPainter * p) const
 {
 	p->save();
 
-	// Draw grid
-	getDoc()->getUserGrid()->draw(p, getUserSize());
-
-	if (isCostMapVisible())
+	// Draw grid and costmap if is root document
+	if (isParentDoc())
 	{
-		userMap->draw(p);
+		getDoc()->getUserGrid()->draw(p, getUserSize());
+
+		if (isCostMapVisible())
+		{
+			userMap->draw(p);
+		}
 	}
 
 	drawComponents(p, userViews);
@@ -1734,5 +1740,3 @@ unsigned int CompContainer::getComponentNumber() const
 	return no;
 }
 
-
-	

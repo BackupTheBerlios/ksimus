@@ -196,5 +196,3 @@ KSimDirectorySelector * KSimPackageSelector::getDirectories()
 {
 	return m_directories;
 }
-
-	
