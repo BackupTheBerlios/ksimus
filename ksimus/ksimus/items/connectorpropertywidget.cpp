@@ -101,14 +101,14 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	lay1->setSpacing(KDialog::spacingHint());
 	lay1->setColStretch(1,1);
 	
-	label = new QLabel(i18n("Name : "), wid,"LineEditLabel");
+	label = new QLabel(i18n("Name: "), wid,"LineEditLabel");
 	lay1->addWidget(label,0,0);
 	m_p->nameEdit = new QLineEdit(wid,"LineEdit");
 	m_p->nameEdit->setText(m_conn->getName());
 	lay1->addWidget(m_p->nameEdit,0,1);
 	QToolTip::add(m_p->nameEdit,i18n("Change the name of the connector here"));
 
-	label = new QLabel(i18n("Type : "), wid,"TypeLabel");
+	label = new QLabel(i18n("Type: "), wid,"TypeLabel");
 	lay1->addWidget(label,1,0);
 	label = new QLabel(m_conn->getConnInfo()->getName(), wid,"Type");
 	lay1->addWidget(label,1,1,AlignLeft);
