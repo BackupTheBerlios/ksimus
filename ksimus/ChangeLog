@@ -1,3 +1,14 @@
+	17.5.2003
+* Fix: Copy/Past-Bug in KDE3 version
+* Fix: Misspellings in german translation
+* Fix: Some ImpicitConverter was delete during circuit setup
+* Change: KDE3 is now the develop system
+* Change: The interface to the packages is changed. The new one is more flexible.
+* New: The editor uses new the key delete
+* New: Add package handbooks to help menu
+	9.5.2003
+* Fix: KSimus runs into an endless loop if it was terminated with the menu option File->Quit (onyl KDE3 version).
+* Fix: The configure script checks the the header file ltdl.h
 	29.3.2003
 * New: Version 0.3.6
 * Update french translation. Thanks Aurelien!

@@ -165,13 +165,18 @@ Reason: The package interface is not compatible to the KSimus interface.
 Please update KSimus and/or the package. The versions of KSimus and
 packages must be the same (e.g. all 0.3.5).
 
-The reason of the crash seems to be within the libltdl library.
+The reason of the crash seems to be within the libltdl library. The version 1.5
+seems to be fixed. If you use this version KSimus show a messages which symbol is
+missing/wrong or so.
 
 See also:
 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=127083
 
 After patching the libtool KSimus will not crash and will also not load the
 incompatible package.
+
+Home page of libtool:
+http://www.gnu.org/software/libtool/libtool.html
 
 
 

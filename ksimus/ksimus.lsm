@@ -1,14 +1,14 @@
 Begin3
 Title:          KSimus 
-Version:        0.1
-Entered-date:   
-Description:    
-Keywords:        
-Author:         Rasmus Diekenbrock <radie@gmx.de> 
-Maintained-by:  Rasmus Diekenbrock <radie@gmx.de> 
-Primary-site:   	        
-Home-page:      http:// 
-Original-site:  
-Platforms:       Linux and other Unices
+Version:        0.3.6
+Entered-date:   01MAY03
+Description:    KSimus is an application for simulation of physical/technical processes
+Keywords:       KSimus simulation logic process technical physical
+Author:         Rasmus Diekenbrock <radie@gmx.de>
+Maintained-by:  Rasmus Diekenbrock <radie@gmx.de>
+Primary-site:   ftp://ftp.berlios.de/pub/ksimus/
+Home-page:      http://ksimus.berlios.de
+Original-site:  ftp://ftp.berlios.de/pub/ksimus/
+Platforms:      Linux and other Unices
 Copying-policy: GNU Public License
 End
