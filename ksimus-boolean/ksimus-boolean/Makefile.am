@@ -1,53 +1,15 @@
-####### kdevelop will overwrite this part!!! (begin)##########
-lib_LTLIBRARIES = libksimus-boolean.la
-
-
-## INCLUDES were found outside kdevelop specific part
-
-
-LDFLAGS =         -shared
-
-libksimus_boolean_la_METASOURCES = AUTO
-
-
-LDADD = 
-
-libksimus_boolean_la_SOURCES = iodevicevirtualbool.cpp booltristatexor.cpp booltristateor.cpp booltristateand.cpp booltristate1out.cpp implicitconverterbooltristate2bool.cpp extconnbooltristate.cpp convertbooltristate2bool.cpp convertbool2booltristate.cpp inverter.cpp delay.cpp demultiplexer.cpp multiplexer.cpp multidlatch.cpp boolean7segment.cpp booleanconstant.cpp booleancounter.cpp monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
-libksimus_boolean_la_LIBADD = 
-
-libksimus_boolean_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
-
-
-
-EXTRA_DIST = boolean.cpp boolean.h booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h booleancounter.cpp booleancounter.h booleanconstant.cpp booleanconstant.h boolean7segment.cpp boolean7segment.h multidlatch.cpp multidlatch.h multiplexer.cpp multiplexer.h demultiplexer.cpp demultiplexer.h delay.cpp delay.h inverter.cpp inverter.h convertbool2booltristate.cpp convertbool2booltristate.h convertbooltristate2bool.cpp convertbooltristate2bool.h extconnbooltristate.cpp extconnbooltristate.h implicitconverterbooltristate2bool.cpp implicitconverterbooltristate2bool.h booltristate1out.cpp booltristate1out.h booltristateand.cpp booltristateand.h booltristateor.cpp booltristateor.h booltristatexor.cpp booltristatexor.h iodevicevirtualbool.cpp iodevicevirtualbool.h 
-
-####### kdevelop will overwrite this part!!! (end)############
-# this 10 paths are KDE specific. Use them:
-# kde_htmldir       Where your docs should go to. (contains lang subdirs)
-# kde_appsdir       Where your application file (.kdelnk) should go to.
-# kde_icondir       Where your icon should go to.
-# kde_minidir       Where your mini icon should go to.
-# kde_datadir       Where you install application data. (Use a subdir)
-# kde_locale        Where translation files should go to.(contains lang subdirs)
-# kde_cgidir        Where cgi-bin executables should go to.
-# kde_confdir       Where config files should go to.
-# kde_mimedir       Where mimetypes should go to.
-# kde_toolbardir    Where general toolbar icons should go to.
-# kde_wallpaperdir  Where general wallpapers should go to.
-
 libdir = @libdir@/ksimus
+
 INCLUDES= $(all_includes) -I$(includedir)
 
+METASOURCES = AUTO
 
+lib_LTLIBRARIES =  libksimus-boolean.la
 
-# make messages.po. Move this one to ../po/ and "make merge" in po
-# the -x is for skipping messages already translated in kdelibs
-messages:
-	LIST=`find . -name \*.h -o -name \*.hh -o -name \*.H -o -name \*.hxx -o -name \*.hpp -o -name \*.cpp -o -name \*.cc -o -name \*.cxx -o -name \*.ecpp -o -name \*.C`; \
-	if test -n "$$LIST"; then \
-		 $(XGETTEXT) -C -ki18n -x $(kde_includes)/kde.pot $$LIST -o ../po/ksimus-boolean.pot; \
-	fi
+AM_LDFLAGS = -shared -avoid-version -module -no-undefined 
+libksimus_boolean_la_LDFLAGS = $(all_libraries)
 
+libksimus_boolean_la_SOURCES =  boolean2in1out.cpp boolean7segment.cpp booleanconstant.cpp booleancounter.cpp boolean.cpp booleanor.cpp booleanxor.cpp booltristate1out.cpp booltristateand.cpp booltristateor.cpp booltristatexor.cpp convertbool2booltristate.cpp convertbooltristate2bool.cpp delay.cpp demultiplexer.cpp dflipflop.cpp extconnbooltristate.cpp flipflopbase.cpp implicitconverterbooltristate2bool.cpp inverter.cpp iodevicevirtualbool.cpp jkflipflop.cpp monoflop.cpp multidlatch.cpp multiplexer.cpp rsflipflop.cpp
 
-
+noinst_HEADERS =  boolean2in1out.h boolean7segment.h booleanconstant.h booleancounter.h boolean.h booleanor.h booleanxor.h booltristate1out.h booltristateand.h booltristateor.h booltristatexor.h convertbool2booltristate.h convertbooltristate2bool.h delay.h demultiplexer.h dflipflop.h extconnbooltristate.h flipflopbase.h implicitconverterbooltristate2bool.h inverter.h iodevicevirtualbool.h jkflipflop.h monoflop.h multidlatch.h multiplexer.h rsflipflop.h
 
