@@ -31,6 +31,7 @@
 #include "componentlibrary.h"
 #include "connectorlibrary.h"
 #include "wirepropertylibrary.h"
+#include "implicitconverterlibrary.h"
 
 #include "extconnboolin.h"
 #include "extconnboolout.h"
@@ -138,6 +139,22 @@ static const WirePropertyInfoList & getDistWireProperty()
 	return *pDistWireProp;
 }
 
+static const ImplicitConverterInfoList & getImplicitConverterProperty()
+{
+	static ImplicitConverterInfoList * pImplicitConverterProp = 0;
+
+	if (pImplicitConverterProp == 0)
+	{
+		// Initialize
+		pImplicitConverterProp = new ImplicitConverterInfoList;
+		CHECK_PTR(pImplicitConverterProp);
+
+		// Add your implicit converter info here
+	}
+
+	return *pImplicitConverterProp;
+}
+
 	
 
 Library * g_library = 0;
@@ -168,7 +185,8 @@ public:
 Library::Library()
 {
 	PackageInfo * KSimusPackageInfo =
-		new PackageInfo(QString::fromLatin1("KSimus"), KGlobal::instance(), VERSION, getDistComponents(), getDistConnector(), getDistWireProperty());
+	new PackageInfo(QString::fromLatin1("KSimus"), KGlobal::instance(), VERSION, getDistComponents(),
+	                getDistConnector(), getDistWireProperty(), getImplicitConverterProperty());
 	
 	m_p = new LibraryPrivate;
 	
@@ -189,6 +207,9 @@ Library::Library()
 	m_wirePropertyLibrary = new WirePropertyLibrary;
 	CHECK_PTR(m_wirePropertyLibrary);
 	
+	m_implicitConverterLibrary = new ImplicitConverterLibrary;
+	CHECK_PTR(m_implicitConverterLibrary);
+
 	insertPackage(KSimusPackageInfo);
 		
 	loadPackageFiles();
@@ -197,6 +218,7 @@ Library::Library()
 
 Library::~Library()
 {
+	delete m_implicitConverterLibrary;
 	delete m_wirePropertyLibrary;
 	delete m_connectorLibrary;
 	delete m_componentLibrary;
@@ -220,6 +242,11 @@ const WirePropertyLibrary * Library::getWirePropertyLib() const
 }
 	
 
+const ImplicitConverterLibrary * Library::getImplicitConverterLib() const
+{
+	return m_implicitConverterLibrary;
+}
+
 void Library::insertPackage(const PackageInfo * packageInfo)
 {
 	m_componentLibrary->insert(packageInfo->getComponentList(), packageInfo);
@@ -227,6 +254,8 @@ void Library::insertPackage(const PackageInfo * packageInfo)
 	m_connectorLibrary->insert(packageInfo->getConnectorList(), packageInfo);
 	
 	m_wirePropertyLibrary->insert(packageInfo->getWirePropertyList(), packageInfo);
+	
+	m_implicitConverterLibrary->insert(packageInfo->getImplicitConverterList(), packageInfo);
 }
 
 
@@ -267,7 +296,7 @@ void Library::loadPackageFiles()
 							                                 .arg(QString::fromLatin1(package->getPackageInfo()->getPackageVersion()));
 							msg += " (" + package->getFilename() + ")";
 							m_messages->append(msg);
-							KSIMDEBUG(msg);
+//							KSIMDEBUG(msg);
 							
 							// Add package to lib
 							insertPackage(package->getPackageInfo());
