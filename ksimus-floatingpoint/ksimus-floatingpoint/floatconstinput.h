@@ -60,6 +60,11 @@ public:
 
 	/** Reset all simulation variables */
 	void reset();
+	/** load component properties
+	*   copyLoad is true, if the load function is used as a copy function
+	*	  Returns true if successful */
+	virtual bool load(KSimData & file, bool copyLoad);
+	
 
 	/** Initialize the component popup menu
 	  *	Return true, if items are added */

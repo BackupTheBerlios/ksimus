@@ -98,6 +98,19 @@ void FloatConstInput::reset()
 }
 
 
+/** load component properties
+*   copyLoad is true, if the load function is used as a copy function
+*	Returns true if successful */
+bool FloatConstInput::load(KSimData & file, bool copyLoad)
+{
+	bool res = Float1Out::load(file, copyLoad);
+	
+	// Update value
+	emit signalSetNumber(getResetValue());
+	
+	return res;
+}
+
 bool FloatConstInput::initPopupMenu(QPopupMenu * popup)
 {
 	Float1Out::initPopupMenu(popup);
@@ -133,8 +146,13 @@ void FloatConstInput::editValue()
 		edit->setValue(getResetValue());
 		dia->exec();
 		
-		setResetValue(edit->value());
-		emit signalSetNumber(edit->value());
+		if (edit->value() != getResetValue())
+		{
+			undoChangeProperty(i18n("Change constant value"));
+			setResetValue(edit->value());
+			setModified();
+			emit signalSetNumber(edit->value());
+		}
 		
 		delete dia;
 	}
