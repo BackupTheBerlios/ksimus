@@ -1,3 +1,8 @@
+	16.02.2003
+* New: Save size of ConnectorPropertyDialog.
+* New: Save size of ComponentPropertyDialog.
+	08.02.2003
+* Fix: Compile error with gcc-3.2. Thanks Aurelien!
 	29.12.2002
 * New: Modules can be loaded during application start.
 	27.12.2002

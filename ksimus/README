@@ -132,7 +132,7 @@ Reason: The package interface is not compatible to the KSimus interface.
 Please update KSimus and/or the package. The versions of KSimus and
 packages must be the same (e.g. all 0.3.5).
 
-The reason of the crash seems to be within the libtool library.
+The reason of the crash seems to be within the libltdl library.
 
 See also:
 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=127083
