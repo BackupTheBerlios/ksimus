@@ -333,3 +333,5 @@ void MonoFlopPropertyGeneralWidget::defaultPressed()
 
 	
 }; //namespace
+
+#include "monoflop.moc"

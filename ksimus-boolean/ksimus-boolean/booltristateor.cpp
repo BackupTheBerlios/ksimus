@@ -111,3 +111,4 @@ void BoolTristateOr::calculate()
 
 }; //namespace KSimLibBoolean
 
+#include "booltristateor.moc"

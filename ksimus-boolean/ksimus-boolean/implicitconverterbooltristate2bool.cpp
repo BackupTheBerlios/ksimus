@@ -22,9 +22,9 @@
 // KDE includes
 
 // Project includes
-#include "implicitconverterbooltristate2bool.h"
 #include "ksimus/connectorbase.h"
 #include "ksimus/wirepropertybooltristate.h"
+#include "implicitconverterbooltristate2bool.h"
 
 // Forward declaration
 
@@ -80,3 +80,4 @@ const void * ImplicitConverterBoolTristate2Bool::convert(const void * data)
 
 }; //namespace KSimLibBoolean
 
+#include "implicitconverterbooltristate2bool.moc"

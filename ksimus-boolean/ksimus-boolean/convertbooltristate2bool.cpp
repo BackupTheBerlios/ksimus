@@ -23,13 +23,13 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "convertbooltristate2bool.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/resource.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/connectorbooltristate.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/wireproperty.h"
+#include "convertbooltristate2bool.h"
 
 // Forward declaration
 
@@ -167,3 +167,4 @@ void ConvertBoolTristate2Bool::calculate()
 
 }; //namespace KSimLibBoolean
 
+#include "convertbooltristate2bool.moc"

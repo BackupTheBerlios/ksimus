@@ -110,3 +110,4 @@ void BoolTristateXor::calculate()
 
 }; //namespace KSimLibBoolean
 
+#include "booltristatexor.moc"

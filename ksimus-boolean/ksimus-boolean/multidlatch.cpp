@@ -404,3 +404,7 @@ void MultiDLatchPropertyGeneralWidget::defaultPressed()
 //###############################################################
 
 };  //namespace KSimLibBoolean
+
+#include "multidlatch.moc"
+
+

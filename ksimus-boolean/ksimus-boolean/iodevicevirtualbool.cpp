@@ -294,5 +294,6 @@ void IoDeviceVirtualBoolPropertyGeneralWidget::defaultPressed()
 
 }; //namespace KSimLibBoolean
 
+#include "iodevicevirtualbool.moc"
 
 

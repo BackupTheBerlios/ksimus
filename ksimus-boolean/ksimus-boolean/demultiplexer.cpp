@@ -43,7 +43,6 @@
 
 // Forward declaration
 
-// Project-Includes
 
 
 namespace KSimLibBoolean
@@ -429,3 +428,5 @@ void DemultiplexerPropertyGeneralWidget::defaultPressed()
 
 
 };  //namespace KSimLibBoolean
+
+#include "demultiplexer.moc"

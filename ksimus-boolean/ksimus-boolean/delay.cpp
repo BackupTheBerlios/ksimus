@@ -324,3 +324,5 @@ void DelayPropertyGeneralWidget::slotChanged(const KSimTime & time)
 
 	
 }; //namespace
+
+#include "delay.moc"

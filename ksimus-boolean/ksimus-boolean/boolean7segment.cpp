@@ -262,3 +262,4 @@ Boolean7SegmentWidgetView::Boolean7SegmentWidgetView(Boolean7SegmentView * cv, Q
 
 }; //namespace KSimLibBoolean
 
+#include "boolean7segment.moc"

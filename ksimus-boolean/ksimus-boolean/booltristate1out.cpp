@@ -366,3 +366,4 @@ BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena
 
 }; //namespace KSimLibBoolean
 
+#include "booltristate1out.moc"

@@ -118,3 +118,4 @@ void Boolean2In1Out::reset()
 
 }; //namespace KSimLibBoolean
 
+#include "boolean2in1out.moc"

@@ -33,7 +33,6 @@
 #include "ksimus/connectorlabel.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/optionalconnector.h"
-//#include "ksimus/componentpropertybasewidget.h"
 
 // Project-Includes
 #include "dflipflop.h"
@@ -189,3 +188,6 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 //###############################################################
 	
 }; //namespace
+
+#include "dflipflop.moc"
+

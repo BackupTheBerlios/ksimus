@@ -375,3 +375,4 @@ void JKFlipFlopPropertyGeneralWidget::defaultPressed()
 	
 }; //namespace
 
+#include "jkflipflop.moc"

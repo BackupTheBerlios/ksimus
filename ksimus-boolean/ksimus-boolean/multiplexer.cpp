@@ -438,3 +438,7 @@ void MultiplexerPropertyGeneralWidget::defaultPressed()
 //###############################################################
 
 };  //namespace KSimLibBoolean
+
+
+#include "multiplexer.moc"
+

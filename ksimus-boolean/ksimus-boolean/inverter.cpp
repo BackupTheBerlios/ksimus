@@ -143,3 +143,5 @@ void InverterView::draw(QPainter * p)
 }
 
 }; //namespace
+
+#include "inverter.moc"

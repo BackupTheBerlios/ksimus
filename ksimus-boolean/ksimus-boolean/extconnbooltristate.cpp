@@ -19,13 +19,13 @@
 
 #include <klocale.h>
 
-#include "extconnbooltristate.h"
 #include "ksimus/resource.h"
 #include "ksimus/connectorlist.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/connectorbooltristate.h"
 #include "ksimus/ksimbooltristatebox.h"
 #include "ksimus/wire.h"
+#include "extconnbooltristate.h"
 
 
 namespace KSimLibBoolean
@@ -277,3 +277,4 @@ const ComponentInfo * ExtConnBoolTristateOut::getStaticInfo()
 
 }; //namespace KSimLibBoolean
 
+#include "extconnbooltristate.moc"

@@ -28,7 +28,6 @@
 #include <kdialog.h>
 
 // Project-Includes
-#include "booleancounter.h"
 #include "ksimus/resource.h"
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorboolinedge.h"
@@ -41,10 +40,10 @@
 #include "ksimus/componentpropertydialog.h"
 #include "ksimus/optionalconnector.h"
 #include "ksimus/ksimbaseuintedit.h"
+#include "booleancounter.h"
 
 // Forward declaration
 
-// Project-Includes
 
 
 namespace KSimLibBoolean
@@ -602,3 +601,4 @@ void BooleanCounterPropertyWidget::limit()
 
 }; //namespace KSimLibBoolean
 
+#include "booleancounter.moc"

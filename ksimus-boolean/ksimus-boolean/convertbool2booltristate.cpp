@@ -149,3 +149,4 @@ void ConvertBool2BoolTristate::calculate()
 
 }; //namespace KSimLibBoolean
 
+#include "convertbool2booltristate.moc"

@@ -146,4 +146,5 @@ void RSFlipFlopView::draw(QPainter * p)
 	
 }; //namespace
 
+#include "rsflipflop.moc"
 

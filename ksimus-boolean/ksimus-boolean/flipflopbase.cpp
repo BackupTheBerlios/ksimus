@@ -182,3 +182,5 @@ void FlipFlopBasePropertyGeneralWidget::defaultPressed()
 
 
 }; //namespace KSimLibBoolean
+
+#include "flipflopbase.moc"
