@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-13 20:28+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: flipflopbase.cpp:132
+msgid "Dominant Input:"
+msgstr "Entrée prioritaire :"
+
+#: flipflopbase.cpp:138
+msgid "Set Input"
+msgstr "Entrée Set"
+
+#: flipflopbase.cpp:139 monoflop.cpp:260
+msgid "Reset Input"
+msgstr "Entrée Reset"
+
+#: flipflopbase.cpp:141
+msgid "Set here dominant input."
+msgstr "Selectionnez l'entrée prioritaire."
+
+#: jkflipflop.cpp:350
+msgid "Master Slave:"
+msgstr "Maître/Esclave :"
+
+#: jkflipflop.cpp:356
+msgid "Enabled"
+msgstr "Activé"
+
+#: jkflipflop.cpp:357
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: jkflipflop.cpp:359
+msgid ""
+"Enables the Master Salve functionality.\n"
+"If disabled, the FF works in single edge mode."
+msgstr "Active le mode maître/esclave.\n"
+"Si désactivé, la bascule fonctionne en déclenchement sur front."
+
+#: booleancounter.cpp:167
+msgid "Connector \"Clock Up\" or \"Clock Down\" must be visible."
+msgstr "Le connecteur \"Clock Up\" ou \"Clock Down\" doit être visible."
+
+#: booleancounter.cpp:252
+msgid "Counter"
+msgstr "Compteur"
+
+#: booleancounter.cpp:376
+msgid "Counter width:"
+msgstr "Taille du compteur :"
+
+#: booleancounter.cpp:382
+msgid " bit"
+msgstr " bit"
+
+#: booleancounter.cpp:383
+msgid "Sets the counter width."
+msgstr "Change la taille du compteur."
+
+#: booleancounter.cpp:388
+msgid "Maximum:"
+msgstr "Maximum :"
+
+#: booleancounter.cpp:392
+msgid ""
+"Sets the maximum counter value.\n"
+"This value is used if the counter wraps around."
+msgstr ""
+"Valeur maximum pour le compteur.\n"
+"Cette valueur est utilisée lorsque le compteur reboucle."
+
+#: booleancounter.cpp:398
+msgid "Minimum:"
+msgstr "Minimum :"
+
+#: booleancounter.cpp:402
+msgid ""
+"Sets the minimum counter value.\n"
+"This value is used if the counter wraps around."
+msgstr "Valeur minimum pour le compteur.\n"
+"Cette valueur est utilisée lorsque le compteur reboucle."
+
+#: booleancounter.cpp:408
+msgid "Reset value:"
+msgstr "Valeur initiale :"
+
+#: booleancounter.cpp:412
+msgid ""
+"Sets the reset counter value.\n"
+"This value is also used if the counter is reseted."
+msgstr ""
+"Paramètre la valeur initiale du compteur"
+"Cette valeur est aussi utilisée lorsque le compteur est remis � zéro."
+
+#: booleancounter.cpp:419
+msgid "Hint: minimum counter width is %1 bit"
+msgstr "Note : la taille minimum du compteur est %1 bit"
+
+#: booleancounter.cpp:422
+msgid ""
+"This is the minimal possible counter width.\n"
+"This value depends on wired connectors."
+msgstr ""
+"C'est la taille minimum du compteur.\n"
+"Cette valeur dépend des connecteurs branchés"
+
+#: monoflop.cpp:259
+msgid "Trigger Input"
+msgstr "Entrée trigger"
+
+#: monoflop.cpp:266
+msgid "Retrigger:"
+msgstr "Retrigger :"
+
+#: monoflop.cpp:275
+msgid "Set here the retrigger mode."
+msgstr "Activez ici le mode retrigger."
+
+#: monoflop.cpp:281
+msgid "Time:"
+msgstr "Durée :"
+
+#: monoflop.cpp:287
+msgid "Set here the duration."
+msgstr "Choisissez ici la durée."
+
+#: boolean7segment.cpp:190
+msgid "Style"
+msgstr "Style :"
+
+#: boolean7segment.cpp:356
+msgid "Foreground:"
+msgstr "Avant plan :"
+
+#: boolean7segment.cpp:363
+msgid "Background:"
+msgstr "Arrière plan :"
+
+#: boolean7segment.cpp:370
+msgid "Enable frame in user interface"
+msgstr "Activer le cadre dans l'interface utilisateur"
+
+#: boolean7segment.cpp:375
+msgid "Result:"
+msgstr "Résultat :"
