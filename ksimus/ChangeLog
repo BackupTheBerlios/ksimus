@@ -1,3 +1,6 @@
+	05.01.2002
+* Fix: Install directories are selectable with configure options. Thanks to Dominic Sacre the bug message.
+* New: Command line option --simpleVersion return only the KSimus version.
 	03.01.2002
 * Fix: i18n problems with Boolean1Out, BooleanLed, ClockGenerator, ExtConnBoolIn, ExtConnBoolOut
 * Change: Connectors uses a translated (for the user) and a untranslated (for files) name.
