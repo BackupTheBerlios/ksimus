@@ -1757,27 +1757,6 @@ void KSimEditor::componentPopup(bool connectorHit)
 		else if (res == connIdx)
 		{
 			ConnectorPropertyDialog::execute(comp->getConnList(), conn, i18n("Connector Properties"));
-/*			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn, i18n("Connector Properties"));
-
-			// Load last size
-			KConfig * config=kapp->config();
-			QString group(config->group());
-			config->setGroup("Connector/Property Dialog");
-			QSize size=config->readSizeEntry("Geometry");
-			config->setGroup(group);
-			if(!size.isEmpty())
-			{
-				dia->resize(size);
-			}
-	
-			dia->exec();
-
-			// Save size
-			config->setGroup("Connector/Property Dialog");
-			config->writeEntry("Geometry", dia->size());
-			config->setGroup(group);
-
-			delete dia;*/
 		}
 		else if (res == rot0Idx)
 		{
