@@ -1,3 +1,8 @@
+	23.12.2001
+* New: Add tool tip and what's this to ClockGeneratorPropertyWidget.
+* New: Add some helper functions for tool tip and what's this to PropertyWidget
+* New: Add new classes which provides a common interface to data objects KSimTypeBase and KSimTypeTemplate
+* New: Add new data classes KSimInt, KSimUInt and KSimBaseUInt
 	21.12.2001
 * Change: Remove debug message from ComponentBlockLayout
 * Change: ComponentBlockLayout justify text output
