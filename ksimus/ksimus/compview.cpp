@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 // C-Includes
+#include <math.h>
 
 // QT-Includes
 #include <qevent.h>
@@ -48,25 +49,98 @@
 
 
 
-static const char * sPos = "Pos";
-static const char * sSize = "Size";
-static const char * sHide = "Hidden";
+static const char * sPos      = "Pos";
+static const char * sSize     = "Size";
+static const char * sHide     = "Hidden";
+static const char * sRotation = "Rotation";
 
 static const int sheetGridX = gridX;
 static const int sheetGridY = gridY;
 
 
 // Used for m_flags
-//#define FLAGS_VIEW_CHANGED			0x0001
-#define FLAGS_HIDDEN							0x0002
-#define FLAGS_RESIZEABLE					0x0004
-#define FLAGS_CONN_SPACING_TOP		0x0008
-#define FLAGS_CONN_SPACING_RIGHT	0x0010
-#define FLAGS_CONN_SPACING_BOTTOM	0x0020
-#define FLAGS_CONN_SPACING_LEFT		0x0040
-#define FLAGS_ENABLE_GRID_SNAP		0x0080
-// 0x01xx - 0xFFxx Reserved for CompViewSize
+//#define FLAGS_VIEW_CHANGED			0x00000001
+#define FLAGS_HIDDEN							0x00000002
+#define FLAGS_RESIZEABLE					0x00000004
+#define FLAGS_CONN_SPACING_TOP		0x00000008
+#define FLAGS_CONN_SPACING_RIGHT	0x00000010
+#define FLAGS_CONN_SPACING_BOTTOM	0x00000020
+#define FLAGS_CONN_SPACING_LEFT		0x00000040
+#define FLAGS_ENABLE_GRID_SNAP		0x00000080
+#define FLAGS_ROTATE_ENABLE       0x00000100
+#define FLAGS_ROTATE_SPECIAL      0x00000200
+// 0x0001xxxx - 0xFFFFxxxx Reserved for CompViewSize
 
+
+
+#define ROT_0_DEG	  0
+#define ROT_90_DEG	1
+#define ROT_180_DEG	2
+#define ROT_270_DEG	3
+
+
+static int convertRotToInt(double degree)
+{
+	if((degree < 45.0) || (degree >= 315.0))
+	{
+		return ROT_0_DEG;
+	}
+	else if(degree < 135.0)
+	{
+		return ROT_90_DEG;
+	}
+	else if(degree < 225.0)
+	{
+		return ROT_180_DEG;
+	}
+	else
+	{
+		return ROT_270_DEG;
+	}
+}	
+
+/* not needed yet
+static double convertIntToRot(int step)
+{
+	double res;
+	
+	switch(step)
+	{
+		default:
+			KSIMDEBUG_VAR("Unknown rot step",step);
+			//No break!
+			
+		case ROT_0_DEG:
+			res = 0.0;
+			break;
+			
+		case ROT_90_DEG:
+			res = 90.0;
+			break;
+			
+		case ROT_180_DEG:
+			res = 180.0;
+			break;
+			
+		case ROT_270_DEG:
+			res = 270.0;
+			break;
+	}
+	return res;
+}	*/
+
+static QSize convertSize(const QSize & size, int fromRotStep, int toRotStep)
+{
+	if ((fromRotStep & 1) == (toRotStep & 1))
+	{
+		return size;
+	}
+	else
+	{
+		//Swap size
+		return QSize(size.height(), size.width());
+	}
+}
 
 
 static void installGlobalEventFilter(QWidget * main, QWidget * eventSource)
@@ -88,7 +162,33 @@ static void installGlobalEventFilter(QWidget * main, QWidget * eventSource)
     }
 }	
 
+static void setGlobalMouseTracking(QWidget * main, bool tracking)
+{
+	if (!main)
+		return;
+	
+	main->setMouseTracking(tracking);
+	
+	const QObjectList * list = main->children();
+	
+	if (list)
+	{
+		QObject * obj;
+		for ( obj = ((QObjectList*)list)->first(); obj; obj = ((QObjectList*)list)->next() )
+		{
+			if (obj->isWidgetType())
+			{
+				setGlobalMouseTracking((QWidget*)obj, tracking);
+			}
+		}
+	}
+}	
+
 ConnectorBase * CompView::lastHitConnector;
+
+
+//############################################################################
+//############################################################################
 
 class CompView::CompViewPrivate
 {
@@ -98,7 +198,8 @@ public:
 			posGridX(&sheetGridX),
 			posGridY(&sheetGridY),
 			viewType (vt),
-			widgetList(0)
+			widgetList(0),
+			rotation(0.0)
 	{
 		if (vt == SHEET_VIEW)
 			flags =	FLAGS_CONN_SPACING_TOP | FLAGS_CONN_SPACING_RIGHT | FLAGS_CONN_SPACING_BOTTOM
@@ -116,14 +217,19 @@ public:
 	/** Position and dimension of the component view */
 	QRect place;
 	// Some flags
-	int flags;
+	Q_UINT32 flags;
 	// Snaps
 	const int * posGridX;
 	const int * posGridY;
 	
 	eViewType viewType;
 	KSimWidgetList * widgetList;
+	float rotation;
 };
+
+//############################################################################
+//############################################################################
+
 
 CompView::CompView(Component * comp, eViewType viewType)
 	:	QObject(),
@@ -193,38 +299,41 @@ void CompView::mouseMove(QMouseEvent *, QPainter *)
 void CompView::mouseRelease(QMouseEvent *, QPainter *)
 {
 }
+
 /** New position of the comoponent view */
 void CompView::setPos(const QPoint & pos)
 {
 	QPoint newPos(pos);
 	
-	// Limit position
-	QSize mapSize;
-	if (getViewType() == SHEET_VIEW)
-	{
-		mapSize = getComponent()->getContainer()->getSheetSize();
-	}
-	else
-	{
-		mapSize = getComponent()->getContainer()->getUserSize();
-	}
-	KSIMDEBUG_VAR("", mapSize.width());
-	KSIMDEBUG_VAR("", mapSize.height());
-	if (newPos.x() > (mapSize.width() - getPlace().width()))
-	{
-		newPos.setX(mapSize.width() - getPlace().width());
-	}
-	if (newPos.y() > (mapSize.height() - getPlace().height()))
-	{
-		newPos.setY(mapSize.height() - getPlace().height());
-	}
-	if (newPos.x() < 0)
-	{
-		newPos.setX(0);
-	}
-	if (newPos.y() < 0)
-	{
-		newPos.setY(0);
+	if (getComponent()->getContainer()->isVisible())
+	{	
+		// Limit position
+		QSize mapSize;
+		if (getViewType() == SHEET_VIEW)
+		{
+			mapSize = getComponent()->getContainer()->getSheetSize();
+		}
+		else
+		{ 	
+			mapSize = getComponent()->getContainer()->getUserSize();
+		}
+
+		if (newPos.x() > (mapSize.width() - getPlace().width()))
+		{
+			newPos.setX(mapSize.width() - getPlace().width());
+		}
+		if (newPos.y() > (mapSize.height() - getPlace().height()))
+		{
+			newPos.setY(mapSize.height() - getPlace().height());
+		}
+		if (newPos.x() < 0)
+		{
+			newPos.setX(0);
+		}
+		if (newPos.y() < 0)
+		{
+			newPos.setY(0);
+		}
 	}
 	
 	// now map to grid
@@ -233,42 +342,76 @@ void CompView::setPos(const QPoint & pos)
 		newPos = mapToGrid(newPos);
 	}
 	
-	// Remove Object from sheet map
-	updateSheetMap(false);
-	m_p->place.moveTopLeft(newPos);
-	// Insert Object to sheet map
-	updateSheetMap(true);
+	if(m_p->place.topLeft() != newPos)
+	{
+		// Remove Object from sheet map
+		updateSheetMap(false);
+		m_p->place.moveTopLeft(newPos);
+		// Insert Object to sheet map
+		updateSheetMap(true);
 
-	emit signalMove(getPlace().topLeft());
-	emit signalMoveWidget(getWidgetPlace().topLeft());
+		emit signalMove(getPlace().topLeft());
+		emit signalMoveWidget(getWidgetPlace().topLeft());
+	}
 }
 
 /** Changes the place of the view */
-void CompView::setPlace(const QRect & place)
+void CompView::setPlace(const QRect & place, bool degree0)
 {
-	QRect newPlace;
+	QRect newPlace(place);
+	
+	if (degree0 && isNormalRotationEnabled())
+	{
+		newPlace.setSize(convertSize(newPlace.size(), ROT_0_DEG, convertRotToInt(getRotation())));
+	}
+	
+	
+	if (getComponent()->getContainer()->isVisible())
+	{	
+		// Limit position
+		QSize mapSize;
+		if (getViewType() == SHEET_VIEW)
+		{
+			mapSize = getComponent()->getContainer()->getSheetSize();
+		}
+		else
+		{
+			mapSize = getComponent()->getContainer()->getUserSize();
+		}
+		if (newPlace.bottom() > mapSize.height())
+			newPlace.moveBy(0, mapSize.height() - newPlace.bottom());
+		
+		if (newPlace.right() > mapSize.width())
+			newPlace.moveBy(mapSize.width() - newPlace.right(), 0);
+		
+		if (newPlace.top() < 0)
+			newPlace.moveBy(0, - newPlace.top());
+		
+		if (newPlace.left() < 0)
+			newPlace.moveBy( -newPlace.left(), 0);
+	}
 	
 	if (isGridSnapEnabled())
 	{
-		newPlace = QRect(mapToGrid(place.topLeft()),mapToGrid(place.bottomRight()) + QPoint(-1,-1));
+		newPlace = QRect(mapToGrid(newPlace.topLeft()),mapToGrid(newPlace.bottomRight()) + QPoint(-1,-1));
 	}
-	else
+	
+	if (newPlace != m_p->place)
 	{
-		newPlace = place;
-	}
 	
-	// Remove Object from sheet map
-	updateSheetMap(false);
-	m_p->place = newPlace;
-	// Insert Object to sheet map
-	updateSheetMap(true);
+		// Remove Object from sheet map
+		updateSheetMap(false);
+		m_p->place = newPlace;
+		// Insert Object to sheet map
+		updateSheetMap(true);
 
-	emit signalMove(getPlace().topLeft());
-	emit signalResize(getPlace().size());
-	emit signalMoveWidget(getWidgetPlace().topLeft());
-	emit signalResizeWidget(getWidgetPlace().size());
+		emit signalMove(getPlace().topLeft());
+		emit signalResize(getPlace().size());
+		emit signalMoveWidget(getWidgetPlace().topLeft());
+		emit signalResizeWidget(getWidgetPlace().size());
 	
-	resize();
+		resize();
+	}
 }
 
 void CompView::resize()
@@ -316,6 +459,22 @@ QRect CompView::getWidgetPlace() const
 	return widgetPlace;
 }
 
+QRect CompView::getDrawingPlace() const
+{
+	QSize size(getPlace().size());
+	
+	if(isNormalRotationEnabled())
+	{
+		size = convertSize(size, ROT_0_DEG, convertRotToInt(getRotation()));
+	}
+	
+	int left = (isConnectorSpacingLeft() ? gridX : 0);
+	int top = (isConnectorSpacingTop()  ? gridY+1 : 0);
+	int right = size.width() - (isConnectorSpacingRight()  ? gridX : 0);
+	int bottom = size.height() - (isConnectorSpacingBottom()  ? gridY : 0);
+	
+	return QRect(left, top, right - left, bottom - top);
+}
 
 /** Hit point x,y the component ?
 NO_HIT      - component is not hit
@@ -324,12 +483,13 @@ SPECIAL_HIT - component is hit, component controls mouse action */
 
 eHitType CompView::isHit(int x, int y) const
 {
-	QRect rect = getPlace().normalize ();
+	
+	QRect rect = getPlace();
 	if (x < rect.left() ||
-		x > rect.right() ||
-		y < rect.top() ||
-		y > rect.bottom() ||
-		isHidden())
+	    x > rect.right() ||
+	    y < rect.top() ||
+	    y > rect.bottom() ||
+	    isHidden())
 	{
 		return NO_HIT;
 	}
@@ -338,17 +498,22 @@ eHitType CompView::isHit(int x, int y) const
 	if (getComponent()->getConnList())
 	{
 		ConnectorBase * conn;
+		QPoint p(x,y);
+		if(isNormalRotationEnabled())
+		{
+			p = mapFromRotation(p);
+		}
+		
 		for (	conn = getComponent()->getConnList()->first();
 				conn;
 				conn = getComponent()->getConnList()->next())
 		{
-			if (CONNECTOR_HIT == conn->isHit(x,y))
+			if (CONNECTOR_HIT == conn->isHit(p.x(),p.y()))
 			{
 				// Remember connector
 				lastHitConnector = conn;
 				return CONNECTOR_HIT;
 			}
-				
 		}
 	}
 	return NORMAL_HIT;
@@ -429,6 +594,17 @@ void CompView::drawBound(QPainter * p, QPoint & tempPos)
 	m_p->place = actualPlace;
 }
 	
+void CompView::drawFrame(QPainter * p) const
+{
+	QRect rect(getDrawingPlace());
+	rect.rLeft()++;
+	rect.rTop()++;
+	p->setPen(QPen(black, 2));
+	p->setBrush(NoBrush);
+	p->drawRect(rect);
+}
+
+
 /** Return last connector that was hit */
 ConnectorBase * CompView::getLastHitConnector() const
 {
@@ -438,17 +614,15 @@ ConnectorBase * CompView::getLastHitConnector() const
 if insert = true, delete compview to sheet map */
 void CompView::updateSheetMap(bool insert)
 {
-	QRect mapPlace;
-	
 	if (getComponent()->getContainer()->isVisible())
 	{
-		mapPlace.setLeft(getPlace().left()/gridX);
-		mapPlace.setTop(getPlace().top()/gridY);
-		mapPlace.setRight((getPlace().right())/gridX);
-		mapPlace.setBottom((getPlace().bottom())/gridY);
+		QRect mapPlace;
+	
+		mapPlace.setLeft(getPlace().left() / gridX);
+		mapPlace.setTop(getPlace().top() / gridY);
+		mapPlace.setRight(getPlace().right() / gridX);
+		mapPlace.setBottom(getPlace().bottom() / gridY);
 		
-//		ComponentMap * map = getComponent()->getContainer()->getSheetMap();
-//		map->addPlace(mapPlace, insert ? map->costComponent : -map->costComponent );
 		getComponentMap()->addPlace(mapPlace, insert
 									?  getComponentMap()->costComponent
 									: -getComponentMap()->costComponent );
@@ -468,6 +642,7 @@ bool CompView::makeWidget(QWidget * parent)
 	
 	if (widget)
 	{
+		setGlobalMouseTracking(widget, true);
 		// widget positioning
 		widget->setGeometry(getWidgetPlace());
 		resize();
@@ -505,6 +680,11 @@ void CompView::save(KSimData & file) const
 	file.writeEntry(sPos, getPos());
 	if (isHidden())
 		file.writeEntry(sHide,true);
+	if (isRotationEnabled() && (getRotation() != 0))
+	{
+		file.writeEntry(sRotation, getRotation());
+	}
+		
 }
 
 /** Load CompView properties
@@ -513,6 +693,11 @@ bool CompView::load(KSimData & file)
 {
 	setPos(file.readPointEntry(sPos));
 	setHide(file.readBoolEntry(sHide, false));
+	if (isRotationEnabled())
+	{
+		setRotation(file.readDoubleNumEntry(sRotation, 0.0));
+	}
+
 	return true;
 }
 
@@ -552,20 +737,6 @@ void CompView::moveToBestPlace()
 	
 	setPos(newPos);
 }
-
-/** Returns true, if last simulation changes the view */
-/*bool CompView::isViewChanged() const
-{
-	return (m_p->flags & FLAGS_VIEW_CHANGED);
-};*/
-
-/*void CompView::setViewChanged(bool changed)
-{
-	if (changed)
-		m_p->flags |= FLAGS_VIEW_CHANGED;
-	else
-		m_p->flags &= ~FLAGS_VIEW_CHANGED;
-};*/
 
 /** Hide the component view */
 void CompView::setHide(bool hide)
@@ -714,7 +885,153 @@ KSimWidgetList * CompView::getWidgetList()
 	return m_p->widgetList;
 }
 
+void CompView::enableRotation(bool enable)
+{
+	if(enable)
+	{
+		m_p->flags |= FLAGS_ROTATE_ENABLE;
+	}
+	else
+	{
+		m_p->flags &= ~FLAGS_ROTATE_ENABLE;
+	}
+}
 
+bool CompView::isRotationEnabled() const
+{
+	return m_p->flags & FLAGS_ROTATE_ENABLE;
+}
+
+void CompView::enableSpecialRotation(bool enable)
+{
+	if(enable)
+	{
+		m_p->flags |= FLAGS_ROTATE_SPECIAL;
+	}
+	else
+	{
+		m_p->flags &= ~FLAGS_ROTATE_SPECIAL;
+	}
+}
+
+bool CompView::isSpecialRotationEnabled() const
+{
+	return m_p->flags & FLAGS_ROTATE_SPECIAL;
+}
+
+bool CompView::isNormalRotationEnabled() const
+{
+	return ((m_p->flags & (FLAGS_ROTATE_ENABLE|FLAGS_ROTATE_SPECIAL)) == FLAGS_ROTATE_ENABLE);
+}
+
+void CompView::setRotation(double rotation)
+{
+	// Normalize
+	rotation = fmod(rotation, 360.0);
+	if(rotation<0.0) rotation += 360.0;
+	
+	if(isNormalRotationEnabled())
+	{
+		int curRot = convertRotToInt(getRotation());
+		if((rotation < 45.0) || (rotation >= 315.0))
+		{
+			m_p->rotation = 0.0;
+		}
+		else if(rotation < 135.0)
+		{
+			m_p->rotation = 90.0;
+		}
+		else if(rotation < 225.0)
+		{
+			m_p->rotation = 180.0;
+		}
+		else
+		{
+			m_p->rotation = 270.0;
+		}
+		QSize newSize(convertSize(getPlace().size(), curRot, convertRotToInt(m_p->rotation)));
+		setPlace(QRect(getPlace().topLeft(), newSize));
+	}
+	else
+	{
+		m_p->rotation = rotation;
+	}
+}
+	
+double CompView::getRotation() const
+{
+	return m_p->rotation;
+}
+	
+void CompView::stepRotationCW()
+{
+	setRotation(getRotation() + 90.0);
+}
+
+void CompView::stepRotationCCW()
+{
+	setRotation(getRotation() - 90.0);
+}
+
+QPoint CompView::mapToRotation(const QPoint & pos) const
+{
+	if (isNormalRotationEnabled())
+	{
+		if((getRotation() < 45.0) || (getRotation() >= 315.0))
+		{
+			return pos;
+		}
+		else if(getRotation() < 135.0)
+		{
+			QPoint p(pos - getPos());
+			return QPoint(getPlace().width() - p.y(), p.x()) + getPos();
+		}
+		else if(getRotation() < 225.0)
+		{
+			QPoint p(pos - getPos());
+			return QPoint(getPlace().width() - p.x(), getPlace().height() - p.y()) + getPos();
+		}
+		else
+		{
+			QPoint p(pos - getPos());
+			return QPoint(p.y(), getPlace().height() - p.x()) + getPos();
+		}
+	}
+	else
+	{
+		return pos;
+	}
+}
+
+QPoint CompView::mapFromRotation(const QPoint & rotPos) const
+{
+	if (isNormalRotationEnabled())
+	{
+		if((getRotation() < 45.0) || (getRotation() >= 315.0))
+		{
+			return rotPos;
+		}
+		else if(getRotation() < 135.0)
+		{
+			QPoint p(rotPos - getPos());
+			return QPoint(p.y(), getPlace().width() - p.x()) + getPos();
+		}
+		else if(getRotation() < 225.0)
+		{
+			QPoint p(rotPos - getPos());
+			return QPoint(getPlace().width() - p.x(), getPlace().height() - p.y()) + getPos();
+		}
+		else
+		{
+			QPoint p(rotPos - getPos());
+			return QPoint(getPlace().height() - p.y(), p.x()) + getPos();
+		}
+	}
+	else
+	{
+		return rotPos;
+	}
+}
 
 //#############################################################################
 //#############################################################################

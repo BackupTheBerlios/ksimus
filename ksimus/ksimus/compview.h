@@ -100,12 +100,18 @@ public:
 	virtual void setPos(const QPoint & pos);
 	/** Give the position of the component view */
 	QPoint getPos() const;
-	/** Changes the Place of the view */
-	void setPlace(const QRect & newPlace);
+	/** Changes the Place of the view. If degree0 is true the place is given without
+	  * rotation.  */
+	void setPlace(const QRect & newPlace, bool degree0 = false);
 	/** Give the place  */
 	QRect getPlace() const;
 	QRect getWidgetPlace() const;
-	
+  /** Returns the drawing area. The connector space is evaluated.
+    * @see isConnectorSpacingTop
+    * @see isConnectorSpacingRight
+    * @see isConnectorSpacingBottom
+    * @see isConnectorSpacingLeft */
+	QRect getDrawingPlace() const;	
 	/** Return last connector that was hit */
 	ConnectorBase * getLastHitConnector() const;
 	/** if insert = true, insert compview to sheet map
@@ -194,7 +200,41 @@ public:
 		If enabled, the component position and size are fixed to the grid positions */
 	bool isGridSnapEnabled() const;
 	
-		
+	//#####   Rotation   ######
+	
+	/** Enables compView rotation. The default is disable. */
+	void enableRotation(bool enable = true);
+	/** Returns true if rotation is enabled. The default is disable. */
+	bool isRotationEnabled() const;
+	/** Enables rotation for compView which handles the rotation by it's own.
+	  *  The rotation should also be enabled. The default is disable. */
+	void enableSpecialRotation(bool enable = true);
+	/** Returns true if rotation for compView which handles the rotation by it's
+	  * own is enabled. The rotation should also be enabled. The default is disable. */
+	bool isSpecialRotationEnabled() const;
+	/** Returns true if rotations is enabled and rotation special is disabled. */
+	bool isNormalRotationEnabled() const;
+	/** Sets the current rotation position in degree. If normal rotation is enabled the values
+	  * 0, 90, 180 and 270 are allowed. */
+	void setRotation(double rotation);	
+	/** Sets the current rotation position in degree. If normal rotation is enabled the values
+	  * 0, 90, 180 and 270 are allowed. */
+	double getRotation() const;
+	/** Sets the current rotation position more 90 degree clock wise. The values
+	  * 0, 90, 180 and 270 are used. */
+	void stepRotationCW();	
+	/** Sets the current rotation position more 90 degree counter clock wise. The values
+	  * 0, 90, 180 and 270 are used. */
+	void stepRotationCCW();
+	/** Returns a position which is converted to the rotation position. The function dont work with
+	  * compView specialized rotation. */
+	QPoint mapToRotation(const QPoint & pos) const;
+	/** Returns a position which is converted from the rotation position. The function dont work with
+	  * compView specialized rotation. */
+	QPoint mapFromRotation(const QPoint & rotPos) const;
+
+
+
 protected: // Protected attributes
 
 	/** Returns the current Component Map */
@@ -210,6 +250,11 @@ protected: // Protected attributes
 	virtual void resize();
 
 	static ConnectorBase * lastHitConnector;
+	
+	/** Draws a rect a round the component body (excluding the connector space).
+	  * Color black, thick: 2 pixel
+	  */
+	void drawFrame(QPainter * p) const;
 	
 		
 public slots:
