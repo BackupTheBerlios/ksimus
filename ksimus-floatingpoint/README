@@ -1,1 +1,9 @@
+The package floatingpoint has since version 0.3.5 the new naming
+ksimus-floatingpoint instead of floatingpoint in prior version. The files and
+directories are renamed also. This supports a uniform naming schema for the
+KSimus packages.
+Because this you have to uninstall a prior version before installing the new
+package.
+
+Sorry for any circumstances!
 

@@ -1,3 +1,5 @@
+	20.04.2002
+* New package naming ksimus-floatingpoint
 	22.03.2002
 * Add missing #include <math.h>. Thanks Francois Dickey!
 * New: Version 0.3.4-1
