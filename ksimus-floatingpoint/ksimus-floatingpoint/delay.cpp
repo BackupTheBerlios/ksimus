@@ -20,6 +20,7 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
+#include <qhbox.h>
 
 
 // KDE-Includes
@@ -97,7 +98,7 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 
 void Delay::calculate()
 {
-	Float1Out::calculate();
+//	Float1Out::calculate();
 	
 	if (m_list.size() < 1)
 	{
@@ -155,11 +156,11 @@ void Delay::reset()
 	bool res = m_list.fill(getResetValue(), listLength);
 	if(!res)
 	{
-		KSIMDEBUG("Resize of QBitArray failed");
+		KSIMDEBUG("Resize of QArray failed");
 	}
 	m_lastValue = getResetValue();
 	setValue(getResetValue());
-	m_counter = 0;
+	m_counter = m_list.size();
 	m_index = 0;
 }
 
@@ -232,7 +233,7 @@ void DelayView::draw(QPainter * p)
 	drawFrame(p);
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Dly\nFlt");
+	p->drawText(getDrawingPlace(), AlignCenter, "Dly");
 	
 	CompView::draw(p);
 }
@@ -264,17 +265,16 @@ DelayPropertyGeneralWidget::DelayPropertyGeneralWidget(Delay * comp, QWidget *pa
 	addToolTip(str, m_delayTime, lab);
 	addWhatsThis(str, m_delayTime, lab);
 	
-	lab = new QLabel(i18n("FloatingPoint - Hint in dialog", "Hint:"), this);
-	CHECK_PTR(lab);
-	
-	m_delayTimeHint = new QLabel(this);
+	QHBox * hintBox = newRowHBox("hintBox");
+
+	m_delayTimeHint = new QLabel(hintBox, "m_delayTimeHint");
 	CHECK_PTR(m_delayTimeHint);
 	slotChanged(comp->getDelayTime());
 	connect(m_delayTime, SIGNAL(changed(const KSimTime &)), this, SLOT(slotChanged(const KSimTime &)));
 	
 	str = i18n("FloatingPoint - Hint in dialog", "Shows the effective delay time.\nThis time depends on the value of 'Simulation time per tick'.");
-	addToolTip(str, m_delayTimeHint, lab);
-	addWhatsThis(str, m_delayTimeHint, lab);
+	addToolTip(str, m_delayTimeHint);
+	addWhatsThis(str, m_delayTimeHint);
 	
 }
 
@@ -308,7 +308,7 @@ void DelayPropertyGeneralWidget::slotChanged(const KSimTime & time)
 	myTime.setValue((double)ticks, unit_ticks);
 	
 	m_delayTimeHint->setText(i18n("FloatingPoint - prints delay in a suitable time unit and ticks",
-	                              "effective delay time %1 / %2 ticks")
+	                              "Effective delay time: %1 or %2 ticks")
 	                         .arg(myTime.getAdjustValueString())
 	                         .arg(ticks));
 }
