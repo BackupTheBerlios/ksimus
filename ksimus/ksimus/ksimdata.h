@@ -41,7 +41,7 @@ class QStrList;
 
 /** The data format for KSimus documents.
   *
-  * Copy some comments from KSimpleConfig and KConfigBase. Thanks KDE, Kalle Dalheimer and Preston Brown
+  * Copy some comments from KSimpleConfig and KConfigBase. Thanks KDE, Kalle Dalheimer and Preston Brown.
   * @author Rasmus Diekenbrock
   */
 
