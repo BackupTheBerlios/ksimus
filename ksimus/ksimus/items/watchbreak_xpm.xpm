@@ -1,5 +1,5 @@
 /* XPM */
-static char *watchbreak_xpm[]={
+static const char *watchbreak_xpm[]={
 "12 12 3 1",
 ". c None",
 "# c #ff0000",

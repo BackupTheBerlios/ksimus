@@ -29,6 +29,7 @@
 #include "watchviewitem.h"
 #include "ksimdebug.h"
 #include "watchbreak_xpm.xpm"
+
 // Forward declaration
 
 
@@ -226,7 +227,12 @@ void WatchListView::slotCurrentChanged(QListViewItem * lvi)
 
 QPixmap WatchListView::getPixmapBreaked()
 {
-	static QPixmap breakPix((const char**)watchbreak_xpm);
+	// If you get a compiler error in the line below a possible reason is a missing
+	// const in the XPM-File "items/watchbreak_xpm.xpm"
+	// The 2nd line must be: static const char *watchbreak_xpm[]={
+	// If this don't help please try to reactivate the uncommented code below. If this works
+	// please send me an email with OS and compiler version to ksimus@gmx.de. Thanks!
+	static QPixmap breakPix(/*(const char**)*/watchbreak_xpm);
 	return breakPix;
 }
 
