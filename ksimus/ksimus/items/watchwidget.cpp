@@ -52,7 +52,7 @@
 
 #define UNKNOWN_TIME        QString::fromLatin1(" - - - ")
 #define DEFAULT_TRACE_SIZE  50
-#define DEFAULT_RISE_BY_ADD true
+#define DEFAULT_RISE_BY_ADD 1  // == true !!!
 
 //###################################################################
 //###################################################################
@@ -525,8 +525,8 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 	                  "If checked the watch view is rised each time the user will add a new watchpoint to the watch list. "
 	                  "Disable it if you don't like this.\n\nThe default is enabled."),
 	             m_p->riseByAdd);
-#if DEFAULT_RISE_BY_ADD != true
-#error Fix addWhatsThis: DEFAULT_RISE_BY_ADD != true
+#if DEFAULT_RISE_BY_ADD != 1
+#error Fix addWhatsThis: DEFAULT_RISE_BY_ADD != 1
 #endif
 	m_p->riseByAdd->setChecked(getWatchWidget()->isRiseByAdd());
 	
