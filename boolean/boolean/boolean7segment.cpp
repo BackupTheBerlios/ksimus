@@ -55,11 +55,11 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new Boolean7Segment(container, ci);
 }
 
-const ComponentInfo BooleanBoolean7SegmentInfo("7 Segment Display",
-                                               "Boolean/Output/7 Segment Display",
-                                               QString::null,//"7 Segment Display",
-                                               VA_SHEET_AND_USER,
-                                               create	);
+const ComponentInfo Boolean7SegmentInfo("7 Segment Display",
+                                        "Boolean/Output/7 Segment Display",
+                                        QString::null,//"7 Segment Display",
+                                        VA_SHEET_AND_USER,
+                                        create	);
 
 
 
@@ -79,16 +79,16 @@ Boolean7Segment::Boolean7Segment(CompContainer * container, const ComponentInfo 
 		m_backColor(DEFAULT_BACKGROUND),
 		m_enaFrame(DEFAULT_ENA_FRAME)
 {
-	m_in1 = new ConnectorBoolIn (this, i18n("Input 1"));
+	m_in1 = new ConnectorBoolIn (this, "Input 1");
 	CHECK_PTR(m_in1);
 	
-	m_in2 = new ConnectorBoolIn (this, i18n("Input 2"));
+	m_in2 = new ConnectorBoolIn (this, "Input 2");
 	CHECK_PTR(m_in2);
 	
-	m_in4 = new ConnectorBoolIn (this, i18n("Input 4"));
+	m_in4 = new ConnectorBoolIn (this, "Input 4");
 	CHECK_PTR(m_in4);
 	
-	m_in8 = new ConnectorBoolIn (this, i18n("Input 8"));
+	m_in8 = new ConnectorBoolIn (this, "Input 8");
 	CHECK_PTR(m_in8);
 	
 	// Initializes the sheet view
