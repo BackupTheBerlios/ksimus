@@ -459,6 +459,7 @@ const KSimTimeBase & KSimTimeBase::operator=(const KSimTimeBase & time)
 	return time;
 }
 
+
 void KSimTimeBase::setTimeServer(const KSimTimeServer & timeServer)
 {
 	m_timeServer = &timeServer;

@@ -117,6 +117,4 @@ protected:
 	eTimeUnit m_unit;
 	const KSimTimeServer * m_timeServer;
 };
-
-
 #endif
