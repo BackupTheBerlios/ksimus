@@ -786,3 +786,4 @@ void WatchItemBoolTristateConnectorSpecial::readData(unsigned int index)
 	}
 }
 
+#include "watchitembooltristate.moc"

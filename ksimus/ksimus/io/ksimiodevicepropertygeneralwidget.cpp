@@ -120,3 +120,5 @@ void KSimIoDevicePropertyGeneralWidget::defaultPressed()
 	m_nameEdit->setText(getDevice()->getInfo()->getI18nLibName());
 //	m_descriptionEdit->setText(QString::null);
 }
+
+#include "ksimiodevicepropertygeneralwidget.moc"

@@ -264,3 +264,5 @@ QWidget * ConnectorPropertyWidget::settingWidget()
 {
 	return m_p->settingWidget;
 }
+
+#include "connectorpropertywidget.moc"

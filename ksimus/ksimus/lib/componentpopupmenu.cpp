@@ -74,3 +74,5 @@ void ComponentPopupMenu::slotSelected(int idx)
 		emit signalSelection(ci->getName());
 	}
 }
+
+#include "componentpopupmenu.moc"

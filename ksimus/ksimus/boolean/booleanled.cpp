@@ -558,6 +558,6 @@ void BooleanLedPropertyWidget::slotOffColor(const QColor & color)
 	}		
 }
 
-
+#include "booleanled.moc"
 
 

@@ -240,3 +240,4 @@ PropertyWidget * OptionalFunction::getPropertyWidget() const
 	return (PropertyWidget *)0;
 }
 
+#include "optionalfunction.moc"

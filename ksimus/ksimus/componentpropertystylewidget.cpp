@@ -275,3 +275,5 @@ void ComponentPropertyStyleWidget::slotFontDialog()
 		m_exampleFont->setText(m_font.family());
 	}
 }
+
+#include "componentpropertystylewidget.moc"

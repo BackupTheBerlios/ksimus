@@ -2007,5 +2007,5 @@ void KSimEditor::slotDelayedStatusHelpMsg()
 	}
 }
 
-
+#include "ksimeditor.moc"
 

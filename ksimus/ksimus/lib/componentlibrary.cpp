@@ -210,3 +210,5 @@ ComponentLibraryItem * ComponentLibrary::getItem(const QString & libName) const
 	return (ComponentLibraryItem *)BaseLibrary::getItem(libName);
 }
 
+
+#include "componentlibrary.moc"

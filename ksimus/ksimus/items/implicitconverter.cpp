@@ -166,3 +166,5 @@ const void * ImplicitConverterFloat2Boolean::convert(const void * data)
 	return &m_result;
 }
 
+#include "implicitconverter.moc"
+

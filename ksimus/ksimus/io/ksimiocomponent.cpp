@@ -520,4 +520,4 @@ void KSimIoComponentView::updateLayout()
 
 }
 
-
+#include "ksimiocomponent.moc"

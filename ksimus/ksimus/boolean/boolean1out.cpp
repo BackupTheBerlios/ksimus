@@ -237,4 +237,4 @@ void Boolean1OutPropertyGeneralWidget::defaultPressed()
 //###############################################################
 //###############################################################
 
-
+#include "boolean1out.moc"

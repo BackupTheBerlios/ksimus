@@ -155,3 +155,5 @@ KSimBoolTristate KSimBoolTristateBox::getValue() const
 {
 	return KSimBoolTristate((eKSimBoolTristate)currentItem());
 }
+
+#include "ksimbooltristatebox.moc"

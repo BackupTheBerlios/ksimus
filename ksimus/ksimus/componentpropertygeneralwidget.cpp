@@ -309,3 +309,5 @@ void ComponentPropertyGeneralWidget::defaultPressed()
 	m_p->nameEdit->setText(getComponent()->getDefaultName());
 	
 }
+
+#include "componentpropertygeneralwidget.moc"

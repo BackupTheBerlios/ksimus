@@ -1380,13 +1380,9 @@ void KSimusApp::slotEditorModeChanged(int mode)
 			break;
    	
 		case EM_INSERT:
-			{
-				QString msg;
-				msg.sprintf(i18n("Insert Component '%1' ...").arg(i18n(m_p->lastSelectedCI->getName().latin1())));
-				slotStatusMsg(msg);
-			}
+			slotStatusMsg(i18n("Insert Component '%1' ...").arg(i18n(m_p->lastSelectedCI->getName().latin1())));
 			break;
-		
+
 		case EM_INSERT_MOVE:
 			break;
 		
@@ -1579,3 +1575,5 @@ void KSimusApp::slotSetupActions()
 
 //	testAction->setEnabled(true);		always enabled
 }
+
+#include "ksimus.moc"

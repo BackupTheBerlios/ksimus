@@ -62,4 +62,4 @@ int KSimSpinBox::alignment() const
 	return editor()->alignment();
 }
 
-
+#include "ksimspinbox.moc"

@@ -83,3 +83,5 @@ bool KSimIoJoinLibrary::create(KSimIoJoin * * join, const char * libName, KSimIo
 		return false;
 	}
 }
+
+#include "ksimiojoinlibrary.moc"

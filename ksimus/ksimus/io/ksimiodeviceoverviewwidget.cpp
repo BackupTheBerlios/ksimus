@@ -395,3 +395,5 @@ int KSimIoDeviceOverviewWidget::executeDialog(QWidget *parent, const char *name)
 //################################################################################
 //################################################################################
 
+#include "ksimiodeviceoverviewwidget.moc"
+

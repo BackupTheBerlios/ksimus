@@ -177,3 +177,5 @@ void CompViewHBox::setSpecialFont(const QFont & font)
 	setFont(font);	
 	update();
 }
+
+#include "compviewhbox.moc"

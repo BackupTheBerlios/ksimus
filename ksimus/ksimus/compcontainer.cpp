@@ -1882,3 +1882,4 @@ const KSimIoDeviceList * CompContainer::getIoDeviceList() const
 	}
 }
 
+#include "compcontainer.moc"

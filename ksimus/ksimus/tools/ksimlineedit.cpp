@@ -68,3 +68,4 @@ void KSimLineEdit::slotChanged()
 	}
 }
 
+#include "ksimlineedit.moc"

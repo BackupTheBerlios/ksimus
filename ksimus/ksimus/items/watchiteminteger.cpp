@@ -270,3 +270,6 @@ void WatchItemIntegerWireProperty::readData(unsigned int index)
 		setIndexUsed(index);
 	}
 }
+
+#include "watchiteminteger.moc"
+

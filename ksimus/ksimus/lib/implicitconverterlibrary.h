@@ -29,6 +29,8 @@ class ImplicitConverterLibraryItem;
 
 class ImplicitConverterLibrary : public BaseLibrary
 {
+   Q_OBJECT
+
 public: 
 	ImplicitConverterLibrary();
 	~ImplicitConverterLibrary();

@@ -134,3 +134,5 @@ bool KSimBooleanBox::getValue() const
 {
 	return currentItem() == ID_TRUE;
 }
+
+#include "ksimbooleanbox.moc"

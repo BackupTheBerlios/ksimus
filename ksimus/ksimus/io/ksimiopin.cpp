@@ -163,3 +163,4 @@ KSimIoPin::Pool & KSimIoPin::Pool::get()
 	return sPool;
 }
 
+#include "ksimiopin.moc"

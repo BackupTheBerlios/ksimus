@@ -145,3 +145,5 @@ WatchItemBase * ConnectorBoolOut::makeWatchItem()
 	CHECK_PTR(wi);
 	return wi;
 }
+
+#include "connectorboolout.moc"

@@ -135,3 +135,4 @@ KSimPackageFileDialog::KSimPackageFileDialog(QWidget *parent, const char * name)
 	
 }
 
+#include "ksimpackagefilewidget.moc"

@@ -29,3 +29,5 @@ CompViewVBox::~CompViewVBox()
 }
 
 */
+
+#include "compviewvbox.moc"

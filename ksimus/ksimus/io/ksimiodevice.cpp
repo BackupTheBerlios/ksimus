@@ -719,5 +719,5 @@ void KSimIoDeviceTest::getIO(int ioPinID, void * pValue) const
 	}
 }
 
-
+#include "ksimiodevice.moc"
 

@@ -238,3 +238,4 @@ WatchItemBase * ConnectorBoolTristateSpecial::makeWatchItem()
 	return wi;
 }
 
+#include "connectorbooltristate.moc"

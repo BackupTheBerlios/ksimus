@@ -41,10 +41,13 @@ class ConnectorBoolTristateSpecial;
 
 class WatchItemBoolTristateBase : public WatchItemBase
 {
+	Q_OBJECT
+
 class StatePropertyWidget;
 class ActivePropertyWidget;
 enum eStateProperty { eInactive = 0, eFalse, eTrue, eInactiveOrFalse, eInactiveOrTrue, eFalseOrTrue, eDontCare };
 enum eActiveProperty { eLesser = 0, eEqual, eLarger, eDontCareCount };
+
 
 class ActiveProperty
 {
@@ -192,10 +195,12 @@ private:
 
 class WatchItemBoolTristateConnector : public WatchItemBoolTristateBase
 {
+	Q_OBJECT
+
 public:
 	WatchItemBoolTristateConnector(ConnectorBase * connector);
 	~WatchItemBoolTristateConnector();
-	
+
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.
 	  * @param index The index of the history buffer where the data has to be stored.
@@ -212,10 +217,12 @@ public:
 
 class WatchItemBoolTristateWireProperty : public WatchItemBoolTristateBase
 {
+	Q_OBJECT
+
 public:
 	WatchItemBoolTristateWireProperty(WireProperty * wireProperty);
 	~WatchItemBoolTristateWireProperty();
-	
+
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.
 	  * @param index The index of the history buffer where the data has to be stored.
@@ -232,6 +239,8 @@ public:
 
 class WatchItemBoolTristateConnectorSpecial : public WatchItemBoolTristateBase
 {
+	Q_OBJECT
+
 public:
 	WatchItemBoolTristateConnectorSpecial(ConnectorBoolTristateSpecial * connector);
 	~WatchItemBoolTristateConnectorSpecial();

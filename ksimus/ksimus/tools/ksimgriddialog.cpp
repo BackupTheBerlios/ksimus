@@ -220,3 +220,5 @@ KSimGridDialog::KSimGridDialog(KSimGrid * grid, QWidget *parent, const char * na
 	connect(this, SIGNAL(cancelClicked()), child, SLOT(slotCancel()));
 	
 }
+
+#include "ksimgriddialog.moc"

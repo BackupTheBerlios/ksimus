@@ -826,4 +826,4 @@ QSize KSimusDoc::getUserSize() const
 	return getContainer()->getUserSize();
 }
 
-
+#include "ksimusdoc.moc"

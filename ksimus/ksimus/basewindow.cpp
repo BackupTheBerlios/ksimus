@@ -250,3 +250,4 @@ void BaseWindow::showComponentListWidget()
 	}
 }
 
+#include "basewindow.moc"

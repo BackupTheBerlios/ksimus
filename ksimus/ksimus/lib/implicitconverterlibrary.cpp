@@ -115,3 +115,5 @@ const ImplicitConverterInfo * ImplicitConverterLibrary::findDataType(const QStri
 	}
 	return (const ImplicitConverterInfo *)0;
 }
+
+#include "implicitconverterlibrary.moc"

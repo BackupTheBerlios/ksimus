@@ -586,4 +586,4 @@ void ComponentLayout::setFixedSize(bool fixed)
   m_fixedSize = fixed;
 }
 
-
+#include "componentlayout.moc"

@@ -389,6 +389,6 @@ void LogList::slotClear()
 	clear();
 }
 
-
+#include "loglist.moc"
 
 

@@ -925,3 +925,4 @@ void ComponentList::insertComponent(Component * comp)
 	insert(i,comp);
 }
 
+#include "component.moc"

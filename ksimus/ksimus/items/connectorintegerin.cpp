@@ -129,3 +129,4 @@ WatchItemBase * ConnectorIntegerIn::makeWatchItem()
 	return wi;
 }
 
+#include "connectorintegerin.moc"

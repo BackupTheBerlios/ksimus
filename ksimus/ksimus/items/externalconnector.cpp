@@ -456,3 +456,5 @@ void ExternalConnectorPropertyGeneralWidget::slotOptionalConnToggled(bool state)
 {
 	m_optionalConnEna->setEnabled(state);
 }
+
+#include "externalconnector.moc"

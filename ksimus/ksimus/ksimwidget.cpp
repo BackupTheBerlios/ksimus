@@ -85,3 +85,5 @@ QWidget * KSimWidgetList::getActiveWidget()
 	
 	return activeWidget;
 }
+
+#include "ksimwidget.moc"

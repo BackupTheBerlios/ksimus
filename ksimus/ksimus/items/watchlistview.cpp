@@ -265,3 +265,6 @@ void WatchListView::generalPropertyDialog()
 
 	delete dia;
 }
+
+#include "watchlistview.moc"
+

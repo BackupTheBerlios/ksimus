@@ -114,3 +114,4 @@ const KSimIoPin * KSimIoPinSelectionDialog::execute(const QString & caption,
 
 }
 
+#include "ksimiopinselectiondialog.moc"

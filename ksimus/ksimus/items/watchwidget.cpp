@@ -566,6 +566,6 @@ void WatchWidgetPropertyWidget::defaultPressed()
 }
 
 
-
+#include "watchwidget.moc"
 
 

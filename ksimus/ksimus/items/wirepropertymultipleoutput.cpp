@@ -257,3 +257,6 @@ unsigned int WirePropertyMultipleOutput::getActiveConnectorCount() const
 	
 	return 0;
 }
+
+#include "wirepropertymultipleoutput.moc"
+

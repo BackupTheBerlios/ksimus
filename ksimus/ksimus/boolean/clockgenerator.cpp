@@ -337,4 +337,4 @@ void ClockGeneratorPropertyWidget::defaultPressed()
 	m_lowTime->setValue(getClockGen()->m_lowTime);
 }
 
-
+#include "clockgenerator.moc"

@@ -41,7 +41,7 @@ class OptionalFunction : public ComponentAddOn
 {
 class Private;
 
-   Q_OBJECT
+	Q_OBJECT
 public:
 	/** Constructs a new optional function.
 	  *

@@ -81,3 +81,6 @@ WatchItemBase * WirePropertyInteger::makeWatchItem()
 	CHECK_PTR(wi);
 	return wi;
 }
+
+#include "wirepropertyinteger.moc"
+

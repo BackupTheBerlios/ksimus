@@ -69,3 +69,5 @@ void KSimusView::print(KPrinter *pPrinter)
 
 	printpainter.end();*/
 }
+
+#include "ksimusview.moc"

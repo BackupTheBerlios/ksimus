@@ -110,3 +110,5 @@ void ExtConnBoolOut::calculate()
 		executeNext();
 	}
 }
+
+#include "extconnboolout.moc"

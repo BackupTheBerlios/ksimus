@@ -489,5 +489,5 @@ QString WirePropertyInvalidDifferentInputsNoOutput::getErrorMsg()
 }
 
 
-
+#include "wireproperty.moc"
 

@@ -1122,5 +1122,5 @@ bool ConnectorTristateBase::isActive() const
 	return false;
 }
 
-
+#include "connectorbase.moc"
 

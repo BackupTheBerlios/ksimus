@@ -486,3 +486,4 @@ void KSimBaseIntSpinBox::slotConvertToHexadecimal()
 	setValue(i);
 }
 
+#include "ksimbaseintspinbox.moc"

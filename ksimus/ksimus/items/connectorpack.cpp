@@ -444,3 +444,4 @@ void ConnectorPack::setStoreName(const QString & name)
 	m_storeName = name;
 }
 
+#include "connectorpack.moc"

@@ -623,3 +623,5 @@ QGrid * RowLayoutWidget::newRowVGrid(int n, const char * name, WFlags f)
 	return newRowVGrid(n, 0, name, f);
 }
 
+#include "rowlayoutwidget.moc"
+

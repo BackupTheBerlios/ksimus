@@ -299,4 +299,4 @@ void OptionalConnector::addToPropertyWidget(PropertyWidget * widget)
 	}
 }
 
-
+#include "optionalconnector.moc"

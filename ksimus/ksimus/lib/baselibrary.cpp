@@ -245,4 +245,4 @@ const QList<BaseLibraryItem> * BaseLibrary::getList() const
 	return m_library;
 }
 
-
+#include "baselibrary.moc"

@@ -84,4 +84,4 @@ void ConnectorBoolInEdgePropertyWidget::defaultPressed()
 	}
 }
 
-
+#include "connectorboolinedgepropertywidget.moc"

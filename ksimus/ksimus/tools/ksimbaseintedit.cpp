@@ -363,3 +363,4 @@ const QString & KSimBaseIntEdit::getWhatsThisHelp()
 }
 
 
+#include "ksimbaseintedit.moc"

@@ -334,5 +334,5 @@ ComponentListViewItem * ComponentListView::findChild(const QString & childName)
 	return (ComponentListViewItem *)0;
 }
 
-
+#include "componentlistview.moc"
 

@@ -704,3 +704,5 @@ int KSimUndo::getRedoDepth() const
 {
 	return m_p->redoDepth;
 }
+
+#include "ksimundo.moc"

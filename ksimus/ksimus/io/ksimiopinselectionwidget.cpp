@@ -239,5 +239,5 @@ void KSimIoPinSelectionWidget::slotDoubleClicked(QListViewItem * lvi)
 	}
 }
 
-
+#include "ksimiopinselectionwidget.moc"
 

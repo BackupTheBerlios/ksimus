@@ -315,3 +315,4 @@ void ModulePropertyWidget::slotStoreInternalChanged()
 	}
 }
 
+#include "modulepropertywidget.moc"

@@ -129,3 +129,5 @@ WatchItemBase * ConnectorFloatIn::makeWatchItem()
 	return wi;
 }
 
+#include "connectorfloatin.moc"
+

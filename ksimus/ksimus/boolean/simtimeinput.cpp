@@ -205,3 +205,4 @@ void TickTimeInput::reset()
 	m_out->setOutput(getTimeServer().getTick().getValue(unit_sec));
 }
 
+#include "simtimeinput.moc"

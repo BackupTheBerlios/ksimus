@@ -84,3 +84,5 @@ bool ConnectorLibrary::create(ConnectorBase * * conn, Component * comp, const QS
 		return false;
 	}
 }
+
+#include "connectorlibrary.moc"

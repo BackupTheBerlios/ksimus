@@ -32,6 +32,7 @@ class KSimIoComponent;
 
 class KSimIoJoinLibrary : public BaseLibrary
 {
+   Q_OBJECT
 
 public:
 	KSimIoJoinLibrary();

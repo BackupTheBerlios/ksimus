@@ -141,3 +141,4 @@ WatchItemBase * ConnectorBoolIn::makeWatchItem()
 	return wi;
 }
 
+#include "connectorboolin.moc"

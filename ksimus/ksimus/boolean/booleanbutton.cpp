@@ -540,3 +540,4 @@ void BooleanButtonPropertyGeneralWidget::slotActivateToggled(bool state)
 //	getResetStateBoxLabel()->setEnabled(state);
 }
 
+#include "booleanbutton.moc"

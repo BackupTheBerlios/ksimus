@@ -38,18 +38,19 @@ class QComboBox;
 
 class WatchItemBooleanBase : public WatchItemBase
 {
+	Q_OBJECT
+
 	enum eTriggerType { False2True, True2False, FalseState, TrueState };
 
-
-public: 
+public:
 	~WatchItemBooleanBase();
-	
+
 	/** Returns a value from the history buffer as a text.
 	  * This function has to be reimplementated in a sub class.
 	  * @param index The index of the history buffer where the data has to be fetched from.
 	  */
 	virtual QString getDataText(unsigned int index);
-	
+
 	/** If the data from the history buffer results in a break situation.
 	  * Returns true, if a break situation is present. This will not pause the simulation immediatly because there
 	  * is a counter, which counts these events.
@@ -95,7 +96,7 @@ public:
 protected:
 	WatchItemBooleanBase(ConnectorBase * connector);
 	WatchItemBooleanBase(WireProperty * wireProperty);
-	
+
 	QBitArray m_traceBuffer;
 
 private:
@@ -115,10 +116,12 @@ private:
 
 class WatchItemBooleanConnector : public WatchItemBooleanBase
 {
+	Q_OBJECT
+
 public:
 	WatchItemBooleanConnector(ConnectorBase * connector);
 	~WatchItemBooleanConnector();
-	
+
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.
 	  * @param index The index of the history buffer where the data has to be stored.
@@ -135,6 +138,8 @@ public:
 
 class WatchItemBooleanWireProperty : public WatchItemBooleanBase
 {
+	Q_OBJECT
+
 public:
 	WatchItemBooleanWireProperty(WireProperty * wireProperty);
 	~WatchItemBooleanWireProperty();

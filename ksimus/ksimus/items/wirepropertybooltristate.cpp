@@ -178,3 +178,5 @@ WatchItemBase * WirePropertyBoolTristate::makeWatchItem()
 	CHECK_PTR(wi);
 	return wi;
 }
+
+#include "wirepropertybooltristate.moc"

@@ -170,29 +170,6 @@ KSimDirectorySelector::KSimDirectorySelector(QWidget *parent, const char *name)
 //#####################################################################################
 //#####################################################################################
 
-/*KSimPackageSelector::KSimPackageSelector(QWidget *parent, const char *name)
-	:	QVBox(parent,name)
-{
-	m_directories = new KSimDirectorySelector(this, "Package directories");
-	m_directories->setTitle(i18n("Package directoires:"));
-	m_directories->setStartDir(QString::fromLatin1(":<KSimPackageFile>"));
-	
-	m_files = new KSimFileListSelector(this, "Package files");
-	m_files->setTitle(i18n("Package files:"));
-	m_files->setFilter(i18n("*.so|Package files (*.so)\n*|All files (*)"));
-	m_files->setStartDir(QString::fromLatin1(":<KSimPackageFile>"));
-}
 
-KSimPackageSelector::~KSimPackageSelector()
-{
-}	
+#include "ksimfilelistselector.moc"
 
-KSimFileListSelector * KSimPackageSelector::getFiles()
-{
-	return m_files;
-}
-
-KSimDirectorySelector * KSimPackageSelector::getDirectories()
-{
-	return m_directories;
-} */

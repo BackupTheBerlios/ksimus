@@ -312,3 +312,5 @@ void SimulationExecute::executeWirePropertyNext(WireProperty * wireProperty)
 	}
 
 }
+
+#include "simulationexecute.moc"

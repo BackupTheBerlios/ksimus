@@ -88,3 +88,5 @@ void KSimIoJoinBoolOut::calculate() const
 
 	getDevice()->setIO(getPin()->getPinID(), &value);
 }
+
+#include "ksimiojoinboolout.moc"

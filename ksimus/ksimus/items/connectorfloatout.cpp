@@ -142,3 +142,4 @@ WatchItemBase * ConnectorFloatOut::makeWatchItem()
 	return wi;
 }
 
+#include "connectorfloatout.moc"

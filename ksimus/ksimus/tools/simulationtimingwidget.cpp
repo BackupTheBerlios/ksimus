@@ -176,3 +176,5 @@ void SimulationTimingWidget::slotUndo()
 		m_timing.m_doc->setModified();
 	}
 }
+
+#include "simulationtimingwidget.moc"

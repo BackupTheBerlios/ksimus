@@ -38,4 +38,4 @@ KSimIoDevicePropertyBaseWidget::~KSimIoDevicePropertyBaseWidget()
 {
 }
 
-
+#include "ksimiodevicepropertybasewidget.moc"

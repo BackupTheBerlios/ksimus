@@ -848,3 +848,4 @@ void Module::setupSimulationList()
 	getModuleContainer()->setupSimulationList();
 }
 
+#include "module.moc"

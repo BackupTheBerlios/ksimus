@@ -147,3 +147,6 @@ void CompViewWidget::setSpecialFont(const QFont & font)
 	setFont(font);	
 	update();
 }
+
+#include "compviewwidget.moc"
+

@@ -243,5 +243,5 @@ void LogListDialogWidget::slotErrorColorChanged(const QColor & color)
 	m_logList->setErrorColor(color);
 }
 
-
+#include "loglistdialogwidget.moc"
 

@@ -68,3 +68,5 @@ void DisplayWidget::slotDelete(void)
 {
 	delete this;
 }
+
+#include "displaywidget.moc"

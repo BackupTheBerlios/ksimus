@@ -225,3 +225,4 @@ void MapSizesWidget::slotUndo()
 	}
 }
 
+#include "mapsizeswidget.moc"

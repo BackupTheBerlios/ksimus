@@ -37,3 +37,4 @@ ConnectorBoolInPropertyWidget::~ConnectorBoolInPropertyWidget()
 {
 }
 
+#include "connectorboolinpropertywidget.moc"

@@ -60,3 +60,4 @@ int RowLayoutWidgetHelperRowStretch::getStretch() const
 //#######################################################################
 //#######################################################################
 
+#include "rowlayoutwidgethelper.moc"

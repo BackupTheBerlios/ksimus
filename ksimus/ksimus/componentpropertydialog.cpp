@@ -110,3 +110,4 @@ int ComponentPropertyDialog::execute(Component *comp, const QString & caption, Q
 	return result;
 }
 
+#include "componentpropertydialog.moc"

@@ -41,7 +41,8 @@ class OptionalConnector : public OptionalFunction
 class Private;
 class PropertyEntry;
 
-   Q_OBJECT
+	Q_OBJECT
+
 public:
 	OptionalConnector(Component * component, const QString & addOnName);
 	OptionalConnector(ConnectorBase * conn, const QString & addOnName);

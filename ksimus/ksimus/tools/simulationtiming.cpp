@@ -252,4 +252,4 @@ void SimulationTiming::updateTickTime()
 	}  	
 }
 
-	
+#include "simulationtiming.moc"

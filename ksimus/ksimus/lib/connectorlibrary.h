@@ -29,6 +29,7 @@
 
 class ConnectorLibrary : public BaseLibrary
 {
+   Q_OBJECT
 
 public:
 	ConnectorLibrary();

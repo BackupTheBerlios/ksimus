@@ -77,3 +77,4 @@ BooleanXIn1OutView::BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType
 {
 }*/
 
+#include "booleanxin1out.moc"

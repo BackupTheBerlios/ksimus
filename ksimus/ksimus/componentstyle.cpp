@@ -325,3 +325,5 @@ ComponentPropertyBaseWidget * ComponentStyle::createStyleProperty(ComponentStyle
 	CHECK_PTR(wid);
 	return wid;
 }
+
+#include "componentstyle.moc"

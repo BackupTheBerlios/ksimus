@@ -31,6 +31,7 @@ class KSimIoDevice;
 
 class KSimIoDeviceLibrary : public BaseLibrary
 {
+   Q_OBJECT
 
 public:
 	KSimIoDeviceLibrary();

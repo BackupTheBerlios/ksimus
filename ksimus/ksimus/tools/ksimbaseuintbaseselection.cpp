@@ -77,3 +77,5 @@ KSimBaseUInt::eBaseType KSimBaseUIntBaseSelection::base() const
 
 	return base;
 }
+
+#include "ksimbaseuintbaseselection.moc"

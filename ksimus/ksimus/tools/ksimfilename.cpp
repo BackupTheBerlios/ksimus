@@ -709,3 +709,5 @@ void KSimFilenameWidget::slotFilenameChanged()
 {
 	setFilename(getFilenameEdit()->text());
 }
+
+#include "ksimfilename.moc"

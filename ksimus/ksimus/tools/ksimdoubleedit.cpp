@@ -271,3 +271,5 @@ void KSimDoubleEdit::slotReady()
 #undef FLAGS_ENA_TRACKING
 #undef DEFAULT_FLAGS
 
+#include "ksimdoubleedit.moc"
+

@@ -300,3 +300,5 @@ KSimIoJoin * KSimIoJoin::List::findBySerial(unsigned int serial)
 	// Not found
 	return (KSimIoJoin *)0;
 }
+
+#include "ksimiojoin.moc"

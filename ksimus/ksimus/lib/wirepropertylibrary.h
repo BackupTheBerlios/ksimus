@@ -29,6 +29,8 @@ class WirePropertyLibraryItem;
 
 class WirePropertyLibrary : public BaseLibrary
 {
+   Q_OBJECT
+
 public: 
 	WirePropertyLibrary();
 	~WirePropertyLibrary();

@@ -110,3 +110,5 @@ void PropertyWidget::addWhatsThis(const QString & text, QWidget * widget1, QWidg
 	QWhatsThis::add(widget1, text);
 	QWhatsThis::add(widget2, text);
 }
+
+#include "propertywidget.moc"

@@ -112,3 +112,6 @@ const WirePropertyInfo * WirePropertyLibrary::findDataType(const QString & dataT
 	}
 	return (const WirePropertyInfo *)0;
 }
+
+#include "wirepropertylibrary.moc"
+

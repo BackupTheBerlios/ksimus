@@ -90,4 +90,4 @@ void KSimIoJoinBoolIn::calculate() const
 	((ConnectorBoolOut *)getConnector())->setOutput(value);
 }
 
-
+#include "ksimiojoinboolin.moc"

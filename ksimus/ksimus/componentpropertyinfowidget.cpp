@@ -126,3 +126,4 @@ ComponentPropertyInfoWidget::~ComponentPropertyInfoWidget()
 {
 }
 
+#include "componentpropertyinfowidget.moc"

@@ -38,4 +38,4 @@ ComponentPropertyBaseWidget::~ComponentPropertyBaseWidget()
 {
 }
 
-
+#include "componentpropertybasewidget.moc"

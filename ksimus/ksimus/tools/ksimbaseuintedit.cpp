@@ -361,3 +361,4 @@ const QString & KSimBaseUIntEdit::getWhatsThisHelp()
 	return s;
 }
 
+#include "ksimbaseuintedit.moc"

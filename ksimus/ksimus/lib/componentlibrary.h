@@ -55,15 +55,15 @@ public:
 	const ComponentInfo * findOldLibName(const QString & oldLibName) const;
 	const ComponentInfo * findIndex(int idx) const;
 	const ComponentInfo * findAdditionalLibName(const QString & additionalLibName) const;
-		
+
 	ComponentLibraryItem * getItem(const QString & libName) const;
-	
-	
+
+
 	/** Create a new component */
 	bool createComponent(Component * * newComp, CompContainer * container, const QString & libName) const;
 
 
-protected:		
+protected:
 	bool insert (const ComponentInfo * ci, const PackageInfo * packageInfo, bool addToMenu);
 	QDict<ComponentLibraryItem> * m_additionalLibNames;
     ComponentDirectorySubMenu * m_dirBase;

@@ -1,7 +1,10 @@
 	18.1.2004
 * Fix some drawing issues with rotated components
 * Clean up some drawing routines
+* New embedded fonts for components views
 * Change to KDevelop3 (great IDE)
+* Include moc file into source files
+* Save and restore main widget layout
 	11.10.2003
 * New: Class KSimSpinBox is a replacement for QSpinBox
 * Change: Use KSimSpinBox instead of QSpinBox in some component dialogs

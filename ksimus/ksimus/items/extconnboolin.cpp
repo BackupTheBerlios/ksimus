@@ -197,3 +197,6 @@ void ExtConnBoolInPropertyGeneralWidget::defaultPressed()
 }
 
 #undef DEFAULT_STATE
+
+#include "extconnboolin.moc"
+

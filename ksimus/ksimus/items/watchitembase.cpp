@@ -323,3 +323,5 @@ void WatchItemBase::slotPropertyCancel()
 {
 	propertyCancelPressed();
 }
+
+#include "watchitembase.moc"

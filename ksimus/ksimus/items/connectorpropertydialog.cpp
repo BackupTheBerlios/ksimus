@@ -84,3 +84,5 @@ int ConnectorPropertyDialog::execute(ConnectorList * connList, ConnectorBase * a
 
 	return result;
 }
+
+#include "connectorpropertydialog.moc"

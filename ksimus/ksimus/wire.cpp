@@ -795,3 +795,4 @@ void Wire::setupCircuit()
 	}
 }
 
+#include "wire.moc"

@@ -238,3 +238,5 @@ void WatchItemFloatingPointWireProperty::readData(unsigned int index)
 		setIndexUsed(index);
 	}
 }
+
+#include "watchitemfloatingpoint.moc"

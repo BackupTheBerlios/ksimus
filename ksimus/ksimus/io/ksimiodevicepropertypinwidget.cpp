@@ -128,4 +128,4 @@ void KSimIoDevicePropertyPinWidget::defaultPressed()
 	m_typeSelector->setCurrentItem(0);
 }
 
-
+#include "ksimiodevicepropertypinwidget.moc"

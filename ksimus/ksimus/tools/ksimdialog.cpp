@@ -347,3 +347,4 @@ void KSimDialog::writeSize(const char * group, const char * key) const
 	config->setGroup(oldGroup);
 }
 
+#include "ksimdialog.moc"

@@ -157,3 +157,4 @@ int KSimIoDevicePropertyDialog::execute(KSimIoDevice *device, const QString & ca
 	return result;
 }
 
+#include "ksimiodevicepropertydialog.moc"

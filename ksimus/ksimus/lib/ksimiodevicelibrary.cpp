@@ -83,3 +83,6 @@ bool KSimIoDeviceLibrary::create(KSimIoDevice * * device, const char * libName) 
 		return false;
 	}
 }
+
+#include "ksimiodevicelibrary.moc"
+

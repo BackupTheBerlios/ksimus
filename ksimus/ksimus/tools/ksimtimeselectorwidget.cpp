@@ -169,4 +169,4 @@ void KSimTimeSelectorWidget::removeAllUnit()
 	m_cb->clear();
 }
 
-
+#include "ksimtimeselectorwidget.moc"

@@ -42,4 +42,4 @@ ConnectorBoolOutPropertyWidget::~ConnectorBoolOutPropertyWidget()
 
 }
 
-
+#include "connectorbooloutpropertywidget.moc"

@@ -138,4 +138,4 @@ const KSimTimeBase & KSimTimeSpinBox::value() const
 	return m_time;
 }
 
-
+#include "ksimtimespinbox.moc"

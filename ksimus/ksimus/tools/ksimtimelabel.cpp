@@ -43,3 +43,5 @@ void KSimTimeLabel::slotTimeChanged()
 {
 	setText(m_time->getValueString(m_precision));	
 }
+
+#include "ksimtimelabel.moc"

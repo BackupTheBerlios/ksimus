@@ -142,3 +142,5 @@ WatchItemBase * ConnectorIntegerOut::makeWatchItem()
 	return wi;
 }
 
+#include "connectorintegerout.moc"
+

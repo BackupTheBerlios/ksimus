@@ -447,3 +447,5 @@ void ModuleDialog::setupUsedData()
 		}
 	}
 }
+
+#include "moduledialog.moc"

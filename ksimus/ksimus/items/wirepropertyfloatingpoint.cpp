@@ -81,3 +81,6 @@ WatchItemBase * WirePropertyFloatingPoint::makeWatchItem()
 	CHECK_PTR(wi);
 	return wi;
 }
+
+#include "wirepropertyfloatingpoint.moc"
+

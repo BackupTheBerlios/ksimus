@@ -229,3 +229,4 @@ void ConnectorBoolInEdge::save(KSimData & file) const
 	}
 }
 
+#include "connectorboolinedge.moc"

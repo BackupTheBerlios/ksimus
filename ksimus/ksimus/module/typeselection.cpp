@@ -88,3 +88,4 @@ void TypeSelection::slotClicked(int id)
 	emit clicked((ModuleViewType) id);
 }
 
+#include "typeselection.moc"

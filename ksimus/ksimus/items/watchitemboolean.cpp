@@ -188,3 +188,6 @@ void WatchItemBooleanWireProperty::readData(unsigned int index)
 		setIndexUsed(index);
 	}
 }
+
+#include "watchitemboolean.moc"
+
