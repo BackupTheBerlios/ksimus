@@ -228,13 +228,16 @@ public:
 		*/
 	void initPropertyDialog(ComponentPropertyDialog * dialog);
 	/** Initialize the component popup menu.
-	  *	Return true, if items are added.
+		* Return true, if items are added.
 		* This function takes care about the KSimAction information.
 		*/
 	bool initPopupMenu(QPopupMenu * popup);
 
-  /** Returns all actions of the addons. */
+	/** Returns all actions of the addons. */
 	KSimAction getAction() const;
+
+	/** Find the by name given @ref ComponentAddOn. */
+	ComponentAddOn * findByName(const QString & addOnName) const;
 };
 
 

@@ -81,8 +81,7 @@ ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName,
 
 ComponentAddOn::~ComponentAddOn()
 {
-//	KSIMDEBUG_VAR("Delete", m_addOnName);
-	if(getComponent()->m_addonList->findRef(this))
+	if(-1 != getComponent()->m_addonList->findRef((ComponentAddOn*)this))
 	{
 		// Remove from list
 		getComponent()->m_addonList->take();
@@ -390,3 +389,13 @@ KSimAction ComponentAddOnList::getAction() const
 	return KSimAction::componentAddOnFilter(KSimAction(action));
 }
 
+/** Find the by name given @ref ComponentAddOn. */
+ComponentAddOn * ComponentAddOnList::findByName(const QString & addOnName) const
+{
+	FOR_EACH_COMPONENT_ADDON(it, *this)
+	{
+		if (it.current()->getName() == addOnName)
+			return it.current();
+	}
+	return (ComponentAddOn *)0;
+}
