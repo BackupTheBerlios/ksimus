@@ -133,9 +133,11 @@ DataRecorderDataView::DataRecorderDataView(DataRecorderWidget *parent, const cha
 	connect((QObject*)getDataRecorder()->getDoc(), SIGNAL(signalUpdateView()), this, SLOT(newData()));
 
 	m_itemList = new DataRecorderDataViewItemList;
+	CHECK_PTR(m_itemList);
+	m_itemList->setAutoDelete(true);
 	
 	m_divGrid = new DataRecorderDataViewDivGrid(this,this);
-
+	CHECK_PTR(m_divGrid);
 	
 	VIEW_DEBUG_VAR("",m_snapHorizontal);
 };
@@ -143,6 +145,7 @@ DataRecorderDataView::DataRecorderDataView(DataRecorderWidget *parent, const cha
 DataRecorderDataView::~DataRecorderDataView()
 {
 	delete m_itemList;
+	m_itemList = 0;
 	delete m_resizeTimer;
 	delete m_map;
 }
@@ -437,7 +440,10 @@ DataRecorderDataViewItem::~DataRecorderDataViewItem()
 {
 	if(getDataView())
 	{
-		getDataView()->getItemList()->removeRef(this);
+		if(getDataView()->getItemList())
+		{
+			getDataView()->getItemList()->removeRef(this);
+		}
 	}
 }
 	
