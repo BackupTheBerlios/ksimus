@@ -36,7 +36,6 @@
 #include <kstdaction.h>
 #include <kstddirs.h>
 #include <kstatusbar.h>
-#include <kaccel.h>
 
 // application specific includes
 #include "globals.h"
@@ -107,8 +106,7 @@ public:
 		sheetView(0),
 		userView(0),
 		moduleDialog(0),
-		currentView(APP_SHEET_VIEW),
-		accel(0)
+		currentView(APP_SHEET_VIEW)
 	{};	
 	
 /*	~Private()
@@ -122,18 +120,7 @@ public:
 	eAppViewType currentView;
 	QString moduleFile;
 	QTimer * messageTimer;
-	KAccel * accel;
-
-
-	static const QString idDelete;
-
-	
 };
-
-const QString KSimusApp::Private::idDelete(QString::fromLatin1("Delete"));
-
-
-
 
 
 //################################################################################
@@ -250,15 +237,6 @@ KSimusApp::~KSimusApp()
 
 void KSimusApp::initActions()
 {
-	m_p->accel = new KAccel(this);
-	CHECK_PTR(m_p->accel);
-	m_p->accel->insertItem(i18n("Delete"), Private::idDelete, Key_Delete);
-	m_p->accel->connectItem(Private::idDelete, this, SLOT(slotEditDelete()));
-	
-
-	m_p->accel->readSettings();
-
-
 	fileNewWindow = new KAction(i18n("New &Window"), QString::null, 0, this, SLOT(slotFileNewWindow()), actionCollection(),"file_new_window");
 	fileNew = KStdAction::openNew(this, SLOT(slotFileNew()), actionCollection());
 	fileOpen = KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
@@ -271,7 +249,7 @@ void KSimusApp::initActions()
 	editUndo = KStdAction::undo(this, SLOT(slotEditUndo()), actionCollection());
 	editRedo = KStdAction::redo(this, SLOT(slotEditRedo()), actionCollection());
 	
-	editDelete = new KAction(i18n("Delete"), m_p->accel->currentKey(Private::idDelete), this, SLOT(slotEditDelete()), actionCollection(), "edit_delete");
+	editDelete = new KAction(i18n("Delete"), Key_Delete, this, SLOT(slotEditDelete()), actionCollection(), "edit_delete");
 	editCut = KStdAction::cut(this, SLOT(slotEditCut()), actionCollection());
 	editCopy = KStdAction::copy(this, SLOT(slotEditCopy()), actionCollection());
 	editPaste = KStdAction::paste(this, SLOT(slotEditPaste()), actionCollection());
@@ -1511,10 +1489,10 @@ const char * KSimusApp::getCurrentViewString() const
 
 void KSimusApp::slotSetupActions()
 {
-	bool running = getDocument()->isSimulationRunning();
-	bool paused  = getDocument()->isSimulationPaused();
-	bool stopped = !running;
-	bool editView = (getCurrentView() != APP_MODULE_VIEW);
+	const bool running = getDocument()->isSimulationRunning();
+	const bool paused  = getDocument()->isSimulationPaused();
+	const bool stopped = !running;
+	const bool editView = (getCurrentView() != APP_MODULE_VIEW);
 	
 //	fileNewWindow->setEnabled(true); always enabled
 	fileNew->setEnabled(stopped);
@@ -1529,7 +1507,6 @@ void KSimusApp::slotSetupActions()
 	editUndo->setEnabled(stopped && m_undoAllowed);
 	editRedo->setEnabled(stopped && m_redoAllowed);
 	editDelete->setEnabled(stopped && editView && m_deleteAllowed);
-	m_p->accel->setItemEnabled(Private::idDelete, stopped && editView && m_deleteAllowed);
 	editCut->setEnabled(stopped && editView && m_cutAllowed);
 	editCopy->setEnabled(stopped && editView && m_copyAllowed);
 	editPaste->setEnabled(stopped && editView && m_pastAllowed);
