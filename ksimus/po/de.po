@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-02 22:22+0100\n"
+"POT-Creation-Date: 2002-03-09 12:32+0100\n"
 "PO-Revision-Date: 2002-03-04 19:30GMT\n"
 "Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -177,7 +177,8 @@ msgid "Use system colors"
 msgstr "Verwende Systemfarben"
 
 #: componentpropertystylewidget.cpp:67
-msgid "Check the box if the component have to use the color scheme of your system."
+msgid ""
+"Check the box if the component have to use the color scheme of your system."
 msgstr ""
 "Markiere die Auswahlbox, wenn die Komponente das Farbschema von deinem "
 "System verwenden soll."
@@ -221,7 +222,8 @@ msgid "Use default font"
 msgstr "Verwende den normalen Zeichensatz"
 
 #: componentpropertystylewidget.cpp:113
-msgid "Check the box if component have to use the default (the application) font."
+msgid ""
+"Check the box if component have to use the default (the application) font."
 msgstr ""
 "Markiere die Auswahlbox, wenn die Komponente den voreingestellten "
 "Zeichensatz (der Applikation) verwenden soll."
@@ -1023,7 +1025,8 @@ msgid "Absolute path"
 msgstr "Absoluter Pfad"
 
 #: module/modulepropertywidget.cpp:133
-msgid "Stores the path of the pixmap relative to module file (Image view only)."
+msgid ""
+"Stores the path of the pixmap relative to module file (Image view only)."
 msgstr ""
 "Speicher den Pfad zur Bilddatei relative zu diesem Dokument (nur "
 "Bildansicht)."
@@ -1353,7 +1356,8 @@ msgstr "Löscht den gewählten Bereich"
 
 #: ksimus.cpp:251
 msgid "Cuts the selected section and puts it to the clipboard"
-msgstr "Schneidet den gewählten Bereich aus und fügt ihn in die Zwischenablage ein."
+msgstr ""
+"Schneidet den gewählten Bereich aus und fügt ihn in die Zwischenablage ein."
 
 #: ksimus.cpp:252
 msgid "Copies the selected section to the clipboard"
@@ -1622,4 +1626,3 @@ msgstr "Verbinde Komponenten..."
 #: ksimus.cpp:1148
 msgid "Resize Map..."
 msgstr "Verändere die Größe des Plans..."
-
