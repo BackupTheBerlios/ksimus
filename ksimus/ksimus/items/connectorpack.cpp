@@ -241,10 +241,10 @@ ConnectorBase * ConnectorPack::getDeletableConnector() const
 	// No connectors
 	if (!conn) return 0;
 	
-  if (isDeleteLastOnly())
-  {
-  	if (conn->getWire() == 0)
-  	{
+	if (isDeleteLastOnly())
+	{
+		if (conn->getWire() == 0)
+		{
 			return conn;
 		}
 		else

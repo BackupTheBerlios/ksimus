@@ -385,10 +385,10 @@ QWidget * BooleanButtonView::createCompViewWidget(QWidget * parent)
 	connect(getComponent(), SIGNAL(releaseButton()), wid, SLOT(slotReleaseButton()));
 	// Button type changed
 	connect(getComponent(), SIGNAL(signalSetToggleButton(bool)),
-			wid, SLOT(slotSetToggleButton(bool)));
+	        wid, SLOT(slotSetToggleButton(bool)));
 	// Rename signal
 	connect(getComponent(), SIGNAL(signalSetName(const QString & )),
-			wid, SLOT(slotSetText(const QString & )));
+	        wid, SLOT(slotSetText(const QString & )));
 
 	button->setOn(((BooleanButton*)getComponent())->getState());
 	wid->slotSetToggleButton(((BooleanButton*)getComponent())->isToggleButton());
