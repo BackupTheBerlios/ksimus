@@ -53,7 +53,7 @@ class Boolean1Out : public Component
 
 public:
 //	~Boolean1Out();
-	/** Shifts the current component state (@ref setState) to output connecotor. */
+	/** Shifts the current component state (@ref setState) to output connector. */
 	virtual void updateOutput();
 	/** Resets the component state. */
 	virtual void reset();
@@ -93,7 +93,7 @@ public:
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
 
 protected:
-	/** Creates a component with on boolean output.
+	/** Creates a component with one boolean output.
 	  * The constructer does not creates a component view. You have to do this in a sub class.
 	  */
 	Boolean1Out(CompContainer * container, const ComponentInfo * ci);
