@@ -112,6 +112,10 @@ public:
 //	~FlipFlopBasePropertyGeneralWidget();
 
 
+	/** Returns the dominant input selector. */
+	KSimBooleanBox * getDominantBox() const { return m_dominant; };
+
+
 public slots:
 	/** The function slotAccept() is called, if changes are accepted.
 		You have to reimplement this slot, if you add new properties.
