@@ -21,11 +21,11 @@
 // C-Includes
 
 // QT-Includes
-#include <qspinbox.h>
 
 // KDE-Includes
 
 // KSimus-Includes
+#include "ksimspinbox.h"
 #include "ksimbaseint.h"
 
 // Project-Includes
@@ -46,7 +46,7 @@ class QPopupMenu;
 //#############################################################
 //#############################################################
 
-class KSimBaseIntSpinBox : public QSpinBox
+class KSimBaseIntSpinBox : public KSimSpinBox
 {
 class Private;
 	Q_OBJECT
@@ -76,21 +76,16 @@ public:
 	const KSimBaseInt & value() const;
 	/** Sets the minimum allowed value.
 	*/
-	void setMinValue(int value);
+	void setMinValue(int minValue);
 	/** Returns the minimum allowed value.
 	*/
 	int minValue() const;
 	/** Sets the minimum allowed value.
 	*/
-	void setMaxValue(int value);
+	void setMaxValue(int maxValue);
 	/** Returns the minimum allowed value.
 	*/
 	int maxValue() const;
-	/** Sets the alignment of the editor. */
-	void setAlignment(int flag);
-	
-	/** Returns the alignment of the editor. */
-	int alignment() const;
 
 	/** Enables the value tracking during the input. If the current input is a valid value
 	  * and is in the given range the signal @ref valueChanged is emitted. If tracking is

@@ -94,29 +94,24 @@ public:
 	bool m_tracking;
 	ConstantList m_constantList;
 
+	static const int s_upperLimit;
+	static const int s_toggle1;
+	static const int s_toggle0;
+	static const int s_lowerLimit;
+
 };
 
-//#############################################################
-//#############################################################
-
-// Some statics
-
-/*static const int KSimBaseIntSpinBox_QSPINBOX_UPPER_LIMIT =  2;
-static const int KSimBaseIntSpinBox_QSPINBOX_TOGGLE_1    =  1;
-static const int KSimBaseIntSpinBox_QSPINBOX_TOGGLE_0    =  0;
-static const int KSimBaseIntSpinBox_QSPINBOX_LOWER_LIMIT = -1;*/
-
-#define KSimBaseIntSpinBox_QSPINBOX_UPPER_LIMIT  2
-#define KSimBaseIntSpinBox_QSPINBOX_TOGGLE_1     1
-#define KSimBaseIntSpinBox_QSPINBOX_TOGGLE_0     0
-#define KSimBaseIntSpinBox_QSPINBOX_LOWER_LIMIT -1
+const int KSimBaseIntSpinBox::Private::s_upperLimit =  2;
+const int KSimBaseIntSpinBox::Private::s_toggle1    =  1;
+const int KSimBaseIntSpinBox::Private::s_toggle0    =  0;
+const int KSimBaseIntSpinBox::Private::s_lowerLimit = -1;
 
 
 //#############################################################
 //#############################################################
 
 KSimBaseIntSpinBox::KSimBaseIntSpinBox(QWidget * parent, const char * name)
-	: QSpinBox(parent, name)
+	: KSimSpinBox(parent, name)
 {
 	m_p = new Private(0, INT_MIN, INT_MAX, 1);
 	CHECK_PTR(m_p);
@@ -125,7 +120,7 @@ KSimBaseIntSpinBox::KSimBaseIntSpinBox(QWidget * parent, const char * name)
 
 KSimBaseIntSpinBox::KSimBaseIntSpinBox(const KSimBaseInt & value, int min, int max,
                                        int steps, QWidget * parent, const char * name)
-	: QSpinBox(parent, name)
+	: KSimSpinBox(parent, name)
 {
 	m_p = new Private(value, min, max, steps);
 	CHECK_PTR(m_p);
@@ -137,10 +132,10 @@ void KSimBaseIntSpinBox::init()
 	setValidator(0);
 	connect(this,SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
 	connect(editor(), SIGNAL(textChanged(const QString &)),SLOT(slotTextChanged(const QString &)));
-	QSpinBox::setMinValue(KSimBaseIntSpinBox_QSPINBOX_LOWER_LIMIT);
-	QSpinBox::setMaxValue(KSimBaseIntSpinBox_QSPINBOX_UPPER_LIMIT);
+	KSimSpinBox::setMinValue(Private::s_lowerLimit);
+	KSimSpinBox::setMaxValue(Private::s_upperLimit);
 	setFocusPolicy(QWidget::WheelFocus);
-	setAlignment(AlignRight);
+	setAlignRight();
 }
 
 
@@ -154,9 +149,11 @@ const KSimBaseInt & KSimBaseIntSpinBox::value() const
 	return m_p->value();
 }
 
-void KSimBaseIntSpinBox::setMinValue(int value)
+void KSimBaseIntSpinBox::setMinValue(int minValue)
 {
-	m_p->setMin(value);
+	m_p->setMin(minValue);
+	int res = setValueInternal(value());  // Setup arrow buttons
+	KSimSpinBox::setValue(res);
 }
 
 int KSimBaseIntSpinBox::minValue() const
@@ -164,9 +161,11 @@ int KSimBaseIntSpinBox::minValue() const
 	return m_p->min();
 }
 
-void KSimBaseIntSpinBox::setMaxValue(int value)
+void KSimBaseIntSpinBox::setMaxValue(int maxValue)
 {
-	m_p->setMax(value);
+	m_p->setMax(maxValue);
+	int res = setValueInternal(value());  // Setup arrow buttons
+	KSimSpinBox::setValue(res);
 }
 
 int KSimBaseIntSpinBox::maxValue() const
@@ -181,7 +180,7 @@ void KSimBaseIntSpinBox::setValue(const KSimBaseInt & newValue)
 	if (myNew != value())
 	{
 		int res = setValueInternal(myNew);
-		QSpinBox::setValue(res);
+		KSimSpinBox::setValue(res);
 	}
 	else
 	{
@@ -194,9 +193,9 @@ int KSimBaseIntSpinBox::setValueInternal(const KSimBaseInt & newValue)
 {
 //	KSIMDEBUG(QString::fromLatin1(">>> KSimBaseIntSpinBox::setValueInternal() this=%1 newValue=%2").arg((unsigned int)this,0, 16).arg(newValue.text()));
 	bool toggle = true;
-	int res = QSpinBox::value();
+	int res = KSimSpinBox::value();
 	int val = newValue.value();
-	if (newValue != value())
+//	if (newValue != value())
 	{
 //		KSIMDEBUG_VAR("KSimBaseIntSpinBox::setValueInternal()", val);
 	
@@ -214,12 +213,12 @@ int KSimBaseIntSpinBox::setValueInternal(const KSimBaseInt & newValue)
 
 			if (val >= maxValue())
 			{
-				res = KSimBaseIntSpinBox_QSPINBOX_UPPER_LIMIT;
+				res = Private::s_upperLimit;
 				toggle = false;
 			}
 			else if (val <= minValue())
 			{
-				res = KSimBaseIntSpinBox_QSPINBOX_LOWER_LIMIT;
+				res = Private::s_lowerLimit;
 				toggle = false;
 			}
 		}
@@ -229,14 +228,14 @@ int KSimBaseIntSpinBox::setValueInternal(const KSimBaseInt & newValue)
 			{
 //				KSIMDEBUG("newValue >= maxValue()");
 				val = maxValue();
-				res = KSimBaseIntSpinBox_QSPINBOX_UPPER_LIMIT;
+				res = Private::s_upperLimit;
 				toggle = false;
 			}
 			else if (val <= minValue())
 			{
 //				KSIMDEBUG("newValue <= minValue()");
 				val = minValue();
-				res = KSimBaseIntSpinBox_QSPINBOX_LOWER_LIMIT;
+				res = Private::s_lowerLimit;
 				toggle = false;
 			}
 		}
@@ -244,9 +243,9 @@ int KSimBaseIntSpinBox::setValueInternal(const KSimBaseInt & newValue)
 		if(toggle)
 		{
 //			KSIMDEBUG("toggle");
-			res = (res == KSimBaseIntSpinBox_QSPINBOX_TOGGLE_0)
-			      ? KSimBaseIntSpinBox_QSPINBOX_TOGGLE_1
-			      : KSimBaseIntSpinBox_QSPINBOX_TOGGLE_0;
+			res = (res == Private::s_toggle0)
+			      ? Private::s_toggle1
+			      : Private::s_toggle0;
 		}
 
 		KSimBaseInt i(val, newValue.base());
@@ -267,7 +266,7 @@ void KSimBaseIntSpinBox::stepUp()
 
 
 	res = setValueInternal(newValue);
-	QSpinBox::setValue(res);
+	KSimSpinBox::setValue(res);
 }
 
 void KSimBaseIntSpinBox::stepDown()
@@ -277,7 +276,7 @@ void KSimBaseIntSpinBox::stepDown()
 	newValue = newValue.value() - lineStep(); // Base is not changed!
 
 	res = setValueInternal(newValue);
-	QSpinBox::setValue(res);
+	KSimSpinBox::setValue(res);
 }
 
 QString KSimBaseIntSpinBox::mapValueToText(int)
@@ -323,17 +322,6 @@ void KSimBaseIntSpinBox::slotTextChanged(const QString & /*text*/)
 			emit valueChangedTracking(i);
 		}
 	}
-}
-
-
-void KSimBaseIntSpinBox::setAlignment(int flag)
-{
-	editor()->setAlignment(flag);
-}
-	
-int KSimBaseIntSpinBox::alignment() const
-{
-	return editor()->alignment();
 }
 
 void KSimBaseIntSpinBox::setTrackingEnabled(bool tracking)
@@ -402,7 +390,7 @@ bool KSimBaseIntSpinBox::eventFilter(QObject * obj, QEvent * ev)
 		default:
 			break;
 	}
-	return QSpinBox::eventFilter(obj,ev);
+	return KSimSpinBox::eventFilter(obj,ev);
 }
 
 void KSimBaseIntSpinBox::initRmbMenu(QPopupMenu * popup)
