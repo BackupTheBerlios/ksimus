@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-13 20:28+0100\n"
+"POT-Creation-Date: 2002-01-24 10:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,38 @@ msgstr "&Gain :"
 msgid "Change Channel Name"
 msgstr "Changer le nom du canal"
 
+#: datarecorderwidget.moc.cpp:42 datarecorderwidget.moc.cpp:47
+msgid "DataRecorderWidget"
+msgstr ""
+
+#: datarecorderwidget.moc.cpp:117 datarecorderwidget.moc.cpp:122
+msgid "KSimGridWidget"
+msgstr ""
+
+#: datarecorderchannelboolean.cpp:126
+msgid "Boolean"
+msgstr "Logique"
+
+#: datarecorderchannelboolean.cpp:222 datarecorderwidget.cpp:171
+msgid "Channel:"
+msgstr "Canal :"
+
+#: zoomwidget.cpp:217
+msgid "%1 Sample/Pixel"
+msgstr "%1 Echantillon/pixel"
+
+#: zoomwidget.cpp:221
+msgid "%1 s/div"
+msgstr "%1 s/div"
+
+#: zoomwidget.moc.cpp:42 zoomwidget.moc.cpp:47
+msgid "ZoomWidget"
+msgstr ""
+
+#: datarecorder.cpp:166 datarecorder.cpp:167
+msgid "Data Recorder"
+msgstr "Enregisteur de données"
+
 #: datarecorder.cpp:513
 msgid "&Open"
 msgstr "&Ouvrir"
@@ -41,3 +73,47 @@ msgstr "Ajouer un canal"
 #: datarecorder.cpp:554
 msgid "Remove channel"
 msgstr "Supprimer le canal"
+
+#: datarecorderview.moc.cpp:42 datarecorderview.moc.cpp:47
+msgid "DataRecorderView"
+msgstr ""
+
+#: datarecorder.moc.cpp:42 datarecorder.moc.cpp:47
+msgid "DataRecorder"
+msgstr ""
+
+#: channelpositionwidget.moc.cpp:42 channelpositionwidget.moc.cpp:47
+msgid "ChannelPositionWidget"
+msgstr ""
+
+#: datarecorderdataview.moc.cpp:42 datarecorderdataview.moc.cpp:47
+msgid "DataRecorderDataView"
+msgstr ""
+
+#: datarecorderdataview.moc.cpp:139 datarecorderdataview.moc.cpp:144
+msgid "DataRecorderDataViewItem"
+msgstr ""
+
+#: datarecorderdataview.moc.cpp:193 datarecorderdataview.moc.cpp:198
+msgid "DataRecorderDataViewDivGrid"
+msgstr ""
+
+#: datarecorderwidget.cpp:176
+msgid "&Zoom:"
+msgstr "&Zoom :"
+
+#: datarecorderchannelboolean.moc.cpp:42 datarecorderchannelboolean.moc.cpp:47
+msgid "DataRecorderChannelBoolean"
+msgstr ""
+
+#: widgetcontrolbutton.moc.cpp:42 widgetcontrolbutton.moc.cpp:47
+msgid "WidgetControlButton"
+msgstr ""
+
+#: widgetcontrolbutton.moc.cpp:125 widgetcontrolbutton.moc.cpp:130
+msgid "KSimColorLabel"
+msgstr ""
+
+#: datarecorderchannelbase.moc.cpp:42 datarecorderchannelbase.moc.cpp:47
+msgid "DataRecorderChannelBase"
+msgstr ""
