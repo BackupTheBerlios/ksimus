@@ -1,0 +1,9 @@
+#MIN_CONFIG
+
+AM_INIT_AUTOMAKE(ksimus,0.2.0)
+
+CPPFLAGS="$CPPFLAGS -Wno-long-long"
+CXXFLAGS="$CXXFLAGS -fPIC"
+LDFLAGS="$LDFLAGS -rdynamic"
+
+

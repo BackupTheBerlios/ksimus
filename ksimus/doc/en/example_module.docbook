@@ -1,0 +1,125 @@
+
+<sect1 id="example-module">
+<title>Module Example</title>
+
+<para>
+This example shows you the principle of &modules;.
+</para>
+
+<para>
+For this example we construct a small &module;. The module provides two buttons. The Set
+button sets the output, the Reset button resets the output. Additional the &module; has
+two LEDs to indicate the current state. A second output provides a negated output. There
+are also a Set and a Reset input to control the state from outside the &module;.
+The &module; should provides also a suitable view at the user interface.
+</para>
+<para>
+Load the example <ulink url="example_module.sim">here</ulink>.</para>
+<para>
+First, let us see the used example.
+
+<screenshot>
+<screeninfo>Schematic View</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_module_1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example Module (1)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+On schematic above you see on the left side the two input &extConns; and on the right side the
+two output &extConns;. In the middle is a RS Flip Flop as shown in
+<link linkend="example-rsff">RS-FF Example</link>.
+</para>
+
+
+<para>
+<screenshot>
+<screeninfo>User Interface</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_module_2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example Module (2)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+The user interface size is small as possible.
+</para>
+
+
+<para>
+<screenshot>
+<screeninfo>Module View</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_module_3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example Module (3)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+See how to fill in the &moduleView;.
+</para>
+
+
+<para>
+<screenshot>
+<screeninfo>Debugging Module</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_module_4.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example Module (4)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+See at the screen shot above how to use the second &connector; of the &extConns;.
+</para>
+
+
+<para>
+<screenshot>
+<screeninfo>Debugging Module</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_module_5.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example Module (5)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+The <ulink url="example_module_applic.sim">example</ulink> above shoes the use of the module.
+</para>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>

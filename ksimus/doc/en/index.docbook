@@ -1,0 +1,1254 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN"
+ "dtd/kdex.dtd" [
+  <!ENTITY ksimus '<application>KSimus</application>'>
+  <!ENTITY kapp "&ksimus;"><!-- replace ksimus here -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"><!-- change language only here -->
+  <!ENTITY kappmail '<email>ksimus@gmx.de</email>'>
+  <!ENTITY workingView '<link linkend="working-view">Working View</link>'>
+  <!ENTITY componentSupplier 'Component Supplier'>
+  <!ENTITY schematicView '<link linkend="working-view-schematic">Schematic View</link>'>
+  <!ENTITY uiView '<link linkend="working-view-user">User Interface View</link>'>
+  <!ENTITY moduleView '<link linkend="working-view-module">Module View</link>'>
+
+  <!ENTITY connectorPropertyDialog 'connector property dialog'>
+  <!ENTITY propertyDialog 'property dialog'>
+
+  <!ENTITY component 'component'>
+  <!ENTITY components 'components'>
+  <!ENTITY connector 'connector'>
+  <!ENTITY connectors 'connectors'>
+  <!ENTITY extConn '<link linkend="modules-extconn">External Connector</link>'>
+  <!ENTITY extConns '<link linkend="modules-extconn">External Connectors</link>'>
+  <!ENTITY module '<link linkend="Modules">module</link>'>
+  <!ENTITY modules '<link linkend="Modules">modules</link>'>
+
+  <!ENTITY todo '<para>[TODO]</para>'>
+
+
+  <!ENTITY example_rsff_part SYSTEM "example_rsff.docbook">
+  <!ENTITY example_module_part SYSTEM "example_module.docbook">
+  <!ENTITY modules_part SYSTEM "modules.docbook">
+
+  <!-- Do not define any other entities; instead, use the entities
+       from kde-genent.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.8 October 1 1999 
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001   -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+In the future, we may want to change from SGML-based DocBook to XML-based
+DocBook. To make this change easier, please be careful :
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The KSimus Handbook</title>
+
+<authorgroup>
+<author>
+<firstname>Rasmus</firstname>
+<!-- <othername>N.</othername> -->
+<surname>Diekenbrock</surname>
+<affiliation>
+<address>&kappmail;</address>
+</affiliation>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>2001</year>
+<holder>Rasmus Diekenbrock</holder>
+</copyright>
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>&GPLNotice;</legalnotice>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>25/10/2001</date>
+<releaseinfo>0.00.01</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kapp; is an application for simulating networks with boolean data type. Analog,
+ string and some
+more data types are planned. Currently there exists only a few boolean
+ components, but because of the
+modular character of &kapp; extensions are easy to develop.
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>KSimus</keyword>
+<keyword>Simulate</keyword>
+<keyword>Simulation</keyword>
+<keyword>Logic</keyword>
+<keyword>Boolean</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+<!-- ############################################################################### -->
+<!-- ########################       Introduction            ######################## -->
+<!-- ############################################################################### -->
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<para>
+&kapp; is a program that lets you design a network of components. A component
+ is a more or lesser complex active item like a boolean AND gate or a PID
+controller (PID controller is not implemented yet ;-).
+&kapp; lets you design your sheet without any worry about the wiring between the
+components. &kapp; does it in a hopefully successful way for you. Just place the
+components free arbitrary on the schematic and wire the connectors of the
+components.  Voil&aacute;, you are ready for
+simulating! </para>
+<para>
+Please report any problems or feature requests to <email>ksimus@gmx.de</email>.
+</para>
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################       Using KSimus            ######################## -->
+<!-- ############################################################################### -->
+<chapter id="using-ksimus">
+<title>Using KSimus</title>
+
+<!-- This chapter should tell the user how to use your app. You should use as
+many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
+your application. -->
+
+
+<!-- ############################################################################### -->
+<!-- ########################          Features             ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-features">
+<title>More KSimus features</title>
+
+<!--
+<para>It slices! It dices! and it comes with a free toaster!</para>
+<para>
+The Squiggle Tool <guiicon><inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="squiggle.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="squiggle.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Squiggle</phrase>
+	  </textobject>
+</inlinemediaobject></guiicon> is used to draw squiggly lines all over
+the &kapp; main window. It's not a bug, it's a feature!
+</para>
+-->
+
+&todo;
+
+</sect1>
+
+</chapter>
+
+<chapter id="commands">
+<title>Command Reference</title>
+
+<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
+application windows and their menubar and toolbar commands for easy reference.
+Also include any keys that have a special function but have no equivalent in the
+menus or toolbars. This may not be necessary for small apps or apps with no tool
+or menu bars. -->
+
+<!-- ############################################################################### -->
+<!-- ########################        Main Window            ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-mainwindow">
+<title>The main KSimus window</title>
+<para>First let us take a look to the GUI of &kapp;:</para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot main of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="ksimusgui.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Menu bar</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the menu bar.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Tool bar</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the tool bar.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Component Supplier</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the &componentSupplier;. The &componentSupplier; contains all available
+&components;. The number and types of available &components; depends on the loaded
+&kapp; packages. You can select a &component; by a click and place it on the
+&schematicView; or the &uiView;.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble4.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Working view tab bar</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the tab bar of the &workingView;. The tab bar allows you to select the
+type of the current view. Here you can find the &schematicView;, &uiView; and &moduleView;.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble5.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Working view</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the &workingView;. The type of &workingView; changes depending on the
+ selecting of the tab bar.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble6.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Log view</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the log view. The log view informs you about some simulation states,
+ actions or errors. If you click on a warning or error message the &component;
+ or components, which cause the messages, are selected in the &workingView;.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble7.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Status bar</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the status bar. The status bar informs you about the selected or
+executed  actions. If the mouse moves over a &component; or &connector;, the
+name is displayed.
+</para>
+
+<para>
+<inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="bubble8.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Timer</phrase>
+	  </textobject>
+</inlinemediaobject>
+This is the simulation timer. The timer shows the past simulation time.
+</para>
+</sect1>
+<!-- ############################################################################### -->
+<!-- ########################         Menu File             ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-menu-file">
+<title>The File Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>n</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>New</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Creates a new document.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>o</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens an existing document.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<!-- <shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>o</keycap></keycombo>
+</shortcut> -->
+<guimenu>File</guimenu>
+<guimenuitem>Open Recent</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>This command allows you to open a file from a submenu
+ that contains a list of recently edited files.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>s</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Save</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Saves the current document.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Save As</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Lets you name or rename your document before
+ saving.</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>w</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Close</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Closes the current window. </action></para></listitem>
+ </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>p</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Print</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Prints the document. </action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>New Window</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a new &kapp; window with an empty document.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>q</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Quit</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Quits &kapp;.</action></para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect1>
+
+<!-- ############################################################################### -->
+<!-- ########################         Menu Edit             ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-menu-edit">
+<title>The Edit Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>z</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Undo</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Undo the last modifications. Multiple undos are
+possible.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>z</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Redo</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Undo the last undo. Multiple redos are
+possible.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>x</keycap></keycombo > </shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Cut</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Cuts the current selection and moves it to the internal
+clipboard. </action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>c</keycap></keycombo> </shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Copy</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Copies the current selection to the internal
+clipboard.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>v</keycap></keycombo> </shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Paste</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Pastes the contents of the internal
+clipboard to the document. The cursor changes into a cross cursor and lets you
+select the position where the contents will be insert.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Insert Module</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Lets you insert an existing &module;. First &kapp; opens a
+file open dialog and lets you select a module. After selecting the cursor
+changes to a cross cursor and lets you place the module. The module is also
+inserted to the &componentSupplier;.
+</action></para></listitem> </varlistentry>
+
+</variablelist>
+</para>
+</sect1>
+
+<!-- ############################################################################### -->
+<!-- ########################         Menu Execute          ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-menu-execute">
+<title>The Execute Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Execute</guimenu>
+<guimenuitem>Reset</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Resets the &components;.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Execute</guimenu>
+<guimenuitem>Start</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Resets the &components; and starts the simulation.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Execute</guimenu>
+<guimenuitem>Stop</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Stops the simulation.
+</action></para></listitem> </varlistentry>
+
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Execute</guimenu>
+<guimenuitem>Pause</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Pauses the simulation. This item is not supported yet.
+</action></para></listitem> </varlistentry>
+
+</variablelist>
+</para>
+</sect1>
+
+<!-- ############################################################################### -->
+<!-- ########################         Menu Settings         ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-menu-settings">
+<title>The Settings Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Toolbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Shows or hides the toolbar.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Statusbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Shows or hides the statusbar.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>b</keycap></keycombo></shortcut>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Log View</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Shows or hides the logging view.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>t</keycap></keycombo></shortcut>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Component Supplier</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Shows or hides the &componentSupplier;.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Display Costmap</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Shows or hides the cost factors of the views. For debugging purpose only.
+</action></para></listitem> </varlistentry>
+
+<!-- ############################################################################### -->
+<!-- ########################      Menu Setting Timing      ######################## -->
+<!-- ############################################################################### -->
+<varlistentry id="ksimus-menu-settings-timing">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Timing</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Opens a dialog for simulation timing setting. You can set the simulation speed,
+the simulation time and the view update speed.
+</action></para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot main of the timing gui;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="ksimus-timings.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot Timing Widget</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+<variablelist>
+
+<varlistentry><term><guilabel>Execution speed</guilabel>
+</term><listitem><para>
+Sets the duration of one simulation cycle here. Possible range is from 1ms to 1s. The minimally
+usefull value depends on your system. <!-- On my system it seems to be 2ms. Anyone knows more? Please
+mail to &kappmail;. -->
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Fast as possible</guilabel>
+</term><listitem><para>
+Enable this check box if you want the fastest simulation.
+&kapp; starts a new simulation cycle immediately after completion the last if this option is
+enabled.
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Simulation time per tick</guilabel>
+</term><listitem><para>
+Set the simulation time per simulation cycle here. This means the time which elapses
+each cycle in simulation purpose. Possible range is from 100ps to 1s.
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Synchronized to execution speed</guilabel>
+</term><listitem><para>
+Enable this check box if you want to synchronize the simulation time to the execution speed.
+This means not mandantory real time, because this depends on the system load and the exection
+time of a simulation cycle.
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>View update speed</guilabel>
+</term><listitem><para>
+Set the update time of the GUI here. Possible range is from 1ms to 1s. But the update is
+allways synchronized to the execution speed. This means that the update speed can not be
+faster than the execution speed.
+<tip><para>Lower the update speed if the system load is too high.</para></tip>
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Synchronized to execution speed</guilabel>
+</term><listitem><para>
+Enable this check box if you want to synchronize the update speed to the execution speed.
+</para></listitem></varlistentry>
+
+</variablelist>
+</para>
+
+</listitem> </varlistentry>
+
+<!-- ############################################################################### -->
+<!-- ########################       Menu Setting Grid       ######################## -->
+<!-- ############################################################################### -->
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Grid</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Opens a dialog for grid setting. It is possible to enable the grid, select the
+style and the color.
+</action></para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot main of grid gui;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="ksimus-grid.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot Grid Widget</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+<variablelist>
+
+<varlistentry><term><guilabel>Enable grid</guilabel>
+</term><listitem><para>
+Enables or disables the grid.
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Style</guilabel>
+</term><listitem><para>
+Sets the style of the grid.
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Color</guilabel>
+</term><listitem><para>
+Sets the color of the grid.
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>User defined grid</guilabel>
+</term><listitem><para>
+Sets the pitch of the grid. The default pitch is 8 pixels, which is the smallest
+raster of &kapp;.
+</para></listitem></varlistentry>
+
+</variablelist>
+</para>
+</listitem> </varlistentry>
+
+<!-- ############################################################################### -->
+<!-- ########################       Menu Package Files      ######################## -->
+<!-- ############################################################################### -->
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Package Files</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Opens a dialog for selection package files. Package files contains additional
+components. It is possible to use additional locally installed package files.
+</action></para>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot main of grid gui;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="ksimus-package-files.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot Grid Widget</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+<para>
+<variablelist>
+
+<varlistentry><term><guilabel>Package directories</guilabel>
+</term><listitem><para>
+Lets you select directories which contains &kapp; package files. All package files in this
+and all subdirectories will be load at application start.
+The default is <filename>$KDEDIR/lib/ksimus/</filename>.
+</para>
+<para>
+<variablelist>
+
+<varlistentry><term><guilabel>Browse</guilabel>
+</term><listitem><para>
+Opens a file dialog and lets you select an additional directory. After the selection the
+directory is shown in the single line edit field. You can modify it and/or add it with
+the Add button to the list.
+<remark>The directory is not added before you press the Add button!</remark>
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Add</guilabel>
+</term><listitem><para>
+Adds a directory from the single line edit field to the package directory list. If the single
+edit line is empty or the directory exists already in list the button does nothing.
+<remark>The package file configuration is only evaluted at the application start.
+Because of this, the new configuration influence &kapp; not before an application restart.
+</remark>
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Remove</guilabel>
+</term><listitem><para>
+Removes the highlighted directory from the package directory list.
+<remark>The package file configuration is only evaluted at the application start.
+Because of this, the new configuration influence &kapp; not before an application restart.
+</remark>
+</para></listitem></varlistentry>
+
+
+</variablelist>
+</para></listitem></varlistentry>
+
+<varlistentry><term><guilabel>Package files</guilabel>
+</term><listitem><para>
+Lets you select single &kapp; package files. This is useful if you develop your own package
+file, because you don't need to install it for testing. The default is no files.
+</para>
+<para>
+The using of <guilabel>Package files</guilabel> is analog to the using of
+<guilabel>Package directories</guilabel>.
+</para></listitem></varlistentry>
+
+
+
+
+</variablelist>
+</para>
+</listitem> </varlistentry>
+
+</variablelist>
+</para>
+</sect1>
+
+<!-- ############################################################################### -->
+<!-- ########################            Menu Help          ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="ksimus-menu-help">
+<title>The Help Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>F1</keycap></keycombo></shortcut>
+<guimenu>Help</guimenu>
+<guimenuitem>Contents</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens this help file.
+</action></para></listitem> </varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Shift</keycap><keycap>F1</keycap></keycombo></shortcut>
+<guimenu>Help</guimenu>
+<guimenuitem>What's This?</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>The context sensitive help. Should work on all GUI
+items. <!-- Please mail to &kappmail; if not! ****** nicht jetzt ***** -->
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Help</guimenu>
+<guimenuitem>Report Bug</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>This entry allows to submit bugs. I hope it works :)
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Help</guimenu>
+<guimenuitem>About &kapp;</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Shows the &kapp; About Dialog.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Help</guimenu>
+<guimenuitem>About &kde;</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Shows the &kde; About Dialog.
+</action></para></listitem>
+</varlistentry>
+
+
+
+</variablelist>
+</para>
+</sect1>
+
+<!-- ############################################################################### -->
+<!-- ########################           Working View        ######################## -->
+<!-- ############################################################################### -->
+<sect1 id="working-view">
+<title>The Working View</title>
+<para>
+This chapter describes the different kind of the Working View.
+</para>
+
+
+<!-- ############################################################################### -->
+<!-- ########################         Schematic View        ######################## -->
+<!-- ############################################################################### -->
+<sect2 id="working-view-schematic">
+<title>The Schematic View</title>
+<para>
+Develop your network or circuit at the Schematic View.
+</para><para>
+Features:
+<itemizedlist>
+<listitem><para>
+Select the &components; from the &componentSupplier; and place them at the view.
+</para></listitem>
+<listitem><para>
+Wire the connectors or wires with drag and drop.
+</para></listitem>
+<listitem><para>
+Use the context sensitive popup menus. There are four different areas:
+	<itemizedlist>
+	<listitem><para>
+	Components
+	</para></listitem>
+	<listitem><para>
+	Connectors
+	</para></listitem>
+	<listitem><para>
+	Wires
+	</para></listitem>
+	<listitem><para>
+	Empty Area
+	</para></listitem>
+	</itemizedlist>
+</para></listitem>
+<listitem><para>
+Select a single &component; with a right mouse click on it. Collect multiple
+components with a right mouse click on each single component while pressed
+<keycombo><keycap>Ctrl</keycap></keycombo> key.
+</para></listitem>
+<listitem><para>
+Select multiple components with rectangle select mode. Press the right mouse
+button on an empty area, enlarge the rectangle until all components are covered and
+then release the mouse button.
+</para></listitem>
+<listitem><para>
+Copy and past components. Wires between copied components are copied also.
+Wires between a copied component and a not copied component are not copied.
+</para></listitem>
+<listitem><para>
+Move components with drag and drop. Don't worry about the wires.
+</para></listitem>
+<listitem><para>
+Use the multiple undo and redo mechanism.
+</para></listitem>
+<listitem><para>
+See the status bar while the mouse pointer moves over &components; or &connectors;.
+</para></listitem>
+<listitem><para>
+Resize the Schematic View with the handles on each corner.
+</para></listitem>
+</itemizedlist>
+</para>
+
+
+</sect2>
+
+<!-- ############################################################################### -->
+<!-- ########################     User Interface View       ######################## -->
+<!-- ############################################################################### -->
+<sect2 id="working-view-user">
+<title>The User Interface View</title>
+<para>
+Design the User Interface for your network or circuit at this view. The view shows all
+GUI components (e.g. Buttons, LEDs) from the &schematicView;.
+</para>
+</sect2>
+
+<!-- ############################################################################### -->
+<!-- ########################        Module View            ######################## -->
+<!-- ############################################################################### -->
+<sect2 id="working-view-module">
+<title>The Module View</title>
+<para>
+&todo;
+</para>
+
+
+<para>
+See also <link linkend="example-module">Module Example</link>
+
+</para>
+</sect2>
+
+
+
+
+</sect1>
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################            Modules            ######################## -->
+<!-- ############################################################################### -->
+<chapter id="Modules">
+<title>Modules</title>
+&modules_part;
+
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################            Examples           ######################## -->
+<!-- ############################################################################### -->
+<chapter id="Examples">
+<title>Examples</title>
+
+&example_rsff_part;
+&example_module_part;
+
+
+
+
+
+
+</chapter>
+
+<!-- ############################################################################### -->
+<!-- ########################          Developers           ######################## -->
+<!-- ############################################################################### -->
+<chapter id="developers">
+<title>Developer's Guide to KSimus</title>
+
+<!-- (OPTIONAL) A Programming/Scripting reference chapter should be
+used for apps that use plugins or that provide their own scripting hooks
+and/or development libraries. -->
+
+&todo;
+
+<!-- Use refentries to describe APIs.  Refentries are fairly complicated and you
+should consult the docbook reference for further details. The example below was
+taken from that reference and shortened a bit for readability. -->
+
+</chapter>
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<!-- (OPTIONAL but recommended) This chapter should include all of the silly
+(and not-so-silly) newbie questions that fill up your mailbox. This chapter
+should be reserved for BRIEF questions and answers! If one question uses more
+than a page or so then it should probably be part of the
+"Using this Application" chapter instead. You should use links to
+cross-reference questions to the parts of your documentation that answer them.
+This is also a great place to provide pointers to other FAQ's if your users
+must do some complicated configuration on other programs in order for your
+application work. -->
+
+&reporting.bugs;
+&updating.documentation;
+
+&todo;
+
+<!--
+<qandaset id="faqlist">
+<qandaentry>
+<question>
+<para>My Mouse doesn't work. How do I quit &kapp;?</para>
+</question>
+<answer>
+<para>You silly goose! Check out the <link linkend="commands">Commands
+Section</link> for the answer.</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>Why can't I twiddle my documents?</para>
+</question>
+<answer>
+<para>You can only twiddle your documents if you have the foobar.lib
+installed.</para>
+</answer>
+</qandaentry>
+</qandaset>
+-->
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&kapp;
+</para>
+<para>
+Program copyright 2001 Rasmus Diekenbrock &kappmail;
+</para>
+
+<!--
+<para>
+Contributors:
+<itemizedlist>
+<listitem><para>Konqui the KDE Dragon <email>konqui@kde.org</email></para>
+</listitem>
+<listitem><para>Tux the Linux Penguin <email>tux@linux.org</email></para>
+</listitem>
+</itemizedlist>
+</para>
+-->
+
+<para>
+Documentation copyright 2001 Rasmus Diekenbrock &kappmail;
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove. Commercial development should
+ -->
+<!-- replace this with their copyright and either remove it or re-set this.-->
+
+<!-- Determine which license your application is licensed under,
+     and delete all the remaining licenses below:
+
+     (NOTE:  All documentation are licensed under the FDL,
+     regardless of what license the application uses) -->
+
+&underGPL;        	 <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-ksimus">
+<title>How to obtain KSimus</title>
+<!--
+<para>
+&kapp; is part of the KDE project
+<ulink url="http://www.kde.org">http://www.kde.org</ulink>.
+&kapp; can be found in the kdeutils package on
+<ulink url="ftp://ftp.kde.org/pub/kde/">ftp://ftp.kde.org/pub/kde/</ulink>, the
+main ftp site of the KDE project. </para>
+-->
+&todo;
+
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<!--
+List any special requirements for your application here. This should include:
+.Libraries or other software that is not included in kdesupport,
+kdelibs, or kdebase.
+.Hardware requirements like amount of RAM, disk space, graphics card
+capabilities, screen resolution, special expansion cards, etc.
+.Operating systems the app will run on. If your app is designed only for a
+specific OS, (you wrote a graphical LILO configurator for example) put this
+information here.
+-->
+
+<para>
+In order to use &kapp; successfully, you need KDE 2.0.
+</para>
+
+<!--
+<para>
+All required libraries as well as &kapp; itself can be found
+on <ulink url="ftp://ftp.kapp.org">The &kapp; home page</ulink>.
+</para>
+-->
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<!--
+<para>
+You can find a list of changes at <ulink
+url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
+</para>
+-->
+
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+<para>
+In order to compile and install &kapp; on your system, type the following in the
+ base
+directory of the &kapp; distribution:
+<screen width="40">
+<prompt>%</prompt> <userinput>./configure</userinput>
+<prompt>%</prompt> <userinput>make</userinput>
+<prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+
+<para>Since &kapp; uses autoconf and automake you should have not trouble
+ compiling it.
+Should you run into problems please report them to the KDE mailing lists.</para>
+
+</sect1>
+
+<!--
+<sect1 id="configuration">
+<title>Configuration</title>
+
+<para>Don't forget to tell your system to start the <filename>dtd</filename>
+dicer-toaster daemon first, or KApp won't work !</para>
+
+</sect1>
+-->
+
+</appendix>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+

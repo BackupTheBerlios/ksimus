@@ -1,0 +1,266 @@
+[/]
+Components=15
+
+[/Component 0/]
+ModuleFile=/localhome/lokal/ksimus/doc/en/example_module.sim
+Name=SR-Buttons
+Serial Number=1
+Type=Module
+
+[/Component 0/Conn0/]
+Name=Output
+
+[/Component 0/Conn1/]
+Name=/Output
+
+[/Component 0/Conn2/]
+Name=Set
+
+[/Component 0/Conn3/]
+Name=Reset
+
+[/Component 0/Sheet/]
+Pos=384,136
+
+[/Component 0/User/]
+Pos=0,64
+
+[/Component 1/]
+Name=Data
+Serial Number=2
+Type=Boolean/Input/Toggle Button
+
+[/Component 1/Sheet/]
+Pos=8,128
+Size=96,24
+
+[/Component 1/User/]
+Pos=0,32
+Size=96,24
+
+[/Component 10/]
+Serial Number=20
+Type=Wire/Wire
+
+[/Component 10/Connections/]
+Number=2
+
+[/Component 10/Connections/Connection 0/]
+Component=17
+Connector=Output
+
+[/Component 10/Connections/Connection 1/]
+Component=1
+Connector=Reset
+
+[/Component 10/Property/]
+Type=wire/property/boolean
+
+[/Component 11/]
+Serial Number=21
+Type=Wire/Wire
+
+[/Component 11/Connections/]
+Number=2
+
+[/Component 11/Connections/Connection 0/]
+Component=16
+Connector=Output
+
+[/Component 11/Connections/Connection 1/]
+Component=1
+Connector=Set
+
+[/Component 11/Property/]
+Type=wire/property/boolean
+
+[/Component 12/]
+Serial Number=24
+Type=Wire/Wire
+
+[/Component 12/Connections/]
+Number=3
+
+[/Component 12/Connections/Connection 0/]
+Component=7
+Connector=Output
+
+[/Component 12/Connections/Connection 1/]
+Component=16
+Connector=Input B
+
+[/Component 12/Connections/Connection 2/]
+Component=17
+Connector=Input B
+
+[/Component 12/Property/]
+Type=wire/property/boolean
+
+[/Component 13/]
+Serial Number=26
+Type=Wire/Wire
+
+[/Component 13/Connections/]
+Number=3
+
+[/Component 13/Connections/Connection 0/]
+Component=4
+Connector=Output
+
+[/Component 13/Connections/Connection 1/]
+Component=25
+Connector=Input A
+
+[/Component 13/Connections/Connection 2/]
+Component=25
+Connector=Input B
+
+[/Component 13/Property/]
+Type=wire/property/boolean
+
+[/Component 14/]
+Serial Number=27
+Type=Wire/Wire
+
+[/Component 14/Connections/]
+Number=2
+
+[/Component 14/Connections/Connection 0/]
+Component=25
+Connector=Output
+
+[/Component 14/Connections/Connection 1/]
+Component=7
+Connector=Input B
+
+[/Component 14/Property/]
+Type=wire/property/boolean
+
+[/Component 2/]
+Name=Clock
+Serial Number=3
+Type=Boolean/Input/Button
+
+[/Component 2/Sheet/]
+Pos=8,176
+Size=96,24
+
+[/Component 2/User/]
+Pos=0,128
+Size=96,24
+
+[/Component 3/]
+Serial Number=4
+Type=Boolean/Gates/AND
+
+[/Component 3/Sheet/]
+Pos=128,176
+
+[/Component 4/]
+Serial Number=7
+Type=Boolean/Gates/AND
+
+[/Component 4/Sheet/]
+Pos=224,176
+
+[/Component 5/]
+Serial Number=16
+Type=Boolean/Gates/AND
+
+[/Component 5/Sheet/]
+Pos=312,120
+
+[/Component 6/]
+Serial Number=17
+Type=Boolean/Gates/AND
+
+[/Component 6/Conn1/]
+Neg=true
+
+[/Component 6/Sheet/]
+Pos=312,176
+
+[/Component 7/]
+Serial Number=25
+Type=Boolean/Gates/AND
+
+[/Component 7/Conn0/]
+Neg=true
+
+[/Component 7/Sheet/]
+Pos=176,176
+
+[/Component 8/]
+Serial Number=12
+Type=Wire/Wire
+
+[/Component 8/Connections/]
+Number=4
+
+[/Component 8/Connections/Connection 0/]
+Component=3
+Connector=Output
+
+[/Component 8/Connections/Connection 1/]
+Component=4
+Connector=Input A
+
+[/Component 8/Connections/Connection 2/]
+Component=4
+Connector=Input B
+
+[/Component 8/Connections/Connection 3/]
+Component=7
+Connector=Input A
+
+[/Component 8/Property/]
+Type=wire/property/boolean
+
+[/Component 9/]
+Serial Number=18
+Type=Wire/Wire
+
+[/Component 9/Connections/]
+Number=3
+
+[/Component 9/Connections/Connection 0/]
+Component=2
+Connector=Output
+
+[/Component 9/Connections/Connection 1/]
+Component=16
+Connector=Input A
+
+[/Component 9/Connections/Connection 2/]
+Component=17
+Connector=Input A
+
+[/Component 9/Property/]
+Type=wire/property/boolean
+
+[/Document Property/]
+Last View=Sheet View
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Time=100000000
+Unit=sec
+
+[/Document Property/Timing/Simulation/]
+Sychronized=true
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=msec
+
+[/Property/]
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

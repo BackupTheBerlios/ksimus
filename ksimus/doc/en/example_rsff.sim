@@ -1,0 +1,184 @@
+[/]
+Components=10
+
+[/Component 0/]
+Serial Number=1
+Type=Boolean/Gates/NAND
+
+[/Component 0/Conn1/]
+Neg=true
+
+[/Component 0/Sheet/]
+Pos=152,56
+
+[/Component 1/]
+Serial Number=2
+Type=Boolean/Gates/NAND
+
+[/Component 1/Conn0/]
+Reset Mode=False
+
+[/Component 1/Conn2/]
+Neg=true
+
+[/Component 1/Sheet/]
+Pos=152,128
+
+[/Component 2/]
+Name=Set
+Serial Number=4
+Type=Boolean/Input/Toggle Button
+
+[/Component 2/Sheet/]
+Pos=0,56
+Size=96,24
+
+[/Component 2/User/]
+Pos=0,32
+Size=96,24
+
+[/Component 3/]
+Name=Reset
+Serial Number=5
+Type=Boolean/Input/Toggle Button
+
+[/Component 3/Sheet/]
+Pos=0,144
+Size=96,24
+
+[/Component 3/User/]
+Pos=0,64
+Size=96,24
+
+[/Component 4/]
+Color=255,0,0
+Serial Number=6
+Type=Boolean/Output/LED
+
+[/Component 4/Sheet/]
+Pos=264,64
+Size=40,24
+
+[/Component 4/User/]
+Pos=0,96
+Size=40,24
+
+[/Component 5/]
+Color=255,0,0
+Serial Number=7
+Type=Boolean/Output/LED
+
+[/Component 5/Sheet/]
+Pos=264,136
+Size=40,24
+
+[/Component 5/User/]
+Pos=0,128
+Size=40,24
+
+[/Component 6/]
+Serial Number=3
+Type=Wire/Wire
+
+[/Component 6/Connections/]
+Number=3
+
+[/Component 6/Connections/Connection 0/]
+Component=1
+Connector=Output
+
+[/Component 6/Connections/Connection 1/]
+Component=2
+Connector=Input A
+
+[/Component 6/Connections/Connection 2/]
+Component=6
+Connector=Input
+
+[/Component 6/Property/]
+Type=wire/property/boolean
+
+[/Component 7/]
+Serial Number=8
+Type=Wire/Wire
+
+[/Component 7/Connections/]
+Number=3
+
+[/Component 7/Connections/Connection 0/]
+Component=2
+Connector=Output
+
+[/Component 7/Connections/Connection 1/]
+Component=1
+Connector=Input B
+
+[/Component 7/Connections/Connection 2/]
+Component=7
+Connector=Input
+
+[/Component 7/Property/]
+Type=wire/property/boolean
+
+[/Component 8/]
+Serial Number=9
+Type=Wire/Wire
+
+[/Component 8/Connections/]
+Number=2
+
+[/Component 8/Connections/Connection 0/]
+Component=4
+Connector=Output
+
+[/Component 8/Connections/Connection 1/]
+Component=1
+Connector=Input A
+
+[/Component 8/Property/]
+Type=wire/property/boolean
+
+[/Component 9/]
+Serial Number=10
+Type=Wire/Wire
+
+[/Component 9/Connections/]
+Number=2
+
+[/Component 9/Connections/Connection 0/]
+Component=5
+Connector=Output
+
+[/Component 9/Connections/Connection 1/]
+Component=2
+Connector=Input B
+
+[/Component 9/Property/]
+Type=wire/property/boolean
+
+[/Document Property/]
+Last View=Sheet View
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Simulation/]
+Sychronized=true
+Time=100000000
+Unit=msec
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=msec
+
+[/Property/]
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

@@ -1,0 +1,119 @@
+
+<para>
+Modules are a integral feature of &kapp;.
+</para>
+
+<para>
+You can use modules like regular
+components. This is useful in two aspects:
+
+<itemizedlist>
+<listitem><para>
+Create a module once, use it multiple. There is no problem to use a module multiple
+in one &schematicView;.
+</para></listitem>
+<listitem><para>
+Split your large &schematicView; into smaller parts. This increase the overview.
+</para></listitem>
+</itemizedlist>
+
+</para>
+
+
+<sect1 id="modules-features">
+<title>Module Features</title>
+
+<para>
+What are the features of the modules:
+
+<itemizedlist>
+<listitem><para>
+You haven't found this tricky &component;? Create it by yourself!
+</para></listitem>
+<listitem><para>
+Define the schematic interface with &extConns;. Place for each input or output an &extConn;,
+and name it with a unique name. That's all.
+</para></listitem>
+<listitem><para>
+Define the user interface of the module in the &moduleView;. There are three different
+kinds of views:
+	<itemizedlist>
+	<listitem><para>
+	Generic View - This view is full automated and usual used if something during
+	module loading goes wrong. The &extConns; are automatically placed and the body
+	is a simple rectangle with the text &quot;Module&quot; inside.
+	</para></listitem>
+	<listitem><para>
+	User View - This view is the same as the &uiView;. This is useful, if your module
+	have some GUI components that should be applied to the &schematicView; or &uiView;
+	of the parent document. You have to place the &extConns; on your own. Because the
+	size of the module is like the size of the &uiView;, don't forget to reduce the
+	size of the &uiView;.
+	</para></listitem>
+	<listitem><para>
+	Image - This view provides the module with a meaningful image. Create the image
+	with a drawing program of your choice (Remember the raster of 8 pixels) and get
+	the path to &kapp;. The path can be stored absolute or relative to the module
+	file location. Additionally the image can be stored inside the module file. This
+	is not recommend with large images.
+	</para></listitem>
+	</itemizedlist>
+</para></listitem>
+</itemizedlist>
+
+</para>
+
+</sect1>
+
+
+<sect1 id="modules-extconn">
+<title>External Connector</title>
+
+<para>
+External Connectors provide the interface between the module and the schematic.
+<screenshot>
+<screeninfo>External connector</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="external_conn.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>External Connector Boolean Input</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+An External Connector has two &connectors;:
+
+<itemizedlist>
+<listitem><para>
+One connector, which is always near the triangle, represents the connector of
+the module. You can use the connector as test input or output during the development
+and debugging phase of the module. This connector will be disconnected if the module
+is used in an other schematic.
+</para></listitem>
+<listitem><para>
+The other connector has to be wired to the module circuit.
+</para></listitem>
+</itemizedlist>
+</para>
+
+<para>
+The &connectors; of the module get the name of the External Connector. Because of this, it
+is important that each External Connector has a unique name.
+</para>
+
+<para>
+External Connectors for boolean signals have a special feature. If you negate the &connector;
+near the triangle the &connector; of the module is also negated.
+</para>
+
+<para>
+See also <link linkend="example-module">the module example</link>.
+</para>
+
+
+</sect1>
+
+
+
+

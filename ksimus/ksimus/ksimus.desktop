@@ -1,0 +1,12 @@
+# KDE Config File  
+[KDE Desktop Entry]
+Type=Application
+Exec=ksimus -caption "%c" %i %m  
+Icon=ksimus.xpm
+MiniIcon=ksimus.xpm
+DocPath=ksimus/index.html
+Comment=
+Comment[de]=
+Terminal=0
+Name=KSimus
+Name[de]=KSimus

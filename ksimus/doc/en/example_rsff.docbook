@@ -1,0 +1,248 @@
+
+
+<sect1 id="example-rsff">
+<title>RS-FF Example</title>
+
+<para>
+The example shows you how easy it is to create a simple flip flop.
+</para>
+<para>
+The RS Flip Flop consists of two NAND gates. First we select a NAND gate for inserting
+to the &schematicView;.
+</para>
+
+<para><userinput>
+Click in the &componentSupplier; at the entry &quot;Boolean&quot; -> &quot;Gates&quot; -> &quot;NAND&quot;.
+</userinput></para>
+
+<para>
+The selected entry is highlighted.
+</para>
+
+<para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (1)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<para>
+Now we have to insert the NAND gate.
+</para>
+
+<para><userinput>
+Move the mouse pointer to the &workingView;. In this area the mouse pointer converts into a cross
+cursor. This means &kapp; is in &quot;component insert mode&quot;. Move the mouse pointer to the position
+where you want to place the NAND gate. Click the left mouse button to place the new NAND gate.
+</userinput></para>
+
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (2)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+
+<para>
+&kapp; stays in &quot;component insert mode&quot; until you click the right mouse button. Because
+of this, you are able to place immediately the second NAND gate below the first gate. After placing
+the second gate press the right mouse to leave the &quot;component insert mode&quot;.
+</para>
+
+<para>
+Now it is time to connect the components. First connect the output connector of the above NAND gate
+to one of the input gates of the below NAND gate.
+</para>
+<para><userinput>
+Draw the mouse pointer to the output connector, press the left mouse button - hold it - move the
+mouse to the input gate and release the mouse button. There is no difference wether you connect
+the output to the input or reverse.
+</userinput></para>
+
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (3)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para>
+After releasing the left mouse button &kapp; searches the best route for the wire.
+</para>
+
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_4.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (4)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para>
+Now we complete the circuit.
+</para>
+
+<para><userinput>
+Place two buttons (entry &quot;Boolean&quot; -> &quot;Input&quot; -> &quot;Button&quot;)
+and two LEDs (entry &quot;Boolean&quot; -> &quot;Output&quot; -> &quot;LED&quot;), and
+connect the &components; as shown below.
+</userinput></para>
+
+<tip><para>
+It is possible to connect to a wire as well as to a connector. It is also possible to
+connect two wires.
+</para></tip>
+<para></para>
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_5.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (5)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para>
+Now we have to negate the input connector of the NANDs which leads to the buttons.
+</para>
+<para><userinput>
+Move the mouse pointer to the connector and press the right mouse button.
+Select from the popup menu the entry &quot;Negate connector&quot;.
+</userinput></para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_6.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (6)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para>
+Do the same with the other NAND gate.
+</para>
+
+<para>
+The current circuit has an unstable start condition. The circuit toggles until the user presses
+one button. This is preventable if we change the start state of the output of one of the NAND
+gates. Thereby the flip flop is forced into a stable start condition.
+</para>
+
+<para><userinput>
+Move the mouse to the lower NAND, press the right mouse button and open the
+&connectorPropertyDialog;.
+</userinput></para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_7.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (7)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para><userinput>
+Select the output connector (see the list on the left) and set the &quot;Reset Mode&quot; to &quot;False&quot;.
+</userinput></para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_9.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (9)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para>
+At least we want to change the title of the buttons.
+</para>
+
+<para><userinput>
+Move the mouse to the button, press the right
+mouse button and open the &propertyDialog;.
+</userinput></para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_10.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (10)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para><userinput>
+Change the name to &quot;Set&quot; and press OK.
+</userinput></para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kapp;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="example_rsff_11.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Example RS FF (11)</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<para>
+Rename the lower button to &quot;Reset&quot; and we are ready.
+</para>
+
+<para>
+Now it is time to start the simulation. Press: Execute->start.
+</para>
+<para>
+Load the example <ulink url="example_rsff.sim">here</ulink>.
+</para>
+
+</sect1>
+
+
