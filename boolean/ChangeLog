@@ -1,3 +1,9 @@
+	02.03.2002
+* New: Enhance Component documentation
+* Fix: Prevent possible problems with hidden connectors.
+* Update: French translation from Aurelien Jarno. Thanks!
+* Update: German translation.
+* Fix: better version request in configure.in.in. Thanks Aurelien!
 	24.02.2002
 * New: Component documentation
 * New: Multi channel D Latch
