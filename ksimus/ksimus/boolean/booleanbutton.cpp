@@ -158,12 +158,12 @@ void BooleanButton::setResetState(bool resetState, bool init)
 bool BooleanButton::getResetState() const
 {
 	return m_flags & FLAGS_RESET_TRUE;
-};
+}
 	
 bool BooleanButton::getResetStateInit() const
 {
 	return m_flags & FLAGS_RESET_INIT_TRUE;
-};
+}
 	
 
 
@@ -171,14 +171,22 @@ void BooleanButton::reset()
 {
 	ComponentStyle::reset();
 	
-	setState( getResetState() );
-	getOutputConnector()->setOutput(getState());
-	
-	toggled(getState());
 	if (isToggleButton())
 	{
+		setState(getResetState());
+		getOutputConnector()->setOutput(getState());
+	
+		toggled(getState());
 		emit buttonChanged(getState());
 	}
+	else
+	{
+		setState(false);
+		getOutputConnector()->setOutput(false);
+		// Force released state!!!
+		emit releaseButton();
+	}
+		
 }
 
 /** save component properties */
@@ -311,6 +319,7 @@ QWidget * BooleanButtonView::createCompViewWidget(QWidget * parent)
 	connect(button, SIGNAL(released()), getComponent(), SLOT(slotReleased()));
 	// Button state changed	(Button->Widget)
 	connect(getComponent(), SIGNAL(buttonChanged(bool)), button, SLOT(setOn(bool)));
+	connect(getComponent(), SIGNAL(releaseButton()), wid, SLOT(slotReleaseButton()));
 	// Button type changed
 	connect(getComponent(), SIGNAL(signalSetToggleButton(bool)),
 			wid, SLOT(slotSetToggleButton(bool)));
@@ -373,6 +382,17 @@ void BooleanButtonWidgetView::slotSetToggleButton(bool toggle)
 	m_button->setToggleButton(toggle);
 }
 
+void BooleanButtonWidgetView::slotReleaseButton()
+{
+	// Force to release a sticking key
+	m_button->setToggleButton(true);
+	m_button->setOn(false);
+	m_button->setOn(true);
+	m_button->setOn(false);
+	m_button->setToggleButton(false);
+	m_button->setDown(true);
+	m_button->setDown(false);
+}
 
 //##########################################################################################
 //##########################################################################################
@@ -389,10 +409,12 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	
 	m_resetState = new KSimBooleanBox(comp->getResetState(), getGrid(), "ResetState");
 	CHECK_PTR(m_resetState);
+	m_resetState->setEnabled(comp->isToggleButton());
 	
 	str = i18n("Changes the reset state of the component to true or false.");
 	addToolTip(str, lab, m_resetState);
 	addWhatsThis(str, lab, m_resetState);
+	
 
 	lab = new QLabel(i18n("Toggle Function:"), getGrid());
 	CHECK_PTR(lab);

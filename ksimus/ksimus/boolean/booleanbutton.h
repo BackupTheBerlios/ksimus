@@ -114,6 +114,7 @@ signals: // Signals
 	void buttonChanged(bool pressed);
 	/** Enables/Disables toggle functionality */
 	void signalSetToggleButton(bool toggle);
+	void releaseButton();
 
 };
 
@@ -153,7 +154,9 @@ public slots:
 	void slotSetText(const QString & newName);
 	/** Enables/Disables toggle functionality */
 	void slotSetToggleButton(bool toggle);
-	
+	/** Release the button */
+	void slotReleaseButton();	
+
 protected:
 	QPushButton * m_button;
 
