@@ -39,7 +39,7 @@ namespace KSimIconDefaults
 
 static const char * back_16x16_default[]={
 "16 16 8 1",
-". c #ffffff",
+". c None",
 "# c #000000",
 "f c #004040",
 "e c #008080",
@@ -101,7 +101,7 @@ static const char * clear_left_16x16_default[]={
 
 static const char * fileclose_16x16_default[]={
 "16 16 3 1",
-". c #5d5d5d",
+". c None",
 "# c #000000",
 "a c #ffffff",
 "................",
@@ -123,7 +123,7 @@ static const char * fileclose_16x16_default[]={
 
 static const char * fileopen_16x16_default[]={
 "16 16 7 1",
-". c #5d5d5d",
+". c None",
 "# c #000000",
 "e c #a0a0a0",
 "d c #c3c3c3",
@@ -149,7 +149,7 @@ static const char * fileopen_16x16_default[]={
 
 static const char * finish_16x16_default[]={
 "16 16 8 1",
-". c #ffffff",
+". c None",
 "# c #000000",
 "f c #004040",
 "e c #008080",
@@ -174,9 +174,9 @@ static const char * finish_16x16_default[]={
 "......#f#.....##",
 "......##........"};
 
-static const char *forward_16x16_default[]={
+static const char * forward_16x16_default[]={
 "16 16 8 1",
-". c #ffffff",
+". c None",
 "# c #000000",
 "f c #004040",
 "e c #008080",
@@ -201,9 +201,9 @@ static const char *forward_16x16_default[]={
 ".......#f#......",
 ".......##......."};
 
-static const char *player_pause_16x16_default[]={
+static const char * player_pause_16x16_default[]={
 "16 16 2 1",
-". c #ffffff",
+". c None",
 "# c #000000",
 "................",
 "................",
@@ -243,9 +243,9 @@ static const char * rightarrow1_16x16_default[]={
 "................",
 "................"};
 
-static const char *start_16x16_default[]={
+static const char * start_16x16_default[]={
 "16 16 8 1",
-". c #ffffff",
+". c None",
 "# c #000000",
 "f c #004040",
 "e c #008080",
@@ -270,9 +270,9 @@ static const char *start_16x16_default[]={
 "##.....#f#......",
 "........##......"};
 
-static const char *stop_16x16_default[]={
+static const char * stop_16x16_default[]={
 "16 16 6 1",
-". c #800000",
+". c None",
 "# c #000000",
 "c c #800000",
 "b c #c00000",

@@ -29,15 +29,13 @@
 // Project-Includes
 
 
-/**An icon loader clas with default icons.
+/**An icon loader utility class with default icons.
   *@author Rasmus Diekenbrock
   */
 
 class KSimIcon
 {
 public: 
-/*	KSimIcon();
-	~KSimIcon();*/
 
 public:
 	static QPixmap load(const char * name, KIcon::Group group, KIcon::States state = KIcon::DefaultState);
@@ -48,7 +46,7 @@ private:
 		const char * name;
 		KIcon::Group group;
 		KIcon::States state;
-		const char ** xpm;
+		const char * * xpm;
 	};
 
 	static tDefaultIcons defaultIcons[];
