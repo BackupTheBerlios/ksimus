@@ -44,6 +44,11 @@ public:
 	ConnectorPropertyDialog(ConnectorList * connList, ConnectorBase * activeConn,
 	                        const QString & caption, QWidget *parent=0, const char *name=0);
 	~ConnectorPropertyDialog();
+
+	/** Executes a ConnectorPropertyDialog.
+	    Do some addtional stuff like size storing. */
+	static int execute(ConnectorList * connList, ConnectorBase * activeConn,
+	                   const QString & caption, QWidget *parent=0, const char *name=0);
 };
 
 
