@@ -322,15 +322,15 @@ void DataRecorder::removeChannel(DataRecorderChannelBase * channel)
 	
 	res = getConnList()->removeRef(channel->getConnector());
 	if (!res)
-		KSIMDEBUG("getConnList() remove faild");
+		KSIMDEBUG("getConnList() remove failed");
 	
 	res = m_channelInputList->removeRef(channel->getConnector());
 	if (!res)
-		KSIMDEBUG("m_channelInputList remove faild");
+		KSIMDEBUG("m_channelInputList remove failed");
 	
 	res = m_channelList->removeRef(channel);
 	if (!res)
-		KSIMDEBUG("m_channelList remove faild");
+		KSIMDEBUG("m_channelList remove failed");
 		
 //	KSIMDEBUG_VAR("",getConnList()->count());
 //	KSIMDEBUG_VAR("",m_channelInputList->count());
