@@ -208,6 +208,8 @@ void WirePropertySingleOutput::setupCircuit()
 					if (-1 == m_inZeroDelayConnectorList->findRef(extConn->getExternalConn()))
 						m_inZeroDelayConnectorList->append(extConn->getExternalConn());
 					extConn->getExternalConn()->setWireProperty(this);
+					// Copy negate type
+					extConn->getExternalConn()->setNegate(it.current(),true);
 				}
 				else
 				{
@@ -243,6 +245,8 @@ void WirePropertySingleOutput::setupCircuit()
 				{
 					m_outConnector = extConn->getExternalConn();
 					extConn->getExternalConn()->setWireProperty(this);
+					// Copy negate type
+					extConn->getExternalConn()->setNegate(it.current(),true);
 				}
 				else
 				{
