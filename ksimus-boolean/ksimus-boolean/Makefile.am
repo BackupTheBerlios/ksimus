@@ -18,10 +18,10 @@ libksimus_boolean_la_LDFLAGS = -avoid-version -module -no-undefined
 
 libksimus_boolean_la_METASOURCES = AUTO
 
-libksimus_boolean_la_SOURCES = multidlatch.cpp boolean7segment.cpp booleanconstant.cpp booleancounter.cpp monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
+libksimus_boolean_la_SOURCES = delay.cpp demultiplexer.cpp multiplexer.cpp multidlatch.cpp boolean7segment.cpp booleanconstant.cpp booleancounter.cpp monoflop.cpp dflipflop.cpp jkflipflop.cpp flipflopbase.cpp rsflipflop.cpp boolean2in1out.cpp booleanor.cpp booleanxor.cpp boolean.cpp 
 
 
-EXTRA_DIST = boolean.cpp boolean.h booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h booleancounter.cpp booleancounter.h booleanconstant.cpp booleanconstant.h boolean7segment.cpp boolean7segment.h multidlatch.cpp multidlatch.h 
+EXTRA_DIST = boolean.cpp boolean.h booleanxor.cpp booleanxor.h booleanor.cpp booleanor.h boolean2in1out.cpp boolean2in1out.h rsflipflop.cpp rsflipflop.h flipflopbase.cpp flipflopbase.h jkflipflop.cpp jkflipflop.h dflipflop.cpp dflipflop.h monoflop.cpp monoflop.h booleancounter.cpp booleancounter.h booleanconstant.cpp booleanconstant.h boolean7segment.cpp boolean7segment.h multidlatch.cpp multidlatch.h multiplexer.cpp multiplexer.h demultiplexer.cpp demultiplexer.h delay.cpp delay.h 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # this 10 paths are KDE specific. Use them:

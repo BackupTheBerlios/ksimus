@@ -40,6 +40,9 @@
 #include "booleanconstant.h"
 #include "boolean7segment.h"
 #include "multidlatch.h"
+#include "multiplexer.h"
+#include "demultiplexer.h"
+#include "delay.h"
 
 // Forward declaration
 
@@ -82,6 +85,9 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(getBooleanConstantFalse());
 		pDistComponents->append(getBoolean7SegmentInfo());
 		pDistComponents->append(getMultiDLatchInfo());
+		pDistComponents->append(getMultiplexerInfo());
+		pDistComponents->append(getDemultiplexerInfo());
+		pDistComponents->append(getDelayInfo());
 	}
 
 	return *pDistComponents;
