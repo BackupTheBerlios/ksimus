@@ -1,12 +1,16 @@
 # KDE Config File  
 [KDE Desktop Entry]
+Version=1.0
 Type=Application
-Exec=ksimus -caption "%c" %i %m  
-Icon=ksimus.xpm
-MiniIcon=ksimus.xpm
+TryExec=ksimus
+Exec=ksimus -caption "%c" %i %m %u
+Icon=ksimus.png
+MiniIcon=ksimus.png
 DocPath=ksimus/index.html
-Comment=
-Comment[de]=
+Comment=KSimus is a tool for simulation, automatization and visualization of technical processes.
 Terminal=0
 Name=KSimus
-Name[de]=KSimus
+MimeType=application/x-ksimus
+
+
+

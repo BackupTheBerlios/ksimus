@@ -31,7 +31,7 @@ configure_args=--prefix=/opt/kde2
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=GNU
+lfv_open_groups=Andere,GNU
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am
 modifyMakefiles=true
@@ -111,7 +111,7 @@ install_location=
 type=DATA
 
 [ksimus/Makefile.am]
-files=ksimus/main.cpp,ksimus/ksimus.cpp,ksimus/ksimus.h,ksimus/ksimusdoc.cpp,ksimus/ksimusdoc.h,ksimus/ksimusview.cpp,ksimus/ksimusview.h,ksimus/ksimusui.rc,ksimus/ksimus.desktop,ksimus/ksimus.xpm,ksimus/mini-ksimus.xpm,ksimus/basewindow.cpp,ksimus/basewindow.h,ksimus/compcontainer.h,ksimus/component.cpp,ksimus/component.h,ksimus/componentitem.cpp,ksimus/componentitem.h,ksimus/componentmap.cpp,ksimus/componentmap.h,ksimus/compview.cpp,ksimus/compview.h,ksimus/displaywidget.cpp,ksimus/displaywidget.h,ksimus/globals.cpp,ksimus/globals.h,ksimus/ksimfile.cpp,ksimus/ksimfile.h,ksimus/ksimundo.cpp,ksimus/ksimundo.h,ksimus/types.h,ksimus/wire.cpp,ksimus/wire.h,ksimus/resource.h,ksimus/ksimwidget.cpp,ksimus/ksimwidget.h,ksimus/ksimeditor.cpp,ksimus/ksimeditor.h,ksimus/compviewwidget.cpp,ksimus/compviewwidget.h,ksimus/ksimdebug.h,ksimus/componentpropertybasewidget.cpp,ksimus/componentpropertybasewidget.h,ksimus/componentpropertygeneralwidget.cpp,ksimus/componentpropertygeneralwidget.h,ksimus/componentpropertydialog.cpp,ksimus/componentpropertydialog.h,ksimus/componentpropertyinfowidget.cpp,ksimus/componentpropertyinfowidget.h,ksimus/library.cpp,ksimus/library.h,ksimus/compcontainer.cpp,ksimus/componentaddon.cpp,ksimus/componentaddon.h,ksimus/ksimaction.cpp,ksimus/ksimaction.h,ksimus/ksimdata.cpp,ksimus/ksimdata.h,ksimus/compviewhbox.cpp,ksimus/compviewhbox.h,ksimus/compviewvbox.cpp,ksimus/compviewvbox.h,ksimus/componentstyle.cpp,ksimus/componentstyle.h,ksimus/componentpropertystylewidget.cpp,ksimus/componentpropertystylewidget.h,ksimus/wire.cur,ksimus/wire_mask.cur
+files=ksimus/main.cpp,ksimus/ksimus.cpp,ksimus/ksimus.h,ksimus/ksimusdoc.cpp,ksimus/ksimusdoc.h,ksimus/ksimusview.cpp,ksimus/ksimusview.h,ksimus/ksimusui.rc,ksimus/ksimus.desktop,ksimus/ksimus.xpm,ksimus/mini-ksimus.xpm,ksimus/basewindow.cpp,ksimus/basewindow.h,ksimus/compcontainer.h,ksimus/component.cpp,ksimus/component.h,ksimus/componentitem.cpp,ksimus/componentitem.h,ksimus/componentmap.cpp,ksimus/componentmap.h,ksimus/compview.cpp,ksimus/compview.h,ksimus/displaywidget.cpp,ksimus/displaywidget.h,ksimus/globals.cpp,ksimus/globals.h,ksimus/ksimfile.cpp,ksimus/ksimfile.h,ksimus/ksimundo.cpp,ksimus/ksimundo.h,ksimus/types.h,ksimus/wire.cpp,ksimus/wire.h,ksimus/resource.h,ksimus/ksimwidget.cpp,ksimus/ksimwidget.h,ksimus/ksimeditor.cpp,ksimus/ksimeditor.h,ksimus/compviewwidget.cpp,ksimus/compviewwidget.h,ksimus/ksimdebug.h,ksimus/componentpropertybasewidget.cpp,ksimus/componentpropertybasewidget.h,ksimus/componentpropertygeneralwidget.cpp,ksimus/componentpropertygeneralwidget.h,ksimus/componentpropertydialog.cpp,ksimus/componentpropertydialog.h,ksimus/componentpropertyinfowidget.cpp,ksimus/componentpropertyinfowidget.h,ksimus/library.cpp,ksimus/library.h,ksimus/compcontainer.cpp,ksimus/componentaddon.cpp,ksimus/componentaddon.h,ksimus/ksimaction.cpp,ksimus/ksimaction.h,ksimus/ksimdata.cpp,ksimus/ksimdata.h,ksimus/compviewhbox.cpp,ksimus/compviewhbox.h,ksimus/compviewvbox.cpp,ksimus/compviewvbox.h,ksimus/componentstyle.cpp,ksimus/componentstyle.h,ksimus/componentpropertystylewidget.cpp,ksimus/componentpropertystylewidget.h,ksimus/wire.cur,ksimus/wire_mask.cur,ksimus/lo16-app-ksimus.png,ksimus/lo32-app-ksimus.png,ksimus/hi16-app-ksimus.png,ksimus/hi32-app-ksimus.png,ksimus/x-ksimus.desktop
 sub_dirs=tools,module,boolean,lib,items
 type=prog_main
 
@@ -418,6 +418,18 @@ dist=true
 install=true
 install_location=$$(pkgincludedir)/globals.h
 type=HEADER
+
+[ksimus/hi16-app-ksimus.png]
+dist=true
+install=true
+install_location=$$(kde_icondir)/hicolor/16x16/apps/ksimus.png
+type=DATA
+
+[ksimus/hi32-app-ksimus.png]
+dist=true
+install=true
+install_location=$$(kde_icondir)/hicolor/32x32/apps/ksimus.png
+type=DATA
 
 [ksimus/items/Makefile.am]
 files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h,ksimus/items/connectorfloatin.cpp,ksimus/items/connectorfloatin.h,ksimus/items/connectorfloatout.cpp,ksimus/items/connectorfloatout.h,ksimus/items/wirepropertyfloatingpoint.cpp,ksimus/items/wirepropertyfloatingpoint.h
@@ -786,7 +798,7 @@ type=HEADER
 
 [ksimus/ksimus.xpm]
 dist=true
-install=true
+install=false
 install_location=$$(kde_icondir)/medium/locolor/apps/ksimus.xpm
 type=DATA
 
@@ -1077,6 +1089,18 @@ install=true
 install_location=$$(pkgincludedir)/library.h
 type=HEADER
 
+[ksimus/lo16-app-ksimus.png]
+dist=true
+install=true
+install_location=$$(kde_icondir)/locolor/16x16/apps/ksimus.png
+type=DATA
+
+[ksimus/lo32-app-ksimus.png]
+dist=true
+install=true
+install_location=$$(kde_icondir)/locolor/32x32/apps/ksimus.png
+type=DATA
+
 [ksimus/main.cpp]
 dist=true
 install=false
@@ -1085,7 +1109,7 @@ type=SOURCE
 
 [ksimus/mini-ksimus.xpm]
 dist=true
-install=true
+install=false
 install_location=$$(kde_icondir)/small/locolor/apps/ksimus.xpm
 type=DATA
 
@@ -1535,6 +1559,12 @@ type=HEADER
 dist=true
 install=false
 install_location=
+type=DATA
+
+[ksimus/x-ksimus.desktop]
+dist=true
+install=true
+install_location=$$(kde_mimedir)/application/x-ksimus.desktop
 type=DATA
 
 [po/Makefile.am]
