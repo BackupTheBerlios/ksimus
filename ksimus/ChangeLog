@@ -1,3 +1,11 @@
+	03.01.2002
+* Fix: i18n problems with Boolean1Out, BooleanLed, ClockGenerator, ExtConnBoolIn, ExtConnBoolOut
+* Change: Connectors uses a translated (for the user) and a untranslated (for files) name.
+* Fix: Class Module: Rename the ambiguous function getContainer() to getModuleContainer().
+* New: Class CompContainer stores the serialNumber in the document.
+* Fix: File library.cpp causes the error "Fatal error: you need to have a KInstance object before ..."
+	on some machines. Sorry! Thanks to Dominic Sacre for this fast fix :)
+* New: Class Library supports translation catalogue of the packages.
 	02.01.2002
 * New: Font property in classes ComponentStyle, ComponentPropertyStyleWidget, CompViewHBox and CompViewVBox
 * Change: Constructor ComponentStyle
