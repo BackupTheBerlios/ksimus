@@ -1814,6 +1814,11 @@ void KSimEditor::componentPopup(bool connectorHit)
 			getContainer()->routeComponents();
 			refresh();
 		}
+		// Not deleted ?
+		if (getContainer()->getComponentList()->find(comp) != -1)
+		{
+			comp->menuExecuted();
+		}
 	}
 	else
 	{
@@ -1886,6 +1891,12 @@ void KSimEditor::wirePopup(const QPoint & pos)
 	else
 	{
 		KSIMDEBUG_VAR("Unknown Result",res);
+	}
+	
+	// Not deleted ?
+	if (getContainer()->getComponentList()->find(comp) != -1)
+	{
+		comp->menuExecuted();
 	}
 	
 	delete menu;
