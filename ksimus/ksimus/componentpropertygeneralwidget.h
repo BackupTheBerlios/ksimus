@@ -28,8 +28,8 @@
 #include "componentpropertybasewidget.h"
 
 // Forward declaration
-class QGrid;
-class QLineEdit;
+class QString;
+class QStringList;
 
 /**General properties
   *@author Rasmus Diekenbrock
@@ -55,10 +55,20 @@ public:
 	 */
 	virtual void defaultPressed();
 
+	void addNameSuggestion(const QString & suggName);
+	void addNameSuggestion(const QStringList & suggNameList);
 
 protected:
-	QLineEdit * m_nameEdit;
 
+private:
+	class Private;
+	Private * m_p;
+
+private slots:
+	void slotOpenSuggestionName();
+	void slotSuggestionName(int id);
+	void slotClearName();
+	
 };
 
 #endif
