@@ -27,6 +27,7 @@
 #include "component.h"
 #include "compview.h"
 #include "ksimaction.h"
+#include "ksimembfont.h"
 #include "resource.h"
 #include "ksimdebug.h"
 
@@ -42,9 +43,9 @@
 ComponentBlockLayout::ComponentBlockLayout(CompView * sheetView, ComponentLayout * compLayout, Orientation orient, QString blockName)
 	:	ComponentAddOn(sheetView->getComponent(), blockName),
 		DoubleLayout(compLayout, orient),
-		m_flags(FLAG_DRAW_FRAME),	
+		m_flags(FLAG_DRAW_FRAME),
 		m_text(),
-		m_alignFlags(AlignCenter)
+		m_textAlign(AlignCenter)
 {
 	getAction().disable(KSimAction::ALL);
 	getAction().enable(KSimAction::DRAWSHEETVIEW);
@@ -71,30 +72,23 @@ bool ComponentBlockLayout::isDrawFrame() const
 void ComponentBlockLayout::drawSheetView (QPainter *p) const
 {
 	if (isDrawFrame() || !getText().isEmpty())
-	{	
+	{
 		QRect rect(DoubleLayout::getRect(false));
-//		QRect rectView(getComponent()->getSheetView()->getPlace());
-	
-//		rect.moveBy(rectView.topLeft().x(),rectView.topLeft().y());
-		rect.rLeft() ++;
-		rect.rTop() ++;
+
 		p->save();
-		p->setPen(QPen(black, 2));
-		p->setBrush(NoBrush);
-	
+
+		p->setPen(black);
 		if (isDrawFrame())
 		{
-			p->drawRect(rect);
+			CompView::drawFrame(p, rect);
 		}
-		
-		rect.rTop() --;
+
 		if (!getText().isEmpty())
 		{
-			QFont newFont(QString::fromLatin1("helvetica"),8);
-			p->setFont(newFont);
-			p->setPen(black);
-			p->drawText(rect, getAlign(), getText());
+			QRect r(rect.left() + 3, rect.top() + 3, rect.width() - 6, rect.height() - 6);
+			g_embFont08->drawText(p, r, getTextAlign(), getText());
 		}
+
 		p->restore();
 	}
 }
@@ -106,7 +100,7 @@ ComponentControlBlock::ComponentControlBlock(CompView * sheetView, ComponentLayo
 	: ComponentBlockLayout(sheetView, compLayout, Qt::Horizontal, blockName)
 {
 }
-	
+
 ComponentControlBlock::~ComponentControlBlock()
 {
 }
@@ -114,40 +108,31 @@ ComponentControlBlock::~ComponentControlBlock()
 void ComponentControlBlock::drawSheetView(QPainter *p) const
 {
 	if (isDrawFrame() || !getText().isEmpty())
-	{	
+	{
 		QRect rect(DoubleLayout::getRect(false));
-//		QRect rectView(getComponent()->getSheetView()->getPlace());
-	
-//		rect.moveBy(rectView.topLeft().x(),rectView.topLeft().y());
-		rect.rLeft() ++;
-		rect.rTop() ++;
-		p->save();
-		p->setPen(QPen(black, 2));
-//		p->setPen(black);
-		p->setBrush(NoBrush);
-	
-	
+
+		p->setPen(black);
 		if (isDrawFrame())
 		{
-			p->moveTo(rect.bottomLeft() + QPoint(gridX/2,0));
-			p->lineTo(rect.bottomLeft() + QPoint(gridX/2,-gridY/2));
-			p->lineTo(rect.bottomLeft() + QPoint(0,-gridY/2));
-			p->lineTo(rect.topLeft());
-			p->lineTo(rect.topRight());
-			p->lineTo(rect.bottomRight() + QPoint(0,-gridY/2));
-			p->lineTo(rect.bottomRight() + QPoint(-gridX/2,-gridY/2));
-			p->lineTo(rect.bottomRight() + QPoint(-gridX/2,0));
+			p->setBrush(black);
+			const int x = rect.left();
+			const int y = rect.top();
+			const int w = rect.width();
+			const int h = rect.height();
+			p->drawRect(x,               y,                    w,           2          );
+			p->drawRect(x,               y,                    2,           h - gridY/2);
+			p->drawRect(x,               y + h - gridY/2 - 2,  gridY/2 + 2, 2          );
+			p->drawRect(x + gridY/2,     y + h - gridY/2 - 2,  2,           gridY/2 + 2);
+			p->drawRect(x + w-2,         y,                    2,           h - gridY/2);
+			p->drawRect(x + w-2,         y + h - gridY/2 - 2,  -gridY/2,    2          );
+			p->drawRect(x + w-2- gridY/2,y + h - gridY/2 - 2,  2,           gridY/2 + 2);
 		}
-		
-		rect.rTop() --;
+
 		if (!getText().isEmpty())
 		{
-			QFont newFont(QString::fromLatin1("helvetica"),8);
-			p->setFont(newFont);
-			p->setPen(black);
-			p->drawText(rect, getAlign(), getText());
+			QRect r(rect.left() + 3, rect.top() + 3, rect.width() - 6, rect.height() - 6);
+			g_embFont08->drawText(p, r, getTextAlign(), getText());
 		}
-		p->restore();
 	}
 }
 

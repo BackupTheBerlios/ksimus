@@ -535,22 +535,22 @@ void ComponentLayout::updateLayout()
 		getSheetView()->enableConnectorSpacingBottom(bottomConn);
 	
 	
-  	sizeX = QMAX(topSize,bottomSize);
+		sizeX = QMAX(topSize,bottomSize);
 		sizeY = QMAX(leftSize,rightSize);
-		
+
 		if (leftConn) sizeX++;
 		if (rightConn) sizeX++;
 		if (topConn) sizeY++;
 		if (bottomConn) sizeY++;
 
-  	sizeX = QMAX(sizeX,(unsigned int)getMinSize().width());
+		sizeX = QMAX(sizeX,(unsigned int)getMinSize().width());
 		sizeY = QMAX(sizeY,(unsigned int)getMinSize().height());
-		
+
 		m_currentSize = QSize(sizeX * gridX, sizeY * gridY);
-		
+
 		getSheetView()->setPlace(QRect(getSheetView()->getPos(), m_currentSize), true);
 	}
-	
+
  	unsigned int i;
  	i = sizeY - leftSize;
  	getLeft()->position(i, leftSumStretch, QPoint(0,topConn?1:0));
@@ -560,7 +560,7 @@ void ComponentLayout::updateLayout()
  	getTop()->position(i, topSumStretch, QPoint(leftConn?1:0,0));
  	i = sizeX - bottomSize;
  	getBottom()->position(i, bottomSumStretch, QPoint(leftConn?1:0,sizeY-1));
- 	
+
  	getComponent()->refresh();
 }
 
@@ -579,7 +579,7 @@ void ComponentLayout::setMinSize(const QSize & minSize)
 {
 	m_minSize = minSize;
 }
-	
+
 
 void ComponentLayout::setFixedSize(bool fixed)
 {

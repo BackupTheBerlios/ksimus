@@ -62,9 +62,10 @@ class BooleanAndView : public BooleanXIn1OutView
 public:
 	BooleanAndView(BooleanAnd * comp, eViewType viewType)
 		: BooleanXIn1OutView(comp, viewType) {};
-	
+
 	virtual void draw(QPainter * p);
 };
+
 
 //###############################################################
 

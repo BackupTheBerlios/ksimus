@@ -18,6 +18,8 @@
 // QT includes
 #include <qpainter.h>
 #include <qpopupmenu.h>
+#include <qimage.h>
+#include <qbitmap.h>
 
 // KDE includes
 #include <klocale.h>
@@ -119,7 +121,7 @@ public:
 	QString name;
 	
 	// Name of the connector which is used by the wires to find the correct connector
-	// on a component
+	// of a component
 	QString wireName;
 	
 	// Information class of the connetor
@@ -135,9 +137,22 @@ public:
 	ConnDirType direction;
 	
 	// ID menu entry
-	int idDisconnect;
+	int idDisconnect;  // TODO: make static ????
 	int idErase;
 	int idNegate;
+};
+
+
+
+// Helper class
+// Creates immediatly a QBitmap from a XPM (used in static initializer)
+class ConnectorBase_Bitmap : public QBitmap
+{
+public:
+	ConnectorBase_Bitmap(const char * const xpm[])
+	{
+		*(QBitmap *)this = QImage(xpm);
+	}
 };
 
 
@@ -746,10 +761,10 @@ void ConnectorBase::reset()
 {
 }
 
-	
-//**************************************************************************	
+
+//**************************************************************************
 // *** Display functions ***
-	
+
 /** Draws the connector */
 void ConnectorBase::draw (QPainter * p) const
 {
@@ -760,127 +775,226 @@ void ConnectorBase::draw (QPainter * p) const
 	}
 }
 
+
+static inline void ConnectorBase_drawLine2(QPainter * p, int x, int y, int w, int h,
+                                           const QColor & color, const Qt::PenStyle style)
+{
+	if (Qt::SolidLine == style)
+	{
+		p->setPen(QPen(color, 0));
+		p->setBrush(color);
+		p->drawRect(x, y, w, h+2);
+	}
+	else
+	{
+		w += x;
+		h += y;
+		p->setPen(QPen(color, 1, style));
+		p->drawLine(x, y,   w, h);
+		p->drawLine(x, y+1, w, h+1);
+	}
+}
+
+
+
+static void ConnectorBase_drawLine(QPainter * p,
+                                   const ConnOrientationType orient,
+                                   int x, int y,
+                                   const QColor & color,
+                                   const Qt::PenStyle style,
+                                   const bool wired)
+{
+	if (Qt::SolidLine == style)
+	{
+		// use rect
+//		p->setPen(QPen(color, 0, Qt::SolidLine));
+		p->setPen(color);
+		p->setBrush(color);
+	}
+	else
+	{
+		// use lines
+		p->setPen(QPen(color, 1, style));
+	}
+
+	switch (orient)
+	{
+		case CO_TOP:
+		{
+			x--;
+			y += gridY / 2;
+			int h = wired ? (-gridY * 3 / 2) : -gridY ;
+			if (Qt::SolidLine == style)
+			{
+				p->drawRect(x, y - 1, 2, h);
+			}
+			else
+			{
+				h += y;
+				p->drawLine(x, y, x, h);
+				x++;
+				p->drawLine(x, y, x, h);
+			}
+		}
+		break;
+
+		case CO_RIGHT:
+		{
+			y--;
+			x -= gridX / 2;
+			int w = wired ? (gridX * 3 / 2) : gridX ;
+			if (Qt::SolidLine == style)
+			{
+				p->drawRect(x, y, w, 2);
+			}
+			else
+			{
+				w += x;
+				p->drawLine(x, y, w, y);
+				y++;
+				p->drawLine(x, y, w, y);
+			}
+		}
+		break;
+
+		case CO_BOTTOM:
+		{
+			x--;
+			y -= gridY / 2;
+			int h = wired ? (gridY * 3 / 2) : gridY ;
+			if (Qt::SolidLine == style)
+			{
+				p->drawRect(x, y, 2, h);
+			}
+			else
+			{
+				h += y;
+				p->drawLine(x, y, x, h);
+				x++;
+				p->drawLine(x, y, x, h);
+			}
+		}
+		break;
+
+		case CO_LEFT:
+		{
+			x += gridX / 2;
+			y --;
+			int w = wired ? -(gridX * 3 / 2) : -gridX ;
+			if (Qt::SolidLine == style)
+			{
+				p->drawRect(x - 1, y, w, 2);
+			}
+			else
+			{
+				w += x;
+				p->drawLine(x, y, w, y);
+				y++;
+				p->drawLine(x, y, w, y);
+			}
+		}
+		break;
+
+		default:
+			KSIMDEBUG_VAR("Unknown orientation", (int)orient);
+			break;
+	}
+}
+
+
+
+static void ConnectorBase_drawCircle(QPainter * p,
+                                     const ConnOrientationType orient,
+                                     int x, int y,
+                                     const QColor & color,
+                                     const bool inner)
+{
+	// The "outter" bubble
+	static const char * const xpmOutter[] =
+	{
+		"6 6 2 1",
+		" 	c None",
+		".	c #000000",
+		" .... ",
+		"......",
+		"......",
+		"......",
+		"......",
+		" .... "
+	};
+	static ConnectorBase_Bitmap mapOutter(xpmOutter);
+
+	// The "inner" bubble
+	static const char * const xpmInner[] =
+	{
+		"6 6 2 1",
+		" 	c None",
+		".	c #000000",
+		"  ..  ",
+		"  ..  ",
+		"..  ..",
+		"..  ..",
+		"  ..  ",
+		"  ..  "
+	};
+	static ConnectorBase_Bitmap mapInner(xpmInner);
+
+	p->setPen(color);
+	switch (orient)
+	{
+		case CO_TOP:
+			x += - gridX/2 + 1;
+			y += - gridY/2 + 2;
+			break;
+
+		case CO_RIGHT:
+			x += - gridX/2;
+			y += - gridY/2 + 1;
+			break;
+
+		case CO_BOTTOM:
+			x += - gridX/2 + 1;
+			y += - gridY/2;
+			break;
+
+		case CO_LEFT:
+			x += - gridX/2 + 2;
+			y += - gridY/2 + 1;
+			break;
+
+		default:
+			KSIMDEBUG_VAR("Unknown orientation", (int)orient);
+			break;
+	}
+	p->drawPixmap(x, y, inner ? mapInner : mapOutter);
+}
+
 /** Draws the connector on/in the given place and orientation */
 void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int y) const
 {
-	int step = 0;
-	bool ready = false;
-	const WireColorScheme & colorScheme = getColorScheme();
-	
 	p->save();
-	
-	p->setPen(QPen(colorScheme.getColor(), 2));
-	p->setBrush(colorScheme.getColor());
-	
-	do
+
+	const WireColorScheme & colorScheme = getColorScheme();
+
+	if (colorScheme.isDualColor())
 	{
-		switch(step)
+		ConnectorBase_drawLine(p, orient, x, y, colorScheme.getBackgroundColor(), SolidLine, (getWire() != 0));
+		ConnectorBase_drawLine(p, orient, x, y, colorScheme.getForegroundColor(), DotLine, (getWire() != 0));
+		if (isNegated())
 		{
-			case 0:
-				if (colorScheme.isDualColor())
-				{
-					p->setPen(QPen(colorScheme.getBackgroundColor(), 2));
-					p->setBrush(colorScheme.getBackgroundColor());
-				}
-				else
-				{
-					p->setPen(QPen(colorScheme.getColor(), 2));
-					p->setBrush(colorScheme.getColor());
-					ready = true;
-				}
-				break;
-				
-			case 1:
-				ready = true;
-				if (colorScheme.isDualColor())
-				{
-					p->setPen(QPen(colorScheme.getForegroundColor(), 2, /*DashLine*/ DotLine));
-					p->setBrush(colorScheme.getForegroundColor());
-				}
-				break;
-				
-			default:
-				ready = true;
-				break;
-		}
-		step++;
-		
-		switch (orient)
-		{
-			case CO_TOP:
-			{
-				if (isNegated())
-				{
-					p->drawEllipse(x-3, y-2, 6 , 6);
-				}
-				if (getWire()) //wired?
-				{
-					p->drawLine(x, y-gridY, x, y+gridY/2);
-				}
-				else
-				{
-					p->drawLine(x, y-gridY/2, x, y+gridY/2);
-				}
-			}
-			break;
-				
-			case CO_RIGHT:
-			{
-				if (isNegated())
-				{
-					p->drawEllipse(x-gridX/2, y-3, 6 , 6);
-				}
-				if (getWire()) //wired?
-				{
-					p->drawLine(x-gridX/2, y, x+gridX, y);
-				}
-				else
-				{
-					p->drawLine(x-gridX/2, y, x+gridX/2, y);
-				}
-			}
-			break;
-			
-			case CO_BOTTOM:
-			{
-				if (isNegated())
-				{
-					p->drawEllipse(x-3, y-4, 6 , 6);
-				}
-				if (getWire()) //wired?
-				{
-					p->drawLine(x, y-gridY/2, x, y+gridY);
-				}
-				else
-				{
-					p->drawLine(x, y-gridY/2, x, y+gridY/2);
-				}
-			}
-			break;
-			
-			case CO_LEFT:
-			{
-				if (isNegated())
-				{
-					p->drawEllipse(x-2, y-3, 6 , 6);
-				}
-				if (getWire()) //wired?
-				{
-					p->drawLine(x-gridX, y, x+gridX/2, y);
-				}
-				else
-				{
-					p->drawLine(x-gridX/2, y, x+gridX/2, y);
-				}
-			}
-			break;
-			
-			default:
-				KSIMDEBUG_VAR("Unknown orientation", (int)orient)
-				break;
+			ConnectorBase_drawCircle(p, orient, x, y, colorScheme.getBackgroundColor(), false);
+			ConnectorBase_drawCircle(p, orient, x, y, colorScheme.getForegroundColor(), true);
 		}
 	}
-	while(!ready);
+	else
+	{
+		ConnectorBase_drawLine(p, orient, x, y, colorScheme.getColor(), SolidLine, (getWire() != 0));
+		if (isNegated())
+		{
+			ConnectorBase_drawCircle(p, orient, x, y, colorScheme.getColor(), false);
+		}
+	}
+
 	p->restore();
 }
 
@@ -949,8 +1063,8 @@ int ConnectorInputBase::checkCircuit()
 	
 
 ConnectorOutputBase::ConnectorOutputBase(	
-			Component * comp, const QString & name, const QString & i18nName,
-			const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+		Component * comp, const QString & name, const QString & i18nName,
+		const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
 	:	ConnectorBase (comp,name,i18nName,pos,orient,CD_OUTPUT,ci)
 {
 };
@@ -960,8 +1074,8 @@ ConnectorOutputBase::ConnectorOutputBase(
 	
 
 ConnectorTristateBase::ConnectorTristateBase(	
-			Component * comp, const QString & name, const QString & i18nName,
-			const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
+		Component * comp, const QString & name, const QString & i18nName,
+		const QPoint & pos, ConnOrientationType orient, const ConnectorInfo * ci)
 	:	ConnectorBase (comp,name,i18nName,pos,orient,CD_TRISTATE,ci),
 		m_outActive(false)
 {

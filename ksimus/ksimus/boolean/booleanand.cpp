@@ -25,11 +25,11 @@
 
 // Project-Includes
 #include "booleanand.h"
-#include "resource.h"
 #include "connectorboolin.h"
 #include "connectorboolout.h"
 #include "connectorpack.h"
-#include "componentlayout.h"
+#include "ksimembfont.h"
+
 
 // Forward declaration
 
@@ -72,12 +72,11 @@ const ComponentInfo * BooleanAnd::getStaticNandInfo()
 //###############################################################
 //###############################################################
 
-
 void BooleanAndView::draw(QPainter * p)
 {
 	BooleanXIn1OutView::draw(p);
-	
-	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("&"));
+
+	g_embFont10->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("&"));
 }
 
 

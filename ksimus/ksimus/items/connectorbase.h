@@ -307,7 +307,7 @@ protected:
 	  * @param dir      Declares the connector as input, put or tristate
 	  * @param ci       Gives the connector the exact type info.
 	  */
-	ConnectorBase(Component * comp,				
+	ConnectorBase(Component * comp,
 	              const QString & name,
 	              const QString & i18nName,
 	              const QPoint & pos,	

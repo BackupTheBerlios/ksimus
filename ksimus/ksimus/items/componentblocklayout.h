@@ -63,15 +63,15 @@ public:
   QString getText() const { return m_text; };
 
 	/** Set the alignment of the drawn text. */
-	void setAlign(AlignmentFlags flags) { m_alignFlags = flags; };
+	void setTextAlign(int align) { m_textAlign = align; };
 	/** Returns the alignment of the drawn text. */
-	AlignmentFlags getAlign() const { return m_alignFlags; };
+	int getTextAlign() const { return m_textAlign; };
 
 private:
 	/** Some internal flags. */
 	Q_UINT32 m_flags;
 	QString m_text;
-	AlignmentFlags m_alignFlags;
+	int m_textAlign;
 };
 
 //#######################################################################

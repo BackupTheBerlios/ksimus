@@ -30,6 +30,7 @@
 #include "connectorfloatout.h"
 #include "ksimtime.h"
 #include "ksimtimeserver.h"
+#include "ksimembfont.h"
 
 // Forward declaration
 
@@ -75,9 +76,13 @@ void SimTimeInputView::draw(QPainter * p)
 	
 	drawFrame(p);
 
-	QFont newFont(QString::fromLatin1("helvetica"),10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Sim\nTime"));
+/*	QFont newFont(QString::fromLatin1("helvetica"),10);
+	p->setFont(newFont);*/
+//	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Sim\nTime"));
+
+	QPoint mid(getDrawingPlace().center());
+	g_embFont10->drawText(p, mid - QPoint(0, 5), AlignCenter, QString::fromLatin1("Sim"));
+	g_embFont10->drawText(p, mid + QPoint(0, 5), AlignCenter, QString::fromLatin1("Time"));
 }
 
 
@@ -162,8 +167,8 @@ void TickTimeInputView::draw(QPainter * p)
 	
 	drawFrame(p);
 
-	QFont newFont(QString::fromLatin1("helvetica"),10);
-	p->setFont(newFont);
+/*	QFont newFont(QString::fromLatin1("helvetica"),10);
+	p->setFont(newFont);*/
 	p->drawText(getDrawingPlace(), AlignCenter, QString::fromLatin1("Tick\nTime"));
 }
 
