@@ -26,6 +26,7 @@
 #include "booleanor.h"
 #include "booleanxor.h"
 #include "rsflipflop.h"
+#include "jkflipflop.h"
 
 // Forward declaration
 
@@ -36,6 +37,8 @@ const ComponentInfoList distributeComponents = { &KSimLibBoolean::BooleanOrInfo,
                                                  &KSimLibBoolean::BooleanXorInfo,
                                                  &KSimLibBoolean::BooleanXnorInfo,
                                                  &KSimLibBoolean::RSFlipFlopInfo,
+                                                 &KSimLibBoolean::JKFlipFlopInfo,
+                                                 &KSimLibBoolean::JKMSFlipFlopInfo,
                                                  0 };
 
 
