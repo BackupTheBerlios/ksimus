@@ -1,0 +1,6 @@
+	09.12.2001
+* New: Components JK and JK MS Flip Flop
+* Change: BooleanOr and BooleanXor uses BooleanXIn1Out as base class
+* Change: RSFlipFlop uses Boolean1Out as base class
+
+
