@@ -1076,7 +1076,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 	
 		if (dragging)
 			drawDragRect();
-        dragging = false;
+		dragging = false;
 
 		if ((editorMode == EM_MOVE) && (ev->state() & ControlButton))
 		{
@@ -1109,8 +1109,8 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 				QRect selectArea = QRect (dragStart, dragNow).normalize();
 				FOR_EACH_COMPVIEW(it, *viewList)
 				{
- 					if (selectArea.contains (it.current()->getPlace()))
-						select (it.current(), TRUE);
+ 					if (selectArea.contains (it.current()->getPlace()) && !it.current()->isHidden())
+						select(it.current(), TRUE);
 				}
 				setEditorMode(EM_SELECT);
 				break;

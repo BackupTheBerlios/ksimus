@@ -1650,7 +1650,7 @@ QRect CompContainer::getContainRect(const CompViewList * cvList)
 	FOR_EACH_COMPVIEW(it, *cvList)
 	{
 		// do not if wire
-		if (!it.current()->getComponent()->isWire())
+		if (!it.current()->getComponent()->isWire() && !it.current()->isHidden())
 		{
 			empty = false;
 			if (minX > it.current()->getPlace().left())

@@ -232,7 +232,7 @@ void WireSV::route()
 if insert = true, delete compview to sheet map */
 void WireSV::updateSheetMap(bool insert)
 {
-	if (getComponent()->getContainer()->isVisible())
+	if (getComponent()->getContainer()->isVisible() && !isHidden())
 	{
 		mapItem value;
 		if (insert)

@@ -38,6 +38,7 @@
 #include "ksimus.h"
 #include "ksimwidget.h"
 #include "ksimeditor.h"
+#include "ksimusview.h"
 #include "ksimundo.h"
 #include "ksimdebug.h"
 #include "resource.h"
@@ -306,7 +307,7 @@ void CompView::setPos(const QPoint & pos)
 {
 	QPoint newPos(pos);
 	
-	if (getComponent()->getContainer()->isVisible())
+	if (getComponent()->getContainer()->isVisible() && !isHidden())
 	{	
 		// Limit position
 		QSize mapSize;
@@ -335,24 +336,24 @@ void CompView::setPos(const QPoint & pos)
 		{
 			newPos.setY(0);
 		}
-	}
+		
+		// now map to grid
+		if (isGridSnapEnabled())
+		{
+			newPos = mapToGrid(newPos);
+		}
 	
-	// now map to grid
-	if (isGridSnapEnabled())
-	{
-		newPos = mapToGrid(newPos);
-	}
-	
-	if(m_p->place.topLeft() != newPos)
-	{
-		// Remove Object from sheet map
-		updateSheetMap(false);
-		m_p->place.moveTopLeft(newPos);
-		// Insert Object to sheet map
-		updateSheetMap(true);
+		if(m_p->place.topLeft() != newPos)
+		{
+			// Remove Object from sheet map
+			updateSheetMap(false);
+			m_p->place.moveTopLeft(newPos);
+			// Insert Object to sheet map
+			updateSheetMap(true);
 
-		emit signalMove(getPlace().topLeft());
-		emit signalMoveWidget(getWidgetPlace().topLeft());
+			emit signalMove(getPlace().topLeft());
+			emit signalMoveWidget(getWidgetPlace().topLeft());
+		}
 	}
 }
 
@@ -666,7 +667,7 @@ ConnectorBase * CompView::getLastHitConnector() const
 if insert = true, delete compview to sheet map */
 void CompView::updateSheetMap(bool insert)
 {
-	if (getComponent()->getContainer()->isVisible())
+	if (getComponent()->getContainer()->isVisible() && !isHidden())
 	{
 		QRect mapPlace;
 	
@@ -817,16 +818,24 @@ void CompView::setHide(bool hide)
 	{
 		if(hide)
 		{
-			m_p->flags |= FLAGS_HIDDEN;
-			// Remove object from sheet map
+			// Remove object from sheet map (before set hidden!)
 			updateSheetMap(false);
+			// set hidden;
+			m_p->flags |= FLAGS_HIDDEN;
+			// Unselect view
+			for(QListIterator<KSimusView> it(*getComponent()->getDoc()->getViewList());it.current();++it)
+			{
+				KSimEditor * ed = it.current()->getEditor();
+				if (ed) ed->select(this, false);
+			}
 			emit signalHide();
 		}
 		else
 		{
 			m_p->flags &= ~FLAGS_HIDDEN;
-			// Insert object to sheet map
+			// Insert object to sheet map (after set not hidden)
 			updateSheetMap(true);
+			moveToBestPlace();
 			emit signalShow();
 		}
 	}
@@ -1337,7 +1346,7 @@ eHitType CompViewSize::isHit(int x, int y) const
 	place.rTop() -= 1;
 	place.rBottom() += HANDLE_THICK;
 
-	if (place.contains(x,y))
+	if (place.contains(x,y) && !isHidden())
 	{
 		if (((x <= place.left()  + HANDLE_SIZE) && (y <= place.top()    + HANDLE_SIZE)) //top left
 		 || ((x >= place.right() - HANDLE_SIZE) && (y >= place.bottom() - HANDLE_SIZE)))//bottom right
@@ -1396,7 +1405,7 @@ QRect CompViewList::getRect() const
 	FOR_EACH_COMPVIEW(it, *this)
 	{
 		// do not if wire
-		if (!it.current()->getComponent()->isWire())
+		if (!it.current()->getComponent()->isWire() && !it.current()->isHidden())
 		{
 			empty = false;
 			if (minX > it.current()->getPlace().left())
