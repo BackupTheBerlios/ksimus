@@ -311,7 +311,7 @@ KSimIcon::tDefaultIcons KSimIcon::defaultIcons[] = {
 {"finish",           KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::finish_16x16_default},
 {"forward",          KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::forward_16x16_default},
 {"player_pause",     KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::player_pause_16x16_default},
-{"rightarrow1",      KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::rightarrow1_16x16_default},
+{"1rightarrow",      KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::rightarrow1_16x16_default},
 {"start",            KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::start_16x16_default},
 {"stop",             KIcon::Small,       KIcon::DefaultState, KSimIconDefaults::stop_16x16_default},
 
