@@ -24,6 +24,7 @@
 // Project-Includes
 #include "ksimtype.h"
 #include "ksimdata.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
@@ -45,6 +46,8 @@ bool KSimTypeBase::load(KSimData & config, const char * pKey, const QString& aDe
 	QString str = config.readEntry(pKey, aDefault);
 	
 	bool ok;
+
+//	KSIMDEBUG(QString::fromLatin1("KSimTypeBase::load pKey = '%1' result ='%2'").arg(pKey).arg(str));
 	
 	setText(str, &ok);
 	
