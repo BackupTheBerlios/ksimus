@@ -41,17 +41,37 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	:	ComponentPropertyBaseWidget(comp, parent, name)
 {
 	QGridLayout * layout;
+	QString str;
+	QLabel * label;
 	
 	m_grid = new QGrid(2, /*QGrid::Horizontal,*/ this);
+	CHECK_PTR(m_grid);
 	m_grid->setMargin(KDialog::marginHint());
 	m_grid->setSpacing(KDialog::spacingHint());
 	
-	new QLabel(i18n("Name: "), m_grid,"LineEditLabel");
+	
+	// Name edit	
+	str = i18n("Change the name of the component here");
+	label = new QLabel(i18n("Name:"), m_grid,"LineEditLabel");
+	CHECK_PTR(label);
+	QToolTip::add(label, str);
 	
 	m_nameEdit = new QLineEdit(m_grid,"LineEdit");
+	CHECK_PTR(m_nameEdit);
 	m_nameEdit->setText(getComponent()->getName());
-	QToolTip::add(m_nameEdit, i18n("Change the name of the component here"));
+	QToolTip::add(m_nameEdit, str);
 
+	// Component type
+	str = i18n("Shows the component type.");
+	
+	label = new QLabel(i18n("Type:"), m_grid);
+	CHECK_PTR(label);
+	QToolTip::add(label, str);
+	
+	label = new QLabel(getComponent()->getInfo()->getName(), m_grid);
+	CHECK_PTR(label);
+	QToolTip::add(label, str);
+	
 	
 	// Set main layout
 	layout = new QGridLayout(this,2,1);
