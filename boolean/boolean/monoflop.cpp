@@ -61,7 +61,9 @@ const ComponentInfo MonoFlopInfo(I18N_NOOP("Mono Flop"),
                                  I18N_NOOP("Boolean/Flip Flop/Mono Flop"),
                                  QString::null,//"Mono Flop",
                                  VA_SHEETVIEW,
-                                 create
+                                 create,	
+                                 QString::null,
+                                 "component-boolean-monoflop"
                                  );
 
 
@@ -105,7 +107,7 @@ void MonoFlop::calculate()
 	FlipFlopBase::calculate();
 	
 	bool trigger = getSetInputConnector()->getInput();
-	bool reset = getResetInputConnector()->getInput();
+	bool reset = getResetInputConnector()->getInput() && !getResetInputConnector()->isHidden();
 
 	if(getTimeServer().getTime() >= m_time)
 	{

@@ -58,11 +58,11 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 
 const ComponentInfo BooleanCounterInfo(I18N_NOOP("Boolean Counter with RCO and RBO"),
                                        I18N_NOOP("Boolean/Counter/with RCO and RBO"),
-                                       QString::null,//"D Latch",
+                                       QString::null,
                                        VA_SHEETVIEW,
                                        create,
                                        QString::null,
-                                       QString::null,
+                                       "component-boolean-counter-rco-rbo",
                                        "Boolean/Gates/Counter"
                                       );
 
@@ -186,9 +186,9 @@ void BooleanCounter::calculate()
 {
 	Component::calculate();
 
-	bool clear(getInputClear()->getInput());	
-	bool up(getInputClockUp()->getInput());	
-	bool down(getInputClockDown()->getInput());
+	bool clear(getInputClear()->getInput() && !getInputClear()->isHidden());	
+	bool up(getInputClockUp()->getInput() && !getInputClockUp()->isHidden());	
+	bool down(getInputClockDown()->getInput() && !getInputClockDown()->isHidden());
 	
 	m_borrow = false;
 	m_carry = false;
@@ -199,7 +199,11 @@ void BooleanCounter::calculate()
 	}
 	else
 	{
-		if (up)
+		if (up && down)
+		{
+			// do thing
+		}
+		else if (up)
 		{
 			if (m_cnt < getMaxCount())
 			{
@@ -211,8 +215,7 @@ void BooleanCounter::calculate()
 				m_carry = true;
 			}
 		}
-		
-		if (down)
+		else if (down)
 		{
 			if (m_cnt > getMinCount())
 			{

@@ -51,7 +51,9 @@ const ComponentInfo DFlipFlopInfo(I18N_NOOP("D Latch"),
                                   I18N_NOOP("Boolean/Flip Flop/D Latch"),
                                   QString::null,//"D Latch",
                                   VA_SHEETVIEW,
-                                  create
+                                  create,	
+                                  QString::null,
+                                  "component-boolean-d-latch"
                                   );
 
 
@@ -96,23 +98,15 @@ void DFlipFlop::calculate()
 {
 	FlipFlopBase::calculate();
 	
-	bool set = getSetInputConnector()->getInput();
-	bool reset = getResetInputConnector()->getInput();
+	bool set = getSetInputConnector()->getInput() && !getSetInputConnector()->isHidden();
+	bool reset = getResetInputConnector()->getInput() && !getResetInputConnector()->isHidden();
 	bool enable = getEnableInputConnector()->getInput();
 	bool data = getDataInputConnector()->getInput();
 
 	
-	if (set && getDominant())
+	if (set || reset)
 	{
-		setState(true);
-	}
-	else if (reset)
-	{
-		setState(false);
-	}
-	else if (set)
-	{
-		setState(true);
+		setState(set && (getDominant() || !reset));
 	}
 	else if (enable)
 	{

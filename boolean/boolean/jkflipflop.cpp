@@ -59,14 +59,18 @@ const ComponentInfo JKFlipFlopInfo(I18N_NOOP("JK Flip Flop"),
                                    I18N_NOOP("Boolean/Flip Flop/JK-FF"),
                                    QString::null,/*"JK Flip Flop",*/
                                    VA_SHEETVIEW,
-                                   create
+                                   create,	
+                                   QString::null,
+                                   "component-boolean-jk-ff"
                                   );
 
 const ComponentInfo JKMSFlipFlopInfo(I18N_NOOP("JK Master Slave Flip Flop"),
                                      I18N_NOOP("Boolean/Flip Flop/JK-MS-FF"),
                                      QString::null,/*"JK Flip Flop",*/
                                      VA_SHEETVIEW,
-                                     create
+                                     create,	
+                                     QString::null,
+                                     "component-boolean-jk-ff"
                                    );
 
 
@@ -174,21 +178,13 @@ void JKFlipFlop::calculate()
 
 void JKFlipFlop::calculateJK()
 {
-	bool set = getSetInputConnector()->getInput();
-	bool reset = getResetInputConnector()->getInput();
+	bool set = getSetInputConnector()->getInput() && !getSetInputConnector()->isHidden();
+	bool reset = getResetInputConnector()->getInput() && !getResetInputConnector()->isHidden();
 	bool clk = getClockInputConnector()->getInput();
 	
-	if (set && getDominant())
+	if (set || reset)
 	{
-		setState(true);
-	}
-	else if (reset)
-	{
-		setState(false);
-	}
-	else if (set)
-	{
-		setState(true);
+		setState(set && (getDominant() || !reset));
 	}
 	else if(clk)
 	{
@@ -214,26 +210,14 @@ void JKFlipFlop::calculateJK()
 
 void JKFlipFlop::calculateJKMS()
 {
-	bool set = getSetInputConnector()->getInput();
-	bool reset = getResetInputConnector()->getInput();
+	bool set = getSetInputConnector()->getInput() && !getSetInputConnector()->isHidden();
+	bool reset = getResetInputConnector()->getInput() && !getResetInputConnector()->isHidden();
 	bool clk = ((ConnectorBoolIn *)getClockInputConnector())->getInput();
 	
 	if (set || reset)
 	{
 		m_lastJ = m_lastK = false;
-	}
-	
-	if (set && getDominant())
-	{
-		setState(true);
-	}
-	else if (reset)
-	{
-		setState(false);
-	}
-	else if (set)
-	{
-		setState(true);
+		setState(set && (getDominant() || !reset));
 	}
 	else if(clk && !m_lastClk)
 	{
