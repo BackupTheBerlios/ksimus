@@ -31,6 +31,7 @@
 #include "monoflop.h"
 #include "booleancounter.h"
 #include "booleanconstant.h"
+#include "boolean7segment.h"
 
 // Forward declaration
 
@@ -48,6 +49,7 @@ const ComponentInfoList distributeComponents = { &KSimLibBoolean::BooleanOrInfo,
                                                  &KSimLibBoolean::BooleanCounterInfo,
                                                  &KSimLibBoolean::BooleanConstantTrue,
                                                  &KSimLibBoolean::BooleanConstantFalse,
+                                                 &KSimLibBoolean::BooleanBoolean7SegmentInfo,
                                                  0 };
 
 

@@ -95,7 +95,7 @@ install_location=
 type=DATA
 
 [boolean/Makefile.am]
-files=boolean/boolean.cpp,boolean/boolean.h,boolean/lo16-app-boolean.png,boolean/booleanxor.cpp,boolean/booleanxor.h,boolean/booleanor.cpp,boolean/booleanor.h,boolean/boolean2in1out.cpp,boolean/boolean2in1out.h,boolean/rsflipflop.cpp,boolean/rsflipflop.h,boolean/flipflopbase.cpp,boolean/flipflopbase.h,boolean/jkflipflop.cpp,boolean/jkflipflop.h,boolean/dflipflop.cpp,boolean/dflipflop.h,boolean/monoflop.cpp,boolean/monoflop.h,boolean/booleancounter.cpp,boolean/booleancounter.h,boolean/booleanconstant.cpp,boolean/booleanconstant.h
+files=boolean/boolean.cpp,boolean/boolean.h,boolean/lo16-app-boolean.png,boolean/booleanxor.cpp,boolean/booleanxor.h,boolean/booleanor.cpp,boolean/booleanor.h,boolean/boolean2in1out.cpp,boolean/boolean2in1out.h,boolean/rsflipflop.cpp,boolean/rsflipflop.h,boolean/flipflopbase.cpp,boolean/flipflopbase.h,boolean/jkflipflop.cpp,boolean/jkflipflop.h,boolean/dflipflop.cpp,boolean/dflipflop.h,boolean/monoflop.cpp,boolean/monoflop.h,boolean/booleancounter.cpp,boolean/booleancounter.h,boolean/booleanconstant.cpp,boolean/booleanconstant.h,boolean/boolean7segment.cpp,boolean/boolean7segment.h
 sub_dirs=
 type=shared_library
 
@@ -118,6 +118,18 @@ install_location=
 type=SOURCE
 
 [boolean/boolean2in1out.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[boolean/boolean7segment.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[boolean/boolean7segment.h]
 dist=true
 install=false
 install_location=
