@@ -50,6 +50,14 @@ public:
 	/** Reset all simulation variables */
 	virtual void reset();
 
+	/** Returns the output connector.
+	  */
+	ConnectorBoolOut * getOutputConnector() const { return m_out; };
+	/** Returns the input connector pack.
+	  */
+	ConnectorPack * getInputConnectorPack() const { return m_inPack; };
+	
+
 protected:
 	bool m_result;
 	ConnectorBoolOut * m_out;
@@ -62,7 +70,7 @@ protected:
 class BooleanAndView : public CompView
 {
 public:
-	BooleanAndView(Component * comp, eViewType viewType);
+	BooleanAndView(BooleanAnd * comp, eViewType viewType);
 	~BooleanAndView();
 	virtual void draw(QPainter * p);
 };

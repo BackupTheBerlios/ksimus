@@ -63,10 +63,22 @@ const ComponentInfoList BooleanAndList = { &BooleanAndInfo, &BooleanNandInfo, 0 
 //###############################################################
 
 
-BooleanAndView::BooleanAndView(Component * comp, eViewType viewType)
+BooleanAndView::BooleanAndView(BooleanAnd * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+
+	ComponentLayout * lay = new ComponentLayout(this);
+	CHECK_PTR(lay);
+	
+	lay->getLeft()->addSpace(1);
+	lay->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+	
+	lay->getRight()->addStretch(2);
+	lay->getRight()->addConnector(comp->getOutputConnector(),0);
+	lay->getRight()->addStretch(2);
+	
+	lay->updateLayout();
 }
 BooleanAndView::~BooleanAndView()
 {
@@ -97,6 +109,7 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 	
 	m_inPack = new ConnectorPack(this, QString("Input"), &ConnectorBoolInInfo, 2, 10);
 	CHECK_PTR(m_inPack);
+//	m_inPack->setDeleteLastOnly(false);
 	m_inPack->setConnectorCount(2);
 	
 	// make Nand
@@ -112,17 +125,6 @@ BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
-	
-	ComponentLayout * lay = new ComponentLayout(this);
-	
-	lay->getLeft()->addSpace(1);
-	lay->getLeft()->addConnectorPack(m_inPack);
-	
-	lay->getRight()->addStretch(2);
-	lay->getRight()->addConnector(m_out,0);
-	lay->getRight()->addStretch(2);
-	
-	lay->updateLayout();
 }
 
 /** Executes the simulation of this component */
