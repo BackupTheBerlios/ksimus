@@ -1,5 +1,10 @@
+	21.04.2002
+* Change: Use singleton patterns instead of static objects
+* Improve i18n
 	20.04.2002
 * New package naming ksimus-floatingpoint
+* New: Version 0.3.5-cvs
+* New version check code in configure.in.in
 	22.03.2002
 * Add missing #include <math.h>. Thanks Francois Dickey!
 * New: Version 0.3.4-1
