@@ -10,6 +10,8 @@
 
 
 <!-- ########################          Components        ######################## -->
+  <!ENTITY BooleanIdentity '<link linkend="component-boolean-identity">Identity Gate</link>'>
+  <!ENTITY BooleanInverter '<link linkend="component-boolean-inverter">Inverter Gate</link>'>
   <!ENTITY BooleanOR '<link linkend="component-boolean-or">OR Gate</link>'>
   <!ENTITY BooleanNOR '<link linkend="component-boolean-nor">NOR Gate</link>'>
   <!ENTITY BooleanXOR '<link linkend="component-boolean-xor">XOR Gate</link>'>
@@ -208,6 +210,8 @@ patent issues. -->
 
 <para>Gates:
 <itemizedlist>
+<listitem><para>&BooleanIdentity;</para></listitem>
+<listitem><para>&BooleanInverter;</para></listitem>
 <listitem><para>&BooleanOR;</para></listitem>
 <listitem><para>&BooleanNOR;</para></listitem>
 <listitem><para>&BooleanXOR;</para></listitem>

@@ -31,6 +31,7 @@
 #include "boolean.h"
 
 // Component-Includes
+#include "inverter.h"
 #include "booleanor.h"
 #include "booleanxor.h"
 #include "rsflipflop.h"
@@ -72,6 +73,8 @@ static const ComponentInfoList & getDistComponents()
 		CHECK_PTR(pDistComponents);
 
 		// Add your component info here
+		pDistComponents->append(getIdentityInfo());
+		pDistComponents->append(getInverterInfo());
 		pDistComponents->append(getBooleanOrInfo());
 		pDistComponents->append(getBooleanNorInfo());
 		pDistComponents->append(getBooleanXorInfo());

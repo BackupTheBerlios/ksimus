@@ -6,11 +6,115 @@
 <title>Gates</title>
 
 <simplelist>
+<member>&BooleanIdentity;</member>
+<member>&BooleanInverter;</member>
 <member>&BooleanOR;</member>
 <member>&BooleanNOR;</member>
 <member>&BooleanXOR;</member>
 <member>&BooleanXNOR;</member>
 </simplelist>
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################      Boolean Gate Identity    ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-identity">
+<title>Identity Gate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a logic Identity gate. The output state simply follows the input
+state.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_identity.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="4">
+<thead>
+<row><entry>Input</entry> <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry></entry> <entry>False</entry>  </row>
+<row><entry>True</entry>  <entry></entry> <entry>True</entry>   </row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Gates -> Identity</para></sect3>
+
+</sect2>
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ########################      Boolean Gate Inverter    ######################## -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-inverter">
+<title>Inverter Gate</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component is a logic inverter gate. The output state is the inverted input
+state.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The input and the output are freely negatable.
+</para></listitem><listitem><para>
+The component supports a user definable reset state. The output adopts this state during
+the reset cycle and keeps this state until the first simulation cycle is finished.
+The default reset state is false.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_inverter.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="4">
+<thead>
+<row><entry>Input</entry> <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry></entry> <entry>True</entry>  </row>
+<row><entry>True</entry>  <entry></entry> <entry>False</entry>   </row>
+</tbody>
+</tgroup></informaltable></para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Gates -> Inverter</para></sect3>
+
+</sect2>
 
 <!-- ############################################################################### -->
 <!-- ############################################################################### -->
