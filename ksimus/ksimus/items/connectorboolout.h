@@ -45,9 +45,32 @@ friend class WirePropertyBoolean;
 public:	
 	enum eResetMode { ResetDefault = 0, ResetTrue, ResetFalse };
 	
+	/**
+	 * Constructs a boolean output connector.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 */
 	ConnectorBoolOut(	Component * comp,
 						const char * name,
-						const QPoint & pos	);
+						const QPoint & pos = QPoint()	);
+	
+	/**
+	 * Constructs a boolean output connector. Like the constructor above, but creates also a
+	 * connector label (@see ConnectorLabel).
+	 *
+	 * @param comp  Component which contains this connector.
+	 * @param name  The name of the connector. This name is shown at the property view
+	 *              or the status bar.
+	 * @param descr Sets the description of the connector label.
+	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
+	 */
+	ConnectorBoolOut(	Component * comp,
+						const char * name,
+						const QString & descr,
+						const QPoint & pos = QPoint()	);
 	
 	
     /** Resets the connector
@@ -85,6 +108,22 @@ public:
 
 
 protected:
+	/**
+	 * Constructs a boolean output connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient Sets the orientation of the connector.
+	 * @param ci     Sets the connector info (@see ConnectorInfo):
+	 */
+	ConnectorBoolOut(	Component * comp,
+						const char * name,
+						const QPoint & pos,
+						ConnOrientationType orient,
+						const ConnectorInfo * ci);
+						
 	/** The function copyData() has to copy data to the output variable
 	  * The default implementation doest nothing
 	  * Reimplementations is required for all output connectors  */
@@ -104,6 +143,9 @@ private slots:
 	
 	
 private:
+	/** Internal init function. */
+	void init();
+	
 	int idNegate;
 };
 

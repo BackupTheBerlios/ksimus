@@ -33,9 +33,33 @@ class ConnectorBoolIn : public ConnectorInputBase
 	Q_OBJECT
 
 public:
+	/**
+	 * Constructs a boolean input connector.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 */
 	ConnectorBoolIn(	Component * comp,
 						const char * name,
-						const QPoint & pos	);
+						const QPoint & pos = QPoint()	);
+	
+	/**
+	 * Constructs a boolean input connector. Like the constructor above, but creates also a
+	 * connector label (@see ConnectorLabel).
+	 *
+	 * @param comp  Component which contains this connector.
+	 * @param name  The name of the connector. This name is shown at the property view
+	 *              or the status bar.
+	 * @param descr Sets the description of the connector label.
+	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
+	 */
+	ConnectorBoolIn(	Component * comp,
+						const char * name,
+						const QString & descr,
+						const QPoint & pos = QPoint()	);
+	
 	
 	// Setup the colors, brushs, and fills for the connector
 	virtual void setupColorScheme (QPainter * p) const;
@@ -50,6 +74,24 @@ public:
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
 protected:
+	/**
+	 * Constructs a boolean input connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient Sets the orientation of the connector.
+	 * @param ci     Sets the connector info (@see ConnectorInfo):
+	 */
+	ConnectorBoolIn(	Component * comp,
+						const char * name,
+						const QPoint & pos,
+						ConnOrientationType orient,
+						const ConnectorInfo * ci);
+	
+	
+	
 	/** Returns a pointer to the data that's read from the component
 	  * The default implementation calls the function getWireData()
 	  * Reimplementations is required if the connector has to modify this data (e.g. a neg. boolean input */
@@ -64,6 +106,10 @@ private slots:
 	
 	
 private:
+	/** Internal init function. */
+	void init();
+
+
 	int idNegate;
 };
 

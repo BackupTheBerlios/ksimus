@@ -33,7 +33,7 @@
   *@author Rasmus Diekenbrock
   */
 
-extern const ConnectorInfo ConnectorBoolInInfoEdge;
+extern const ConnectorInfo ConnectorBoolInEdgeInfo;
 
 
 class ConnectorBoolInEdge : public ConnectorBoolIn
@@ -42,9 +42,31 @@ class ConnectorBoolInEdge : public ConnectorBoolIn
 	Q_OBJECT
 
 public:
+	/**
+	 * Constructs a edge sensitive boolean input connector.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 */
 	ConnectorBoolInEdge(Component * comp, const char * name, const QPoint & pos = QPoint());
-//	~ConnectorBoolInEdge();
 
+	/**
+	 * Constructs a edge sensitive boolean input connector. Like the constructor above, but creates also a
+	 * connector label (@see ConnectorLabel).
+	 *
+	 * @param comp  Component which contains this connector.
+	 * @param name  The name of the connector. This name is shown at the property view
+	 *              or the status bar.
+	 * @param descr Sets the description of the connector label.
+	 * @param pos   Sets the position of the connctor. The position has to be given in grids.
+	 */
+	ConnectorBoolInEdge(Component * comp,
+	                    const char * name,
+	                    const QString & descr,
+	                    const QPoint & pos = QPoint()	);
+	
 	/** True sets the connector edge sensitive. False sets the connector level sensitive.
 	 */
 	void setEdgeSensitive(bool edge);
@@ -84,6 +106,24 @@ public:
 	/** Save properties. */
 	virtual void save(KSimData & file) const;
 
+protected:
+	/**
+	 * Constructs a boolean input connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp Component which contains this connector.
+	 * @param name The name of the connector. This name is shown at the property view
+	 *             or the status bar.
+	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient Sets the orientation of the connector.
+	 * @param ci     Sets the connector info (@see ConnectorInfo):
+	 */
+	ConnectorBoolInEdge(Component * comp,
+	                    const char * name,
+	                    const QPoint & pos,
+	                    ConnOrientationType orient,
+	                    const ConnectorInfo * ci);
+
+
 private slots:
 	/** Display a status help message for popup menu entries, if highlighted */
 	virtual void popupMenuHighlighted(int msg) const;
@@ -95,7 +135,7 @@ private slots:
 private:
 	bool m_edgeSensitive;
 	bool m_last;
-	unsigned int m_flags;
+	Q_UINT32 m_flags;
 	static int s_idSensitive;	
 };
 
