@@ -37,7 +37,7 @@
 namespace KSimLibFloatingPoint
 {
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+static Component * createLog(CompContainer * container, const ComponentInfo * ci)
 {
 	return new FloatLog(container, ci);
 }
@@ -49,9 +49,29 @@ const ComponentInfo * getFloatLogInfo()
 	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
-	                                create,
+	                                createLog,
 	                                QString::null,
 	                                QString::fromLatin1("component-float-arithmetic-log"));
+	return &Info;
+}
+
+
+
+static Component * createLog10(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatLog10(container, ci);
+}
+
+const ComponentInfo * getFloatLog10Info()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point log10(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Exponentiation & Logarithms/log10(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Exponentiation & Logarithms/log10(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createLog10,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-arithmetic-log10"));
 	return &Info;
 }
 
@@ -94,6 +114,48 @@ void FloatLog::calculate()
 	Float1In1Out::calculate();
 	
 	setValue(log(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatLog10View::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "log\n10");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatLog10::FloatLog10(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatLog10View(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatLog10::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(log10(getInput()->getInput()));
 }
 
 

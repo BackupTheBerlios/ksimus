@@ -76,6 +76,65 @@ const ComponentInfo * getFloatATanInfo()
 
 
 
+static Component * createATan2(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatATan2(container, ci);
+}
+
+const ComponentInfo * getFloatATan2Info()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point atan2(x,y)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/atan2(x,y)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/atan2(x,y)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createATan2,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-atan2"));
+	return &Info;
+}
+
+
+
+static Component * createTanh(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatTanh(container, ci);
+}
+
+const ComponentInfo * getFloatTanhInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point tanh(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/tan(hx)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/tanh(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createTanh,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-tanh"));
+	return &Info;
+}
+
+
+static Component * createATanh(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatATanh(container, ci);
+}
+
+const ComponentInfo * getFloatATanhInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point atanh(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/atanh(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/atanh(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createATanh,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-atanh"));
+	return &Info;
+}
+
+
+
 
 //###############################################################
 //###############################################################
@@ -129,7 +188,7 @@ void FloatATanView::draw(QPainter * p)
 	
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "atan");
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\ntan");
 }
 
 
@@ -154,6 +213,134 @@ void FloatATan::calculate()
 	Float1In1Out::calculate();
 	
 	setValue(atan(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+//###############################################################
+//###############################################################
+
+
+void FloatATan2View::draw(QPainter * p)
+{
+	Float2In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\ntan\n2");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatATan2::FloatATan2(CompContainer * container, const ComponentInfo * ci)
+	: Float2In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatATan2View(this, SHEET_VIEW);
+	}
+	getInputA()->setName(i18n("FloatingPoint", "Input X"));
+	getInputB()->setName(i18n("FloatingPoint", "Input Y"));
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatATan2::calculate()
+{
+	Float2In1Out::calculate();
+
+	setValue(atan2(getInputA()->getInput(), getInputB()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatTanhView::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "tan\nhyp");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatTanh::FloatTanh(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatTanhView(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatTanh::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(tanh(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatATanhView::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\ntan\nhyp");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatATanh::FloatATanh(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatATanhView(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatATanh::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(atanh(getInput()->getInput()));
 }
 
 

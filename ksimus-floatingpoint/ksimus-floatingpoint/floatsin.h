@@ -36,6 +36,8 @@ namespace KSimLibFloatingPoint
 
 const ComponentInfo * getFloatSinInfo();
 const ComponentInfo * getFloatASinInfo();
+const ComponentInfo * getFloatSinhInfo();
+const ComponentInfo * getFloatASinhInfo();
 
 
 //###############################################################
@@ -64,7 +66,7 @@ class FloatSinView : public Float1In1OutView
 {
 public:
 	FloatSinView(FloatSin * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
 	virtual void draw(QPainter * p);
 };
@@ -98,8 +100,70 @@ class FloatASinView : public Float1In1OutView
 {
 public:
 	FloatASinView(FloatASin * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
+/**A floating point hyperbolic sinusoidal gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatSinh : public Float1In1Out
+{
+public:
+	/** Constructs a floating point sinus */
+	FloatSinh(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point hyperbolic sinusoidal gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatSinhView : public Float1In1OutView
+{
+public:
+	FloatSinhView(FloatSinh * comp, eViewType viewType)
+		: Float1In1OutView(comp, viewType, 5, 5) {};
+
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
+/**A floating point inverse hyperbolic sinusoidal gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatASinh : public Float1In1Out
+{
+public:
+	/** Constructs a floating point sinus */
+	FloatASinh(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point inverse hyperbolic sinusoidal gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatASinhView : public Float1In1OutView
+{
+public:
+	FloatASinhView(FloatASinh * comp, eViewType viewType)
+		: Float1In1OutView(comp, viewType, 5, 5) {};
+
 	virtual void draw(QPainter * p);
 };
 

@@ -76,6 +76,45 @@ const ComponentInfo * getFloatACosInfo()
 
 
 
+static Component * createCosh(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatCosh(container, ci);
+}
+
+const ComponentInfo * getFloatCoshInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point cosh(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/cosh(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/cosh(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createCosh,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-cosh"));
+	return &Info;
+}
+
+
+static Component * createACosh(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatACosh(container, ci);
+}
+
+const ComponentInfo * getFloatACoshInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point acosh(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/acosh(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/acosh(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createACosh,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-acosh"));
+	return &Info;
+}
+
+
+
 
 //###############################################################
 //###############################################################
@@ -129,7 +168,7 @@ void FloatACosView::draw(QPainter * p)
 	
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "acos");
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\ncos");
 }
 
 
@@ -154,6 +193,90 @@ void FloatACos::calculate()
 	Float1In1Out::calculate();
 	
 	setValue(acos(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatCoshView::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "cos\nhyp");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatCosh::FloatCosh(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatCoshView(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatCosh::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(cosh(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatACoshView::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\ncos\nhyp");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatACosh::FloatACosh(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatACoshView(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatACosh::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(acosh(getInput()->getInput()));
 }
 
 

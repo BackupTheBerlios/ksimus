@@ -35,18 +35,19 @@ namespace KSimLibFloatingPoint
 // Forward declaration
 
 const ComponentInfo * getFloatLogInfo();
+const ComponentInfo * getFloatLog10Info();
 
 
 //###############################################################
 
-/**A floating point exponent gate.
+/**A floating point natural logarithm gate.
   * @author Rasmus Diekenbrock
   */
 
 class FloatLog : public Float1In1Out
 {
 public:
-	/** Constructs a floating point Exp */
+	/** Constructs a floating point natural logarithm gate */
 	FloatLog(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
@@ -55,7 +56,7 @@ public:
 
 //###############################################################
 
-/** The view for the floating point exponent gate.
+/** The view for the floating point natural logarithm gate.
 	*
   * @author Rasmus Diekenbrock
   */
@@ -63,8 +64,41 @@ class FloatLogView : public Float1In1OutView
 {
 public:
 	FloatLogView(FloatLog * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
+//###############################################################
+
+/**A floating point natural logarithm gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatLog10 : public Float1In1Out
+{
+public:
+	/** Constructs a floating point base-10 logarithm gate */
+	FloatLog10(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point base-10 logarithm gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatLog10View : public Float1In1OutView
+{
+public:
+	FloatLog10View(FloatLog10 * comp, eViewType viewType)
+		: Float1In1OutView(comp, viewType, 5, 5) {};
+
 	virtual void draw(QPainter * p);
 };
 

@@ -26,6 +26,7 @@
 
 // Project-Includes
 #include "float1in1out.h"
+#include "float2in1out.h"
 #include "ksimus/componentinfo.h"
 
 
@@ -35,6 +36,8 @@ namespace KSimLibFloatingPoint
 // Forward declaration
 
 const ComponentInfo * getFloatExpInfo();
+const ComponentInfo * getFloatPowInfo();
+const ComponentInfo * getFloatSqrtInfo();
 
 
 //###############################################################
@@ -63,12 +66,79 @@ class FloatExpView : public Float1In1OutView
 {
 public:
 	FloatExpView(FloatExp * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
 	virtual void draw(QPainter * p);
 };
 
 //###############################################################
+
+//###############################################################
+
+/**A floating point power gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatPow : public Float2In1Out
+{
+public:
+	/** Constructs a floating point power gate */
+	FloatPow(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point power gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatPowView : public Float2In1OutView
+{
+public:
+	FloatPowView(FloatPow * comp, eViewType viewType)
+		: Float2In1OutView(comp, viewType) {};
+
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
+//###############################################################
+
+/**A floating point square root gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatSqrt : public Float1In1Out
+{
+public:
+	/** Constructs a floating point square root */
+	FloatSqrt(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point square root gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatSqrtView : public Float1In1OutView
+{
+public:
+	FloatSqrtView(FloatSqrt * comp, eViewType viewType)
+		: Float1In1OutView(comp, viewType, 5, 5) {};
+
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
 
 
 };  //namespace KSimLibFloatingPoint

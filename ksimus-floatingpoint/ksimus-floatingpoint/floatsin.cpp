@@ -74,6 +74,41 @@ const ComponentInfo * getFloatASinInfo()
 	return &Info;
 }
 
+static Component * createSinh(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatSinh(container, ci);
+}
+
+const ComponentInfo * getFloatSinhInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point sinh(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/sinh(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/sinh(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createSinh,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-sinh"));
+	return &Info;
+}
+
+static Component * createASinh(CompContainer * container, const ComponentInfo * ci)
+{
+	return new FloatASinh(container, ci);
+}
+
+const ComponentInfo * getFloatASinhInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Floating Point asinh(x)"),
+	                                QString::fromLatin1("Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)"),
+	                                i18n("Component", "Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                createASinh,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-trigonometric-asinh"));
+	return &Info;
+}
 
 
 
@@ -129,7 +164,7 @@ void FloatASinView::draw(QPainter * p)
 	
 	QFont newFont("helvetica",10);
 	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "asin");
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\nsin");
 }
 
 
@@ -159,6 +194,91 @@ void FloatASin::calculate()
 
 //###############################################################
 //###############################################################
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatSinhView::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "sin\nhyp");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatSinh::FloatSinh(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatSinhView(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatSinh::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(sinh(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
+
+//###############################################################
+//###############################################################
+
+
+void FloatASinhView::draw(QPainter * p)
+{
+	Float1In1OutView::draw(p);
+
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
+	p->drawText(getDrawingPlace(), AlignCenter, "arc\nsin\nhyp");
+}
+
+
+//###############################################################
+//###############################################################
+
+FloatASinh::FloatASinh(CompContainer * container, const ComponentInfo * ci)
+	: Float1In1Out(container, ci)
+{
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new FloatASinhView(this, SHEET_VIEW);
+	}
+
+	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+/** Executes the simulation of this component */
+void FloatASinh::calculate()
+{
+	Float1In1Out::calculate();
+
+	setValue(asinh(getInput()->getInput()));
+}
+
+
+//###############################################################
+//###############################################################
+
 
 
 };  //namespace KSimLibFloatingPoint

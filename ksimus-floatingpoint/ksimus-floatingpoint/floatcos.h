@@ -36,6 +36,8 @@ namespace KSimLibFloatingPoint
 
 const ComponentInfo * getFloatCosInfo();
 const ComponentInfo * getFloatACosInfo();
+const ComponentInfo * getFloatCoshInfo();
+const ComponentInfo * getFloatACoshInfo();
 
 
 //###############################################################
@@ -64,7 +66,7 @@ class FloatCosView : public Float1In1OutView
 {
 public:
 	FloatCosView(FloatCos * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
 	virtual void draw(QPainter * p);
 };
@@ -98,8 +100,75 @@ class FloatACosView : public Float1In1OutView
 {
 public:
 	FloatACosView(FloatACos * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType) {};
+		: Float1In1OutView(comp, viewType, 5, 5) {};
 	
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
+//###############################################################
+
+/**A floating point hyperbolic cosinusoidal gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatCosh : public Float1In1Out
+{
+public:
+	/** Constructs a floating point cosinus */
+	FloatCosh(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point hyperbolic cosinusoidal gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatCoshView : public Float1In1OutView
+{
+public:
+	FloatCoshView(FloatCosh * comp, eViewType viewType)
+		: Float1In1OutView(comp, viewType, 5, 5) {};
+
+	virtual void draw(QPainter * p);
+};
+
+//###############################################################
+
+
+//###############################################################
+
+/**A floating point inverse hyperbolic cosinusoidal gate.
+  * @author Rasmus Diekenbrock
+  */
+
+class FloatACosh : public Float1In1Out
+{
+public:
+	/** Constructs a floating point inverse cosinusoidal */
+	FloatACosh(CompContainer * container, const ComponentInfo * ci);
+	/** Executes the simulation of this component */
+	virtual void calculate();
+
+};
+
+//###############################################################
+
+/** The view for the floating point inverse hyperbolic cosinusoidal gate.
+	*
+  * @author Rasmus Diekenbrock
+  */
+class FloatACoshView : public Float1In1OutView
+{
+public:
+	FloatACoshView(FloatACosh * comp, eViewType viewType)
+		: Float1In1OutView(comp, viewType, 5, 5) {};
+
 	virtual void draw(QPainter * p);
 };
 
