@@ -24,9 +24,6 @@
   *@author Rasmus Diekenbrock
   */
 
-const ComponentInfo * getExtConnBoolOutInfo();
-
-
 class ExtConnBoolOut : public ExternalConnector
 {
 	Q_OBJECT
@@ -40,6 +37,9 @@ public:
 
 	/** Executes the simulation of this component */
 	virtual void calculate();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 
 protected:
 

@@ -35,8 +35,6 @@ class KSimBooleanBox;
   *@author Rasmus Diekenbrock
   */
 
-const ComponentInfo * getExtConnBoolInInfo();
-
 class ExtConnBoolIn : public ExternalConnector
 {
 	Q_OBJECT
@@ -68,8 +66,14 @@ public:
 	/** Returns the default state. */
 	bool isDefaultState() const { return m_defaultState; };
 
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
 protected:
 	bool m_defaultState;
+
+private:
+	static const char * sDefaultState;
 };
 
 //###############################################################

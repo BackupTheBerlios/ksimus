@@ -39,14 +39,14 @@
 
 #define DEFAULT_STATE   false
 
-static const char * sDefaultState  = "Default State";
+const char * ExtConnBoolIn::sDefaultState = "Default State";
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ExtConnBoolIn::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ExtConnBoolIn(container, ci);
 }
 
-const ComponentInfo * getExtConnBoolInInfo()
+const ComponentInfo * ExtConnBoolIn::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "External Connector Boolean Input"),
 	                                QString::fromLatin1("External Connector/Bool Input"),
@@ -197,4 +197,4 @@ void ExtConnBoolInPropertyGeneralWidget::defaultPressed()
 	m_defaultState->setValue(DEFAULT_STATE);
 }
 
-
+#undef DEFAULT_STATE

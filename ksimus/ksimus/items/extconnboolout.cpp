@@ -26,12 +26,12 @@
 #include "ksimdebug.h"
 #include "ksimtimeserver.h"
 
-static Component * create(CompContainer * container, const ComponentInfo * ci)
+Component * ExtConnBoolOut::create(CompContainer * container, const ComponentInfo * ci)
 {
 	return new ExtConnBoolOut(container, ci);
 }
 
-const ComponentInfo * getExtConnBoolOutInfo()
+const ComponentInfo * ExtConnBoolOut::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "External Connector Boolean Output"),
 	                                QString::fromLatin1("External Connector/Bool Output"),
