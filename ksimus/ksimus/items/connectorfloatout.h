@@ -44,7 +44,7 @@ friend class WirePropertyFloatingPoint;
 
 public:
 	/**
-	 * Constructs a boolean output connector.
+	 * Constructs a floating point output connector.
 	 *
 	 * @param comp      Component which contains this connector.
 	 * @param name      The *untranslated* connector name. This name is used as internal
@@ -59,7 +59,7 @@ public:
 	                  const QPoint & pos = QPoint()	);
 	
 	/**
-	 * Constructs a boolean output connector. Like the constructor above, but creates also a
+	 * Constructs a floating point output connector. Like the constructor above, but creates also a
 	 * connector label (@ref ConnectorLabel).
 	 *
 	 * @param comp      Component which contains this connector.
@@ -96,12 +96,12 @@ public:
 	/** Returns a text which represents the current value. */
 	virtual QString getValueText() const;
 
-	/** Returns a @ref WatchItemBooleanConnector object. */
+	/** Returns a @ref WatchItemFloatingPointConnector object. */
 	virtual WatchItemBase * makeWatchItem();
 
 protected:
 	/**
-	 * Constructs a boolean output connector. Use this constructor if you derive this class.
+	 * Constructs a floating point output connector. Use this constructor if you derive this class.
 	 *
 	 * @param comp      Component which contains this connector.
 	 * @param name      The *untranslated* connector name. This name is used as internal

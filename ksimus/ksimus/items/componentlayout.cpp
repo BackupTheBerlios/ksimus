@@ -488,7 +488,7 @@ ComponentLayout::ComponentLayout(CompView * sheetView)
 
 
 	connect(getSheetView(), SIGNAL(signalResize(const QSize &)),
-					this, SLOT(slotResizeView()));
+	        this, SLOT(slotResizeView()));
 }
 
 
