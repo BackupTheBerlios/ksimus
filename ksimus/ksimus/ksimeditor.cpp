@@ -197,8 +197,8 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	connect (&delayedStatusHelpMsgTimer, SIGNAL(timeout()), SLOT(slotDelayedStatusHelpMsg()));
 	
 	
-	QFont newFont(QString::fromLatin1("helvetica"),12);
-	setFont(newFont);
+	/*QFont newFont(QString::fromLatin1("helvetica"),12);
+	setFont(newFont);*/
 	
 }
 
@@ -257,8 +257,8 @@ void KSimEditor::print(KPrinter *pPrinter)
 	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiX());
 	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiY());*/
 	
-	QFont newFont(QString::fromLatin1("helvetica"),12);
-	p.setFont(newFont);
+	/*QFont newFont(QString::fromLatin1("helvetica"),12);
+	p.setFont(newFont);*/
 
 	int x = 0;
 	int y = 0;
@@ -284,33 +284,39 @@ void KSimEditor::print(KPrinter *pPrinter)
 				double rot = it.current()->getRotation();
 				QRect rect(it.current()->getPlace());
 			
-				if((rot < 45.0) || (rot >= 315.0))
-				{
-					p.translate(rect.left(), rect.top());
-//					p.rotate(0.0);
-				}
-				else if(rot < 135.0)
-				{
-					p.translate(rect.left() + rect.width(), rect.top());
-					p.rotate(90.0);
-				}
-				else if(rot < 225.0)
-				{
-					p.translate(rect.right() + 1, rect.bottom() + 1);
-					p.rotate(180.0);
-				}
-				else
-				{
-					p.translate(rect.left(), rect.top() + rect.height());
-					p.rotate(270.0);
-				}
+					if((rot < 45.0) || (rot >= 315.0))
+					{
+						p.translate(rect.left(), rect.top());
+	//					p.rotate(0.0);
+					}
+					else if(rot < 135.0)
+					{
+/*						p.translate(rect.right(), rect.top());
+						p.rotate(90.0);*/
+						QWMatrix m(0.0, 1.0, -1.0, 0.0, double(rect.right()), double(rect.top()));
+						p.setWorldMatrix(m, true);
+					}
+					else if(rot < 225.0)
+					{
+/*						p->translate(rect.right(), rect.bottom());
+						p->rotate(180.0);*/
+						QWMatrix m(-1.0, 0.0, 0.0, -1.0, double(rect.right()), double(rect.bottom()));
+						p.setWorldMatrix(m, true);
+					}
+					else
+					{
+/*						p->translate(rect.left(), rect.bottom());
+						p->rotate(270.0);*/
+						QWMatrix m(0.0, -1.0, 1.0, 0.0, double(rect.left()), double(rect.bottom()));
+						p.setWorldMatrix(m, true);
+					}
 			}
 			else
 			{
 				QPoint pos(it.current()->getPos());
 				p.translate(pos.x(), pos.y());
 			}
-		
+
 			it.current()->print(&p);
 			
 			p.restore();
@@ -1648,7 +1654,7 @@ void KSimEditor::backgroundPopup()
 	getApp()->editPaste->plug(menu);
 	
 	menu->insertSeparator();
-	menu->insertItem(i18n("New component"), compMenu, ID_COMP_MENU);
+	menu->insertItem(i18n("New component"), compMenu);
 
 	res = menu->exec(QCursor::pos());
 	

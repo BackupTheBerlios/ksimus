@@ -65,6 +65,8 @@
 #include "watchwidget.h"
 #include "ksimiodeviceoverviewwidget.h"
 #include "ksimiodevicelist.h"
+#include "ksimembfont.h"
+
 
 #define ID_STATUS_MSG 1
 #define ID_TIME_LABEL 2
@@ -194,6 +196,19 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 //	KSIMDEBUG(QString("Languages: %1").arg(KGlobal::locale()->languages()));
 //	KGlobal::locale()->setLanguage(QString::fromLatin1("C"));
 
+	if (!g_embFont08)
+	{
+		g_embFont08 = new KSimEmbFont(KSimEmbFont::eFont08);
+		CHECK_PTR(g_embFont08);
+	}
+
+	if (!g_embFont10)
+	{
+		g_embFont10 = new KSimEmbFont(KSimEmbFont::eFont10);
+		CHECK_PTR(g_embFont10);
+	}
+
+
 	if (!g_library)
 	{
 		g_library = new Library();
@@ -201,6 +216,7 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 		loadLib = true;
 		KSimIoDeviceList::getList()->loadActive();
 	}
+
 
 
 	
@@ -277,7 +293,7 @@ void KSimusApp::initActions()
 	editCut = KStdAction::cut(this, SLOT(slotEditCut()), actionCollection());
 	editCopy = KStdAction::copy(this, SLOT(slotEditCopy()), actionCollection());
 	editPaste = KStdAction::paste(this, SLOT(slotEditPaste()), actionCollection());
-  editInsertModule = new KAction(i18n("&Insert Module..."), 0, this, SLOT(slotEditInsertModule()), actionCollection(), "edit_insert_module");
+	editInsertModule = new KAction(i18n("&Insert Module..."), 0, this, SLOT(slotEditInsertModule()), actionCollection(), "edit_insert_module");
 
 		
 	viewToolBar = KStdAction::showToolbar(this, SLOT(slotViewToolBar()), actionCollection());

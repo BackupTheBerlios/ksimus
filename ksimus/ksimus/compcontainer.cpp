@@ -21,6 +21,7 @@
 #include <qpainter.h>
 #include <qprogressdialog.h>
 #include <qmap.h>
+#include <qwmatrix.h>
 
 #include <klocale.h>
 
@@ -322,7 +323,7 @@ void CompContainer::addComponent(Component * newComp)
 	
 	// Add to undo
 	undoRemove(newComp);
-	
+
 	if (isVisible())
 	{
 		// Exist a sheet view
@@ -721,7 +722,7 @@ void CompContainer::delConnection(ConnectorBase * delConn)
 	
 	undoRemove(wire);
 	undoReload(wire);
-	
+
 	// Has wire more than 2 connections ?
 	if (wire->getConnList()->count() > 2)
 	{
@@ -745,9 +746,11 @@ Component * CompContainer::searchComponentBySerialNumber(unsigned int number)
 		if (comp->getSerialNumber() == number)
 			break;
 	}
-	
+
 	return comp;
 }
+
+#include <sys/time.h>
 
 void CompContainer::drawSheetView(QPainter * p) const
 {
@@ -764,7 +767,20 @@ void CompContainer::drawSheetView(QPainter * p) const
 		}
 	}
 
-	drawComponents(p, sheetViews);
+	struct timeval startTime;
+	struct timeval endTime;
+	gettimeofday(&startTime, 0);
+
+	#define REPEAT 1
+	for (int i = 0; i < REPEAT; i++)
+		drawComponents(p, sheetViews);
+
+	gettimeofday(&endTime, 0);
+	long long diffTime = ((long long)endTime.tv_sec * 1000000 + endTime.tv_usec)
+	                   - ((long long)startTime.tv_sec * 1000000 + startTime.tv_usec);
+
+	KSIMDEBUG(QString("CompContainer::drawSheetView %1ms").arg((double)diffTime / 1000 / REPEAT));
+
 
 	p->restore();
 }
@@ -791,39 +807,52 @@ void CompContainer::drawUserView(QPainter * p) const
 
 void CompContainer::drawComponents(QPainter * p, CompViewList * cvList) const
 {
-	QFont newFont(QString::fromLatin1("helvetica"),12);
+//	QFont newFont(QString::fromLatin1("helvetica"),12);
+	QFont newFont;
+	//newFont.setRawName("-Misc-Fixed-Medium-R-Normal--7-70-75-75-C-50-ISO10646-1");
+	newFont.setRawName("-Misc-Fixed-Medium-R-Normal--10-100-75-75-C-60-ISO10646-1");
+//	newFont.setFixedPitch(true);
+//	newFont.setStyleHint( QFont::TypeWriter );
 	p->setFont(newFont);
-	
+/*	KSIMDEBUG_VAR("FONT debug: ", p->font().family());
+	KSIMDEBUG_VAR("FONT debug: ", p->font().pointSize());*/
+//	getLogList()->logDebug("CompContainer::drawComponents");
+
+	QWMatrix::setTransformationMode(QWMatrix::Areas );
+
 	FOR_EACH_COMPVIEW(it, *cvList)
 	{
 		if (!it.current()->isHidden())
 		{
 			p->save();
-			
+
 			if (it.current()->isNormalRotationEnabled())
 			{
 				double rot = it.current()->getRotation();
 				QRect rect(it.current()->getPlace());
-			
+
 				if((rot < 45.0) || (rot >= 315.0))
 				{
-					p->translate(rect.left(), rect.top());
+					p->translate(double(rect.left()), double(rect.top()));
 //					p->rotate(0.0);
 				}
 				else if(rot < 135.0)
 				{
-					p->translate(rect.left() + rect.width(), rect.top());
-					p->rotate(90.0);
+/*					p->translate(rect.right(), rect.top());
+					p->rotate(90.0);*/
+					p->setWorldMatrix(QWMatrix(0.0, 1.0, -1.0, 0.0, double(rect.right()), double(rect.top())), true);
 				}
 				else if(rot < 225.0)
 				{
-					p->translate(rect.right() + 1, rect.bottom() + 1);
-					p->rotate(180.0);
+/*					p->translate(rect.right(), rect.bottom());
+					p->rotate(180.0);*/
+					p->setWorldMatrix(QWMatrix(-1.0, 0.0, 0.0, -1.0, double(rect.right()), double(rect.bottom())), true);
 				}
 				else
 				{
-					p->translate(rect.left(), rect.top() + rect.height());
-					p->rotate(270.0);
+/*					p->translate(rect.left(), rect.bottom());
+					p->rotate(270.0);*/
+					p->setWorldMatrix(QWMatrix(0.0, -1.0, 1.0, 0.0, double(rect.left()), double(rect.bottom())), true);
 				}
 			}
 			else
@@ -831,7 +860,6 @@ void CompContainer::drawComponents(QPainter * p, CompViewList * cvList) const
 				QPoint pos(it.current()->getPos());
 				p->translate(pos.x(), pos.y());
 			}
-			
 			it.current()->draw(p);
 			p->restore();
 		}
@@ -845,7 +873,7 @@ eHitType CompContainer::isCompViewHit(const QPoint & pos, const CompViewList * v
 	hitConn = 0;
 	hitCompView = 0;
 
-	
+
 	FOR_EACH_COMPVIEW(it, *viewList)
 	{
 		hit = it.current()->isHit(pos.x(),pos.y());
@@ -1853,3 +1881,4 @@ const KSimIoDeviceList * CompContainer::getIoDeviceList() const
 		return getParentComponent()->getContainer()->getIoDeviceList();
 	}
 }
+

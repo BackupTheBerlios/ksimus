@@ -25,6 +25,7 @@
 #include <qpoint.h>
 #include <qrect.h>
 #include <qlist.h>
+#include <qpixmap.h>
 
 // KDE-Includes
 
@@ -48,14 +49,6 @@ class QPainter;
   *@author Rasmus Diekenbrock
   */
 
-#define CV_TOP		0x01
-#define CV_BOTTOM	0x02
-#define CV_LEFT		0x04
-#define CV_RIGHT	0x08
-
-#define HANDLE_SIZE 6
-
-
 class CompView : public QObject, public ComponentItem
 {
 class CompViewPrivate;
@@ -66,6 +59,8 @@ friend class Module;
 	Q_OBJECT
 
 public:
+	template <class T> class AutoPixmap;
+
 	CompView(Component * comp, eViewType viewType);
 	virtual ~CompView();
 	
@@ -83,7 +78,14 @@ public:
 	/** Draw the boundary of the component */
 	virtual void drawBound(QPainter * p);
 	virtual void drawBound(QPainter * p, QPoint & tempPos);
-	
+		/** Draws a rect.
+	  * Color black, thick: 2 pixel
+	  */
+	static void drawFrame(QPainter * p, int x, int y, int w, int h);
+	static void drawFrame(QPainter * p, const QRect & rect)
+	{ drawFrame(p, rect.left(), rect.top(), rect.width(), rect.height()); };
+
+
 	/** Hit point x,y the component ?
 		NO_HIT
 		NORMAL_HIT        - component is hit, KSimEditor controls mouse action
@@ -108,7 +110,7 @@ public:
     * @see isConnectorSpacingRight
     * @see isConnectorSpacingBottom
     * @see isConnectorSpacingLeft */
-	QRect getDrawingPlace() const;	
+	QRect getDrawingPlace() const;
 	/** Set the minimum size of the view. */
 	void setMinSize(int width, int height);
 	/** Set the minimum size of the view. */
@@ -116,7 +118,10 @@ public:
 	/**  Returns the minimum size of the view. */
 	QSize getMinSize() const;
 	/** Return last connector that was hit */
-	ConnectorBase * getLastHitConnector() const;
+	ConnectorBase * getLastHitConnector() const
+	{
+		return s_lastHitConnector;
+	};
 	/** if insert = true, insert compview to sheet map
 		if insert = true, delete compview to sheet map */
 	
@@ -139,7 +144,7 @@ public:
 
 		
 	/** Map pos to grid */
-	QPoint mapToGrid(QPoint pos);
+	QPoint mapToGrid(const QPoint & pos);
 
 	/** save component properties */
 	virtual void save(KSimData & file) const;
@@ -247,23 +252,21 @@ protected: // Protected attributes
 	/** Returns the current Component Map */
 	ComponentMap * getComponentMap() const;
 
-    /** Set true, if component view is resizeable */
-    void setResizeable(bool enable);
+	/** Set true, if component view is resizeable */
+	void setResizeable(bool enable);
 
-    /** Change the type of view
-    	@see enum eViewType */
-	void setViewType(eViewType newType);
-	
 	virtual void resize();
 
-	static ConnectorBase * lastHitConnector;
+	static ConnectorBase * s_lastHitConnector;
 	
 	/** Draws a rect a round the component body (excluding the connector space).
 	  * Color black, thick: 2 pixel
 	  */
-	void drawFrame(QPainter * p) const;
-	
-		
+	void drawFrame(QPainter * p) const
+	{
+		drawFrame(p, getDrawingPlace());
+	};
+
 public slots:
 	/** Toogle the hide flag */
 	void slotToggleHide();
@@ -290,6 +293,61 @@ signals: // Signals
 	void signalShow();
 
 };
+
+
+//#############################################################################
+//#############################################################################
+
+#include "ksimdebug.h"
+
+template <class T> class CompView::AutoPixmap
+{
+public:
+	AutoPixmap();
+//	AutoPixmap(const char * xpm[]);
+	~AutoPixmap();
+
+	const QPixmap & getPixmap() const;
+
+private:
+	static const char * s_xpm[];
+	static unsigned int s_refCnt;
+	static const QPixmap * s_pixmap;
+};
+
+template <class T>
+unsigned int CompView::AutoPixmap<T>::s_refCnt = 0;
+
+template <class T>
+const QPixmap * CompView::AutoPixmap<T>::s_pixmap = 0;
+
+template <class T>
+CompView::AutoPixmap<T>::AutoPixmap()
+{
+	KSIMDEBUG_VAR("AutoPixmap<T>::AutoPixmap", s_refCnt);
+	if (s_refCnt++ == 0)
+	{
+		s_pixmap = new QPixmap(s_xpm);
+	}
+}
+
+template <class T>
+CompView::AutoPixmap<T>::~AutoPixmap()
+{
+	if (--s_refCnt == 0)
+	{
+		delete s_pixmap;
+		s_pixmap = 0;
+	}
+	KSIMDEBUG_VAR("AutoPixmap<T>::~AutoPixmap", s_refCnt);
+}
+
+template <class T>
+const QPixmap & CompView::AutoPixmap<T>::getPixmap() const
+{
+	return *s_pixmap;
+}
+
 
 //#############################################################################
 //#############################################################################

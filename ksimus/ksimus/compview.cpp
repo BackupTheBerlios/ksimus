@@ -81,6 +81,13 @@ static const int sheetGridY = gridY;
 #define ROT_270_DEG 3
 
 
+#define CV_TOP      0x01
+#define CV_BOTTOM   0x02
+#define CV_LEFT     0x04
+#define CV_RIGHT    0x08
+
+#define HANDLE_SIZE 6
+
 static int convertRotToInt(double degree)
 {
 	if((degree < 45.0) || (degree >= 315.0))
@@ -186,7 +193,7 @@ static void setGlobalMouseTracking(QWidget * main, bool tracking)
 	}
 }	
 
-ConnectorBase * CompView::lastHitConnector = 0;
+ConnectorBase * CompView::s_lastHitConnector = 0;
 
 
 //############################################################################
@@ -205,10 +212,10 @@ public:
 			rotation(0.0)
 	{
 		if (vt == SHEET_VIEW)
-			flags =	FLAGS_CONN_SPACING_TOP | FLAGS_CONN_SPACING_RIGHT | FLAGS_CONN_SPACING_BOTTOM
-					| FLAGS_CONN_SPACING_LEFT | FLAGS_ENABLE_GRID_SNAP;
+			flags =  FLAGS_CONN_SPACING_TOP | FLAGS_CONN_SPACING_RIGHT | FLAGS_CONN_SPACING_BOTTOM
+			      | FLAGS_CONN_SPACING_LEFT | FLAGS_ENABLE_GRID_SNAP;
 		else
-			flags =	FLAGS_ENABLE_GRID_SNAP;
+			flags = FLAGS_ENABLE_GRID_SNAP;
 	};
 	~CompViewPrivate()
 	{
@@ -223,10 +230,10 @@ public:
 	const int * posGridX;
 	const int * posGridY;
 	
-	eViewType viewType;
+	const eViewType viewType;
 	KSimWidgetList * widgetList;
 	QSize minSize;
-	float rotation;
+	double rotation;
 };
 
 //############################################################################
@@ -278,13 +285,6 @@ CompView::~CompView()
 eViewType CompView::getViewType() const
 {
 	return m_p->viewType;
-};
-
-/** Change the type of view
-   	@see enum eViewType */
-void CompView::setViewType(eViewType newType)
-{
-	m_p->viewType = newType;
 };
 
 
@@ -448,28 +448,28 @@ QRect CompView::getWidgetPlace() const
 		case ROT_0_DEG:
 			if (isConnectorSpacingTop())    widgetPlace.rTop()    += gridY;
 			if (isConnectorSpacingRight())  widgetPlace.rRight()  -= gridX;
-			if (isConnectorSpacingBottom())	widgetPlace.rBottom() -= gridY;
+			if (isConnectorSpacingBottom()) widgetPlace.rBottom() -= gridY;
 			if (isConnectorSpacingLeft())   widgetPlace.rLeft()   += gridX;
 			break;
 			
 		case ROT_90_DEG:
 			if (isConnectorSpacingTop())    widgetPlace.rRight()  -= gridX;
 			if (isConnectorSpacingRight())  widgetPlace.rBottom() -= gridY;
-			if (isConnectorSpacingBottom())	widgetPlace.rLeft()   += gridX;
+			if (isConnectorSpacingBottom()) widgetPlace.rLeft()   += gridX;
 			if (isConnectorSpacingLeft())   widgetPlace.rTop()    += gridY;
 			break;
 				
 		case ROT_180_DEG:
 			if (isConnectorSpacingTop())    widgetPlace.rBottom() -= gridY;
 			if (isConnectorSpacingRight())  widgetPlace.rLeft()   += gridX;
-			if (isConnectorSpacingBottom())	widgetPlace.rTop()    += gridY;
+			if (isConnectorSpacingBottom()) widgetPlace.rTop()    += gridY;
 			if (isConnectorSpacingLeft())   widgetPlace.rRight()  -= gridX;
 			break;
 				
 		case ROT_270_DEG:
 			if (isConnectorSpacingTop())    widgetPlace.rLeft()   += gridX;
 			if (isConnectorSpacingRight())  widgetPlace.rTop()    += gridY;
-			if (isConnectorSpacingBottom())	widgetPlace.rRight()  -= gridX;
+			if (isConnectorSpacingBottom()) widgetPlace.rRight()  -= gridX;
 			if (isConnectorSpacingLeft())   widgetPlace.rBottom() -= gridY;
 			break;
 			
@@ -491,7 +491,7 @@ QRect CompView::getDrawingPlace() const
 	}
 	
 	int left = (isConnectorSpacingLeft() ? gridX : 0);
-	int top = (isConnectorSpacingTop()  ? gridY+1 : 0);
+	int top = (isConnectorSpacingTop()  ? gridY+1 : 0);  // TODO is this correct
 	int right = size.width() - (isConnectorSpacingRight()  ? gridX : 0);
 	int bottom = size.height() - (isConnectorSpacingBottom()  ? gridY : 0);
 	
@@ -550,7 +550,7 @@ eHitType CompView::isHit(int x, int y) const
 			if (CONNECTOR_HIT == conn->isHit(p.x(),p.y()))
 			{
 				// Remember connector
-				lastHitConnector = conn;
+				s_lastHitConnector = conn;
 				return CONNECTOR_HIT;
 			}
 		}
@@ -642,23 +642,18 @@ void CompView::drawBound(QPainter * p, QPoint & tempPos)
 	
 	m_p->place = actualPlace;
 }
-	
-void CompView::drawFrame(QPainter * p) const
-{
-	QRect rect(getDrawingPlace());
-	rect.rLeft()++;
-	rect.rTop()++;
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-}
 
 
-/** Return last connector that was hit */
-ConnectorBase * CompView::getLastHitConnector() const
+void CompView::drawFrame(QPainter * p, int x, int y, int w, int h)
 {
-	return lastHitConnector;
+	p->setPen(black);
+	p->setBrush(black);
+	p->drawRect(x,     y,     w, 2);
+	p->drawRect(x,     y+h-2, w, 2);
+	p->drawRect(x,     y,     2, h);
+	p->drawRect(x+w-2, y,     2, h);
 }
+
 /** if insert = true, insert compview to sheet map
 if insert = true, delete compview to sheet map */
 void CompView::updateSheetMap(bool insert)
@@ -705,9 +700,7 @@ QWidget * CompView::createCompViewWidget(QWidget *)
 
 bool CompView::makeWidget(QWidget * parent)
 {
-	QWidget * widget;
-	
-	widget = createCompViewWidget(parent);
+	QWidget * widget = createCompViewWidget(parent);
 	
 	if (widget)
 	{
@@ -733,14 +726,10 @@ bool CompView::makeWidget(QWidget * parent)
 }
 
 /**  */
-QPoint CompView::mapToGrid(QPoint pos)
+QPoint CompView::mapToGrid(const QPoint & pos)
 {
-	QPoint res;
-	
-	res.setX(((pos.x() + *m_p->posGridX/2) / *m_p->posGridX)* *m_p->posGridX);
-	res.setY(((pos.y() + *m_p->posGridY/2) / *m_p->posGridY)* *m_p->posGridY);
-	
-	return res;
+	return QPoint(((pos.x() + *m_p->posGridX/2) / *m_p->posGridX)* *m_p->posGridX,
+	              ((pos.y() + *m_p->posGridY/2) / *m_p->posGridY)* *m_p->posGridY);
 }
 
 /** save CompView properties */
@@ -1167,6 +1156,8 @@ public:
 	bool lmbDown;
 };
 
+#define HANDLE_THICK 2
+
 CompViewSize::CompViewSize(Component * comp, eViewType viewType)
 	: 	CompView(comp, viewType)
 {
@@ -1186,7 +1177,7 @@ void CompViewSize::mousePress(QMouseEvent *ev, QPainter *)
   	// Left mouse button
 	if ((ev->button() == LeftButton) && (!getComponent()->getContainer()->isRunning()))
 	{
-		QPoint mousePos = ev->pos();
+		const QPoint mousePos = ev->pos();
 		m_ps->lmbDown = true;
 
 		m_ps->oldPlace = getPlace();
@@ -1226,7 +1217,7 @@ void CompViewSize::mouseMove(QMouseEvent *ev, QPainter *p)
 	{
 		KSimusDoc * doc = getComponent()->getDoc();
 		CHECK_PTR(doc);
-		QSize maxSize = doc->getActiveEditor()->getSize();
+		const QSize maxSize = doc->getActiveEditor()->getSize();
 		
 		QRect newPlace = getPlace();
 		QPoint mousePos;
@@ -1310,8 +1301,6 @@ void CompViewSize::drawBound(QPainter * p)
 	CompView::drawBound(p);
 	p->setRasterOp(NotROP);
 
-  #define HANDLE_THICK 2
-	
 	p->setPen(QPen(black, HANDLE_THICK));
 	QRect place(getPlace().normalize());
 	place.rLeft() -= 1;
@@ -1465,6 +1454,7 @@ void CompViewList::insertCompView(CompView * cv)
 	insert(i,cv);
 }
 
+#undef HANDLE_THICK
 
 
 
