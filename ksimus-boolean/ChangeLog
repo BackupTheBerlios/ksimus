@@ -1,6 +1,6 @@
 	20.04.2002
 * New package naming ksimus-boolean
-* New: version check code in configure.in.in
+* New version check code in configure.in.in
 * Change: Use singleton patterns instead of static objects
 * Improve i18n
 * Fix some texts
