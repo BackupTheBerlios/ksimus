@@ -78,6 +78,7 @@ protected:
 
 private:
 	Private * m_p;
+	PackageInfo * m_ksimusPackageInfo;
 	ComponentLibrary * m_componentLibrary;
 	ConnectorLibrary * m_connectorLibrary;
 	WirePropertyLibrary * m_wirePropertyLibrary;

@@ -94,9 +94,9 @@ public:
 	static const ComponentInfoList & getDistComponents();
 	static const ConnectorInfoList & getDistConnector();
 	static const WirePropertyInfoList & getDistWireProperty();
-	static const ImplicitConverterInfoList & getImplicitConverterProperty();
-	static const KSimIoDeviceInfoList & getIoDeviceProperty();
-	static const KSimIoJoinInfoList & getIoJoinProperty();
+	static const ImplicitConverterInfoList & getDistImplicitConverter();
+	static const KSimIoDeviceInfoList & getDistIoDevice();
+	static const KSimIoJoinInfoList & getDistIoJoin();
 };
 
 #define FOR_EACH_HANDLE(_it_,_handleList_)	\
@@ -186,7 +186,7 @@ const WirePropertyInfoList & Library::Private::getDistWireProperty()
 	return *pDistWireProp;
 }
 
-const ImplicitConverterInfoList & Library::Private::getImplicitConverterProperty()
+const ImplicitConverterInfoList & Library::Private::getDistImplicitConverter()
 {
 	static ImplicitConverterInfoList * pImplicitConverterProp = (ImplicitConverterInfoList *)0;
 
@@ -204,7 +204,7 @@ const ImplicitConverterInfoList & Library::Private::getImplicitConverterProperty
 	return *pImplicitConverterProp;
 }
 
-const KSimIoDeviceInfoList & Library::Private::getIoDeviceProperty()
+const KSimIoDeviceInfoList & Library::Private::getDistIoDevice()
 {
 	static KSimIoDeviceInfoList * pIoDeviceProp = (KSimIoDeviceInfoList *)0;
 
@@ -221,7 +221,7 @@ const KSimIoDeviceInfoList & Library::Private::getIoDeviceProperty()
 	return *pIoDeviceProp;
 }
 
-const KSimIoJoinInfoList & Library::Private::getIoJoinProperty()
+const KSimIoJoinInfoList & Library::Private::getDistIoJoin()
 {
 	static KSimIoJoinInfoList * pIoJoinProp = (KSimIoJoinInfoList *)0;
 
@@ -247,17 +247,18 @@ Library * g_library = (Library *)0;
 
 Library::Library()
 {
-	PackageInfo * KSimusPackageInfo =
-	new PackageInfo(QString::fromLatin1("KSimus"),
-	                KGlobal::instance(),
-	                VERSION,
-	                Library::Private::getDistComponents(),
-	                Library::Private::getDistConnector(),
-	                Library::Private::getDistWireProperty(),
-	                Library::Private::getImplicitConverterProperty());
-	
 	m_p = new Private();
-	
+	CHECK_PTR(m_p);
+
+	m_ksimusPackageInfo = new PackageInfo("KSimus", KGlobal::instance(), VERSION);
+	CHECK_PTR(m_ksimusPackageInfo);
+	m_ksimusPackageInfo->insert(Library::Private::getDistComponents());
+	m_ksimusPackageInfo->insert(Library::Private::getDistConnector());
+	m_ksimusPackageInfo->insert(Library::Private::getDistWireProperty());
+	m_ksimusPackageInfo->insert(Library::Private::getDistImplicitConverter());
+	m_ksimusPackageInfo->insert(Library::Private::getDistIoDevice());
+	m_ksimusPackageInfo->insert(Library::Private::getDistIoJoin());
+
 	m_componentLibrary = new ComponentLibrary;
 	CHECK_PTR(m_componentLibrary);
 
@@ -284,13 +285,8 @@ Library::Library()
 	m_packageList = new QList<PackageInfo>;
 	CHECK_PTR(m_packageList);
 
-	insertPackage(KSimusPackageInfo);
+	insertPackage(m_ksimusPackageInfo);
 
-  // TODO
-	m_ioDeviceLibrary->insert(Library::Private::getIoDeviceProperty(), KSimusPackageInfo);
-	m_ioJoinLibrary->insert(Library::Private::getIoJoinProperty(), KSimusPackageInfo);
-
-		
 	loadPackageFiles();
 
 	addModuleDirs();
@@ -313,6 +309,7 @@ Library::~Library()
 	delete m_connectorLibrary;
 	delete m_componentLibrary;
 	delete m_packageList;
+	// delete m_ksimusPackageInfo; is deleted by m_packageList !!!
 	delete m_p;
 }
 
@@ -356,13 +353,35 @@ void Library::insertPackage(const PackageInfo * packageInfo)
 {
 	m_packageList->append(packageInfo);
 	
-	m_componentLibrary->insert(packageInfo->getComponentList(), packageInfo);
+	if (packageInfo->hasComponentList())
+	{
+		m_componentLibrary->insert(packageInfo->getComponentList(), packageInfo);
+	}
 	
-	m_connectorLibrary->insert(packageInfo->getConnectorList(), packageInfo);
+	if (packageInfo->hasConnectorList())
+	{
+		m_connectorLibrary->insert(packageInfo->getConnectorList(), packageInfo);
+	}
 	
-	m_wirePropertyLibrary->insert(packageInfo->getWirePropertyList(), packageInfo);
+	if (packageInfo->hasWirePropertyList())
+	{
+		m_wirePropertyLibrary->insert(packageInfo->getWirePropertyList(), packageInfo);
+	}
 	
-	m_implicitConverterLibrary->insert(packageInfo->getImplicitConverterList(), packageInfo);
+	if (packageInfo->hasImplicitConverterList())
+	{
+		m_implicitConverterLibrary->insert(packageInfo->getImplicitConverterList(), packageInfo);
+	}
+
+	if (packageInfo->hasKSimIoDeviceList())
+	{
+		m_ioDeviceLibrary->insert(packageInfo->getKSimIoDeviceList(), packageInfo);
+	}
+
+	if (packageInfo->hasKSimIoJoinList())
+	{
+		m_ioJoinLibrary->insert(packageInfo->getKSimIoJoinList(), packageInfo);
+	}
 }
 
 
