@@ -6,10 +6,10 @@ libitems_a_METASOURCES = AUTO
 
 noinst_LIBRARIES = libitems.a
 
-libitems_a_SOURCES = doublelayout.cpp componentblocklayout.cpp connectorpack.cpp componentlayout.cpp connectorboolinedgepropertywidget.cpp connectorboolinedge.cpp connectorlabel.cpp externalconnector.cpp extconnboolout.cpp extconnboolin.cpp wirepropertyboolean.cpp wireproperty.cpp connectorpropertywidget.cpp connectorpropertydialog.cpp connectorlist.cpp connectorbooloutpropertywidget.cpp connectorboolout.cpp connectorboolinpropertywidget.cpp connectorboolin.cpp connectorbase.cpp 
+libitems_a_SOURCES = wirepropertyfloatingpoint.cpp connectorfloatout.cpp connectorfloatin.cpp doublelayout.cpp componentblocklayout.cpp connectorpack.cpp componentlayout.cpp connectorboolinedgepropertywidget.cpp connectorboolinedge.cpp connectorlabel.cpp externalconnector.cpp extconnboolout.cpp extconnboolin.cpp wirepropertyboolean.cpp wireproperty.cpp connectorpropertywidget.cpp connectorpropertydialog.cpp connectorlist.cpp connectorbooloutpropertywidget.cpp connectorboolout.cpp connectorboolinpropertywidget.cpp connectorboolin.cpp connectorbase.cpp 
 
 
-EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h componentlayout.cpp componentlayout.h connectorpack.cpp connectorpack.h componentblocklayout.cpp componentblocklayout.h doublelayout.cpp doublelayout.h 
+EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h componentlayout.cpp componentlayout.h connectorpack.cpp connectorpack.h componentblocklayout.cpp componentblocklayout.h doublelayout.cpp doublelayout.h connectorfloatin.cpp connectorfloatin.h connectorfloatout.cpp connectorfloatout.h wirepropertyfloatingpoint.cpp wirepropertyfloatingpoint.h 
 
 install-data-local:
 	$(mkinstalldirs) $(pkgincludedir)/
@@ -52,6 +52,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/componentblocklayout.h $(pkgincludedir)/componentblocklayout.h
 	$(mkinstalldirs) $(pkgincludedir)/
 	$(INSTALL_DATA) $(srcdir)/doublelayout.h $(pkgincludedir)/doublelayout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorfloatin.h $(pkgincludedir)/connectorfloatin.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorfloatout.h $(pkgincludedir)/connectorfloatout.h
 
 uninstall-local:
 	-rm -f $(pkgincludedir)/connectorbase.h
@@ -74,6 +78,8 @@ uninstall-local:
 	-rm -f $(pkgincludedir)/connectorpack.h
 	-rm -f $(pkgincludedir)/componentblocklayout.h
 	-rm -f $(pkgincludedir)/doublelayout.h
+	-rm -f $(pkgincludedir)/connectorfloatin.h
+	-rm -f $(pkgincludedir)/connectorfloatout.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 

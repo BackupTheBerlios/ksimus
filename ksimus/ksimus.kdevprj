@@ -25,13 +25,13 @@ ldflags=-rdynamic
 path_to_bin_program=ksimus
 
 [General]
-AMChanged=false
+AMChanged=true
 author=Rasmus Diekenbrock
 configure_args=--prefix=/opt/kde2
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=Andere,Benutzerinterface,GNU
+lfv_open_groups=Andere,Benutzerinterface,Quellen
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am
 modifyMakefiles=true
@@ -95,7 +95,7 @@ type=normal
 [doc/en/index.docbook]
 dist=true
 install=false
-install_location=$$$$$$$$(kde_icondir)/small/locolor/apps/ksimus.xpm
+install_location=$$(kde_icondir)/small/locolor/apps/ksimus.xpm
 type=DATA
 
 [ksimus.kdevprj]
@@ -408,7 +408,7 @@ install_location=$$(pkgincludedir)/globals.h
 type=HEADER
 
 [ksimus/items/Makefile.am]
-files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h
+files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h,ksimus/items/componentlayout.cpp,ksimus/items/componentlayout.h,ksimus/items/connectorpack.cpp,ksimus/items/connectorpack.h,ksimus/items/componentblocklayout.cpp,ksimus/items/componentblocklayout.h,ksimus/items/doublelayout.cpp,ksimus/items/doublelayout.h,ksimus/items/connectorfloatin.cpp,ksimus/items/connectorfloatin.h,ksimus/items/connectorfloatout.cpp,ksimus/items/connectorfloatout.h,ksimus/items/wirepropertyfloatingpoint.cpp,ksimus/items/wirepropertyfloatingpoint.h
 sub_dirs=
 type=static_library
 
@@ -518,6 +518,30 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/connectorbooloutpropertywidget.h
+type=HEADER
+
+[ksimus/items/connectorfloatin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorfloatin.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/connectorfloatin.h
+type=HEADER
+
+[ksimus/items/connectorfloatout.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorfloatout.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/connectorfloatout.h
 type=HEADER
 
 [ksimus/items/connectorlabel.cpp]
@@ -650,6 +674,18 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/wirepropertyboolean.h
+type=HEADER
+
+[ksimus/items/wirepropertyfloatingpoint.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/wirepropertyfloatingpoint.h]
+dist=true
+install=false
+install_location=
 type=HEADER
 
 [ksimus/ksimaction.cpp]
@@ -1490,7 +1526,7 @@ install_location=
 type=DATA
 
 [po/Makefile.am]
-files=po/fr.po,po/de.po
+files=po/fr.po,po/de.po,po/pt_BR.po
 sub_dirs=
 type=po
 
@@ -1501,6 +1537,12 @@ install_location=
 type=PO
 
 [po/fr.po]
+dist=false
+install=false
+install_location=
+type=PO
+
+[po/pt_BR.po]
 dist=false
 install=false
 install_location=

@@ -43,8 +43,11 @@
 #include "connectorboolin.h"
 #include "connectorboolinedge.h"
 #include "connectorboolout.h"
+#include "connectorfloatin.h"
+#include "connectorfloatout.h"
 
 #include "wirepropertyboolean.h"
+#include "wirepropertyfloatingpoint.h"
 
 #include "boolean/booleanbutton.h"
 #include "boolean/booleanled.h"
@@ -65,11 +68,14 @@ ComponentInfoList distComponent = { &ExtConnBoolInInfo,
 ConnectorInfoList distConnector = { &ConnectorBoolInInfo,
                                     &ConnectorBoolInEdgeInfo,
                                     &ConnectorBoolOutInfo,
+                                    &ConnectorFloatInInfo,
+                                    &ConnectorFloatOutInfo,
                                     0 };
 	
 	
 WirePropertyInfoList distWireProp = { &wirePropertyBooleanInfo,
-                                    0 };
+                                      &wirePropertyFloatingPointInfo,
+                                      0 };
 	
 
 Library * g_library = 0;
