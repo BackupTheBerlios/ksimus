@@ -15,8 +15,17 @@
  *                                                                         *
  ***************************************************************************/
 
+// C-Includes
+
+// QT-Includes
+#include <qlabel.h>
+
+// KDE-Includes
 #include <klocale.h>
 
+// Project-Includes
+
+// Forward declaration
 #include "extconnboolin.h"
 #include "resource.h"
 #include "connectorlist.h"
@@ -24,7 +33,13 @@
 #include "connectorboolout.h"
 #include "componentinfo.h"
 #include "wireproperty.h"
+#include "ksimdata.h"
+#include "ksimbooleanbox.h"
 
+
+#define DEFAULT_STATE   false
+
+static const char * sDefaultState  = "Default State";
 
 static Component * create(CompContainer * container, const ComponentInfo * ci)
 {
@@ -48,7 +63,8 @@ const ComponentInfo * getExtConnBoolInInfo()
 //###############################################################
 
 ExtConnBoolIn::ExtConnBoolIn(CompContainer * container, const ComponentInfo * ci)
-	: ExternalConnector(container, ci, true)
+	: ExternalConnector(container, ci, true),
+		m_defaultState(DEFAULT_STATE)
 {
 	ConnectorBoolOut * out;
 	ConnectorBoolIn * in;
@@ -70,6 +86,16 @@ ExtConnBoolIn::ExtConnBoolIn(CompContainer * container, const ComponentInfo * ci
 
 ExtConnBoolIn::~ExtConnBoolIn()
 {
+}
+
+void ExtConnBoolIn::reset()
+{
+	ExternalConnector::reset();
+
+	if (!getExternalConn()->isConnected())
+	{
+		getExternalConn()->copyData(&m_defaultState);
+	}
 }
 
 void ExtConnBoolIn::calculate()
@@ -95,3 +121,74 @@ void ExtConnBoolIn::calculate()
 		out->setOutput(in->getInput());
 	}
 }
+
+void ExtConnBoolIn::save(KSimData & file) const
+{
+	if (isDefaultState())
+	{
+		file.writeEntry(sDefaultState, true);
+	}
+	ExternalConnector::save(file);
+}
+
+bool ExtConnBoolIn::load(KSimData & file, bool copyLoad)
+{
+	setDefaultState(file.readBoolEntry(sDefaultState, false));
+
+	return ExternalConnector::load(file, copyLoad);
+}
+
+ComponentPropertyBaseWidget * ExtConnBoolIn::createGeneralProperty(QWidget *parent)
+{
+	ExtConnBoolInPropertyGeneralWidget * wid;
+	wid = new ExtConnBoolInPropertyGeneralWidget(this, parent);
+	CHECK_PTR(wid);
+
+	return wid;
+}
+
+//##########################################################################################
+//##########################################################################################
+
+
+ExtConnBoolInPropertyGeneralWidget::ExtConnBoolInPropertyGeneralWidget(ExtConnBoolIn * comp, QWidget *parent, const char *name)
+	:	ExternalConnectorPropertyGeneralWidget(comp, parent, name)
+{
+	QString str;
+
+	QLabel * lab = new QLabel(i18n("Default State:"), this, "m_defaultStateLabel"); 
+	CHECK_PTR(lab);
+	
+	m_defaultState = new KSimBooleanBox(this, "m_defaultState");
+	CHECK_PTR(m_defaultState);
+
+	str = i18n("Sets the default state of the external connector. Used if it is unconnected.");
+	addToolTip(str, lab, m_defaultState);
+	addWhatsThis(str, lab, m_defaultState);
+
+	m_defaultState->setValue(getExtConnIn()->isDefaultState());
+}
+
+/*ExtConnBoolInPropertyGeneralWidget::~ExtConnBoolInPropertyGeneralWidget()
+{
+} */
+
+void ExtConnBoolInPropertyGeneralWidget::acceptPressed()
+{
+	ExternalConnectorPropertyGeneralWidget::acceptPressed();
+
+	if (getExtConnIn()->isDefaultState() != m_defaultState->getValue())
+	{
+		changeData();
+		getExtConnIn()->setDefaultState( m_defaultState->getValue() );
+	}
+}
+
+void ExtConnBoolInPropertyGeneralWidget::defaultPressed()
+{
+	ExternalConnectorPropertyGeneralWidget::defaultPressed();
+
+	m_defaultState->setValue(DEFAULT_STATE);
+}
+
+
