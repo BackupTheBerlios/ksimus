@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <stdio.h>
+
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <klocale.h>
@@ -31,6 +33,7 @@ static const char *description =
 static KCmdLineOptions options[] =
 {
   { "+[File]", I18N_NOOP("file to open"), 0 },
+  { "simpleVersion", I18N_NOOP("Returns the version of KSimus"), 0 },
   { 0, 0, 0 }
   // INSERT YOUR COMMANDLINE OPTIONS HERE
 };
@@ -53,14 +56,23 @@ int main(int argc, char *argv[])
   }
   else 
   {
-    KSimusApp *ksimus = new KSimusApp();
-    ksimus->show();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 		
+		if (args->isSet("simpleVersion"))
+		{
+			printf(VERSION "\n");
+			return 0;
+		}
+
+    KSimusApp *ksimus = new KSimusApp();
+    ksimus->show();
+
+		
 		if (args->count())
 		{
-          ksimus->openDocumentFile(args->arg(0));
+
+			ksimus->openDocumentFile(args->arg(0));
 		}
 /*		else
 		{
