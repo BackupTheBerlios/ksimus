@@ -35,6 +35,7 @@ static KCmdLineOptions options[] =
 {
 	{ "+[File]", I18N_NOOP("file to open"), 0 },
 	{ "execute", I18N_NOOP("start the execution of the given file"), 0 },
+	{ "hidden", I18N_NOOP("execute KSimus in hidden mode (only in combination with option 'execute')"), 0 },
 	{ "language ", I18N_NOOP("use the given language (for testing purpose)"), 0 },
 	{ 0, 0, 0 }
 	// INSERT YOUR COMMANDLINE OPTIONS HERE
@@ -76,7 +77,10 @@ int main(int argc, char *argv[])
 				{
 					KSimusApp *ksimus = new KSimusApp();
 					ksimus->executeDocumentFile(args->url(i));
-					ksimus->show();
+					if (!args->isSet("hidden"))
+					{
+						ksimus->show();
+					}
 				}
 			}
 			else
