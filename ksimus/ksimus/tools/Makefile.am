@@ -12,86 +12,86 @@ libtools_a_SOURCES = ksimbaseuint.cpp ksimtype.cpp ksimbooleanbox.cpp ksimpackag
 EXTRA_DIST = ksimdoubleedit.cpp ksimdoubleedit.h ksimgrid.cpp ksimgrid.h ksimgriddialog.cpp ksimgriddialog.h ksimtime.cpp ksimtime.h ksimtimebase.cpp ksimtimebase.h ksimtimelabel.cpp ksimtimelabel.h ksimtimeselectorwidget.cpp ksimtimeselectorwidget.h ksimtimeserver.cpp ksimtimeserver.h simulationtimingwidget.cpp simulationtimingwidget.h simulationtiming.cpp simulationtiming.h enumdict.cpp enumdict.h ksimlineedit.cpp ksimlineedit.h propertywidget.cpp propertywidget.h llicompsel.cpp llicompsel.h loglist.cpp loglist.h loglistdialogwidget.cpp loglistdialogwidget.h loglistitem.cpp loglistitem.h ksimdoublespinbox.cpp ksimdoublespinbox.h ksimexponentstep.cpp ksimexponentstep.h ksimunit.cpp ksimunit.h ksimtimespinbox.cpp ksimtimespinbox.h ksimfilelistselector.cpp ksimfilelistselector.h ksimfilelistselectorui.ui ksimpackagefilewidget.cpp ksimpackagefilewidget.h ksimbooleanbox.cpp ksimbooleanbox.h ksimtype.cpp ksimtype.h ksimbaseuint.cpp ksimbaseuint.h 
 
 install-data-local:
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimdoubleedit.h $(kde_includes)/ksimus/ksimdoubleedit.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimgrid.h $(kde_includes)/ksimus/ksimgrid.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimgriddialog.h $(kde_includes)/ksimus/ksimgriddialog.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtime.h $(kde_includes)/ksimus/ksimtime.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtimebase.h $(kde_includes)/ksimus/ksimtimebase.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtimelabel.h $(kde_includes)/ksimus/ksimtimelabel.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtimeselectorwidget.h $(kde_includes)/ksimus/ksimtimeselectorwidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtimeserver.h $(kde_includes)/ksimus/ksimtimeserver.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/simulationtimingwidget.h $(kde_includes)/ksimus/simulationtimingwidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/simulationtiming.h $(kde_includes)/ksimus/simulationtiming.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/enumdict.h $(kde_includes)/ksimus/enumdict.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimlineedit.h $(kde_includes)/ksimus/ksimlineedit.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/propertywidget.h $(kde_includes)/ksimus/propertywidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/llicompsel.h $(kde_includes)/ksimus/llicompsel.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/loglist.h $(kde_includes)/ksimus/loglist.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/loglistdialogwidget.h $(kde_includes)/ksimus/loglistdialogwidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/loglistitem.h $(kde_includes)/ksimus/loglistitem.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimdoublespinbox.h $(kde_includes)/ksimus/ksimdoublespinbox.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimexponentstep.h $(kde_includes)/ksimus/ksimexponentstep.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimunit.h $(kde_includes)/ksimus/ksimunit.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtimespinbox.h $(kde_includes)/ksimus/ksimtimespinbox.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimfilelistselector.h $(kde_includes)/ksimus/ksimfilelistselector.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimpackagefilewidget.h $(kde_includes)/ksimus/ksimpackagefilewidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimbooleanbox.h $(kde_includes)/ksimus/ksimbooleanbox.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimtype.h $(kde_includes)/ksimus/ksimtype.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimbaseuint.h $(kde_includes)/ksimus/ksimbaseuint.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimdoubleedit.h $(pkgincludedir)/ksimdoubleedit.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimgrid.h $(pkgincludedir)/ksimgrid.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimgriddialog.h $(pkgincludedir)/ksimgriddialog.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtime.h $(pkgincludedir)/ksimtime.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtimebase.h $(pkgincludedir)/ksimtimebase.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtimelabel.h $(pkgincludedir)/ksimtimelabel.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtimeselectorwidget.h $(pkgincludedir)/ksimtimeselectorwidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtimeserver.h $(pkgincludedir)/ksimtimeserver.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/simulationtimingwidget.h $(pkgincludedir)/simulationtimingwidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/simulationtiming.h $(pkgincludedir)/simulationtiming.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/enumdict.h $(pkgincludedir)/enumdict.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimlineedit.h $(pkgincludedir)/ksimlineedit.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/propertywidget.h $(pkgincludedir)/propertywidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/llicompsel.h $(pkgincludedir)/llicompsel.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/loglist.h $(pkgincludedir)/loglist.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/loglistdialogwidget.h $(pkgincludedir)/loglistdialogwidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/loglistitem.h $(pkgincludedir)/loglistitem.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimdoublespinbox.h $(pkgincludedir)/ksimdoublespinbox.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimexponentstep.h $(pkgincludedir)/ksimexponentstep.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimunit.h $(pkgincludedir)/ksimunit.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtimespinbox.h $(pkgincludedir)/ksimtimespinbox.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimfilelistselector.h $(pkgincludedir)/ksimfilelistselector.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimpackagefilewidget.h $(pkgincludedir)/ksimpackagefilewidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimbooleanbox.h $(pkgincludedir)/ksimbooleanbox.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimtype.h $(pkgincludedir)/ksimtype.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimbaseuint.h $(pkgincludedir)/ksimbaseuint.h
 
 uninstall-local:
-	-rm -f $(kde_includes)/ksimus/ksimdoubleedit.h
-	-rm -f $(kde_includes)/ksimus/ksimgrid.h
-	-rm -f $(kde_includes)/ksimus/ksimgriddialog.h
-	-rm -f $(kde_includes)/ksimus/ksimtime.h
-	-rm -f $(kde_includes)/ksimus/ksimtimebase.h
-	-rm -f $(kde_includes)/ksimus/ksimtimelabel.h
-	-rm -f $(kde_includes)/ksimus/ksimtimeselectorwidget.h
-	-rm -f $(kde_includes)/ksimus/ksimtimeserver.h
-	-rm -f $(kde_includes)/ksimus/simulationtimingwidget.h
-	-rm -f $(kde_includes)/ksimus/simulationtiming.h
-	-rm -f $(kde_includes)/ksimus/enumdict.h
-	-rm -f $(kde_includes)/ksimus/ksimlineedit.h
-	-rm -f $(kde_includes)/ksimus/propertywidget.h
-	-rm -f $(kde_includes)/ksimus/llicompsel.h
-	-rm -f $(kde_includes)/ksimus/loglist.h
-	-rm -f $(kde_includes)/ksimus/loglistdialogwidget.h
-	-rm -f $(kde_includes)/ksimus/loglistitem.h
-	-rm -f $(kde_includes)/ksimus/ksimdoublespinbox.h
-	-rm -f $(kde_includes)/ksimus/ksimexponentstep.h
-	-rm -f $(kde_includes)/ksimus/ksimunit.h
-	-rm -f $(kde_includes)/ksimus/ksimtimespinbox.h
-	-rm -f $(kde_includes)/ksimus/ksimfilelistselector.h
-	-rm -f $(kde_includes)/ksimus/ksimpackagefilewidget.h
-	-rm -f $(kde_includes)/ksimus/ksimbooleanbox.h
-	-rm -f $(kde_includes)/ksimus/ksimtype.h
-	-rm -f $(kde_includes)/ksimus/ksimbaseuint.h
+	-rm -f $(pkgincludedir)/ksimdoubleedit.h
+	-rm -f $(pkgincludedir)/ksimgrid.h
+	-rm -f $(pkgincludedir)/ksimgriddialog.h
+	-rm -f $(pkgincludedir)/ksimtime.h
+	-rm -f $(pkgincludedir)/ksimtimebase.h
+	-rm -f $(pkgincludedir)/ksimtimelabel.h
+	-rm -f $(pkgincludedir)/ksimtimeselectorwidget.h
+	-rm -f $(pkgincludedir)/ksimtimeserver.h
+	-rm -f $(pkgincludedir)/simulationtimingwidget.h
+	-rm -f $(pkgincludedir)/simulationtiming.h
+	-rm -f $(pkgincludedir)/enumdict.h
+	-rm -f $(pkgincludedir)/ksimlineedit.h
+	-rm -f $(pkgincludedir)/propertywidget.h
+	-rm -f $(pkgincludedir)/llicompsel.h
+	-rm -f $(pkgincludedir)/loglist.h
+	-rm -f $(pkgincludedir)/loglistdialogwidget.h
+	-rm -f $(pkgincludedir)/loglistitem.h
+	-rm -f $(pkgincludedir)/ksimdoublespinbox.h
+	-rm -f $(pkgincludedir)/ksimexponentstep.h
+	-rm -f $(pkgincludedir)/ksimunit.h
+	-rm -f $(pkgincludedir)/ksimtimespinbox.h
+	-rm -f $(pkgincludedir)/ksimfilelistselector.h
+	-rm -f $(pkgincludedir)/ksimpackagefilewidget.h
+	-rm -f $(pkgincludedir)/ksimbooleanbox.h
+	-rm -f $(pkgincludedir)/ksimtype.h
+	-rm -f $(pkgincludedir)/ksimbaseuint.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 

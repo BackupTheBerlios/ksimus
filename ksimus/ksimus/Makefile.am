@@ -8,113 +8,113 @@ SUBDIRS = tools module boolean lib items
 EXTRA_DIST = main.cpp ksimus.cpp ksimus.h ksimusdoc.cpp ksimusdoc.h ksimusview.cpp ksimusview.h ksimusui.rc ksimus.desktop ksimus.xpm mini-ksimus.xpm basewindow.cpp basewindow.h compcontainer.h component.cpp component.h componentitem.cpp componentitem.h componentmap.cpp componentmap.h compview.cpp compview.h displaywidget.cpp displaywidget.h globals.cpp globals.h ksimfile.cpp ksimfile.h ksimundo.cpp ksimundo.h types.h wire.cpp wire.h resource.h ksimwidget.cpp ksimwidget.h ksimeditor.cpp ksimeditor.h compviewwidget.cpp compviewwidget.h ksimdebug.h componentpropertybasewidget.cpp componentpropertybasewidget.h componentpropertygeneralwidget.cpp componentpropertygeneralwidget.h componentpropertydialog.cpp componentpropertydialog.h componentpropertyinfowidget.cpp componentpropertyinfowidget.h library.cpp library.h compcontainer.cpp componentaddon.cpp componentaddon.h ksimaction.cpp ksimaction.h ksimdata.cpp ksimdata.h compviewhbox.cpp compviewhbox.h compviewvbox.cpp compviewvbox.h componentstyle.cpp componentstyle.h componentpropertystylewidget.cpp componentpropertystylewidget.h 
 
 install-data-local:
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimus.h $(kde_includes)/ksimus/ksimus.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimusdoc.h $(kde_includes)/ksimus/ksimusdoc.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimusview.h $(kde_includes)/ksimus/ksimusview.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimus.h $(pkgincludedir)/ksimus.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimusdoc.h $(pkgincludedir)/ksimusdoc.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimusview.h $(pkgincludedir)/ksimusview.h
 	$(mkinstalldirs) $(kde_appsdir)/Applications/
 	$(INSTALL_DATA) $(srcdir)/ksimus.desktop $(kde_appsdir)/Applications/ksimus.desktop
 	$(mkinstalldirs) $(kde_icondir)/medium/locolor/apps/
 	$(INSTALL_DATA) $(srcdir)/ksimus.xpm $(kde_icondir)/medium/locolor/apps/ksimus.xpm
 	$(mkinstalldirs) $(kde_icondir)/small/locolor/apps/
 	$(INSTALL_DATA) $(srcdir)/mini-ksimus.xpm $(kde_icondir)/small/locolor/apps/ksimus.xpm
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/basewindow.h $(kde_includes)/ksimus/basewindow.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/compcontainer.h $(kde_includes)/ksimus/compcontainer.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/component.h $(kde_includes)/ksimus/component.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentitem.h $(kde_includes)/ksimus/componentitem.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentmap.h $(kde_includes)/ksimus/componentmap.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/compview.h $(kde_includes)/ksimus/compview.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/displaywidget.h $(kde_includes)/ksimus/displaywidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/globals.h $(kde_includes)/ksimus/globals.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimfile.h $(kde_includes)/ksimus/ksimfile.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimundo.h $(kde_includes)/ksimus/ksimundo.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/types.h $(kde_includes)/ksimus/types.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/wire.h $(kde_includes)/ksimus/wire.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/resource.h $(kde_includes)/ksimus/resource.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimwidget.h $(kde_includes)/ksimus/ksimwidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimeditor.h $(kde_includes)/ksimus/ksimeditor.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/compviewwidget.h $(kde_includes)/ksimus/compviewwidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimdebug.h $(kde_includes)/ksimus/ksimdebug.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentpropertybasewidget.h $(kde_includes)/ksimus/componentpropertybasewidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentpropertygeneralwidget.h $(kde_includes)/ksimus/componentpropertygeneralwidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentpropertydialog.h $(kde_includes)/ksimus/componentpropertydialog.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentpropertyinfowidget.h $(kde_includes)/ksimus/componentpropertyinfowidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/library.h $(kde_includes)/ksimus/library.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentaddon.h $(kde_includes)/ksimus/componentaddon.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimaction.h $(kde_includes)/ksimus/ksimaction.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/ksimdata.h $(kde_includes)/ksimus/ksimdata.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/compviewhbox.h $(kde_includes)/ksimus/compviewhbox.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/compviewvbox.h $(kde_includes)/ksimus/compviewvbox.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentstyle.h $(kde_includes)/ksimus/componentstyle.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentpropertystylewidget.h $(kde_includes)/ksimus/componentpropertystylewidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/basewindow.h $(pkgincludedir)/basewindow.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/compcontainer.h $(pkgincludedir)/compcontainer.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/component.h $(pkgincludedir)/component.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentitem.h $(pkgincludedir)/componentitem.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentmap.h $(pkgincludedir)/componentmap.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/compview.h $(pkgincludedir)/compview.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/displaywidget.h $(pkgincludedir)/displaywidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/globals.h $(pkgincludedir)/globals.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimfile.h $(pkgincludedir)/ksimfile.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimundo.h $(pkgincludedir)/ksimundo.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/types.h $(pkgincludedir)/types.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/wire.h $(pkgincludedir)/wire.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/resource.h $(pkgincludedir)/resource.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimwidget.h $(pkgincludedir)/ksimwidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimeditor.h $(pkgincludedir)/ksimeditor.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/compviewwidget.h $(pkgincludedir)/compviewwidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimdebug.h $(pkgincludedir)/ksimdebug.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentpropertybasewidget.h $(pkgincludedir)/componentpropertybasewidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentpropertygeneralwidget.h $(pkgincludedir)/componentpropertygeneralwidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentpropertydialog.h $(pkgincludedir)/componentpropertydialog.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentpropertyinfowidget.h $(pkgincludedir)/componentpropertyinfowidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/library.h $(pkgincludedir)/library.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentaddon.h $(pkgincludedir)/componentaddon.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimaction.h $(pkgincludedir)/ksimaction.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/ksimdata.h $(pkgincludedir)/ksimdata.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/compviewhbox.h $(pkgincludedir)/compviewhbox.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/compviewvbox.h $(pkgincludedir)/compviewvbox.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentstyle.h $(pkgincludedir)/componentstyle.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentpropertystylewidget.h $(pkgincludedir)/componentpropertystylewidget.h
 
 uninstall-local:
-	-rm -f $(kde_includes)/ksimus/ksimus.h
-	-rm -f $(kde_includes)/ksimus/ksimusdoc.h
-	-rm -f $(kde_includes)/ksimus/ksimusview.h
+	-rm -f $(pkgincludedir)/ksimus.h
+	-rm -f $(pkgincludedir)/ksimusdoc.h
+	-rm -f $(pkgincludedir)/ksimusview.h
 	-rm -f $(kde_appsdir)/Applications/ksimus.desktop
 	-rm -f $(kde_icondir)/medium/locolor/apps/ksimus.xpm
 	-rm -f $(kde_icondir)/small/locolor/apps/ksimus.xpm
-	-rm -f $(kde_includes)/ksimus/basewindow.h
-	-rm -f $(kde_includes)/ksimus/compcontainer.h
-	-rm -f $(kde_includes)/ksimus/component.h
-	-rm -f $(kde_includes)/ksimus/componentitem.h
-	-rm -f $(kde_includes)/ksimus/componentmap.h
-	-rm -f $(kde_includes)/ksimus/compview.h
-	-rm -f $(kde_includes)/ksimus/displaywidget.h
-	-rm -f $(kde_includes)/ksimus/globals.h
-	-rm -f $(kde_includes)/ksimus/ksimfile.h
-	-rm -f $(kde_includes)/ksimus/ksimundo.h
-	-rm -f $(kde_includes)/ksimus/types.h
-	-rm -f $(kde_includes)/ksimus/wire.h
-	-rm -f $(kde_includes)/ksimus/resource.h
-	-rm -f $(kde_includes)/ksimus/ksimwidget.h
-	-rm -f $(kde_includes)/ksimus/ksimeditor.h
-	-rm -f $(kde_includes)/ksimus/compviewwidget.h
-	-rm -f $(kde_includes)/ksimus/ksimdebug.h
-	-rm -f $(kde_includes)/ksimus/componentpropertybasewidget.h
-	-rm -f $(kde_includes)/ksimus/componentpropertygeneralwidget.h
-	-rm -f $(kde_includes)/ksimus/componentpropertydialog.h
-	-rm -f $(kde_includes)/ksimus/componentpropertyinfowidget.h
-	-rm -f $(kde_includes)/ksimus/library.h
-	-rm -f $(kde_includes)/ksimus/componentaddon.h
-	-rm -f $(kde_includes)/ksimus/ksimaction.h
-	-rm -f $(kde_includes)/ksimus/ksimdata.h
-	-rm -f $(kde_includes)/ksimus/compviewhbox.h
-	-rm -f $(kde_includes)/ksimus/compviewvbox.h
-	-rm -f $(kde_includes)/ksimus/componentstyle.h
-	-rm -f $(kde_includes)/ksimus/componentpropertystylewidget.h
+	-rm -f $(pkgincludedir)/basewindow.h
+	-rm -f $(pkgincludedir)/compcontainer.h
+	-rm -f $(pkgincludedir)/component.h
+	-rm -f $(pkgincludedir)/componentitem.h
+	-rm -f $(pkgincludedir)/componentmap.h
+	-rm -f $(pkgincludedir)/compview.h
+	-rm -f $(pkgincludedir)/displaywidget.h
+	-rm -f $(pkgincludedir)/globals.h
+	-rm -f $(pkgincludedir)/ksimfile.h
+	-rm -f $(pkgincludedir)/ksimundo.h
+	-rm -f $(pkgincludedir)/types.h
+	-rm -f $(pkgincludedir)/wire.h
+	-rm -f $(pkgincludedir)/resource.h
+	-rm -f $(pkgincludedir)/ksimwidget.h
+	-rm -f $(pkgincludedir)/ksimeditor.h
+	-rm -f $(pkgincludedir)/compviewwidget.h
+	-rm -f $(pkgincludedir)/ksimdebug.h
+	-rm -f $(pkgincludedir)/componentpropertybasewidget.h
+	-rm -f $(pkgincludedir)/componentpropertygeneralwidget.h
+	-rm -f $(pkgincludedir)/componentpropertydialog.h
+	-rm -f $(pkgincludedir)/componentpropertyinfowidget.h
+	-rm -f $(pkgincludedir)/library.h
+	-rm -f $(pkgincludedir)/componentaddon.h
+	-rm -f $(pkgincludedir)/ksimaction.h
+	-rm -f $(pkgincludedir)/ksimdata.h
+	-rm -f $(pkgincludedir)/compviewhbox.h
+	-rm -f $(pkgincludedir)/compviewvbox.h
+	-rm -f $(pkgincludedir)/componentstyle.h
+	-rm -f $(pkgincludedir)/componentpropertystylewidget.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 # this 10 paths are KDE specific. Use them:

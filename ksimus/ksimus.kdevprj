@@ -27,11 +27,11 @@ path_to_bin_program=ksimus
 [General]
 AMChanged=false
 author=Rasmus Diekenbrock
-configure_args=--with-qt-dir=/usr/lib/qt2 --prefix=/opt/kde2
+configure_args=--with-qt-dir=/usr/lib/qt2 --prefix=/home/rasmus/tmp
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=GNU,Header
+lfv_open_groups=Andere,GNU,Header
 make_options=\s-j2
 makefiles=Makefile.am,ksimus/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am,ksimus/module/Makefile.am,ksimus/boolean/Makefile.am,ksimus/tools/Makefile.am,ksimus/lib/Makefile.am,ksimus/items/Makefile.am
 modifyMakefiles=true
@@ -124,7 +124,7 @@ type=SOURCE
 [ksimus/basewindow.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/basewindow.h
+install_location=$$(pkgincludedir)/basewindow.h
 type=HEADER
 
 [ksimus/boolean/Makefile.am]
@@ -140,7 +140,7 @@ type=SOURCE
 [ksimus/boolean/boolean1out.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/boolean1out.h
+install_location=$$(pkgincludedir)/boolean1out.h
 type=HEADER
 
 [ksimus/boolean/booleanand.cpp]
@@ -152,7 +152,7 @@ type=SOURCE
 [ksimus/boolean/booleanand.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/booleanand.h
+install_location=$$(pkgincludedir)/booleanand.h
 type=HEADER
 
 [ksimus/boolean/booleanbutton.cpp]
@@ -164,7 +164,7 @@ type=SOURCE
 [ksimus/boolean/booleanbutton.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/booleanbutton.h
+install_location=$$(pkgincludedir)/booleanbutton.h
 type=HEADER
 
 [ksimus/boolean/booleanled.cpp]
@@ -176,7 +176,7 @@ type=SOURCE
 [ksimus/boolean/booleanled.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/booleanled.h
+install_location=$$(pkgincludedir)/booleanled.h
 type=HEADER
 
 [ksimus/boolean/booleanxin1out.cpp]
@@ -188,7 +188,7 @@ type=SOURCE
 [ksimus/boolean/booleanxin1out.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/booleanxin1out.h
+install_location=$$(pkgincludedir)/booleanxin1out.h
 type=HEADER
 
 [ksimus/boolean/clockgenerator.cpp]
@@ -200,7 +200,7 @@ type=SOURCE
 [ksimus/boolean/clockgenerator.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/clockgenerator.h
+install_location=$$(pkgincludedir)/clockgenerator.h
 type=HEADER
 
 [ksimus/compcontainer.cpp]
@@ -212,7 +212,7 @@ type=SOURCE
 [ksimus/compcontainer.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/compcontainer.h
+install_location=$$(pkgincludedir)/compcontainer.h
 type=HEADER
 
 [ksimus/component.cpp]
@@ -224,7 +224,7 @@ type=SOURCE
 [ksimus/component.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/component.h
+install_location=$$(pkgincludedir)/component.h
 type=HEADER
 
 [ksimus/componentaddon.cpp]
@@ -236,7 +236,7 @@ type=SOURCE
 [ksimus/componentaddon.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentaddon.h
+install_location=$$(pkgincludedir)/componentaddon.h
 type=HEADER
 
 [ksimus/componentitem.cpp]
@@ -248,7 +248,7 @@ type=SOURCE
 [ksimus/componentitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentitem.h
+install_location=$$(pkgincludedir)/componentitem.h
 type=HEADER
 
 [ksimus/componentmap.cpp]
@@ -260,7 +260,7 @@ type=SOURCE
 [ksimus/componentmap.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentmap.h
+install_location=$$(pkgincludedir)/componentmap.h
 type=HEADER
 
 [ksimus/componentpropertybasewidget.cpp]
@@ -272,7 +272,7 @@ type=SOURCE
 [ksimus/componentpropertybasewidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentpropertybasewidget.h
+install_location=$$(pkgincludedir)/componentpropertybasewidget.h
 type=HEADER
 
 [ksimus/componentpropertydialog.cpp]
@@ -284,7 +284,7 @@ type=SOURCE
 [ksimus/componentpropertydialog.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentpropertydialog.h
+install_location=$$(pkgincludedir)/componentpropertydialog.h
 type=HEADER
 
 [ksimus/componentpropertygeneralwidget.cpp]
@@ -296,7 +296,7 @@ type=SOURCE
 [ksimus/componentpropertygeneralwidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentpropertygeneralwidget.h
+install_location=$$(pkgincludedir)/componentpropertygeneralwidget.h
 type=HEADER
 
 [ksimus/componentpropertyinfowidget.cpp]
@@ -308,7 +308,7 @@ type=SOURCE
 [ksimus/componentpropertyinfowidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentpropertyinfowidget.h
+install_location=$$(pkgincludedir)/componentpropertyinfowidget.h
 type=HEADER
 
 [ksimus/componentpropertystylewidget.cpp]
@@ -320,7 +320,7 @@ type=SOURCE
 [ksimus/componentpropertystylewidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentpropertystylewidget.h
+install_location=$$(pkgincludedir)/componentpropertystylewidget.h
 type=HEADER
 
 [ksimus/componentstyle.cpp]
@@ -332,7 +332,7 @@ type=SOURCE
 [ksimus/componentstyle.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentstyle.h
+install_location=$$(pkgincludedir)/componentstyle.h
 type=HEADER
 
 [ksimus/compview.cpp]
@@ -344,7 +344,7 @@ type=SOURCE
 [ksimus/compview.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/compview.h
+install_location=$$(pkgincludedir)/compview.h
 type=HEADER
 
 [ksimus/compviewhbox.cpp]
@@ -356,7 +356,7 @@ type=SOURCE
 [ksimus/compviewhbox.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/compviewhbox.h
+install_location=$$(pkgincludedir)/compviewhbox.h
 type=HEADER
 
 [ksimus/compviewvbox.cpp]
@@ -368,7 +368,7 @@ type=SOURCE
 [ksimus/compviewvbox.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/compviewvbox.h
+install_location=$$(pkgincludedir)/compviewvbox.h
 type=HEADER
 
 [ksimus/compviewwidget.cpp]
@@ -380,7 +380,7 @@ type=SOURCE
 [ksimus/compviewwidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/compviewwidget.h
+install_location=$$(pkgincludedir)/compviewwidget.h
 type=HEADER
 
 [ksimus/displaywidget.cpp]
@@ -392,7 +392,7 @@ type=SOURCE
 [ksimus/displaywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/displaywidget.h
+install_location=$$(pkgincludedir)/displaywidget.h
 type=HEADER
 
 [ksimus/globals.cpp]
@@ -404,7 +404,7 @@ type=SOURCE
 [ksimus/globals.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/globals.h
+install_location=$$(pkgincludedir)/globals.h
 type=HEADER
 
 [ksimus/items/Makefile.am]
@@ -421,7 +421,7 @@ type=SOURCE
 [ksimus/items/componentblocklayout.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentblocklayout.h
+install_location=$$(pkgincludedir)/componentblocklayout.h
 type=HEADER
 
 [ksimus/items/componentlayout.cpp]
@@ -433,7 +433,7 @@ type=SOURCE
 [ksimus/items/componentlayout.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentlayout.h
+install_location=$$(pkgincludedir)/componentlayout.h
 type=HEADER
 
 [ksimus/items/connectorbase.cpp]
@@ -445,7 +445,7 @@ type=SOURCE
 [ksimus/items/connectorbase.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorbase.h
+install_location=$$(pkgincludedir)/connectorbase.h
 type=HEADER
 
 [ksimus/items/connectorboolin.cpp]
@@ -457,7 +457,7 @@ type=SOURCE
 [ksimus/items/connectorboolin.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorboolin.h
+install_location=$$(pkgincludedir)/connectorboolin.h
 type=HEADER
 
 [ksimus/items/connectorboolinedge.cpp]
@@ -469,7 +469,7 @@ type=SOURCE
 [ksimus/items/connectorboolinedge.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorboolinedge.h
+install_location=$$(pkgincludedir)/connectorboolinedge.h
 type=HEADER
 
 [ksimus/items/connectorboolinedgepropertywidget.cpp]
@@ -481,7 +481,7 @@ type=SOURCE
 [ksimus/items/connectorboolinedgepropertywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorboolinpropertywidget.h
+install_location=$$(pkgincludedir)/connectorboolinpropertywidget.h
 type=HEADER
 
 [ksimus/items/connectorboolinpropertywidget.cpp]
@@ -493,7 +493,7 @@ type=SOURCE
 [ksimus/items/connectorboolinpropertywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorboolinpropertywidget.h
+install_location=$$(pkgincludedir)/connectorboolinpropertywidget.h
 type=HEADER
 
 [ksimus/items/connectorboolout.cpp]
@@ -505,7 +505,7 @@ type=SOURCE
 [ksimus/items/connectorboolout.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorboolout.h
+install_location=$$(pkgincludedir)/connectorboolout.h
 type=HEADER
 
 [ksimus/items/connectorbooloutpropertywidget.cpp]
@@ -517,7 +517,7 @@ type=SOURCE
 [ksimus/items/connectorbooloutpropertywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorbooloutpropertywidget.h
+install_location=$$(pkgincludedir)/connectorbooloutpropertywidget.h
 type=HEADER
 
 [ksimus/items/connectorlabel.cpp]
@@ -529,7 +529,7 @@ type=SOURCE
 [ksimus/items/connectorlabel.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorlabel.h
+install_location=$$(pkgincludedir)/connectorlabel.h
 type=HEADER
 
 [ksimus/items/connectorlist.cpp]
@@ -541,7 +541,7 @@ type=SOURCE
 [ksimus/items/connectorlist.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorlist.h
+install_location=$$(pkgincludedir)/connectorlist.h
 type=HEADER
 
 [ksimus/items/connectorpack.cpp]
@@ -553,7 +553,7 @@ type=SOURCE
 [ksimus/items/connectorpack.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorpack.h
+install_location=$$(pkgincludedir)/connectorpack.h
 type=HEADER
 
 [ksimus/items/connectorpropertydialog.cpp]
@@ -565,7 +565,7 @@ type=SOURCE
 [ksimus/items/connectorpropertydialog.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorpropertydialog.h
+install_location=$$(pkgincludedir)/connectorpropertydialog.h
 type=HEADER
 
 [ksimus/items/connectorpropertywidget.cpp]
@@ -577,7 +577,7 @@ type=SOURCE
 [ksimus/items/connectorpropertywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorpropertywidget.h
+install_location=$$(pkgincludedir)/connectorpropertywidget.h
 type=HEADER
 
 [ksimus/items/doublelayout.cpp]
@@ -589,7 +589,7 @@ type=SOURCE
 [ksimus/items/doublelayout.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/doublelayout.h
+install_location=$$(pkgincludedir)/doublelayout.h
 type=HEADER
 
 [ksimus/items/extconnboolin.cpp]
@@ -601,7 +601,7 @@ type=SOURCE
 [ksimus/items/extconnboolin.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/extconnboolin.h
+install_location=$$(pkgincludedir)/extconnboolin.h
 type=HEADER
 
 [ksimus/items/extconnboolout.cpp]
@@ -613,7 +613,7 @@ type=SOURCE
 [ksimus/items/extconnboolout.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/extconnboolout.h
+install_location=$$(pkgincludedir)/extconnboolout.h
 type=HEADER
 
 [ksimus/items/externalconnector.cpp]
@@ -625,7 +625,7 @@ type=SOURCE
 [ksimus/items/externalconnector.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/externalconnector.h
+install_location=$$(pkgincludedir)/externalconnector.h
 type=HEADER
 
 [ksimus/items/wireproperty.cpp]
@@ -637,7 +637,7 @@ type=SOURCE
 [ksimus/items/wireproperty.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/wireproperty.h
+install_location=$$(pkgincludedir)/wireproperty.h
 type=HEADER
 
 [ksimus/items/wirepropertyboolean.cpp]
@@ -649,7 +649,7 @@ type=SOURCE
 [ksimus/items/wirepropertyboolean.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/wirepropertyboolean.h
+install_location=$$(pkgincludedir)/wirepropertyboolean.h
 type=HEADER
 
 [ksimus/ksimaction.cpp]
@@ -661,7 +661,7 @@ type=SOURCE
 [ksimus/ksimaction.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimaction.h
+install_location=$$(pkgincludedir)/ksimaction.h
 type=HEADER
 
 [ksimus/ksimdata.cpp]
@@ -673,13 +673,13 @@ type=SOURCE
 [ksimus/ksimdata.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimdata.h
+install_location=$$(pkgincludedir)/ksimdata.h
 type=HEADER
 
 [ksimus/ksimdebug.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimdebug.h
+install_location=$$(pkgincludedir)/ksimdebug.h
 type=HEADER
 
 [ksimus/ksimeditor.cpp]
@@ -691,7 +691,7 @@ type=SOURCE
 [ksimus/ksimeditor.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimeditor.h
+install_location=$$(pkgincludedir)/ksimeditor.h
 type=HEADER
 
 [ksimus/ksimfile.cpp]
@@ -703,7 +703,7 @@ type=SOURCE
 [ksimus/ksimfile.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimfile.h
+install_location=$$(pkgincludedir)/ksimfile.h
 type=HEADER
 
 [ksimus/ksimundo.cpp]
@@ -715,7 +715,7 @@ type=SOURCE
 [ksimus/ksimundo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimundo.h
+install_location=$$(pkgincludedir)/ksimundo.h
 type=HEADER
 
 [ksimus/ksimus.cpp]
@@ -733,7 +733,7 @@ type=DATA
 [ksimus/ksimus.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimus.h
+install_location=$$(pkgincludedir)/ksimus.h
 type=HEADER
 
 [ksimus/ksimus.xpm]
@@ -751,7 +751,7 @@ type=SOURCE
 [ksimus/ksimusdoc.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimusdoc.h
+install_location=$$(pkgincludedir)/ksimusdoc.h
 type=HEADER
 
 [ksimus/ksimusui.rc]
@@ -769,7 +769,7 @@ type=SOURCE
 [ksimus/ksimusview.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimusview.h
+install_location=$$(pkgincludedir)/ksimusview.h
 type=HEADER
 
 [ksimus/ksimwidget.cpp]
@@ -781,7 +781,7 @@ type=SOURCE
 [ksimus/ksimwidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimwidget.h
+install_location=$$(pkgincludedir)/ksimwidget.h
 type=HEADER
 
 [ksimus/lib/Makefile.am]
@@ -798,7 +798,7 @@ type=SOURCE
 [ksimus/lib/baseinfo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/baseinfo.h
+install_location=$$(pkgincludedir)/baseinfo.h
 type=HEADER
 
 [ksimus/lib/baselibrary.cpp]
@@ -810,7 +810,7 @@ type=SOURCE
 [ksimus/lib/baselibrary.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/baselibrary.h
+install_location=$$(pkgincludedir)/baselibrary.h
 type=HEADER
 
 [ksimus/lib/baselibraryitem.cpp]
@@ -822,7 +822,7 @@ type=SOURCE
 [ksimus/lib/baselibraryitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/baselibraryitem.h
+install_location=$$(pkgincludedir)/baselibraryitem.h
 type=HEADER
 
 [ksimus/lib/componentdirectory.cpp]
@@ -834,7 +834,7 @@ type=SOURCE
 [ksimus/lib/componentdirectory.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentdirectory.h
+install_location=$$(pkgincludedir)/componentdirectory.h
 type=HEADER
 
 [ksimus/lib/componentinfo.cpp]
@@ -846,7 +846,7 @@ type=SOURCE
 [ksimus/lib/componentinfo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentinfo.h
+install_location=$$(pkgincludedir)/componentinfo.h
 type=HEADER
 
 [ksimus/lib/componentlibrary.cpp]
@@ -858,7 +858,7 @@ type=SOURCE
 [ksimus/lib/componentlibrary.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentlibrary.h
+install_location=$$(pkgincludedir)/componentlibrary.h
 type=HEADER
 
 [ksimus/lib/componentlibraryitem.cpp]
@@ -870,7 +870,7 @@ type=SOURCE
 [ksimus/lib/componentlibraryitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentlibraryitem.h
+install_location=$$(pkgincludedir)/componentlibraryitem.h
 type=HEADER
 
 [ksimus/lib/componentlistview.cpp]
@@ -882,7 +882,7 @@ type=SOURCE
 [ksimus/lib/componentlistview.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentlistview.h
+install_location=$$(pkgincludedir)/componentlistview.h
 type=HEADER
 
 [ksimus/lib/componentlistviewitem.cpp]
@@ -894,7 +894,7 @@ type=SOURCE
 [ksimus/lib/componentlistviewitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentlistviewitem.h
+install_location=$$(pkgincludedir)/componentlistviewitem.h
 type=HEADER
 
 [ksimus/lib/componentpopupmenu.cpp]
@@ -906,7 +906,7 @@ type=SOURCE
 [ksimus/lib/componentpopupmenu.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/componentpopupmenu.h
+install_location=$$(pkgincludedir)/componentpopupmenu.h
 type=HEADER
 
 [ksimus/lib/connectorinfo.cpp]
@@ -918,7 +918,7 @@ type=SOURCE
 [ksimus/lib/connectorinfo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorinfo.h
+install_location=$$(pkgincludedir)/connectorinfo.h
 type=HEADER
 
 [ksimus/lib/connectorlibrary.cpp]
@@ -930,7 +930,7 @@ type=SOURCE
 [ksimus/lib/connectorlibrary.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorlibrary.h
+install_location=$$(pkgincludedir)/connectorlibrary.h
 type=HEADER
 
 [ksimus/lib/connectorlibraryitem.cpp]
@@ -942,7 +942,7 @@ type=SOURCE
 [ksimus/lib/connectorlibraryitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/connectorlibraryitem.h
+install_location=$$(pkgincludedir)/connectorlibraryitem.h
 type=HEADER
 
 [ksimus/lib/ksimpackage.cpp]
@@ -954,7 +954,7 @@ type=SOURCE
 [ksimus/lib/ksimpackage.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimpackage.h
+install_location=$$(pkgincludedir)/ksimpackage.h
 type=HEADER
 
 [ksimus/lib/moduleinfo.cpp]
@@ -966,7 +966,7 @@ type=SOURCE
 [ksimus/lib/moduleinfo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/moduleinfo.h
+install_location=$$(pkgincludedir)/moduleinfo.h
 type=HEADER
 
 [ksimus/lib/packageinfo.cpp]
@@ -978,7 +978,7 @@ type=SOURCE
 [ksimus/lib/packageinfo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/packageinfo.h
+install_location=$$(pkgincludedir)/packageinfo.h
 type=HEADER
 
 [ksimus/lib/wirepropertyinfo.cpp]
@@ -990,7 +990,7 @@ type=SOURCE
 [ksimus/lib/wirepropertyinfo.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/wirepropertyinfo.h
+install_location=$$(pkgincludedir)/wirepropertyinfo.h
 type=HEADER
 
 [ksimus/lib/wirepropertylibrary.cpp]
@@ -1002,7 +1002,7 @@ type=SOURCE
 [ksimus/lib/wirepropertylibrary.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/wirepropertylibrary.h
+install_location=$$(pkgincludedir)/wirepropertylibrary.h
 type=HEADER
 
 [ksimus/lib/wirepropertylibraryitem.cpp]
@@ -1014,7 +1014,7 @@ type=SOURCE
 [ksimus/lib/wirepropertylibraryitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/wirepropertylibraryitem.h
+install_location=$$(pkgincludedir)/wirepropertylibraryitem.h
 type=HEADER
 
 [ksimus/library.cpp]
@@ -1026,7 +1026,7 @@ type=SOURCE
 [ksimus/library.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/library.h
+install_location=$$(pkgincludedir)/library.h
 type=HEADER
 
 [ksimus/main.cpp]
@@ -1055,7 +1055,7 @@ type=SOURCE
 [ksimus/module/module.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/module.h
+install_location=$$(pkgincludedir)/module.h
 type=HEADER
 
 [ksimus/module/moduledata.cpp]
@@ -1067,7 +1067,7 @@ type=SOURCE
 [ksimus/module/moduledata.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/moduledata.h
+install_location=$$(pkgincludedir)/moduledata.h
 type=HEADER
 
 [ksimus/module/moduledialog.cpp]
@@ -1079,7 +1079,7 @@ type=SOURCE
 [ksimus/module/moduledialog.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/moduledialog.h
+install_location=$$(pkgincludedir)/moduledialog.h
 type=HEADER
 
 [ksimus/module/moduleeditor.cpp]
@@ -1091,7 +1091,7 @@ type=SOURCE
 [ksimus/module/moduleeditor.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/moduleeditor.h
+install_location=$$(pkgincludedir)/moduleeditor.h
 type=HEADER
 
 [ksimus/module/modulepropertywidget.cpp]
@@ -1103,7 +1103,7 @@ type=SOURCE
 [ksimus/module/modulepropertywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/modulepropertywidget.h
+install_location=$$(pkgincludedir)/modulepropertywidget.h
 type=HEADER
 
 [ksimus/module/typeselection.cpp]
@@ -1115,13 +1115,13 @@ type=SOURCE
 [ksimus/module/typeselection.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/typeselection.h
+install_location=$$(pkgincludedir)/typeselection.h
 type=HEADER
 
 [ksimus/resource.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/resource.h
+install_location=$$(pkgincludedir)/resource.h
 type=HEADER
 
 [ksimus/tools/Makefile.am]
@@ -1138,7 +1138,7 @@ type=SOURCE
 [ksimus/tools/enumdict.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/enumdict.h
+install_location=$$(pkgincludedir)/enumdict.h
 type=HEADER
 
 [ksimus/tools/ksimbaseuint.cpp]
@@ -1150,7 +1150,7 @@ type=SOURCE
 [ksimus/tools/ksimbaseuint.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimbaseuint.h
+install_location=$$(pkgincludedir)/ksimbaseuint.h
 type=HEADER
 
 [ksimus/tools/ksimbooleanbox.cpp]
@@ -1162,7 +1162,7 @@ type=SOURCE
 [ksimus/tools/ksimbooleanbox.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimbooleanbox.h
+install_location=$$(pkgincludedir)/ksimbooleanbox.h
 type=HEADER
 
 [ksimus/tools/ksimdoubleedit.cpp]
@@ -1174,7 +1174,7 @@ type=SOURCE
 [ksimus/tools/ksimdoubleedit.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimdoubleedit.h
+install_location=$$(pkgincludedir)/ksimdoubleedit.h
 type=HEADER
 
 [ksimus/tools/ksimdoublespinbox.cpp]
@@ -1186,7 +1186,7 @@ type=SOURCE
 [ksimus/tools/ksimdoublespinbox.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimdoublespinbox.h
+install_location=$$(pkgincludedir)/ksimdoublespinbox.h
 type=HEADER
 
 [ksimus/tools/ksimexponentstep.cpp]
@@ -1198,7 +1198,7 @@ type=SOURCE
 [ksimus/tools/ksimexponentstep.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimexponentstep.h
+install_location=$$(pkgincludedir)/ksimexponentstep.h
 type=HEADER
 
 [ksimus/tools/ksimfilelistselector.cpp]
@@ -1210,7 +1210,7 @@ type=SOURCE
 [ksimus/tools/ksimfilelistselector.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimfilelistselector.h
+install_location=$$(pkgincludedir)/ksimfilelistselector.h
 type=HEADER
 
 [ksimus/tools/ksimfilelistselectorui.ui]
@@ -1228,7 +1228,7 @@ type=SOURCE
 [ksimus/tools/ksimgrid.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimgrid.h
+install_location=$$(pkgincludedir)/ksimgrid.h
 type=HEADER
 
 [ksimus/tools/ksimgriddialog.cpp]
@@ -1240,7 +1240,7 @@ type=SOURCE
 [ksimus/tools/ksimgriddialog.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimgriddialog.h
+install_location=$$(pkgincludedir)/ksimgriddialog.h
 type=HEADER
 
 [ksimus/tools/ksimlineedit.cpp]
@@ -1252,7 +1252,7 @@ type=SOURCE
 [ksimus/tools/ksimlineedit.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimlineedit.h
+install_location=$$(pkgincludedir)/ksimlineedit.h
 type=HEADER
 
 [ksimus/tools/ksimpackagefilewidget.cpp]
@@ -1264,7 +1264,7 @@ type=SOURCE
 [ksimus/tools/ksimpackagefilewidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimpackagefilewidget.h
+install_location=$$(pkgincludedir)/ksimpackagefilewidget.h
 type=HEADER
 
 [ksimus/tools/ksimtime.cpp]
@@ -1276,7 +1276,7 @@ type=SOURCE
 [ksimus/tools/ksimtime.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtime.h
+install_location=$$(pkgincludedir)/ksimtime.h
 type=HEADER
 
 [ksimus/tools/ksimtimebase.cpp]
@@ -1288,7 +1288,7 @@ type=SOURCE
 [ksimus/tools/ksimtimebase.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtimebase.h
+install_location=$$(pkgincludedir)/ksimtimebase.h
 type=HEADER
 
 [ksimus/tools/ksimtimelabel.cpp]
@@ -1300,7 +1300,7 @@ type=SOURCE
 [ksimus/tools/ksimtimelabel.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtimelabel.h
+install_location=$$(pkgincludedir)/ksimtimelabel.h
 type=HEADER
 
 [ksimus/tools/ksimtimeselectorwidget.cpp]
@@ -1312,7 +1312,7 @@ type=SOURCE
 [ksimus/tools/ksimtimeselectorwidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtimeselectorwidget.h
+install_location=$$(pkgincludedir)/ksimtimeselectorwidget.h
 type=HEADER
 
 [ksimus/tools/ksimtimeserver.cpp]
@@ -1324,7 +1324,7 @@ type=SOURCE
 [ksimus/tools/ksimtimeserver.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtimeserver.h
+install_location=$$(pkgincludedir)/ksimtimeserver.h
 type=HEADER
 
 [ksimus/tools/ksimtimespinbox.cpp]
@@ -1336,7 +1336,7 @@ type=SOURCE
 [ksimus/tools/ksimtimespinbox.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtimespinbox.h
+install_location=$$(pkgincludedir)/ksimtimespinbox.h
 type=HEADER
 
 [ksimus/tools/ksimtype.cpp]
@@ -1348,7 +1348,7 @@ type=SOURCE
 [ksimus/tools/ksimtype.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimtype.h
+install_location=$$(pkgincludedir)/ksimtype.h
 type=HEADER
 
 [ksimus/tools/ksimunit.cpp]
@@ -1360,7 +1360,7 @@ type=SOURCE
 [ksimus/tools/ksimunit.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/ksimunit.h
+install_location=$$(pkgincludedir)/ksimunit.h
 type=HEADER
 
 [ksimus/tools/llicompsel.cpp]
@@ -1372,7 +1372,7 @@ type=SOURCE
 [ksimus/tools/llicompsel.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/llicompsel.h
+install_location=$$(pkgincludedir)/llicompsel.h
 type=HEADER
 
 [ksimus/tools/loglist.cpp]
@@ -1384,7 +1384,7 @@ type=SOURCE
 [ksimus/tools/loglist.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/loglist.h
+install_location=$$(pkgincludedir)/loglist.h
 type=HEADER
 
 [ksimus/tools/loglistdialogwidget.cpp]
@@ -1396,7 +1396,7 @@ type=SOURCE
 [ksimus/tools/loglistdialogwidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/loglistdialogwidget.h
+install_location=$$(pkgincludedir)/loglistdialogwidget.h
 type=HEADER
 
 [ksimus/tools/loglistitem.cpp]
@@ -1408,7 +1408,7 @@ type=SOURCE
 [ksimus/tools/loglistitem.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/loglistitem.h
+install_location=$$(pkgincludedir)/loglistitem.h
 type=HEADER
 
 [ksimus/tools/propertywidget.cpp]
@@ -1420,7 +1420,7 @@ type=SOURCE
 [ksimus/tools/propertywidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/propertywidget.h
+install_location=$$(pkgincludedir)/propertywidget.h
 type=HEADER
 
 [ksimus/tools/simulationtiming.cpp]
@@ -1432,7 +1432,7 @@ type=SOURCE
 [ksimus/tools/simulationtiming.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/simulationtiming.h
+install_location=$$(pkgincludedir)/simulationtiming.h
 type=HEADER
 
 [ksimus/tools/simulationtimingwidget.cpp]
@@ -1444,13 +1444,13 @@ type=SOURCE
 [ksimus/tools/simulationtimingwidget.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/simulationtimingwidget.h
+install_location=$$(pkgincludedir)/simulationtimingwidget.h
 type=HEADER
 
 [ksimus/types.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/types.h
+install_location=$$(pkgincludedir)/types.h
 type=HEADER
 
 [ksimus/wire.cpp]
@@ -1462,7 +1462,7 @@ type=SOURCE
 [ksimus/wire.h]
 dist=true
 install=true
-install_location=$$(kde_includes)/ksimus/wire.h
+install_location=$$(pkgincludedir)/wire.h
 type=HEADER
 
 [po/Makefile.am]

@@ -12,68 +12,68 @@ libitems_a_SOURCES = doublelayout.cpp componentblocklayout.cpp connectorpack.cpp
 EXTRA_DIST = connectorbase.cpp connectorbase.h connectorboolin.cpp connectorboolin.h connectorboolinpropertywidget.cpp connectorboolinpropertywidget.h connectorboolout.cpp connectorboolout.h connectorbooloutpropertywidget.cpp connectorbooloutpropertywidget.h connectorlist.cpp connectorlist.h connectorpropertydialog.cpp connectorpropertydialog.h connectorpropertywidget.cpp connectorpropertywidget.h wireproperty.cpp wireproperty.h wirepropertyboolean.cpp wirepropertyboolean.h extconnboolin.cpp extconnboolin.h extconnboolout.cpp extconnboolout.h externalconnector.cpp externalconnector.h connectorlabel.cpp connectorlabel.h connectorboolinedge.cpp connectorboolinedge.h connectorboolinedgepropertywidget.cpp connectorboolinedgepropertywidget.h componentlayout.cpp componentlayout.h connectorpack.cpp connectorpack.h componentblocklayout.cpp componentblocklayout.h doublelayout.cpp doublelayout.h 
 
 install-data-local:
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorbase.h $(kde_includes)/ksimus/connectorbase.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorboolin.h $(kde_includes)/ksimus/connectorboolin.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorboolinpropertywidget.h $(kde_includes)/ksimus/connectorboolinpropertywidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorboolout.h $(kde_includes)/ksimus/connectorboolout.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorbooloutpropertywidget.h $(kde_includes)/ksimus/connectorbooloutpropertywidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorlist.h $(kde_includes)/ksimus/connectorlist.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorpropertydialog.h $(kde_includes)/ksimus/connectorpropertydialog.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorpropertywidget.h $(kde_includes)/ksimus/connectorpropertywidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/wireproperty.h $(kde_includes)/ksimus/wireproperty.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/wirepropertyboolean.h $(kde_includes)/ksimus/wirepropertyboolean.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/extconnboolin.h $(kde_includes)/ksimus/extconnboolin.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/extconnboolout.h $(kde_includes)/ksimus/extconnboolout.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/externalconnector.h $(kde_includes)/ksimus/externalconnector.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorlabel.h $(kde_includes)/ksimus/connectorlabel.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorboolinedge.h $(kde_includes)/ksimus/connectorboolinedge.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorboolinedgepropertywidget.h $(kde_includes)/ksimus/connectorboolinpropertywidget.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentlayout.h $(kde_includes)/ksimus/componentlayout.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/connectorpack.h $(kde_includes)/ksimus/connectorpack.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/componentblocklayout.h $(kde_includes)/ksimus/componentblocklayout.h
-	$(mkinstalldirs) $(kde_includes)/ksimus/
-	$(INSTALL_DATA) $(srcdir)/doublelayout.h $(kde_includes)/ksimus/doublelayout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorbase.h $(pkgincludedir)/connectorbase.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorboolin.h $(pkgincludedir)/connectorboolin.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorboolinpropertywidget.h $(pkgincludedir)/connectorboolinpropertywidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorboolout.h $(pkgincludedir)/connectorboolout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorbooloutpropertywidget.h $(pkgincludedir)/connectorbooloutpropertywidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorlist.h $(pkgincludedir)/connectorlist.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorpropertydialog.h $(pkgincludedir)/connectorpropertydialog.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorpropertywidget.h $(pkgincludedir)/connectorpropertywidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/wireproperty.h $(pkgincludedir)/wireproperty.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/wirepropertyboolean.h $(pkgincludedir)/wirepropertyboolean.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/extconnboolin.h $(pkgincludedir)/extconnboolin.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/extconnboolout.h $(pkgincludedir)/extconnboolout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/externalconnector.h $(pkgincludedir)/externalconnector.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorlabel.h $(pkgincludedir)/connectorlabel.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorboolinedge.h $(pkgincludedir)/connectorboolinedge.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorboolinedgepropertywidget.h $(pkgincludedir)/connectorboolinpropertywidget.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentlayout.h $(pkgincludedir)/componentlayout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/connectorpack.h $(pkgincludedir)/connectorpack.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/componentblocklayout.h $(pkgincludedir)/componentblocklayout.h
+	$(mkinstalldirs) $(pkgincludedir)/
+	$(INSTALL_DATA) $(srcdir)/doublelayout.h $(pkgincludedir)/doublelayout.h
 
 uninstall-local:
-	-rm -f $(kde_includes)/ksimus/connectorbase.h
-	-rm -f $(kde_includes)/ksimus/connectorboolin.h
-	-rm -f $(kde_includes)/ksimus/connectorboolinpropertywidget.h
-	-rm -f $(kde_includes)/ksimus/connectorboolout.h
-	-rm -f $(kde_includes)/ksimus/connectorbooloutpropertywidget.h
-	-rm -f $(kde_includes)/ksimus/connectorlist.h
-	-rm -f $(kde_includes)/ksimus/connectorpropertydialog.h
-	-rm -f $(kde_includes)/ksimus/connectorpropertywidget.h
-	-rm -f $(kde_includes)/ksimus/wireproperty.h
-	-rm -f $(kde_includes)/ksimus/wirepropertyboolean.h
-	-rm -f $(kde_includes)/ksimus/extconnboolin.h
-	-rm -f $(kde_includes)/ksimus/extconnboolout.h
-	-rm -f $(kde_includes)/ksimus/externalconnector.h
-	-rm -f $(kde_includes)/ksimus/connectorlabel.h
-	-rm -f $(kde_includes)/ksimus/connectorboolinedge.h
-	-rm -f $(kde_includes)/ksimus/connectorboolinpropertywidget.h
-	-rm -f $(kde_includes)/ksimus/componentlayout.h
-	-rm -f $(kde_includes)/ksimus/connectorpack.h
-	-rm -f $(kde_includes)/ksimus/componentblocklayout.h
-	-rm -f $(kde_includes)/ksimus/doublelayout.h
+	-rm -f $(pkgincludedir)/connectorbase.h
+	-rm -f $(pkgincludedir)/connectorboolin.h
+	-rm -f $(pkgincludedir)/connectorboolinpropertywidget.h
+	-rm -f $(pkgincludedir)/connectorboolout.h
+	-rm -f $(pkgincludedir)/connectorbooloutpropertywidget.h
+	-rm -f $(pkgincludedir)/connectorlist.h
+	-rm -f $(pkgincludedir)/connectorpropertydialog.h
+	-rm -f $(pkgincludedir)/connectorpropertywidget.h
+	-rm -f $(pkgincludedir)/wireproperty.h
+	-rm -f $(pkgincludedir)/wirepropertyboolean.h
+	-rm -f $(pkgincludedir)/extconnboolin.h
+	-rm -f $(pkgincludedir)/extconnboolout.h
+	-rm -f $(pkgincludedir)/externalconnector.h
+	-rm -f $(pkgincludedir)/connectorlabel.h
+	-rm -f $(pkgincludedir)/connectorboolinedge.h
+	-rm -f $(pkgincludedir)/connectorboolinpropertywidget.h
+	-rm -f $(pkgincludedir)/componentlayout.h
+	-rm -f $(pkgincludedir)/connectorpack.h
+	-rm -f $(pkgincludedir)/componentblocklayout.h
+	-rm -f $(pkgincludedir)/doublelayout.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 
