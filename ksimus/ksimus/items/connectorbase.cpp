@@ -55,7 +55,7 @@ class ConnectorBasePrivate
 {
 public:	
 	ConnectorBasePrivate()
-	:	flag(HIDDEN_TYPE_ENA),
+	:	flag(0/*HIDDEN_TYPE_ENA*/),
 		initName(),
 		name(),
 		connInfo(0),
