@@ -1,3 +1,9 @@
+	18.11.2002
+* New: Boolean Tristate Connector extended. Works inside modules now.
+* Change: The negated connector property is moved from the boolean connector classes into the base connector class
+* Fix: The default reset state of boolean output connector was always false. Now the default value of the component is used.
+* Fix: Floatingpoint connectors are not negatable by default.
+* New: Validity check insdie module loading code
 	14.11.2002
 * New: Boolean Tristate Connector.
 	11.11.2002
