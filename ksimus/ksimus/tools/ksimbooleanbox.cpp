@@ -23,7 +23,7 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "ksimus/ksimdebug.h"
+#include "ksimdebug.h"
 #include "ksimbooleanbox.h"
 
 // Forward declaration
