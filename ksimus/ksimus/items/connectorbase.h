@@ -63,14 +63,31 @@ public:
 	/** Returns the related document. */
 	KSimusDoc * getDoc() const;
 	
-	/** Set new connector name.
+	/** Sets the name which is used by the wire to identify the correct connector in a component.
+	  * This name have to be unique in the component. Do not set a translate name.
+	  * The untranslated name (see @refsetName, @ref getName) is used as default.
+	  */
+	void setWireName(const QString & name);
+
+	/** Returns the name which is used by the wire to identify the correct connector in a component.
+	  * This name have to be unique in the component.
+	  * The untranslated name (see @refsetName, @ref getName) is used as default.
+	  */
+	QString getWireName() const;
+	
+	/** Sets the unique serial ID. There is no need to call this function unless you know what you do. */
+	void setSerialNumber(unsigned int serial);
+	/** Returns the unique serial ID. */
+	unsigned int getSerialNumber() const;
+	
+	/** Set new connector name. Use a translated name if possible.
 	  * The name won't be saved in document, if init is true.
 	  * The signal signalProperty() is emitted.
 	  */
 	void setName(const QString & newName, bool init = false);
-	/** Returns connector name. */
+	/** Returns the translated connector name. */
 	const QString & getName() const;
-	/** Returns connector init name. */
+	/** Returns the translated connector init name. */
 	const QString & getInitName() const;
 	
 	/** Set new connector position.
@@ -103,10 +120,10 @@ public:
 	/** Returns the connector type. */
 	const char * getConnType() const;
 	
-    /** Set the orientation of the connector. */
-    void setOrientation(ConnOrientationType orient);
-    /** Returns the orientation of the connector. */
-    ConnOrientationType getOrientation() const;
+	/** Set the orientation of the connector. */
+	void setOrientation(ConnOrientationType orient);
+	/** Returns the orientation of the connector. */
+	ConnOrientationType getOrientation() const;
 	
 	/** True, if connector is a input. */
 	bool isInput() const;
@@ -215,15 +232,28 @@ public:
 
 protected:
 	//**************************************************************************	
-	ConnectorBase(	Component * comp,
-					const QString & name,
-					const QPoint & pos,	
-					ConnOrientationType orient,
-					ConnDirType dir,
-					const ConnectorInfo * ci);
+	
+	/** Constructor of the base class of all connectors.
+	  *
+	  *
+	  * @param comp   The component which contains this connector.
+    * @param name   The *untranslated* connector name. This name is used as default as
+    *               connector identifier and (internally translated) as connector name
+    *               used at the property view or the status bar.
+	  * @param pos    The position of the connector relative to the component top left (measured in grid).
+	  * @param orient Gives the direction from where the connector can be connected.
+	  * @param dir    Declares the connector as input, put or tristate
+	  * @param ci     Gives the connector the exact type info.
+	  */
+	ConnectorBase(Component * comp,				
+	              const QString & name,
+	              const QPoint & pos,	
+	              ConnOrientationType orient,
+	              ConnDirType dir,
+	              const ConnectorInfo * ci);
 					
 
-    /** Returns a generic pointer to the current wire data. */
+	/** Returns a generic pointer to the current wire data. */
 	const void * getWireData() const;
 	
 	
@@ -296,18 +326,19 @@ protected:
 	/**
 	 * Constructs a input connector. Use this constructor if you derive this class.
 	 *
-	 * @param comp Component which contains this connector.
-	 * @param name The name of the connector. This name is shown at the property view
-	 *             or the status bar.
-	 * @param pos  Sets the position of the connctor. The position has to be given in grids.
+	 * @param comp   Component which contains this connector.
+   * @param name   The *untranslated* connector name. This name is used as default as
+   *               connector identifier and (internally translated) as connector name
+   *               used at the property view or the status bar.
+	 * @param pos    Sets the position of the connctor. The position has to be given in grids.
 	 * @param orient Sets the orientation of the connector.
 	 * @param ci     Sets the connector info (@ref ConnectorInfo):
 	 */
-	ConnectorInputBase(	Component * comp,
-						const QString & name,
-						const QPoint & pos,
-						ConnOrientationType orient,
-						const ConnectorInfo * ci);
+	ConnectorInputBase(Component * comp,
+	                   const QString & name,
+	                   const QPoint & pos,
+	                   ConnOrientationType orient,
+	                   const ConnectorInfo * ci);
 					
 	/** Returns a pointer to the data that's read from the component.
 	  * The default implementation calls the function getWireData().
@@ -331,21 +362,32 @@ public:
 	bool isOutputDataValid() const;
 
 protected:	
-	ConnectorOutputBase(	Component * comp,
-							const QString & name,
-							const QPoint & pos,
-							ConnOrientationType orient,
-							const ConnectorInfo * ci);
+	/**
+	 * Constructs a output connector. Use this constructor if you derive this class.
+	 *
+	 * @param comp   Component which contains this connector.
+   * @param name   The *untranslated* connector name. This name is used as default as
+   *               connector identifier and (internally translated) as connector name
+   *               used at the property view or the status bar.
+	 * @param pos    Sets the position of the connctor. The position has to be given in grids.
+	 * @param orient Sets the orientation of the connector.
+	 * @param ci     Sets the connector info (@ref ConnectorInfo):
+	 */
+	ConnectorOutputBase(Component * comp,
+	                    const QString & name,
+	                    const QPoint & pos,
+	                    ConnOrientationType orient,
+	                    const ConnectorInfo * ci);
 					
 	/** The function copyData() has to copy data to the output variable.
 	  * Reimplementations is required. */
 	virtual void copyData(const void * pData) = 0;
 
-    /** Returns a pointer to the data of this output connector. */
+	/** Returns a pointer to the data of this output connector. */
 	virtual const void * getData() const = 0;
 
-    // True, if data of *this* connector is valid.
-    bool dataValid;
+	// True, if data of *this* connector is valid.
+	bool dataValid;
 };
 
 

@@ -58,6 +58,7 @@ public:
 	:	flag(0/*HIDDEN_TYPE_ENA*/),
 		initName(),
 		name(),
+		wireName(),
 		connInfo(0),
 		connectorPos(),
 		orientation(CO_UNDEF),
@@ -104,6 +105,10 @@ public:
 	// Current Name of the connector (is empty/null, if initName is used)
 	QString name;
 	
+	// Name of the connector which is used by the wires to find the correct connector
+	// on a component
+	QString wireName;
+	
 	// Information class of the connetor
 	const ConnectorInfo * connInfo;
 	
@@ -123,9 +128,9 @@ public:
 
 
 
-ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QPoint & pos,
-								ConnOrientationType orient,	ConnDirType dir,
-								const ConnectorInfo * ci)
+ConnectorBase::ConnectorBase(Component * comp, const QString & name,/* const QString & wireName,*/
+                             const QPoint & pos, ConnOrientationType orient,
+                             ConnDirType dir, const ConnectorInfo * ci)
 	:	QObject(comp, name),
 		ComponentItem(comp),
 		m_wire(0),
@@ -134,13 +139,14 @@ ConnectorBase::ConnectorBase(Component * comp, const QString & name, const QPoin
 {
 	m_p = new ConnectorBasePrivate();
 	CHECK_PTR(m_p);
-	m_p->initName = name;
+	m_p->initName = i18n(name.latin1());
+	m_p->wireName = name;		// Not translated
 	m_p->connInfo = ci;
 	m_p->connectorPos = pos;
 	m_p->orientation = orient;
 	m_p->direction = dir;
 	
-	comp->getConnList()->append(this);
+	comp->addConnector(this);
 }
 
 ConnectorBase::~ConnectorBase()
@@ -158,6 +164,18 @@ KSimusDoc * ConnectorBase::getDoc() const
 //**************************************************************************	
 // *** Data manipulation function ***
 	
+
+void ConnectorBase::setWireName(const QString & name)
+{
+	m_p->wireName = name;
+}
+
+QString ConnectorBase::getWireName() const
+{
+	return m_p->wireName;
+}
+
+
 /** Set new connector name
   * The name won't be saved, if init is true
   */

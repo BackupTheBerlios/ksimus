@@ -219,7 +219,7 @@ QString ConnectorPack::createNewName()
 		
 		FOR_EACH_CONNECTOR(it, *getConnList())
 		{
-			if (it.current()->getName() == name)
+			if (it.current()->getWireName() == name)
 			{
 				found = true;
 				break;
@@ -298,11 +298,11 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 	
 	popup->insertSeparator();
 		
-	i = popup->insertItem("Add "+ getName(), this, SLOT(slotAddConnector()));
+	i = popup->insertItem(i18n("Add %1").arg(getName()), this, SLOT(slotAddConnector()));
 	if(getConnectorCount() >= getConnectorMaximum())
 		popup->setItemEnabled(i, false);
 		
-	i = popup->insertItem("Delete "+ getName(), this, SLOT(slotDeleteConnector()));
+	i = popup->insertItem(i18n("Delete %2").arg(getName()), this, SLOT(slotDeleteConnector()));
 	if((getConnectorCount() <= getConnectorMinimum()) || (getDeletableConnector() == 0))
 		popup->setItemEnabled(i, false);
 
