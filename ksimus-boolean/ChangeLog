@@ -1,3 +1,6 @@
+	02.05.2002
+* Fix: unsaved reset state of the flip flops
+* New: Component execution is event triggered now (earlier versions are cycle based)
 	21.04.2002
 * Change: Remove unused parameter comp from Component::createGeneralProperty(Component * comp, QWidget *parent)
 	20.04.2002
