@@ -105,7 +105,7 @@ SimulationTimingWidget::~SimulationTimingWidget()
 {
 }
 
-/** The function slotAccept() is called, if changes are accepted.
+/** The function acceptPressed() is called, if changes are accepted.
 	You have to reimplement this slot, if you add new properties.
 	If you do so, then first call function changeData() and than changed data!
 */
@@ -151,7 +151,7 @@ void SimulationTimingWidget::acceptPressed()
   m_timing.updateTickTime();
 }
 
-/** The function slotDefault() is called, if user wants to set the default values.
+/** The function defaultPressed() is called, if user wants to set the default values.
 	You have to reimplement this slot, if you add new properties.
  */
 void SimulationTimingWidget::defaultPressed()
