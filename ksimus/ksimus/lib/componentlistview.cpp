@@ -206,9 +206,7 @@ void ComponentListView::insert(const QString & libName, const ComponentInfo * ci
 
 static void foldRecursive(QListViewItem * parent, bool close)
 {
-	// Do not close if base item
-	if (!((parent->parent() == 0) && close))
-		parent->setOpen(!close);
+	parent->setOpen(!close);
 	
 	QListViewItem * item = parent->firstChild();
 	
@@ -222,20 +220,12 @@ static void foldRecursive(QListViewItem * parent, bool close)
 
 void ComponentListView::slotFoldTree()
 {
-	QListViewItem * topLevelitem = firstChild();
+	QListViewItem * item = firstChild();
 	
-	
-	while(topLevelitem)
+	while(item)
 	{
-		topLevelitem->setOpen(true);
-		
-		QListViewItem * item = topLevelitem->firstChild();
-		while(item)
-		{
-			foldRecursive(item,true);
-			item = item->nextSibling();
-		}
-		topLevelitem = topLevelitem->nextSibling();
+		foldRecursive(item, true);
+		item = item->nextSibling();
 	}
 }
 
@@ -243,9 +233,10 @@ void ComponentListView::slotUnfoldTree()
 {
 	QListViewItem * item = firstChild();
 	
-	if(item)
+	while(item)
 	{
 		foldRecursive(item, false);
+		item = item->nextSibling();
 	}
 }
 
