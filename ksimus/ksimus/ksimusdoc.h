@@ -151,7 +151,16 @@ class KSimusDoc : public QObject
 		
 	SimulationTiming & getTiming() { return *m_timing; };
 
-
+	/** Sets the schematic size. */
+	void setSheetSize(const QSize & newSize);
+	/** Returns the schematic size. */
+	QSize getSheetSize() const;
+	/** Sets the user size. */
+	void setUserSize(const QSize & newSize);
+	/** Returns the user size. */
+	QSize getUserSize() const;
+	
+	
 public slots:
 	/** calls repaint() on all views connected to the document object and is called by the view by which the document has been changed.
 	 * As this view normally repaints itself, it is excluded from the paintEvent.

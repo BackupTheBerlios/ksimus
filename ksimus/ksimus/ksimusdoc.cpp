@@ -247,14 +247,16 @@ bool KSimusDoc::newDocument()
 
 	deleteContents();
 
-   	getContainer()->setSheetSize(QSize(1000,500));
-   	getContainer()->setUserSize(QSize(1000,500));
+/*	getContainer()->setSheetSize(QSize(1000,500));
+	getContainer()->setUserSize(QSize(1000,500));*/
+	setSheetSize(QSize(1000,500));
+	setUserSize(QSize(1000,500));
    	
-    // Init Editors
-    for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
-    {
-        w->getEditor()->setEditorView(w->getEditor()->getEditorView());
-    }
+	// Init Editors
+	for(KSimusView* w=m_pViewList->first(); w!=0; w=m_pViewList->next())
+	{
+		w->getEditor()->setEditorView(w->getEditor()->getEditorView());
+	}
 	slotUpdateAllViews(0);
 
 	
@@ -614,3 +616,53 @@ bool KSimusDoc::isNamed() const
 {
 	return m_named;
 }
+
+void KSimusDoc::setSheetSize(const QSize & newSize)
+{
+	getContainer()->setSheetSize(newSize);
+	// Fixed to grid
+	QSize size = getContainer()->getSheetSize();
+	
+	if(getViewList())
+	{
+		KSimusView * w;
+		for(w = getViewList()->first(); w != 0; w = getViewList()->next())
+		{
+			if (w->getEditor()->getEditorView() == EV_SHEETVIEW)
+			{
+				w->getEditor()->setSize(size);
+			}
+		}
+	}
+}
+	
+QSize KSimusDoc::getSheetSize() const
+{
+	return getContainer()->getSheetSize();
+}
+
+void KSimusDoc::setUserSize(const QSize & newSize)
+{
+	getContainer()->setUserSize(newSize);
+	// Fixed to grid
+	QSize size = getContainer()->getUserSize();
+	
+	if(getViewList())
+	{
+		KSimusView * w;
+		for(w = getViewList()->first(); w != 0; w = getViewList()->next())
+		{
+			if (w->getEditor()->getEditorView() == EV_USERVIEW)
+			{
+				w->getEditor()->setSize(size);
+			}
+		}
+	}
+}
+	
+QSize KSimusDoc::getUserSize() const
+{
+	return getContainer()->getUserSize();
+}
+
+
