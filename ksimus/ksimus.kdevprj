@@ -20,7 +20,7 @@ type=DATA
 addcxxflags=-Wno-long-long -fPIC -Iitems -I../items -I.. -Ilib -I../lib -Itools -I../tools -Imodule -I../module
 bin_program=ksimus
 cxxflags=\s-O3 -g2 -Wall
-ldadd=-lltdl $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
+ldadd=-lltdl -lkdeprint $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
 ldflags=-rdynamic
 path_to_bin_program=ksimus
 
