@@ -64,11 +64,20 @@ void Boolean2In1OutView::draw(QPainter * p)
 Boolean2In1Out::Boolean2In1Out(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
-	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"), QPoint(4,2));
+	m_out = new ConnectorBoolOut(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("Boolean-Connector", "Output"),
+	                             QPoint(4,2));
 	CHECK_PTR(m_out);
-	m_inA = new ConnectorBoolIn (this, I18N_NOOP("Input A"), QPoint(0,1));
+	m_inA = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input A"),
+	                             i18n("Boolean-Connector", "Input A"),
+	                             QPoint(0,1));
 	CHECK_PTR(m_inA);
-	m_inB = new ConnectorBoolIn (this, I18N_NOOP("Input B"), QPoint(0,3));
+	m_inB = new ConnectorBoolIn(this,
+	                             QString::fromLatin1("Input B"),
+	                             i18n("Boolean-Connector", "Input B"),
+	                             QPoint(0,3));
 	CHECK_PTR(m_inB);
 }
 
