@@ -21,6 +21,7 @@
     <Action name="view_tree_unfold"/>
     <Action name="view_toggle_costmap"/>
     <Separator/>
+    <Action name="setting_mapSize"/>
     <Action name="setting_timing"/>
     <Action name="setting_grid"/>
     <Action name="setting_packageFiles"/>

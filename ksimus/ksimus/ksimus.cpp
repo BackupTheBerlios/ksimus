@@ -56,6 +56,7 @@
 #include "loglist.h"
 #include "loglistitem.h"
 #include "ksimpackagefilewidget.h"
+#include "mapsizeswidget.h"
 
 #define ID_STATUS_MSG 1
 #define ID_TIME_LABEL 2
@@ -214,6 +215,7 @@ void KSimusApp::initActions()
 	viewTreeUnfold = new KAction(i18n("&Unfold Supplier"), 0, this, SLOT(slotViewUnfoldTree()), actionCollection(), "view_tree_unfold");
 	
 	viewCostmap = new KToggleAction(i18n("&Display Costmap"), 0, this, SLOT(slotViewToggleCostmap()), actionCollection(), "view_toggle_costmap");
+	settingMapSize = new KAction(i18n("Map &Sizes"), 0, this, SLOT(slotSettingMapSize()), actionCollection(), "setting_mapSize");
 	settingTiming = new KAction(i18n("&Timing"), 0, this, SLOT(slotSettingTiming()), actionCollection(), "setting_timing");
 	settingGrid = new KAction(i18n("&Grid"), 0, this, SLOT(slotSettingGrid()), actionCollection(), "setting_grid");
   settingPackageFiles  = new KAction(i18n("&Package Files"), 0, this, SLOT(slotSettingPackageFiles()), actionCollection(), "setting_packageFiles");
@@ -849,6 +851,33 @@ void KSimusApp::slotViewToggleCostmap()
 	//turn log view on or off
 	slotStatusMsg(i18n("Ready."));
 }
+
+
+
+void KSimusApp::slotSettingMapSize()
+{
+	slotStatusMsg(i18n("Setup map sizes..."));
+
+  KDialogBase * dia;
+	dia = new KDialogBase(KDialogBase::TreeList,
+					i18n("Map Sizes"),
+					KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
+ 					KDialogBase::Ok,
+ 					this);
+ 	QVBox * page;
+	MapSizesWidget * wid;
+	page = dia->addVBoxPage(i18n("Map Sizes"));
+	wid = new MapSizesWidget(getDocument(), page, "Information");
+	connect(dia, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
+	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
+	connect(dia, SIGNAL(cancelClicked()), wid, SLOT(slotCancel()));
+  dia->exec();
+	
+
+	delete dia;
+	slotStatusMsg(i18n("Ready."));
+}
+
 
 void KSimusApp::slotSettingTiming()
 {

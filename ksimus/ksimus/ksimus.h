@@ -202,6 +202,7 @@ public slots:
 	void slotViewFoldTree();
 	void slotViewUnfoldTree();
 	void slotViewToggleCostmap();
+	void slotSettingMapSize();
 	void slotSettingTiming();
 	void slotSettingGrid();
 	void slotSettingPackageFiles();
@@ -281,6 +282,7 @@ private:
 	KAction* viewTreeFold;
 	KAction* viewTreeUnfold;
 	KToggleAction* viewCostmap;
+	KAction* settingMapSize;
 	KAction* settingTiming;
 	KAction* settingGrid;
 	KAction* settingPackageFiles;
