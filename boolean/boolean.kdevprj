@@ -26,7 +26,7 @@ ldflags=-shared
 [General]
 AMChanged=false
 author=Rasmus Diekenbrock
-configure_args=--prefix=/opt/kde2
+configure_args=--prefix=/home/rasmus/ksimus
 email=ksimus@gmx.de
 kdevprj_version=1.3
 lfv_open_groups=GNU,Sources
@@ -38,7 +38,7 @@ project_type=kpart_plugin
 sgml_file=/localhome/lokal/boolean/doc/en/index.docbook
 short_info=
 sub_dir=boolean/
-version=0.3.2.cvs
+version=0.3.2
 version_control=None
 workspace=1
 
