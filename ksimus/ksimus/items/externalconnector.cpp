@@ -50,24 +50,17 @@ void ExternalConnectorSV::draw(QPainter * p)
 	
 	p->setPen(QPen(black, 2));
 	p->setBrush(NoBrush);
-	p->drawEllipse(place.x()+gridX*1, place.y(), gridX*3, gridY*3);
-	p->drawLine(place.x()+gridX*1, place.y()+gridX*3/2 ,
-				place.x()+gridX*4, place.y()+gridX*3/2 );
+	p->drawEllipse(gridX*1, 0, gridX*3, gridY*3);
+	p->drawLine(gridX*1, gridX*3/2, gridX*4, gridX*3/2 );
 
 	QPointArray ar;
 	if (((ExternalConnector*)getComponent())->isInput())
 	{
-		ar.setPoints (4, place.x()+gridX*1 , place.y()+gridY,
-						 place.x()+gridX*5/2 , place.y()+gridY*3/2,
-						 place.x()+gridX*1 , place.y()+gridY*2,
-						 place.x()+gridX*1 , place.y()+gridY);
+		ar.setPoints(4, gridX*1, gridY, gridX*5/2, gridY*3/2, gridX*1, gridY*2, gridX*1, gridY);
 	}
 	else
 	{
-		ar.setPoints (4, place.x()+gridX*5/2 , place.y()+gridY,
-						 place.x()+gridX*4 , place.y()+gridY*3/2,
-						 place.x()+gridX*5/2 , place.y()+gridY*2,
-						 place.x()+gridX*5/2 , place.y()+gridY);
+		ar.setPoints(4, gridX*5/2, gridY, gridX*4, gridY*3/2, gridX*5/2, gridY*2, gridX*5/2, gridY);
 	}
 	p->setPen(QPen(black, 1));
 	p->setBrush(SolidPattern);

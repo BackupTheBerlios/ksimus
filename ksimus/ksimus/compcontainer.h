@@ -116,7 +116,7 @@ public:
 		Returns a null if no component view is hit.*/
 	CompView * getFirstCompView() const { return hitCompView; };
 	/**  */
-	eHitType isCompViewHit(const QPoint * pos, const CompViewList * viewList);
+	eHitType isCompViewHit(const QPoint & pos, const CompViewList * viewList);
 	/** Returns a pointer to the document */
 	KSimusDoc * getDoc() const;
 	/** Returns the undo object */

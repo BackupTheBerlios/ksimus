@@ -229,15 +229,12 @@ bool ComponentMap::findRoute(ConnectorList * connList, CPointListList * routeLis
 		{
 			destConn = tmpConnList.at(i);
 			
-			QPoint stop(destConn->getWirePos().x()/gridX,
-						destConn->getWirePos().y()/gridY);
+			QPoint stop(destConn->getWireGridPos());
 			
-			QPoint start(tmpConnList.first()->getWirePos().x()/gridX,
-						 tmpConnList.first()->getWirePos().y()/gridY);
+			QPoint start(tmpConnList.first()->getWireGridPos());
 			for(unsigned int j = 1; i > j; j++)
 			{
-				QPoint next(tmpConnList.at(j)->getWirePos().x()/gridX,
-						 	tmpConnList.at(j)->getWirePos().y()/gridY);
+				QPoint next(tmpConnList.at(j)->getWireGridPos());
 				if (abs(next.x()-stop.x())+abs(next.y()-stop.y())
 					< abs(start.x()-stop.x())+abs(start.y()-stop.y()))
 				{
