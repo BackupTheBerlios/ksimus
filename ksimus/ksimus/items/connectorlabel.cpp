@@ -101,7 +101,7 @@ void ConnectorLabel::drawSheetView (QPainter *p) const
 {
 	if(m_conn->isHidden()) return;
 	
-	QPoint pos = m_conn->getPos();
+	QPoint pos = m_conn->getRelPos();
 	int spacing = getSpacing();
 	bool edgeIn = (isBoolInEdge() && getBoolInEdgeConn()->isEdgeSensitive());
 		
@@ -110,7 +110,7 @@ void ConnectorLabel::drawSheetView (QPainter *p) const
 	p->setFont(newFont);
 	p->setPen(black);
 	int height = p->fontMetrics().height();
-	int width = p->fontMetrics().width(m_descr);
+	int width = p->fontMetrics().width(m_descr)+2;  //+2 because rotating problem
 	
 	if (edgeIn)
 	{
