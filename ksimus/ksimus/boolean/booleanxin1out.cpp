@@ -59,7 +59,6 @@ BooleanXIn1Out::BooleanXIn1Out(CompContainer * container, const ComponentInfo * 
 BooleanXIn1OutView::BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType)
 	: Boolean1OutView(comp, viewType)
 {
-	
 	if (viewType == SHEET_VIEW)
 	{
 		getComponentLayout()->getLeft()->addSpace(1);
