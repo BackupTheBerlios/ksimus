@@ -6,6 +6,11 @@
 * New: ConnectorBase::signalInitPopupMenu(QPopupMenu * popup)
 * Change: ComponentLayout accepts as parameter a CompView instead a Component object
 * Change: BooleanAnd because changes of ComponentLayout
+* New: Speed up BooleanAnd::calculate()
+* Change: ConnectorPropertyWidget::ConnectorPropertyWidget(...) label format
+* Change: LogListDialogWidget::initView() label format
+* Change: ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(...) label format
+* Change: ComponentPropertyInfoWidget::ComponentPropertyInfoWidget(...) label format
 	02.12.2001
 * ComponentAddOn have now a name. This name must be unique within a component.
 * BooleanAnd: The AND/NAND has a variable count of connectors. Unfortunately this breaks
