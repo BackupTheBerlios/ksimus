@@ -166,6 +166,7 @@ void ConnectorPack::setConnectorMaximum(unsigned int maxConn)
 void ConnectorPack::slotAddConnector()
 {
 	getComponent()->undoChangeProperty(i18n("Add connector"));
+	getComponent()->setModified();
 	internalAddConnector();
 	
 	getComponent()->refresh();
@@ -174,6 +175,7 @@ void ConnectorPack::slotAddConnector()
 void ConnectorPack::slotDeleteConnector()
 {
 	getComponent()->undoChangeProperty(i18n("Delete connector"));
+	getComponent()->setModified();
 	internalDeleteConnector();
 
 	getComponent()->refresh();
@@ -185,6 +187,7 @@ void ConnectorPack::slotDeleteConnector(ConnectorBase * conn)
 	if ((getConnList()->findRef(conn) != 0) && (conn->getWire() == 0))
 	{
 		getComponent()->undoChangeProperty(i18n("Delete connector"));
+		getComponent()->setModified();
 		internalDeleteConnector();
 		getComponent()->refresh();
 	}
@@ -305,7 +308,7 @@ bool ConnectorPack::initPopupMenu(QPopupMenu * popup)
 	if(getConnectorCount() >= getConnectorMaximum())
 		popup->setItemEnabled(i, false);
 		
-	i = popup->insertItem(i18n("Delete %2").arg(i18n(getName().latin1())), this, SLOT(slotDeleteConnector()));
+	i = popup->insertItem(i18n("Delete %1").arg(i18n(getName().latin1())), this, SLOT(slotDeleteConnector()));
 	if((getConnectorCount() <= getConnectorMinimum()) || (getDeletableConnector() == 0))
 		popup->setItemEnabled(i, false);
 
