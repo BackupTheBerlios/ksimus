@@ -29,7 +29,7 @@ author=Rasmus Diekenbrock
 configure_args=--prefix=/opt/kde2
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=GNU,Headers,Sources,Translations
+lfv_open_groups=GNU,Headers,Others,Sources,Translations
 make_options=\s-j2
 makefiles=Makefile.am,boolean/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am
 modifyMakefiles=true

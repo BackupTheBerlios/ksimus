@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-03-07 22:33+0100\n"
-"PO-Revision-Date: 2002-03-07 22:36GMT\n"
+"PO-Revision-Date: 2002-03-20 19:37GMT\n"
 "Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr "&Öffne"
 
 #: datarecorder.cpp:533
 msgid "Add &boolean connector"
-msgstr "Füge &boolean Connector hinzu"
+msgstr "Füge &Boolean Connector hinzu"
 
 #: datarecorder.cpp:534
 msgid "Add &floating point connector"
