@@ -136,6 +136,8 @@ public:
 	int idDisconnect;
 	int idErase;
 	int idNegate;
+
+	SimulationExecute * execute;
 };
 
 
@@ -456,12 +458,6 @@ void ConnectorBase::setNegate(bool neg, bool init)
 	}
 }
 
-/** Returns true, if connector is negated */
-bool ConnectorBase::isNegated() const
-{
-	return m_negType;
-}
-
 /** Returns true, if connector is negated at init time */
 bool ConnectorBase::isInitNegate() const
 {
@@ -569,7 +565,7 @@ void ConnectorBase::setWireProperty(WireProperty * wireProperty)
 /** Adds the component in the list for execute next cycle. */
 void ConnectorBase::executeComponentNext()
 {
-	getDoc()->getExecute().executeComponentNext(getComponent());
+	m_p->execute->executeComponentNext(getComponent());
 }
 
 /** Adds the @ref WireProperty in the list for execute next cycle. */
@@ -741,7 +737,7 @@ void ConnectorBase::checkProperty(QStringList & /*errorMsg*/)
 */
 void ConnectorBase::reset()
 {
-	// Nothing to do yet!
+	m_p->execute = &(getDoc()->getExecute());
 }
 
 	

@@ -189,7 +189,8 @@ public:
 	  */
 	void setNegate(bool neg, bool init = false);
 	/** Returns true, if connector is negated. */
-	bool isNegated() const;
+	bool isNegated() const{ return m_negType; };
+	
 	/** Returns true, if connector is negated at init time. */
 	bool isInitNegate() const;
 
