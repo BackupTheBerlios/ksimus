@@ -40,7 +40,7 @@ project_type=normal_kde2
 sgml_file=/home/rasmus/Projekte/ksimus/doc/en/index.docbook
 short_info=
 sub_dir=ksimus/
-version=0.3.3.cvs
+version=0.3.3
 version_control=CVS
 workspace=1
 
