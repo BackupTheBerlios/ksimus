@@ -12,3 +12,5 @@ stamp-h
 stamp-h.in
 ksimus-boolean.kdevses
 tags
+debug
+autom4te.cache
