@@ -70,7 +70,7 @@ static const ComponentInfoPtr distributeComponent[] =
 	&BooleanCounterInfo,
 	&BooleanConstantTrue,
 	&BooleanConstantFalse,
-	&BooleanBoolean7SegmentInfo,
+	&Boolean7SegmentInfo,
 	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
 };
 
