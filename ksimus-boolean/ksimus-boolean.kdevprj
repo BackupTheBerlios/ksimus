@@ -267,7 +267,7 @@ install_location=
 type=DATA
 
 [ksimus-boolean/Makefile.am]
-files=ksimus-boolean/boolean.cpp,ksimus-boolean/boolean.h,ksimus-boolean/booleanxor.cpp,ksimus-boolean/booleanxor.h,ksimus-boolean/booleanor.cpp,ksimus-boolean/booleanor.h,ksimus-boolean/boolean2in1out.cpp,ksimus-boolean/boolean2in1out.h,ksimus-boolean/rsflipflop.cpp,ksimus-boolean/rsflipflop.h,ksimus-boolean/flipflopbase.cpp,ksimus-boolean/flipflopbase.h,ksimus-boolean/jkflipflop.cpp,ksimus-boolean/jkflipflop.h,ksimus-boolean/dflipflop.cpp,ksimus-boolean/dflipflop.h,ksimus-boolean/monoflop.cpp,ksimus-boolean/monoflop.h,ksimus-boolean/booleancounter.cpp,ksimus-boolean/booleancounter.h,ksimus-boolean/booleanconstant.cpp,ksimus-boolean/booleanconstant.h,ksimus-boolean/boolean7segment.cpp,ksimus-boolean/boolean7segment.h,ksimus-boolean/multidlatch.cpp,ksimus-boolean/multidlatch.h,ksimus-boolean/multiplexer.cpp,ksimus-boolean/multiplexer.h,ksimus-boolean/demultiplexer.cpp,ksimus-boolean/demultiplexer.h,ksimus-boolean/delay.cpp,ksimus-boolean/delay.h,ksimus-boolean/inverter.cpp,ksimus-boolean/inverter.h
+files=ksimus-boolean/boolean.cpp,ksimus-boolean/boolean.h,ksimus-boolean/booleanxor.cpp,ksimus-boolean/booleanxor.h,ksimus-boolean/booleanor.cpp,ksimus-boolean/booleanor.h,ksimus-boolean/boolean2in1out.cpp,ksimus-boolean/boolean2in1out.h,ksimus-boolean/rsflipflop.cpp,ksimus-boolean/rsflipflop.h,ksimus-boolean/flipflopbase.cpp,ksimus-boolean/flipflopbase.h,ksimus-boolean/jkflipflop.cpp,ksimus-boolean/jkflipflop.h,ksimus-boolean/dflipflop.cpp,ksimus-boolean/dflipflop.h,ksimus-boolean/monoflop.cpp,ksimus-boolean/monoflop.h,ksimus-boolean/booleancounter.cpp,ksimus-boolean/booleancounter.h,ksimus-boolean/booleanconstant.cpp,ksimus-boolean/booleanconstant.h,ksimus-boolean/boolean7segment.cpp,ksimus-boolean/boolean7segment.h,ksimus-boolean/multidlatch.cpp,ksimus-boolean/multidlatch.h,ksimus-boolean/multiplexer.cpp,ksimus-boolean/multiplexer.h,ksimus-boolean/demultiplexer.cpp,ksimus-boolean/demultiplexer.h,ksimus-boolean/delay.cpp,ksimus-boolean/delay.h,ksimus-boolean/inverter.cpp,ksimus-boolean/inverter.h,ksimus-boolean/convertbool2booltristate.cpp,ksimus-boolean/convertbool2booltristate.h,ksimus-boolean/convertbooltristate2bool.cpp,ksimus-boolean/convertbooltristate2bool.h,ksimus-boolean/extconnbooltristate.cpp,ksimus-boolean/extconnbooltristate.h,ksimus-boolean/implicitconverterbooltristate2bool.cpp,ksimus-boolean/implicitconverterbooltristate2bool.h
 sub_dirs=
 type=shared_library
 
@@ -355,6 +355,30 @@ install=false
 install_location=
 type=HEADER
 
+[ksimus-boolean/convertbool2booltristate.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus-boolean/convertbool2booltristate.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimus-boolean/convertbooltristate2bool.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus-boolean/convertbooltristate2bool.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimus-boolean/delay.cpp]
 dist=true
 install=false
@@ -391,6 +415,18 @@ install=false
 install_location=
 type=HEADER
 
+[ksimus-boolean/extconnbooltristate.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus-boolean/extconnbooltristate.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimus-boolean/flipflopbase.cpp]
 dist=true
 install=false
@@ -398,6 +434,18 @@ install_location=
 type=SOURCE
 
 [ksimus-boolean/flipflopbase.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimus-boolean/implicitconverterbooltristate2bool.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus-boolean/implicitconverterbooltristate2bool.h]
 dist=true
 install=false
 install_location=

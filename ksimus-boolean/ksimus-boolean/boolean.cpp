@@ -45,6 +45,10 @@
 #include "multiplexer.h"
 #include "demultiplexer.h"
 #include "delay.h"
+#include "convertbool2booltristate.h"
+#include "convertbooltristate2bool.h"
+#include "extconnbooltristate.h"
+#include "implicitconverterbooltristate2bool.h"
 
 // Forward declaration
 
@@ -92,6 +96,12 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(getMultiplexerInfo());
 		pDistComponents->append(getDemultiplexerInfo());
 		pDistComponents->append(getDelayInfo());
+
+		// TriState
+		pDistComponents->append(getConvertBool2BoolTriStateInfo());
+		pDistComponents->append(getConvertBoolTriState2BoolInfo());
+		pDistComponents->append(getExtConnBoolTriStateInInfo());
+		pDistComponents->append(getExtConnBoolTriStateOutInfo());
 	}
 
 	return *pDistComponents;
@@ -167,6 +177,7 @@ static const ImplicitConverterInfoList & getImplicitConverterProperty()
 		CHECK_PTR(pImplicitConverterProp);
 
 		// Add your implicit converter info here
+		pImplicitConverterProp->append(getImplicitConverterBoolTriState2BoolInfo());
 	}
 
 	return *pImplicitConverterProp;

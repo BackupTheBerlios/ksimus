@@ -1,9 +1,9 @@
 /***************************************************************************
-                          boolean2in1out.h  -  description
+                          convertbooltristate2bool.h  -  description
                              -------------------
-    begin                : Mon May 14 2001
-    copyright            : (C) 2001 by Rasmus Diekenbrock
-    email                : radie@gmx.de
+    begin                : Mon Jul 1 2002
+    copyright            : (C) 2002 by Rasmus Diekenbrock
+    email                : ksimus@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,9 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BOOLEAN2IN1OUT_H
-#define BOOLEAN2IN1OUT_H
-
+#ifndef CONVERTBOOLTRISTATE2BOOL_H
+#define CONVERTBOOLTRISTATE2BOOL_H
 
 // C-Includes
 
@@ -28,56 +27,55 @@
 // Project-Includes
 #include "ksimus/component.h"
 #include "ksimus/compview.h"
-#include "ksimus/componentinfo.h"
+
 
 // Forward declaration
-class ConnectorBoolIn;
 class ConnectorBoolOut;
+class ConnectorBoolTriState;
 
-/**Base class for boolean gates with 2 inputs and 1 output.
+
+/**Converts a boolean tristate into a boolean.
   *@author Rasmus Diekenbrock
   */
 
 namespace KSimLibBoolean
 {
 
-class Boolean2In1Out : public Component
+
+const ComponentInfo * getConvertBoolTriState2BoolInfo();
+
+class ConvertBoolTriState2Bool : public Component
 {
+
 	Q_OBJECT
-	
+
 public:
-	Boolean2In1Out(CompContainer * container, const ComponentInfo * ci);
-//	~Boolean2In1Out();
+	ConvertBoolTriState2Bool(CompContainer * container, const ComponentInfo * ci);
+	~ConvertBoolTriState2Bool();
 	
-	/** Reset all simulation variables */
+	/** Resets the component state. */
 	virtual void reset();
 	
-	/** Returns the output connector. */
-	ConnectorBoolOut * getOutputConnector() const { return m_out; };
-	/** Returns the intput connector A. */
-	ConnectorBoolIn * getInputConnectorA() const { return m_inA; };
-	/** Returns the intput connector B. */
-	ConnectorBoolIn * getInputConnectorB() const { return m_inB; };
-	/** Sets the current component state. */
-	void setState(bool newState);
-	/** Returns the current component state. */
-	bool getState() const;
-	
+	/** Executes the simulation of this component */
+	virtual void calculate();
 
+	
 private:
-	bool m_result;
-	ConnectorBoolOut * m_out;
-	ConnectorBoolIn * m_inA;
-	ConnectorBoolIn * m_inB;
+	ConnectorBoolTriState * m_connIn;
+	ConnectorBoolOut * m_connDataOut;
+	ConnectorBoolOut * m_connActiveOut;
+	bool m_lockRecursion;
+
 };
+
 
 //###############################################################
 
-class Boolean2In1OutView : public CompView
+class ConvertBoolTriState2BoolView : public CompView
 {
 public:
-	Boolean2In1OutView(Component * comp, eViewType viewType);
-//	~Boolean2In1OutView();
+	ConvertBoolTriState2BoolView(ConvertBoolTriState2Bool * comp, eViewType viewType);
+	
 	virtual void draw(QPainter * p);
 };
 
