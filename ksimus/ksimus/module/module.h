@@ -110,14 +110,14 @@ public:
   	* Call during simulation start. */
   void setupSimulationList();
 
-	/** Returns the component container. */
-	CompContainer * getContainer() { return container; };
+	/** Returns the component container of this module. */
+	CompContainer * getModuleContainer() { return m_moduleContainer; };
 
-	/** Returns the component container. */
-	const CompContainer * getContainer() const { return container; };
+	/** Returns the component container of this module. */
+	const CompContainer * getModuleContainer() const { return m_moduleContainer; };
 
 protected:
-	CompContainer * container;
+	CompContainer * m_moduleContainer;
 	QString moduleFile;
 	ComponentList * extList;
 	

@@ -76,7 +76,7 @@ void ModuleSV::draw(QPainter * p)
 	Module * mod = (Module *) getComponent();
 	QRect place(getPlace());
 		
-	switch(mod->container->getModuleData()->getModuleView())
+	switch(mod->getModuleContainer()->getModuleData()->getModuleView())
 	{
 		case MV_GENERIC:
 			drawGeneric(p, place);
@@ -84,15 +84,15 @@ void ModuleSV::draw(QPainter * p)
 			
 		case MV_PIXMAP:
 			p->drawPixmap(place.x()+gridX, place.y()+gridY,
-						*mod->container->getModuleData()->getPixmap());
+						*mod->getModuleContainer()->getModuleData()->getPixmap());
 			break;
 			
 		case MV_USERVIEW:
-			mod->container->drawUserView(p);
+			mod->getModuleContainer()->drawUserView(p);
 			break;
 		
 		default:
-			KSIMDEBUG_VAR("Unknown module view",(int)mod->container->getModuleData()->getModuleView());
+			KSIMDEBUG_VAR("Unknown module view",(int)mod->getModuleContainer()->getModuleData()->getModuleView());
 			break;
 	}
 	
@@ -124,12 +124,12 @@ QWidget * ModuleSV::createCompViewWidget(QWidget * parent)
 	
 	Module * module = (Module*)getComponent();
 	
-	if (module->container->getModuleData()->getModuleView() != MV_USERVIEW)
+	if (module->getModuleContainer()->getModuleData()->getModuleView() != MV_USERVIEW)
 	{
 		return (QWidget *)0;
 	}
 	
-	CompViewList * viewList = module->container->getUserViewList();
+	CompViewList * viewList = module->getModuleContainer()->getUserViewList();
 	ModuleWidget * display = new ModuleWidget(module, viewList , parent, module->getName());
 	CHECK_PTR(display);
 	widgetList->addWidget(display);
@@ -204,8 +204,8 @@ Module::Module(CompContainer * _container, const ComponentInfo * ci)
 {
 	m_isModule = true;
 	
-	container = new CompContainer(this);
-	CHECK_PTR(container);
+	m_moduleContainer = new CompContainer(this);
+	CHECK_PTR(m_moduleContainer);
 	
 	new ModuleSV(this, SHEET_VIEW);
 	new ModuleSV(this, USER_VIEW);
@@ -264,13 +264,13 @@ void Module::reloadModule()
 	oldConnList->setAutoDelete(false);
 	
 	// Remove all information from container
-	container->deleteAll();
-	mdata = container->getModuleData();
+	m_moduleContainer->deleteAll();
+	mdata = m_moduleContainer->getModuleData();
 	
 	// First remove old connectors
-//	getConnList()->setAutoDelete(false);
-	getConnList()->clear();
-//	getConnList()->setAutoDelete(true);
+	getConnList()->setAutoDelete(false);	//Do not delete connectors
+	getConnList()->clear();								//Clear list
+	getConnList()->setAutoDelete(true);
 	extList->clear();
 	
 	
@@ -279,8 +279,8 @@ void Module::reloadModule()
 
 	// Load all components from file
 	file.setGroup("/");
-	container->loadProperty(file);
-	container->loadComponents(file);
+	getModuleContainer()->loadProperty(file);
+	getModuleContainer()->loadComponents(file);
 
 	setName(mdata->getModuleName());
 	
@@ -297,7 +297,7 @@ void Module::reloadModule()
 	
 	
 	// Search external connectors
-	mdata->searchExternals(container->getComponentList());
+	mdata->searchExternals(m_moduleContainer->getComponentList());
 	
 	switch(mdata->getModuleView())
 	{
@@ -392,45 +392,47 @@ void Module::reloadModule()
 	for	(i=0; i < posList->count(); i++)
 	{
 		ExternalConnector * extConn = (ExternalConnector *)mdata->getExternalList()->at(i);
-    	ConnectorBase *conn = searchConn (extConn, oldConnList);
+		ConnectorBase *conn = searchConn (extConn, oldConnList);
 		
-    	if (posList->at(i)->x() != -1)
-    	{
-	    	if (conn)
-	    	{
-	    		// The connector exist
-	    		oldConnList->removeRef(conn);
-		    	getConnList()->append(conn);
-	    	}
-	    	else
-	    	{
-		    	// The connector doesn't exist. Create it
-		    	conn = extConn->getExternalConn()->getConnInfo()
-		    			->create( this,	"",	QPoint(0,0));
-		    	
-		    	conn->setName(extConn->getName());
-		    	conn->setNegate(extConn->getExternalConn()->isNegated(),true);
-		    }
+		if (posList->at(i)->x() != -1)
+		{
+			if (conn)
+			{
+				// The connector exist
+				oldConnList->removeRef(conn);
+//				getConnList()->append(conn);
+				addConnector(conn);
+			}
+			else
+			{
+				// The connector doesn't exist. Create it
+/*				conn = extConn->getExternalConn()->getConnInfo()->create(this, "", QPoint(0,0));
+				conn->setName(extConn->getName());
+				conn->setNegate(extConn->getExternalConn()->isNegated(),true);*/
+				conn = extConn->getExternalConn()->getConnInfo()->create(this, extConn->getName(), QPoint(0,0));
+				conn->setWireName(QString("(extConn) %1").arg(extConn->getSerialNumber()));
+				conn->setNegate(extConn->getExternalConn()->isNegated(),true);
+			}
+	
+			extList->append(extConn);
+	
+			conn->setGridPos(*(posList->at(i)));
 	    	
-	    	extList->append(extConn);
+			if (mdata->getModuleView() == MV_PIXMAP)
+				conn->setOrientation(*mdata->getPixmapConnOrient()->at(i));
+		}
+		else
+		{
+			// Remove connection
+			if (conn && conn->getWire())
+			{
+				getContainer()->delConnection(conn);
+				oldConnList->removeRef(conn);
+				delete conn;
+			}
+		}
 	    	
-    		conn->setGridPos(*(posList->at(i)));
-	    	
-	    	if (mdata->getModuleView() == MV_PIXMAP)
-	    		conn->setOrientation(*mdata->getPixmapConnOrient()->at(i));
-	    }
-	    else
-	    {
-	    	// Remove connection
-	    	if (conn && conn->getWire())
-	    	{
-	    		getContainer()->delConnection(conn);
-	    		oldConnList->removeRef(conn);
-	    		delete conn;
-	    	}
-	    }
-	    	
-    }
+	}
 	
 	// Remove unused connecetors
 	oldConnList->setAutoDelete(true);
@@ -441,25 +443,23 @@ void Module::reloadModule()
 		oldConnList->removeFirst();
 	}
 	delete oldConnList;
-	
-	
 }
 
 /** search the connector
 	returns 0,if no connector is found */
 ConnectorBase * Module::searchConn(ExternalConnector * extConn, ConnectorList * connList)
 {
-	const char * extLibName = extConn->getExternalConn()->getConnInfo()->getLibName();
-	const char * extName = extConn->getName();
+	const ConnectorInfo * extConnInfo = extConn->getExternalConn()->getConnInfo();
+//	QString extName = extConn->getName();
+	QString connWireName = QString("(extConn) %1").arg(extConn->getSerialNumber());
 	FOR_EACH_CONNECTOR(it, *connList)
 	{
-		const char * conLibName = it.current()->getConnInfo()->getLibName();
-		const char * conName = it.current()->getName();
 		// Compare connector type and name
-		if ((conLibName == extLibName)
-			&& !(strcmp(conName, extName)))
+			if ((it.current()->getConnInfo() == extConnInfo)
+//			  &&(extName == it.current()->getName()))
+			  &&(connWireName == it.current()->getWireName()))
 		{
-			// Both have same type and name
+			// Both have same type and connector name have the correct wire name
 			return it.current();
 		}
 	}
@@ -476,7 +476,7 @@ int Module::checkCircuit()
 {
 	int errors = Component::checkCircuit();
 	
-	errors += container->checkCircuit();
+	errors += m_moduleContainer->checkCircuit();
 	
 	return errors;
 }
@@ -503,7 +503,7 @@ void Module::calculate()
     	}
     }
     // Calculate components
-    FOR_EACH_COMP(it, *container->getCalculateComponentList())
+    FOR_EACH_COMP(it, *getModuleContainer()->getCalculateComponentList())
     {
     	it.current()->calculate();
 		
@@ -523,7 +523,7 @@ void Module::updateOutput()
 	Component::updateOutput();
 
 	// update outputs components
-	FOR_EACH_COMP(it, *container->getUpdateOutputComponentList())
+	FOR_EACH_COMP(it, *m_moduleContainer->getUpdateOutputComponentList())
 	{
 		if (!it.current()->isExtConn())
 		{
@@ -553,7 +553,7 @@ void Module::reset()
 {
 	Component::reset();
 	// Call reset for all components
-	FOR_EACH_COMP(it,*container->getComponentList())
+	FOR_EACH_COMP(it,*m_moduleContainer->getComponentList())
 	{
 		it.current()->reset();
 	}
@@ -583,7 +583,7 @@ void Module::slotReload()
  	* Call during simulation start. */
 void Module::setupSimulationList()
 {
-	container->setupSimulationList();
+	getModuleContainer()->setupSimulationList();
 }
 
 	
@@ -633,7 +633,7 @@ void ModuleWidget::reload()
 {
 	emit QObject::destroyed();
 	
-	if (m_module->container->getModuleData()->getModuleView() == MV_USERVIEW)
+	if (m_module->getModuleContainer()->getModuleData()->getModuleView() == MV_USERVIEW)
 	{
 		FOR_EACH_COMPVIEW(it, *displayList)
 		{
