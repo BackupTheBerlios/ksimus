@@ -1,3 +1,5 @@
+	24.11.2002
+	New: Boolean And with tristate output
 	14.11.2002
 * New: External Connectors for Boolean Tristate wires
 * New: Converter Boolean Tristate to Boolean
