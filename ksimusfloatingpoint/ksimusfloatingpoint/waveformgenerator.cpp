@@ -57,7 +57,7 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 const ComponentInfo WaveformGeneratorInfo(I18N_NOOP("Floating Point Waveform Generator"),
-                                          I18N_NOOP("Floating Point/Input/Waveform Generator"),
+                                          I18N_NOOP("Floating Point/Control/Waveform Generator"),
                                           QString::null,
                                           VA_SHEETVIEW,
                                           create
@@ -469,10 +469,6 @@ WaveformGeneratorView::~WaveformGeneratorView()
 void WaveformGeneratorView::draw(QPainter * p)
 {
 	Float1OutView::draw(p);
-	
-/*	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Gen");*/
 	
 	switch(getComponent()->getWaveform())
 	{
