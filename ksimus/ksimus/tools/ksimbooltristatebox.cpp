@@ -1,8 +1,8 @@
 /***************************************************************************
-                          ksimbooleanbox.cpp  -  description
+                          ksimbooltristatebox.cpp  -  description
                              -------------------
-    begin                : Tue Dec 4 2001
-    copyright            : (C) 2001 by Rasmus Diekenbrock
+    begin                : Thu Nov 14 2002
+    copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
 
@@ -24,113 +24,134 @@
 
 // Project-Includes
 #include "ksimdebug.h"
-#include "ksimbooleanbox.h"
+#include "ksimbooltristatebox.h"
 
 // Forward declaration
 
-
-
-#define ID_FALSE    0
-#define ID_TRUE     1
-
-
-
-KSimBooleanBox::KSimBooleanBox(QWidget *parent, const char *name )
+KSimBoolTristateBox::KSimBoolTristateBox(QWidget *parent, const char *name )
 	: QComboBox(parent,name)
 {
 	init();
 }
 
-KSimBooleanBox::KSimBooleanBox(bool value, QWidget *parent, const char *name )
+KSimBoolTristateBox::KSimBoolTristateBox(bool value, bool active, QWidget *parent, const char *name )
 	: QComboBox(parent,name)
 {
 	init();
-	setValue(value);
+	setValue(value, active);
 }
 
-
-
-void KSimBooleanBox::init()
+KSimBoolTristateBox::KSimBoolTristateBox(KSimBoolTristate state, QWidget *parent, const char *name)
+	: QComboBox(parent,name)
 {
-	insertItem(i18n("Text for false in a combo box", "False"), ID_FALSE);
-	insertItem(i18n("Text for true in a combo box", "True"), ID_TRUE);
+	init();
+	setValue(state);
+}
 
-	
+void KSimBoolTristateBox::init()
+{
+	insertItem(i18n("Text for false in a combo box", "False"), KSIMBOOLTRISTATE_FALSE);
+	insertItem(i18n("Text for true in a combo box", "True"), KSIMBOOLTRISTATE_TRUE);
+	insertItem(i18n("Text for inactive in a combo box", "Inactive"), KSIMBOOLTRISTATE_INACTIVE);
+
+
 	connect(this,SIGNAL(activated(int)),this,SLOT(slotActivated(int)));
 	connect(this,SIGNAL(highlighted(int)),this,SLOT(slotHighlighted(int)));
 }
 
-KSimBooleanBox::~KSimBooleanBox()
+KSimBoolTristateBox::~KSimBoolTristateBox()
 {
 }
 
 
-void KSimBooleanBox::setFalseText(const QString & name)
+void KSimBoolTristateBox::setFalseText(const QString & name)
 {
-	changeItem(name, ID_FALSE);
+	changeItem(name, KSIMBOOLTRISTATE_FALSE);
 }
 
-QString KSimBooleanBox::getFalseText() const
+QString KSimBoolTristateBox::getFalseText() const
 {
-	return text(ID_FALSE);
+	return text(KSIMBOOLTRISTATE_FALSE);
 }
 
 		
-void KSimBooleanBox::setTrueText(const QString & name)
+void KSimBoolTristateBox::setTrueText(const QString & name)
 {
-	changeItem(name, ID_TRUE);
+	changeItem(name, KSIMBOOLTRISTATE_TRUE);
 }
 
-QString KSimBooleanBox::getTrueText() const
+QString KSimBoolTristateBox::getTrueText() const
 {
-	return text(ID_TRUE);
+	return text(KSIMBOOLTRISTATE_TRUE);
+}
+
+void KSimBoolTristateBox::setActiveText(const QString & name)
+{
+	changeItem(name, KSIMBOOLTRISTATE_INACTIVE);
+}
+
+QString KSimBoolTristateBox::getActiveText() const
+{
+	return text(KSIMBOOLTRISTATE_INACTIVE);
 }
 
 
-void KSimBooleanBox::slotActivated(int i)
+void KSimBoolTristateBox::slotActivated(int i)
 {
-	if (i == ID_FALSE)
+	switch((eKSimBoolTristate)i)
 	{
-		emit activated(false);
-		emit deactivated(true);
-	}
-	else if (i == ID_TRUE)
-	{
-		emit activated(true);
-		emit deactivated(false);
-	}
-	else
-	{
+		case KSIMBOOLTRISTATE_FALSE:
+		case KSIMBOOLTRISTATE_TRUE:
+		case KSIMBOOLTRISTATE_INACTIVE:
+			emit activated(KSimBoolTristate((eKSimBoolTristate)i));
+			break;
+
+		default:
 		// Unknown
 		KSIMDEBUG(QString::fromLatin1("Unkown input %1").arg(i));
 	}
 	
 }
 
-void KSimBooleanBox::slotHighlighted(int i)
+void KSimBoolTristateBox::slotHighlighted(int i)
 {
-	if (i == ID_FALSE)
+	switch((eKSimBoolTristate)i)
 	{
-		emit highlighted(false);
-	}
-	else if (i == ID_TRUE)
-	{
-		emit highlighted(true);
-	}
-	else
-	{
+		case KSIMBOOLTRISTATE_FALSE:
+		case KSIMBOOLTRISTATE_TRUE:
+		case KSIMBOOLTRISTATE_INACTIVE:
+			emit highlighted(KSimBoolTristate((eKSimBoolTristate)i));
+			break;
+
+		default:
 		// Unknown
 		KSIMDEBUG(QString::fromLatin1("Unkown input %1").arg(i));
 	}
-	
+
 }
 
-void KSimBooleanBox::setValue(bool b)
+void KSimBoolTristateBox::setValue(KSimBoolTristate state)
 {
-	setCurrentItem(b ? ID_TRUE : ID_FALSE);
+	setCurrentItem((int)state);
 }
 
-bool KSimBooleanBox::getValue() const
+void KSimBoolTristateBox::setValue(bool state, bool active)
 {
-	return currentItem() == ID_TRUE;
+	if (!active)
+	{
+		setCurrentItem((int)KSIMBOOLTRISTATE_INACTIVE);
+	}
+	else if (state)
+	{
+		setCurrentItem((int)KSIMBOOLTRISTATE_TRUE);
+	}
+	else
+	{
+		setCurrentItem((int)KSIMBOOLTRISTATE_FALSE);
+	}
+}
+
+KSimBoolTristate KSimBoolTristateBox::getValue() const
+{
+	return KSimBoolTristate((eKSimBoolTristate)currentItem());
 }
