@@ -25,6 +25,7 @@
 #include "component.h"
 #include "compview.h"
 #include "displaywidget.h"
+#include "moduledata.h"
 
 class QPainter;
 class ExternalConnector;
@@ -127,10 +128,15 @@ public:
 	  * Returns 0 if no external connector will be found. */
 	ExternalConnector * searchExtConn(const ConnectorBase * conn) const;
 
+	/** returns the module view type.
+		Types are: MV_NONE, MV_GENERIC, MV_USERVIEW, MV_PIXMAP. */
+	ModuleViewType getModuleView() const { return m_moduleView; };
+
 protected:
 	CompContainer * m_moduleContainer;
 	QString moduleFile;
 	ComponentList * extList;
+	ModuleViewType m_moduleView;
 	
 	/** search the connector
 	returns 0,if no connector is found */

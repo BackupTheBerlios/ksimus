@@ -815,7 +815,9 @@ bool Component::initPopupMenu(QPopupMenu * popup)
 	bool insertSep = false;
 	
 	// User view available
-	if (getUserView() && (getInfo()->getViewAttr() == VA_SHEET_AND_USER))
+	if ( getUserView()
+	  && (getInfo()->getViewAttr() == VA_SHEET_AND_USER)
+	  && !(isModule() && (((Module*)this)->getModuleView() == MV_GENERIC)))
 	{
 		if (!insertSep)
 		{

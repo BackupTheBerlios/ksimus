@@ -220,7 +220,6 @@ Module::Module(CompContainer * _container, const ComponentInfo * ci)
 	: Component(_container, ci),
 		moduleFile()
 {
-//	m_isModule = true;
 	setComponentType(eModule);
 	
 	m_moduleContainer = new CompContainer(this);
@@ -355,7 +354,8 @@ void Module::reloadModule()
 	// Search external connectors
 	mdata->searchExternals(m_moduleContainer->getComponentList());
 	
-	switch(mdata->getModuleView())
+	m_moduleView = mdata->getModuleView();
+	switch(m_moduleView)
 	{
 		case MV_GENERIC:
 		{
