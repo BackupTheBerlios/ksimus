@@ -85,9 +85,9 @@ ComponentPropertyGeneralWidget::~ComponentPropertyGeneralWidget()
 {
 }
 
-void ComponentPropertyGeneralWidget::slotAccept()
+void ComponentPropertyGeneralWidget::acceptPressed()
 {
-	ComponentPropertyBaseWidget::slotAccept();
+	ComponentPropertyBaseWidget::acceptPressed();
 
 	if (getComponent()->getName() != m_nameEdit->text())
 	{
@@ -97,9 +97,9 @@ void ComponentPropertyGeneralWidget::slotAccept()
 
 }
 
-void ComponentPropertyGeneralWidget::slotDefault()
+void ComponentPropertyGeneralWidget::defaultPressed()
 {
-	ComponentPropertyBaseWidget::slotDefault();
+	ComponentPropertyBaseWidget::defaultPressed();
 
 	m_nameEdit->setText(getComponent()->getInfo()->getName());
 	

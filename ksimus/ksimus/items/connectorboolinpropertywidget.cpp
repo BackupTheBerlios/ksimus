@@ -52,9 +52,9 @@ ConnectorBoolInPropertyWidget::~ConnectorBoolInPropertyWidget()
 {
 }
 
-void ConnectorBoolInPropertyWidget::slotAccept()
+void ConnectorBoolInPropertyWidget::acceptPressed()
 {
-	ConnectorPropertyWidget::slotAccept();
+	ConnectorPropertyWidget::acceptPressed();
 	
 	if (m_negate)
 	{
@@ -66,9 +66,9 @@ void ConnectorBoolInPropertyWidget::slotAccept()
 	}
 }
 
-void ConnectorBoolInPropertyWidget::slotDefault()
+void ConnectorBoolInPropertyWidget::defaultPressed()
 {
-	ConnectorPropertyWidget::slotDefault();
+	ConnectorPropertyWidget::defaultPressed();
 	
 	if (m_negate)
 	{

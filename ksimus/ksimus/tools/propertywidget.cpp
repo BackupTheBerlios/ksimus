@@ -35,16 +35,35 @@ PropertyWidget::PropertyWidget(QWidget *parent, const char *name )
 {
 }*/
 
+
+void PropertyWidget::acceptPressed()
+{
+}
+
+void PropertyWidget::defaultPressed()
+{
+}
+
+void PropertyWidget::cancelPressed()
+{
+}
+
+
+
+
 void PropertyWidget::slotAccept()
 {
+	acceptPressed();
 }
 
 void PropertyWidget::slotDefault()
 {
+	defaultPressed();
 }
 	
 void PropertyWidget::slotCancel()
 {
+	cancelPressed();
 }
 
 void PropertyWidget::changeData()

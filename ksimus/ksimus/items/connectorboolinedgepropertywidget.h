@@ -42,16 +42,15 @@ public:
 	ConnectorBoolInEdgePropertyWidget(ConnectorBoolInEdge * connector, QWidget *parent=0, const char *name=0);
 //	~ConnectorBoolInEdgePropertyWidget();
 
-public slots:
-	/** The function slotAccept() is called, if changes are accepted.
-		You have to reimplement this slot, if you add new properties.
-		If you do so, then first emit signalChangeData() and than changed data!
+	/** The function acceptPressed() is called, if changes are accepted.
+		You have to reimplement this function, if you add new properties.
+		If you do so, then first call function changeData() and than changed data!
 	 */
-	virtual void slotAccept();
-	/** The function slotDefault() is called, if user wants to set the default values.
+	virtual void acceptPressed();
+	/** The function defaultPressed() is called, if user wants to set the default values.
 		You have to reimplement this slot, if you add new properties.
 	 */
-	virtual void slotDefault();
+	virtual void defaultPressed();
 
 protected:
 	ConnectorBoolInEdge * getConn() const;

@@ -77,7 +77,7 @@ KSimPackageFileWidget::~KSimPackageFileWidget()
 {
 }
 
-void KSimPackageFileWidget::slotAccept()
+void KSimPackageFileWidget::acceptPressed()
 {
 	if ( (m_dirList != m_directories->getFileList())
 		|| (m_fileList != m_files->getFileList()))
@@ -102,7 +102,7 @@ void KSimPackageFileWidget::slotAccept()
 	}
 }
 
-void KSimPackageFileWidget::slotDefault()
+void KSimPackageFileWidget::defaultPressed()
 {
 	KStandardDirs dirs;
 	QStringList libList;

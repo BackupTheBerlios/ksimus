@@ -368,9 +368,9 @@ JKFlipFlopPropertyGeneralWidget::JKFlipFlopPropertyGeneralWidget(JKFlipFlop * co
 {
 } */
 
-void JKFlipFlopPropertyGeneralWidget::slotAccept()
+void JKFlipFlopPropertyGeneralWidget::acceptPressed()
 {
-	FlipFlopBasePropertyGeneralWidget::slotAccept();
+	FlipFlopBasePropertyGeneralWidget::acceptPressed();
 
 	if (((JKFlipFlop*)getComponent())->isMasterSlaveEnabled() != m_masterSlave->getValue())
 	{
@@ -379,9 +379,9 @@ void JKFlipFlopPropertyGeneralWidget::slotAccept()
 	}
 }
 
-void JKFlipFlopPropertyGeneralWidget::slotDefault()
+void JKFlipFlopPropertyGeneralWidget::defaultPressed()
 {
-	FlipFlopBasePropertyGeneralWidget::slotDefault();
+	FlipFlopBasePropertyGeneralWidget::defaultPressed();
 
 	m_masterSlave->setValue(false);
 }

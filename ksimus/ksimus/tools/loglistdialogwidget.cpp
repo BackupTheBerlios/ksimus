@@ -115,7 +115,7 @@ void LogListDialogWidget::initData()
 }
 
 /** Called if accept button is pressed */
-void LogListDialogWidget::slotAccept()
+void LogListDialogWidget::acceptPressed()
 {
 	*(LogListProperty*)m_logList = m_property;
 }

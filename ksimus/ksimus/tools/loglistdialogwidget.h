@@ -45,6 +45,13 @@ public:
 	LogListDialogWidget(LogList * logList, QWidget *parent=0, const char *name=0);
 	~LogListDialogWidget();
 
+
+	/** The function acceptPressed() is called, if changes are accepted.
+		You have to reimplement this function, if you add new properties.
+		If you do so, then first call function changeData() and than changed data!
+	 */
+	virtual void acceptPressed();
+
 protected:
 	void initView();
 	void initData();
@@ -63,9 +70,6 @@ protected:
 	QCheckBox * m_warningPopupCheck;
 	QCheckBox * m_errorPopupCheck;
 	
-public slots:
-	/** Called if accept button is pressed */
-	virtual void slotAccept();
 
 protected slots:
 	void slotDebugEnableToogled(bool on);

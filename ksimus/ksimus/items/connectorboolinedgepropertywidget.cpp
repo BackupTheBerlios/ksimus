@@ -60,9 +60,9 @@ ConnectorBoolInEdge * ConnectorBoolInEdgePropertyWidget::getConn()
 	return (ConnectorBoolInEdge *)m_conn;
 }
 
-void ConnectorBoolInEdgePropertyWidget::slotAccept()
+void ConnectorBoolInEdgePropertyWidget::acceptPressed()
 {
-	ConnectorBoolInPropertyWidget::slotAccept();
+	ConnectorBoolInPropertyWidget::acceptPressed();
 	
 	if (m_edgeSensitive)
 	{
@@ -74,9 +74,9 @@ void ConnectorBoolInEdgePropertyWidget::slotAccept()
 	}
 }
 
-void ConnectorBoolInEdgePropertyWidget::slotDefault()
+void ConnectorBoolInEdgePropertyWidget::defaultPressed()
 {
-	ConnectorBoolInPropertyWidget::slotDefault();
+	ConnectorBoolInPropertyWidget::defaultPressed();
 	
 	if (m_edgeSensitive)
 	{

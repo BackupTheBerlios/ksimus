@@ -109,7 +109,7 @@ SimulationTimingWidget::~SimulationTimingWidget()
 	You have to reimplement this slot, if you add new properties.
 	If you do so, then first call function changeData() and than changed data!
 */
-void SimulationTimingWidget::slotAccept()
+void SimulationTimingWidget::acceptPressed()
 {
 //	if (m_timing.m_execTime->getValue(unit_sec) != m_execTime->value())
 	if (*m_timing.m_execTime != m_execTime->value())
@@ -154,7 +154,7 @@ void SimulationTimingWidget::slotAccept()
 /** The function slotDefault() is called, if user wants to set the default values.
 	You have to reimplement this slot, if you add new properties.
  */
-void SimulationTimingWidget::slotDefault()
+void SimulationTimingWidget::defaultPressed()
 {
 	m_execTime->setValue(KSimTimeBase(0.01, unit_sec));
 	m_execFastest->setChecked(false);

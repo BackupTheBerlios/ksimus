@@ -329,9 +329,9 @@ BooleanLedPropertyWidget::~BooleanLedPropertyWidget()
 	delete m_newColor;
 }
 
-void BooleanLedPropertyWidget::slotAccept()
+void BooleanLedPropertyWidget::acceptPressed()
 {
-	ComponentPropertyBaseWidget::slotAccept();
+	ComponentPropertyBaseWidget::acceptPressed();
 
 	if (((BooleanLed*)getComponent())->getColor() != *m_newColor)
 	{
@@ -340,9 +340,9 @@ void BooleanLedPropertyWidget::slotAccept()
 	}
 }
 
-void BooleanLedPropertyWidget::slotDefault()
+void BooleanLedPropertyWidget::defaultPressed()
 {
-	ComponentPropertyBaseWidget::slotDefault();
+	ComponentPropertyBaseWidget::defaultPressed();
 
 	*m_newColor =		 red;
 	m_orange->setChecked(false);

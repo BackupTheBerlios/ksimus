@@ -142,22 +142,22 @@ void KSimGridDialogWidget::initData()
 
 
 /** Called if accept button is pressed */
-void KSimGridDialogWidget::slotAccept()
+void KSimGridDialogWidget::acceptPressed()
 {
-	PropertyWidget::slotAccept();
+	PropertyWidget::acceptPressed();
 	*m_gridStart = *m_gridWork;
 }
 
 /** Called if cancel button is pressed */
-void KSimGridDialogWidget::slotCancel()
+void KSimGridDialogWidget::cancelPressed()
 {
-	PropertyWidget::slotCancel();
+	PropertyWidget::cancelPressed();
 }
 
 /** Called if apply button is pressed */
-void KSimGridDialogWidget::slotDefault()
+void KSimGridDialogWidget::defaultPressed()
 {
-	PropertyWidget::slotDefault();
+	PropertyWidget::defaultPressed();
 }
 
 

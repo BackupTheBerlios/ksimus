@@ -304,9 +304,9 @@ ClockGeneratorPropertyWidget::~ClockGeneratorPropertyWidget()
 {
 }
 
-void ClockGeneratorPropertyWidget::slotAccept()
+void ClockGeneratorPropertyWidget::acceptPressed()
 {
-	ComponentPropertyBaseWidget::slotAccept();
+	ComponentPropertyBaseWidget::acceptPressed();
 
 	if (getClockGen()->m_startDelay != m_startDelay->value())
 	{
@@ -325,9 +325,9 @@ void ClockGeneratorPropertyWidget::slotAccept()
 	}
 }
 
-void ClockGeneratorPropertyWidget::slotDefault()
+void ClockGeneratorPropertyWidget::defaultPressed()
 {
-	ComponentPropertyBaseWidget::slotDefault();
+	ComponentPropertyBaseWidget::defaultPressed();
 
 	m_startDelay->setValue(getClockGen()->m_startDelay);
 	m_highTime->setValue(getClockGen()->m_highTime);

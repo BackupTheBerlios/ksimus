@@ -156,8 +156,6 @@ void MonoFlop::save(KSimData & file) const
 	{
 		file.writeEntry(sRetrigger, false);
 	}
-
-
 }
 		
 
@@ -298,9 +296,9 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 {
 } */
 
-void MonoFlopPropertyGeneralWidget::slotAccept()
+void MonoFlopPropertyGeneralWidget::acceptPressed()
 {
-	FlipFlopBasePropertyGeneralWidget::slotAccept();
+	FlipFlopBasePropertyGeneralWidget::acceptPressed();
 
 	if (getMF()->getRetrigger() != m_retrigger->getValue())
 	{
@@ -316,9 +314,9 @@ void MonoFlopPropertyGeneralWidget::slotAccept()
 	}
 }
 
-void MonoFlopPropertyGeneralWidget::slotDefault()
+void MonoFlopPropertyGeneralWidget::defaultPressed()
 {
-	FlipFlopBasePropertyGeneralWidget::slotDefault();
+	FlipFlopBasePropertyGeneralWidget::defaultPressed();
 
 	m_retrigger->setValue(false);
 	m_highTime->setValue(KSimTimeBase(0.5, unit_sec));

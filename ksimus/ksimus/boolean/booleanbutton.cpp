@@ -333,9 +333,9 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 {
 } */
 
-void BooleanButtonPropertyGeneralWidget::slotAccept()
+void BooleanButtonPropertyGeneralWidget::acceptPressed()
 {
-	Boolean1OutPropertyGeneralWidget::slotAccept();
+	Boolean1OutPropertyGeneralWidget::acceptPressed();
 
 	if (((BooleanButton*)getComponent())->isToggleButton() != m_toggle->getValue())
 	{
@@ -344,9 +344,9 @@ void BooleanButtonPropertyGeneralWidget::slotAccept()
 	}
 }
 
-void BooleanButtonPropertyGeneralWidget::slotDefault()
+void BooleanButtonPropertyGeneralWidget::defaultPressed()
 {
-	Boolean1OutPropertyGeneralWidget::slotDefault();
+	Boolean1OutPropertyGeneralWidget::defaultPressed();
 
 	if(getComponent()->getInfo() == &BooleanToggleButtonInfo)
 	{

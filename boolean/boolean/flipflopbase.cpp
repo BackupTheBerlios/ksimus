@@ -150,9 +150,9 @@ FlipFlopBasePropertyGeneralWidget::FlipFlopBasePropertyGeneralWidget(FlipFlopBas
 {
 } */
 
-void FlipFlopBasePropertyGeneralWidget::slotAccept()
+void FlipFlopBasePropertyGeneralWidget::acceptPressed()
 {
-	Boolean1OutPropertyGeneralWidget::slotAccept();
+	Boolean1OutPropertyGeneralWidget::acceptPressed();
 
 	if (((FlipFlopBase*)getComponent())->getDominant() != m_dominant->getValue())
 	{
@@ -161,9 +161,9 @@ void FlipFlopBasePropertyGeneralWidget::slotAccept()
 	}
 }
 
-void FlipFlopBasePropertyGeneralWidget::slotDefault()
+void FlipFlopBasePropertyGeneralWidget::defaultPressed()
 {
-	Boolean1OutPropertyGeneralWidget::slotDefault();
+	Boolean1OutPropertyGeneralWidget::defaultPressed();
 
 	m_dominant->setValue(false);
 }

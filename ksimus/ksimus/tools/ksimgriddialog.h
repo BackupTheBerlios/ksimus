@@ -43,13 +43,18 @@ public:
 	virtual ~KSimGridDialogWidget();
 	
 
-public slots:
-	/** Called if accept button is pressed */
-	virtual void slotAccept();
-	/** Called if cancel button is pressed */
-	virtual void slotCancel();
-	/** Called if default button is pressed */
-	virtual void slotDefault();
+	/** The function acceptPressed() is called, if changes are accepted.
+		You have to reimplement this function, if you add new properties.
+		If you do so, then first call function changeData() and than changed data!
+	 */
+	virtual void acceptPressed();
+	/** The function defaultPressed() is called, if user wants to set the default values.
+		You have to reimplement this slot, if you add new properties.
+	 */
+	virtual void defaultPressed();
+	/** The function cancelPressed() is called, if user wants to cancel the dialog.
+	 */
+	virtual void cancelPressed();
 
 protected:
 	KSimGrid * m_gridWork;

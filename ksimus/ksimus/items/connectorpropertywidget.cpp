@@ -160,8 +160,10 @@ ConnectorPropertyWidget::~ConnectorPropertyWidget()
 	delete m_p;
 }
 
-void ConnectorPropertyWidget::slotAccept()
+void ConnectorPropertyWidget::acceptPressed()
 {
+	ComponentPropertyBaseWidget::acceptPressed();
+	
 	if (m_conn->getName() != m_p->nameEdit->text())
 	{
 		changeData();
@@ -174,8 +176,10 @@ void ConnectorPropertyWidget::slotAccept()
 	}
 }
 
-void ConnectorPropertyWidget::slotDefault()
+void ConnectorPropertyWidget::defaultPressed()
 {
+	ComponentPropertyBaseWidget::defaultPressed();
+	
 	m_p->nameEdit->setText(m_conn->getInitName());
 	if ((m_p->hide != 0) && (m_conn->getWire() == 0))
 	{

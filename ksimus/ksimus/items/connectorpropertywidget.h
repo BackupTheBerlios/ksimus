@@ -49,16 +49,17 @@ public:
 	~ConnectorPropertyWidget();
 
 
+	/** The function acceptPressed() is called, if changes are accepted.
+		You have to reimplement this function, if you add new properties.
+		If you do so, then first call function changeData() and than changed data!
+	 */
+	virtual void acceptPressed();
+	/** The function defaultPressed() is called, if user wants to set the default values.
+		You have to reimplement this slot, if you add new properties.
+	 */
+	virtual void defaultPressed();
+
 public slots:
-	/** The function slotAccept() is called, if changes are accepted.
-		You have to reimplement this slot, if you add new properties.
-		If you do so, then first emit signalChangeData() and than changed data!
-	 */
-	virtual void slotAccept();
-	/** The function slotDefault() is called, if user wants to set the default values.
-		You have to reimplement this slot, if you add new properties.
-	 */
-	virtual void slotDefault();
 	
 	virtual void polish();
 	
