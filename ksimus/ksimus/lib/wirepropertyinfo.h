@@ -33,13 +33,13 @@ class WireProperty;
 class WirePropertyInfo : public BaseInfo
 {
 public:
-	WirePropertyInfo(	const QString & name,
-				const QString & libName,
-				const QString & dataType,
-				WireProperty * (*factory)(Wire*),
-				const QString & shortDescr = QString::null,
-				const QString & HTMLDescr = QString::null,
-				const QString & oldLibNames = QString::null );
+	WirePropertyInfo(const QString & name,
+	                 const QString & libName,
+	                 const QString & dataType,
+	                 WireProperty * (*factory)(Wire*),
+	                 const QString & shortDescr = QString::null,
+	                 const QString & HTMLDescr = QString::null,
+	                 const QString & oldLibNames = QString::null );
 	
 	const QString & getDataType() const;
 	WireProperty * create(Wire*) const;

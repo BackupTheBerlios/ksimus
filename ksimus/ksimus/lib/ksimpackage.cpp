@@ -140,7 +140,7 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 //				KSIMDEBUG_VAR("Exec init function",getFilename());
 				if (!m_packageInfo)
 				{
-				m_error = TRY_AGAIN;
+					m_error = TRY_AGAIN;
 				}
 				else
 				{
