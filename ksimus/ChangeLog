@@ -1,4 +1,8 @@
+	19.12.2001
+* Change: Better accept/default/cancel mechanism for PropertyWidget. The virtual slots are splitted
+  up to one virtual function and one slot.
 	17.12.2001
+* New: Boolean1Out has selectable init value for reset state
 * Fix: Truncate bug. Caused by the getWirePos change from 16.12.2001
 	16.12.2001
 * New: ComponentAddOnList::~ComponentAddOnList removes items from last to first.
