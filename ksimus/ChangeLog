@@ -1,3 +1,6 @@
+	27.12.2002
+* Fix: Bug #448 caused a crash sometimes if clicked with the right mouse button at a module in
+  the component supplier. Thanks to kaplun for the bug report.
 	23.12.2002
 * New: Messages in log window are colored now.
 * New: Add log window property to setting menu.

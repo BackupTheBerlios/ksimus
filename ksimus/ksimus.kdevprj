@@ -23,13 +23,13 @@ cflags=
 cppflags=
 cxxflags=\s-O3 -g2 -Wall
 ldadd=-lltdl -lkdeprint $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
-ldflags=\s          -rdynamic
+ldflags=\s           -rdynamic
 path_to_bin_program=ksimus
 
 [General]
 AMChanged=false
 author=Rasmus Diekenbrock
-configure_args=--prefix=/opt/kde2 --with-qt-dir=/usr/lib/qt2
+configure_args=--prefix=/opt/kde2 --with-qt-dir=/usr/lib/qt2 --enable-debug\s
 dir_where_make_will_be_called=
 email=ksimus@gmx.de
 execute_args=/home/rasmus/tmp/test*.sim
