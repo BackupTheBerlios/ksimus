@@ -240,3 +240,9 @@ const PackageInfo * BaseLibrary::getPackageInfo(const QString & libName) const
 	return (const PackageInfo *)0;
 }
 
+const QList<BaseLibraryItem> * BaseLibrary::getList() const
+{
+	return m_library;
+}
+
+

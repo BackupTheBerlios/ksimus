@@ -19,13 +19,13 @@
 
 #include "connectorinfo.h"
 
-ConnectorInfo::ConnectorInfo(	const QString & name,
-								const QString & libName,
-								const QString & dataType,
-								ConnectorBase * (*factory)(Component* , const QString & , const QString & , const QPoint&),
-								const QString & shortDescr,
-								const QString & HTMLDescr,
-								const QString & oldLibNames)
+ConnectorInfo::ConnectorInfo(const QString & name,
+                             const QString & libName,
+                             const QString & dataType,
+                             ConnectorBase * (*factory)(Component* , const QString & , const QString & , const QPoint&),
+                             const QString & shortDescr,
+                             const QString & HTMLDescr,
+                             const QString & oldLibNames)
 	:	BaseInfo(INFO_CONNECTOR, name, libName, shortDescr, HTMLDescr, oldLibNames),
 		m_dataType(dataType),
 		m_factory(factory)

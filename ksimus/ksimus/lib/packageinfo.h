@@ -37,7 +37,7 @@
 
 
 
-/**Contains infromation about packages.
+/**Contains information about packages.
   *@author Rasmus Diekenbrock
   */
 

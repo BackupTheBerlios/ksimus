@@ -23,7 +23,7 @@
 
 #include "baseinfo.h"
 
-/**Information calss for connectors
+/**Information class for connectors
   *@author Rasmus Diekenbrock
   */
 
@@ -34,13 +34,13 @@ class ConnectorBase;
 class ConnectorInfo : public BaseInfo
 {
 public: 
-	ConnectorInfo(	const QString & name,
-					const QString & libName,
-					const QString & dataType,
-					ConnectorBase * (*factory)(Component* , const QString & , const QString & , const QPoint&),
-					const QString & shortDescr = QString::null,
-					const QString & HTMLDescr = QString::null,
-					const QString & oldLibNames = QString::null );
+	ConnectorInfo(const QString & name,
+	              const QString & libName,
+	              const QString & dataType,
+	              ConnectorBase * (*factory)(Component* , const QString & , const QString & , const QPoint&),
+	              const QString & shortDescr = QString::null,
+	              const QString & HTMLDescr = QString::null,
+	              const QString & oldLibNames = QString::null );
 
 	const QString & getDataType() const;
 	ConnectorBase * create(Component* , const QString & , const QString & , const QPoint&) const;

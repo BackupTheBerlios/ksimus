@@ -625,7 +625,7 @@ bool ConnectorBase::initPopupMenu(QPopupMenu * popup)
 
 	if (isErasable())
 	{
-		m_p->idErase = popup->insertItem(i18n("&Erase Connector"),this, SLOT(slotDeleteRequest()));
+		m_p->idErase = popup->insertItem(i18n("D&elete Connector"),this, SLOT(slotDeleteRequest()));
 		// exist connection
 		if (getWire())
 		{

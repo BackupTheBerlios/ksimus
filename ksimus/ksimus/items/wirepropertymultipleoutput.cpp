@@ -149,13 +149,13 @@ void WirePropertyMultipleOutput::setupCircuit()
 					m_connectorList->append((ConnectorTristateBase*)it.current());
 					if (comp->isZeroDelayComponent())
 					{
-						// Component has to caclulate immediatly
+						// Component has to calculate immediatly
 						if (-1 == m_zeroDelayList->findRef(comp))
 							m_zeroDelayList->append(comp);
 					}
 					else
 					{
-						// Component has to caclulate in next cycle
+						// Component has to calculate in next cycle
 						if (-1 == m_executeNextList->findRef(comp))
 							m_executeNextList->append(comp);
 						}

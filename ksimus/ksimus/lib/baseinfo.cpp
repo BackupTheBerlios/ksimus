@@ -22,12 +22,12 @@
 //##########################################################
 // BaseInfo
 	
-BaseInfo::BaseInfo(	eInfoType type,
-										const QString & name,
-										const QString & libName,
-										const QString & shortDescr,
-										const QString & HTMLDescr,
-										const QString & oldLibNames )
+BaseInfo::BaseInfo(eInfoType type,
+                   const QString & name,
+                   const QString & libName,
+                   const QString & shortDescr,
+                   const QString & HTMLDescr,
+                   const QString & oldLibNames )
 	:	m_type (type),
 		m_name (name),
 		m_libName(libName),
@@ -37,7 +37,7 @@ BaseInfo::BaseInfo(	eInfoType type,
 {
 }
 	
-eInfoType BaseInfo::getType() const
+/*BaseInfo::eInfoType BaseInfo::getType() const
 {
 	return m_type;
 }
@@ -60,7 +60,8 @@ const QString & BaseInfo::getShortDescr() const
 const QString & BaseInfo::getHTMLDescr() const
 {
 	return m_HTMLDescr;
-}
+} TODO remove */
+
 
 
 

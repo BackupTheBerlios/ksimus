@@ -52,6 +52,9 @@ public:
 	
 	BaseLibraryItem * getItem(const QString & libName) const;
 	const PackageInfo * getPackageInfo(const QString & libName) const;
+
+	const QList<BaseLibraryItem> * getList() const;
+
 	
 	
 	/** Resize QDict. Call after latest insert */
