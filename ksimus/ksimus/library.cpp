@@ -60,6 +60,7 @@
 
 #include "ksimiodevice.h"
 #include "ksimiojoinboolin.h"
+#include "ksimiojoinboolout.h"
 
 #include "boolean/booleanbutton.h"
 #include "boolean/booleanled.h"
@@ -206,37 +207,37 @@ const ImplicitConverterInfoList & Library::Private::getDistImplicitConverter()
 
 const KSimIoDeviceInfoList & Library::Private::getDistIoDevice()
 {
-	static KSimIoDeviceInfoList * pIoDeviceProp = (KSimIoDeviceInfoList *)0;
+	static KSimIoDeviceInfoList * pIoDevice = (KSimIoDeviceInfoList *)0;
 
-	if (pIoDeviceProp == (KSimIoDeviceInfoList *)0)
+	if (pIoDevice == (KSimIoDeviceInfoList *)0)
 	{
 		// Initialize
-		pIoDeviceProp = new KSimIoDeviceInfoList;
-		CHECK_PTR(pIoDeviceProp);
+		pIoDevice = new KSimIoDeviceInfoList;
+		CHECK_PTR(pIoDevice);
 
 		// Add your io devices info here
-		pIoDeviceProp->append(KSimIoDeviceTest::getStaticInfo());
+		pIoDevice->append(KSimIoDeviceTest::getStaticInfo());
 	}
 
-	return *pIoDeviceProp;
+	return *pIoDevice;
 }
 
 const KSimIoJoinInfoList & Library::Private::getDistIoJoin()
 {
-	static KSimIoJoinInfoList * pIoJoinProp = (KSimIoJoinInfoList *)0;
+	static KSimIoJoinInfoList * pIoJoin = (KSimIoJoinInfoList *)0;
 
-	if (pIoJoinProp == (KSimIoJoinInfoList *)0)
+	if (pIoJoin == (KSimIoJoinInfoList *)0)
 	{
 		// Initialize
-		pIoJoinProp = new KSimIoJoinInfoList;
-		CHECK_PTR(pIoJoinProp);
+		pIoJoin = new KSimIoJoinInfoList;
+		CHECK_PTR(pIoJoin);
 
 		// Add your io join info here
-		pIoJoinProp->append(KSimIoJoinBoolIn::getStaticInfo());
-		pIoJoinProp->append(KSimIoJoinBoolOut::getStaticInfo());
+		pIoJoin->append(KSimIoJoinBoolIn::getStaticInfo());
+		pIoJoin->append(KSimIoJoinBoolOut::getStaticInfo());
 	}
 
-	return *pIoJoinProp;
+	return *pIoJoin;
 }
 
 Library * g_library = (Library *)0;
