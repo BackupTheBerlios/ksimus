@@ -64,7 +64,7 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 
 const ComponentInfo FloatLatchInfo(
                      I18N_NOOP("Floating Point Latch"),
-                     I18N_NOOP("Floating Point/Misc/Latch"),
+                     I18N_NOOP("Floating Point/Control/Latch"),
                      QString::null,
                      VA_SHEETVIEW,
                      create );
@@ -381,7 +381,7 @@ void FloatLatchPropertyGeneralWidget::acceptPressed()
 		changeData();
 		getComponent()->setResetValue(reset);
 	}
-	if (getComponent()->getInputPack()->getConnectorCount() != m_channels->value())
+	if (getComponent()->getInputPack()->getConnectorCount() != (unsigned int)m_channels->value())
 	{
 		changeData();
 		getComponent()->setChannelCountDelayed(m_channels->value());
