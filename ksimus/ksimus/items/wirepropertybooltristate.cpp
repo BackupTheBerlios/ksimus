@@ -16,17 +16,25 @@
  ***************************************************************************/
 
 
+// C-Includes
 #include <limits.h>
 
+// QT-Includes
+
+// KDE-Includes
 #include <klocale.h>
 
+// Project-Includes
 #include "wirepropertybooltristate.h"
 #include "wirepropertyinfo.h"
 #include "connectorbase.h"
 #include "ksimdebug.h"
 #include "watchitembooltristate.h"
-
 #include "wire.h"
+
+// Forward declaration
+
+
 
 
 QString WireStateBoolTriState::getText() const
@@ -35,7 +43,7 @@ QString WireStateBoolTriState::getText() const
 	{
 		return i18n("BoolTriState", "Inactive");
 	}
-	else if (getState())
+	else if (isTrue())
 	{
 		return i18n("BoolTriState", "True");
 	}

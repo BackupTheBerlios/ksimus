@@ -25,6 +25,7 @@
 #include "wirepropertymultipleoutput.h"
 #include "wire.h"
 #include "ksimusdoc.h"
+#include "compcontainer.h"
 #include "connectorbase.h"
 #include "externalconnector.h"
 #include "module.h"
@@ -130,14 +131,14 @@ void WirePropertyMultipleOutput::setupCircuit()
 					m_connectorInputList->append((ConnectorInputBase*)it.current());
 					if (comp->isZeroDelayComponent())
 					{
-						KSIMDEBUG_VAR("In Zero", comp->getName());
+//						KSIMDEBUG_VAR("In Zero", comp->getName());
 						// Component has to caclulate immediatly
 						if (-1 == m_zeroDelayList->findRef(comp))
 							m_zeroDelayList->append(comp);
 					}
 					else
 					{
-						KSIMDEBUG_VAR("In Next", comp->getName());
+//						KSIMDEBUG_VAR("In Next", comp->getName());
 						// Component has to caclulate in next cycle
 						if (-1 == m_executeNextList->findRef(comp))
 							m_executeNextList->append(comp);
@@ -186,7 +187,7 @@ void WirePropertyMultipleOutput::setupInternal(WirePropertyMultipleOutput * wire
 				ExternalConnector * extConn = ((Module *)comp)->searchExtConn(it.current());
 				if (extConn)
 				{
-					setupInternalAddWireProperty(extConn->getExternalConn());
+					setupInternalAddWireProperty(it.current());
 					setupInternalAddWireProperty(extConn->getInternalConn());
 				}
 				else
@@ -199,8 +200,27 @@ void WirePropertyMultipleOutput::setupInternal(WirePropertyMultipleOutput * wire
 			{
 				// ExternalConnector
 				ExternalConnector * extConn = (ExternalConnector *)comp;
-				setupInternalAddWireProperty(extConn->getExternalConn());
 				setupInternalAddWireProperty(extConn->getInternalConn());
+				if (extConn->getContainer()->isParentComponent())
+				{
+					// Is inside a module and not the internal connector - find connector
+					const Module * module = (const Module *)extConn->getContainer()->getParentComponent();
+					ConnectorBase * conn = module->searchConn(extConn, module->getConnList());
+					if (conn)
+					{
+//						KSIMDEBUG_VAR("Found ExtConn: Add module Conn", conn->getName());
+						setupInternalAddWireProperty(conn);
+					}
+					else
+					{
+//						KSIMDEBUG_VAR("External connector not found", comp->getName());
+					}
+				}
+				else
+				{
+//					KSIMDEBUG_VAR("Found ExtConn: Add external Conn", extConn->getExternalConn()->getName());
+					setupInternalAddWireProperty(extConn->getExternalConn());
+				}
 			}
 		}
 	}

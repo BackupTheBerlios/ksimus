@@ -18,7 +18,17 @@
 #ifndef WIREPROPERTYBOOLTRISTATE_H
 #define WIREPROPERTYBOOLTRISTATE_H
 
+// C-Includes
+
+// QT-Includes
+
+// KDE-Includes
+
+// Project-Includes
 #include "wirepropertymultipleoutput.h"
+#include "ksimbooltristate.h"
+
+// Forward declaration
 
 
 //###############################################################
@@ -38,12 +48,15 @@ public:
 	void set(unsigned int trueCount, unsigned int falseCount);
 	void setTrue(unsigned int trueCount);
 	void setFalse(unsigned int falseCount);
+	void setTriState(KSimBoolTriState state);
 
-	bool getState() const;
 	unsigned int getTrue() const;
 	unsigned int getFalse() const;
+	bool isTrue() const;
+	bool isFalse() const;
 	bool isActive() const;
 	bool isInactive() const;
+	KSimBoolTriState getTriState() const;
 
 	QString getText() const;
 	QString getDetailedText() const;
@@ -72,11 +85,6 @@ inline void WireStateBoolTriState::setFalse(unsigned int falseCount)
 	m_falseCount = falseCount;
 };
 
-inline bool WireStateBoolTriState::getState() const
-{
-	return (getFalse() == 0);
-};
-
 inline unsigned int WireStateBoolTriState::getTrue() const
 {
 	return m_trueCount;
@@ -86,6 +94,16 @@ inline unsigned int WireStateBoolTriState::getFalse() const
 {
 	return m_falseCount;
 };
+
+inline bool WireStateBoolTriState::isTrue() const
+{
+	return (getTrue() != 0) || (getFalse() == 0);
+}
+
+inline bool WireStateBoolTriState::isFalse() const
+{
+	return getFalse() != 0;
+}
 
 inline bool WireStateBoolTriState::isActive() const
 {
@@ -97,6 +115,16 @@ inline bool WireStateBoolTriState::isInactive() const
 	return (getTrue() == 0) && (getFalse() == 0);
 };
 
+inline void WireStateBoolTriState::setTriState(KSimBoolTriState state)
+{
+	m_trueCount = state.isTrue() ? 1 : 0;
+	m_falseCount = state.isFalse() ? 1 : 0;
+}
+
+inline KSimBoolTriState WireStateBoolTriState::getTriState() const
+{
+	return KSimBoolTriState(!isFalse(), isActive());
+}
 
 //###############################################################
 

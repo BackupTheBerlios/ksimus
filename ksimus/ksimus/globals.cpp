@@ -68,6 +68,8 @@ int getGreaterPrim(int number)
 #include "ksimdoubleedit.h"
 #include "ksimfilename.h"
 #include "optionalconnector.h"
+#include "ksimbooltristatebox.h"
+#include "ksimbooltristate.h"
 
 void ksimusDummyFunction()
 {
@@ -84,6 +86,8 @@ void ksimusDummyFunction()
 	new KSimDoubleEdit((QWidget*) 0);
 	new KSimFilename((Component*)0);
 	new OptionalConnector((Component *) 0, QString::null);
+	new KSimBoolTristateBox((QWidget*) 0);
+	new KSimBoolTriState();
 }	
 
 
