@@ -21,6 +21,7 @@
 #include <qpainter.h>
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "floatmultiplier.h"
@@ -41,8 +42,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatMultiplier(container, ci);
 }
 
-const ComponentInfo FloatMultiplierInfo("Floating Point Multiplier",
-                                        "Floating Point/Arithmetic/Multiplier",
+const ComponentInfo FloatMultiplierInfo(I18N_NOOP("Floating Point Multiplier"),
+                                        I18N_NOOP("Floating Point/Arithmetic/Multiplier"),
                                         QString::null,
                                         VA_SHEETVIEW,
                                         create
@@ -78,6 +79,7 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 		new FloatMultiplierView(this, SHEET_VIEW);
 	}
 
+	getInputConnectorPack()->setConnectorName(I18N_NOOP("Factor %1"));
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

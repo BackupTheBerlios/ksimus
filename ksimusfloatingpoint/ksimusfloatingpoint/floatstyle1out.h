@@ -29,9 +29,9 @@
 #include "ksimus/componentstyle.h"
 #include "ksimus/compview.h"
 #include "ksimus/componentpropertygeneralwidget.h"
-#include "ksimus/connectorfloatout.h"
 
 // Forward declaration
+class ConnectorFloatOut;
 class ComponentLayout;
 class KSimDoubleEdit;
 class QLabel;

@@ -38,6 +38,16 @@
 #include "floatinputslider.h"
 #include "floatlineoutput.h"
 #include "floatlineinput.h"
+#include "floatconstinput.h"
+#include "floatabs.h"
+#include "waveformgenerator.h"
+#include "simpleconditional.h"
+#include "extconnfloatin.h"
+#include "extconnfloatout.h"
+#include "convertfloatbool.h"
+#include "convertboolfloat.h"
+#include "floatlatch.h"
+#include "dataselector.h"
 
 // Forward declaration
 
@@ -65,6 +75,20 @@ static const ComponentInfoPtr distributeComponent[] =
 	&FloatLineOutputInfo,
 	&FloatRemainderInfo,
 	&FloatLineInputInfo,
+	&FloatConstInputInfo,
+	&FloatAbsInfo,
+	&WaveformGeneratorInfo,
+	&ConditionalLesserInfo,
+	&ConditionalLesserEqualInfo,
+	&ConditionalEqualInfo,
+	&ConditionalLargerEqualInfo,
+	&ConditionalLargerInfo,
+	&ExtConnFloatOutInfo,
+	&ExtConnFloatInInfo,
+	&ConvertFloatBoolInfo,
+	&ConvertBoolFloatInfo,
+	&FloatLatchInfo,
+	&DataSelectorInfo,
 	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
 };
 

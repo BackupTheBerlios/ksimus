@@ -20,22 +20,19 @@
 
 // QT-Includes
 #include <qslider.h>
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qgrid.h>
-#include <qvalidator.h>
 
 // KDE-Includes
 #include <klocale.h>
-#include <kinstance.h>
 
 // Project-Includes
 #include "ksimus/componentinfo.h"
+#include "ksimus/componentlayout.h"
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimdoubleedit.h"
-#include "ksimus/componentlayout.h"
 #include "floatinputslider.h"
 
 // Forward declaration
@@ -58,8 +55,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatInputSlider(container, ci);
 }
 
-const ComponentInfo FloatInputSliderInfo("Floating Point Input Slider",
-                                         "Floating Point/Input/Slider",
+const ComponentInfo FloatInputSliderInfo(I18N_NOOP("Floating Point Input Slider"),
+                                         I18N_NOOP("Floating Point/Input/Slider"),
                                          QString::null,
                                          VA_SHEET_AND_USER,
                                          create	);

@@ -21,10 +21,10 @@
 #include <qpainter.h>
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "floatadd.h"
-#include "ksimus/resource.h"
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorpack.h"
 
@@ -41,8 +41,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatAdd(container, ci);
 }
 
-const ComponentInfo FloatAddInfo("Floating Point Adder",
-                                 "Floating Point/Arithmetic/Adder",
+const ComponentInfo FloatAddInfo(I18N_NOOP("Floating Point Adder"),
+                                 I18N_NOOP("Floating Point/Arithmetic/Adder"),
                                  QString::null,
                                  VA_SHEETVIEW,
                                  create
@@ -78,6 +78,7 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 		new FloatAddView(this, SHEET_VIEW);
 	}
 
+	getInputConnectorPack()->setConnectorName(i18n("Summand %1"));
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

@@ -29,13 +29,12 @@
 #include "ksimus/component.h"
 #include "ksimus/compview.h"
 #include "ksimus/componentpropertygeneralwidget.h"
-#include "ksimus/connectorfloatout.h"
 
 // Forward declaration
 class ComponentLayout;
-//class KSimDoubleSpinBox;
 class KSimDoubleEdit;
 class QLabel;
+class ConnectorFloatOut;
 
 
 namespace KSimLibFloatingPoint
@@ -83,7 +82,7 @@ public:
 	
 	
 	/** Creates the general property page for the property dialog.
-	  * This function creeates a @ref Boolean1OutPropertyGeneralWidget.
+	  * This function creeates a @ref Float1OutPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
 

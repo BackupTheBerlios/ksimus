@@ -19,24 +19,15 @@
 // C-Includes
 
 // QT-Includes
-#include <qlayout.h>
-//#include <qpainter.h>
-#include <qdrawutil.h>
-#include <qcombobox.h>
 #include <qlabel.h>
-#include <qvbox.h>
-#include <qcheckbox.h>
 
 // KDE-Includes
 #include <klocale.h>
-#include <kcolorbtn.h>
 
 // Project-Includes
 #include "ksimus/componentinfo.h"
 #include "ksimus/resource.h"
-#include "ksimus/ksimdebug.h"
-#include "ksimus/ksimdata.h"
-#include "ksimus/componentpropertydialog.h"
+#include "ksimus/connectorfloatin.h"
 
 #include "floatlineoutput.h"
 
@@ -54,8 +45,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatLineOutput(container, ci);
 }
 
-const ComponentInfo FloatLineOutputInfo("Floating Point Label",
-                                        "Floating Point/Output/Label",
+const ComponentInfo FloatLineOutputInfo(I18N_NOOP("Floating Point Label"),
+                                        I18N_NOOP("Floating Point/Output/Label"),
                                         QString::null,
                                         VA_SHEET_AND_USER,
                                         create	);
@@ -70,7 +61,7 @@ FloatLineOutput::FloatLineOutput(CompContainer * container, const ComponentInfo 
 	: ComponentStyle(container, ci),
 		m_number(0)
 {
-	m_input = new ConnectorFloatIn (this, "Input");
+	m_input = new ConnectorFloatIn (this, I18N_NOOP("Input"));
 	CHECK_PTR(m_input);
 	
 	setColorAdjustmentEnabled(true);

@@ -19,15 +19,15 @@
 #include <float.h>
 
 // QT-Includes
-#include <qpainter.h>
+//#include <qpainter.h>
 #include <qlabel.h>
 #include <qgrid.h>
-#include <qvalidator.h>
+//#include <qvalidator.h>
 
 
 // KDE-Includes
 #include <klocale.h>
-#include <kinstance.h>
+//#include <kinstance.h>
 
 // Project-Includes
 #include "ksimus/ksimdoubleedit.h"
@@ -35,6 +35,7 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/ksimdata.h"
+#include "ksimus/connectorfloatout.h"
 #include "floatstyle1out.h"
 
 // Forward declaration
@@ -56,7 +57,7 @@ FloatStyle1Out::FloatStyle1Out(CompContainer * container, const ComponentInfo * 
 		m_resetValue(DEFAULT_RESET_VALUE)
 {
 	
-	m_out = new ConnectorFloatOut (this, "Output");
+	m_out = new ConnectorFloatOut (this, I18N_NOOP("Output"));
 	CHECK_PTR(m_out);
 	
 }

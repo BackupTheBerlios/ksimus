@@ -21,6 +21,7 @@
 #include <qpainter.h>
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "floatsubtractor.h"
@@ -40,8 +41,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatSubtractor(container, ci);
 }
 
-const ComponentInfo FloatSubtractorInfo("Floating Point Subtractor",
-                                        "Floating Point/Arithmetic/Subtractor",
+const ComponentInfo FloatSubtractorInfo(I18N_NOOP("Floating Point Subtractor"),
+                                        I18N_NOOP("Floating Point/Arithmetic/Subtractor"),
                                         QString::null,
                                         VA_SHEETVIEW,
                                         create
@@ -77,6 +78,9 @@ FloatSubtractor::FloatSubtractor(CompContainer * container, const ComponentInfo 
 		new FloatSubtractorView(this, SHEET_VIEW);
 	}
 
+	getInputA()->setName(i18n("Minuend"));
+	getInputB()->setName(i18n("Subtrahend"));
+	
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

@@ -25,10 +25,8 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/compview.h"
 #include "ksimus/compviewvbox.h"
 #include "ksimus/connectorfloatout.h"
-#include "ksimus/componentpropertygeneralwidget.h"
 #include "floatstyle1out.h"
 
 // Forward declaration
@@ -47,7 +45,7 @@ extern const ComponentInfo FloatInputSliderInfo;
   *@author Rasmus Diekenbrock
   */
 
-class FloatInputSlider : public FloatStyle1Out
+class FloatInputSlider : public KSimLibFloatingPoint::FloatStyle1Out
 {
   Q_OBJECT
 	

@@ -19,15 +19,12 @@
 #include <float.h>
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qgrid.h>
-#include <qvalidator.h>
 
 
 // KDE-Includes
 #include <klocale.h>
-#include <kinstance.h>
 
 // Project-Includes
 #include "ksimus/ksimdoubleedit.h"
@@ -35,6 +32,8 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/ksimdata.h"
+#include "ksimus/connectorfloatout.h"
+
 #include "float1out.h"
 
 // Forward declaration
@@ -56,7 +55,7 @@ Float1Out::Float1Out(CompContainer * container, const ComponentInfo * ci)
 		m_resetValue(DEFAULT_RESET_VALUE)
 {
 	
-	m_out = new ConnectorFloatOut (this, "Output");
+	m_out = new ConnectorFloatOut (this, I18N_NOOP("Output"));
 	CHECK_PTR(m_out);
 	
 }
@@ -74,6 +73,7 @@ void Float1Out::updateOutput()
 void Float1Out::setResetValue(double resetValue)
 {
 	m_resetValue = resetValue;
+	reset(); // Update values
 }
 	
 double Float1Out::getResetValue() const
@@ -173,7 +173,7 @@ Float1OutPropertyGeneralWidget::Float1OutPropertyGeneralWidget(Float1Out * comp,
 	
 	m_resetValue = new KSimDoubleEdit(getGrid(), "ResetValue");
 	CHECK_PTR(m_resetValue);
-	QString tip(i18n("Change the reset value of the component here"));
+	QString tip(i18n("Change the reset value of the component here."));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
 	

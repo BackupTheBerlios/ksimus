@@ -28,14 +28,9 @@
 #include "ksimus/componentstyle.h"
 #include "ksimus/compview.h"
 #include "ksimus/compviewvbox.h"
-#include "ksimus/connectorfloatin.h"
-#include "ksimus/componentpropertybasewidget.h"
 
 // Forward declaration
-class ComponentLayout;
-class QComboBox;
-class KColorButton;
-class QCheckBox;
+class ConnectorFloatIn;
 class QLabel;
 
 

@@ -26,10 +26,6 @@
 
 // Project-Includes
 #include "float1out.h"
-#include "ksimus/component.h"
-#include "ksimus/compview.h"
-#include "ksimus/componentpropertygeneralwidget.h"
-#include "ksimus/connectorfloatin.h"
 
 // Forward declaration
 class ConnectorFloatIn;
@@ -80,7 +76,7 @@ private:
 //###############################################################
 //###############################################################
 
-/** Base class for component views with multiple floating point input connecotrs and one floating point output.
+/** Base class for component views with two floating point input connecotrs and one floating point output.
   * The component layout (@ref ComponentLayout) is used to place the inputs on the left side and the
   * output connector in the middle of the right side. The @ref Float1OutView::draw function draws a rectangle.
   *

@@ -26,9 +26,6 @@
 
 // Project-Includes
 #include "float1out.h"
-#include "ksimus/component.h"
-#include "ksimus/compview.h"
-#include "ksimus/componentpropertygeneralwidget.h"
 
 // Forward declaration
 class ConnectorPack;

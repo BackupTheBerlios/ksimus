@@ -19,7 +19,6 @@
 #include <float.h>
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qgrid.h>
 #include <qcheckbox.h>
@@ -65,8 +64,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatLineInput(container, ci);
 }
 
-const ComponentInfo FloatLineInputInfo("Floating Point Line Edit Input",
-                                       "Floating Point/Input/Line Edit",
+const ComponentInfo FloatLineInputInfo(I18N_NOOP("Floating Point Line Edit Input"),
+                                       I18N_NOOP("Floating Point/Input/Line Edit"),
                                        QString::null,
                                        VA_SHEET_AND_USER,
                                        create	);
@@ -84,7 +83,7 @@ FloatLineInput::FloatLineInput(CompContainer * container, const ComponentInfo * 
 	
 //	setColorAdjustmentEnabled(true);
 	setFrameAdjustmentEnabled(true);
-//	setFontAdjustmentEnabled(true);
+	setFontAdjustmentEnabled(true);
 	
 	setMinValue(DEFAULT_MIN_VALUE);
 	setMaxValue(DEFAULT_MAX_VALUE);
@@ -280,7 +279,7 @@ QWidget * FloatLineInputView::createCompViewWidget(QWidget * parent)
 //##########################################################################################
 
 FloatLineInputWidgetView::FloatLineInputWidgetView(FloatLineInputView * cv, QWidget *parent, const char *name)
-	:	CompViewVBox(cv,parent,name)
+	:	CompViewHBox(cv,parent,name)
 {
 	m_edit = new KSimDoubleEdit(this);
 	CHECK_PTR(m_edit);
@@ -325,20 +324,19 @@ void FloatLineInputWidgetView::setConversionType(char type)
 //###############################################################
 //###############################################################
 
-static int convetType2Idx(char type)
+static int convertType2Idx(char type)
 {
 	if (type == 'f') return 0;
 	if (type == 'e') return 1;
 	return 2;
 }
 
-static char idx2ConvetType(int idx)
+static char idx2ConvertType(int idx)
 {
 	if (idx == 0) return 'f';
 	if (idx == 1) return 'e';
 	return 'g';
 }
-
 
 FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLineInput * comp, QWidget *parent, const char *name)
 	:	FloatStyleRange1OutPropertyGeneralWidget(comp, parent, name)
@@ -350,9 +348,9 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	
 	m_convertType = new QComboBox(getGrid(), "m_convertType");
 	CHECK_PTR(m_convertType);
-	m_convertType->insertItem(i18n("Fixed Point"), convetType2Idx('f'));
-	m_convertType->insertItem(i18n("Exponential"), convetType2Idx('e'));
-	m_convertType->insertItem(i18n("Automatic"), convetType2Idx('g'));
+	m_convertType->insertItem(i18n("Fixed Point"), convertType2Idx('f'));
+	m_convertType->insertItem(i18n("Exponential"), convertType2Idx('e'));
+	m_convertType->insertItem(i18n("Automatic"), convertType2Idx('g'));
 	tip = i18n("Sets the notation type of the input.");
 	addToolTip(tip, m_convertType, m_convertTypeLabel);
 	precTip = i18n("\nFixed Point:\n"
@@ -391,7 +389,7 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	// Setup value
 	m_decimals->setValue(comp->getDecimals());
 	m_tracking->setChecked(comp->isTrackingEnabled());
-	m_convertType->setCurrentItem(convetType2Idx(comp->getConversionType()));
+	m_convertType->setCurrentItem(convertType2Idx(comp->getConversionType()));
 }
 
 /** The function acceptPressed() is called, if changes are accepted.
@@ -414,7 +412,7 @@ void FloatLineInputPropertyGeneralWidget::acceptPressed()
 		getComponent()->setTrackingEnabled(m_tracking->isChecked());
 	}
 
-	char type = idx2ConvetType(m_convertType->currentItem());
+	char type = idx2ConvertType(m_convertType->currentItem());
 	if (getComponent()->getConversionType() != type)
 	{
 		changeData();
@@ -432,7 +430,7 @@ void FloatLineInputPropertyGeneralWidget::defaultPressed()
 
 	m_decimals->setValue(DEFAULT_DECIMALS);
 	m_tracking->setChecked(DEFAULT_TRACKING);
-	m_convertType->setCurrentItem(convetType2Idx(DEFAULT_TYPE));
+	m_convertType->setCurrentItem(convertType2Idx(DEFAULT_TYPE));
 }
 
 

@@ -20,6 +20,7 @@
 // QT-Includes
 
 // KDE-Includes
+#include <klocale.h>
 
 // Project-Includes
 #include "floatxin1out.h"
@@ -44,8 +45,9 @@ namespace KSimLibFloatingPoint
 FloatXIn1Out::FloatXIn1Out(CompContainer * container, const ComponentInfo * ci)
 	:	Float1Out(container, ci)
 {
-	m_inPack = new ConnectorPack(this, "Input", &ConnectorFloatInInfo, 2, 10);
+	m_inPack = new ConnectorPack(this, I18N_NOOP("Input"), &ConnectorFloatInInfo, 2, 10);
 	CHECK_PTR(m_inPack);
+	m_inPack->setConnectorName(I18N_NOOP("Input %1"));
 	m_inPack->setConnectorCount(2);
 }
 

@@ -25,7 +25,6 @@
 
 // Project-Includes
 #include "floatdivider.h"
-#include "ksimus/resource.h"
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorpack.h"
 
@@ -41,8 +40,8 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 	return new FloatDivider(container, ci);
 }
 
-const ComponentInfo FloatDividerInfo("Floating Point Divider",
-                                     "Floating Point/Arithmetic/Divider",
+const ComponentInfo FloatDividerInfo(I18N_NOOP("Floating Point Divider"),
+                                     I18N_NOOP("Floating Point/Arithmetic/Divider"),
                                      QString::null,
                                      VA_SHEETVIEW,
                                      create
@@ -78,8 +77,8 @@ FloatDivider::FloatDivider(CompContainer * container, const ComponentInfo * ci)
 		new FloatDividerView(this, SHEET_VIEW);
 	}
 
-	getInputA()->setName(i18n("Numerator"));
-	getInputB()->setName(i18n("Denominator"));
+	getInputA()->setName(I18N_NOOP("Dividend"), true);
+	getInputB()->setName(I18N_NOOP("Divisor"), true);
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 

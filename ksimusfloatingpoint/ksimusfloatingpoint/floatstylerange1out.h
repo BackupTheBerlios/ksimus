@@ -26,7 +26,6 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/componentpropertygeneralwidget.h"
 #include "floatstyle1out.h"
 
 // Forward declaration
@@ -41,7 +40,7 @@ namespace KSimLibFloatingPoint
   *@author Rasmus Diekenbrock
   */
 
-class FloatStyleRange1Out : public FloatStyle1Out
+class FloatStyleRange1Out : public KSimLibFloatingPoint::FloatStyle1Out
 {
   Q_OBJECT
 	

@@ -25,10 +25,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/compview.h"
-#include "ksimus/compviewvbox.h"
-#include "ksimus/connectorfloatout.h"
-#include "ksimus/componentpropertygeneralwidget.h"
+#include "ksimus/compviewhbox.h"
 #include "floatstylerange1out.h"
 
 // Forward declaration
@@ -139,7 +136,7 @@ signals:
 //#######################################################################
 //#######################################################################
 
-class FloatLineInputWidgetView : public CompViewVBox
+class FloatLineInputWidgetView : public CompViewHBox
 {
 	Q_OBJECT
 
