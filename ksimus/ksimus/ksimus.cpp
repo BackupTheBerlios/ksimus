@@ -959,7 +959,26 @@ void KSimusApp::slotSettingPackageFiles()
 	slotStatusMsg(i18n("Setup package files..."));
 
   KSimPackageFileDialog * dia = new KSimPackageFileDialog();
+	
+	// Load last size
+	QString group(config->group());
+	config->setGroup("Packages/File Dialog");
+	QSize size=config->readSizeEntry("Geometry");
+	config->setGroup(group);
+	if(!size.isEmpty())
+	{
+		dia->resize(size);
+	}
+
+	// Execute dialog
 	dia->exec();
+	
+	// Save size
+	config->setGroup("Packages/File Dialog");
+	config->writeEntry("Geometry", dia->size());
+	config->setGroup(group);
+	
+	// Delete dialog
 	delete dia;
 	slotStatusMsg(i18n("Ready."));
 }
