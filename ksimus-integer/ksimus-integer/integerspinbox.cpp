@@ -607,3 +607,4 @@ void IntegerSpinboxPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibInteger
 
+#include "integerspinbox.moc"

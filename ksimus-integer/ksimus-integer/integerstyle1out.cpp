@@ -220,3 +220,4 @@ void IntegerStyle1OutPropertyGeneralWidget::defaultPressed()
 };  //namespace KSimLibInteger
 
 
+#include "integerstyle1out.moc"

@@ -310,3 +310,4 @@ void IntegerLineInputPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibInteger
 
+#include "integerlineinput.moc"

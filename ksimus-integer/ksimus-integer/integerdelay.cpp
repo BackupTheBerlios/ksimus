@@ -313,3 +313,5 @@ void IntegerDelay::PropertyGeneralWidget::slotChanged(const KSimTime & time)
 
 	
 }; //namespace
+
+#include "integerdelay.moc"

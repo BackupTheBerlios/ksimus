@@ -326,4 +326,5 @@ void Integer2MultiBool::PropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibInteger
 
+#include "integer2multibool.moc"
 

@@ -408,3 +408,5 @@ void IntegerLatch::PropertyGeneralWidget::defaultPressed()
 #undef DEFAULT_CHANNELS
 
 };  //namespace KSimLibInteger
+
+#include "integerlatch.moc"

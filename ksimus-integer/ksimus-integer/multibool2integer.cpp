@@ -260,3 +260,4 @@ void MultiBool2Integer::PropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibInteger
 
+#include "multibool2integer.moc"

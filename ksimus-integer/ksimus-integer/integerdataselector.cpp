@@ -439,3 +439,5 @@ void IntegerDataSelectorPropertyGeneralWidget::defaultPressed()
 //###############################################################
 
 };  //namespace KSimLibInteger
+
+#include "integerdataselector.moc"

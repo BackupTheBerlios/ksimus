@@ -102,3 +102,4 @@ IntegerXIn1OutView::IntegerXIn1OutView(IntegerXIn1Out * comp, eViewType viewType
 
 };  //namespace KSimLibInteger
 
+#include "integerxin1out.moc"

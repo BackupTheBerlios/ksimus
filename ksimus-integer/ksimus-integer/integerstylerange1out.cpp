@@ -240,3 +240,5 @@ void IntegerStyleRange1OutPropertyGeneralWidget::defaultPressed()
 
 
 };  //namespace KSimLibInteger
+
+#include "integerstylerange1out.moc"

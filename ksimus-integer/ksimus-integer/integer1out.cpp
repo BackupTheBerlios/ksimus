@@ -224,4 +224,5 @@ void Integer1OutPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibInteger
 
+#include "integer1out.moc"
 

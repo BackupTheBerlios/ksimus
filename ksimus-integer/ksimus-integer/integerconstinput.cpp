@@ -229,3 +229,5 @@ void IntegerConstInputPropertyGeneralWidget::acceptPressed()
 
 
 }; //namespace KSimLibInteger
+
+#include "integerconstinput.moc"

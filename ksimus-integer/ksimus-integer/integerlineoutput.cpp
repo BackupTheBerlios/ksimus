@@ -283,3 +283,4 @@ void IntegerLineOutputPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibInteger
 
+#include "integerlineoutput.moc"
