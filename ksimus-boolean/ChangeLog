@@ -1,5 +1,10 @@
+	30.11.2002
+* New: Boolean Or, Nor, Xor, Xnor with tristate output
+* Fix: Timing issue in Converter Boolean to Boolean Tristate
+* Fix: Timing issue in Converter Boolean Tristate to Boolean
+* New: Add user definable reset state of Boolean Tristate External Connector
 	24.11.2002
-	New: Boolean And with tristate output
+* New: Boolean And, Nand with tristate output
 	14.11.2002
 * New: External Connectors for Boolean Tristate wires
 * New: Converter Boolean Tristate to Boolean
