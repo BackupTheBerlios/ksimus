@@ -109,7 +109,7 @@ void FloatConstInput::editValue()
 	if (activeWidget)
 	{
 			
-		KSIMDEBUG("Found activeWidget");
+//		KSIMDEBUG("Found activeWidget");
 		QDialog * dia = new QDialog((QWidget*)activeWidget->parent(), 0 , true, WType_Popup);
 		
 		// Set layout
