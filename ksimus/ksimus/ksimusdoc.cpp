@@ -319,7 +319,7 @@ bool KSimusDoc::newDocument()
 bool KSimusDoc::openDocument(const KURL& url, const char */*format =0*/)
 {
 	QString tmpfile;
-	if(KIO::NetAccess::download( url, tmpfile ))
+	if(KIO::NetAccess::download( url, tmpfile, (QWidget*)0 ))
 	{
 		deleteContents();
 
@@ -421,7 +421,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 			getContainer()->save(file);
 		}
 				
-		if(!KIO::NetAccess::upload( tmpFile.name(), url ))
+		if(!KIO::NetAccess::upload( tmpFile.name(), url, (QWidget *)0 ))
 		{
 			KMessageBox::error(getApp(),i18n("File not writen!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Save Document"));
 			setURL(oldUrl); // Restore old name
