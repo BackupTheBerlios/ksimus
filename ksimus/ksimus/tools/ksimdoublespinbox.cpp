@@ -25,29 +25,16 @@
 #include <qintdict.h>
 
 // KDE-Includes
-#include <kdebug.h>
 #include <klocale.h>
 
 // KSimus-Includes
 
 // Project-Includes
+#include "ksimdebug.h"
 #include "ksimdoublespinbox.h"
 #include "ksimexponentstep.h"
 
 // Forward declaration
-
-#ifndef KSIMDEBUG
-#ifdef DEBUG
-#define __DEBUG_INFO__        __FILE__ << "(" << __LINE__ << ") "
-#define KSIMDEBUG(str) 	 	 {kdDebug() << __DEBUG_INFO__ << str << endl;}
-#define KSIMDEBUG_VAR(str,x) {kdDebug() << __DEBUG_INFO__ << str << " " << #x << " = " << x << endl;}
-#define KSIMDEBUG_FUNCTION   {kdDebug() << k_funcinfo << endl;}
-#else
-#define KSIMDEBUG(str) 	
-#define KSIMDEBUG_VAR(str,x)
-#define KSIMDEBUG_FUNCTION
-#endif
-#endif
 
 //#############################################################
 //#############################################################
