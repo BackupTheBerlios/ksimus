@@ -19,7 +19,7 @@ type=DATA
 [Config for BinMakefileAm]
 addcxxflags=-fPIC -Wno-long-long\s
 bin_program=boolean
-cxxflags=\s-O2 -g2 -Wall
+cxxflags=\s-O3 -g2 -Wall
 ldadd=
 ldflags=-shared
 
@@ -95,7 +95,7 @@ install_location=
 type=DATA
 
 [boolean/Makefile.am]
-files=boolean/boolean.cpp,boolean/boolean.h,boolean/lo16-app-boolean.png,boolean/booleanxor.cpp,boolean/booleanxor.h,boolean/booleanor.cpp,boolean/booleanor.h,boolean/boolean2in1out.cpp,boolean/boolean2in1out.h,boolean/rsflipflop.cpp,boolean/rsflipflop.h,boolean/flipflopbase.cpp,boolean/flipflopbase.h,boolean/jkflipflop.cpp,boolean/jkflipflop.h,boolean/dflipflop.cpp,boolean/dflipflop.h,boolean/monoflop.cpp,boolean/monoflop.h,boolean/booleancounter.cpp,boolean/booleancounter.h,boolean/booleanconstant.cpp,boolean/booleanconstant.h,boolean/boolean7segment.cpp,boolean/boolean7segment.h
+files=boolean/boolean.cpp,boolean/boolean.h,boolean/lo16-app-boolean.png,boolean/booleanxor.cpp,boolean/booleanxor.h,boolean/booleanor.cpp,boolean/booleanor.h,boolean/boolean2in1out.cpp,boolean/boolean2in1out.h,boolean/rsflipflop.cpp,boolean/rsflipflop.h,boolean/flipflopbase.cpp,boolean/flipflopbase.h,boolean/jkflipflop.cpp,boolean/jkflipflop.h,boolean/dflipflop.cpp,boolean/dflipflop.h,boolean/monoflop.cpp,boolean/monoflop.h,boolean/booleancounter.cpp,boolean/booleancounter.h,boolean/booleanconstant.cpp,boolean/booleanconstant.h,boolean/boolean7segment.cpp,boolean/boolean7segment.h,boolean/multidlatch.cpp,boolean/multidlatch.h
 sub_dirs=
 type=shared_library
 
@@ -237,6 +237,18 @@ install=false
 install_location=
 type=HEADER
 
+[boolean/multidlatch.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[boolean/multidlatch.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [boolean/rsflipflop.cpp]
 dist=true
 install=false
@@ -255,7 +267,6 @@ type=normal
 
 [doc/en/Makefile.am]
 files=doc/en/index.docbook
-sub_dirs=
 type=normal
 
 [doc/en/index.docbook]

@@ -1,3 +1,11 @@
+	24.02.2002
+* New: Component documentation
+* New: Component SimulationTime and TickTime
+* Change: ClockGeneratorView has a smaller size
+* New: Function getValueText() in Connector classes
+* Change: Function getCurrentData() in WireProperty classes is const now
+* New: ComponentListView & KSimEditor with component help menu item
+* New: Components in UserView are hideable.
 	18.02.2002
 * Fix: ConnectorPack renames also existing connectors
 * New: ConnectorPropertyWidget will be deleted if the according connector is deleted.

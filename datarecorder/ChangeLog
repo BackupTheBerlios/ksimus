@@ -1,3 +1,6 @@
+	18.02.2002
+* Fix: Datarecorder connector management
+* Fix: Drawing floating point channel
 	04.02.2002
 * Change: Version 0.3.4.cvs
 * New: Floating Point Channel
