@@ -202,9 +202,6 @@ private slots:
 private:
 	KSimBooleanBox * m_resetState;
 	KSimBooleanBox * m_toggle;
-		
-
-
 };
 
 
