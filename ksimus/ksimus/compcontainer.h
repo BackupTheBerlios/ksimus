@@ -63,19 +63,19 @@ public:
 	
 	/** Insert a component to component list */
 	void addComponent(Component * newComp);
-	/** Delete a component to component list */
+	/** Delete a component from component list */
 	void delComponent(Component * delComp);
 	void delComponent(ComponentList * compList);
 	void delComponent(CompViewList * compViewList);
 	/** Move a component */
-	void moveComponent(Component * comp, QPoint * relMove);
-	void moveComponent(ComponentList * compList, QPoint * relMove);
-	void moveComponent(CompViewList * compviewList, QPoint * relMove);
+	void moveComponent(Component * comp, const QPoint & relMove);
+	void moveComponent(ComponentList * compList, const QPoint & relMove);
+	void moveComponent(CompViewList * compviewList, const QPoint & relMove);
 	/** Copies components */
 	void copyComponent(ComponentList * compList);
 	void copyComponent(CompViewList * compViewList);
 	/** Pasts components */
-	void pastComponent(ComponentList * compList, QPoint * relMove);
+	void pastComponent(ComponentList * compList, const QPoint & relMove);
 	
 	/** Add a connection */
 	void addConnection(ConnectorBase * start, ConnectorBase * end);

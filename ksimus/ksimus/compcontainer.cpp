@@ -382,7 +382,7 @@ void CompContainer::addComponent(Component * newComp)
 	emit signalAdd(newComp);
 }
 
-/** Delete a component to component list */
+/** Delete a component from component list */
 void CompContainer::delComponent(Component * delComp)
 {
 	// Nullpointer not allowed
@@ -412,18 +412,10 @@ void CompContainer::delComponent(Component * delComp)
 	if (delComp->getSheetView())
 	{
 	    sheetViews->removeRef(delComp->getSheetView());
-		if (isVisible())
-		{
-//			delComp->getSheetView()->updateSheetMap(false);
-		}
 	}
 	if (delComp->getUserView())
 	{
 	    userViews->removeRef(delComp->getUserView());
-		if (isVisible())
-		{
-//			delComp->getUserView()->updateSheetMap(false);
-		}
 	}
 
 	// remove connections (do not if wire)
@@ -439,9 +431,10 @@ void CompContainer::delComponent(Component * delComp)
 		}
 	}
 
-    // remove component
-    components->removeRef(delComp);
+	// remove component
+	components->removeRef(delComp);
 }
+
 void CompContainer::delComponent(ComponentList * compList)
 {
 	ComponentList listTemp = *compList;
@@ -456,6 +449,7 @@ void CompContainer::delComponent(ComponentList * compList)
 		compList->removeRef(comp);
 	}
 }
+
 void CompContainer::delComponent(CompViewList * compViewList)
 {
 	CompViewList listTemp = *compViewList;
@@ -470,24 +464,25 @@ void CompContainer::delComponent(CompViewList * compViewList)
 		compViewList->removeRef(cv);
 	}
 }
+
 /** Move a component */
-void CompContainer::moveComponent(ComponentList * compList, QPoint * relMove)
+void CompContainer::moveComponent(ComponentList * compList, const QPoint & relMove)
 {
 	FOR_EACH_COMP(it,*compList)
 	{
 		CompView * cv = it.current()->getSheetView();
-		cv->setPos(cv->getPos() + *relMove);
+		cv->setPos(cv->getPos() + relMove);
 	}
 }
-void CompContainer::moveComponent(CompViewList * compViewList, QPoint * relMove)
+void CompContainer::moveComponent(CompViewList * compViewList, const QPoint & relMove)
 {
 	FOR_EACH_COMPVIEW(it,*compViewList)
 	{
-		it.current()->setPos(it.current()->getPos() + *relMove);
+		it.current()->setPos(it.current()->getPos() + relMove);
 	}
 }
 /** Move a component */
-void CompContainer::moveComponent(Component * comp, QPoint * relMove)
+void CompContainer::moveComponent(Component * comp, const QPoint & relMove)
 {
 	CompView * cv;
 	if (getDoc()->getActiveEditor()->getEditorView() == EV_SHEETVIEW)
@@ -499,7 +494,7 @@ void CompContainer::moveComponent(Component * comp, QPoint * relMove)
 		cv = comp->getUserView();
 	}
 	
-	cv->setPos(cv->getPos() + *relMove);
+	cv->setPos(cv->getPos() + relMove);
 	emit signalMove(comp);
 
 }
@@ -562,7 +557,7 @@ void CompContainer::copyComponent(CompViewList * compViewList)
 }
 
 /** Pasts components */
-void CompContainer::pastComponent(ComponentList * compList, QPoint * relMove)
+void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMove)
 {
 	CHECK_PTR(getDoc());
 		
@@ -580,6 +575,8 @@ void CompContainer::pastComponent(ComponentList * compList, QPoint * relMove)
 	CompContainer * container = new CompContainer(getDoc());
 	container->setVisible(false);
 	container->enableRouting(false);
+	container->setSheetSize(getSheetSize());
+	container->setUserSize(getUserSize());
 //	container->getComponentList()->setAutoDelete(false);
 	QListIterator<Component> itNew(*container->getComponentList());
 	
