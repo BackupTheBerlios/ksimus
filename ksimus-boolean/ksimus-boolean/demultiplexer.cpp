@@ -232,11 +232,13 @@ ComponentPropertyBaseWidget * Demultiplexer::createGeneralProperty(QWidget *pare
 
 void Demultiplexer::slotAddChannel()
 {
+	undoChangeProperty(i18n("Boolean", "Add Channel"));
 	setChannelCount(getChannelCount()+1);
 }
 
 void Demultiplexer::slotDeleteChannel()
 {
+	undoChangeProperty(i18n("Boolean", "Delete Channel"));
 	setChannelCount(getChannelCount()-1);
 }
 

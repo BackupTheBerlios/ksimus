@@ -225,11 +225,13 @@ ComponentPropertyBaseWidget * Multiplexer::createGeneralProperty(QWidget *parent
 
 void Multiplexer::slotAddChannel()
 {
+	undoChangeProperty(i18n("Boolean", "Add Channel"));
 	setChannelCount(getChannelCount()+1);
 }
 
 void Multiplexer::slotDeleteChannel()
 {
+	undoChangeProperty(i18n("Boolean", "Delete Channel"));
 	setChannelCount(getChannelCount()-1);
 }
 
