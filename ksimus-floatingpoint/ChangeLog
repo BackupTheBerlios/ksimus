@@ -1,3 +1,5 @@
+	05.08.2002
+* Fix: undo problem with simple condition if condition type is changed
 	13.07.2002
 * Fix: Document incompatibility in component Adder and Multiplier caused in a change from 21.04.02
 	26.06.2002
