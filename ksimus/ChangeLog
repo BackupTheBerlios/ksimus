@@ -1,4 +1,7 @@
 	13.01.2002
+* New: Improve rotate support
+* New: Rotatable user interface components
+* New: Boolean Led is in schematic rotatable.
 * New: Gates (not GUI objects) are rotatable now.
 * New: Wire cursor (Thanks for design to Marika Nitscher)
 * New: More sensitive cursors at the editor
