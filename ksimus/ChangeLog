@@ -1,3 +1,7 @@
+	27.09.2002
+* Update documentation
+* New: Some set ups for implizite converter (not enabled yet)
+* Change: unify some watchpoint strings
 	05.08.2002
 * Fix: undo problem with button if toggled <-> not toggled is changed
 * New: Watch view, watchpoints, breakpoints
