@@ -246,7 +246,7 @@ void FloatLatch::slotDeleteChannel()
 void FloatLatch::setResetValue(double resetValue)
 {
 	m_resetValue = resetValue;
-	reset(); // Update values
+// crashes perhaps	reset(); // Update values
 }
 	
 double FloatLatch::getResetValue() const
