@@ -1,4 +1,6 @@
 	02.12.2001
+* BooleanAnd: The AND/NAND has a variable count of connectors. Unfortunately this breaks
+  the document compatibility.
 * Change default setting of ConnectorBase: The connectors are not able to hide.
 * ConnectorBoolInEdge: Change function setEdgeSensitive. Now it has a second parameter
   which set the setting as a default setting. The function setInitEdgeSensitive is obsolete
