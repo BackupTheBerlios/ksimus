@@ -38,7 +38,7 @@ project_type=kpart_plugin
 sgml_file=/localhome/lokal/boolean/doc/en/index.docbook
 short_info=
 sub_dir=boolean/
-version=0.3.3.cvs
+version=0.3.3
 version_control=None
 workspace=1
 
