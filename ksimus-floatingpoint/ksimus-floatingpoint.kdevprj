@@ -24,7 +24,7 @@ ldadd=
 ldflags=-shared
 
 [General]
-AMChanged=true
+AMChanged=false
 author=Rasmus Diekenbrock
 configure_args=--prefix=/opt/kde2
 email=ksimus@gmx.de

@@ -1,3 +1,7 @@
+	19.05.2002
+* Change: Data transport layer redesigned. Faster execution, easier component
+  implementation, no delay for external connectors (up to now the delay was 0
+  or 1 cycle)
 	21.04.2002
 * Change: Remove unused parameter comp from Component::createGeneralProperty(Component * comp, QWidget *parent)
 	21.04.2002
