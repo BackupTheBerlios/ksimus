@@ -1,3 +1,7 @@
+	17.5.2003
+* Fix: Missing undo in mux and demux component
+* Change: KDE3 is now the develop system
+* Change: The interface to the packages is changed. The new one is more flexible.
 	29.3.2003
 * New: Version 0.3.6
 * Update french translation. Thanks Aurelien!
@@ -36,7 +40,7 @@
 * Update German translation.
 	27.09.2002
 * Update documentation
-* New: Some setups for implizite converter (not enabled yet)
+* New: Some setups for implicit converter (not enabled yet)
 	26.06.2002
 * New: Components Delay, Demultiplexer, Multiplexer
 	18.06.2002

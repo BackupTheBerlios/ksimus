@@ -21,17 +21,17 @@ addcxxflags=-fPIC -Wno-long-long\s
 bin_program=ksimus-boolean
 cflags=
 cppflags=
-cxxflags=\s-O3 -g2 -Wall
+cxxflags=\s-O3 -g2 -Wall -W  -Wundef -Wpointer-arith -Wsign-compare -Wstrict-prototypes -Winline -Werror
 ldadd=
-ldflags=\s    -shared
+ldflags=\s       -shared
 
 [General]
 AMChanged=false
 author=Rasmus Diekenbrock
-configure_args=--prefix=/opt/kde2 --with-qt-dir=/usr/lib/qt2
+configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --prefix=/opt/kde3 --with-qt-dir=/usr/lib/qt3\s
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=GNU,Sources,Translations
+lfv_open_groups=GNU,Headers,Sources,Translations
 make_options=\s-j2
 makefiles=Makefile.am,ksimus-boolean/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am
 modifyMakefiles=true
@@ -40,7 +40,7 @@ project_type=kpart_plugin
 sgml_file=/localhome/lokal/ksimus-boolean/doc/en/index.docbook
 short_info=The boolean package for KSimus
 sub_dir=ksimus-boolean/
-version=0.3.6
+version=0.3.7-cvs
 version_control=None
 workspace=1
 
