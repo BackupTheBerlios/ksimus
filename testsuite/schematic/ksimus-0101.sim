@@ -1,0 +1,1206 @@
+[/]
+Components=76
+Document Type=KSimus
+Document Version=KSimus 0.3.5
+
+[/Component 0/]
+Serial Number=2
+Type=Boolean/Gates/Clock Generator
+
+[/Component 0/High Time/]
+Time=2
+Unit=Ticks
+
+[/Component 0/Low Time/]
+Time=3
+Unit=Ticks
+
+[/Component 0/Sheet/]
+Pos=48,176
+
+[/Component 0/Start Delay/]
+Time=0
+Unit=s
+
+[/Component 1/]
+Serial Number=3
+Type=Boolean/Gates/Clock Generator
+
+[/Component 1/High Time/]
+Time=5000000000
+Unit=s
+
+[/Component 1/Low Time/]
+Time=5000000000
+Unit=s
+
+[/Component 1/Sheet/]
+Pos=24,384
+
+[/Component 1/Start Delay/]
+Time=20
+Unit=Ticks
+
+[/Component 10/]
+Serial Number=151
+Type=External Connector/Bool Output
+
+[/Component 10/Conn1/]
+Neg=true
+
+[/Component 10/Sheet/]
+Pos=240,128
+
+[/Component 11/]
+Serial Number=152
+Type=External Connector/Bool Output
+
+[/Component 11/Conn0/]
+Neg=true
+
+[/Component 11/Conn1/]
+Neg=true
+
+[/Component 11/Sheet/]
+Pos=208,144
+
+[/Component 12/]
+Serial Number=153
+Type=External Connector/Bool Output
+
+[/Component 12/Sheet/]
+Pos=240,160
+
+[/Component 13/]
+Serial Number=154
+Type=External Connector/Bool Output
+
+[/Component 13/Sheet/]
+Pos=296,160
+
+[/Component 14/]
+Serial Number=156
+Type=External Connector/Bool Output
+
+[/Component 14/Sheet/]
+Pos=264,176
+
+[/Component 15/]
+Serial Number=157
+Type=External Connector/Bool Output
+
+[/Component 15/Sheet/]
+Pos=208,176
+
+[/Component 16/]
+Serial Number=159
+Type=External Connector/Bool Output
+
+[/Component 16/Sheet/]
+Pos=376,176
+
+[/Component 17/]
+Serial Number=160
+Type=External Connector/Bool Output
+
+[/Component 17/Sheet/]
+Pos=320,176
+
+[/Component 18/]
+Serial Number=163
+Type=External Connector/Bool Output
+
+[/Component 18/Sheet/]
+Pos=208,208
+
+[/Component 19/]
+Serial Number=164
+Type=External Connector/Bool Output
+
+[/Component 19/Sheet/]
+Pos=240,224
+
+[/Component 2/]
+Serial Number=4
+Type=Control/Close
+
+[/Component 2/Sheet/]
+Pos=80,376
+
+[/Component 20/]
+Serial Number=165
+Type=External Connector/Bool Output
+
+[/Component 20/Sheet/]
+Pos=296,224
+
+[/Component 21/]
+Serial Number=167
+Type=External Connector/Bool Output
+
+[/Component 21/Sheet/]
+Pos=264,240
+
+[/Component 22/]
+Serial Number=168
+Type=External Connector/Bool Output
+
+[/Component 22/Sheet/]
+Pos=208,240
+
+[/Component 23/]
+Serial Number=170
+Type=External Connector/Bool Output
+
+[/Component 23/Sheet/]
+Pos=384,240
+
+[/Component 24/]
+Serial Number=171
+Type=External Connector/Bool Output
+
+[/Component 24/Sheet/]
+Pos=328,240
+
+[/Component 25/]
+Serial Number=174
+Type=External Connector/Bool Output
+
+[/Component 25/Sheet/]
+Pos=208,264
+
+[/Component 26/]
+Serial Number=177
+Type=External Connector/Bool Output
+
+[/Component 26/Conn0/]
+Neg=true
+
+[/Component 26/Sheet/]
+Pos=272,280
+
+[/Component 27/]
+Serial Number=181
+Type=External Connector/Bool Output
+
+[/Component 27/Sheet/]
+Pos=152,296
+
+[/Component 28/]
+Serial Number=182
+Type=External Connector/Bool Output
+
+[/Component 28/Sheet/]
+Pos=208,296
+
+[/Component 29/]
+Serial Number=186
+Type=External Connector/Bool Output
+
+[/Component 29/Sheet/]
+Pos=272,312
+
+[/Component 3/]
+Serial Number=92
+Type=Boolean/Gates/Clock Generator
+
+[/Component 3/High Time/]
+Time=1
+Unit=Ticks
+
+[/Component 3/Low Time/]
+Time=1
+Unit=Ticks
+
+[/Component 3/Sheet/]
+Pos=48,208
+
+[/Component 3/Start Delay/]
+Time=0
+Unit=s
+
+[/Component 30/]
+Serial Number=187
+Type=External Connector/Bool Output
+
+[/Component 30/Conn0/]
+Neg=true
+
+[/Component 30/Sheet/]
+Pos=328,312
+
+[/Component 31/]
+Serial Number=191
+Type=External Connector/Bool Output
+
+[/Component 31/Sheet/]
+Pos=328,344
+
+[/Component 32/]
+Serial Number=192
+Type=External Connector/Bool Output
+
+[/Component 32/Sheet/]
+Pos=272,344
+
+[/Component 33/]
+Serial Number=193
+Type=External Connector/Bool Output
+
+[/Component 33/Sheet/]
+Pos=208,344
+
+[/Component 34/]
+Serial Number=194
+Type=External Connector/Bool Output
+
+[/Component 34/Sheet/]
+Pos=152,344
+
+[/Component 35/]
+Serial Number=200
+Type=External Connector/Bool Output
+
+[/Component 35/Conn0/]
+Neg=true
+
+[/Component 35/Sheet/]
+Pos=328,376
+
+[/Component 36/]
+Serial Number=201
+Type=External Connector/Bool Output
+
+[/Component 36/Sheet/]
+Pos=272,376
+
+[/Component 37/]
+Serial Number=202
+Type=External Connector/Bool Output
+
+[/Component 37/Sheet/]
+Pos=208,376
+
+[/Component 38/]
+Serial Number=203
+Type=External Connector/Bool Output
+
+[/Component 38/Sheet/]
+Pos=152,376
+
+[/Component 39/]
+Serial Number=5
+Type=Wire/Wire
+
+[/Component 39/Connections/]
+Number=2
+
+[/Component 39/Connections/Connection 0/]
+Component=3
+Connector=Output
+
+[/Component 39/Connections/Connection 1/]
+Component=4
+Connector=Trigger
+
+[/Component 39/Property/]
+Type=wire/property/boolean
+
+[/Component 4/]
+Add Connector Names=true
+Add Line Numbers=true
+Add Time Stamp=true
+Last Serial Number=202
+Number of channels=20
+Serial List=1,78,100,102,104,105,106,107,108,109,110,125,126,127,128,129,130,131,132,133
+Serial Number=1
+Type=Recorder/Text Recorder
+
+[/Component 4/Channel 1/]
+Channel Type=Boolean Input
+Name=Clock1 direct
+Serial Number=1
+
+[/Component 4/Channel 100/]
+Channel Type=Boolean Input
+Name=unconn!
+Serial Number=100
+
+[/Component 4/Channel 102/]
+Channel Type=Boolean Input
+Name=!unconn
+Serial Number=102
+
+[/Component 4/Channel 104/]
+Channel Type=Boolean Input
+Name=Clock1
+Serial Number=104
+
+[/Component 4/Channel 105/]
+Channel Type=Boolean Input
+Name=Clock1!
+Serial Number=105
+
+[/Component 4/Channel 106/]
+Channel Type=Boolean Input
+Name=!Clock1
+Serial Number=106
+
+[/Component 4/Channel 107/]
+Channel Type=Boolean Input
+Name=!Clock1!
+Serial Number=107
+
+[/Component 4/Channel 108/]
+Channel Type=Boolean Input
+Name=2 x ExtConn
+Serial Number=108
+
+[/Component 4/Channel 109/]
+Channel Type=Boolean Input
+Name=4 x ExtConn
+Serial Number=109
+
+[/Component 4/Channel 110/]
+Channel Type=Boolean Input
+Name=Clock2 direct
+Serial Number=110
+
+[/Component 4/Channel 125/]
+Channel Type=Boolean Input
+Name=Clock2
+Serial Number=125
+
+[/Component 4/Channel 126/]
+Channel Type=Boolean Input
+Name=2 x ExtConn Clk2
+Serial Number=126
+
+[/Component 4/Channel 127/]
+Channel Type=Boolean Input
+Name=4 x ExtConn Clk2
+Serial Number=127
+
+[/Component 4/Channel 128/]
+Channel Type=Boolean Input
+Name=Loop1
+Serial Number=128
+
+[/Component 4/Channel 129/]
+Channel Type=Boolean Input
+Name=Loop1!
+Serial Number=129
+
+[/Component 4/Channel 130/]
+Channel Type=Boolean Input
+Name=Loop2
+Serial Number=130
+
+[/Component 4/Channel 131/]
+Channel Type=Boolean Input
+Name=Loop2!
+Serial Number=131
+
+[/Component 4/Channel 132/]
+Channel Type=Boolean Input
+Name=Loop4
+Serial Number=132
+
+[/Component 4/Channel 133/]
+Channel Type=Boolean Input
+Name=Loop4!
+Serial Number=133
+
+[/Component 4/Channel 78/]
+Channel Type=Boolean Input
+Name=unconn
+Serial Number=78
+
+[/Component 4/File/]
+Filename=../result/ksimus-0101.txt
+Path Type=Relative Document
+
+[/Component 4/Sheet/]
+Pos=544,32
+
+[/Component 40/]
+Serial Number=73
+Type=Wire/Wire
+
+[/Component 40/Connections/]
+Number=2
+
+[/Component 40/Connections/Connection 0/]
+Component=149
+Connector=Output
+
+[/Component 40/Connections/Connection 1/]
+Component=1
+Connector=Input 104
+
+[/Component 40/Property/]
+Type=wire/property/boolean
+
+[/Component 41/]
+Serial Number=77
+Type=Wire/Wire
+
+[/Component 41/Connections/]
+Number=2
+
+[/Component 41/Connections/Connection 0/]
+Component=150
+Connector=Output
+
+[/Component 41/Connections/Connection 1/]
+Component=1
+Connector=Input 105
+
+[/Component 41/Property/]
+Type=wire/property/boolean
+
+[/Component 42/]
+Serial Number=78
+Type=Wire/Wire
+
+[/Component 42/Connections/]
+Number=2
+
+[/Component 42/Connections/Connection 0/]
+Component=151
+Connector=Output
+
+[/Component 42/Connections/Connection 1/]
+Component=1
+Connector=Input 106
+
+[/Component 42/Property/]
+Type=wire/property/boolean
+
+[/Component 43/]
+Serial Number=79
+Type=Wire/Wire
+
+[/Component 43/Connections/]
+Number=2
+
+[/Component 43/Connections/Connection 0/]
+Component=152
+Connector=Output
+
+[/Component 43/Connections/Connection 1/]
+Component=1
+Connector=Input 107
+
+[/Component 43/Property/]
+Type=wire/property/boolean
+
+[/Component 44/]
+Serial Number=83
+Type=Wire/Wire
+
+[/Component 44/Connections/]
+Number=2
+
+[/Component 44/Connections/Connection 0/]
+Component=154
+Connector=Output
+
+[/Component 44/Connections/Connection 1/]
+Component=1
+Connector=Input 108
+
+[/Component 44/Property/]
+Type=wire/property/boolean
+
+[/Component 45/]
+Serial Number=91
+Type=Wire/Wire
+
+[/Component 45/Connections/]
+Number=2
+
+[/Component 45/Connections/Connection 0/]
+Component=159
+Connector=Output
+
+[/Component 45/Connections/Connection 1/]
+Component=1
+Connector=Input 109
+
+[/Component 45/Property/]
+Type=wire/property/boolean
+
+[/Component 46/]
+Serial Number=95
+Type=Wire/Wire
+
+[/Component 46/Connections/]
+Number=2
+
+[/Component 46/Connections/Connection 0/]
+Component=163
+Connector=Output
+
+[/Component 46/Connections/Connection 1/]
+Component=1
+Connector=Input 125
+
+[/Component 46/Property/]
+Type=wire/property/boolean
+
+[/Component 47/]
+Serial Number=60
+Type=Wire/Wire
+
+[/Component 47/Connections/]
+Number=8
+
+[/Component 47/Connections/Connection 0/]
+Component=2
+Connector=Output
+
+[/Component 47/Connections/Connection 1/]
+Component=1
+Connector=Input 1
+
+[/Component 47/Connections/Connection 2/]
+Component=149
+Connector=Input
+
+[/Component 47/Connections/Connection 3/]
+Component=150
+Connector=Input
+
+[/Component 47/Connections/Connection 4/]
+Component=151
+Connector=Input
+
+[/Component 47/Connections/Connection 5/]
+Component=152
+Connector=Input
+
+[/Component 47/Connections/Connection 6/]
+Component=153
+Connector=Input
+
+[/Component 47/Connections/Connection 7/]
+Component=157
+Connector=Input
+
+[/Component 47/Property/]
+Type=wire/property/boolean
+
+[/Component 48/]
+Serial Number=109
+Type=Wire/Wire
+
+[/Component 48/Connections/]
+Number=5
+
+[/Component 48/Connections/Connection 0/]
+Component=92
+Connector=Output
+
+[/Component 48/Connections/Connection 1/]
+Component=1
+Connector=Input 110
+
+[/Component 48/Connections/Connection 2/]
+Component=163
+Connector=Input
+
+[/Component 48/Connections/Connection 3/]
+Component=164
+Connector=Input
+
+[/Component 48/Connections/Connection 4/]
+Component=168
+Connector=Input
+
+[/Component 48/Property/]
+Type=wire/property/boolean
+
+[/Component 49/]
+Serial Number=110
+Type=Wire/Wire
+
+[/Component 49/Connections/]
+Number=2
+
+[/Component 49/Connections/Connection 0/]
+Component=165
+Connector=Output
+
+[/Component 49/Connections/Connection 1/]
+Component=1
+Connector=Input 126
+
+[/Component 49/Property/]
+Type=wire/property/boolean
+
+[/Component 5/]
+Serial Number=143
+Type=External Connector/Bool Output
+
+[/Component 5/Sheet/]
+Pos=208,48
+
+[/Component 50/]
+Serial Number=111
+Type=Wire/Wire
+
+[/Component 50/Connections/]
+Number=2
+
+[/Component 50/Connections/Connection 0/]
+Component=170
+Connector=Output
+
+[/Component 50/Connections/Connection 1/]
+Component=1
+Connector=Input 127
+
+[/Component 50/Property/]
+Type=wire/property/boolean
+
+[/Component 51/]
+Serial Number=144
+Type=Wire/Wire
+
+[/Component 51/Connections/]
+Number=2
+
+[/Component 51/Connections/Connection 0/]
+Component=143
+Connector=Output
+
+[/Component 51/Connections/Connection 1/]
+Component=1
+Connector=Input 78
+
+[/Component 51/Property/]
+Type=wire/property/boolean
+
+[/Component 52/]
+Serial Number=146
+Type=Wire/Wire
+
+[/Component 52/Connections/]
+Number=2
+
+[/Component 52/Connections/Connection 0/]
+Component=145
+Connector=Output
+
+[/Component 52/Connections/Connection 1/]
+Component=1
+Connector=Input 100
+
+[/Component 52/Property/]
+Type=wire/property/boolean
+
+[/Component 53/]
+Serial Number=148
+Type=Wire/Wire
+
+[/Component 53/Connections/]
+Number=2
+
+[/Component 53/Connections/Connection 0/]
+Component=147
+Connector=Output
+
+[/Component 53/Connections/Connection 1/]
+Component=1
+Connector=Input 102
+
+[/Component 53/Property/]
+Type=wire/property/boolean
+
+[/Component 54/]
+Serial Number=155
+Type=Wire/Wire
+
+[/Component 54/Connections/]
+Number=2
+
+[/Component 54/Connections/Connection 0/]
+Component=153
+Connector=Output
+
+[/Component 54/Connections/Connection 1/]
+Component=154
+Connector=Input
+
+[/Component 54/Property/]
+Type=wire/property/boolean
+
+[/Component 55/]
+Serial Number=158
+Type=Wire/Wire
+
+[/Component 55/Connections/]
+Number=2
+
+[/Component 55/Connections/Connection 0/]
+Component=157
+Connector=Output
+
+[/Component 55/Connections/Connection 1/]
+Component=156
+Connector=Input
+
+[/Component 55/Property/]
+Type=wire/property/boolean
+
+[/Component 56/]
+Serial Number=161
+Type=Wire/Wire
+
+[/Component 56/Connections/]
+Number=2
+
+[/Component 56/Connections/Connection 0/]
+Component=160
+Connector=Output
+
+[/Component 56/Connections/Connection 1/]
+Component=159
+Connector=Input
+
+[/Component 56/Property/]
+Type=wire/property/boolean
+
+[/Component 57/]
+Serial Number=162
+Type=Wire/Wire
+
+[/Component 57/Connections/]
+Number=2
+
+[/Component 57/Connections/Connection 0/]
+Component=156
+Connector=Output
+
+[/Component 57/Connections/Connection 1/]
+Component=160
+Connector=Input
+
+[/Component 57/Property/]
+Type=wire/property/boolean
+
+[/Component 58/]
+Serial Number=166
+Type=Wire/Wire
+
+[/Component 58/Connections/]
+Number=2
+
+[/Component 58/Connections/Connection 0/]
+Component=164
+Connector=Output
+
+[/Component 58/Connections/Connection 1/]
+Component=165
+Connector=Input
+
+[/Component 58/Property/]
+Type=wire/property/boolean
+
+[/Component 59/]
+Serial Number=169
+Type=Wire/Wire
+
+[/Component 59/Connections/]
+Number=2
+
+[/Component 59/Connections/Connection 0/]
+Component=168
+Connector=Output
+
+[/Component 59/Connections/Connection 1/]
+Component=167
+Connector=Input
+
+[/Component 59/Property/]
+Type=wire/property/boolean
+
+[/Component 6/]
+Serial Number=145
+Type=External Connector/Bool Output
+
+[/Component 6/Conn0/]
+Neg=true
+
+[/Component 6/Sheet/]
+Pos=240,64
+
+[/Component 60/]
+Serial Number=172
+Type=Wire/Wire
+
+[/Component 60/Connections/]
+Number=2
+
+[/Component 60/Connections/Connection 0/]
+Component=171
+Connector=Output
+
+[/Component 60/Connections/Connection 1/]
+Component=170
+Connector=Input
+
+[/Component 60/Property/]
+Type=wire/property/boolean
+
+[/Component 61/]
+Serial Number=173
+Type=Wire/Wire
+
+[/Component 61/Connections/]
+Number=2
+
+[/Component 61/Connections/Connection 0/]
+Component=167
+Connector=Output
+
+[/Component 61/Connections/Connection 1/]
+Component=171
+Connector=Input
+
+[/Component 61/Property/]
+Type=wire/property/boolean
+
+[/Component 62/]
+Serial Number=176
+Type=Wire/Wire
+
+[/Component 62/Connections/]
+Number=3
+
+[/Component 62/Connections/Connection 0/]
+Component=174
+Connector=Output
+
+[/Component 62/Connections/Connection 1/]
+Component=174
+Connector=Input
+
+[/Component 62/Connections/Connection 2/]
+Component=1
+Connector=Input 128
+
+[/Component 62/Property/]
+Type=wire/property/boolean
+
+[/Component 63/]
+Serial Number=180
+Type=Wire/Wire
+
+[/Component 63/Connections/]
+Number=3
+
+[/Component 63/Connections/Connection 0/]
+Component=177
+Connector=Output
+
+[/Component 63/Connections/Connection 1/]
+Component=177
+Connector=Input
+
+[/Component 63/Connections/Connection 2/]
+Component=1
+Connector=Input 129
+
+[/Component 63/Property/]
+Type=wire/property/boolean
+
+[/Component 64/]
+Serial Number=183
+Type=Wire/Wire
+
+[/Component 64/Connections/]
+Number=2
+
+[/Component 64/Connections/Connection 0/]
+Component=181
+Connector=Output
+
+[/Component 64/Connections/Connection 1/]
+Component=182
+Connector=Input
+
+[/Component 64/Property/]
+Type=wire/property/boolean
+
+[/Component 65/]
+Serial Number=185
+Type=Wire/Wire
+
+[/Component 65/Connections/]
+Number=3
+
+[/Component 65/Connections/Connection 0/]
+Component=182
+Connector=Output
+
+[/Component 65/Connections/Connection 1/]
+Component=181
+Connector=Input
+
+[/Component 65/Connections/Connection 2/]
+Component=1
+Connector=Input 130
+
+[/Component 65/Property/]
+Type=wire/property/boolean
+
+[/Component 66/]
+Serial Number=188
+Type=Wire/Wire
+
+[/Component 66/Connections/]
+Number=2
+
+[/Component 66/Connections/Connection 0/]
+Component=186
+Connector=Output
+
+[/Component 66/Connections/Connection 1/]
+Component=187
+Connector=Input
+
+[/Component 66/Property/]
+Type=wire/property/boolean
+
+[/Component 67/]
+Serial Number=190
+Type=Wire/Wire
+
+[/Component 67/Connections/]
+Number=3
+
+[/Component 67/Connections/Connection 0/]
+Component=187
+Connector=Output
+
+[/Component 67/Connections/Connection 1/]
+Component=186
+Connector=Input
+
+[/Component 67/Connections/Connection 2/]
+Component=1
+Connector=Input 131
+
+[/Component 67/Property/]
+Type=wire/property/boolean
+
+[/Component 68/]
+Serial Number=195
+Type=Wire/Wire
+
+[/Component 68/Connections/]
+Number=2
+
+[/Component 68/Connections/Connection 0/]
+Component=192
+Connector=Output
+
+[/Component 68/Connections/Connection 1/]
+Component=191
+Connector=Input
+
+[/Component 68/Property/]
+Type=wire/property/boolean
+
+[/Component 69/]
+Serial Number=196
+Type=Wire/Wire
+
+[/Component 69/Connections/]
+Number=2
+
+[/Component 69/Connections/Connection 0/]
+Component=193
+Connector=Output
+
+[/Component 69/Connections/Connection 1/]
+Component=192
+Connector=Input
+
+[/Component 69/Property/]
+Type=wire/property/boolean
+
+[/Component 7/]
+Serial Number=147
+Type=External Connector/Bool Output
+
+[/Component 7/Conn1/]
+Neg=true
+
+[/Component 7/Sheet/]
+Pos=208,80
+
+[/Component 70/]
+Serial Number=197
+Type=Wire/Wire
+
+[/Component 70/Connections/]
+Number=2
+
+[/Component 70/Connections/Connection 0/]
+Component=194
+Connector=Output
+
+[/Component 70/Connections/Connection 1/]
+Component=193
+Connector=Input
+
+[/Component 70/Property/]
+Type=wire/property/boolean
+
+[/Component 71/]
+Serial Number=199
+Type=Wire/Wire
+
+[/Component 71/Connections/]
+Number=3
+
+[/Component 71/Connections/Connection 0/]
+Component=191
+Connector=Output
+
+[/Component 71/Connections/Connection 1/]
+Component=194
+Connector=Input
+
+[/Component 71/Connections/Connection 2/]
+Component=1
+Connector=Input 132
+
+[/Component 71/Property/]
+Type=wire/property/boolean
+
+[/Component 72/]
+Serial Number=205
+Type=Wire/Wire
+
+[/Component 72/Connections/]
+Number=2
+
+[/Component 72/Connections/Connection 0/]
+Component=201
+Connector=Output
+
+[/Component 72/Connections/Connection 1/]
+Component=200
+Connector=Input
+
+[/Component 72/Property/]
+Type=wire/property/boolean
+
+[/Component 73/]
+Serial Number=206
+Type=Wire/Wire
+
+[/Component 73/Connections/]
+Number=2
+
+[/Component 73/Connections/Connection 0/]
+Component=202
+Connector=Output
+
+[/Component 73/Connections/Connection 1/]
+Component=201
+Connector=Input
+
+[/Component 73/Property/]
+Type=wire/property/boolean
+
+[/Component 74/]
+Serial Number=207
+Type=Wire/Wire
+
+[/Component 74/Connections/]
+Number=2
+
+[/Component 74/Connections/Connection 0/]
+Component=203
+Connector=Output
+
+[/Component 74/Connections/Connection 1/]
+Component=202
+Connector=Input
+
+[/Component 74/Property/]
+Type=wire/property/boolean
+
+[/Component 75/]
+Serial Number=208
+Type=Wire/Wire
+
+[/Component 75/Connections/]
+Number=3
+
+[/Component 75/Connections/Connection 0/]
+Component=200
+Connector=Output
+
+[/Component 75/Connections/Connection 1/]
+Component=203
+Connector=Input
+
+[/Component 75/Connections/Connection 2/]
+Component=1
+Connector=Input 133
+
+[/Component 75/Property/]
+Type=wire/property/boolean
+
+[/Component 8/]
+Serial Number=149
+Type=External Connector/Bool Output
+
+[/Component 8/Sheet/]
+Pos=240,96
+
+[/Component 9/]
+Serial Number=150
+Type=External Connector/Bool Output
+
+[/Component 9/Conn0/]
+Neg=true
+
+[/Component 9/Sheet/]
+Pos=208,112
+
+[/Document Property/]
+Last View=Sheet View
+Sheet Pos=0,0
+User Pos=0,0
+
+[/Document Property/Timing/]
+Dummy=true
+
+[/Document Property/Timing/Execution/]
+Fastest=true
+Time=100000000
+Unit=ms
+
+[/Document Property/Timing/Simulation/]
+Time=100000
+Unit=s
+
+[/Document Property/Timing/Update/]
+Time=500000000
+Unit=ms
+
+[/Property/]
+Last Serial Number=208
+Sheetsize=1000,504
+Usersize=1000,504
+
+[/Property/Module/]
+Pixmap Store=Absolute
+ViewType=None

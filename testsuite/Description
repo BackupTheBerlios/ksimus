@@ -32,6 +32,19 @@ ksimus-004x.sim
   Test implicit converter float to boolean
   Test implicit converter boolean to float
 
+ksimus-01xx.sim
+  ksimus-0100.sim
+  Test Boolean Input External Connectors (not Module)
+
+  ksimus-0101.sim
+  Test Boolean Output External Connectors (not Module)
+
+  ksimus-0111.sim
+  Test Boolean In/Output External Connectors (Module)
+
+  ksimus-0112.sim
+  Test Boolean In/Output External Connectors (Module with gates)
+
 ############################################################################
 ############################################################################
     Boolean
@@ -40,6 +53,7 @@ ksimus-004x.sim
 boolean-00xx.sim  Test gates
 boolean-01xx.sim  Test FlopFlop
 boolean-02xx.sim  Test counter
+boolean-1xxx.sim  Test TriState Components
 
 boolean-001x.sim
   Test OR / NOR gate
@@ -107,6 +121,47 @@ boolean-0020x.sim
 
 ############################################################################
 ############################################################################
+    Boolean TriState
+############################################################################
+############################################################################
+boolean-1xxx.sim  Test TriState Components
+
+boolean-10xx.sim
+  Test ExtConn Boolean TriState
+
+  boolean-1000.sim
+  Test Boolean TriState Input External Connectors (not Module)
+
+  boolean-1001.sim
+  Test Boolean TriState Output External Connectors (not Module)
+
+  boolean-1011.sim
+  Test Boolean TriState In/Output External Connectors (Module)
+
+boolean-11xx.sim
+  Test Boolean TriState Gates
+
+  boolean-1100.sim
+  Test Boolean TriState AND
+
+  boolean-1110.sim
+  Test Boolean TriState NAND
+
+  boolean-1120.sim
+  Test Boolean TriState OR
+
+  boolean-1130.sim
+  Test Boolean TriState NOR
+
+  boolean-1140.sim
+  Test Boolean TriState XOR
+
+  boolean-1150.sim
+  Test Boolean TriState XNOR
+
+
+############################################################################
+############################################################################
     Floatingpoint
 ############################################################################
 ############################################################################
@@ -119,6 +174,7 @@ floating-05xx.sim  Test controls
 floating-06xx.sim  Test converter
 floating-07xx.sim  Test random
 floating-08xx.sim  Test timing
+floating-10xx.sim  Test Extconn
 
 
 ############################################################################
@@ -512,6 +568,21 @@ floating-08xx.sim
   floating-0700.sim
   Delay 1T, 10ms, 10T, 100ms
   Reset -1000 & 0 & 1000
+
+############################################################################
+
+floating-10xx.sim
+  Test ExtConn
+
+
+  floating-1000.sim
+  Test Floatingpoint Input External Connectors (not Module)
+
+  floating-1001.sim
+  Test Floatingpoint Output External Connectors (not Module)
+
+  floating-1011.sim
+  Test Floatingpoint In/Output External Connectors (Module)
 
 
 
