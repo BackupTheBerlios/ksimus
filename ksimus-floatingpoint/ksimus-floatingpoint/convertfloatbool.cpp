@@ -115,6 +115,8 @@ void ConvertFloatBool::calculate()
 	{
 		Component::calculate();
 		
+		m_recursionLocked = true;
+
 		bool state, oldState;
 		state = oldState = getOutput()->getOutput();
 		double input = getInput()->getInput();
@@ -143,14 +145,17 @@ void ConvertFloatBool::calculate()
 		}
 		if (state != oldState)
 		{
-			m_recursionLocked = true;
 			getOutput()->setOutput(state, false);
 			if (getOutput()->getWireProperty())
 			{
 				getOutput()->getWireProperty()->execute();
 			}
-			m_recursionLocked = false;
 		}
+		m_recursionLocked = false;
+	}
+	else
+	{
+		executeNext();
 	}
 }
 
