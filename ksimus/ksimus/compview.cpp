@@ -396,10 +396,11 @@ void CompView::setPlace(const QRect & place, bool degree0)
 			updateSheetMap(true);
 
 			// Don't forget setRotation !!
+/*    Moved to function resize 30.7.2003
 			emit signalMove(getPlace().topLeft());
 			emit signalResize(getPlace().size());
 			emit signalMoveWidget(getWidgetPlace().topLeft());
-			emit signalResizeWidget(getWidgetPlace().size());
+			emit signalResizeWidget(getWidgetPlace().size()); */
 	
 			resize();
 			
@@ -413,6 +414,10 @@ void CompView::setPlace(const QRect & place, bool degree0)
 
 void CompView::resize()
 {
+	emit signalMove(getPlace().topLeft());
+	emit signalResize(getPlace().size());
+	emit signalMoveWidget(getWidgetPlace().topLeft());
+	emit signalResizeWidget(getWidgetPlace().size());
 }
 
 /** Give the position of the component view */
@@ -827,10 +832,12 @@ void CompView::setHide(bool hide)
 			// Insert object to sheet map (after set not hidden)
 			updateSheetMap(true);
 			moveToBestPlace();
+/*    Moved to function resize 30.7.2003
 			emit signalMove(getPlace().topLeft());
 			emit signalResize(getPlace().size());
 			emit signalMoveWidget(getWidgetPlace().topLeft());
-			emit signalResizeWidget(getWidgetPlace().size());
+			emit signalResizeWidget(getWidgetPlace().size());*/
+			resize();
 			emit signalShow();
 		}
 	}
@@ -1042,10 +1049,11 @@ void CompView::setRotation(double rotation)
 		if (newSize == getPlace().size())
 		{
 			// Manually
+/*    Moved to function resize 30.7.2003
 			emit signalMove(getPlace().topLeft());
 			emit signalResize(getPlace().size());
 			emit signalMoveWidget(getWidgetPlace().topLeft());
-			emit signalResizeWidget(getWidgetPlace().size());
+			emit signalResizeWidget(getWidgetPlace().size());*/
 	
 			resize();
 		}
