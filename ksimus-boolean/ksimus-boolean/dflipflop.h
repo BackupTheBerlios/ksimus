@@ -86,6 +86,8 @@ public:
 	virtual void draw(QPainter * p);
 
 private:
+	DFlipFlop * getDFF() const { return (DFlipFlop *) getComponent(); };
+
 	ComponentLayout * m_layout;
 };
 
