@@ -64,7 +64,20 @@ static const char * sUserPos     = "User Pos";
 #define DEFAULT_GRID_STYLE	GridDots
 #define DEFAULT_GRID_COLOR	gray
 
+//##########################################################################################
+//##########################################################################################
 
+class KSimusDoc::Private
+{
+public:
+	Private() {};
+	~Private() {};
+
+	KURL doc_url;
+};
+
+//##########################################################################################
+//##########################################################################################
 
 KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	:	QObject(parent, name),
@@ -74,22 +87,32 @@ KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 		m_simRunning(false),
 		m_simPaused(false)
 {
+	m_p = new Private();
+	CHECK_PTR(m_p);
+	
 	if (!g_docList)
 		g_docList = new KSimusDocList;
 	g_docList->append(this);
 		
 	m_pViewList = new QList<KSimusView>();
+	CHECK_PTR(m_pViewList);
 	m_pViewList->setAutoDelete(true);
 
 	m_activeView = (KSimusView *)0;
 	m_container = new CompContainer(this);
+	CHECK_PTR(m_container);
 	m_undo = new KSimUndo(this);
+	CHECK_PTR(m_undo);
 	
 	m_sheetGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
+	CHECK_PTR(m_sheetGrid);
 	m_userGrid = new KSimGrid(DEFAULT_GRID_STYLE, DEFAULT_GRID_COLOR);
+	CHECK_PTR(m_userGrid);
 	
 	m_timing = new SimulationTiming(this);
+	CHECK_PTR(m_timing);
 	m_execute = new SimulationExecute(this);
+	CHECK_PTR(m_execute);
 }
 
 KSimusDoc::~KSimusDoc()
@@ -98,6 +121,7 @@ KSimusDoc::~KSimusDoc()
 //	delete m_container;
 	delete m_files;
 	g_docList->remove(this);
+	delete m_p;
 }
 
 KSimusApp * KSimusDoc::getApp() const
@@ -179,12 +203,12 @@ void KSimusDoc::addComponentToEditor(Component * comp)
 
 void KSimusDoc::setURL(const KURL &url)
 {
-  doc_url=url;
+  m_p->doc_url=url;
 }
 
 const KURL& KSimusDoc::URL() const
 {
-  return doc_url;
+  return m_p->doc_url;
 }
 
 void KSimusDoc::slotUpdateAllViews(KSimusView *sender)
@@ -218,7 +242,7 @@ bool KSimusDoc::saveModified()
 		switch(want_save)
 		{
 			case KMessageBox::Yes:
-				if (doc_url.fileName() == i18n("Untitled"))
+				if (m_p->doc_url.fileName() == i18n("Untitled"))
 					{
 						win->slotFileSaveAs();
 					}
@@ -280,7 +304,7 @@ bool KSimusDoc::newDocument()
 	setModified(false);
 	setNamed(false);
 
-	doc_url.setFileName(i18n("Untitled"));
+	m_p->doc_url.setFileName(i18n("Untitled"));
 
 	emit signalNewDoc();
 
@@ -315,11 +339,12 @@ bool KSimusDoc::openDocument(const KURL& url, const char */*format =0*/)
 		setModified(false);
 		getContainer()->routeComponents();
 		slotUpdateAllViews(0);
+
 		return true;
 	}
 	else
 	{
-		KMessageBox::error(0,i18n("File access failed!\n\n").arg(KIO::NetAccess::lastErrorString()),i18n("Open Document"));
+		KMessageBox::error(0,i18n("File access failed!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Open Document"));
 		return false;
 	}
 }
@@ -610,7 +635,7 @@ bool KSimusDoc::simulationCheckCirciut()
 	}
 	else
 	{
-		getApp()->getLogList()->error(i18n("Circuit check failed (%i errors)"),errorCounter);
+		getApp()->getLogList()->error(i18n("Circuit check failed (%1 errors)").arg(errorCounter));
 	}
 	
 	return !errorCounter;

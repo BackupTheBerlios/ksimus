@@ -459,9 +459,8 @@ void CompContainer::copyComponent(ComponentList * compList)
 		if (!res)
 		{
 			QMessageBox::critical (0, i18n("File Error"),
-									  i18n("Cant remove file :") + fileName +
-									  i18n("\n\nAbort copy/past function."),
-									QMessageBox::Abort,0,0);
+			                          i18n("Cant remove file : %1\n\nAbort copy/past function.").arg(fileName),
+			                          QMessageBox::Abort,0,0);
 			return;
 		}
 	}
@@ -510,9 +509,8 @@ void CompContainer::pastComponent(ComponentList * compList, const QPoint & relMo
 	if (!QFile::exists(fileName))
 	{
 		QMessageBox::critical (0, i18n("File Error"),
-								  i18n("Cant find file :") + fileName +
-								  i18n("\n\nAbort copy/past function."),
-								QMessageBox::Abort,0,0);
+		                          i18n("Cant find file : %1\n\nAbort copy/past function.").arg(fileName),
+		                          QMessageBox::Abort,0,0);
 		return;
 	}
 	
@@ -592,7 +590,7 @@ void CompContainer::addConnection(ConnectorBase * start, ConnectorBase * end)
 	const WirePropertyInfo * wirePropInfo = Wire::findWirePropertyInfo(start,end);
 	if (!wirePropInfo)
 	{
-		getLogList()->error("Data types do not match");
+		getLogList()->error(i18n("Data types do not match"));
 		return;
 	}
 	
