@@ -97,7 +97,7 @@ inline unsigned int WireStateBoolTriState::getFalse() const
 
 inline bool WireStateBoolTriState::isTrue() const
 {
-	return (getTrue() != 0) || (getFalse() == 0);
+	return (getTrue() != 0) && (getFalse() == 0);
 }
 
 inline bool WireStateBoolTriState::isFalse() const

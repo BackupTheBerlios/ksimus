@@ -31,6 +31,8 @@
 
 // Forward declaration
 class QComboBox;
+class QCheckBox;
+class ConnectorBoolTriStateSpecial;
 
 
 /**Base watch item for boolean data types.
@@ -103,6 +105,20 @@ public:
 	  * The function has to be reimplementated in a sub class. It has to resize the buffer. */
 	virtual void setTraceSize(unsigned int size);
 
+	/** Creates the property widget.
+	  * This widget is the base of the trigger dialog. */
+	virtual PropertyWidget * createPropertyWidget(QWidget * parent);
+
+	/** This function is called if the user press the ok button.
+	  * It calls the @ref triggerPropertyOkPressed function
+	  * and stores the changed data created by @ref createPropertyWidget. */
+	virtual void propertyOkPressed();
+
+	/** This function is called if the user press the default button.
+	  * It calls the @ref triggerPropertyDefaultPressed function
+	  * and ste the data created by @ref createPropertyWidget to defualt vales. */
+	virtual void propertyDefaultPressed();
+
 	/** Creates the trigger property widget.
 	  * This widget will be inserted into the trigger dialog.
 	  * Inside this widget the user defines the type of the trigger event,
@@ -130,14 +146,21 @@ public:
 
 
 protected:
-	WatchItemBoolTriStateBase(ConnectorBase * connector);
-	WatchItemBoolTriStateBase(WireProperty * wireProperty);
+	WatchItemBoolTriStateBase(ConnectorBase * connector, bool inOnly);
+	WatchItemBoolTriStateBase(WireProperty * wireProperty, bool inOnly);
 	
 	QArray<WireStateBoolTriState> m_traceInBuffer;
 	QArray<WireStateBoolTriState> m_traceOutBuffer;
 
+	struct
+	{
+		unsigned int inOnly :1;
+		unsigned int detailed :1;
+	} m_flags;
+
+
 private:
-	void init();
+	void init(bool inOnly);
 	unsigned int getMaxConnectors() const;
 	static bool testActive(ActiveProperty & property, const WireStateBoolTriState & state);
 	static bool testState(eStateProperty property, const WireStateBoolTriState & state);
@@ -155,6 +178,8 @@ private:
 	ActivePropertyWidget * m_triggerInActiveT1Widget;
 	StatePropertyWidget  * m_triggerInStateT0Widget;
 	ActivePropertyWidget * m_triggerInActiveT0Widget;
+
+	QCheckBox * m_detailed;
 };
 
 
@@ -191,6 +216,26 @@ public:
 	WatchItemBoolTriStateWireProperty(WireProperty * wireProperty);
 	~WatchItemBoolTriStateWireProperty();
 	
+	/** Reads the current state of the wire property or the connector.
+	  * This function has to be reimplementated in a sub class.
+	  * @param index The index of the history buffer where the data has to be stored.
+	  */
+	virtual void readData(unsigned int index);
+};
+
+//############################################################################################
+//############################################################################################
+
+/**Watch item for boolean tri state connectors used in External Connector.
+  *@author Rasmus Diekenbrock
+  */
+
+class WatchItemBoolTriStateConnectorSpecial : public WatchItemBoolTriStateBase
+{
+public:
+	WatchItemBoolTriStateConnectorSpecial(ConnectorBoolTriStateSpecial * connector);
+	~WatchItemBoolTriStateConnectorSpecial();
+
 	/** Reads the current state of the wire property or the connector.
 	  * This function has to be reimplementated in a sub class.
 	  * @param index The index of the history buffer where the data has to be stored.

@@ -55,14 +55,9 @@ QString WireStateBoolTriState::getText() const
 
 QString WireStateBoolTriState::getDetailedText() const
 {
-	QString s = getText();
-	if ((getTrue() + getFalse()) > 1)
-	{
-		s += i18n("BoolTriState", " (True: %1, False: %2)")
-		         .arg(getTrue())
-		         .arg(getFalse());
-	}
-	return s;
+	return getText() + i18n("BoolTriState", " (True: %1, False: %2)")
+		                     .arg(getTrue())
+		                     .arg(getFalse());
 }
 
 

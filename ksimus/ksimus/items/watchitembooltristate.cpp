@@ -19,6 +19,7 @@
 
 // QT-Includes
 #include <qcombobox.h>
+#include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qlabel.h>
 #include <qgrid.h>
@@ -32,9 +33,10 @@
 #include "watchitembooltristate.h"
 #include "wirepropertybooltristate.h"
 #include "connectorbooltristate.h"
-#include "ksimus/connectorbase.h"
-#include "ksimus/propertywidget.h"
-#include "ksimus/wire.h"
+#include "connectorbase.h"
+#include "propertywidget.h"
+#include "wire.h"
+#include "ksimdebug.h"
 
 // Forward declaration
 
@@ -191,23 +193,23 @@ WatchItemBoolTriStateBase::ActiveProperty WatchItemBoolTriStateBase::ActivePrope
 #define HIDE_IF_WIRE(widget) { if (isWirePropertyWatch()) widget->hide(); }
 
 
-WatchItemBoolTriStateBase::WatchItemBoolTriStateBase(ConnectorBase * connector)
+WatchItemBoolTriStateBase::WatchItemBoolTriStateBase(ConnectorBase * connector, bool inOnly)
 	:	WatchItemBase(connector)
 {
-	init();
+	init(inOnly);
 }
 
-WatchItemBoolTriStateBase::WatchItemBoolTriStateBase(WireProperty * wireProperty)
+WatchItemBoolTriStateBase::WatchItemBoolTriStateBase(WireProperty * wireProperty, bool inOnly)
 	:	WatchItemBase(wireProperty)
 {
-	init();
+	init(inOnly);
 }
 
 WatchItemBoolTriStateBase::~WatchItemBoolTriStateBase()
 {
 }
 
-void WatchItemBoolTriStateBase::init()
+void WatchItemBoolTriStateBase::init(bool inOnly)
 {
 	m_traceInBuffer.fill(WireStateBoolTriState(), getTraceSize());
 	m_traceOutBuffer.fill(WireStateBoolTriState(), getTraceSize());
@@ -225,6 +227,9 @@ void WatchItemBoolTriStateBase::init()
 	m_triggerInActiveT0 = DEFAULT_IN_ACTIVE_T0;
 	m_triggerInActiveT1Widget = (ActivePropertyWidget*)0;
 	m_triggerInActiveT0Widget = (ActivePropertyWidget*)0;
+
+	m_flags.inOnly = inOnly;
+	m_flags.detailed = 0;
 
 }
 
@@ -268,50 +273,61 @@ void WatchItemBoolTriStateBase::setTraceSize(unsigned int size)
 
 QString WatchItemBoolTriStateBase::getDataText(unsigned int index)
 {
-	if (isConnectorWatch())
+	static QString str18n(i18n("Boolean TriState Watch", "%1 (Output: %2)"));
+	unsigned int sel = m_flags.inOnly + m_flags.detailed * 2;
+	
+	switch(sel)
 	{
-		return i18n("Boolean TriState Watch", "Output: %1 Input: %1")
-		          .arg(m_traceOutBuffer[index].getText())
-		          .arg(m_traceInBuffer[index].getDetailedText());
-	}
-	else
-	{
-		return m_traceInBuffer[index].getDetailedText();
+		// m_flags.inOnly = 0;  m_flags.detailed = 0;
+		case 0:
+			return str18n.arg(m_traceInBuffer[index].getText())
+			             .arg(m_traceOutBuffer[index].getText());
+	
+		default:
+			KSIMDEBUG_VAR("FIXME: Unknown m_flags combination", sel);
+		// m_flags.inOnly = 1;  m_flags.detailed = 0;
+		case 1:
+			return m_traceInBuffer[index].getText();
+	
+		// m_flags.inOnly = 0;  m_flags.detailed = 1;
+		case 2:
+			return str18n.arg(m_traceInBuffer[index].getDetailedText())
+			             .arg(m_traceOutBuffer[index].getText());
+
+		// m_flags.inOnly = 1;  m_flags.detailed = 1;
+		case 3:
+			return m_traceInBuffer[index].getDetailedText();
 	}
 }
 
 bool WatchItemBoolTriStateBase::testState(WatchItemBoolTriStateBase::eStateProperty property, const WireStateBoolTriState & state)
 {
-#define IS_INACTIVE  ((state.getTrue() == 0) && (state.getFalse() == 0))
-#define IS_FALSE     (state.getFalse() != 0)
-#define IS_TRUE      ((state.getTrue() != 0) && (state.getFalse() == 0))
-
 	bool res = true;
 	
 	switch(property)
 	{
 		case eInactive:
-			res = IS_INACTIVE;
+			res = state.isInactive();
 			break;
 			
 		case eFalse:
-			res = IS_FALSE;
+			res = state.isFalse();
 			break;
 
 		case eTrue:
-			res = IS_TRUE;
+			res = state.isTrue();
 			break;
 
 		case eInactiveOrFalse:
-			res = IS_INACTIVE || IS_FALSE;
+			res = !state.isTrue();
 			break;
 
 		case eInactiveOrTrue:
-			res = IS_INACTIVE || IS_TRUE;
+			res = !state.isFalse();
 			break;
 			
 		case eFalseOrTrue:
-			res = IS_FALSE || IS_TRUE;
+			res = state.isActive();
 			break;
 
 		case eDontCare:
@@ -386,6 +402,37 @@ bool WatchItemBoolTriStateBase::testBreak(unsigned int index, unsigned int stepC
 	trigger &= testActive(m_triggerInActiveT0, m_traceInBuffer[index]);
 
 	return trigger;
+}
+
+PropertyWidget * WatchItemBoolTriStateBase::createPropertyWidget(QWidget * parent)
+{
+	PropertyWidget * wid = WatchItemBase::createPropertyWidget(parent);
+	CHECK_PTR(wid);
+
+	m_detailed = new QCheckBox(i18n("Boolean TriState Watch", "Show detailed information"),
+	                           wid, "m_detailed");
+	CHECK_PTR(m_detailed);
+	
+	PropertyWidget::addToolTip(i18n("Boolean TriState Watch", "Shows the number of connectors with state true and false"),
+	                           m_detailed);
+	PropertyWidget::addWhatsThis(i18n("Boolean TriState Watch", "Shows the number of connectors with state true and false"),
+	                             m_detailed);
+
+	m_detailed->setChecked(m_flags.detailed);
+
+	return wid;
+}
+
+void WatchItemBoolTriStateBase::propertyOkPressed()
+{
+	WatchItemBase::propertyOkPressed();
+	m_flags.detailed = m_detailed->isChecked();
+}
+
+void WatchItemBoolTriStateBase::propertyDefaultPressed()
+{
+	WatchItemBase::propertyDefaultPressed();
+	m_detailed->setChecked(false);
 }
 
 void WatchItemBoolTriStateBase::createTriggerPropertyWidget(QWidget * parent)
@@ -670,7 +717,7 @@ void WatchItemBoolTriStateBase::triggerPropertyCancelPressed()
 //############################################################################################
 
 WatchItemBoolTriStateConnector::WatchItemBoolTriStateConnector(ConnectorBase * connector)
-	:	WatchItemBoolTriStateBase(connector)
+	:	WatchItemBoolTriStateBase(connector, false)
 {
 }
 
@@ -695,7 +742,7 @@ void WatchItemBoolTriStateConnector::readData(unsigned int index)
 //############################################################################################
 
 WatchItemBoolTriStateWireProperty::WatchItemBoolTriStateWireProperty(WireProperty * wireProperty)
-	:	WatchItemBoolTriStateBase(wireProperty)
+	:	WatchItemBoolTriStateBase(wireProperty, true)
 {
 }
 
@@ -705,10 +752,37 @@ WatchItemBoolTriStateWireProperty::~WatchItemBoolTriStateWireProperty()
 
 void WatchItemBoolTriStateWireProperty::readData(unsigned int index)
 {
-	const WireStateBoolTriState * pData = (const WireStateBoolTriState *)getWireProperty()->readoutData();
+	WirePropertyBoolTriState * wp = (WirePropertyBoolTriState *)getWireProperty();
+	wp = (WirePropertyBoolTriState *)(wp->getMasterWireProperty());
+	const WireStateBoolTriState * pData = (const WireStateBoolTriState *)wp->readoutData();
 	if (pData)
 	{
 		m_traceInBuffer[index] = *pData;
 		setIndexUsed(index);
 	}
 }
+
+//############################################################################################
+//############################################################################################
+
+WatchItemBoolTriStateConnectorSpecial::WatchItemBoolTriStateConnectorSpecial(ConnectorBoolTriStateSpecial * connector)
+	:	WatchItemBoolTriStateBase(connector, true)
+{
+}
+
+WatchItemBoolTriStateConnectorSpecial::~WatchItemBoolTriStateConnectorSpecial()
+{
+}
+
+void WatchItemBoolTriStateConnectorSpecial::readData(unsigned int index)
+{
+	const WirePropertyBoolTriState * wpb = (const WirePropertyBoolTriState *)getConnector()->getWireProperty();
+	const void * pData = wpb->getMasterWireProperty()->readoutData();
+	
+	if (pData)
+	{
+		m_traceInBuffer[index] = *(const WireStateBoolTriState *)pData;
+		setIndexUsed(index);
+	}
+}
+
