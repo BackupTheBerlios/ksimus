@@ -97,9 +97,9 @@ ImplicitConverterBoolean2Float::ImplicitConverterBoolean2Float(ConnectorBase * c
 {
 }
 
-ImplicitConverterBoolean2Float::~ImplicitConverterBoolean2Float()
+/*ImplicitConverterBoolean2Float::~ImplicitConverterBoolean2Float()
 {
-}
+} */
 
 const void * ImplicitConverterBoolean2Float::convert(const void * data)
 {
@@ -110,6 +110,53 @@ const void * ImplicitConverterBoolean2Float::convert(const void * data)
 	else
 	{
 		m_result = 1;
+	}
+
+	return &m_result;
+}
+
+
+//###############################################################################################
+//###############################################################################################
+
+
+static ImplicitConverter * createImplicitConverterFloat2Boolean(ConnectorBase * connector)
+{
+	ImplicitConverter * ic;
+	ic = new ImplicitConverterFloat2Boolean(connector);
+	CHECK_PTR(ic);
+	return ic;
+}
+
+const ImplicitConverterInfo * getImplicitConverterFloat2BooleanInfo()
+{
+	static const ImplicitConverterInfo Info(QString::fromLatin1("Implicit Converter Floatingpoint to Boolean"),
+	                                        QString::fromLatin1("implicitconverter/Float2Boolean"),
+	                                        QString::fromLatin1("Floating Point"),
+	                                        QString::fromLatin1("Boolean"),
+	                                        createImplicitConverterFloat2Boolean );
+	return &Info;
+}
+
+
+ImplicitConverterFloat2Boolean::ImplicitConverterFloat2Boolean(ConnectorBase * connector)
+	: ImplicitConverter(connector, getImplicitConverterBoolean2FloatInfo())
+{
+}
+
+/*ImplicitConverterFloat2Boolean::~ImplicitConverterFloat2Boolean()
+{
+} */
+
+const void * ImplicitConverterFloat2Boolean::convert(const void * data)
+{
+	if (!data || ((*(const double *) data) == 0.0))
+	{
+		m_result = false;
+	}
+	else
+	{
+		m_result = true;
 	}
 
 	return &m_result;

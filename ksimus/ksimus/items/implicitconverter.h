@@ -70,13 +70,35 @@ class ImplicitConverterBoolean2Float : public ImplicitConverter
 
 public:
 	ImplicitConverterBoolean2Float(ConnectorBase * connector);
-	~ImplicitConverterBoolean2Float();
+//	~ImplicitConverterBoolean2Float();
 
 	/** The converting function. Is called by the connector if converting is needed. */
 	virtual const void * convert(const void * data);
 
 private:
 	double m_result;
+};
+
+
+//###############################################################################################
+//###############################################################################################
+
+
+const ImplicitConverterInfo * getImplicitConverterFloat2BooleanInfo();
+
+class ImplicitConverterFloat2Boolean : public ImplicitConverter
+{
+   Q_OBJECT
+
+public:
+	ImplicitConverterFloat2Boolean(ConnectorBase * connector);
+//	~ImplicitConverterFloat2Boolean();
+
+	/** The converting function. Is called by the connector if converting is needed. */
+	virtual const void * convert(const void * data);
+
+private:
+	bool m_result;
 };
 
 
