@@ -15,7 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qdict.h>
+#include <qasciidict.h>
+#include <qstring.h>
 
 
 #include "enumdict.h"
@@ -23,10 +24,10 @@
 #include "ksimdebug.h"
 #include "ksimdata.h"
 
-EnumBaseDict::EnumBaseDict(const tData * pData)
+EnumBaseDict::EnumBaseDict(const tData * pData, int size, bool caseSensitive, bool copyKeys)
 	: m_data(pData)
 {
-	m_dict = new QDict<int>;
+	m_dict = new QAsciiDict<int>(size, caseSensitive, copyKeys);
 	CHECK_PTR(m_dict);
 	int i = 0;
 	const tData * pCount = pData;
@@ -36,11 +37,17 @@ EnumBaseDict::EnumBaseDict(const tData * pData)
 		i ++;
 	};
 	
-	m_dict->resize(getGreaterPrim(i));
+	if (i > size)
+	{
+		// Resize QDict if size is to small
+		KSIMDEBUG(QString::fromLatin1("EnumBaseDict::EnumBaseDict i(%1) > size(%2) (%3)")
+		          .arg(i).arg(size).arg(pData->name));
+		m_dict->resize(getGreaterPrim(i));
+	}
 	
 	while (pData->name != 0)
 	{
-		m_dict->insert(QString::fromLatin1(pData->name), &pData->value);
+		m_dict->insert(pData->name, &pData->value);
 		pData ++;
 	};
 }
@@ -52,7 +59,7 @@ EnumBaseDict::~EnumBaseDict()
 
 const int * EnumBaseDict::find(const char * name) const
 {
-	return m_dict->find(QString::fromLatin1(name));
+	return m_dict->find(name);
 }
 
 int EnumBaseDict::find(const char * name, int defaultValue) const
@@ -63,7 +70,7 @@ int EnumBaseDict::find(const char * name, int defaultValue) const
 	
 	const int * pI;
 	
-	pI = m_dict->find(QString::fromLatin1(name));
+	pI = m_dict->find(name);
 	if (pI)
 		return *pI;
 	return defaultValue;
@@ -113,4 +120,13 @@ const int * EnumBaseDict::load(const KSimData & conf, const char * key) const
 	return res;
 }
 
+void EnumBaseDict::resize(unsigned int size)
+{
+	if (size == 0)
+	{
+		size = getGreaterPrim(m_dict->count());
+	}
+
+	m_dict->resize(size);
+}
 

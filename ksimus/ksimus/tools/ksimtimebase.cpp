@@ -53,7 +53,7 @@ EnumDict<eTimeUnit>::tData EnumDict<eTimeUnit>::data[]
 
 static const EnumDict<eTimeUnit> & getTimeUnitDict()
 {
-	static EnumDict<eTimeUnit> timeUnitDict;
+	static EnumDict<eTimeUnit> timeUnitDict(17);
 	return timeUnitDict;
 }
 

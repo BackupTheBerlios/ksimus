@@ -21,7 +21,7 @@
 
 class KSimData;
 class QString;
-template<class type> class Q_EXPORT QDict;
+template<class type> class Q_EXPORT QAsciiDict;
 
 /**	The base class for @ref EnumDict.
 	*
@@ -40,7 +40,7 @@ private:
 	} tData;
 
 	const tData * m_data;
-	QDict<int> * m_dict;
+	QAsciiDict<int> * m_dict;
 
 public:
 	~EnumBaseDict();
@@ -53,8 +53,16 @@ public:
 	int load(const KSimData & conf, const char * key, int defaultValue) const;
 	const int * load(const KSimData & conf, const char * key) const;
 
-protected:	
-	EnumBaseDict(const tData * pData);
+	/** Resize the EnumDict. Recalculates the hash keys.
+	  * @param size The new size of EnumDict. If size = 0 a next higher prim of the current size is get. */
+	void resize(unsigned int size = 0);
+
+protected:
+	/** Constructor.
+	  * @param size The size of the qdict. Set 0 if unknown at contruction.
+	  * @param caseSensitive Key are compared case sensitive or not. The default is case sensitive.
+	  * @param copyKeys      Copy keys or use pointers only. The default is pointers only ( other than QAsciiDict !!). */
+	EnumBaseDict(const tData * pData, int size /*=17*/, bool caseSensitive = true, bool copyKeys = false);
 	
 };
 
@@ -95,9 +103,12 @@ template<class T>
 class EnumDict : public EnumBaseDict
 {
 public: 
-	/** Constructor. Nothing important. */
-	EnumDict()
-		: EnumBaseDict((const EnumBaseDict::tData*)data) {};
+	/** Constructor.
+	  * @param size The size of the qdict. Set 0 if unknown at contruction.
+	  * @param caseSensitive Key are compared case sensitive or not. The default is case sensitive.
+	  * @param copyKeys      Copy keys or use pointers only. The default is pointers only ( other than QAsciiDict !!). */
+	EnumDict(int size /*=17*/, bool caseSensitive = true, bool copyKeys = false)
+		: EnumBaseDict((const EnumBaseDict::tData*)data, size, caseSensitive, copyKeys) {};
 
 	/** Converts a string to an enum. If the string does not exist in EnumDict<T>::data the
 			function returns a null pointer. */

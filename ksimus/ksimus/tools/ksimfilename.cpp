@@ -44,14 +44,14 @@
 
 //#########################################################################
 
-static EnumDict<KSimFilename::ePathType> pathTypeDict;
+static EnumDict<KSimFilename::ePathType> pathTypeDict(5);
 
 EnumDict<KSimFilename::ePathType>::tData EnumDict<KSimFilename::ePathType>::data[]
-			= { {"Absolute",          KSimFilename::PATH_ABSOLUTE},
-					{"Relative Document", KSimFilename::PATH_RELATIVE_DOCUMENT},
-					{"Relative Module",   KSimFilename::PATH_RELATIVE_MODULE},
-					{"Relative Home",     KSimFilename::PATH_RELATIVE_HOME},
-          {0,(KSimFilename::ePathType)0}};
+        = { {"Absolute",          KSimFilename::PATH_ABSOLUTE},
+            {"Relative Document", KSimFilename::PATH_RELATIVE_DOCUMENT},
+            {"Relative Module",   KSimFilename::PATH_RELATIVE_MODULE},
+            {"Relative Home",     KSimFilename::PATH_RELATIVE_HOME},
+            {0,                   (KSimFilename::ePathType)0}};
 
 
 const char * KSimFilename::convertPathType(KSimFilename::ePathType pathType)

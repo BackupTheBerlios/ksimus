@@ -87,7 +87,7 @@ EnumDict<eAppViewType>::tData EnumDict<eAppViewType>::data[]
 
 static const EnumDict<eAppViewType> & getCurrentViewDict()
 {
-	static EnumDict<eAppViewType> currentViewDict;
+	static EnumDict<eAppViewType> currentViewDict(3);
 	return currentViewDict;
 }
 
@@ -101,13 +101,13 @@ class KSimusApp::Private
 public:	
 	
 	Private()
-		:	lastSelectedCI(0),
-			tabWidget(0),
-			sheetView(0),
-			userView(0),
-			moduleDialog(0),
-			currentView(APP_SHEET_VIEW),
-			accel(0)
+	:	lastSelectedCI(0),
+		tabWidget(0),
+		sheetView(0),
+		userView(0),
+		moduleDialog(0),
+		currentView(APP_SHEET_VIEW),
+		accel(0)
 	{};	
 	
 /*	~Private()

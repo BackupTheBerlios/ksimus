@@ -40,7 +40,7 @@ EnumDict<eKSimBoolTristate>::tData EnumDict<eKSimBoolTristate>::data[]
 
 static const EnumDict<eKSimBoolTristate> & getTristateDict()
 {
-	static EnumDict<eKSimBoolTristate> triStateDict;
+	static EnumDict<eKSimBoolTristate> triStateDict(3);
 	return triStateDict;
 }
 

@@ -136,14 +136,14 @@ static const char * const sPixmapData;
 
 static const EnumDict<ModuleViewType> & getModuleViewDict()
 {
-	static EnumDict<ModuleViewType> moduleViewDict;
+	static EnumDict<ModuleViewType> moduleViewDict(5);
 	return moduleViewDict;
 }
 
 
 static const EnumDict<ModulePixmapStoreType> & getModulePixmapStoreDict()
 {
-	static EnumDict<ModulePixmapStoreType> modulePixmapStoreDict;
+	static EnumDict<ModulePixmapStoreType> modulePixmapStoreDict(3);
 	return modulePixmapStoreDict;
 }
 

@@ -33,16 +33,16 @@
 
 
 EnumDict<ViewAttribute>::tData EnumDict<ViewAttribute>::data[]
-			= { {"VA_SHEETVIEW", 			VA_SHEETVIEW},
-          {"VA_USERVIEW",  			VA_USERVIEW},
-					{"VA_SHEET_AND_USER", VA_SHEET_AND_USER},
-					{"VA_SHEET_XOR_USER", VA_SHEET_XOR_USER},
-					{"VA_WINDOWVIEW",			VA_WINDOWVIEW},
-          {0,(ViewAttribute)0}};
+      = { {"VA_SHEETVIEW",      VA_SHEETVIEW},
+          {"VA_USERVIEW",       VA_USERVIEW},
+          {"VA_SHEET_AND_USER", VA_SHEET_AND_USER},
+          {"VA_SHEET_XOR_USER", VA_SHEET_XOR_USER},
+          {"VA_WINDOWVIEW",     VA_WINDOWVIEW},
+          {0,                   (ViewAttribute)0}};
 
 static const EnumDict<ViewAttribute> & getViewAttributeDict()
 {
-	static EnumDict<ViewAttribute> viewAttributeDict;
+	static EnumDict<ViewAttribute> viewAttributeDict(5);
 	return viewAttributeDict;
 }
 

@@ -76,11 +76,12 @@ EnumDict<KSimData::eVersionType>::tData EnumDict<KSimData::eVersionType>::data[]
           {"unknown",      KSimData::versionUnknown},
           {"KSimus 0.3.5", KSimData::version0_3_5},
           {"topical",      KSimData::versionTopical},
+          // Dont forget to change the EnumDict size!!!
           {0,              (KSimData::eVersionType)0}};
 
 static const EnumDict<KSimData::eVersionType> & getVersionTypeDict()
 {
-	static EnumDict<KSimData::eVersionType> versionTypeDict;
+	static EnumDict<KSimData::eVersionType> versionTypeDict(5);
 	return versionTypeDict;
 }
 
