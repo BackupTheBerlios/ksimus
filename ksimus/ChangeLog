@@ -1,3 +1,7 @@
+	30.11.2002
+* Change: Some performance changes in class ConnectorBase
+* Fix: Some timing issues External Connector
+* Fix: Orientation of tristate connectors inside modules
 	24.11.2002
 * New: Connector class ConnectorBoolTriStateSpecial used for boolean tristate External Connector
 * Change: External Connector handling within modules improve. This change results in a more
