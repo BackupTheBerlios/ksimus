@@ -158,13 +158,13 @@ Do the same with the other NAND gate.
 
 <para>
 The current circuit has an unstable start condition. The circuit toggles until the user presses
-one button. This is preventable if we change the start state of the output of one of the NAND
+one button. This is preventable if we change the reset state of one of the NAND
 gates. Thereby the flip flop is forced into a stable start condition.
 </para>
 
 <para><userinput>
 Move the mouse to the lower NAND, press the right mouse button and open the
-&connectorPropertyDialog;.
+&propertyDialog;.
 </userinput></para>
 
 <screenshot>
@@ -180,7 +180,7 @@ Move the mouse to the lower NAND, press the right mouse button and open the
 </screenshot>
 
 <para><userinput>
-Select the output connector (see the list on the left) and set the &quot;Reset Mode&quot; to &quot;False&quot;.
+Set the &quot;Reset State&quot; to &quot;True&quot;.
 </userinput></para>
 
 <screenshot>

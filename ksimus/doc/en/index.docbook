@@ -97,8 +97,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>25/10/2001</date>
-<releaseinfo>0.00.01</releaseinfo>
+<date>09/12/2001</date>
+<releaseinfo>0.00.02</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -1149,15 +1149,11 @@ Documentation copyright 2001 Rasmus Diekenbrock &kappmail;
 
 <sect1 id="getting-ksimus">
 <title>How to obtain KSimus</title>
-<!--
+
 <para>
-&kapp; is part of the KDE project
-<ulink url="http://www.kde.org">http://www.kde.org</ulink>.
-&kapp; can be found in the kdeutils package on
-<ulink url="ftp://ftp.kde.org/pub/kde/">ftp://ftp.kde.org/pub/kde/</ulink>, the
-main ftp site of the KDE project. </para>
--->
-&todo;
+&kapp; can be found on
+<ulink url="http://ksimus.berlios.de">http://ksimus.berlios.de</ulink>, the
+main site of the &kapp; project. </para>
 
 </sect1>
 

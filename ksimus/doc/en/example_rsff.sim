@@ -5,24 +5,28 @@ Components=10
 Serial Number=1
 Type=Boolean/Gates/NAND
 
-[/Component 0/Conn1/]
-Neg=true
-
 [/Component 0/Sheet/]
 Pos=152,56
 
+[/Component 0/connPack/Input/]
+Connector Count=2
+
+[/Component 0/connPack/Input/Conn0/]
+Neg=true
+
 [/Component 1/]
+Reset State=true
 Serial Number=2
 Type=Boolean/Gates/NAND
 
-[/Component 1/Conn0/]
-Reset Mode=False
-
-[/Component 1/Conn2/]
-Neg=true
-
 [/Component 1/Sheet/]
 Pos=152,128
+
+[/Component 1/connPack/Input/]
+Connector Count=2
+
+[/Component 1/connPack/Input/Conn1/]
+Neg=true
 
 [/Component 2/]
 Name=Set

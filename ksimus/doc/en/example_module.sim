@@ -2,14 +2,15 @@
 Components=20
 
 [/Component 0/]
+Reset State=true
 Serial Number=1
 Type=Boolean/Gates/NAND
 
-[/Component 0/Conn0/]
-Reset Mode=False
-
 [/Component 0/Sheet/]
 Pos=512,136
+
+[/Component 0/connPack/Input/]
+Connector Count=2
 
 [/Component 1/]
 Serial Number=2
@@ -17,6 +18,9 @@ Type=Boolean/Gates/NAND
 
 [/Component 1/Sheet/]
 Pos=512,208
+
+[/Component 1/connPack/Input/]
+Connector Count=2
 
 [/Component 10/]
 Color=255,0,0
@@ -252,20 +256,21 @@ UserPos=16,2
 Pos=640,88
 
 [/Component 6/]
+Reset State=true
 Serial Number=12
 Type=Boolean/Gates/AND
 
-[/Component 6/Conn0/]
-Reset Mode=True
-
-[/Component 6/Conn1/]
-Neg=true
-
-[/Component 6/Conn2/]
-Neg=true
-
 [/Component 6/Sheet/]
 Pos=400,128
+
+[/Component 6/connPack/Input/]
+Connector Count=2
+
+[/Component 6/connPack/Input/Conn0/]
+Neg=true
+
+[/Component 6/connPack/Input/Conn1/]
+Neg=true
 
 [/Component 7/]
 Name=Set
@@ -289,17 +294,17 @@ Pos=280,248
 Serial Number=18
 Type=Boolean/Gates/AND
 
-[/Component 9/Conn0/]
-Reset Mode=True
-
-[/Component 9/Conn1/]
-Neg=true
-
-[/Component 9/Conn2/]
-Neg=true
-
 [/Component 9/Sheet/]
 Pos=400,216
+
+[/Component 9/connPack/Input/]
+Connector Count=2
+
+[/Component 9/connPack/Input/Conn0/]
+Neg=true
+
+[/Component 9/connPack/Input/Conn1/]
+Neg=true
 
 [/Document Property/]
 Last View=Sheet View
