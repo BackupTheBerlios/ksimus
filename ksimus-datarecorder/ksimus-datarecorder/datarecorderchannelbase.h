@@ -170,17 +170,17 @@ signals:
 
 
 
-class DataRecorderChannelList : public QList<DataRecorderChannelBase>
+class DataRecorderChannelList : public QPtrList<DataRecorderChannelBase>
 {
 public:
 	DataRecorderChannelBase * findSerial(unsigned int no) const;
 
 protected:
-	virtual int compareItems(QCollection::Item di1, QCollection::Item di2);
+	virtual int compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2);
 };
 
 #define FOR_EACH_CHANNEL(_it_,_channelList_)	\
-		for(QListIterator<DataRecorderChannelBase> _it_(_channelList_);_it_.current();++_it_)
+		for(QPtrListIterator<DataRecorderChannelBase> _it_(_channelList_);_it_.current();++_it_)
 
 
 

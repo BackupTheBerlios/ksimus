@@ -139,7 +139,7 @@ ZoomWidget::ZoomWidget(DataRecorderDataView * recorderDV, QWidget *parent, const
 		m_recorderDataView(recorderDV)
 {
 	m_time = new KSimDoubleUnitSpinBox(this,"zoom spinbox");
-	CHECK_PTR(m_time);
+	Q_CHECK_PTR(m_time);
 	m_time->getMultiUnitList().append(getTimeDivList());
 	m_time->getMultiUnitList().append(getSampleDivList());
 	m_time->getMultiUnitList().append(getSamplePixelList());
@@ -152,7 +152,7 @@ ZoomWidget::ZoomWidget(DataRecorderDataView * recorderDV, QWidget *parent, const
 	connect(m_time, SIGNAL(undoRequest()), this, SLOT(slotUndoRequest()));
 	
 	m_label = new QLabel(QString::fromLatin1("----"), this, "zoom label");
-	CHECK_PTR(m_label);
+	Q_CHECK_PTR(m_label);
 
 	updateMinZoom();
 

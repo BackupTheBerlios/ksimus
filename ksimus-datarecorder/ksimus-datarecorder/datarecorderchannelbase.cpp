@@ -229,7 +229,7 @@ DataRecorderChannelBase * DataRecorderChannelList::findSerial(unsigned int no) c
 	return channel;
 }
 
-int DataRecorderChannelList::compareItems(QCollection::Item di1, QCollection::Item di2)
+int DataRecorderChannelList::compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2)
 {
 	unsigned int serNo1 = ((DataRecorderChannelBase *)di1)->getSerialNumber();
 	unsigned int serNo2 = ((DataRecorderChannelBase *)di2)->getSerialNumber();

@@ -99,7 +99,7 @@ public:
 	
 private:
 	int m_count;
-	QList<tData> m_data;
+	QPtrList<tData> m_data;
 	
 };
 
@@ -210,17 +210,17 @@ QWidget * DataRecorderChannelFloat::getPropertyWidget(QWidget * parent, const ch
 	{
 		// Setup widget
 		QVBox * widget = new QVBox(parent,name);
-		CHECK_PTR(widget);
+		Q_CHECK_PTR(widget);
 		widget->setMargin(KDialog::marginHint());
 		widget->setSpacing(KDialog::spacingHint());
 		
 		QLabel * lab;
 		lab = new QLabel(i18n("DataRecorder", "Channel:"), widget);
-		CHECK_PTR(lab);
+		Q_CHECK_PTR(lab);
 		
 		KSimLineEdit * conName;
 		conName = new KSimLineEdit(widget);
-		CHECK_PTR(conName);
+		Q_CHECK_PTR(conName);
 		conName->setText(getConnector()->getName());
 		connect(getConnector(), SIGNAL(signalSetName(const QString &)), conName, SLOT(setText(const QString &)));
 		connect(conName, SIGNAL(changed(const QString &)), SLOT(setChannelName(const QString &)));
@@ -229,7 +229,7 @@ QWidget * DataRecorderChannelFloat::getPropertyWidget(QWidget * parent, const ch
 		
 		ChannelPositionWidget * pos;
 		pos = new ChannelPositionWidget(this, widget);
-		CHECK_PTR(pos);
+		Q_CHECK_PTR(pos);
 		pos->setGainValue(getVerticalGain());
 		pos->setOffsetValue(getVerticalOffset());
 		connect(pos, SIGNAL(gainChanged(double)), SLOT(setVerticalGain(double)));
@@ -237,7 +237,7 @@ QWidget * DataRecorderChannelFloat::getPropertyWidget(QWidget * parent, const ch
 		
 		
 		KColorButton * color = new KColorButton(widget);
-		CHECK_PTR(color);
+		Q_CHECK_PTR(color);
 		color->setColor(getLineColor());
 		connect(color, SIGNAL(changed(const QColor &)), SLOT(setLineColor(const QColor &)));
 		

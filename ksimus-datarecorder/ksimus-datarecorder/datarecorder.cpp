@@ -88,7 +88,7 @@ static const ComponentInfoList & getDistComponents()
 	{
 		// Initialize
 		pDistComponents = new ComponentInfoList;
-		CHECK_PTR(pDistComponents);
+		Q_CHECK_PTR(pDistComponents);
 		
 		// Add your component info here
 		pDistComponents->append(DataRecorder::getStaticInfo());
@@ -110,19 +110,19 @@ static void initPackage(KLocale * ksimusLocale)
 {
 
 //	KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
-	ASSERT(packageInstance == (KInstance *)0);
-	ASSERT(packageInfo == (const PackageInfo *)0);
-	ASSERT(ksimusLocale != (KLocale *)0);
+	Q_ASSERT(packageInstance == (KInstance *)0);
+	Q_ASSERT(packageInfo == (const PackageInfo *)0);
+	Q_ASSERT(ksimusLocale != (KLocale *)0);
 
 	packageInstance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
-	CHECK_PTR(packageInstance);
+	Q_CHECK_PTR(packageInstance);
 	// add translation
 	ksimusLocale->insertCatalogue(packageInstance->instanceName());
 
 	packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
 	                               packageInstance,
 	                               VERSION);      // version from config.h
-	CHECK_PTR(packageInfo);
+	Q_CHECK_PTR(packageInfo);
 
 	// Add info lists
 	packageInfo->insert(getDistComponents());
@@ -243,12 +243,12 @@ DataRecorderChannelBase * DataRecorder::createChannel(eChannelType type)
 	{
  		case CT_Boolean:
  			newChannel = new DataRecorderChannelBoolean(this);
- 			CHECK_PTR(newChannel);
+ 			Q_CHECK_PTR(newChannel);
  			break;
   			
  		case CT_Float:
  			newChannel = new DataRecorderChannelFloat(this);
- 			CHECK_PTR(newChannel);
+ 			Q_CHECK_PTR(newChannel);
  			break;
   			
  		case CT_Unknown:

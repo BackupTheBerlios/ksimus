@@ -134,11 +134,11 @@ DataRecorderDataView::DataRecorderDataView(DataRecorderWidget *parent, const cha
 	connect((QObject*)getDataRecorder()->getDoc(), SIGNAL(signalUpdateView()), this, SLOT(newData()));
 
 	m_itemList = new DataRecorderDataViewItemList;
-	CHECK_PTR(m_itemList);
+	Q_CHECK_PTR(m_itemList);
 	m_itemList->setAutoDelete(true);
 	
 	m_divGrid = new DataRecorderDataViewDivGrid(this,this);
-	CHECK_PTR(m_divGrid);
+	Q_CHECK_PTR(m_divGrid);
 	
 	VIEW_DEBUG_VAR("",m_snapHorizontal);
 };

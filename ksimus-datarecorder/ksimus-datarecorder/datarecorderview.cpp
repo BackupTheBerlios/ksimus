@@ -83,7 +83,7 @@ void DataRecorderView::mousePress(QMouseEvent * ev, QPainter * p)
 	if (onlinePopup) delete onlinePopup;
 	
 	onlinePopup = new QPopupMenu(0, "dataRecorderPopup");
-	CHECK_PTR(onlinePopup);
+	Q_CHECK_PTR(onlinePopup);
 	
 	onlinePopup->insertItem(i18n("DataRecorder", "&Open graph"), getComponent(), SLOT(slotOpenWidget()));
 	

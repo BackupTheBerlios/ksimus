@@ -101,7 +101,7 @@ public:
 
 private:
 	void updateGeometry();
-	QList<QWidget> * m_widgetList;
+	QPtrList<QWidget> * m_widgetList;
 	QGridLayout * m_layout;
 	bool m_horizontal;
 	unsigned int m_rowCols;

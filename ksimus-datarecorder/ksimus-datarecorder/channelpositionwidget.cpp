@@ -64,13 +64,13 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 		m_channel(channel)
 {
 	m_p = new ChannelPositionWidgetPrivate();
-	CHECK_PTR(m_p);
+	Q_CHECK_PTR(m_p);
 
 	QLabel * label;
 	label = new QLabel(i18n("DataRecorder", "&Offset: "), this, "Offset Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_p->offset = new KSimDoubleSpinBox(0.0, -1000.0, 1000.0, 0.5, this, "Offset");
-	CHECK_PTR(m_p->offset);
+	Q_CHECK_PTR(m_p->offset);
 	m_p->offset->setSuffix(QString::fromLatin1(" Div"));
 	m_p->offset->setValue(0.0);
 	label->setBuddy(m_p->offset);
@@ -78,9 +78,9 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	// TODO add ToolTip
 	
 	label = new QLabel(i18n("DataRecorder", "&Gain: "), this, "Gain Label");
-	CHECK_PTR(label);
+	Q_CHECK_PTR(label);
 	m_p->gain = new KSimDoubleSpinBox(1.0, 0.001, 10000.0, 0.1, this, "Gain");
-	CHECK_PTR(m_p->gain);
+	Q_CHECK_PTR(m_p->gain);
 	m_p->gain->setNewExponentSteps(1.0, 2.0, 5.0);
 	m_p->gain->setSuffix(QString::fromLatin1(" Div"));
 	m_p->gain->setValue(1.0);

@@ -51,7 +51,7 @@
         <f77compiler>kdevg77options</f77compiler>
         <cxxflags>-O0 -g3</cxxflags>
         <topsourcedir></topsourcedir>
-        <cppflags>-DQT_NO_CAST_ASCII</cppflags>
+        <cppflags>-DQT_NO_CAST_ASCII -DQT_NO_COMPAT -DKDE_NO_COMPAT</cppflags>
         <ldflags></ldflags>
         <ccompilerbinary></ccompilerbinary>
         <cxxcompilerbinary></cxxcompilerbinary>
@@ -150,11 +150,7 @@
     </useglobaltypes>
   </kdevfilecreate>
   <kdevcppsupport>
-    <references>
-      <pcs>Qt</pcs>
-      <pcs>KDElibs</pcs>
-      <pcs>KSimus</pcs>
-    </references>
+    <references/>
     <codecompletion>
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>

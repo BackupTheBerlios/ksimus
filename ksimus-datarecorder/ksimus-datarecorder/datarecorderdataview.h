@@ -212,12 +212,12 @@ private:
 
 
 
-class DataRecorderDataViewItemList : public QList<DataRecorderDataViewItem>
+class DataRecorderDataViewItemList : public QPtrList<DataRecorderDataViewItem>
 {
 };
 
 #define FOR_EACH_VIEWITEM(_it_,_itemList_)	\
-		for(QListIterator<DataRecorderDataViewItem> _it_(_itemList_);_it_.current();++_it_)
+		for(QPtrListIterator<DataRecorderDataViewItem> _it_(_itemList_);_it_.current();++_it_)
 
 
 

@@ -161,7 +161,7 @@ ConnectorContainer * ConnectorContainerList::findSerial(unsigned int no) const
 	return connCont;
 }
 
-int ConnectorContainerList::compareItems(QCollection::Item di1, QCollection::Item di2)
+int ConnectorContainerList::compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2)
 {
 	int serNo1 = ((ConnectorContainer *)di1)->getSerialNumber();
 	int serNo2 = ((ConnectorContainer *)di2)->getSerialNumber();
@@ -227,7 +227,7 @@ TextRec::TextRec(CompContainer * container, const ComponentInfo * ci)
 	                             QString::fromLatin1("Trigger"),
 	                             i18n("DataRecorder-Connector", "Trigger"),
 	                             i18n("DataRecorder-Connector Trigger", "T"));
-	CHECK_PTR(m_trigger);
+	Q_CHECK_PTR(m_trigger);
 	getTrigger()->setEdgeSensitive(false, true);
 	// make Trigger Input optional
 	new OptionalConnector(getTrigger(),
@@ -244,7 +244,7 @@ TextRec::TextRec(CompContainer * container, const ComponentInfo * ci)
 	}
 	
 	m_connectorContainerList = new ConnectorContainerList;
-	CHECK_PTR(m_connectorContainerList);
+	Q_CHECK_PTR(m_connectorContainerList);
 	m_connectorContainerList->setAutoDelete(true);
 
 	connect(getDoc(), SIGNAL(signalStop()), this, SLOT(slotStopSim()));
@@ -284,7 +284,7 @@ ConnectorContainer * TextRec::newConnector(const QString connLibName)
 		serialNo = nextSerialNumber();
 		connCont = new ConnectorContainer(conn, serialNo);
 		
-		CHECK_PTR(connCont);
+		Q_CHECK_PTR(connCont);
 		
 		connect(conn, SIGNAL(signalDeleteRequest(ConnectorBase *)),
 		        this, SLOT(slotRemoveChannelConn(ConnectorBase *)));
@@ -631,7 +631,7 @@ int TextRec::checkCircuit()
 		{
 			// Do not if error is detected
 			m_file = new QFile(m_filename.getFilename());
-			CHECK_PTR(m_file);
+			Q_CHECK_PTR(m_file);
 	
 			int mode = IO_WriteOnly;
 			if (isAppendEnabled())
@@ -786,7 +786,7 @@ ComponentPropertyBaseWidget * TextRec::createGeneralProperty(QWidget *parent)
 {
 	TextRecPropertyGeneralWidget * wid;
 	wid = new TextRecPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
+	Q_CHECK_PTR(wid);
 	
 	return wid;
 }
@@ -899,20 +899,20 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 	QString tip;
 	
 	m_filenameLabel = new QLabel(i18n("File:"), this, "m_filenameLabel");
-	CHECK_PTR(m_filenameLabel);
+	Q_CHECK_PTR(m_filenameLabel);
 	
 	m_filename = new KSimFilenameWidget(comp->getFilename(),
 	                                    KSimFilename::PATH_ABSOLUTE | KSimFilename::PATH_RELATIVE_DOCUMENT
 	                                    | KSimFilename::PATH_RELATIVE_HOME,
 	                                    this, "m_filename");
-	CHECK_PTR(m_filename);
+	Q_CHECK_PTR(m_filename);
 	m_filenameLabel->setBuddy(m_filename);
 		// TODO add ToolTip
 	
 	m_separatorLabel = new QLabel(i18n("Column separator:"), this, "m_separatorLabel");
-	CHECK_PTR(m_separatorLabel);
+	Q_CHECK_PTR(m_separatorLabel);
 	m_separator = new QLineEdit(comp->getSeparator(), this, "m_separator");
-	CHECK_PTR(m_separator);
+	Q_CHECK_PTR(m_separator);
 	tip = i18n("Edit the column separator here.");
 	addToolTip(tip, m_separator, m_separatorLabel);
 	addWhatsThis(tip, m_separator, m_separatorLabel);
@@ -920,27 +920,27 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 
 
 	QVBox * vbox = newRowVBox("vbox");
-	CHECK_PTR(vbox);
+	Q_CHECK_PTR(vbox);
 	
 	QVButtonGroup * butGrp = new QVButtonGroup(i18n("Switches:"), vbox, "butGrp");
-	CHECK_PTR(butGrp);
+	Q_CHECK_PTR(butGrp);
 
 	m_append = new QCheckBox(i18n("Append data to existing file"), butGrp, "m_append");
-	CHECK_PTR(m_append);
+	Q_CHECK_PTR(m_append);
 	m_append->setChecked(comp->isAppendEnabled());
 	tip = i18n("If checked an exisiting file will not be deleted before a new simulations is started.");
 	addToolTip(tip, m_append);
 	addWhatsThis(tip, m_append);
 	
 	m_headerDate = new QCheckBox(i18n("Add date and time at the top"), butGrp, "m_headerDate");
-	CHECK_PTR(m_headerDate);
+	Q_CHECK_PTR(m_headerDate);
 	m_headerDate->setChecked(comp->isHeaderDateEnabled());
 	tip = i18n("If checked the date and time of the simulation start is added top of the new data.");
 	addToolTip(tip, m_headerDate);
 	addWhatsThis(tip, m_headerDate);
 	
 	m_connectorNames = new QCheckBox(i18n("Add the connector names at the top"), butGrp, "m_connectorNames");
-	CHECK_PTR(m_connectorNames);
+	Q_CHECK_PTR(m_connectorNames);
 	m_connectorNames->setChecked(comp->isConnectorNamesEnabled());
 	tip = i18n("If checked the the connector names are added top of the new data.");
 	addToolTip(tip, m_connectorNames);
@@ -948,14 +948,14 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 	
 
 	m_lineNo = new QCheckBox(i18n("Add line numbers"), butGrp, "m_lineNo");
-	CHECK_PTR(m_lineNo);
+	Q_CHECK_PTR(m_lineNo);
 	m_lineNo->setChecked(comp->isLineNoEnabled());
 	tip = i18n("If checked the lines in the log file are numbered.");
 	addToolTip(tip, m_lineNo);
 	addWhatsThis(tip, m_lineNo);
 	
 	m_timeStamp = new QCheckBox(i18n("Add time stamp"), butGrp, "m_timeStamp");
-	CHECK_PTR(m_timeStamp);
+	Q_CHECK_PTR(m_timeStamp);
 	m_timeStamp->setChecked(comp->isTimeStampEnabled());
 	tip = i18n("If checked a time stamp is added in front of each line (after the optional line number).");
 	addToolTip(tip, m_timeStamp);

@@ -43,10 +43,10 @@ WidgetControlButton::WidgetControlButton(QWidget * controlledWidget, QWidget *pa
 	
 	setSpacing(3);
 	m_color = new KSimColorLabel(this);
-	CHECK_PTR(m_color);
+	Q_CHECK_PTR(m_color);
 	m_color->setFixedSize(8,20);
 	m_button = new QPushButton(this);
-	CHECK_PTR(m_button);
+	Q_CHECK_PTR(m_button);
 	
 	m_button->setToggleButton(true);
 	connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotChanged(bool)));

@@ -83,7 +83,7 @@ void KSimGridWidget::addWidget(QWidget * wid)
 	{
 		// Create variables
 		if(!m_widgetList)
-			m_widgetList = new QList<QWidget>;
+			m_widgetList = new QPtrList<QWidget>;
 			
 		connect(wid,SIGNAL(destroyed()), this, SLOT(slotDelWidget()));
 		m_widgetList->append(wid);
@@ -116,7 +116,7 @@ void KSimGridWidget::updateGeometry()
 		delete m_layout;
 
 	m_layout = new QGridLayout(this);
-	CHECK_PTR(m_layout);
+	Q_CHECK_PTR(m_layout);
 	
 	unsigned int i;
 	if (m_horizontal)
@@ -167,31 +167,31 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 	
 	
 	m_dataView = new DataRecorderDataView(this);
-	CHECK_PTR(m_dataView); 	
+	Q_CHECK_PTR(m_dataView); 	
 
 	QVBox * box = new QVBox(this);
-	CHECK_PTR(box); 	
+	Q_CHECK_PTR(box); 	
 	box->setMargin(KDialog::marginHint());
 	box->setSpacing(KDialog::spacingHint());
 	
 	QLabel * lab = new QLabel(i18n("DataRecorder", "Channel:"),box);
-	CHECK_PTR(lab); 	
+	Q_CHECK_PTR(lab); 	
 	m_buttonWidget = new KSimGridWidget (box);
-	CHECK_PTR(m_buttonWidget); 	
+	Q_CHECK_PTR(m_buttonWidget); 	
 	lab->setBuddy(m_buttonWidget);
 	// TODO add ToolTip
 	
 	lab = new QLabel(i18n("DataRecorder", "&Zoom:"),box);
-	CHECK_PTR(lab); 	
+	Q_CHECK_PTR(lab); 	
 	m_zoom = new ZoomWidget(m_dataView, box);
-	CHECK_PTR(m_zoom);
+	Q_CHECK_PTR(m_zoom);
 	lab->setBuddy(m_zoom); 	
 	connect(m_zoom, SIGNAL(changedSamplePixel(double)),m_dataView,SLOT(setZoomSample(double)));
 	connect(m_zoom, SIGNAL(undoRequest()), getDataRecorder(), SLOT(undoZoom()));
 	// TODO add ToolTip
 	
 	QHBoxLayout * horiLayout = new QHBoxLayout(this);
-	CHECK_PTR(horiLayout);
+	Q_CHECK_PTR(horiLayout);
 	horiLayout->addWidget(box);
 	horiLayout->addWidget(m_dataView,1);
 
@@ -255,7 +255,7 @@ void DataRecorderWidget::createChannelButton(DataRecorderChannelBase * channel)
 
 	
   WidgetControlButton * but = new WidgetControlButton(wid,getButtonWidget());
-  CHECK_PTR(but);
+  Q_CHECK_PTR(but);
   getButtonWidget()->addWidget(but);
 
 

@@ -73,17 +73,17 @@ public:
 	unsigned int m_serialNumber;
 };
 
-class ConnectorContainerList : public QList<ConnectorContainer>
+class ConnectorContainerList : public QPtrList<ConnectorContainer>
 {
 public:
 	ConnectorContainer * findSerial(unsigned int no) const;
 
 protected:
-	virtual int compareItems(QCollection::Item di1, QCollection::Item di2);
+	virtual int compareItems(QPtrCollection::Item di1, QPtrCollection::Item di2);
 };
 
 #define FOR_EACH_CONNECTOR_CONTAINER(_it_,_connContList_)	\
-		for(QListIterator<ConnectorContainer> _it_(_connContList_);_it_.current();++_it_)
+		for(QPtrListIterator<ConnectorContainer> _it_(_connContList_);_it_.current();++_it_)
 
 
 //###################################################################
