@@ -56,17 +56,17 @@ public:
 	bool load(KSimData & config, const char * pKey, const QString& aDefault = QString::null);
 };
 
-/** Usful to create a simple text() function for a KSimTypeBase sub class. */
+/** Useful to create a simple text() function for a KSimTypeBase sub class. */
 #define MAKE_KSimTypeBase_text(TYPE, CONVERT)                                 \
                      QString TYPE ::text() const { return CONVERT(value()); }
 
-/** Usful to create a simple setText() function for a KSimTypeBase sub class. */
+/** Useful to create a simple setText() function for a KSimTypeBase sub class. */
 #define MAKE_KSimTypeBase_setText(TYPE, CONVERT)                              \
                      void TYPE ::setText(const QString & text, bool * ok) {   \
                      bool myOk;                                               \
                      int i = CONVERT (&myOk);                                 \
-                     if (myOk)	m_value = i;                                  \
-                     if (ok)	*ok = myOk; }
+                     if (myOk)  m_value = i;                                  \
+                     if (ok)    *ok = myOk; }
 
 
 //#######################################################################################
@@ -84,7 +84,6 @@ template<class Type> class KSimTypeTemplate : public KSimTypeBase
 public:
 	/** Creates a new object. */
 	KSimTypeTemplate()
-		: m_value()
 	{	};
 	
 	/** The destructor. */
