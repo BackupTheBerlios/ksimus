@@ -40,14 +40,12 @@ public:
 	ListItem(const QStringList & i18nName, QWidget * parentWidget, PropertyWidget * propertyWidget = 0)
 		:	m_i18nName(i18nName),
 			m_parentWidget(parentWidget),
-			m_propertyWidget(propertyWidget),
-			m_index()
+			m_propertyWidget(propertyWidget)
 	{};
 	
 	QStringList m_i18nName;
 	QWidget * m_parentWidget;
 	PropertyWidget * m_propertyWidget;
-	int m_index;
 };
 
 
@@ -65,8 +63,6 @@ class KSimDialog::List : public QList<KSimDialog::ListItem>
 	
 	ListItem * findI18nName(const QStringList & i18nName) const;
 	ListItem * findParentWidget(const QWidget * widget) const;
-	ListItem * findPropertyWidget(const QWidget * widget) const;
-	ListItem * findIndex(int index) const;
 };
 
 
@@ -88,30 +84,6 @@ KSimDialog::ListItem * KSimDialog::List::findParentWidget(const QWidget * widget
 	FOR_EACH_LISTITEM(it, *this)
 	{
 		if (widget == it.current()->m_parentWidget)
-		{
-			return it.current();
-		}
-	}
-	return (ListItem *)0;
-}
-
-KSimDialog::ListItem * KSimDialog::List::findPropertyWidget(const QWidget * widget) const
-{
-	FOR_EACH_LISTITEM(it, *this)
-	{
-		if (widget == it.current()->m_propertyWidget)
-		{
-			return it.current();
-		}
-	}
-	return (ListItem *)0;
-}
-
-KSimDialog::ListItem * KSimDialog::List::findIndex(int index) const
-{
-	FOR_EACH_LISTITEM(it, *this)
-	{
-		if (index == it.current()->m_index)
 		{
 			return it.current();
 		}
@@ -191,6 +163,7 @@ QVBox * KSimDialog::addVBoxPage(const QStringList & item)
 	ListItem * listItem = new ListItem(myItem, box);
 	CHECK_PTR(listItem);
 	m_p->m_pageList->append(listItem);
+
 	connect(box,SIGNAL(destroyed()),this,SLOT(pageDeleted()));
 	return box;
 }
@@ -285,7 +258,6 @@ void KSimDialog::connectSlots(PropertyWidget * wid)
 				{
 					item->m_propertyWidget = wid;
 				}
-				item->m_index = index;
 			}
 			else
 			{
@@ -317,10 +289,21 @@ void KSimDialog::slotDefault()
 {
 	KDialogBase::slotDefault();
 	
-	ListItem * item = m_p->m_pageList->findIndex(activePageIndex());
-	if(item)
+	for(QListIterator<ListItem> it(*m_p->m_pageList);it.current();++it)
 	{
-		QTimer::singleShot(0, item->m_propertyWidget, SLOT(slotDefault()));
+		if(it.current()->m_propertyWidget)
+		{
+			if(it.current()->m_propertyWidget->isVisible())
+			{
+				QTimer::singleShot(0, it.current()->m_propertyWidget, SLOT(slotDefault()));
+				break;
+			}
+		}
+		else
+		{
+			KSIMDEBUG(QString::fromLatin1("FIXME: m_propertyWidget is Null! slotDefault() not called!! Widget = %1")
+			                .arg(it.current()->m_i18nName.join(QString::fromLatin1("/"))));
+		}
 	}
 }
 
@@ -363,5 +346,4 @@ void KSimDialog::writeSize(const char * group, const char * key) const
 	config->writeEntry(key ? key : "Geometry", size());
 	config->setGroup(oldGroup);
 }
-
 
