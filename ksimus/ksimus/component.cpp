@@ -539,10 +539,21 @@ void Component::initPropertyDialog(ComponentPropertyDialog * dialog)
 void Component::addGeneralProperty(ComponentPropertyDialog * dialog)
 {
 	QVBox * page;
-	ComponentPropertyGeneralWidget * wid;
+	ComponentPropertyBaseWidget * wid;
 	page = dialog->addVBoxPage(i18n("General"));
-	wid = new ComponentPropertyGeneralWidget(this, page, "General Settings");
+	wid = createGeneralProperty(this, page);
 	dialog->connectSlots(wid);
+}
+
+/** Creates the general property page to the property dialog.
+ * Overload this function if you want to use a modified General Propery Page. Use as base class
+ * @ref ComponentPropertyGeneralWidget.
+ * This function is called by @ref addGeneralProperty*/
+ComponentPropertyBaseWidget * Component::createGeneralProperty(Component * comp, QWidget *parent)
+{
+	ComponentPropertyBaseWidget * wid = new ComponentPropertyGeneralWidget(comp, parent, "General Settings");
+	CHECK_PTR(wid);
+	return wid;
 }
 
 /** Adds the connector property pages to the property dialog
@@ -596,10 +607,17 @@ void Component::addConnectorProperty(ComponentPropertyDialog * dialog)
 void Component::addInfoProperty(ComponentPropertyDialog * dialog)
 {
 	QVBox * page;
-	ComponentPropertyInfoWidget * wid;
+	ComponentPropertyBaseWidget * wid;
 	page = dialog->addVBoxPage(i18n("Information"));
-	wid = new ComponentPropertyInfoWidget(this, page, "Information");
+	wid = createInfoProperty(this, page);
 	dialog->connectSlots(wid);
+}
+	
+ComponentPropertyBaseWidget * Component::createInfoProperty(Component * comp, QWidget *parent)
+{
+	ComponentPropertyBaseWidget * wid = new ComponentPropertyInfoWidget(comp, parent, "Information");
+	CHECK_PTR(wid);
+	return wid;
 }
 		
 //##########################################################

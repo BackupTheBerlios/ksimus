@@ -48,6 +48,7 @@ class KSimUndo;
 class ConnectorList;
 class ConnectorBase;
 class ComponentPropertyDialog;
+class ComponentPropertyBaseWidget;
 class KSimTimeServer;
 class ComponentAddOnList;
 
@@ -182,15 +183,25 @@ public:
 	
 	/** Init the property dialog */
 	virtual void initPropertyDialog(ComponentPropertyDialog * dialog);
-	/** Adds the connector property pages to the property dialog
-		This function is called by initPropertyDialog()*/
+	/** Adds the connector property pages to the property dialog.
+		This function is called by @ref initPropertyDialog()*/
 	void addConnectorProperty(ComponentPropertyDialog * dialog);
 	/** Add the general property page to the property dialog
-		This function is called by initPropertyDialog()*/
+		This function is called by @ref initPropertyDialog.*/
 	void addGeneralProperty(ComponentPropertyDialog * dialog);
-	/** Add the info page to the property dialog
-		This function is called by initPropertyDialog()*/
+	/** Creates the general property page for the property dialog.
+	  * Overload this function if you want to use a modified General Propery Page. Use as base class
+	  * @ref ComponentPropertyGeneralWidget.
+	  * This function is called by @ref addGeneralProperty*/
+	virtual ComponentPropertyBaseWidget * createGeneralProperty(Component * comp, QWidget *parent);
+	/** Add the info page to the property dialog.
+		This function is called by @ref initPropertyDialog.*/
 	void addInfoProperty(ComponentPropertyDialog * dialog);
+	/** Creates the info property page for the property dialog.
+	  * Overload this function if you want to use a modified Info Propery Page. Use as base class
+	  * @ref ComponentPropertyGeneralWidget.
+	  * This function is called by @ref addInfoProperty*/
+	virtual ComponentPropertyBaseWidget * createInfoProperty(Component * comp, QWidget *parent);
 
 	/** Initialize the component popup menu
 	  *	Return true, if items are added */
