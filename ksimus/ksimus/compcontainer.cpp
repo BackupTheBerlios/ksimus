@@ -204,7 +204,7 @@ Component * CompContainer::getParentComponent() const
 {
 	if (docParent)
 	{
-		return 0;
+		return (Component *)0;
 	}
 	else
 	{
@@ -1295,7 +1295,7 @@ static ConnectorBase * findConnWirePos(const QPoint & pos, const ConnectorList &
 			return itConn.current();
 		}
 	}
-	return 0;
+	return (ConnectorBase *)0;
 }
 
 

@@ -239,7 +239,7 @@ const KSimUnitBase * KSimUnitList::findPrefered(double reference) const
 		return findUnit(getDefaultUnit());
 	}
 	
-	return 0;
+	return (const KSimUnitBase *)0;
 }
 
 const KSimUnitBase * KSimUnitList::findUnit(const QString & unitStr) const
