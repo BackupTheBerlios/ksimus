@@ -72,10 +72,10 @@ const ComponentInfo * WaveformGenerator::getStaticInfo()
 //###############################################################
 //###############################################################
 
-#define DEFAULT_WAVEFORM  WaveformGenerator::eSinusoidal
-#define DEFAULT_PHASE     0.0
-#define DEFAULT_AMPLITUDE 1.0
-#define DEFAULT_OFFSET    0.0
+#define WAVEFORMGENERATOR_DEFAULT_WAVEFORM  WaveformGenerator::eSinusoidal
+#define WAVEFORMGENERATOR_DEFAULT_PHASE     0.0
+#define WAVEFORMGENERATOR_DEFAULT_AMPLITUDE 1.0
+#define WAVEFORMGENERATOR_DEFAULT_OFFSET    0.0
 
 
 
@@ -85,8 +85,13 @@ const ComponentInfo * WaveformGenerator::getStaticInfo()
 class WaveformGenerator::Private
 {
 public:
-	static EnumDict<eWaveType> waveTypeDict;
+	Private()
+	{};
+
 };
+
+
+static EnumDict<WaveformGenerator::eWaveType> waveformGeneratorTypeDict;
 
 
 EnumDict<WaveformGenerator::eWaveType>::tData EnumDict<WaveformGenerator::eWaveType>::data[]
@@ -104,11 +109,11 @@ EnumDict<WaveformGenerator::eWaveType>::tData EnumDict<WaveformGenerator::eWaveT
 
 WaveformGenerator::WaveformGenerator(CompContainer * container, const ComponentInfo * ci)
 	: Float1Out(container, ci),
-		m_waveType(DEFAULT_WAVEFORM),
-		m_amplitude(DEFAULT_AMPLITUDE),
-		m_offset(DEFAULT_OFFSET),
+		m_waveType(WAVEFORMGENERATOR_DEFAULT_WAVEFORM),
+		m_amplitude(WAVEFORMGENERATOR_DEFAULT_AMPLITUDE),
+		m_offset(WAVEFORMGENERATOR_DEFAULT_OFFSET),
 		m_period(getTimeServer()),
-		m_phase(DEFAULT_PHASE)
+		m_phase(WAVEFORMGENERATOR_DEFAULT_PHASE)
 {
 	m_period.setValue(1.0, unit_sec);
 	
@@ -119,6 +124,10 @@ WaveformGenerator::WaveformGenerator(CompContainer * container, const ComponentI
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
+}
+
+WaveformGenerator::~WaveformGenerator()
+{
 }
 
 /** Reset all simulation variables */
@@ -197,19 +206,19 @@ void WaveformGenerator::save(KSimData & file) const
 	file.setGroup(oldGroup);
 	
 	
-	if (getWaveform() != DEFAULT_WAVEFORM)
+	if (getWaveform() != WAVEFORMGENERATOR_DEFAULT_WAVEFORM)
 	{
-		Private::waveTypeDict.save(file, "Wave Type", getWaveform());
+		waveformGeneratorTypeDict.save(file, "Wave Type", getWaveform());
 	}
-	if (getPhase() != DEFAULT_PHASE)
+	if (getPhase() != WAVEFORMGENERATOR_DEFAULT_PHASE)
 	{
 		file.writeEntry("Phase", getPhase());
 	}
-	if (getAmplitude() != DEFAULT_AMPLITUDE)
+	if (getAmplitude() != WAVEFORMGENERATOR_DEFAULT_AMPLITUDE)
 	{
 		file.writeEntry("Amplitude", getAmplitude());
 	}
-	if (getOffset() != DEFAULT_OFFSET)
+	if (getOffset() != WAVEFORMGENERATOR_DEFAULT_OFFSET)
 	{
 		file.writeEntry("Offset", getOffset());
 	}
@@ -232,10 +241,10 @@ bool WaveformGenerator::load(KSimData & file, bool copyLoad)
 	}
 	file.setGroup(oldGroup);
 	
-	setWaveform(Private::waveTypeDict.load(file, "Wave Type", DEFAULT_WAVEFORM));
-	setPhase(file.readDoubleNumEntry("Phase", DEFAULT_PHASE));
-	setAmplitude(file.readDoubleNumEntry("Amplitude", DEFAULT_AMPLITUDE));
-	setOffset(file.readDoubleNumEntry("Offset", DEFAULT_OFFSET));
+	setWaveform(waveformGeneratorTypeDict.load(file, "Wave Type", WAVEFORMGENERATOR_DEFAULT_WAVEFORM));
+	setPhase(file.readDoubleNumEntry("Phase", WAVEFORMGENERATOR_DEFAULT_PHASE));
+	setAmplitude(file.readDoubleNumEntry("Amplitude", WAVEFORMGENERATOR_DEFAULT_AMPLITUDE));
+	setOffset(file.readDoubleNumEntry("Offset", WAVEFORMGENERATOR_DEFAULT_OFFSET));
 	
 	return Float1Out::load(file, copyLoad);
 }
@@ -693,11 +702,11 @@ void WaveformGeneratorPropertyGeneralWidget::defaultPressed()
 {
 	ComponentPropertyGeneralWidget::defaultPressed();
 
-	m_waveform->setCurrentItem((int)DEFAULT_WAVEFORM);
+	m_waveform->setCurrentItem((int)WAVEFORMGENERATOR_DEFAULT_WAVEFORM);
 	m_period->setValue(KSimTimeBase(1.0, unit_sec));
-	m_phase->setValue(DEFAULT_PHASE);
-	m_amplitude->setValue(DEFAULT_AMPLITUDE);
-	m_offset->setValue(DEFAULT_OFFSET);
+	m_phase->setValue(WAVEFORMGENERATOR_DEFAULT_PHASE);
+	m_amplitude->setValue(WAVEFORMGENERATOR_DEFAULT_AMPLITUDE);
+	m_offset->setValue(WAVEFORMGENERATOR_DEFAULT_OFFSET);
 }
 
 void WaveformGeneratorPropertyGeneralWidget::valChanged()
@@ -709,10 +718,10 @@ void WaveformGeneratorPropertyGeneralWidget::valChanged()
 //###############################################################
 //###############################################################
 
-#undef DEFAULT_WAVEFORM
-#undef DEFAULT_PHASE
-#undef DEFAULT_AMPLITUDE
-#undef DEFAULT_OFFSET
+#undef WAVEFORMGENERATOR_DEFAULT_WAVEFORM
+#undef WAVEFORMGENERATOR_DEFAULT_PHASE
+#undef WAVEFORMGENERATOR_DEFAULT_AMPLITUDE
+#undef WAVEFORMGENERATOR_DEFAULT_OFFSET
 
 
 

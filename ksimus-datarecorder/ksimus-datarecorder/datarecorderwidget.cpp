@@ -201,7 +201,7 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 
 
 	// Load last size
-	KConfig * conf = KSimLibDataRecorder::instance->config();
+	KConfig * conf = getPackageInstance()->config();
 	QString saveGrp(conf->group());
 	
 	conf->setGroup("DataRecorderWidget");
@@ -216,7 +216,7 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 DataRecorderWidget::~DataRecorderWidget()
 {
 	// Store size
-	KConfig * conf = KSimLibDataRecorder::instance->config();
+	KConfig * conf = getPackageInstance()->config();
 	QString saveGrp(conf->group());
 	
 	conf->setGroup("DataRecorderWidget");

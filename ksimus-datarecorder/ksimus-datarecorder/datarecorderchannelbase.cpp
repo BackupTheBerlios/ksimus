@@ -111,7 +111,7 @@ void DataRecorderChannelBase::save(KSimData & file) const
 /** load channel properties
   * copyLoad is true, if the load function is used as a copy function
   * Returns true if successful */
-bool DataRecorderChannelBase::load(KSimData & file, bool copyLoad)
+bool DataRecorderChannelBase::load(KSimData & file, bool /*copyLoad*/)
 {
 	setLineColor(file.readColorEntry(sColor, &getLineColor()));
 	setVerticalGain(file.readDoubleNumEntry(sVertGain, getVerticalGain()));

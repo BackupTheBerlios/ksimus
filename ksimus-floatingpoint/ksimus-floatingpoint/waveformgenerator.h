@@ -52,6 +52,8 @@ public:
 
 	/** Constructs a floating point waveform generator. */
 	WaveformGenerator(CompContainer * container, const ComponentInfo * ci);
+	/** Destructor of a floating point waveform generator. */
+	~WaveformGenerator();
 	/** Reset all simulation variables */
 	virtual void reset();
 	/** Executes the simulation of this component */
