@@ -20,6 +20,7 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qpopupmenu.h>
+#include <qcursor.h>
 
 // KDE-Includes
 #include <klocale.h>

@@ -18,6 +18,7 @@
 // C-Includes
 
 // QT-Includes
+#include <qtimer.h>
 #include <qlist.h>
 #include <qvbox.h>
 #include <qobjectlist.h>
