@@ -25,7 +25,7 @@
 
 // KSimus-Includes
 #include "ksimus/resource.h"
-#include "ksimus/connectorboolin.h"
+#include "ksimus/connectorboolinedge.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorlabel.h"
@@ -55,65 +55,44 @@ const ComponentInfo RSFlipFlopInfo("RS Flip Flop",
 
 
 RSFlipFlop::RSFlipFlop(CompContainer * container, const ComponentInfo * ci)
-	: Component(container, ci)
+	: FlipFlopBase(container, ci)
 {
-	m_out = new ConnectorBoolOut (this, "Output", QPoint(4,1));
-	CHECK_PTR(m_out);
-	new ConnectorLabel(m_out, "Q");
-	
-	m_outNot = new ConnectorBoolOut (this, "/Output", QPoint(4,3));
-	CHECK_PTR(m_outNot);
-	m_outNot->setNegate(true, true);
-	new ConnectorLabel(m_outNot, "Q");
-	
-	m_inSet = new ConnectorBoolIn (this, "Set", QPoint(0,1));
-	CHECK_PTR(m_inSet);
-	new ConnectorLabel(m_inSet, "S");
-	
-	m_inReset = new ConnectorBoolIn (this, "Reset", QPoint(0,3));
-	CHECK_PTR(m_inReset);
-	new ConnectorLabel(m_inReset, "R");
+	getSetInputConnector()->setEdgeSensitive(false, true);
+	getResetInputConnector()->setEdgeSensitive(false, true);
 	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
 		new RSFlipFlopView(this, SHEET_VIEW);
 	}
+	
+	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /*RSFlipFlop::~RSFlipFlop()
 {
 } */
 
-	/** Shift the result of calculation to output */
-void RSFlipFlop::updateOutput()
-{
-	Component::updateOutput();
-	
-	m_out->setOutput(m_FFstate);
-	m_outNot->setOutput(m_FFstate);
-}
-
-	/** Reset all simulation variables */
-void RSFlipFlop::reset()
-{
-	Component::reset();
-	
-	m_FFstate = false;
-}
 
 
 void RSFlipFlop::calculate()
 {
-	Component::calculate();
+	FlipFlopBase::calculate();
 	
-	if (m_inReset->getInput())
+	bool set = getSetInputConnector()->getInput();
+	bool reset = getResetInputConnector()->getInput();
+	
+	if (set && getDominant())
 	{
-		m_FFstate = false;
+		setState(true);
 	}
-	else if (m_inSet->getInput())
+	else if (reset)
 	{
-		m_FFstate = true;
+		setState(false);
+	}
+	else if (set)
+	{
+		setState(true);
 	}
 }
 
@@ -121,12 +100,29 @@ void RSFlipFlop::calculate()
 //###############################################################
 //###############################################################
 
+#define getRSFF() ((RSFlipFlop *) getComponent())
 
-
-RSFlipFlopView::RSFlipFlopView(Component * comp, eViewType viewType)
+RSFlipFlopView::RSFlipFlopView(RSFlipFlop * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	
+	enableConnectorSpacingTop(false);
+	enableConnectorSpacingBottom(false);
+
+	getRSFF()->getOutputConnector()->setGridPos(4,1);
+	new ConnectorLabel(getRSFF()->getOutputConnector(), "Q");
+	
+	getRSFF()->getNotOutputConnector()->setGridPos(4,3);
+	new ConnectorLabel(getRSFF()->getNotOutputConnector(), "/Q");
+	
+	getRSFF()->getSetInputConnector()->setGridPos(0,1);
+	new ConnectorLabel(getRSFF()->getSetInputConnector(), "S");
+	
+	getRSFF()->getResetInputConnector()->setGridPos(0,3);
+	new ConnectorLabel(getRSFF()->getResetInputConnector(), "R");
+	
+	
 }
 /*RSFlipFlopView::~RSFlipFlopView()
 {
@@ -134,8 +130,8 @@ RSFlipFlopView::RSFlipFlopView(Component * comp, eViewType viewType)
 
 void RSFlipFlopView::draw(QPainter * p)
 {
-	QRect rect(getPlace().topLeft()+QPoint(gridX+1,1),
-							getPlace().bottomRight()-QPoint(gridX-0,0));
+	QRect rect(getWidgetPlace().topLeft()+QPoint(1,1),
+							getWidgetPlace().bottomRight());
 	
 	p->setPen(QPen(black, 2));
 	p->setBrush(NoBrush);
@@ -145,9 +141,11 @@ void RSFlipFlopView::draw(QPainter * p)
 	CompView::draw(p);
 }
 
+#undef getRSFF()
 
 
-
+//###############################################################
+//###############################################################
 
 	
 }; //namespace

@@ -25,7 +25,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/component.h"
+#include "flipflopbase.h"
 #include "ksimus/compview.h"
 #include "ksimus/componentinfo.h"
 
@@ -43,7 +43,7 @@ namespace KSimLibBoolean
 
 extern const ComponentInfo RSFlipFlopInfo;
 
-class RSFlipFlop : public Component
+class RSFlipFlop : public FlipFlopBase
 {
 Q_OBJECT
 
@@ -51,19 +51,9 @@ public:
 	RSFlipFlop(CompContainer * container, const ComponentInfo * ci);
 //	~RSFlipFlop();
 	
-	/** Shift the result of calculation to output */
-	virtual void updateOutput();
-	/** Reset all simulation variables */
-	virtual void reset();
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
-protected:
-	bool m_FFstate;
-	ConnectorBoolOut * m_out;
-	ConnectorBoolOut * m_outNot;
-	ConnectorBoolIn * m_inSet;
-	ConnectorBoolIn * m_inReset;
 };
 
 //###############################################################
@@ -73,11 +63,13 @@ protected:
 class RSFlipFlopView : public CompView
 {
 public:
-	RSFlipFlopView(Component * comp, eViewType viewType);
+	RSFlipFlopView(RSFlipFlop * comp, eViewType viewType);
 //	~RSFlipFlopView();
 	virtual void draw(QPainter * p);
 };
 
+
+//###############################################################
 
 
 
