@@ -269,7 +269,7 @@ int FloatLatch::getChannelCount() const
 	return getInputPack()->getConnectorCount();
 }
 
-unsigned int FloatLatch::tempConnCount;
+int FloatLatch::tempConnCount;
 FloatLatch * FloatLatch::tempConnCountOwner = (FloatLatch *)0;
 
 void FloatLatch::setChannelCountDelayed(unsigned int count)

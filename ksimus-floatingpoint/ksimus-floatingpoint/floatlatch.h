@@ -127,7 +127,7 @@ private:
 	ConnectorBoolInEdge * m_inputEnable;
 	ConnectorPack * m_inputPack;
 	ConnectorPack * m_outputPack;
-	static unsigned int tempConnCount;
+	static int tempConnCount;
 	static FloatLatch * tempConnCountOwner;
 };
 
