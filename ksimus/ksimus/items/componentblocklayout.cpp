@@ -52,7 +52,7 @@ ComponentBlockLayout::ComponentBlockLayout(CompView * sheetView, ComponentLayout
 
 ComponentBlockLayout::~ComponentBlockLayout()
 {
-	KSIMDEBUG("ComponentBlockLayout::~ComponentBlockLayout()");
+//	KSIMDEBUG("ComponentBlockLayout::~ComponentBlockLayout()");
 }
 
 void ComponentBlockLayout::setDrawFrame(bool enable)
@@ -87,6 +87,7 @@ void ComponentBlockLayout::drawSheetView (QPainter *p) const
 			p->drawRect(rect);
 		}
 		
+		rect.rTop() --;
 		if (!getText().isEmpty())
 		{
 			QFont newFont("helvetica",8);
@@ -138,6 +139,7 @@ void ComponentControlBlock::drawSheetView(QPainter *p) const
 			p->lineTo(rect.bottomRight() + QPoint(-gridX/2,0));
 		}
 		
+		rect.rTop() --;
 		if (!getText().isEmpty())
 		{
 			QFont newFont("helvetica",8);
