@@ -150,18 +150,18 @@ static void installGlobalEventFilter(QWidget * main, QWidget * eventSource)
 	
 	const QObjectList * list = main->children();
 	
-    if (list)
-    {
+	if (list)
+	{
 		QObject * obj;
-	    for ( obj = ((QObjectList*)list)->first(); obj; obj = ((QObjectList*)list)->next() )
-    	{
-    		if (obj->isWidgetType())
-	    	{
+		for ( obj = ((QObjectList*)list)->first(); obj; obj = ((QObjectList*)list)->next() )
+		{
+			if (obj->isWidgetType())
+			{
 				installGlobalEventFilter((QWidget*)obj, eventSource);
-	    	}
-	    }
-    }
-}	
+			}
+		}
+	}
+}
 
 static void setGlobalMouseTracking(QWidget * main, bool tracking)
 {
@@ -667,8 +667,8 @@ void CompView::updateSheetMap(bool insert)
 		mapPlace.setBottom(getPlace().bottom() / gridY);
 		
 		getComponentMap()->addPlace(mapPlace, insert
-									?  getComponentMap()->costComponent
-									: -getComponentMap()->costComponent );
+		                                      ?  getComponentMap()->costComponent
+		                                      : -getComponentMap()->costComponent );
 	}
 }
 
@@ -838,7 +838,12 @@ void CompView::setHide(bool hide)
 /** Toogle the hide flag */
 void CompView::slotToggleHide()
 {
+	KSimusDoc * doc = getComponent()->getDoc();
+	CHECK_PTR(doc);
+
+	doc->getUndo()->changeProperty(this, i18n("Hide User View"));
 	setHide(!isHidden());
+	doc->setModified();
 }
 
 /** Returns true, if component view is hidden */
