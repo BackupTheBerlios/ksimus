@@ -119,6 +119,7 @@ static const ConnectorInfoList & getDistConnector()
 		pDistConnector->append(getConnectorFloatInInfo());
 		pDistConnector->append(getConnectorFloatOutInfo());
 		pDistConnector->append(getConnectorBoolTriStateInfo());
+		pDistConnector->append(getConnectorBoolTriStateSpecialInfo());
 	}
 	
 	return *pDistConnector;
