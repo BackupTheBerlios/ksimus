@@ -29,7 +29,7 @@
 
 
 KSimLineEdit::KSimLineEdit( QWidget *parent, const char *name )
-	:	QLineEdit(parent,name)
+	:	KLineEdit(parent,name)
 {
 //	connect(this, SIGNAL(textChanged(const QString&)),SLOT(slotChanged()));
 	connect(this, SIGNAL(returnPressed()),SLOT(slotChanged()));
@@ -37,7 +37,7 @@ KSimLineEdit::KSimLineEdit( QWidget *parent, const char *name )
 }
 
 KSimLineEdit::KSimLineEdit(const QString & contents, QWidget *parent, const char *name)
-	:	QLineEdit(contents,parent,name)
+	:	KLineEdit(contents,parent,name)
 {
 //	connect(this, SIGNAL(textChanged(const QString&)),SLOT(slotChanged()));
 	connect(this, SIGNAL(returnPressed()),SLOT(slotChanged()));
@@ -51,12 +51,6 @@ void KSimLineEdit::focusOutEvent(QFocusEvent * ev)
 {
 	QLineEdit::focusOutEvent(ev);
 	slotChanged();
-/*	if (edited())
-	{
-		emit changed();
-		emit changed(text ());
-		setEdited(false);
-	}*/
 }
 
 void KSimLineEdit::slotChanged()

@@ -21,9 +21,9 @@
 // C-Includes
 
 // QT-Includes
-#include <qlineedit.h>
 
 // KDE-Includes
+#include <klineedit.h>
 
 // Project-Includes
 
@@ -33,7 +33,7 @@
   *@author Rasmus Diekenbrock
   */
 
-class KSimLineEdit : public QLineEdit
+class KSimLineEdit : public KLineEdit
 {
 	Q_OBJECT
 
