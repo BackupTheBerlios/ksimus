@@ -66,18 +66,19 @@ Component::Component(CompContainer * container, const ComponentInfo * ci)
 	  m_myActions(KSimAction::ALL)		//Default
 {
 	m_connList = new ConnectorList;
+	m_connList->setAutoDelete(true);
 }
 	
 Component::~Component()
 {
+	if (m_addonList)
+		delete m_addonList;
+	if (m_connList)
+		delete m_connList;
 	if (m_sheetView)
 		delete m_sheetView;
 	if (m_userView)
 		delete m_userView;
-	if (m_connList)
-		delete m_connList;
-	if (m_addonList)
-		delete m_addonList;
 }
 
 /** Returns the name of the component.
