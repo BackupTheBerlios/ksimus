@@ -63,7 +63,8 @@ int getGreaterPrim(int number)
 
 
 
-#include "componentblocklayout.h"
+#include "componentlayout.h"
+#include "connectorpack.h"
 #include "ksimdoubleedit.h"
 #include "ksimfilename.h"
 #include "optionalconnector.h"
@@ -87,7 +88,8 @@ void ksimusDummyFunction()
 //
 //#########################################################################
 //#########################################################################
-	new ComponentControlBlock((CompView *)0, (ComponentLayout *)0);
+	new ComponentLayout(0, true);
+	new ConnectorPack(0, QString::null, QString::null, 0);
 	new KSimDoubleEdit((QWidget*) 0);
 	new KSimFilename((Component*)0);
 	new OptionalConnector((Component *) 0, QString::null);

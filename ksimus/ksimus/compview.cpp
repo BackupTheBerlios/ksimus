@@ -491,7 +491,7 @@ QRect CompView::getDrawingPlace() const
 	}
 	
 	int left = (isConnectorSpacingLeft() ? gridX : 0);
-	int top = (isConnectorSpacingTop()  ? gridY+1 : 0);  // TODO is this correct
+	int top = (isConnectorSpacingTop()  ? gridY : 0);
 	int right = size.width() - (isConnectorSpacingRight()  ? gridX : 0);
 	int bottom = size.height() - (isConnectorSpacingBottom()  ? gridY : 0);
 	
@@ -580,6 +580,7 @@ void CompView::draw (QPainter *p)
 			}
 		}
 		// Draw sheet view addons
+		// Before connectors because layout calculation !
 		// Exist List?
 		if (getComponent()->getAddOnList())
 		{
@@ -869,10 +870,16 @@ void CompView::setResizeable(bool enable)
 */
 void CompView::enableConnectorSpacingTop(bool enable)
 {
-	if (enable)
-		m_p->flags |= FLAGS_CONN_SPACING_TOP;
-	else
-		m_p->flags &= ~FLAGS_CONN_SPACING_TOP;
+	if (enable != (m_p->flags & FLAGS_CONN_SPACING_TOP))
+	{
+		if (enable)
+			m_p->flags |= FLAGS_CONN_SPACING_TOP;
+		else
+			m_p->flags &= ~FLAGS_CONN_SPACING_TOP;
+		
+		emit signalMoveWidget(getWidgetPlace().topLeft());
+		emit signalResizeWidget(getWidgetPlace().size());
+	}
 }
 
 /** If enable is true, reserve space for connectors at the right of the component.
@@ -880,10 +887,16 @@ void CompView::enableConnectorSpacingTop(bool enable)
 */
 void CompView::enableConnectorSpacingRight(bool enable)
 {
-	if (enable)
-		m_p->flags |= FLAGS_CONN_SPACING_RIGHT;
-	else
-		m_p->flags &= ~FLAGS_CONN_SPACING_RIGHT;
+	if (enable != (m_p->flags & FLAGS_CONN_SPACING_RIGHT))
+	{
+		if (enable)
+			m_p->flags |= FLAGS_CONN_SPACING_RIGHT;
+		else
+			m_p->flags &= ~FLAGS_CONN_SPACING_RIGHT;
+		
+		emit signalMoveWidget(getWidgetPlace().topLeft());
+		emit signalResizeWidget(getWidgetPlace().size());
+	}
 }
 
 /** If enable is true, reserve space for connectors at the bottom of the component.
@@ -891,10 +904,16 @@ void CompView::enableConnectorSpacingRight(bool enable)
 */
 void CompView::enableConnectorSpacingBottom(bool enable)
 {
-	if (enable)
-		m_p->flags |= FLAGS_CONN_SPACING_BOTTOM;
-	else
-		m_p->flags &= ~FLAGS_CONN_SPACING_BOTTOM;
+	if (enable != (m_p->flags & FLAGS_CONN_SPACING_BOTTOM))
+	{
+		if (enable)
+			m_p->flags |= FLAGS_CONN_SPACING_BOTTOM;
+		else
+			m_p->flags &= ~FLAGS_CONN_SPACING_BOTTOM;
+		
+		emit signalMoveWidget(getWidgetPlace().topLeft());
+		emit signalResizeWidget(getWidgetPlace().size());
+	}
 }
 
 /** If enable is true, reserve space for connectors at the left of the component.
@@ -902,10 +921,16 @@ void CompView::enableConnectorSpacingBottom(bool enable)
 */
 void CompView::enableConnectorSpacingLeft(bool enable)
 {
-	if (enable)
-		m_p->flags |= FLAGS_CONN_SPACING_LEFT;
-	else
-		m_p->flags &= ~FLAGS_CONN_SPACING_LEFT;
+	if (enable != (m_p->flags & FLAGS_CONN_SPACING_LEFT))
+	{
+		if (enable)
+			m_p->flags |= FLAGS_CONN_SPACING_LEFT;
+		else
+			m_p->flags &= ~FLAGS_CONN_SPACING_LEFT;
+		
+		emit signalMoveWidget(getWidgetPlace().topLeft());
+		emit signalResizeWidget(getWidgetPlace().size());
+	}
 }
 
 /** True, is space resserved at the top of the component
@@ -1384,8 +1409,6 @@ bool CompViewSize::load(KSimData & file)
 	resize();
 	return ok;
 }
-
-
 
 //#############################################################################
 //#############################################################################

@@ -400,14 +400,13 @@ void KSimEditor::updateDrawMap()
 				it.current()->drawBound (&p);
 		}
 	}
-}	
-		
+}
 
 
 void KSimEditor::paintEvent(QPaintEvent *)
 {
 	bitBlt(this, 0, 0, drawMap, 0, 0, -1, -1);
-}	
+}
 
 /** All views of the document redraw and show the drawMap */
 void KSimEditor::refresh()

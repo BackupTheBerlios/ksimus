@@ -54,7 +54,8 @@ class WireSV_Bitmap : public QBitmap
 public:
 	WireSV_Bitmap(const char * const xpm[])
 	{
-		*(QBitmap *)this = QImage(xpm);
+		*static_cast<QBitmap *>(this) = QImage(xpm);
+		setMask(*this); // selfMask 
 	}
 };
 
@@ -210,7 +211,7 @@ void WireSV::draw(QPainter * p)
 		static const char * const xpmOutter[] =
 		{
 			"6 6 2 1",
-			" 	c None",
+			" 	c #FFFFFF",
 			".	c #000000",
 			" .... ",
 			"......",
@@ -227,7 +228,7 @@ void WireSV::draw(QPainter * p)
 			static const char * const xpmInner[] =
 			{
 				"6 6 2 1",
-				" 	c None",
+				" 	c #FFFFFF",
 				".	c #000000",
 				"  ..  ",
 				"  ..  ",

@@ -1,8 +1,8 @@
 /***************************************************************************
-                          types.h  -  description
+                          ksimdebug.cpp  -  description
                              -------------------
-    begin                : Fri Jul 21 2000
-    copyright            : (C) 2000 by Rasmus Diekenbrock
+    begin                : Sun Feb 22 2004
+    copyright            : (C) 2004 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
 
@@ -15,20 +15,29 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TYPES_H
-#define TYPES_H
+ // C-Includes
+ #include <stdio.h>
 
-enum eViewType { SHEET_VIEW, USER_VIEW };
+// QT-Includes
 
-enum eAppViewType { APP_SHEET_VIEW, APP_USER_VIEW, APP_MODULE_VIEW };
+// KDE-Includes
 
-enum eHitType { INVALID_HIT, NO_HIT, NORMAL_HIT, CONNECTOR_HIT, WIRE_HIT, SPECIAL_HIT,
-                COMP_RESIZE_F_HIT, COMP_RESIZE_B_HIT };
+// Project-Includes
+#include "ksimdebug.h"
 
 
-enum ConnOrientationType { CO_UNDEF, CO_TOP, CO_RIGHT, CO_BOTTOM, CO_LEFT };
-enum ConnDirType { CD_UNDEF, CD_INPUT, CD_OUTPUT, CD_TRISTATE };
+// Forward declaration
+ 
+KSimDebugIndent __kSimDebugIndent__;
 
-enum eFont { FONT_08, FONT_10 };
+QString KSimDebugIndent::print() const
+{
+	QString s; 
+	return s.fill(QChar(' '), 2 * m_indent);
+};
 
-#endif // TYPES_H
+void KSimDebugInstanceCounter::printResult() const
+{
+	fprintf(stderr, "InstanceCounter: %s count: %i\n", m_name, m_cnt);
+}
+

@@ -15,7 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
+
+//#define DO_MCHECK 1
+
 #include <stdio.h>
+#ifdef DO_MCHECK
+#include <mcheck.h>
+#endif /* DO_MCHECK */
 
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
@@ -45,6 +51,10 @@ static KCmdLineOptions options[] =
 int main(int argc, char *argv[])
 {
 
+#ifdef DO_MCHECK
+	mtrace();
+#endif /* DO_MCHECK */
+	
 	KAboutData aboutData( "ksimus", I18N_NOOP("KSimus"),
 		VERSION, description, KAboutData::License_GPL,
 		"(c) 2003, Rasmus Diekenbrock");

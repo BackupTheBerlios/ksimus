@@ -212,6 +212,9 @@ signals:
 	void signalCalculate();
 	/** The signal is emitted if the component view should be updated. */
 	void signalUpdateView();
+	/** Called before each drawing. Connect to this signal
+	  * if something todo before drawing, e.g. layout things. */
+	void signalPolish();
 };
 
 class KSimusDocList : public QList<KSimusDoc> {};

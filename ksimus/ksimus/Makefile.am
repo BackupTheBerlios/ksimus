@@ -20,7 +20,7 @@ KDE_ICON = ksimus
 bin_PROGRAMS = ksimus
 
 # the application source, library search path, and link libraries
-ksimus_SOURCES =  basewindow.cpp compcontainer.cpp componentaddon.cpp component.cpp componentitem.cpp componentmap.cpp componentpropertybasewidget.cpp componentpropertydialog.cpp componentpropertygeneralwidget.cpp componentpropertyinfowidget.cpp componentpropertystylewidget.cpp componentstyle.cpp compview.cpp compviewhbox.cpp compviewvbox.cpp compviewwidget.cpp displaywidget.cpp globals.cpp ksimaction.cpp ksimdata.cpp ksimeditor.cpp ksimfile.cpp ksimundo.cpp ksimus.cpp ksimusdoc.cpp ksimusview.cpp ksimwidget.cpp library.cpp main.cpp wire.cpp
+ksimus_SOURCES = basewindow.cpp compcontainer.cpp componentaddon.cpp component.cpp componentitem.cpp componentmap.cpp componentpropertybasewidget.cpp componentpropertydialog.cpp componentpropertygeneralwidget.cpp componentpropertyinfowidget.cpp componentpropertystylewidget.cpp componentstyle.cpp compview.cpp compviewhbox.cpp compviewvbox.cpp compviewwidget.cpp displaywidget.cpp globals.cpp ksimaction.cpp ksimdata.cpp ksimeditor.cpp ksimfile.cpp ksimundo.cpp ksimus.cpp ksimusdoc.cpp ksimusview.cpp ksimwidget.cpp library.cpp main.cpp wire.cpp ksimdebug.cpp
 ksimus_LDFLAGS = $(KDE_RPATH) $(all_libraries) -rdynamic
 ksimus_LDADD = $(top_builddir)/ksimus/module/libmodule.a $(top_builddir)/ksimus/lib/liblib.a $(top_builddir)/ksimus/items/libitems.a $(top_builddir)/ksimus/io/libio.a $(top_builddir)/ksimus/boolean/libboolean.a $(top_builddir)/ksimus/tools/libtools.a -lltdl $(LIB_KFILE) $(LIB_KDEPRINT) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_QT)
 

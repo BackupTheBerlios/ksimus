@@ -216,6 +216,8 @@ const KURL& KSimusDoc::URL() const
 
 void KSimusDoc::slotUpdateAllViews(KSimusView *sender)
 {
+	emit signalPolish();
+
 	KSimusView *w;
 	if(m_pViewList)
 	{
@@ -741,6 +743,8 @@ void KSimusDoc::simulateExecute()
 
 void KSimusDoc::simulateUpdate()
 {
+	emit signalPolish();
+
 	// Update views
 	KSimusView *w;
 	if(m_pViewList)

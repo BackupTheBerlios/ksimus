@@ -221,7 +221,7 @@ void ComponentAddOnList::save(KSimData & file) const
 		if (it.current()->getAction().isSaveEnabled())
 		{
 			it.current()->save(file);
-			file.setGroup(group);		
+			file.setGroup(group);
 		}
 	}
 }
@@ -238,7 +238,7 @@ bool ComponentAddOnList::load(KSimData & file)
 		if (it.current()->getAction().isLoadEnabled())
 		{
 			res &= it.current()->load(file);
-			file.setGroup(group);		
+			file.setGroup(group);
 		}
 	}
 	return res;

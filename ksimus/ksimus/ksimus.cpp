@@ -65,7 +65,6 @@
 #include "watchwidget.h"
 #include "ksimiodeviceoverviewwidget.h"
 #include "ksimiodevicelist.h"
-#include "ksimembfont.h"
 
 
 #define ID_STATUS_MSG 1
@@ -196,19 +195,6 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 //	KSIMDEBUG(QString("Languages: %1").arg(KGlobal::locale()->languages()));
 //	KGlobal::locale()->setLanguage(QString::fromLatin1("C"));
 
-	if (!g_embFont08)
-	{
-		g_embFont08 = new KSimEmbFont(KSimEmbFont::eFont08);
-		CHECK_PTR(g_embFont08);
-	}
-
-	if (!g_embFont10)
-	{
-		g_embFont10 = new KSimEmbFont(KSimEmbFont::eFont10);
-		CHECK_PTR(g_embFont10);
-	}
-
-
 	if (!g_library)
 	{
 		g_library = new Library();
@@ -216,10 +202,6 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 		loadLib = true;
 		KSimIoDeviceList::getList()->loadActive();
 	}
-
-
-
-	
 	
 	///////////////////////////////////////////////////////////////////
 	// call inits to invoke all other construction parts
