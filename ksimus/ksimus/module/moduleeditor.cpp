@@ -330,17 +330,17 @@ void ModuleEditor::drawConn(QPainter *p)
 				p->save();
 				p->setPen(QPen(black,2));
 				p->drawRect(pos.x()*gridX+m_viewOffsetX-1,
-										pos.y()*gridY+m_viewOffsetY-1,
-										gridX+2,gridY+2);
+				            pos.y()*gridY+m_viewOffsetY-1,
+				            gridX+2,gridY+2);
 				p->restore();
 			}
 			extConn->getExternalConn()->draw(p, orient,
-										pos.x()*gridX+gridX/2+m_viewOffsetX,
-										pos.y()*gridY+gridY/2+m_viewOffsetY);
+			              pos.x()*gridX+gridX/2+m_viewOffsetX,
+			              pos.y()*gridY+gridY/2+m_viewOffsetY);
 		}
 	}
-}			
-			
+}
+
 /** Draw a connectors area */
 void ModuleEditor::drawConnArea(QPainter *p, const QRect & area)
 {
@@ -393,16 +393,14 @@ void ModuleEditor::calGeometric(const QSize & moduleSize)
 
 	// Calculate connector areas
 	
-	m_topArea = QRect(m_viewOffsetX+gridX, m_viewOffsetY,
-										moduleSize.width()-2*gridX, gridY);
+	m_topArea =    QRect(m_viewOffsetX+gridX, m_viewOffsetY,
+	                     moduleSize.width()-2*gridX, gridY);
 	m_bottomArea = QRect(m_viewOffsetX+gridX, m_viewOffsetY + moduleSize.height()-gridY,
-										moduleSize.width()-2*gridX, gridY);
-	m_leftArea = QRect(m_viewOffsetX, m_viewOffsetY+gridY,
-										gridX, moduleSize.height()-2*gridY);
-	m_rightArea = QRect(m_viewOffsetX + moduleSize.width()-gridX, m_viewOffsetY+gridY,
-										gridX, moduleSize.height()-2*gridY);
+	                     moduleSize.width()-2*gridX, gridY);
+	m_leftArea =   QRect(m_viewOffsetX, m_viewOffsetY+gridY,
+	                     gridX, moduleSize.height()-2*gridY);
+	m_rightArea =  QRect(m_viewOffsetX + moduleSize.width()-gridX, m_viewOffsetY+gridY,
+	                     gridX, moduleSize.height()-2*gridY);
 }
 
-	
 
-		

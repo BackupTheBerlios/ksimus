@@ -44,19 +44,17 @@ class ModuleInfo;
   *@author Rasmus Diekenbrock
   */
 
-
-
-enum ModuleViewType {	
-						MV_GENERIC = 0,
-						MV_USERVIEW,
-						MV_PIXMAP,
-						MV_NONE
-					};
+enum ModuleViewType {
+                       MV_GENERIC = 0,
+                       MV_USERVIEW,
+                       MV_PIXMAP,
+                       MV_NONE
+                    };
 enum ModulePixmapStoreType {
-						MPS_ABSOLTUE,
-						MPS_RELATIVE_MODULE,
-						MPS_INTERNAL
-					};					
+                              MPS_ABSOLTUE,
+                              MPS_RELATIVE_MODULE,
+                              MPS_INTERNAL
+                           };
 
 
 typedef QList<QPoint> PointList;
