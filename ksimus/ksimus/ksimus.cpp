@@ -138,6 +138,7 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 	
 	config=kapp->config();
 	
+	config->setGroup("General Options");
 	bool firstRead = config->readBoolEntry("First Start",true);
 	
 	if (firstRead)
@@ -622,9 +623,13 @@ void KSimusApp::slotFileOpen()
 		if(!url.isEmpty())
 		{
 			doc->openDocument(url);
-			setCaption(url.fileName(), false);
 			fileOpenRecent->addURL( url );
 		}
+		else
+		{
+			fileOpenRecent->setCurrentItem(-1);
+		}
+		setCaption(doc->URL().fileName(), false);
 	}
 	slotStatusMsg(i18n("Ready."));
 }
@@ -952,13 +957,13 @@ void KSimusApp::slotSettingTiming()
 
 	KDialogBase * dia;
 	dia = new KDialogBase(KDialogBase::TreeList,
-	                      i18n("Timings"),
+	                      i18n("Timings Settings"),
 	                      KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
 	                      KDialogBase::Ok,
 	                      this);
 	QVBox * page;
 	SimulationTimingWidget * wid;
-	page = dia->addVBoxPage(i18n("Timing"));
+	page = dia->addVBoxPage(i18n("Timing Settings"));
 	wid = new SimulationTimingWidget(getDocument()->getTiming(), page, "Information");
 	connect(dia, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
 	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
@@ -1035,13 +1040,13 @@ void KSimusApp::slotSettingWatchWidget()
 
 	KDialogBase * dia;
 	dia = new KDialogBase(KDialogBase::TreeList,
-	                      i18n("Watch"),
+	                      i18n("Watch Settings"),
 	                      KDialogBase::Default | KDialogBase::Ok | KDialogBase::Cancel,
 	                      KDialogBase::Ok,
 	                      this);
 	QVBox * page;
 	WatchWidgetPropertyWidget * wid;
-	page = dia->addVBoxPage(i18n("Timing"));
+	page = dia->addVBoxPage(i18n("Watch Settings"));
 	wid = new WatchWidgetPropertyWidget(getWatchWidget(), page, "watch setting");
 	connect(dia, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
 	connect(dia, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
