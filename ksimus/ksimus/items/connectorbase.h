@@ -91,8 +91,8 @@ public:
 	/** Returns the current absolute connector position.
 	  */	
 	QPoint getPos() const;
-	/** Compatiblity with old connector class. */
-	QPoint getWirePos() const { return getPos(); };
+	/** Returns the position where the wire has to connect. */
+	QPoint getWirePos() const;
 	
 	/** Returns true, if the given positon hit the connector. */
 	eHitType isHit(int x, int y) const;

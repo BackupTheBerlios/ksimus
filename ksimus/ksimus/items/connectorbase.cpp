@@ -249,6 +249,36 @@ QPoint ConnectorBase::getPos() const
 	return (getRelPos() + getComponent()->getSheetView()->getPos());
 }
 
+QPoint ConnectorBase::getWirePos() const
+{
+	QPoint pos(getPos());
+
+	switch (getOrientation())
+	{
+		case CO_LEFT:
+			pos.rx() -= gridX;
+			break;
+			
+		case CO_TOP:
+			pos.ry() -= gridY;
+			break;
+			
+		case CO_RIGHT:
+			pos.rx() += gridX;
+			break;
+			
+		case CO_BOTTOM:
+			pos.ry() += gridY;
+			break;
+		
+		default:
+			KSIMDEBUG_VAR("Bad orientation",getOrientation());
+			break;
+	}
+	return pos;
+}
+			
+
 /** Returns true, if the given positon hit the connector */
 eHitType ConnectorBase::isHit(int x, int y) const
 {
@@ -605,7 +635,14 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 			{
 				p->drawEllipse(x-3, y-2, 6 , 6);
 			}
-			p->drawLine(x, y-gridY/2, x, y+gridY/2);
+			if (getWire()) //wired?
+			{
+				p->drawLine(x, y-gridY, x, y+gridY/2);
+			}
+			else
+			{
+				p->drawLine(x, y-gridY/2, x, y+gridY/2);
+			}
 		}
 		break;
 			
@@ -615,7 +652,14 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 			{
 				p->drawEllipse(x-gridX/2, y-3, 6 , 6);
 			}
-			p->drawLine(x-gridX/2, y, x+gridX/2, y);
+			if (getWire()) //wired?
+			{
+				p->drawLine(x-gridX/2, y, x+gridX, y);
+			}
+			else
+			{
+				p->drawLine(x-gridX/2, y, x+gridX/2, y);
+			}
 		}
 		break;
 		
@@ -625,7 +669,14 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 			{
 				p->drawEllipse(x-3, y-4, 6 , 6);
 			}
-			p->drawLine(x, y-gridY/2, x, y+gridY/2);
+			if (getWire()) //wired?
+			{
+				p->drawLine(x, y-gridY/2, x, y+gridY);
+			}
+			else
+			{
+				p->drawLine(x, y-gridY/2, x, y+gridY/2);
+			}
 		}
 		break;
 		
@@ -635,7 +686,14 @@ void ConnectorBase::draw (QPainter * p, ConnOrientationType orient,  int x, int 
 			{
 				p->drawEllipse(x-2, y-3, 6 , 6);
 			}
-			p->drawLine(x-gridX/2, y, x+gridX/2, y);
+			if (getWire()) //wired?
+			{
+				p->drawLine(x-gridX, y, x+gridX/2, y);
+			}
+			else
+			{
+				p->drawLine(x-gridX/2, y, x+gridX/2, y);
+			}
 		}
 		break;
 
