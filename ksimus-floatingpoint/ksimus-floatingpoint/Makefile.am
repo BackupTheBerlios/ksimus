@@ -5,7 +5,7 @@ lib_LTLIBRARIES = libksimus-floatingpoint.la
 ## INCLUDES were found outside kdevelop specific part
 
 
-LDFLAGS =      -shared
+LDFLAGS =   -shared
 
 libksimus_floatingpoint_la_METASOURCES = AUTO
 

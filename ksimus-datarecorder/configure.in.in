@@ -1,6 +1,6 @@
 #MIN_CONFIG
 
-AM_INIT_AUTOMAKE(ksimus-datarecorder,0.3.6)
+AM_INIT_AUTOMAKE(ksimus-datarecorder,0.3.7-cvs)
 
 AC_DEFUN(CHECK_KSIMUS_HEADER,
 [

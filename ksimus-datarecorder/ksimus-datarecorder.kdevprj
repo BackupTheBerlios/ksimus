@@ -21,14 +21,14 @@ addcxxflags=-fPIC
 bin_program=ksimus-datarecorder
 cflags=
 cppflags=
-cxxflags=\s-O2 -g2 -Wall
+cxxflags=\s-O2 -g2 -Wall -Wundef -Wpointer-arith -Wsign-compare -Wstrict-prototypes -Winline -Werror
 ldadd=
-ldflags=\s   -shared
+ldflags=\s     -shared
 
 [General]
 AMChanged=false
 author=Rasmus Diekenbrock
-configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --prefix=/opt/kde2\s
+configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux\s
 email=ksimus@gmx.de
 kdevprj_version=1.3
 lfv_open_groups=GNU,Headers,Sources,Translations
@@ -40,7 +40,7 @@ project_type=kpart_plugin
 sgml_file=/home/rasmus/ksimus-datarecorder/doc/en/index.docbook
 short_info=A data recorder for KSimus
 sub_dir=ksimus-datarecorder/
-version=0.3.6
+version=0.3.7-cvs
 version_control=None
 workspace=1
 
