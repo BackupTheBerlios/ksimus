@@ -1,3 +1,8 @@
+	07.03.2002
+* New: Component documentation
+* New: French translation from Aurelien Jarno. Thanks!
+* New: German translation.
+* Fix: better version request in configure.in.in. Thanks Aurelien!
 	18.02.2002
 * Fix: Datarecorder connector management
 * Fix: Drawing floating point channel
