@@ -94,7 +94,7 @@ void ComponentListView::slotSelection(QListViewItem * lvi)
 	if (m_leastSelected && (m_leastSelected->getComponentInfo()) && m_leastSelected->isCorrectView())
 	{
 		emit signalSelection(m_leastSelected->getComponentInfo());
-//		KSIMDEBUG_VAR("",m_leastSelected->getComponentInfo()->getName());
+		KSIMDEBUG(m_leastSelected->getComponentInfo()->getName());
 	}
 	else
 	{
@@ -133,8 +133,7 @@ void ComponentListView::insert(const ComponentLibraryItem * cli, bool open)
 	
 		if (libNames)
 		{
-			QStringList::Iterator it;
-			for (it = libNames->begin(); it != libNames->end(); ++it)
+			for (QStringList::ConstIterator it = libNames->begin(); it != libNames->end(); ++it)
 			{
 				insert(*it, cli->getComponentInfo(), open);
 			}

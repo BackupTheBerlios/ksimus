@@ -55,7 +55,7 @@ bool ComponentLibraryItem::isAdditionalLibName(const QString & name) const
 	
 	if (m_additionalI18nLibNames)
 	{
-		for (QStringList::Iterator it = m_additionalI18nLibNames->begin(); it != m_additionalI18nLibNames->end(); ++it)
+		for (QStringList::ConstIterator it = m_additionalI18nLibNames->begin(); it != m_additionalI18nLibNames->end(); ++it)
 		{
 			if (name == *it)
 			{

@@ -63,7 +63,7 @@ bool BaseLibraryItem::isOldLibName(const QString & name) const
 	
 	if (m_oldLibNames)
 	{
-		for (QStringList::Iterator it = m_oldLibNames->begin(); it != m_oldLibNames->end(); ++it)
+		for (QStringList::ConstIterator it = m_oldLibNames->begin(); it != m_oldLibNames->end(); ++it)
 		{
 			if (name == *it)
 			{

@@ -54,7 +54,7 @@ bool ComponentLibrary::insert (const ComponentInfo * ci, const PackageInfo * pac
 		
 		if (cli->getAdditionalI18nLibNames())
 		{
-			for (QStringList::Iterator it = cli->getAdditionalI18nLibNames()->begin(); it != cli->getAdditionalI18nLibNames()->end(); ++it)
+			for (QStringList::ConstIterator it = cli->getAdditionalI18nLibNames()->begin(); it != cli->getAdditionalI18nLibNames()->end(); ++it)
 			{
 				if (!m_oldLibNames->find(*it))
 				{
@@ -64,9 +64,7 @@ bool ComponentLibrary::insert (const ComponentInfo * ci, const PackageInfo * pac
 				}
 				else
 				{
-					KSIMDEBUG("Multiple addtionalLibNames");
-					KSIMDEBUG_VAR("",*it);
-					KSIMDEBUG_VAR("",cli->getBaseInfo()->getLibName());
+					KSIMDEBUG(QString::fromLatin1("Multiple addtionalLibNames %1 %2").arg(*it).arg(cli->getBaseInfo()->getLibName()));
 				}
 			}
 		}   	
@@ -120,7 +118,7 @@ bool ComponentLibrary::remove(const QString & libName)
 		
 		if (cli->getAdditionalI18nLibNames())
 		{
-			for (QStringList::Iterator it = cli->getAdditionalI18nLibNames()->begin(); it != cli->getAdditionalI18nLibNames()->end(); ++it)
+			for (QStringList::ConstIterator it = cli->getAdditionalI18nLibNames()->begin(); it != cli->getAdditionalI18nLibNames()->end(); ++it)
 			{
 				if (cli == m_additionalLibNames->find(*it))
 				{
