@@ -30,6 +30,8 @@
 #include <qpaintdevicemetrics.h>
 
 // include files for KDE
+#include <kinstance.h>
+#include <kapp.h>
 #include <kprinter.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -54,6 +56,7 @@
 #include "moduledata.h"
 #include "ksimdebug.h"
 #include "componentpropertydialog.h"
+#include "packageinfo.h"
 
 
 // Scroll directions
@@ -71,38 +74,6 @@
 #define RS_Down		8
 
 #define RS_HANDLE_SIZE 8
-
-
-//###################################################################
-//###################################################################
-
-class DynamicTip: public QToolTip
-{
-public:	
-	DynamicTip(QWidget * parent)
-		:	QToolTip(parent),
-			m_text(QString::null)
-	{
-    // no explicit initialization needed
-	};
-	
-	~DynamicTip() {};
-
-	virtual void maybeTip(const QPoint &pos);
-	
-	QString m_text;
-};
-
-
-
-void DynamicTip::maybeTip( const QPoint &pos )
-{
-	if (m_text.isNull())
-		return;
-	QRect r( pos - QPoint(3,3), pos + QPoint(3,3));
-
-	tip( r, m_text );
-}
 
 
 //###################################################################
@@ -207,8 +178,6 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	drawMap = new QPixmap;
 	CHECK_PTR(drawMap);
   	
-	m_myTip = new DynamicTip(this);
-	CHECK_PTR(m_myTip);
 	m_myCursor = new KSimEditorCursor(this);
 	CHECK_PTR(m_myCursor);
 	
@@ -868,7 +837,6 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			case INVALID_HIT:
 			case NO_HIT:
 				delayedStatusHelpMsg(QString::null);
-				m_myTip->m_text = QString::null;
 				break;
 			
 			case NORMAL_HIT:
@@ -877,15 +845,12 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			case COMP_RESIZE_F_HIT:
 			case COMP_RESIZE_B_HIT:
 				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(), 0));
-				m_myTip->m_text = getComponentPartName(getContainer()->getFirstCompView()->getComponent(), 0);
 				break;
 				
 			case CONNECTOR_HIT:
 			{
 				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
 				                                      getContainer()->getFirstConnector()));
-				m_myTip->m_text = getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
-				                                      getContainer()->getFirstConnector());
 				break;
 			}
 		}
@@ -1618,9 +1583,6 @@ QPoint KSimEditor::resizingMap(const QPoint & mousePos, bool increaseOnly)
 				isMapResized = true;
 				getDoc()->setModified();
 			}
-/*			getContainer()->setSheetSize(size);
-			size = getContainer()->getSheetSize();
-			getView()->resizeContents(size.width(),	size.height()/);*/
 			getDoc()->setSheetSize(size);
 		}
 		else
@@ -1631,14 +1593,8 @@ QPoint KSimEditor::resizingMap(const QPoint & mousePos, bool increaseOnly)
 				isMapResized = true;
 				getDoc()->setModified();
 			}
-/*			getContainer()->setUserSize(size);
-			size = getContainer()->getUserSize();
-			getView()->resizeContents(size.width(), size.height());*/
 			getDoc()->setUserSize(size);
 		}
-/*		setFixedSize( size );
-		drawMap->resize(size);*/
-		
 		
 		if (!move.isNull())
 		{
@@ -1676,11 +1632,7 @@ void KSimEditor::backgroundPopup()
 	menu->insertSeparator();
 	menu->insertItem(i18n("New component"), compMenu, ID_COMP_MENU);
 
-//	connect(menu, SIGNAL(highlighted(int)), getApp(), SLOT(statusCallback(int)));
-	
 	res = menu->exec(QCursor::pos());
-	
-//	getApp()->commandCallback(res);
 	
 	delete menu;
 }
@@ -1690,6 +1642,7 @@ void KSimEditor::backgroundPopup()
 void KSimEditor::componentPopup(bool connectorHit)
 {
 	int idx, connIdx;
+	int helpIdx = 0;
 	int rot0Idx = 0;
 	int rot90Idx = 0;
 	int rot180Idx = 0;
@@ -1765,6 +1718,14 @@ void KSimEditor::componentPopup(bool connectorHit)
 		menu->insertSeparator();
 		idx = menu->insertItem(i18n("P&roperties"));
 		connIdx = menu->insertItem(i18n("C&onnector Properties"));
+		
+		if (comp->getInfo()->getHTMLDescr() != QString::null)
+		{
+			menu->insertSeparator();
+			helpIdx = menu->insertItem(i18n("&Help %1").arg(comp->getInfo()->getName()));
+		}
+		
+		
 		// Execute popup
 		res = menu->exec(QCursor::pos());
 		
@@ -1814,6 +1775,20 @@ void KSimEditor::componentPopup(bool connectorHit)
 			getContainer()->routeComponents();
 			refresh();
 		}
+		else if (res == helpIdx)
+		{
+			const ComponentInfo * ci = comp->getInfo();
+			const PackageInfo * pi = g_library->getComponentLib()->getPackageInfo(ci->getLibName());
+			
+			if (pi)
+			{
+				kapp->invokeHelp(ci->getHTMLDescr(), pi->getInstance()->instanceName());
+			}
+		}
+		
+		
+
+		
 		// Not deleted ?
 		if (getContainer()->getComponentList()->find(comp) != -1)
 		{
@@ -1985,3 +1960,6 @@ void KSimEditor::slotDelayedStatusHelpMsg()
 		emit signalStatusHelpMsg(delayedStatusHelpMsgString);
 	}
 }
+
+
+

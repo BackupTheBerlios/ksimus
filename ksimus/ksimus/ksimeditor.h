@@ -39,7 +39,6 @@ class CompContainer;
 class ConnectorBase;
 class Wire;
 class ComponentInfo;
-class DynamicTip;
 class KSimEditorCursor;
 class KPrinter;
 
@@ -159,7 +158,7 @@ protected: // Protected methods
 	void wirePopup(const QPoint & pos);
   /** Sets a proper cursor. */
 	void setEditorCursor(QPoint * pMousePos, eHitType hit) const;
-
+	
 private:	
 	/** Displays the status message msg delayed */
 	void delayedStatusHelpMsg(const QString & msg);
@@ -193,7 +192,6 @@ private:
 	int resizeDir;
 	
 	const ComponentInfo * m_insertCI;
-	DynamicTip * m_myTip;
 	KSimEditorCursor * m_myCursor;
 	
 
