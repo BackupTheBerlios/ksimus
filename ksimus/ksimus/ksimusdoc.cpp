@@ -392,7 +392,7 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 			{
 				// Ups, file does not exist
 				KMessageBox::error(0,i18n("Ups, file does not exist after writing it!"),i18n("Save Document"));
-				setURL(oldUrl); // Resore old name
+				setURL(oldUrl); // Restore old name
 				res = false;
 			}
 			else
@@ -418,8 +418,8 @@ bool KSimusDoc::saveDocument(const KURL& url, const char */*format =0*/)
 				
 		if(!KIO::NetAccess::upload( tmpFile.name(), url ))
 		{
-			KMessageBox::error(0,i18n("File not writen!\n\n").arg(KIO::NetAccess::lastErrorString()),i18n("Save Document"));
-			setURL(oldUrl); // Resore old name
+			KMessageBox::error(0,i18n("File not writen!\n\n%1").arg(KIO::NetAccess::lastErrorString()),i18n("Save Document"));
+			setURL(oldUrl); // Restore old name
 			res = false;
 		}
 		else

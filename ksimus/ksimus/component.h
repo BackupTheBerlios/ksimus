@@ -178,7 +178,7 @@ public:
 	virtual void setupCircuit();
 	
 	/** Checks the component property. The functions is called after the
-	*		property dialog.
+	*   property dialog.
 	*   Eg. all connectors have unique names.
 	*   The default implementation checks the connector names and calls the checks functions of the connectors.
 	*
@@ -186,18 +186,18 @@ public:
 	*/
 	virtual void checkProperty(QStringList & errorMsg);
 	
-  /**	Executes the property check.
-  	*
-  	*	Calls @ref checkProperty and evaluates the result. The function does nothing without detected errors.
-  	*	With one or more error the error messages will be display in the log list and in a message box and a
-  	*	(hidden) undo will be executed.
-  	*
-  	* Don't forget to serve the undo mechanism *before* calling this function.
-  	*
-  	*	The function returns the number of errors.
-  	*/
+	/** Executes the property check.
+	*
+	* Calls @ref checkProperty and evaluates the result. The function does nothing without detected errors.
+	* With one or more error the error messages will be display in the log list and in a message box and a
+	* (hidden) undo will be executed.
+	*
+	* Don't forget to serve the undo mechanism *before* calling this function.
+	*
+	* The function returns the number of errors.
+	*/
   unsigned int executePropertyCheck();
-		
+	
 	/** Executes the simulation of this component */
 	virtual void calculate();
 	/** Reset all simulation variables */

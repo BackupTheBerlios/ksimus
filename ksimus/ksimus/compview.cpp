@@ -597,7 +597,7 @@ void CompView::print(QPainter * paint)
 {
 	draw(paint);
 
-  QWidget * pWid;
+	QWidget * pWid;
 	if (getWidgetList() && (pWid = getWidgetList()->getFirstWidget()))
 	{
 		// Reset the compView translation (a little bit ugly :)
