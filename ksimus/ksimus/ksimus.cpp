@@ -55,7 +55,6 @@
 #include "moduledialog.h"
 #include "module.h"
 #include "loglist.h"
-#include "loglistitem.h"
 #include "loglistdialogwidget.h"
 #include "ksimpackagefilewidget.h"
 #include "ksimmodulefilewidget.h"
@@ -204,18 +203,24 @@ KSimusApp::KSimusApp(QWidget* , const char* name)
 		m_pastAllowed = true;
   }
 	slotSetupActions();
-//	fileSave->setEnabled(false);
-//	fileSaveAs->setEnabled(false);
-//	filePrint->setEnabled(false);
-//	editCut->setEnabled(false);
 
 	if(loadLib)
 	{
-		for (unsigned int i = 0; i < g_library->getMessages().count(); i++)
+		QStringList::ConstIterator it;
+		for (it = g_library->getInfoMessages().begin();
+		     it != g_library->getInfoMessages().end();
+		     ++it)
 		{
-    	LogListItem * item = new LogListItem(g_library->getMessages()[i], LOG_INFO);
-    	getLogList()->append(item);
+			getLogList()->info(*it);
 		}
+		for (it = g_library->getErrorMessages().begin();
+		     it != g_library->getErrorMessages().end();
+		     ++it)
+		{
+			getLogList()->error(*it);
+		}
+
+		g_library->clearMessageLists();
 	}
 }
 
