@@ -100,6 +100,7 @@ void OptionalConnector::addConnector(ConnectorBase * conn)
 		m_p->connList.append(conn);
 		conn->setHide(!isEnabled(), true);
 		connect(conn, SIGNAL(signalProperty()), SLOT(slotConnProperty()));
+		connect(conn, SIGNAL(destroyed()), SLOT(slotConnDestroyed()));
 	}
 	else
 	{
@@ -169,6 +170,16 @@ void OptionalConnector::slotConnProperty()
 		}
 	}
 	setEnabled(false);
+}
+
+void OptionalConnector::slotConnDestroyed()
+{
+	ConnectorBase * conn = (ConnectorBase *)sender();
+
+	if (!m_p->connList.removeRef(conn))
+	{
+		KSIMDEBUG("Connector not found!!!");
+	}
 }
 
 

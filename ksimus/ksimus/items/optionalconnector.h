@@ -102,6 +102,7 @@ protected:
 
 private slots:
 	void slotConnProperty();
+	void slotConnDestroyed();
 
 private:
 	void init();
