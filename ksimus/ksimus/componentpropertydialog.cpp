@@ -21,8 +21,6 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kconfig.h>
-#include <kapp.h>
 
 // Project-Includes
 #include "componentpropertydialog.h"
@@ -100,22 +98,12 @@ int ComponentPropertyDialog::execute(Component *comp, const QString & caption, Q
 	comp->initPropertyDialog(dia);
 
 	// Load last size
-	KConfig * config=kapp->config();
-	QString group(config->group());
-	config->setGroup("Component/Property Dialog");
-	QSize size=config->readSizeEntry("Geometry");
-	config->setGroup(group);
-	if(!size.isEmpty())
-	{
-		dia->resize(size);
-	}
+	dia->readSize("Component/Property Dialog");
 
 	result = dia->exec();
 
 	// Save size
-	config->setGroup("Component/Property Dialog");
-	config->writeEntry("Geometry", dia->size());
-	config->setGroup(group);
+	dia->writeSize("Component/Property Dialog");
 
 	delete dia;
 
