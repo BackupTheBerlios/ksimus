@@ -56,6 +56,9 @@ const ComponentInfo * getBooleanCounterInfo();
 
 class BooleanCounter : public Component
 {
+
+	Q_OBJECT
+
 public:
 	BooleanCounter(CompContainer * container, const ComponentInfo * ci);
 	~BooleanCounter();
