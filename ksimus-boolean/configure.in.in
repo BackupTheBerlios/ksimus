@@ -1,10 +1,10 @@
 #MIN_CONFIG
 
-AM_INIT_AUTOMAKE(ksimus-boolean,0.3.5)
+AM_INIT_AUTOMAKE(ksimus-boolean,0.3.5-1)
 
 AC_DEFUN(CHECK_KSIMUS_HEADER,
 [
-  AC_MSG_CHECKING("for KSimus Header");
+  AC_MSG_CHECKING(for KSimus Header);
 
   KSIMUS_HEADER_DIR=$includedir/ksimus
 
@@ -18,7 +18,7 @@ AC_DEFUN(CHECK_KSIMUS_HEADER,
 
 AC_DEFUN(CHECK_KSIMUS_BINARY,
 [
-  AC_MSG_CHECKING("for KSimus Binary");
+  AC_MSG_CHECKING(for KSimus Binary);
 
   KSIMUS_BINARY_DIR=$bindir
 
@@ -39,7 +39,7 @@ AC_DEFUN(CHECK_KSIMUS_BINARY,
 
 AC_DEFUN(CHECK_KSIMUS_VERSION,
 [
-  AC_MSG_CHECKING("KSimus version");
+  AC_MSG_CHECKING(KSimus version);
 
   eval "KSIMUS_VERSION=`$KSIMUS_BINARY_DIR/ksimus  --version | grep 'KSimus:' | cut -d ' ' -f 2`"
 
@@ -48,7 +48,7 @@ AC_DEFUN(CHECK_KSIMUS_VERSION,
   eval "PACKAGE_VERSION_LIMITED=`echo $VERSION | cut -d '-' -f 1 | cut -d '.' -f 1,2,3`"
 
 
-  if eval "test $KSIMUS_VERSION_LIMITED == $PACKAGE_VERSION_LIMITED"; then
+  if eval "test $KSIMUS_VERSION_LIMITED = $PACKAGE_VERSION_LIMITED"; then
     AC_MSG_RESULT(($KSIMUS_VERSION) yes)
   else
     AC_MSG_ERROR(KSimus version $KSIMUS_VERSION does not match package version $VERSION)
