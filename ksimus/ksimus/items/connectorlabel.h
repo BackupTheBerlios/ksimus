@@ -29,7 +29,7 @@
 
 // Forward declaration
 class ConnectorBase;
-
+class ConnectorBoolInEdge;
 
 /**Adds a label to a connector.
   *@author Rasmus Diekenbrock
@@ -45,6 +45,12 @@ public:
 		*	The objects will be deleted if the associated connector is deleted. Construct it and forget it :).
 		*/
 	ConnectorLabel(ConnectorBase * conn, const QString & descr);
+	
+	/** Constructs a new ConnnectorLabel.
+		*	Like the constructor above but accepts a edge sensitive boolean input connector. In this case
+		* the triangle is drawn, which marks a edge sensitive connector.
+		*/
+	ConnectorLabel(ConnectorBoolInEdge * conn, const QString & descr);
 	
 	/** Draw the sheet view.
 		* The implementation draws the text depending on the connectors direction.
@@ -65,9 +71,13 @@ private slots:
 	void slotConnDeleted();
 
 private:
+	/** Internal init function. */
+	void init();
+	
 	ConnectorBase * m_conn;
 	QString m_descr;
 	int m_spacing;
+	Q_UINT32 m_flags;
 
 };
 
