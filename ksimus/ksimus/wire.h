@@ -18,10 +18,6 @@
 #ifndef WIRE_H
 #define WIRE_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 // include QT-Header
 #include <qlist.h>
 #include <qpoint.h>
@@ -76,7 +72,11 @@ private:
 //##################################################################
 
 
-class WireSV: public CompView  {
+class WireSV: public CompView  
+{
+
+Q_OBJECT
+
 public:
 	WireSV(Component * comp);
 	~WireSV();
@@ -117,6 +117,8 @@ protected:
 
 class Wire : public Component
 {
+
+Q_OBJECT
 
 public:
 	
@@ -161,7 +163,7 @@ public:
 	const WirePropertyInfo * getPropertyInfo() const;
 	
 	/** Returns the current wire property. */
-	WireProperty * Wire::getWireProperty();
+	WireProperty * getWireProperty();
 	
 	/** Find the suitable wire property class for the given connectors
 	*   Returns a null pointer, if no suitable wire property class is found
