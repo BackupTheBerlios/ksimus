@@ -169,6 +169,8 @@ int DataRecorderChannelFloat::drawData(QPaintDevice * paintDev,
                                        int horizontalOffset, int height,
                                        double samplePerPixel, int verticalDivs)
 {
+	#define LIMIT 32767
+	#define LIMITER(a) (QMIN(QMAX(a,-LIMIT),LIMIT))
 	int index = startSample;
 	int counter = 0;
 	int horiPos = horizontalOffset;
@@ -186,13 +188,13 @@ int DataRecorderChannelFloat::drawData(QPaintDevice * paintDev,
 	if (stopSample >= m_data->count())
 		stopSample = m_data->count()-1; // Limit samples
 		
-	vertPos = lastVertPos = height - qRound(verticalGain * getData(index) + verticalOffset);
+	vertPos = lastVertPos = LIMITER(height - qRound(verticalGain * getData(index) + verticalOffset));
 	
 	while(index < stopSample)
 	{
 		index++;
 		counter++;
-		vertPos = height - qRound(verticalGain * getData(index) + verticalOffset);
+		vertPos = LIMITER(height - qRound(verticalGain * getData(index) + verticalOffset));
 		horiPos = horizontalOffset + qRound(counter / samplePerPixel);
 //		if(lastVertPos != vertPos)		// Speed up static signals
 		{
