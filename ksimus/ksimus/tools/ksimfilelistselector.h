@@ -87,7 +87,7 @@ public:
 //#####################################################################################
 //#####################################################################################
 
-class KSimPackageSelector : public QVBox
+/*class KSimPackageSelector : public QVBox
 {
    Q_OBJECT
 public:
@@ -104,7 +104,7 @@ private:
 	KSimDirectorySelector * m_directories;
 	
 
-};
+};*/
 
 
 

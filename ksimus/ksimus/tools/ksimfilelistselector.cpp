@@ -170,7 +170,7 @@ KSimDirectorySelector::KSimDirectorySelector(QWidget *parent, const char *name)
 //#####################################################################################
 //#####################################################################################
 
-KSimPackageSelector::KSimPackageSelector(QWidget *parent, const char *name)
+/*KSimPackageSelector::KSimPackageSelector(QWidget *parent, const char *name)
 	:	QVBox(parent,name)
 {
 	m_directories = new KSimDirectorySelector(this, "Package directories");
@@ -195,4 +195,4 @@ KSimFileListSelector * KSimPackageSelector::getFiles()
 KSimDirectorySelector * KSimPackageSelector::getDirectories()
 {
 	return m_directories;
-}
+} */
