@@ -81,6 +81,14 @@ ComponentInfo::ComponentInfo(
 {
 }
 	
+
+ComponentInfo::ComponentInfo(const ComponentInfo & ci)
+	:	BaseInfo(ci)
+{
+	// Copies are not allowed because there are some pointer comparisons !!!
+	ASSERT(0);
+}
+
 const QString & ComponentInfo::getI18nLibName() const
 {
 	return m_i18nLibName;

@@ -75,6 +75,8 @@ private:
 	const QString m_additionalI18nLibNames;
 	ViewAttribute m_viewAttr;
 	Component * (*m_factory)(CompContainer *, const ComponentInfo * ci);
+
+	ComponentInfo(const ComponentInfo & ci);
 };
 
 class ComponentInfoList : public QList<const ComponentInfo>
