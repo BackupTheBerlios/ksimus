@@ -50,6 +50,7 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	QLabel * label;
 	QIntValidator * vali;
 	QGridLayout * layout;
+	QString str;
 	
 	QRect allViews;
 	int minWidth, minHeight;
@@ -80,6 +81,9 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	vali = new QIntValidator(minWidth, 10000, m_schematicWidth, "m_schematicWidthValidator");
 	CHECK_PTR(vali);
 	m_schematicWidth->setValidator(vali);
+	str = i18n("Adjusts the width of the Schematic.");
+	addToolTip(str, label, m_schematicWidth);
+	addWhatsThis(str, label, m_schematicWidth);
 	
 	
 	// Schematic Height
@@ -91,6 +95,9 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	vali = new QIntValidator(minHeight, 10000, m_schematicHeight, "m_schematicHeightValidator");
 	CHECK_PTR(vali);
 	m_schematicHeight->setValidator(vali);
+	str = i18n("Adjusts the height of the Schematic.");
+	addToolTip(str, label, m_schematicHeight);
+	addWhatsThis(str, label, m_schematicHeight);
 	
 	// ##### User Interface #####
 	
@@ -118,6 +125,9 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	vali = new QIntValidator(minWidth, 10000, m_userWidth, "m_userWidthValidator");
 	CHECK_PTR(vali);
 	m_userWidth->setValidator(vali);
+	str = i18n("Adjusts the width of the User Interface.");
+	addToolTip(str, label, m_userWidth);
+	addWhatsThis(str, label, m_userWidth);
 	
 	// User Interface Height
 	label = new QLabel(i18n("Height:"), userBox);
@@ -128,6 +138,9 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	vali = new QIntValidator(minHeight, 10000, m_userHeight, "m_userHeightValidator");
 	CHECK_PTR(vali);
 	m_userHeight->setValidator(vali);
+	str = i18n("Adjusts the height of the User Interface.");
+	addToolTip(str, label, m_userHeight);
+	addWhatsThis(str, label, m_userHeight);
 	
 	
 	layout = new QGridLayout(this,3,2);	
