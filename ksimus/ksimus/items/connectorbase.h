@@ -77,6 +77,10 @@ public:
 	  * Position is given in grid !!!
 	  */
 	void setGridPos(const QPoint & position);
+	/** Set new connector position.
+	  * Position is given in grid !!!
+	  */
+	void setGridPos(int x, int y);
 	/** Returns the current relative connector position.
 	  * Position is given in grid !!!
 	  */	

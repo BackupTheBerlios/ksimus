@@ -220,6 +220,14 @@ void ConnectorBase::setGridPos(const QPoint & position)
 	m_p->connectorPos = position;
 }
 
+/** Set new connector position
+  * Position is given in grid !!!
+  */
+void ConnectorBase::setGridPos(int x, int y)
+{
+	setGridPos(QPoint(x,y));
+}
+
 /** Returns the current relative connector position
   * Position is given in grid !!!
   */	
