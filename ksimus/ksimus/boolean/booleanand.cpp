@@ -136,6 +136,7 @@ void BooleanAnd::calculate()
 	FOR_EACH_CONNECTOR(it, *m_inPack->getConnList())
 	{
 		m_result &= ((ConnectorBoolIn*)it.current())->getInput();
+		if (!m_result) break;	//  No more changes possible
 	}
 }
 
