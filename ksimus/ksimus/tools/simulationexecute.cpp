@@ -210,7 +210,7 @@ void SimulationExecute::execute()
 		MYDEBUG_VAR("Timed Execute", m_timedList->first()->getComponent()->getName());
 		executeComponentNext(m_timedList->first()->getComponent());
 		m_timedList->remove();
-	}
+	};
 			
 	
 	// Toggle index
