@@ -49,13 +49,13 @@ msgstr "Canal :"
 msgid ""
 "_: DataRecorder-Component\n"
 "Text Recorder"
-msgstr "Enregisteur de texte"
+msgstr "Enregistreur de texte"
 
 #: textrec.cpp:103
 msgid ""
 "_: DataRecorder-Component\n"
 "Recorder/Text Recorder"
-msgstr "Enregistreur/Enregisteur de texte"
+msgstr "Enregistreur/Enregistreur de texte"
 
 #: textrec.cpp:235
 msgid ""
@@ -193,13 +193,13 @@ msgstr "%1 s/div"
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
-msgstr "Enregisteur de données"
+msgstr "Enregistreur de données"
 
 #: datarecorder.cpp:234
 msgid ""
 "_: DataRecorder-Component\n"
 "Recorder/Data Recorder"
-msgstr "Enreigisteur/Enregisteur de données"
+msgstr "Enregistreur/Enregistreur de données"
 
 #: datarecorder.cpp:589 datarecorderview.cpp:88
 msgid ""

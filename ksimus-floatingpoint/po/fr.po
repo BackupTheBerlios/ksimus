@@ -119,7 +119,7 @@ msgstr "sin(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/sin(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/sin(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/sin(x)"
 
 #: floatsin.cpp:66
 msgid ""
@@ -131,7 +131,7 @@ msgstr "asin(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/asin(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/asin(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/asin(x)"
 
 #: floatsin.cpp:84
 msgid ""
@@ -143,7 +143,7 @@ msgstr "sinh(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/Hyperbolic/sinh(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/Hyperbolique/sinh(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/Hyperbolique/sinh(x)"
 
 #: floatsin.cpp:102
 msgid ""
@@ -155,7 +155,7 @@ msgstr "asinh() virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/Hyperbolic/asinh(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/Hyperbolique/asinh(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/Hyperbolique/asinh(x)"
 
 #: floatlineoutput.cpp:50
 msgid ""
@@ -199,7 +199,7 @@ msgstr "tan(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/tan(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/tan(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/tan(x)"
 
 #: floattan.cpp:66
 msgid ""
@@ -211,7 +211,7 @@ msgstr "atan(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/atan(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/atan(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/atan(x)"
 
 #: floattan.cpp:86
 msgid ""
@@ -223,7 +223,7 @@ msgstr "atan2(x, y) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/atan2(x,y)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/atan2(x, y)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/atan2(x, y)"
 
 #: floattan.cpp:106
 msgid ""
@@ -235,7 +235,7 @@ msgstr "tanh(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/Hyperbolic/tanh(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/Hyperbolique/tanh(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/Hyperbolique/tanh(x)"
 
 #: floattan.cpp:125
 msgid ""
@@ -247,7 +247,7 @@ msgstr "atanh(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/Hyperbolic/atanh(x)"
-msgstr "Virgule flottante/Arithmétique/Hyperbolique/atanh(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/Hyperbolique/atanh(x)"
 
 #: floattan.cpp:247
 msgid ""
@@ -665,7 +665,7 @@ msgstr "Retard"
 msgid ""
 "_: Component\n"
 "Floating Point/Timing/Delay"
-msgstr "Virgule Flottante/Temps/Retard"
+msgstr "Virgule flottante/Temps/Retard"
 
 #: delay.cpp:148
 #, c-format
@@ -1024,7 +1024,7 @@ msgstr "cos(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/cos(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/cos(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/cos(x)"
 
 #: floatcos.cpp:66
 msgid ""
@@ -1036,7 +1036,7 @@ msgstr "acos(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/acos(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/acos(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/acos(x)"
 
 #: floatcos.cpp:86
 msgid ""
@@ -1048,7 +1048,7 @@ msgstr "cosh(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/Hyperbolic/cosh(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/Hyperbolique/cosh(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/Hyperbolique/cosh(x)"
 
 #: floatcos.cpp:105
 msgid ""
@@ -1060,7 +1060,7 @@ msgstr "acosh(x) virgule flottante"
 msgid ""
 "_: Component\n"
 "Floating Point/Arithmetic/Trigonometric/Hyperbolic/acosh(x)"
-msgstr "Virgule flottante/Arithmétique/Trigonométrique/Hyperbolique/acosh(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrie/Hyperbolique/acosh(x)"
 
 #: extconnfloatout.cpp:36
 msgid ""
