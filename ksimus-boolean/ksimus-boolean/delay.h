@@ -69,7 +69,7 @@ public:
 	virtual bool load(KSimData & file, bool copyLoad);
 
 	/** Creates the general property page for the property dialog.
-	  * This function creeates a @ref DelayPropertyGeneralWidget.
+	  * This function creates a @ref DelayPropertyGeneralWidget.
 	  * This function is called by @ref addGeneralProperty*/
 	virtual ComponentPropertyBaseWidget * createGeneralProperty(QWidget *parent);
 
