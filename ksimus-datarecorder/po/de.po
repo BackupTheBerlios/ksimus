@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-04-20 20:11+0200\n"
-"PO-Revision-Date: 2002-04-20 20:16GMT\n"
-"Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"POT-Creation-Date: 2002-10-01 19:52+0200\n"
+"PO-Revision-Date: 2002-10-01 20:07+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: channelpositionwidget.cpp:70
 msgid ""
@@ -38,12 +38,146 @@ msgid ""
 "Boolean"
 msgstr "Boolean"
 
-#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:220
+#: datarecorderchannelboolean.cpp:227 datarecorderchannelfloat.cpp:222
 #: datarecorderwidget.cpp:177
 msgid ""
 "_: DataRecorder\n"
 "Channel:"
 msgstr "Channel:"
+
+#: textrec.cpp:101
+msgid ""
+"_: DataRecorder-Component\n"
+"Text Recorder"
+msgstr "Textrecorder"
+
+#: textrec.cpp:103
+msgid ""
+"_: DataRecorder-Component\n"
+"Recorder/Text Recorder"
+msgstr "Recorder/Text Recorder"
+
+#: textrec.cpp:235
+msgid ""
+"_: DataRecorder-Connector\n"
+"Trigger"
+msgstr "Trigger"
+
+#: textrec.cpp:236
+msgid ""
+"_: DataRecorder-Connector Trigger\n"
+"T"
+msgstr "T"
+
+#: textrec.cpp:242
+msgid ""
+"_: DataRecorder\n"
+"Trigger input:"
+msgstr "Triggereingang:"
+
+#: textrec.cpp:326
+msgid "Creation of Connector %1 failed!"
+msgstr "Erzeugung des Anschlusses %1 fehlgeschlagen!"
+
+#: textrec.cpp:611
+msgid "Filename is not valid. Document not saved?"
+msgstr "Dateiname ist nicht gültig. Dokument nicht gespeichert?"
+
+#: textrec.cpp:620
+msgid "File %1 is not writable"
+msgstr "Datei %1 ist nicht beschreibbar"
+
+#: textrec.cpp:632
+msgid "Directory %1 not exists"
+msgstr "Verzeichnis %1 exisitiert nicht"
+
+#: textrec.cpp:676
+msgid "File open failed (Filename %1)"
+msgstr "Öffnen der Datei (Dateiname %1) fehlgeschlagen"
+
+#: textrec.cpp:684
+msgid "No filename"
+msgstr "Kein Dateiname"
+
+#: textrec.cpp:697
+msgid "Add &boolean connector"
+msgstr "Neuer &boolscher Anschluß"
+
+#: textrec.cpp:698
+msgid "Add &floating point connector"
+msgstr "Neuer &floating point Anschluß"
+
+#: textrec.cpp:707 textrec.cpp:719
+msgid "Add channel"
+msgstr "Neuer Kanal"
+
+#: textrec.cpp:738
+msgid "Remove channel"
+msgstr "Lösche Kanal"
+
+#: textrec.cpp:908
+msgid "File:"
+msgstr "Datei:"
+
+#: textrec.cpp:917
+msgid "Column separator:"
+msgstr "Separator zwischen Spalten:"
+
+#: textrec.cpp:921
+msgid "Edit the column separator here."
+msgstr "Geben Sie hier das Zeichen / den Text ein, der die Spalten separieren soll."
+
+#: textrec.cpp:929
+msgid "Switches:"
+msgstr "Schalter:"
+
+#: textrec.cpp:932
+msgid "Append data to existing file"
+msgstr "Füge Daten an eine vorhandene Datei an:"
+
+#: textrec.cpp:935
+msgid ""
+"If checked an exisiting file will not be deleted before a new simulations is "
+"started."
+msgstr "Wenn das Feld markiert ist wird die Datei gelöscht bevor eine neue Simulation gestartet wird."
+
+#: textrec.cpp:939
+msgid "Add date and time at the top"
+msgstr "Füge Datum und Uhrzeit am Anfang ein"
+
+#: textrec.cpp:942
+msgid ""
+"If checked the date and time of the simulation start is added top of the new "
+"data."
+msgstr ""
+"Wenn das Feld markiert ist wird das Datum und die Uhrzeit\n"
+"des Simulationsstarts am Anfang des Dokuments eingetragen."
+
+#: textrec.cpp:946
+msgid "Add the connector names at the top"
+msgstr "Füge Anschlußnamen am Anfang ein"
+
+#: textrec.cpp:949
+msgid "If checked the the connector names are added top of the new data."
+msgstr "Wenn das Feld markiert ist werden die Anschlußnamen am Anfang des Dokuments eingetragen."
+
+#: textrec.cpp:954
+msgid "Add line numbers"
+msgstr "Füge Zeilennummern ein"
+
+#: textrec.cpp:957
+msgid "If checked the lines in the log file are numbered."
+msgstr "Wenn das Feld markiert ist werden die Zeilen des Datei nummeriert."
+
+#: textrec.cpp:961
+msgid "Add time stamp"
+msgstr "Füge Zeitstempel ein"
+
+#: textrec.cpp:964
+msgid ""
+"If checked a time stamp is added in front of each line (after the optional "
+"line number)."
+msgstr "Wenn das Feld markiert ist wird am Anfang jeder Zeile (jedoch nach der optionalen Zeilennummer) ein Zeitstempel eingefügt."
 
 #: zoomwidget.cpp:219
 msgid ""
@@ -57,37 +191,43 @@ msgid ""
 "%1 s/div"
 msgstr "%1 s/div"
 
-#: datarecorder.cpp:207 datarecorder.cpp:209
+#: datarecorder.cpp:232
 msgid ""
 "_: DataRecorder-Component\n"
 "Data Recorder"
 msgstr "Data Recorder"
 
-#: datarecorder.cpp:572 datarecorderview.cpp:87
+#: datarecorder.cpp:234
+msgid ""
+"_: DataRecorder-Component\n"
+"Recorder/Data Recorder"
+msgstr "Recorder/Data Recorder"
+
+#: datarecorder.cpp:589 datarecorderview.cpp:88
 msgid ""
 "_: DataRecorder\n"
 "&Open graph"
 msgstr "Öffne &Graph"
 
-#: datarecorder.cpp:573
+#: datarecorder.cpp:590
 msgid ""
 "_: DataRecorder\n"
 "Add &boolean connector"
 msgstr "Neuer &boolscher Anschluß"
 
-#: datarecorder.cpp:574
+#: datarecorder.cpp:591
 msgid ""
 "_: DataRecorder\n"
 "Add &floating point connector"
 msgstr "Neuer &floating point Anschluß"
 
-#: datarecorder.cpp:597 datarecorder.cpp:608
+#: datarecorder.cpp:614 datarecorder.cpp:625
 msgid ""
 "_: DataRecorder\n"
 "Add channel"
 msgstr "Neuer Kanal"
 
-#: datarecorder.cpp:624
+#: datarecorder.cpp:641
 msgid ""
 "_: DataRecorder\n"
 "Remove channel"
