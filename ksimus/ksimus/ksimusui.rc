@@ -33,6 +33,7 @@
     <Action name="setting_timing"/>
     <Action name="setting_grid"/>
     <Action name="setting_packageFiles"/>
+    <Action name="setting_moduleFiles"/>
     <Action name="setting_watchWidget"/>
     <Action name="setting_logWidget"/>
   </Menu>

@@ -211,6 +211,7 @@ public slots:
 	void slotSettingTiming();
 	void slotSettingGrid();
 	void slotSettingPackageFiles();
+	void slotSettingModuleFiles();
 	void slotSettingWatchWidget();
 	void slotSettingLogWidget();
 
@@ -295,6 +296,7 @@ private:
 	KAction* settingTiming;
 	KAction* settingGrid;
 	KAction* settingPackageFiles;
+	KAction* settingModuleFiles;
 	KAction* settingWatchWidget;
 	KAction* settingLogWidget;
 	

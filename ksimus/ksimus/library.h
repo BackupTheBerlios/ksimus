@@ -49,7 +49,13 @@ protected:
 	void addPackageFiles();
 	void makeHandle(const QString & filename);
 	void makeHandle(const QStringList & filenames);
-  void scanPackageDir(const QString & dirname);
+	void scanPackageDir(const QString & dirname);
+
+	void addModuleDirs();
+	void scanModuleDir(const QString & dirname);
+	void addModuleFiles();
+	void loadModule(const QString & filename);
+
 
 private:
 	LibraryPrivate * m_p;

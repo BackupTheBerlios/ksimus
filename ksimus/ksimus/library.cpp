@@ -28,6 +28,7 @@
 #include "config.h"
 #include "library.h"
 #include "packageinfo.h"
+#include "moduleinfo.h"
 
 #include "componentlibrary.h"
 #include "connectorlibrary.h"
@@ -186,6 +187,7 @@ public:
 	};
 	
 	QList<KSimPackageHandle> m_handleList;
+	QStringList m_moduleList;
 
 };
 
@@ -229,6 +231,13 @@ Library::Library()
 		
 	loadPackageFiles();
 
+	addModuleDirs();
+	addModuleFiles();
+
+	m_componentLibrary->resize();
+	m_connectorLibrary->resize();
+	m_wirePropertyLibrary->resize();
+	m_implicitConverterLibrary->resize();
 }
 
 Library::~Library()
@@ -367,9 +376,6 @@ void Library::loadPackageFiles()
 		}
 	}
 	
-	m_componentLibrary->resize();
-	m_connectorLibrary->resize();
-	m_wirePropertyLibrary->resize();
 }
 
 void Library::addPackageDirs()
@@ -417,7 +423,8 @@ void Library::scanPackageDir(const QString & dirname)
 		const QFileInfoList * infoList = dir.entryInfoList(QDir::Files | QDir::Readable);
 		for(QListIterator<QFileInfo> it(*infoList);it.current();++it)
 		{
-			makeHandle(dirname + it.current()->baseName());
+//			makeHandle(dirname + it.current()->baseName());
+			makeHandle(QString::fromLatin1("%1/%2").arg(dirname).arg(it.current()->baseName()));
 		}
 	}
 }
@@ -455,6 +462,7 @@ void Library::makeHandle(const QString & filename)
 		if (m_p->m_handleList.at(u)->getFilename() == filename)
 		{
 			found = true;
+			break;
 		}
 	}
 	
@@ -479,7 +487,107 @@ void Library::makeHandle(const QStringList & filenames)
 	}
 }
 
+void Library::addModuleDirs()
+{
+	KConfig * config = kapp->config();
 
-	
-	
-	
+	QString group(config->group());
+
+	config->setGroup("Modules");
+
+	QStringList dirList;
+
+	dirList = config->readListEntry("Directories");
+
+	unsigned int u;
+
+	for (u = 0; u < dirList.count(); u++)
+	{
+		scanModuleDir(dirList[u]);
+	}
+
+	config->setGroup(group);
+}
+
+void Library::scanModuleDir(const QString & dirname)
+{
+	//KSIMDEBUG(dirname);
+	QFileInfo fi(dirname);
+
+	if (fi.exists() && fi.isDir() && fi.isReadable())
+	{
+		QDir dir(dirname);
+
+		QStringList list = dir.entryList(QDir::Dirs | QDir::Readable);
+
+		unsigned int u;
+
+		for (u = 0; u < list.count(); u++)
+		{
+			//KSIMDEBUG(list[u]);
+			if ((list[u] != QString::fromLatin1(".")) && (list[u] != QString::fromLatin1("..")))
+			{
+				scanModuleDir(dirname + list[u]);
+			}
+		}
+
+		dir.setNameFilter(QString::fromLatin1("*.sim"));
+		const QFileInfoList * infoList = dir.entryInfoList(QDir::Files | QDir::Readable);
+		for(QListIterator<QFileInfo> it(*infoList);it.current();++it)
+		{
+			loadModule(QString::fromLatin1("%1/%2.sim").arg(dirname).arg(it.current()->baseName()));
+		}
+	}
+}
+
+
+void Library::addModuleFiles()
+{
+	KConfig * config = kapp->config();
+	QString group(config->group());
+	config->setGroup("Modules");
+	QStringList fileList(config->readListEntry("Files"));
+
+	unsigned int u;
+
+	for (u = 0; u < fileList.count(); u++)
+	{
+		loadModule(fileList[u]);
+	}
+
+	config->setGroup(group);
+}
+
+void Library::loadModule(const QString & filename)
+{
+	bool found = false;
+
+	for (QStringList::Iterator it = m_p->m_moduleList.begin(); it != m_p->m_moduleList.end(); ++it)
+	{
+		if (*it == filename)
+		{
+			found = true;
+			break;
+		}
+	}
+
+	if (!found)
+	{
+		const ModuleInfo * mi = ModuleData::makeModuleInfo(filename);
+		if (mi)
+		{
+			m_componentLibrary->insert(mi, 0);
+			QString msg = i18n("Load module %1 (%2)").arg(mi->getName()).arg(filename);
+			m_messages->append(msg);
+			//KSIMDEBUG(msg);
+		}
+		else
+		{
+			// No valid module
+			QString msg = i18n ("The file %1 contains no valid module!").arg(filename);
+			m_messages->append(msg);
+			//KSIMDEBUG(msg);
+		}
+		m_p->m_moduleList.append(filename);
+	}
+}

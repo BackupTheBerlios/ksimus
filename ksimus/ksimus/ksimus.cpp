@@ -58,6 +58,7 @@
 #include "loglistitem.h"
 #include "loglistdialogwidget.h"
 #include "ksimpackagefilewidget.h"
+#include "ksimmodulefilewidget.h"
 #include "mapsizeswidget.h"
 #include "watchwidget.h"
 
@@ -258,6 +259,7 @@ void KSimusApp::initActions()
 	settingTiming = new KAction(i18n("&Timing"), 0, this, SLOT(slotSettingTiming()), actionCollection(), "setting_timing");
 	settingGrid = new KAction(i18n("&Grid"), 0, this, SLOT(slotSettingGrid()), actionCollection(), "setting_grid");
 	settingPackageFiles  = new KAction(i18n("&Package Files"), 0, this, SLOT(slotSettingPackageFiles()), actionCollection(), "setting_packageFiles");
+	settingModuleFiles  = new KAction(i18n("&Module Files"), 0, this, SLOT(slotSettingModuleFiles()), actionCollection(), "setting_moduleFiles");
 	settingWatchWidget  = new KAction(i18n("&Watch"), 0, this, SLOT(slotSettingWatchWidget()), actionCollection(), "setting_watchWidget");
 	settingLogWidget  = new KAction(i18n("&Log Window"), 0, this, SLOT(slotSettingLogWidget()), actionCollection(), "setting_logWidget");
 	
@@ -306,6 +308,7 @@ void KSimusApp::initActions()
 	settingTiming->setToolTip(i18n("Setup simulation timing"));
 	settingGrid->setToolTip(i18n("Setup grid"));
 	settingPackageFiles->setToolTip(i18n("Select packages"));
+	settingModuleFiles->setToolTip(i18n("Select modules"));
 	settingWatchWidget->setToolTip(i18n("General watch settings"));
 	settingLogWidget->setToolTip(i18n("Log Window Properties"));
 
@@ -431,17 +434,13 @@ KSimEditor * KSimusApp::getActiveEditor() const
 /** returns a pointer to the log list widget */	
 LogList * KSimusApp::getLogList() const
 {
-	if(baseWin)
-		return baseWin->getLogWidget();
-	return 0;
+	return (baseWin) ? baseWin->getLogWidget() : (LogList *)0;
 }
 
 /** returns a pointer to the watch widget */	
 WatchWidget * KSimusApp::getWatchWidget() const
 {
-	if(baseWin)
-		return baseWin->getWatchWidget();
-	return 0;
+	return (baseWin) ? baseWin->getWatchWidget() : (WatchWidget *)0;
 }
 
 void KSimusApp::saveOptions()
@@ -1043,6 +1042,35 @@ void KSimusApp::slotSettingPackageFiles()
 	slotStatusMsg(i18n("Ready."));
 }
 
+void KSimusApp::slotSettingModuleFiles()
+{
+	slotStatusMsg(i18n("Setup module files..."));
+
+	KSimModuleFileDialog * dia = new KSimModuleFileDialog();
+
+	// Load last size
+	QString group(config->group());
+	config->setGroup("Modules/File Dialog");
+	QSize size=config->readSizeEntry("Geometry");
+	config->setGroup(group);
+	if(!size.isEmpty())
+	{
+		dia->resize(size);
+	}
+
+	// Execute dialog
+	dia->exec();
+
+	// Save size
+	config->setGroup("Modules/File Dialog");
+	config->writeEntry("Geometry", dia->size());
+	config->setGroup(group);
+
+	// Delete dialog
+	delete dia;
+	slotStatusMsg(i18n("Ready."));
+}
+
 void KSimusApp::slotSettingWatchWidget()
 {
 	slotStatusMsg(i18n("Setup watch..."));
@@ -1407,6 +1435,7 @@ void KSimusApp::slotSetupActions()
 	settingTiming->setEnabled(stopped);
 	settingMapSize->setEnabled(stopped);
 	settingPackageFiles->setEnabled(stopped);
+	settingModuleFiles->setEnabled(stopped);
 	settingGrid->setEnabled(stopped && editView);
 	
 	executeReset->setEnabled(stopped);
