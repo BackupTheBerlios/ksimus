@@ -573,8 +573,11 @@ void ConnectorBase::reset()
 /** Draws the connector */
 void ConnectorBase::draw (QPainter * p) const
 {
-	QPoint pos(getPos());
-	draw(p, getOrientation(), pos.x(), pos.y());
+	if (!isHidden())
+	{
+		QPoint pos(getPos());
+		draw(p, getOrientation(), pos.x(), pos.y());
+	}
 }
 
 /** Draws the connector on/in the given place and orientation */
@@ -661,7 +664,7 @@ int ConnectorInputBase::checkCircuit()
 {
 	int errors = ConnectorBase::checkCircuit();
 	
-	if (!getWire())
+	if (!getWire() && !isHidden())
 	{
 		// Not connected
 		logWarning(i18n("%1 is not connected").arg(getName()));

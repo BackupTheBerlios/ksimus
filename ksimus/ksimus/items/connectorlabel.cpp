@@ -98,6 +98,8 @@ void ConnectorLabel::slotConnDeleted()
 	*/
 void ConnectorLabel::drawSheetView (QPainter *p) const
 {
+	if(m_conn->isHidden()) return;
+	
 	QPoint pos = m_conn->getPos();
 	int spacing = getSpacing();
 	bool edgeIn = (isBoolInEdge() && getBoolInEdgeConn()->isEdgeSensitive());
