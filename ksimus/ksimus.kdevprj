@@ -477,7 +477,7 @@ install_location=$$(kde_icondir)/hicolor/32x32/apps/ksimus.png
 type=DATA
 
 [ksimus/io/Makefile.am]
-files=ksimus/io/ksimiodevice.cpp,ksimus/io/ksimiodevice.h,ksimus/io/ksimiopin.cpp,ksimus/io/ksimiopin.h,ksimus/io/ksimiojoin.cpp,ksimus/io/ksimiojoin.h,ksimus/io/ksimiodeviceoverviewwidget.cpp,ksimus/io/ksimiodeviceoverviewwidget.h,ksimus/io/ksimiodevicelist.cpp,ksimus/io/ksimiodevicelist.h,ksimus/io/ksimiodevicepropertydialog.cpp,ksimus/io/ksimiodevicepropertydialog.h,ksimus/io/ksimiodevicepropertybasewidget.cpp,ksimus/io/ksimiodevicepropertybasewidget.h,ksimus/io/ksimiodevicepropertygeneralwidget.cpp,ksimus/io/ksimiodevicepropertygeneralwidget.h,ksimus/io/ksimiojoinboolin.cpp,ksimus/io/ksimiojoinboolin.h,ksimus/io/ksimiocomponent.cpp,ksimus/io/ksimiocomponent.h,ksimus/io/ksimiopinselectionwidget.cpp,ksimus/io/ksimiopinselectionwidget.h,ksimus/io/ksimiopinselectiondialog.cpp,ksimus/io/ksimiopinselectiondialog.h,ksimus/io/ksimiostorage.cpp,ksimus/io/ksimiostorage.h
+files=ksimus/io/ksimiodevice.cpp,ksimus/io/ksimiodevice.h,ksimus/io/ksimiopin.cpp,ksimus/io/ksimiopin.h,ksimus/io/ksimiojoin.cpp,ksimus/io/ksimiojoin.h,ksimus/io/ksimiodeviceoverviewwidget.cpp,ksimus/io/ksimiodeviceoverviewwidget.h,ksimus/io/ksimiodevicelist.cpp,ksimus/io/ksimiodevicelist.h,ksimus/io/ksimiodevicepropertydialog.cpp,ksimus/io/ksimiodevicepropertydialog.h,ksimus/io/ksimiodevicepropertybasewidget.cpp,ksimus/io/ksimiodevicepropertybasewidget.h,ksimus/io/ksimiodevicepropertygeneralwidget.cpp,ksimus/io/ksimiodevicepropertygeneralwidget.h,ksimus/io/ksimiojoinboolin.cpp,ksimus/io/ksimiojoinboolin.h,ksimus/io/ksimiocomponent.cpp,ksimus/io/ksimiocomponent.h,ksimus/io/ksimiopinselectionwidget.cpp,ksimus/io/ksimiopinselectionwidget.h,ksimus/io/ksimiopinselectiondialog.cpp,ksimus/io/ksimiopinselectiondialog.h,ksimus/io/ksimiostorage.cpp,ksimus/io/ksimiostorage.h,ksimus/io/ksimiojoinboolout.cpp,ksimus/io/ksimiojoinboolout.h
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=io
 sub_dirs=
@@ -589,6 +589,18 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(pkgincludedir)/ksimiojoinboolin.h
+type=HEADER
+
+[ksimus/io/ksimiojoinboolout.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/io/ksimiojoinboolout.h]
+dist=true
+install=true
+install_location=$$(pkgincludedir)/ksimiojoinboolout.h
 type=HEADER
 
 [ksimus/io/ksimiopin.cpp]

@@ -1,3 +1,9 @@
+	20.5.2003
+* Change: Change some "static char *" into "static char * const"
+* Change: Don't call KMessageBox with widget == 0
+* Change: BaseLibraryItem::getOldLibNames() returns a "const QStringList *" instead of "QStringList *"
+	19.5.2003
+* Fix: One more bug with Impicit Converters and Modules. Thanks Tilli for the bug report!
 	17.5.2003
 * Fix: Copy/Past-Bug in KDE3 version
 * Fix: Misspellings in german translation
