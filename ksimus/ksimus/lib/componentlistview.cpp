@@ -265,6 +265,9 @@ void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoin
 	{
 		isDir = false;
 		dirItem = item->parent();
+		// has no parent?
+		if (!dirItem)
+			dirItem = firstChild();
 	}
 	
 	QPopupMenu * menu = new QPopupMenu();
@@ -278,12 +281,12 @@ void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoin
 	{
 		idxFoldAll = menu->insertItem(i18n("&Fold %1 Tree").arg(dirItem->text(0)));
 		idxUnfoldAll = menu->insertItem(i18n("&Unfold %1 Tree").arg(dirItem->text(0)));
-	}	
+	}
 	menu->insertSeparator();
 	menu->insertItem(i18n("&Hide Component Supplier"),this, SLOT(slotHideMe()));
 	
-  if (!isDir)
-  {
+	if (!isDir)
+	{
 		ComponentListViewItem * clvi = (ComponentListViewItem *)item;
 		if ((clvi->getComponentInfo() != 0) && (clvi->getComponentInfo()->getHTMLDescr() != QString::null))
 		{
@@ -292,19 +295,19 @@ void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoin
 		}
 	}
 
-  res = menu->exec(QCursor::pos());
+	res = menu->exec(QCursor::pos());
 
 
-  if (res == idxFoldAll)
-  {
+	if (res == idxFoldAll)
+	{
 		foldRecursive(dirItem, true);
 	}
-  else if (res == idxUnfoldAll)
-  {
+	else if (res == idxUnfoldAll)
+	{
 		foldRecursive(dirItem, false);
 	}
-  else if (res == idxHelp)
-  {
+	else if (res == idxHelp)
+	{
 		ComponentListViewItem * clvi = (ComponentListViewItem *)item;
 		const ComponentInfo * ci = clvi->getComponentInfo();
 		const PackageInfo * pi = g_library->getComponentLib()->getPackageInfo(ci->getLibName());
