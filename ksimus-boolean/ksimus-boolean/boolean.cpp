@@ -50,6 +50,8 @@
 #include "extconnbooltristate.h"
 #include "implicitconverterbooltristate2bool.h"
 #include "booltristateand.h"
+#include "booltristateor.h"
+#include "booltristatexor.h"
 
 // Forward declaration
 
@@ -105,6 +107,10 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(ExtConnBoolTriStateOut::getStaticInfo());
 		pDistComponents->append(BoolTriStateAnd::getStaticAndInfo());
 		pDistComponents->append(BoolTriStateAnd::getStaticNandInfo());
+		pDistComponents->append(BoolTriStateOr::getStaticOrInfo());
+		pDistComponents->append(BoolTriStateOr::getStaticNorInfo());
+		pDistComponents->append(BoolTriStateXor::getStaticXorInfo());
+		pDistComponents->append(BoolTriStateXor::getStaticXnorInfo());
 	}
 
 	return *pDistComponents;
