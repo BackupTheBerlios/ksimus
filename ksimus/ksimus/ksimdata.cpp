@@ -75,13 +75,14 @@ EnumDict<KSimData::eVersionType>::tData EnumDict<KSimData::eVersionType>::data[]
           {"as is",        KSimData::versionAsIs},
           {"unknown",      KSimData::versionUnknown},
           {"KSimus 0.3.5", KSimData::version0_3_5},
+          {"KSimus 0.3.7", KSimData::version0_3_7},
           {"topical",      KSimData::versionTopical},
           // Dont forget to change the EnumDict size!!!
           {0,              (KSimData::eVersionType)0}};
 
 static const EnumDict<KSimData::eVersionType> & getVersionTypeDict()
 {
-	static EnumDict<KSimData::eVersionType> versionTypeDict(5);
+	static EnumDict<KSimData::eVersionType> versionTypeDict(7);
 	return versionTypeDict;
 }
 
@@ -98,14 +99,6 @@ KSimData::eVersionType KSimData::convertVersionType(const char * versionType, KS
 
 //#########################################################################################
 
-#define data       (m_p->m_simpleFile)
-#define groupStack (m_p->m_groupStack)
-
-
-//#########################################################################################
-
-
-
 KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bReadOnly)
 {
 	m_p = new Private(pFileName, versionType, bReadOnly);
@@ -120,7 +113,7 @@ KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bRea
 			break;
 			
 		case versionAsIs:
-			m_p->m_versionType = convertVersionType(data.readEntry(sVersionTypeKey), versionUnknown);
+			m_p->m_versionType = convertVersionType(m_p->m_simpleFile.readEntry(sVersionTypeKey), versionUnknown);
 			break;
 			
 		case versionUnknown:
@@ -129,7 +122,7 @@ KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bRea
 			
 		default:
 			m_p->m_versionType = versionType;
-			data.writeEntry(sVersionTypeKey, convertVersionType(m_p->m_versionType));
+			m_p->m_simpleFile.writeEntry(sVersionTypeKey, convertVersionType(m_p->m_versionType));
 			break;
 	}
 	
@@ -138,7 +131,7 @@ KSimData::KSimData(const QString &pFileName, eVersionType versionType, bool bRea
 
 KSimData::~KSimData()
 {
-	if (groupStack.count() != 0)
+	if (m_p->m_groupStack.count() != 0)
 	{
 		KSIMDEBUG(QString::fromLatin1("close file while stack is not empty (File %1, current group %2").arg(m_p->m_filename).arg(group()));
 	}
@@ -153,32 +146,32 @@ KSimData::eVersionType KSimData::getVersionType() const
 
 void KSimData::setGroup( const QString& pGroup )
 {
-	data.setGroup( pGroup );	
+	m_p->m_simpleFile.setGroup( pGroup );
 }
 
 void KSimData::setGroupRel( const QString& groupRel )
 {
-	data.setGroup(data.group() + groupRel);
+	m_p->m_simpleFile.setGroup(m_p->m_simpleFile.group() + groupRel);
 }
 
 void KSimData::setGroup( const char * pGroup )
 {
-	data.setGroup( pGroup );	
+	m_p->m_simpleFile.setGroup( pGroup );
 }
 
 void KSimData::setGroupRel( const char * groupRel )
 {
-	data.setGroup(data.group() + groupRel);
+	m_p->m_simpleFile.setGroup(m_p->m_simpleFile.group() + groupRel);
 }
 
 QString KSimData::group() const
 {
-	return data.group();	
+	return m_p->m_simpleFile.group();
 }
 
 void KSimData::pushGroup( const QString& newGroup )
 {
-	groupStack.append(group());
+	m_p->m_groupStack.append(group());
 	setGroup(newGroup);
 }
 	
@@ -189,7 +182,7 @@ void KSimData::pushGroup( const char * newGroup )
 
 void KSimData::pushGroupRel( const QString& groupRel )
 {
-	groupStack.append(group());
+	m_p->m_groupStack.append(group());
 	setGroupRel(groupRel);
 }
 	
@@ -200,13 +193,13 @@ void KSimData::pushGroupRel( const char * groupRel )
 	
 void KSimData::popGroup(void)
 {
-	if (groupStack.count())
+	if (m_p->m_groupStack.count())
 	{
-		QStringList::Iterator it(groupStack.end());
+		QStringList::Iterator it(m_p->m_groupStack.end());
 		it--;
 		
 		setGroup(*it);
-		groupStack.remove(it);
+		m_p->m_groupStack.remove(it);
 	}
 	else
 	{
@@ -216,112 +209,112 @@ void KSimData::popGroup(void)
 
 bool KSimData::hasGroup(const QString &group) const
 {
-	return data.hasGroup(group);	
+	return m_p->m_simpleFile.hasGroup(group);	
 }
 
 bool KSimData::hasGroup(const char * group) const
 {
-	return data.hasGroup(group);	
+	return m_p->m_simpleFile.hasGroup(group);
 }
 
 bool KSimData::hasGroupRel(const QString &groupRel) const
 {
-	return data.hasGroup(data.group() + groupRel);	
+	return m_p->m_simpleFile.hasGroup(m_p->m_simpleFile.group() + groupRel);
 }
 
 bool KSimData::hasGroupRel(const char * groupRel) const
 {
-	return data.hasGroup(data.group() + groupRel);	
+	return m_p->m_simpleFile.hasGroup(m_p->m_simpleFile.group() + groupRel);
 }
 
 bool KSimData::hasKey(const char *pKey) const
 {
-	return data.hasKey(pKey);	
+	return m_p->m_simpleFile.hasKey(pKey);
 }
 
 QString KSimData::readEntry( const char *pKey, const QString& aDefault) const
 {
-	return data.readEntry(pKey, aDefault);	
+	return m_p->m_simpleFile.readEntry(pKey, aDefault);
 }
 
 int KSimData::readListEntry( const char *pKey, QStrList &list, char sep) const
 {
-	return data.readListEntry(pKey, list, sep);	
+	return m_p->m_simpleFile.readListEntry(pKey, list, sep);
 }
 
 QStringList KSimData::readListEntry( const char *pKey, char sep) const
 {
-	return data.readListEntry(pKey, sep);	
+	return m_p->m_simpleFile.readListEntry(pKey, sep);
 }
 
 QValueList<int> KSimData::readIntListEntry( const char *pKey ) const
 {
-	return data.readIntListEntry(pKey);	
+	return m_p->m_simpleFile.readIntListEntry(pKey);
 }
 
 QString KSimData::readPathEntry( const char *pKey, const QString & aDefault ) const
 {
-	return data.readPathEntry(pKey, aDefault);	
+	return m_p->m_simpleFile.readPathEntry(pKey, aDefault);
 }
 
 int KSimData::readNumEntry( const char *pKey, int nDefault ) const
 {
-	return data.readNumEntry(pKey, nDefault);	
+	return m_p->m_simpleFile.readNumEntry(pKey, nDefault);
 }
 
 unsigned int KSimData::readUnsignedNumEntry( const char *pKey, unsigned int nDefault ) const
 {
-	return data.readUnsignedNumEntry(pKey, nDefault);	
+	return m_p->m_simpleFile.readUnsignedNumEntry(pKey, nDefault);
 }
 
 long KSimData::readLongNumEntry( const char *pKey, long nDefault ) const
 {
-	return data.readLongNumEntry(pKey, nDefault);	
+	return m_p->m_simpleFile.readLongNumEntry(pKey, nDefault);
 }
 
 unsigned long KSimData::readUnsignedLongNumEntry( const char *pKey, unsigned long nDefault ) const
 {
-	return data.readUnsignedLongNumEntry(pKey, nDefault);	
+	return m_p->m_simpleFile.readUnsignedLongNumEntry(pKey, nDefault);
 }
 
 double KSimData::readDoubleNumEntry( const char *pKey, double nDefault ) const
 {
-	return data.readDoubleNumEntry(pKey, nDefault);	
+	return m_p->m_simpleFile.readDoubleNumEntry(pKey, nDefault);
 }
 
 QFont KSimData::readFontEntry( const char *pKey, const QFont* pDefault ) const
 {
-	return data.readFontEntry(pKey, pDefault);	
+	return m_p->m_simpleFile.readFontEntry(pKey, pDefault);
 }
 
 bool KSimData::readBoolEntry( const char *pKey, const bool bDefault ) const
 {
-	return data.readBoolEntry(pKey, bDefault);	
+	return m_p->m_simpleFile.readBoolEntry(pKey, bDefault);
 }
 
 QRect KSimData::readRectEntry( const char *pKey, const QRect* pDefault ) const
 {
-	return data.readRectEntry(pKey, pDefault);	
+	return m_p->m_simpleFile.readRectEntry(pKey, pDefault);
 }
 
 QPoint KSimData::readPointEntry( const char *pKey, const QPoint* pDefault ) const
 {
-	return data.readPointEntry(pKey, pDefault);	
+	return m_p->m_simpleFile.readPointEntry(pKey, pDefault);
 }
 
 QSize KSimData::readSizeEntry( const char *pKey, const QSize* pDefault ) const
 {
-	return data.readSizeEntry(pKey, pDefault);	
+	return m_p->m_simpleFile.readSizeEntry(pKey, pDefault);
 }
 
 QColor KSimData::readColorEntry( const char *pKey, const QColor* pDefault ) const
 {
-	return data.readColorEntry(pKey, pDefault);	
+	return m_p->m_simpleFile.readColorEntry(pKey, pDefault);
 }
 
 QDateTime KSimData::readDateTimeEntry( const char *pKey, const QDateTime* pDefault ) const
 {
-	return data.readDateTimeEntry(pKey, pDefault);	
+	return m_p->m_simpleFile.readDateTimeEntry(pKey, pDefault);
 }
 
 QPixmap KSimData::readPixmapEntry( const char *pKey, const QPixmap* pDefault ) const
@@ -355,87 +348,87 @@ QPixmap KSimData::readPixmapEntry( const char *pKey, const QPixmap* pDefault ) c
 
 void KSimData::writeEntry( const char *pKey, const QString& pValue)
 {
-	data.writeEntry(pKey, pValue);	
+	m_p->m_simpleFile.writeEntry(pKey, pValue);
 }
 
 void KSimData::writeEntry( const char *pKey, const QVariant& rValue)
 {
-	data.writeEntry(pKey, rValue);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue);
 }
 
 void KSimData::writeEntry( const char *pKey, const QStrList &rValue, char sep )
 {
-	data.writeEntry(pKey, rValue, sep);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue, sep);
 }
 
 void KSimData::writeEntry( const char *pKey, const QStringList &rValue, char sep )
 {
-	data.writeEntry(pKey, rValue, sep);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue, sep);
 }
 
 void KSimData::writeEntry( const char *pKey, const QValueList<int>& rValue)
 {
-	data.writeEntry(pKey, rValue);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue);
 }
 
 void KSimData::writeEntry( const char *pKey, int nValue)
 {
-	data.writeEntry(pKey, nValue);	
+	m_p->m_simpleFile.writeEntry(pKey, nValue);
 }
 
 void KSimData::writeEntry( const char *pKey, unsigned int nValue)
 {
-	data.writeEntry(pKey, nValue);	
+	m_p->m_simpleFile.writeEntry(pKey, nValue);
 }
 
 void KSimData::writeEntry( const char *pKey, long nValue)
 {
-	data.writeEntry(pKey, nValue);	
+	m_p->m_simpleFile.writeEntry(pKey, nValue);
 }
 
 void KSimData::writeEntry( const char *pKey, unsigned long nValue)
 {
-	data.writeEntry(pKey, nValue);	
+	m_p->m_simpleFile.writeEntry(pKey, nValue);
 }
 
 void KSimData::writeEntry( const char *pKey, double nValue, char format, int precision )
 {
-	data.writeEntry(pKey, nValue, true, false, format, precision );	
+	m_p->m_simpleFile.writeEntry(pKey, nValue, true, false, format, precision );
 }
 
 void KSimData::writeEntry( const char *pKey, bool bValue )
 {
-	data.writeEntry(pKey, bValue );	
+	m_p->m_simpleFile.writeEntry(pKey, bValue );
 }
 
 void KSimData::writeEntry( const char *pKey, const QFont& rFont )
 {
-	data.writeEntry(pKey, rFont);	
+	m_p->m_simpleFile.writeEntry(pKey, rFont);
 }
 
 void KSimData::writeEntry( const char *pKey, const QColor& rColor )
 {
-	data.writeEntry(pKey, rColor);	
+	m_p->m_simpleFile.writeEntry(pKey, rColor);
 }
 
 void KSimData::writeEntry( const char *pKey, const QDateTime& rDateTime )
 {
-	data.writeEntry(pKey, rDateTime);	
+	m_p->m_simpleFile.writeEntry(pKey, rDateTime);
 }
 
 void KSimData::writeEntry( const char *pKey, const QRect& rValue )
 {
-	data.writeEntry(pKey, rValue);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue);
 }
 
 void KSimData::writeEntry( const char *pKey, const QPoint& rValue )
 {
-	data.writeEntry(pKey, rValue);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue);
 }
 
 void KSimData::writeEntry( const char *pKey, const QSize& rValue )
 {
-	data.writeEntry(pKey, rValue);	
+	m_p->m_simpleFile.writeEntry(pKey, rValue);
 }
 
 void KSimData::writeEntry( const char *pKey, const QPixmap& rPixmap )
@@ -453,7 +446,7 @@ void KSimData::writeEntry( const char *pKey, const QPixmap& rPixmap )
 	{
 		strList.append(QString::number((unsigned char)array[i],16));
 	}
-	writeEntry(pKey, strList);	
+	writeEntry(pKey, strList);
 }
 
 

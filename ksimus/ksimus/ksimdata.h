@@ -52,8 +52,9 @@ public:
   enum eVersionType { versionError,   // Use this in @ref convertVersionType to detect an error. It is not used elsewhere.
                       versionAsIs,    // Leaves the doc version unchanged
                       versionUnknown, // The doc version is pre 0.3.5
-                      version0_3_5,   // The current version
-                      versionTopical = version0_3_5 // Points to the current versions  ***Last item***
+                      version0_3_5,   // The version 0.3.5 or 0.3.6
+                      version0_3_7,   // The current version
+                      versionTopical = version0_3_7 // Points to the current versions  ***Last item***
                     };
 
   /**
