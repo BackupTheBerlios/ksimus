@@ -62,16 +62,19 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 
-const ComponentInfo MultiDLatchInfo(
-                     I18N_NOOP("Multiple D Latches"),
-                     I18N_NOOP("Boolean/Flip Flop/Multiple D Latches"),
-                     QString::null,
-                     VA_SHEETVIEW,
-                     create,	
-                     QString::null,
-                     "component-boolean-multiple-d-latches"
-                     );
 
+const ComponentInfo * getMultiDLatchInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Multiple D Latches"),
+	                                QString::fromLatin1("Boolean/Flip Flop/Multiple D Latches"),
+	                                i18n("Component", "Boolean/Flip Flop/Multiple D Latches"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-multiple-d-latches"));
+	return &Info;
+}
 
 #define DEFAULT_RESET_VALUE  false
 #define MIN_CHANNELS         1
@@ -87,26 +90,36 @@ MultiDLatch::MultiDLatch(CompContainer * container, const ComponentInfo * ci)
 		m_resetValue(DEFAULT_RESET_VALUE)
 {
 	
-	m_inputReset = new ConnectorBoolInEdge (this, I18N_NOOP("Reset"));
+	m_inputReset = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Reset"),
+	                             i18n("Boolean-Connector", "Reset"));
 	CHECK_PTR(m_inputReset);
 	m_inputReset->setEdgeSensitive(false,true);
 	m_inputReset->setHideEnabled(true);
 	m_inputReset->setHide(true,true);
 	
-	m_inputEnable = new ConnectorBoolInEdge (this, I18N_NOOP("Enable"));
+	m_inputEnable = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Enable"),
+	                             i18n("Boolean-Connector", "Enable"));
 	CHECK_PTR(m_inputEnable);
 	
-	m_inputPack = new ConnectorPack(this, I18N_NOOP("Input"), &ConnectorBoolInInfo, MIN_CHANNELS, MAX_CHANNELS);
+	m_inputPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Input"),
+	                             i18n("Boolean-Connector", "Input %1"),
+	                             getConnectorBoolInInfo(),
+	                             MIN_CHANNELS, MAX_CHANNELS);
 	CHECK_PTR(m_inputPack);
 	m_inputPack->setConnectorCount(DEFAULT_CHANNELS);
-	m_inputPack->setConnectorName(I18N_NOOP("Input %1"));
 	m_inputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
 	
-	m_outputPack = new ConnectorPack(this, I18N_NOOP("Output"), &ConnectorBoolOutInfo, MIN_CHANNELS, MAX_CHANNELS);
+	m_outputPack = new ConnectorPack(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("Boolean-Connector", "Output %1"),
+	                             getConnectorBoolOutInfo(),
+	                             MIN_CHANNELS, MAX_CHANNELS);
 	CHECK_PTR(m_outputPack);
 	m_outputPack->setConnectorCount(DEFAULT_CHANNELS);
-	m_outputPack->setConnectorName(I18N_NOOP("Output %1"));
 	m_outputPack->getAction().disable(KSimAction::INITPOPUPMENU);
 	
 	// Initializes the sheet view
@@ -188,7 +201,7 @@ bool MultiDLatch::initPopupMenu(QPopupMenu * popup)
 	Component::initPopupMenu(popup);
 	
 	popup->insertSeparator();
-	i = popup->insertItem(i18n("&Add Channel"), this, SLOT(slotAddChannel()));
+	i = popup->insertItem(i18n("Boolean", "&Add Latch"), this, SLOT(slotAddChannel()));
 	if ((getInputPack()->getConnectorCount() >= MAX_CHANNELS)
 	 || (getOutputPack()->getConnectorCount() >= MAX_CHANNELS))
 	{
@@ -196,7 +209,7 @@ bool MultiDLatch::initPopupMenu(QPopupMenu * popup)
 	}
 	
 	
-	i = popup->insertItem(i18n("&Delete Channel"), this, SLOT(slotDeleteChannel()));
+	i = popup->insertItem(i18n("Boolean", "&Delete Latch"), this, SLOT(slotDeleteChannel()));
 	if ((getInputPack()->getConnectorCount() <= MIN_CHANNELS)
 	 || (getInputPack()->getNumberOfDeletableConnectors() == 0)
 	 || (getOutputPack()->getConnectorCount() <= MIN_CHANNELS)
@@ -345,22 +358,22 @@ MultiDLatchPropertyGeneralWidget::MultiDLatchPropertyGeneralWidget(MultiDLatch *
 	               comp->getOutputPack()->getNumberOfNotDeletableConnectors());
 
 	
-	m_channelsLabel = new QLabel(i18n("Channel count: "), getGrid(), "m_channelsLabel");
+	m_channelsLabel = new QLabel(i18n("Boolean", "Number of latches: "), getGrid(), "m_channelsLabel");
 	CHECK_PTR(m_channelsLabel);
 	
 	m_channels = new QSpinBox(m_min, MAX_CHANNELS, 1, getGrid(), "m_channels");
 	CHECK_PTR(m_channels);
-	tip = i18n("Change count of channels here.");
+	tip = i18n("Boolean", "Change number of latches here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
 	
 	
-	m_resetValueLabel = new QLabel(i18n("Reset value: "), getGrid(), "m_resetValueLabel");
+	m_resetValueLabel = new QLabel(i18n("Boolean", "Reset value: "), getGrid(), "m_resetValueLabel");
 	CHECK_PTR(m_resetValueLabel);
 	
 	m_resetValue = new KSimBooleanBox(getGrid(), "m_resetValue");
 	CHECK_PTR(m_resetValue);
-	tip = i18n("Change the reset value of the component here.");
+	tip = i18n("Boolean", "Set the reset value of the latches here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
 	
