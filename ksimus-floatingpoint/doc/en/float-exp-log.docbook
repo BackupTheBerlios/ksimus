@@ -8,6 +8,9 @@
 <simplelist>
 <member>&FloatExp;</member>
 <member>&FloatLog;</member>
+<member>&FloatLog10;</member>
+<member>&FloatPow;</member>
+<member>&FloatSqrt;</member>
 </simplelist>
 
 
@@ -27,6 +30,8 @@
 <sect3><title>Description</title><para>
 The component calculates the value of e (the base of natural logarithms) raised to power input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/exp(3)">man 3 exp</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
@@ -73,6 +78,8 @@ Output = e<superscript>Input</superscript>
 <sect3><title>Description</title><para>
 The component calculates the natural logarithm of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/log(3)">man 3 log</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
@@ -101,6 +108,151 @@ Output = log(Input)
 <!-- ################################## Location ################################### -->
 <sect3><title>Location</title><para>Floating Point -> Arithmetic -> Exponentiation &amp; Logarithms -> log(x)</para></sect3>
 </sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                log10(x)                 ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-log10">
+<title>log10(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the base-10 logarithm of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/log10(3)">man 3 log10</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_log10.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = log10(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Exponentiation &amp; Logarithms -> log10(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################            pow(base,power)              ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-pow">
+<title>pow(base,power)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the value of input Base raised to the power of input Power
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/pow(3)">man 3 pow</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_pow.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = Base<superscript>Power</superscript>
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Exponentiation &amp; Logarithms -> pow(base,power)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               square root               ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-sqrt">
+<title>square root</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the non-negative square root of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/sqrt(3)">man 3 sqrt</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_sqrt.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = sqrt(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Exponentiation &amp; Logarithms -> square root</para></sect3>
+</sect2>
+
 
 
 

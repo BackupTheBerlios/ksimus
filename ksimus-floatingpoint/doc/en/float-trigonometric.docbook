@@ -5,14 +5,33 @@
 <sect1 id="component-float-trigonometric">
 <title>Trigonometric Components</title>
 
-<simplelist>
-<member>&FloatTrigSin;</member>
-<member>&FloatTrigCos;</member>
-<member>&FloatTrigTan;</member>
-<member>&FloatTrigASin;</member>
-<member>&FloatTrigACos;</member>
-<member>&FloatTrigATan;</member>
-</simplelist>
+<informaltable frame="none">
+<tgroup cols="4">
+<tbody>
+<row>
+<entry>&FloatTrigSin;</entry>
+<entry>&FloatTrigCos;</entry>
+<entry>&FloatTrigTan;</entry>
+</row>
+<row>
+<entry>&FloatTrigASin;</entry>
+<entry>&FloatTrigACos;</entry>
+<entry>&FloatTrigATan;</entry>
+<entry>&FloatTrigATan2;</entry>
+</row>
+<row>
+<entry>&FloatTrigSinh;</entry>
+<entry>&FloatTrigCosh;</entry>
+<entry>&FloatTrigTanh;</entry>
+</row>
+<row>
+<entry>&FloatTrigASinh;</entry>
+<entry>&FloatTrigACosh;</entry>
+<entry>&FloatTrigATanh;</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
 
 
 
@@ -31,13 +50,15 @@
 <sect3><title>Description</title><para>
 The component calculates the sine of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/sin(3)">man 3 sin</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The argument of this function is given in radians.
+The input of this component is given in radians.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -79,13 +100,15 @@ Output = sin(Input)
 <sect3><title>Description</title><para>
 The component calculates the cosine of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/cos(3)">man 3 cos</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The argument of this function is given in radians.
+The input of this component is given in radians.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -127,13 +150,15 @@ Output = cos(Input)
 <sect3><title>Description</title><para>
 The component calculates the tangent of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/tan(3)">man 3 tan</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The argument of this function is given in radians.
+The input of this component is given in radians.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -175,13 +200,15 @@ Output = tan(Input)
 <sect3><title>Description</title><para>
 The component calculates the arc sine of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/asin(3)">man 3 asin</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The argument of this function is given in radians.
+The output of this component is in radians.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -223,13 +250,15 @@ Output = arcsin(Input)
 <sect3><title>Description</title><para>
 The component calculates the arc cosine of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/acos(3)">man 3 acos</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The argument of this function is given in radians.
+The output of this component is in radians.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -271,13 +300,15 @@ Output = arccos(Input)
 <sect3><title>Description</title><para>
 The component calculates the arc tangent of input value
 and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/atan(3)">man 3 atan</ulink>.
 </para></sect3>
 
 <!-- #################################### Features ################################# -->
 <sect3><title>Features</title>
 <itemizedlist>
 <listitem><para>
-The argument of this function is given in radians.
+The output of this component is in radians.
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.
@@ -300,6 +331,346 @@ Output = arctan(Input)
 
 <!-- ################################## Location ################################### -->
 <sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> atan(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               atan2(x,y)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-atan2">
+<title>atan2(x,y)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the arc tangent of two input values
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/atan2(3)">man 3 atan2</ulink>.
+</para>
+</sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The output of this component is in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_atan2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = arctan2(Input X / Input Y)
+
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> atan2(x,y)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               sinh(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-sinh">
+<title>sinh(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the hyperbolic sine of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/sinh(3)">man 3 sinh</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_sinh.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = sinh(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> Hyperbolic -> sinh(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               cosh(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-cosh">
+<title>cosh(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the hyperbolic cosine of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/cosh(3)">man 3 cosh</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_cosh.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = cosh(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> Hyperbolic -> cosh(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               tanh(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-tanh">
+<title>tanh(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the hyperbolic tangent of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/tanh(3)">man 3 tanh</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_tanh.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = tanh(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> Hyperbolic -> tanh(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################              asinh(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-asinh">
+<title>asinh(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the inverse hyperbolic sine of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/asinh(3)">man 3 asinh</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_asinh.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = asinh(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> Hyperbolic -> asinh(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################              acosh(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-acosh">
+<title>acosh(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the inverse hyperbolic cosine of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/acosh(3)">man 3 acosh</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_acosh.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = acosh(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> Hyperbolic -> acosh(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################              atanh(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-atanh">
+<title>atanh(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the inverse hyperbolic tangent of input value
+and shifts the result to the output.
+</para><para>
+See also <ulink url="man:/atanh(3)">man 3 atanh</ulink>.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_atanh.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = atanh(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> Hyperbolic -> atanh(x)</para></sect3>
 </sect2>
 
 

@@ -21,16 +21,26 @@
 
 
 <!-- ########################  Exponentiation & Logarithms  ######################## -->
-  <!ENTITY FloatExp '<link linkend="component-float-arithmetic-exp">exp(x)</link>'>
-  <!ENTITY FloatLog '<link linkend="component-float-arithmetic-log">log(x)</link>'>
+  <!ENTITY FloatExp   '<link linkend="component-float-arithmetic-exp">exp(x)</link>'>
+  <!ENTITY FloatLog   '<link linkend="component-float-arithmetic-log">log(x)</link>'>
+  <!ENTITY FloatLog10 '<link linkend="component-float-arithmetic-log10">log10(x)</link>'>
+  <!ENTITY FloatPow   '<link linkend="component-float-arithmetic-pow">pow(base,power)</link>'>
+  <!ENTITY FloatSqrt  '<link linkend="component-float-arithmetic-sqrt">sqrt(x)</link>'>
 
 <!-- ########################        Trigonometric       ######################## -->
-  <!ENTITY FloatTrigSin '<link linkend="component-float-trigonometric-sin">sin(x)</link>'>
-  <!ENTITY FloatTrigCos '<link linkend="component-float-trigonometric-cos">cos(x)</link>'>
-  <!ENTITY FloatTrigTan '<link linkend="component-float-trigonometric-tan">tan(x)</link>'>
-  <!ENTITY FloatTrigASin '<link linkend="component-float-trigonometric-asin">asin(x)</link>'>
-  <!ENTITY FloatTrigACos '<link linkend="component-float-trigonometric-acos">acos(x)</link>'>
-  <!ENTITY FloatTrigATan '<link linkend="component-float-trigonometric-atan">atan(x)</link>'>
+  <!ENTITY FloatTrigSin   '<link linkend="component-float-trigonometric-sin">sin(x)</link>'>
+  <!ENTITY FloatTrigCos   '<link linkend="component-float-trigonometric-cos">cos(x)</link>'>
+  <!ENTITY FloatTrigTan   '<link linkend="component-float-trigonometric-tan">tan(x)</link>'>
+  <!ENTITY FloatTrigASin  '<link linkend="component-float-trigonometric-asin">asin(x)</link>'>
+  <!ENTITY FloatTrigACos  '<link linkend="component-float-trigonometric-acos">acos(x)</link>'>
+  <!ENTITY FloatTrigATan  '<link linkend="component-float-trigonometric-atan">atan(x)</link>'>
+  <!ENTITY FloatTrigATan2 '<link linkend="component-float-trigonometric-atan2">atan2(x,y)</link>'>
+  <!ENTITY FloatTrigSinh  '<link linkend="component-float-trigonometric-sinh">sinh(x)</link>'>
+  <!ENTITY FloatTrigCosh  '<link linkend="component-float-trigonometric-cosh">cosh(x)</link>'>
+  <!ENTITY FloatTrigTanh  '<link linkend="component-float-trigonometric-tanh">tanh(x)</link>'>
+  <!ENTITY FloatTrigASinh '<link linkend="component-float-trigonometric-asinh">asinh(x)</link>'>
+  <!ENTITY FloatTrigACosh '<link linkend="component-float-trigonometric-acosh">acosh(x)</link>'>
+  <!ENTITY FloatTrigATanh '<link linkend="component-float-trigonometric-atanh">atanh(x)</link>'>
 
 <!-- ########################          Conditional       ######################## -->
   <!ENTITY FloatCondLesser      '<link linkend="component-float-conditional-lesser">Lesser</link>'>
@@ -45,6 +55,12 @@
   <!ENTITY FloatCtrlMaximum '<link linkend="component-float-control-maximum">Maximum</link>'>
   <!ENTITY FloatCtrlMinimum '<link linkend="component-float-control-minimum">Minimum</link>'>
   <!ENTITY FloatCtrlWaveGen '<link linkend="component-float-control-waveform-gen">Waveform Generator</link>'>
+
+<!-- ########################          Randoms       ######################## -->
+  <!ENTITY FloatRandomRandom   '<link linkend="component-float-random-random">Random</link>'>
+
+<!-- ########################          Timing        ######################## -->
+  <!ENTITY FloatTimingDelay   '<link linkend="component-float-timing-delay">Delay</link>'>
 
 <!-- ########################      External Connectors     ######################## -->
   <!ENTITY FloatExtConnIn   '<link linkend="component-float-extconn-float-in">Floating Point Input</link>'>
@@ -74,6 +90,8 @@
   <!ENTITY float-trigonometric-part SYSTEM "float-trigonometric.docbook">
   <!ENTITY float-conditional-part SYSTEM "float-conditional.docbook">
   <!ENTITY float-control-part SYSTEM "float-control.docbook">
+  <!ENTITY float-random-part SYSTEM "float-random.docbook">
+  <!ENTITY float-timing-part SYSTEM "float-timing.docbook">
   <!ENTITY float-extconn-part SYSTEM "float-extconn.docbook">
   <!ENTITY float-converter-part SYSTEM "float-converter.docbook">
   <!ENTITY float-input-part SYSTEM "float-input.docbook">
@@ -146,8 +164,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>04/03/2002</date>
-<releaseinfo>0.01.00</releaseinfo>
+<date>2002-09-16</date>
+<releaseinfo>0.3.5</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -253,6 +271,9 @@ patent issues. -->
 <itemizedlist>
 <listitem><para>&FloatExp;</para></listitem>
 <listitem><para>&FloatLog;</para></listitem>
+<listitem><para>&FloatLog10;</para></listitem>
+<listitem><para>&FloatPow;</para></listitem>
+<listitem><para>&FloatSqrt;</para></listitem>
 </itemizedlist>
 </para>
 
@@ -264,6 +285,13 @@ patent issues. -->
 <listitem><para>&FloatTrigASin;</para></listitem>
 <listitem><para>&FloatTrigACos;</para></listitem>
 <listitem><para>&FloatTrigATan;</para></listitem>
+<listitem><para>&FloatTrigATan2;</para></listitem>
+<listitem><para>&FloatTrigSinh;</para></listitem>
+<listitem><para>&FloatTrigCosh;</para></listitem>
+<listitem><para>&FloatTrigTanh;</para></listitem>
+<listitem><para>&FloatTrigASinh;</para></listitem>
+<listitem><para>&FloatTrigACosh;</para></listitem>
+<listitem><para>&FloatTrigATanh;</para></listitem>
 </itemizedlist>
 </para>
 
@@ -285,6 +313,18 @@ patent issues. -->
 <listitem><para>&FloatCtrlMaximum;</para></listitem>
 <listitem><para>&FloatCtrlMinimum;</para></listitem>
 <listitem><para>&FloatCtrlWaveGen;</para></listitem>
+</itemizedlist>
+</para>
+
+<para>Randoms:
+<itemizedlist>
+<listitem><para>&FloatRandomRandom;</para></listitem>
+</itemizedlist>
+</para>
+
+<para>Timing:
+<itemizedlist>
+<listitem><para>&FloatTimingDelay;</para></listitem>
 </itemizedlist>
 </para>
 
@@ -368,6 +408,22 @@ patent issues. -->
 <!-- ############################################################################### -->
 
 &float-control-part;
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################           Randoms             ######################## -->
+<!-- ############################################################################### -->
+
+&float-random-part;
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################           Timing              ######################## -->
+<!-- ############################################################################### -->
+
+&float-timing-part;
 
 
 
@@ -519,7 +575,7 @@ Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
 <title>Installation</title>
 
 <sect1 id="getting-test">
-<title>How to obtain Test</title>
+<title>How to obtain &packageName;</title>
 
 <para>
 The &packageName; Package can be found on
@@ -562,7 +618,7 @@ directory of the distribution:
 </para>
 
 <para>Since the &packageName; package uses autoconf and automake you should have not trouble compiling it.
-Should you run into problems please report them to the KDE mailing lists.</para>
+Should you run into problems please report them to &kappmail;.</para>
 
 </sect1>
 

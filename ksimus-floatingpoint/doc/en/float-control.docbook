@@ -90,13 +90,15 @@ This component contains a multiplexer for floating point values. The Data Select
 input values to the output connector. The selected input connector depends on the address read from
 the address inputs.
 </para><para>
-The component has an internal address latch. This latch is activated if the connector 'Latch Address Input' is
+The component has an internal address latch. This latch is activated if the optional connector 'Latch Address Input' is
 activated. During true condition at this input the current address is used. A transition to false condition
-latches the address.
+latches the address. During false condition at this input the latched address is used. The latch is bypassed if the
+optional connector 'Latch Address Input' is deactivated.
 </para><para>
-The component has also an internal output latch. This latch is activated if the connector 'Latch Output' is
-activated. During true condition at this input the current addressed input value is used. A transition to
-false condition latches the value.
+The component has also an internal output latch. This latch is activated if the connector 'Latch Output'
+is activated. During true condition at this input the current addressed input value is used. A transition to
+false condition latches the output value. During false condition at this input the latched outut value is used.
+The latch is bypassed if the optional connector 'Latch Output' is deactivated.
 </para><para>
 If an input is addressed which does not exist (e.g. the 15th input is selected but the component has only 14
 inputs) the reset value is used.
@@ -112,7 +114,7 @@ The 'Latch Address Input', 'Latch Output' and the address inputs are negatable.
 </para></listitem><listitem><para>
 The 'Latch Address Input' and 'Latch Output' inputs are level or edge sensitive.
 </para></listitem><listitem><para>
-Activate or deactivate the 'Latch Address Input' and 'Latch Output' inputs (deactivated connectors are hidden).
+Activate or deactivate the optional 'Latch Address Input' and 'Latch Output' inputs (deactivated connectors are hidden).
 </para></listitem><listitem><para>
 The component supports a user definable reset value. The output adopts this value during
 the reset cycle and keeps this value until the first simulation cycle is finished.

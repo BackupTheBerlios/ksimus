@@ -1,0 +1,92 @@
+<!-- ############################################################################### -->
+<!-- ########################     Random Components         ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-randoms">
+<title>Random Components</title>
+
+<simplelist>
+<member>&FloatRandomRandom;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                Random                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-random-random">
+<title>Random</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component Random creates random floating point numbers.
+</para><para>
+It is possible to define an individual start seed. In this case the random number sequence is
+same each simulation. With selecting a random seed the component creates real random number. In
+this case the random number sequence is changed each simulation.
+</para><para>
+The component has also an optional Enable connector. This input enables the creation of random
+numbers. It is possible to define the Enable connector as level or edge sensitive. The component
+creates random number each simulation cycle if the Enable connector is deactivated.
+</para><para>
+The range of the random number is user selectable.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component is rotatable.
+</para></listitem><listitem><para>
+The component has an optional Enable input. This input is edge or level sensitive.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="random_random_1.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="random_random_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Random -> Random</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

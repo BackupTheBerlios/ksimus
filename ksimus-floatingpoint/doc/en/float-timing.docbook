@@ -1,0 +1,88 @@
+<!-- ############################################################################### -->
+<!-- ########################     Timing Components         ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-timing">
+<title>Timing Components</title>
+
+<simplelist>
+<member>&FloatTimingDelay;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Delay                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-timing-delay">
+<title>Delay</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The Delay component delays a floating point signal.
+</para><para>
+It is possible to select the delay time in ticks (simulation cycles) or in a time unit.
+</para><para>
+The component supports a reset value. This value is use as output until a delayed input
+reachs the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The delay time is user definable. It is possible to select the unit ticks or a time based unit like msec.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="timing_delay.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Timing -> Delay</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
