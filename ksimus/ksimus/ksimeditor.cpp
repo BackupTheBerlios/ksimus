@@ -505,7 +505,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 	if (ev->button() == LeftButton)
 	{
 		dragStart = dragNow = mousePos;
-		lmbDown = TRUE;
+		lmbDown = true;
 		dragging = isMapResized = false;
 
 		switch (editorMode)
@@ -657,8 +657,11 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 								KMessageBox::error(0,i18n("The file %1 contains no valid module!").arg(getApp()->getModuleFile()),
 								                     i18n("Open Module"));
 
-								delete newComp;
+//								delete newComp;
+								getContainer()->delComponent(newComp);
+								undo->hiddenUndo();  // Remove last action from undo
 								setEditorMode(EM_SELECT);
+								lmbDown = false;
 								break;
 							}
 							((ComponentLibrary*)g_library->getComponentLib())->insert(mi, 0);
