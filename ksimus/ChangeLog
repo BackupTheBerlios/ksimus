@@ -1,3 +1,16 @@
+	09.12.2001
+* New: Template class for boolean components Boolean1Out and BooleanXIn1Out
+* Change: BooleanAnd uses BooleanXIn1Out as base class
+* Change: BooleanButton uses Boolean1Out as base class
+* Change: ComponentLayout and friends
+  - Replace most int with unsigned int
+  - function parameter getSize()
+* New: ConnectorBase::setGridPos(int,int)
+* Remove: ConnectorBoolOut has not a reset state anymore.
+* New: Add tool tip and what's this to ConnectorPropertyWidget
+* New: Add tool tip and what's this to ComponentPropertyGeneralWidget
+* Remove: Remove debug messages from ComponentListView
+* New: Boolean input widget KSimBooleanBox
 	05.12.2001
 * Change: Improve Fold/Unfold mechanism of the component supplier.
 * New: ComponentPropertyInfoWidget::getGrid() and ComponentPropertyGeneralWidget::getGrid()
