@@ -74,6 +74,8 @@ public:
 	  * Reimplementations is required. */
 	virtual void copyData(const void * pData) = 0;
 	
+	/**    */
+
 	/** Returns the related document. */
 	KSimusDoc * getDoc() const;
 	
