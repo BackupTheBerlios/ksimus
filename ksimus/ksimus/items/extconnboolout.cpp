@@ -21,7 +21,6 @@
 #include "connectorlist.h"
 #include "connectorboolin.h"
 #include "connectorboolout.h"
-#include "componentinfo.h"
 #include "wireproperty.h"
 #include "ksimdebug.h"
 #include "ksimtimeserver.h"
