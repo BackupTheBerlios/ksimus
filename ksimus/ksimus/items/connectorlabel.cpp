@@ -91,6 +91,7 @@ int ConnectorLabel::getSpacing() const
 void ConnectorLabel::slotConnDeleted()
 {
 	delete this;
+//	KSIMDEBUG("ConnectorLabel::slotConnDeleted()");
 }
 
 /** Draw the sheet view.
