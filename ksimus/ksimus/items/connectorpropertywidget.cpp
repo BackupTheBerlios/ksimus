@@ -60,7 +60,8 @@ public:
 	~Private() {};
 	
 	QLineEdit * nameEdit;
-	QCheckBox * hide;	
+	QCheckBox * hide;
+	QCheckBox * negate;
 
 	QGrid * rowWidget;
 	QGrid * boxWidget;
@@ -73,10 +74,7 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 		m_conn(connector)
 {
 	QLabel * label;
-//	QGridLayout * lay1;
 	QGrid * grid;
-//	QGridLayout * m_layout;
-//	QGridLayout * mainLayout;
 	QString str;
 	
 	m_p = new Private();
@@ -89,14 +87,6 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	m_p->boxWidget = new QGrid(2, QGrid::Horizontal, this, "boxWidget");
 	CHECK_PTR(m_p->boxWidget);
 	m_p->boxWidget->setSpacing(KDialog::spacingHint());
-	
-/*	mainLayout = new QGridLayout(this,2,1);
-	CHECK_PTR(mainLayout);
-	m_layout = new QGridLayout(mainLayout,1,2);
-	CHECK_PTR(m_layout);
-	m_layout->addWidget(rowWidget(),0,0);
-	m_layout->addWidget(boxWidget(),1,0);
-	mainLayout->setRowStretch(1,1);*/
 	
 	m_p->settingWidget = new QGroupBox(1, Qt::Horizontal, i18n("Settings"), boxWidget(), "boxWidget");
 	CHECK_PTR(m_p->settingWidget);
@@ -145,6 +135,17 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 		m_p->hide = 0;
 	}
 
+	if (m_conn->isNegateEnabled())
+	{
+		m_p->negate = new QCheckBox(i18n("Negate"),settingWidget(),"NegateCheck");
+		m_p->negate->setChecked(m_conn->isNegated());
+		QToolTip::add(m_p->negate,i18n("Negate the connector"));
+	}
+	else
+	{
+		m_p->negate = 0;
+	}
+
 	connect(m_conn, SIGNAL(destroyed()), this, SLOT(slotDelete()));
 }
 
@@ -174,6 +175,11 @@ void ConnectorPropertyWidget::acceptPressed()
 		changeData();
 		m_conn->setHide(m_p->hide->isChecked());
 	}
+	if (m_p->negate && (m_conn->isNegated() != m_p->negate->isChecked()))
+	{
+		changeData();
+		m_conn->setNegate(m_p->negate->isChecked());
+	}
 }
 
 void ConnectorPropertyWidget::defaultPressed()
@@ -185,8 +191,11 @@ void ConnectorPropertyWidget::defaultPressed()
 	{
 		m_p->hide->setChecked(m_conn->isInitHidden());
 	}
+	if (m_p->negate)
+	{
+		m_p->negate->setChecked(m_conn->isInitNegate());
+	}
 }
-	
 
 
 void ConnectorPropertyWidget::polish()

@@ -74,7 +74,8 @@ public:
 		orientation(CO_UNDEF),
 		direction(CD_UNDEF),
 		idDisconnect(0),
-		idErase(0)
+		idErase(0),
+		idNegate(0)
 	{};
 	
 	~ConnectorBasePrivate() {};
@@ -134,6 +135,7 @@ public:
 	// ID menu entry
 	int idDisconnect;
 	int idErase;
+	int idNegate;
 };
 
 
@@ -641,6 +643,16 @@ bool ConnectorBase::initPopupMenu(QPopupMenu * popup)
 		m_p->idErase = 0;
 	}
 	
+	if (isNegateEnabled())
+	{
+		m_p->idNegate = popup->insertItem(i18n("&Negate connector"), this,SLOT(slotToggleNegType()));
+		popup->setItemChecked(m_p->idNegate, isNegated());
+	}
+	else
+	{
+		m_p->idNegate = 0;
+	}
+
 	connect(popup, SIGNAL(highlighted(int)), SLOT(popupMenuHighlighted(int)));
 
 	emit signalInitPopupMenu(popup);
@@ -665,6 +677,10 @@ void ConnectorBase::popupMenuHighlighted(int msg) const
 	{
 		getComponent()->statusHelpMsg(i18n("Erase the connector"));
 	}
+	else if (msg == m_p->idNegate)
+	{
+		getComponent()->statusHelpMsg(i18n("Negate the boolean connector"));
+	}
 }
 
 
@@ -686,6 +702,16 @@ void ConnectorBase::slotDeleteRequest()
 {
 	emit signalDeleteRequest(this);
 }
+
+/** Toggles the negated type */
+void ConnectorBase::slotToggleNegType()
+{
+	getComponent()->undoChangeProperty(i18n("Negate connector"));
+	setNegate(!isNegated());
+	getComponent()->setModified();
+	getComponent()->refresh();
+}
+
 
 /** Checks the connector
 *   eg. if input is connected.

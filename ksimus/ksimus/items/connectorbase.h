@@ -319,6 +319,8 @@ protected slots:
 		*	Is called from RMB popup.
 		*/
 	void slotDeleteRequest();
+	/** Toggles the neg Type */
+	void slotToggleNegType();
 	/** Display a status help message for popup menu entries, if highlighted. */
 	virtual void popupMenuHighlighted(int msg) const;
 	

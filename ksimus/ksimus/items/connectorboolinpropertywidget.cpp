@@ -18,15 +18,11 @@
 // C-Includes
 
 // QT-Includes
-#include <qcheckbox.h>
-#include <qtooltip.h>
 
 // KDE-Includes
-#include <klocale.h>
 
 // Project-Includes
 #include "connectorboolinpropertywidget.h"
-#include "connectorbase.h"
 
 // Forward declaration
 
@@ -35,43 +31,9 @@
 ConnectorBoolInPropertyWidget::ConnectorBoolInPropertyWidget(ConnectorBase * connector, QWidget *parent, const char *name)
 	:	ConnectorPropertyWidget(connector, parent, name)
 {
-	if (m_conn->isNegateEnabled())
-	{
-		m_negate = new QCheckBox(i18n("Negate"),settingWidget(),"NegateCheck");
-		m_negate->setChecked(m_conn->isNegated());
-	    QToolTip::add(m_negate,i18n("Negate the connector"));
-	
-	}
-	else
-	{
-		m_negate = 0;
-	}
 }
 
 ConnectorBoolInPropertyWidget::~ConnectorBoolInPropertyWidget()
 {
 }
 
-void ConnectorBoolInPropertyWidget::acceptPressed()
-{
-	ConnectorPropertyWidget::acceptPressed();
-	
-	if (m_negate)
-	{
-		if (m_conn->isNegated() != m_negate->isChecked())
-		{
-			changeData();
-			m_conn->setNegate(m_negate->isChecked());
-		}
-	}
-}
-
-void ConnectorBoolInPropertyWidget::defaultPressed()
-{
-	ConnectorPropertyWidget::defaultPressed();
-	
-	if (m_negate)
-	{
-		m_negate->setChecked(m_conn->isInitNegate());
-	}
-}

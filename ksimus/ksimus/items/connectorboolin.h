@@ -87,9 +87,6 @@ public:
 	/** Creates the property widget */
 	virtual PropertyWidget* propertyWidget(QWidget * parent);
 
-	/** Add menu items depend on connetor properties */
-	virtual bool initPopupMenu(QPopupMenu * popup);
-	
 	/** Returns a text which represents the current value. */
 	virtual QString getValueText() const;
 
@@ -116,22 +113,11 @@ protected:
 	                ConnOrientationType orient,
 	                const ConnectorInfo * ci);
 	
-	
-	
-protected slots:
-	/** Display a status help message for popup menu entries, if highlighted */
-	virtual void popupMenuHighlighted(int msg) const;
-private slots:
-	/** Toggles the neg Type */
-	void slotToggleNegType();
-	
-	
 private:
 	/** Internal init function. */
 	void init();
 
 	bool m_data;
-	int idNegate;
 };
 
 

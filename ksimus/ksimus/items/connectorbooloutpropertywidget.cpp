@@ -31,7 +31,7 @@
 
 
 ConnectorBoolOutPropertyWidget::ConnectorBoolOutPropertyWidget(ConnectorBoolOut * connector, QWidget *parent, const char *name)
-	:	ConnectorBoolInPropertyWidget(connector, parent, name)
+	:	ConnectorPropertyWidget(connector, parent, name)
 {
 }
 

@@ -126,45 +126,6 @@ PropertyWidget* ConnectorBoolIn::propertyWidget(QWidget * parent)
 	return new ConnectorBoolInPropertyWidget(this, parent, getName());
 }
 
-/** Add menu items depend on connetor properties */
-bool ConnectorBoolIn::initPopupMenu(QPopupMenu * popup)
-{
-	
-	ConnectorInputBase::initPopupMenu(popup);
-	
-	if (isNegateEnabled())
-	{
-		idNegate = popup->insertItem(i18n("&Negate connector"), this,SLOT(slotToggleNegType()));
-		popup->setItemChecked(idNegate, isNegated());
-	}
-	else
-	{
-		idNegate = 0;
-	}
-
-	return true;
-}	
-
-/** Display a help for the popup menu */
-void ConnectorBoolIn::popupMenuHighlighted(int msg) const
-{
-	ConnectorInputBase::popupMenuHighlighted(msg);
-	
-	if (msg == idNegate)
-	{
-		getComponent()->statusHelpMsg(i18n("Negate the boolean connector"));
-	}
-}
-
-/** Toggles the negated type */
-void ConnectorBoolIn::slotToggleNegType()
-{
-	getComponent()->undoChangeProperty(i18n("Negate connector"));
-	setNegate(!isNegated());
-	getComponent()->setModified();
-	getComponent()->refresh();
-}
-
 /** Returns a text which represents the current value. */
 QString ConnectorBoolIn::getValueText() const
 {

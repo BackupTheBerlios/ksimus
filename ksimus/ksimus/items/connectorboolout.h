@@ -90,9 +90,6 @@ public:
 	// Get the colors for the connector
 	virtual const WireColorScheme & getColorScheme() const;
 	
-
-	virtual bool initPopupMenu(QPopupMenu * popup);
-	
 	/** Creates the property widget */
 	virtual PropertyWidget* propertyWidget(QWidget * parent);
 
@@ -135,18 +132,10 @@ protected:
 	                 const ConnectorInfo * ci);
 	
 
-private slots:
-	/** Display a status help message for popup menu entries, if highlighted */
-	virtual void popupMenuHighlighted(int msg) const;
-	/** Toggles the neg Type */
-	void slotToggleNegType();
-	
-	
 private:
 	/** Internal init function. */
 	void init();
 	
-	int idNegate;
 	bool m_data;
 };
 

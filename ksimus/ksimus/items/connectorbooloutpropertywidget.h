@@ -25,7 +25,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "connectorboolinpropertywidget.h"
+#include "connectorpropertywidget.h"
 
 // Forward declaration
 class ConnectorBoolOut;
@@ -34,7 +34,7 @@ class ConnectorBoolOut;
   *@author Rasmus Diekenbrock
   */
 
-class ConnectorBoolOutPropertyWidget : public ConnectorBoolInPropertyWidget
+class ConnectorBoolOutPropertyWidget : public ConnectorPropertyWidget
 {
 	Q_OBJECT
 
