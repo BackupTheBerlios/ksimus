@@ -19,7 +19,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qspinbox.h>
 #include <qgroupbox.h>
 #include <qvalidator.h>
 #include <qhbox.h>
@@ -36,6 +35,7 @@
 #include "compview.h"
 #include "ksimundo.h"
 #include "ksimdebug.h"
+#include "ksimspinbox.h"
 
 // Forward declaration
 
@@ -79,7 +79,7 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	label = new QLabel(i18n("Width:"), schematicBox);
 	CHECK_PTR(label);
 	
-	m_schematicWidth = new QSpinBox(minWidth, 10000, gridX, schematicBox, "m_schematicWidth");
+	m_schematicWidth = new KSimSpinBox(minWidth, 10000, gridX, schematicBox, "m_schematicWidth");
 	CHECK_PTR(m_schematicWidth);
 	vali = new QIntValidator(minWidth, 10000, m_schematicWidth, "m_schematicWidthValidator");
 	CHECK_PTR(vali);
@@ -93,7 +93,7 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	label = new QLabel(i18n("Height:"), schematicBox);
 	CHECK_PTR(label);
 	
-	m_schematicHeight = new QSpinBox(minHeight, 10000, gridY, schematicBox, "m_schematicHeight");
+	m_schematicHeight = new KSimSpinBox(minHeight, 10000, gridY, schematicBox, "m_schematicHeight");
 	CHECK_PTR(m_schematicHeight);
 	vali = new QIntValidator(minHeight, 10000, m_schematicHeight, "m_schematicHeightValidator");
 	CHECK_PTR(vali);
@@ -130,7 +130,7 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	label = new QLabel(i18n("Width:"), userBox);
 	CHECK_PTR(label);
 	
-	m_userWidth = new QSpinBox(minWidth, 10000, gridX, userBox, "m_userWidth");
+	m_userWidth = new KSimSpinBox(minWidth, 10000, gridX, userBox, "m_userWidth");
 	CHECK_PTR(m_userWidth);
 	vali = new QIntValidator(minWidth, 10000, m_userWidth, "m_userWidthValidator");
 	CHECK_PTR(vali);
@@ -144,7 +144,7 @@ MapSizesWidget::MapSizesWidget(KSimusDoc * doc, QWidget *parent, const char *nam
 	label = new QLabel(i18n("Height:"), userBox);
 	CHECK_PTR(label);
 	
-	m_userHeight = new QSpinBox(minHeight, 10000, gridY, userBox, "m_userHeight");
+	m_userHeight = new KSimSpinBox(minHeight, 10000, gridY, userBox, "m_userHeight");
 	CHECK_PTR(m_userHeight);
 	vali = new QIntValidator(minHeight, 10000, m_userHeight, "m_userHeightValidator");
 	CHECK_PTR(vali);

@@ -39,7 +39,7 @@ class ConnectorPack;
 class ComponentControlBlock;
 class ComponentLayout;
 class ConnectorLabel;
-class QSpinBox;
+class KSimSpinBox;
 class QLabel;
 class KSimBooleanBox;
 
@@ -196,7 +196,7 @@ public:
 	QLabel * getResetStateLabel() const { return m_resetStateLabel; };
 
 protected:
-	QSpinBox * m_channels;
+	KSimSpinBox * m_channels;
 	QLabel * m_channelsLabel;
 
 	KSimBooleanBox * m_resetState;

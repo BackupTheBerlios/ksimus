@@ -125,7 +125,7 @@ int KSimDoubleSpinBox::Private::rmbExponentStepID = -1;
 
 
 KSimDoubleSpinBox::KSimDoubleSpinBox(QWidget * parent, const char * name)
-	: QSpinBox(parent, name),
+	: KSimSpinBox(parent, name),
 		m_p(new Private(0.0, -10.0, 10.0, 0.1))
 {
 	init();
@@ -133,7 +133,7 @@ KSimDoubleSpinBox::KSimDoubleSpinBox(QWidget * parent, const char * name)
 
 KSimDoubleSpinBox::KSimDoubleSpinBox(double value, double min, double max, double steps,
                                      QWidget * parent, const char * name)
-	: QSpinBox(parent, name),
+	: KSimSpinBox(parent, name),
 		m_p(new Private(value, min, max, steps))
 {
 	init();
@@ -144,8 +144,8 @@ void KSimDoubleSpinBox::init()
 	CHECK_PTR(m_p);
 	setValidator(0);
 	connect(this,SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
-	QSpinBox::setMinValue(QSPINBOX_LOWER_LIMIT);
-	QSpinBox::setMaxValue(QSPINBOX_UPPER_LIMIT);
+	KSimSpinBox::setMinValue(QSPINBOX_LOWER_LIMIT);
+	KSimSpinBox::setMaxValue(QSPINBOX_UPPER_LIMIT);
 	setFocusPolicy(QWidget::WheelFocus);
 	setAlignment(AlignRight);
 }
@@ -197,13 +197,13 @@ void KSimDoubleSpinBox::setValue(double value)
 {
 	setUpdateRequired();
 	int res = setValueInternal(value);
-	QSpinBox::setValue(res);
+	KSimSpinBox::setValue(res);
 }
 
 int KSimDoubleSpinBox::setValueInternal(double newValue)
 {
 	bool toggle = true;
-	int res = QSpinBox::value();
+	int res = KSimSpinBox::value();
 	if (isUpdateRequired() || (newValue != value()))
 	{
 //		KSIMDEBUG("KSimDoubleSpinBox::setValueInternal(double newValue)");
@@ -348,7 +348,7 @@ void KSimDoubleSpinBox::stepUp()
 	}
 	
 	res = setValueInternal(newValue);
-	QSpinBox::setValue(res);
+	KSimSpinBox::setValue(res);
 }
 
 void KSimDoubleSpinBox::stepDown()
@@ -382,7 +382,7 @@ void KSimDoubleSpinBox::stepDown()
 	}
 	
 	res = setValueInternal(newValue);
-	QSpinBox::setValue(res);
+	KSimSpinBox::setValue(res);
 }
 
 QString KSimDoubleSpinBox::mapValueToText(int)
@@ -532,17 +532,6 @@ void KSimDoubleSpinBox::setFormat(int fieldwidth, char format, int precision)
 	setUpdateRequired();
 }
 
-void KSimDoubleSpinBox::setAlignment(int flag)
-{
-	editor()->setAlignment(flag);
-}
-	
-int KSimDoubleSpinBox::alignment() const
-{
-	return editor()->alignment();
-}
-
-
 void KSimDoubleSpinBox::setUpdateRequired(bool update)
 {
 	m_p->setUpdateRequired(update);
@@ -550,7 +539,7 @@ void KSimDoubleSpinBox::setUpdateRequired(bool update)
 	{
 //		setValue(value());  endless loop !!!!
 		int res = setValueInternal(value());
-		QSpinBox::setValue(res);
+		KSimSpinBox::setValue(res);
 	}
 }
 
@@ -615,7 +604,7 @@ bool KSimDoubleSpinBox::eventFilter(QObject * obj, QEvent * ev)
 		default:
 			break;
 	}
-	return QSpinBox::eventFilter(obj,ev);
+	return KSimSpinBox::eventFilter(obj,ev);
 }
 
 void KSimDoubleSpinBox::initRmbMenu(QPopupMenu * popup)

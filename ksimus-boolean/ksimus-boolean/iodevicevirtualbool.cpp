@@ -20,7 +20,6 @@
 // QT includes
 #include <qvbox.h>
 #include <qlabel.h>
-#include <qspinbox.h>
 
 // KDE includes
 #include <klocale.h>
@@ -28,16 +27,11 @@
 #include <kconfig.h>
 
 // KSimus includes
+#include "ksimus/ksimspinbox.h"
 #include "ksimus/ksimdebug.h"
-//#include "ksimusdoc.h"
-//#include "ksimiodevicelist.h"
 #include "ksimus/ksimiodeviceinfo.h"
-//#include "ksimiodevicepropertydialog.h"
-//#include "ksimiodevicepropertybasewidget.h"
-//#include "ksimiodevicepropertygeneralwidget.h"
 #include "ksimus/ksimiojoinboolin.h"
 #include "ksimus/ksimiojoinboolout.h"
-//#include "ksimiocomponent.h"
 
 // Project includes
 #include "iodevicevirtualbool.h"
@@ -261,7 +255,7 @@ IoDeviceVirtualBoolPropertyGeneralWidget::IoDeviceVirtualBoolPropertyGeneralWidg
 	m_channelsLabel = new QLabel(i18n("Boolean", "Number of channels: "), this, "m_channelsLabel");
 	CHECK_PTR(m_channelsLabel);
 
-	m_channels = new QSpinBox(device->getMinChannelCount(), MAX_CHANNEL_COUNT, 1, this, "m_channels");
+	m_channels = new KSimSpinBox(device->getMinChannelCount(), MAX_CHANNEL_COUNT, 1, this, "m_channels");
 	CHECK_PTR(m_channels);
 	tip = i18n("Boolean", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);

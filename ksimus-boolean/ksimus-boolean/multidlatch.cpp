@@ -21,12 +21,12 @@
 #include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qlabel.h>
-#include <qspinbox.h>
 
 // KDE-Includes
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/ksimspinbox.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolinedge.h"
 #include "ksimus/connectorboolout.h"
@@ -363,7 +363,7 @@ MultiDLatchPropertyGeneralWidget::MultiDLatchPropertyGeneralWidget(MultiDLatch *
 	m_channelsLabel = new QLabel(i18n("Boolean", "Number of latches: "), this, "m_channelsLabel");
 	CHECK_PTR(m_channelsLabel);
 	
-	m_channels = new QSpinBox(m_min, MAX_CHANNELS, 1, this, "m_channels");
+	m_channels = new KSimSpinBox(m_min, MAX_CHANNELS, 1, this, "m_channels");
 	CHECK_PTR(m_channels);
 	tip = i18n("Boolean", "Change number of latches here.");
 	addToolTip(tip, m_channels, m_channelsLabel);

@@ -29,7 +29,7 @@
 
 // Forward declaration
 class KSimusDoc;
-class QSpinBox;
+class KSimSpinBox;
 
 /**Adjusts the map sizes.
   *@author Rasmus Diekenbrock
@@ -60,10 +60,10 @@ protected:
 private:
 	KSimusDoc * m_doc;
 	
-	QSpinBox * m_schematicWidth;
-	QSpinBox * m_schematicHeight;
-	QSpinBox * m_userWidth;
-	QSpinBox * m_userHeight;
+	KSimSpinBox * m_schematicWidth;
+	KSimSpinBox * m_schematicHeight;
+	KSimSpinBox * m_userWidth;
+	KSimSpinBox * m_userHeight;
 	
 	
 private slots:

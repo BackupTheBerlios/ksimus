@@ -426,7 +426,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	// Bits
 	lab = new QLabel(i18n("Boolean", "Counter width:"), this);
 	CHECK_PTR(lab);
-	m_bits = new QSpinBox(this, "Bits");
+	m_bits = new KSimSpinBox(this, "Bits");
 	CHECK_PTR(m_bits);
 	m_bits->setValue(getCounter()->getBits());
 	m_bits->setRange(getCounter()->getMinBits() ,16);

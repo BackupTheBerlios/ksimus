@@ -21,7 +21,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qspinbox.h>
 
 // KDE-Includes
 
@@ -29,6 +28,7 @@
 
 // Project-Includes
 #include "ksimunit.h"
+#include "ksimspinbox.h"
 
 // Forward declaration
 class KSimMultiUnitList;
@@ -49,7 +49,7 @@ class QPopupMenu;
 //#############################################################
 //#############################################################
 
-class KSimDoubleSpinBox : public QSpinBox
+class KSimDoubleSpinBox : public KSimSpinBox
 {
 class Private;
 	Q_OBJECT
@@ -172,12 +172,6 @@ public:
 	/** Sets the format of the output. See also QString::arg().
 	*/
 	void setFormat(int fieldwidth=0, char format = 'g', int precision = -1);
-
-	/** Sets the alignment of the editor. */
-	void setAlignment(int flag);
-	
-	/** Returns the alignment of the editor. */
-	int alignment() const;
 
 public slots:	
 	/** Sets the current value.

@@ -21,11 +21,11 @@
 // C-Includes
 
 // QT-Includes
-#include <qspinbox.h>
 
 // KDE-Includes
 
 // Project-Includes
+#include "ksimus/ksimspinbox.h"
 #include "ksimus/component.h"
 #include "ksimus/compview.h"
 #include "ksimus/componentinfo.h"
@@ -179,7 +179,7 @@ public:
 	BooleanCounter * getCounter() { return (BooleanCounter *)getComponent();	};
 
 
-	QSpinBox * getBitsWidget() { return m_bits; };
+	KSimSpinBox * getBitsWidget() { return m_bits; };
 	KSimBaseUIntEdit * getMaxValueWidget() { return m_maxValue; };
 	KSimBaseUIntEdit * getMinValueWidget() { return m_minValue; };
 	KSimBaseUIntEdit * getResetValueWidget() { return m_resetValue; };
@@ -189,7 +189,7 @@ protected:
 	KSimBaseUIntEdit * m_maxValue;
 	KSimBaseUIntEdit * m_minValue;
 	KSimBaseUIntEdit * m_resetValue;
-	QSpinBox * m_bits;
+	KSimSpinBox * m_bits;
 	
 
 private:

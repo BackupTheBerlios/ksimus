@@ -38,7 +38,7 @@ class ConnectorPack;
 class ComponentControlBlock;
 class ComponentLayout;
 class ConnectorLabel;
-class QSpinBox;
+class KSimSpinBox;
 class QLabel;
 
 
@@ -188,7 +188,7 @@ public:
 	Demultiplexer* getComponent() { return (Demultiplexer*) ComponentPropertyGeneralWidget::getComponent(); };
 
 protected:
-	QSpinBox * m_channels;
+	KSimSpinBox * m_channels;
 	QLabel * m_channelsLabel;
 };
 

@@ -35,7 +35,7 @@
 
 // Forward declaration
 class KSimIoDeviceInfo;
-class QSpinBox;
+class KSimSpinBox;
 class QLabel;
 
 //###############################################################
@@ -132,7 +132,7 @@ public:
 
 
 protected:
-	QSpinBox * m_channels;
+	KSimSpinBox * m_channels;
 	QLabel * m_channelsLabel;
 };
 
