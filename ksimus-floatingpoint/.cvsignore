@@ -13,3 +13,6 @@ stamp-h.in
 messages.log
 tags
 ksimus-floatingpoint.kdevses
+ksimus-floatingpoint.kdevelop.pcs
+debug
+autom4te.cache
