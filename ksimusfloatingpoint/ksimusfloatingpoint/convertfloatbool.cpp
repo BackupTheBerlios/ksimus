@@ -57,7 +57,9 @@ const ComponentInfo ConvertFloatBoolInfo(
                      I18N_NOOP("Converter/Float to Boolean"),
                      QString::null,
                      VA_SHEETVIEW,
-                     create );
+                     create,
+                     QString::null,
+                     "component-float-converter-float-bool");
 
 
 //###############################################################
@@ -93,7 +95,7 @@ void ConvertFloatBool::calculate()
 	bool state = getState();
 	double input = getInput()->getInput();
 	
-	if (getFalseThreshold() < getTrueThreshold())
+	if (getFalseThreshold() <= getTrueThreshold())
 	{
 		if(input >= getTrueThreshold())
 		{
