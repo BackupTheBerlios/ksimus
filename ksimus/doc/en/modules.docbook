@@ -103,8 +103,21 @@ is important that each External Connector has a unique name.
 </para>
 
 <para>
+External Connectors which acts as module inputs have a default value. This default value is
+used if the input is not connected. The module developer has to select the default value in 
+mind of proper function of the module.
+</para>
+
+<para>
+An External Connector may be an optional connector. Some modules don't need all connectors
+to work properly. The module developer can declare these not mandatory required connectors 
+as optional and if it be shown or hidden as default. The module user can use the connector
+op hide it if he don't use it.
+</para>
+
+<para>
 External Connectors for boolean signals have a special feature. If you negate the &connector;
-near the triangle the &connector; of the module is also negated.
+near the triangle the &connector; of the module is also negated as default.
 </para>
 
 <para>
