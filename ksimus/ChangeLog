@@ -1,3 +1,8 @@
+	30.12.2001
+* New: Classes ComponentStyle, ComponentPropertyStyleWidget, CompViewHBox and CompViewVBox for
+  UI components. New properties foreground and background color and selectable frame.
+* Change: BooleanLed with user defineable foreground and background color. Frame hideable in user interface.
+* Change: Version 0.3.2.cvs
 	29.12.2001
 * Change: Version 0.3.1
 	28.12.2001
@@ -6,7 +11,7 @@
 	25.12.2001
 * Change: Connector class constructors uses "const QString &" instead "const char *" for name
 * Change: Unique feature of ComponentAddOn is now selectable
-* Change: ConnectorLabel does not use unqiue feature of ComponentAddOn
+* Change: ConnectorLabel does not use unique feature of ComponentAddOn
 * Change: ConnectorPropertyDialog inherits ComponentItem (Code reuse!).
 * Change: Beautify Property Check error mesg.
 * Fix: Avoid unnecessarily debug messages from KSimEditor::wirePopup(...).
