@@ -176,7 +176,7 @@ extern "C"
 			                                               KSimLibBoolean::getDistComponents(),
 			                                               KSimLibBoolean::getDistConnector(),
 			                                               KSimLibBoolean::getDistWireProperty());
-	  }
+		}
 	
 
 		return KSimLibBoolean::packageInfo;

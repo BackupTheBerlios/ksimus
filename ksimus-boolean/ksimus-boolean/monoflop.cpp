@@ -20,7 +20,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
@@ -266,10 +265,10 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Boolean", "Retrigger:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Retrigger:"), this);
 	CHECK_PTR(lab);
 	
-	m_retrigger = new KSimBooleanBox(comp->getRetrigger(), getGrid());
+	m_retrigger = new KSimBooleanBox(comp->getRetrigger(), this);
 	CHECK_PTR(m_retrigger);
 	
 	m_retrigger->setTrueText(i18n("Boolean", "On"));
@@ -281,10 +280,10 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	QWhatsThis::add(m_retrigger, str);
 	QWhatsThis::add(lab, str);
 	
-	lab = new QLabel(i18n("Boolean", "Time:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Time:"), this);
 	CHECK_PTR(lab);
 	
-	m_highTime = new KSimTimeSpinBox(comp->getHighTime(), getGrid());
+	m_highTime = new KSimTimeSpinBox(comp->getHighTime(), this);
 	CHECK_PTR(m_highTime);
 	
 	str = i18n("Boolean", "Set here the duration.");

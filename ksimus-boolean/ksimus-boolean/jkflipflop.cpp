@@ -20,7 +20,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
@@ -340,10 +339,10 @@ JKFlipFlopPropertyGeneralWidget::JKFlipFlopPropertyGeneralWidget(JKFlipFlop * co
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Boolean", "Master Slave:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Master Slave:"), this);
 	CHECK_PTR(lab);
 	
-	m_masterSlave = new KSimBooleanBox(comp->isMasterSlaveEnabled(), getGrid());
+	m_masterSlave = new KSimBooleanBox(comp->isMasterSlaveEnabled(), this);
 	CHECK_PTR(m_masterSlave);
 	
 	m_masterSlave->setTrueText(i18n("Boolean", "Enabled"));

@@ -26,9 +26,9 @@
 #include <qfileinfo.h>
 #include <qtextstream.h>
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qcheckbox.h>
 #include <qvbuttongroup.h>
+#include <qvbox.h>
 #include <qlineedit.h>
 
 // KDE-Includes
@@ -901,28 +901,31 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 {
 	QString tip;
 	
-	m_filenameLabel = new QLabel(i18n("File:"), getGrid(), "m_filenameLabel");
+	m_filenameLabel = new QLabel(i18n("File:"), this, "m_filenameLabel");
 	CHECK_PTR(m_filenameLabel);
 	
 	m_filename = new KSimFilenameWidget(comp->getFilename(),
 	                                    KSimFilename::PATH_ABSOLUTE | KSimFilename::PATH_RELATIVE_DOCUMENT
 	                                    | KSimFilename::PATH_RELATIVE_HOME,
-	                                    getGrid(), "m_filename");
+	                                    this, "m_filename");
 	CHECK_PTR(m_filename);
 	
-	m_separatorLabel = new QLabel(i18n("Column separator:"), getGrid(), "m_separatorLabel");
+	m_separatorLabel = new QLabel(i18n("Column separator:"), this, "m_separatorLabel");
 	CHECK_PTR(m_separatorLabel);
-	m_separator = new QLineEdit(comp->getSeparator(), getGrid(), "m_separator");
+	m_separator = new QLineEdit(comp->getSeparator(), this, "m_separator");
 	CHECK_PTR(m_separator);
 	tip = i18n("Edit the column separator here.");
 	addToolTip(tip, m_separator, m_separatorLabel);
 	addWhatsThis(tip, m_separator, m_separatorLabel);
 
 
-	m_switchLabel = new QLabel(i18n("Switches:"), getGrid(), "m_switchLabel");
-	CHECK_PTR(m_switchLabel);
+/*	m_switchLabel = new QLabel(i18n("Switches:"), this, "m_switchLabel");
+	CHECK_PTR(m_switchLabel);*/
 
-	QVButtonGroup * butGrp = new QVButtonGroup(getGrid(), "butGrp");
+	QVBox * vbox = newRowVBox("vbox");
+	CHECK_PTR(vbox);
+	
+	QVButtonGroup * butGrp = new QVButtonGroup(i18n("Switches:"), vbox, "butGrp");
 	CHECK_PTR(butGrp);
 
 	m_append = new QCheckBox(i18n("Append data to existing file"), butGrp, "m_append");

@@ -19,7 +19,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
@@ -138,10 +137,10 @@ FlipFlopBasePropertyGeneralWidget::FlipFlopBasePropertyGeneralWidget(FlipFlopBas
 	QLabel * lab;
 	QString str;	
 
-	lab = new QLabel(i18n("Boolean", "Dominant Input:"), getGrid());
+	lab = new QLabel(i18n("Boolean", "Dominant Input:"), this);
 	CHECK_PTR(lab);
 	
-	m_dominant = new KSimBooleanBox(comp->getDominant(), getGrid());
+	m_dominant = new KSimBooleanBox(comp->getDominant(), this);
 	CHECK_PTR(m_dominant);
 	
 	m_dominant->setTrueText(i18n("Boolean", "Set Input"));

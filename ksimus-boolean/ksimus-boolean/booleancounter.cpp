@@ -22,8 +22,6 @@
 #include <qpainter.h>
 #include <qlabel.h>
 #include <qvbox.h>
-#include <qgrid.h>
-#include <qlayout.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -392,21 +390,19 @@ void BooleanCounterView::addConn(ConnectorBase * conn)
 //###############################################################
 
 BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp, QWidget *parent, const char *name)
-	:	ComponentPropertyBaseWidget(comp, parent, name),
+	:	ComponentPropertyBaseWidget(comp, 2, parent, name),
 		m_noBitChanges(false)
 {
-	QGridLayout * layout;
-	QGrid * grid;
+//	setColStretch(0,0);
+	setColStretch(1,1);
+	
 	QLabel * lab;
 	QString str;	
 	
-	grid = new QGrid(2, /*QGrid::Horizontal,*/ this);
-	grid->setSpacing(KDialog::spacingHint());
-	
 	// Bits
-	lab = new QLabel(i18n("Boolean", "Counter width:"), grid);
+	lab = new QLabel(i18n("Boolean", "Counter width:"), this);
 	CHECK_PTR(lab);
-	m_bits = new QSpinBox(grid, "Bits");
+	m_bits = new QSpinBox(this, "Bits");
 	CHECK_PTR(m_bits);
 	m_bits->setValue(getCounter()->getBits());
 	m_bits->setRange(getCounter()->getMinBits() ,16);
@@ -416,9 +412,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	addWhatsThis(str, lab, m_bits);
 
 	// Maximum count
-	lab = new QLabel(i18n("Boolean", "Maximum:"), grid);
+	lab = new QLabel(i18n("Boolean", "Maximum:"), this);
 	CHECK_PTR(lab);
-	m_maxValue = new KSimBaseUIntLineEdit(getCounter()->getMaxCount(), grid, "Maximum");
+	m_maxValue = new KSimBaseUIntLineEdit(getCounter()->getMaxCount(), this, "Maximum");
 	CHECK_PTR(m_maxValue);
 	str = i18n("Boolean", "Sets the maximum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_maxValue);
@@ -426,9 +422,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	addWhatsThis(str, lab, m_maxValue);
 
 	// Minimum count
-	lab = new QLabel(i18n("Boolean", "Minimum:"), grid);
+	lab = new QLabel(i18n("Boolean", "Minimum:"), this);
 	CHECK_PTR(lab);
-	m_minValue = new KSimBaseUIntLineEdit(getCounter()->getMinCount(), grid, "Minimum");
+	m_minValue = new KSimBaseUIntLineEdit(getCounter()->getMinCount(), this, "Minimum");
 	CHECK_PTR(m_minValue);
 	str = i18n("Boolean", "Sets the minimum counter value.\nThis value is used if the counter wraps around.");
 	addToolTip(str, lab, m_minValue);
@@ -436,9 +432,9 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	addWhatsThis(str, lab, m_minValue);
 
 	// Reset value
-	lab = new QLabel(i18n("Boolean", "Reset value:"), grid);
+	lab = new QLabel(i18n("Boolean", "Reset value:"), this);
 	CHECK_PTR(lab);
-	m_resetValue = new KSimBaseUIntLineEdit(getCounter()->getResetCount(), grid, "Reset value");
+	m_resetValue = new KSimBaseUIntLineEdit(getCounter()->getResetCount(), this, "Reset value");
 	CHECK_PTR(m_resetValue);
 	str = i18n("Boolean", "Sets the reset counter value.\nThis value is also used if the counter is reseted.");
 	addToolTip(str, lab, m_resetValue);
@@ -448,20 +444,11 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	
 	// Hint bit count
 	str = i18n("Boolean", "Hint: minimum counter width is %1 bit").arg(getCounter()->getMinBits());
-	lab = new QLabel(str, this);
+	lab = new QLabel(str, newRowVBox());
 	CHECK_PTR(lab);
 	str = i18n("Boolean", "This is the minimal possible counter width.\nThis value depends on wired connectors.");
 	addToolTip(str, lab);
 	addWhatsThis(str, lab);
-	
-	// Set main layout
-	layout = new QGridLayout(this,3,1);
-	CHECK_PTR(layout);
-	layout->setMargin(KDialog::marginHint());
-	layout->setSpacing(KDialog::spacingHint());
-	layout->addWidget(grid,0,0);
-	layout->addWidget(lab,1,0);
-	layout->setRowStretch(2,1);
 	
 	connect(m_resetValue, SIGNAL(changed()), this, SLOT(slotResetValueChanged()));
 	connect(m_minValue, SIGNAL(changed()), this, SLOT(slotMinValueChanged()));
