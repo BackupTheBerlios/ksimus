@@ -78,9 +78,20 @@ ConnectorBoolInEdge::ConnectorBoolInEdge( Component * comp, const char * name, c
 						
 /** True sets the connector edge sensitive. False sets the connector level sensitive.
  */
-void ConnectorBoolInEdge::setEdgeSensitive(bool edge)
+void ConnectorBoolInEdge::setEdgeSensitive(bool edge, bool init)
 {
 	m_edgeSensitive = edge;
+	if (init)
+	{	
+		if(edge)
+		{
+			m_flags |= INIT_SENSITIVE;
+		}
+		else
+		{
+			m_flags &= ~INIT_SENSITIVE;
+		}
+	}
 }
 /** Returns true if the connector is edge sensitive. False, if the connector is level sensitive.
  */
@@ -89,19 +100,6 @@ bool ConnectorBoolInEdge::isEdgeSensitive() const
 	return m_edgeSensitive;
 }
 	
-/** True sets the init sensitive to edge. False sets the init sensitive to level.
- */
-void ConnectorBoolInEdge::setInitEdgeSensitive(bool edge)
-{
-	if(edge)
-	{
-		m_flags |= INIT_SENSITIVE;
-	}
-	else
-	{
-		m_flags &= ~INIT_SENSITIVE;
-	}
-}
 /** Returns true if the init sensitive is edge sensitive. False, if the init sensitive is level sensitive.
  */
 bool ConnectorBoolInEdge::isInitEdgeSensitive() const

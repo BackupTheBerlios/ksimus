@@ -68,15 +68,17 @@ public:
 	                    const QPoint & pos = QPoint()	);
 	
 	/** True sets the connector edge sensitive. False sets the connector level sensitive.
+	 *
+	 * @param edge If edge is true, the connector is edge sensitive, if false the connector is
+	 *             level sensitive.
+	 * @param init If init is true, the edge setting is the default setting and will be stored
+	 *             only if edge setting is different.
 	 */
-	void setEdgeSensitive(bool edge);
+	void setEdgeSensitive(bool edge, bool init = false);
 	/** Returns true if the connector is edge sensitive. False, if the connector is level sensitive.
 	 */
 	bool isEdgeSensitive() const;
 
-	/** True sets the init sensitive to edge. False sets the init sensitive to level.
-	 */
-	void setInitEdgeSensitive(bool edge);
 	/** Returns true if the init sensitive is edge sensitive. False, if the init sensitive is level sensitive.
 	 */
 	bool isInitEdgeSensitive() const;
