@@ -31,6 +31,7 @@
 class QString;
 class Component;
 class ConnectorList;
+class ConnectorBase;
 
 /**A property dialog for one or more connectors
   *@author Rasmus Diekenbrock
@@ -40,7 +41,8 @@ class ConnectorPropertyDialog : public KDialogBase
 {
    Q_OBJECT
 public: 
-	ConnectorPropertyDialog(ConnectorList * connList, QString * caption = 0, QWidget *parent=0, const char *name=0);
+	ConnectorPropertyDialog(ConnectorList * connList, ConnectorBase * activeConn = 0,
+	                        QString * caption = 0, QWidget *parent=0, const char *name=0);
 	~ConnectorPropertyDialog();
 
 protected slots:

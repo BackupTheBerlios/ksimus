@@ -42,7 +42,8 @@
 
 
 
-ConnectorPropertyDialog::ConnectorPropertyDialog(ConnectorList * connList, QString * caption, QWidget *parent, const char *name )
+ConnectorPropertyDialog::ConnectorPropertyDialog(ConnectorList * connList, ConnectorBase * activeConn,
+                                                 QString * caption, QWidget *parent, const char *name )
 	:	KDialogBase(TreeList,
 					caption ? *caption : i18n("Connector Properties"),
 					Default | Ok | Cancel,
@@ -69,6 +70,11 @@ ConnectorPropertyDialog::ConnectorPropertyDialog(ConnectorList * connList, QStri
 				connect(this, SIGNAL(defaultClicked()), wid, SLOT(slotDefault()));
 				connect(this, SIGNAL(okClicked()), wid, SLOT(slotAccept()));
 				connect(wid, SIGNAL(signalChangeData()), this, SLOT(slotDataChanged()));
+				
+				if (it.current() == activeConn)
+				{
+					showPage(pageIndex(page));
+				}
 			}
 		}
 	}

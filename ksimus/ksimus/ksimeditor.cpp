@@ -1361,7 +1361,7 @@ void KSimEditor::componentPopup(bool connectorHit)
 		}
 		else if (res == connIdx)
 		{
-			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList());
+			ConnectorPropertyDialog * dia = new ConnectorPropertyDialog(comp->getConnList(), conn);
 			dia->exec();
 			delete dia;
 		}
