@@ -56,41 +56,44 @@ class SimulationExecute;
   */
 class KSimusDoc : public QObject
 {
-  Q_OBJECT
-  public:
-    /** Constructor for the fileclass of the application */
-    KSimusDoc(QWidget *parent, const char *name=0);
-    /** Destructor for the fileclass of the application */
-    ~KSimusDoc();
+	Q_OBJECT
 
-    /** adds a view to the document which represents the document contents. Usually this is your main view. */
-    void addView(KSimusView *view);
-    /** removes a view from the list of currently connected views */
-    void removeView(KSimusView *view);
-    /** sets the modified flag for the document after a modifying action on the view connected to the document.*/
-    void setModified(bool _m=true);
-    /** returns if the document is modified or not. Use this to determine if your document needs saving by the user on closing.*/
-    bool isModified() const;
-    /** sets the named flag for the document after saving or loading document.*/
-    void setNamed(bool _m=true);
-    /** returns if the document is named or not. Use this to determine if your document needs the dialog "save as".*/
-    bool isNamed() const;
-    /** "save modified" - asks the user for saving if the document is modified */
-    bool saveModified();
-    /** deletes the document's contents */
-    void deleteContents();
-    /** initializes the document generally */
-    bool newDocument();
-    /** closes the acutal document */
-    void closeDocument();
-    /** loads the document by filename and format and emits the updateViews() signal */
-    bool openDocument(const KURL& url, const char *format=0);
-    /** saves the document under filename and format.*/	
-    bool saveDocument(const KURL& url, const char *format=0);
-    /** returns the KURL of the document */
-    const KURL& URL() const;
-    /** sets the URL of the document */
-	  void setURL(const KURL& url);
+class Private;
+
+public:
+	/** Constructor for the fileclass of the application */
+	KSimusDoc(QWidget *parent, const char *name=0);
+	/** Destructor for the fileclass of the application */
+	~KSimusDoc();
+
+	/** adds a view to the document which represents the document contents. Usually this is your main view. */
+	void addView(KSimusView *view);
+	/** removes a view from the list of currently connected views */
+	void removeView(KSimusView *view);
+	/** sets the modified flag for the document after a modifying action on the view connected to the document.*/
+	void setModified(bool _m=true);
+	/** returns if the document is modified or not. Use this to determine if your document needs saving by the user on closing.*/
+	bool isModified() const;
+	/** sets the named flag for the document after saving or loading document.*/
+	void setNamed(bool _m=true);
+	/** returns if the document is named or not. Use this to determine if your document needs the dialog "save as".*/
+	bool isNamed() const;
+	/** "save modified" - asks the user for saving if the document is modified */
+	bool saveModified();
+	/** deletes the document's contents */
+	void deleteContents();
+	/** initializes the document generally */
+	bool newDocument();
+	/** closes the acutal document */
+	void closeDocument();
+	/** loads the document by filename and format and emits the updateViews() signal */
+	bool openDocument(const KURL& url, const char *format=0);
+	/** saves the document under filename and format.*/	
+	bool saveDocument(const KURL& url, const char *format=0);
+	/** returns the KURL of the document */
+	const KURL& URL() const;
+	/** sets the URL of the document */
+	void setURL(const KURL& url);
 	
 	/** Returns a pointer to the KSimusApp */
 	KSimusApp * getApp() const;
@@ -176,11 +179,11 @@ public slots:
 	 * As this view normally repaints itself, it is excluded from the paintEvent.
 	 */
 	void slotUpdateAllViews(KSimusView *sender);
- 	
+	
 private:
 	/** the modified flag of the current document */
+	Private * m_p;
 	bool m_modified;
-	KURL doc_url;
 	CompContainer * m_container;
 	KSimUndo * m_undo;
 	KSimFile * m_files;
