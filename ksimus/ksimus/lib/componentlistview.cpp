@@ -332,7 +332,7 @@ ComponentListViewItem * ComponentListView::findChild(const QString & childName)
 			return (ComponentListViewItem *) child;
 		child = child->nextSibling();
 	}
-	return 0;
+	return (ComponentListViewItem *)0;
 }
 
 

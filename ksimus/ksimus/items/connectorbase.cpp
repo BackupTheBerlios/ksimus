@@ -355,7 +355,7 @@ const char * ConnectorBase::getConnType() const
 	if (getConnInfo())
 		return getConnInfo()->getLibName();
 	else
-		return 0;
+		return (const char *)0;
 }
 
 /** Set the orientation of the connector */

@@ -297,7 +297,7 @@ CompLayoutBase * CompLayoutBase::getParentLayout() const
 {
 	if (m_flags & BASE_LAYOUT)
 	{
-		return 0;
+		return (CompLayoutBase *)0;
 	}
 	else
 	{

@@ -146,7 +146,7 @@ const BaseInfo * BaseLibrary::findLibName(const QString & libName) const
 	{
 		return bli->getBaseInfo();
 	}
-	return 0;
+	return (const BaseInfo *)0;
 }
 
 const BaseInfo * BaseLibrary::findOldLibName(const QString & oldLibName) const
@@ -156,7 +156,7 @@ const BaseInfo * BaseLibrary::findOldLibName(const QString & oldLibName) const
 	{
 		return bli->getBaseInfo();
 	}
-	return 0;
+	return (const BaseInfo *)0;
 }
 	
 const QString & BaseLibrary::getName(const QString & libName) const
@@ -237,6 +237,6 @@ const PackageInfo * BaseLibrary::getPackageInfo(const QString & libName) const
 		
 		return pi;
 	}
-	return 0;
+	return (const PackageInfo *)0;
 }
 

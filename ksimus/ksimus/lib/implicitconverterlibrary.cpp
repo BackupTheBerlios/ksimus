@@ -98,5 +98,5 @@ const ImplicitConverterInfo * ImplicitConverterLibrary::findDataType(const QStri
 	{
 		return cili->getImplicitConverterInfo();
 	}
-	return 0;
+	return (const ImplicitConverterInfo *)0;
 }

@@ -98,6 +98,6 @@ ComponentListViewItem * ComponentListViewItem::findChild(const QString & childNa
 			return (ComponentListViewItem *) child;
 		child = child->nextSibling();
 	}
-	return 0;
+	return (ComponentListViewItem *)0;
 }
 

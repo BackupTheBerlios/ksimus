@@ -95,5 +95,5 @@ const WirePropertyInfo * WirePropertyLibrary::findDataType(const QString & dataT
 	{
 		return wli->getWirePropertyInfo();
 	}
-	return 0;
+	return (const WirePropertyInfo *)0;
 }

@@ -161,7 +161,7 @@ const ComponentInfo * ComponentLibrary::findAdditionalLibName(const QString & ad
 	{
 		return (const ComponentInfo *)cli->getBaseInfo();
 	}
-	return 0;
+	return (const ComponentInfo *)0;
 }
 
 /** Create a new component */

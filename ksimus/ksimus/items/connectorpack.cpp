@@ -239,7 +239,7 @@ ConnectorBase * ConnectorPack::getDeletableConnector() const
 	ConnectorBase * conn = it.toLast();
 	
 	// No connectors
-	if (!conn) return 0;
+	if (!conn) return (ConnectorBase *)0;
 	
 	if (isDeleteLastOnly())
 	{
@@ -249,7 +249,7 @@ ConnectorBase * ConnectorPack::getDeletableConnector() const
 		}
 		else
 		{
-			return 0;
+			return (ConnectorBase *)0;
 		}
 	}
 	else
