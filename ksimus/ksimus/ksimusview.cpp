@@ -29,9 +29,6 @@ KSimusView::KSimusView(KSimusApp * app, QWidget *parent, const char *name)
 	:	QScrollView(parent, name),
 		m_app(app)
 {
-  	// Hintergrundfarbe
-//	setBackgroundMode(PaletteBackground);
-//  setBackgroundMode(PaletteBase);
     m_editor = new KSimEditor(viewport(), name);
 }
 
