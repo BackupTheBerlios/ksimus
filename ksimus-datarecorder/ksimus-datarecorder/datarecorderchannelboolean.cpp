@@ -224,7 +224,7 @@ QWidget * DataRecorderChannelBoolean::getPropertyWidget(QWidget * parent, const 
 		widget->setSpacing(KDialog::spacingHint());
 		
 		QLabel * lab;
-		lab = new QLabel(i18n("Channel:"), widget);
+		lab = new QLabel(i18n("DataRecorder", "Channel:"), widget);
 		CHECK_PTR(lab);
 		
 		KSimLineEdit * conName;

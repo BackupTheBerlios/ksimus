@@ -67,7 +67,7 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	CHECK_PTR(m_p);
 
 	QLabel * label;
-	label = new QLabel(i18n("&Offset: "), this, "Offset Label");
+	label = new QLabel(i18n("DataRecorder", "&Offset: "), this, "Offset Label");
 	CHECK_PTR(label);
 	m_p->offset = new KSimDoubleSpinBox(0.0, -1000.0, 1000.0, 0.5, this, "Offset");
 	CHECK_PTR(m_p->offset);
@@ -76,7 +76,7 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	label->setBuddy(m_p->offset);
 	connect(m_p->offset,SIGNAL(valueChanged(double)),SLOT(slotOffsetChanged(double)));
 	
-	label = new QLabel(i18n("&Gain: "), this, "Gain Label");
+	label = new QLabel(i18n("DataRecorder", "&Gain: "), this, "Gain Label");
 	CHECK_PTR(label);
 	m_p->gain = new KSimDoubleSpinBox(1.0, 0.001, 10000.0, 0.1, this, "Gain");
 	CHECK_PTR(m_p->gain);

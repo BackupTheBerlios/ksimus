@@ -216,11 +216,11 @@ void ZoomWidget::slotChanged()
 	
 	if (m_unitList == getTimeDivList().getListName())
 	{
-		m_label->setText(i18n("%1 Sample/Pixel").arg(sample));
+		m_label->setText(i18n("DataRecorder", "%1 Sample/Pixel").arg(sample));
 	}
 	else
 	{
-		m_label->setText(i18n("%1 s/div").arg(time*getRecorderDataView()->getHorizontalPixelPerDiv()));
+		m_label->setText(i18n("DataRecorder", "%1 s/div").arg(time*getRecorderDataView()->getHorizontalPixelPerDiv()));
 	}
 }
 

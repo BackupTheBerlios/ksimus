@@ -174,12 +174,12 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 	box->setMargin(KDialog::marginHint());
 	box->setSpacing(KDialog::spacingHint());
 	
-	QLabel * lab = new QLabel(i18n("Channel:"),box);
+	QLabel * lab = new QLabel(i18n("DataRecorder", "Channel:"),box);
 	CHECK_PTR(lab); 	
 	m_buttonWidget = new KSimGridWidget (box);
 	CHECK_PTR(m_buttonWidget); 	
 	
-	lab = new QLabel(i18n("&Zoom:"),box);
+	lab = new QLabel(i18n("DataRecorder", "&Zoom:"),box);
 	CHECK_PTR(lab); 	
 	m_zoom = new ZoomWidget(m_dataView, box);
 	CHECK_PTR(m_zoom);

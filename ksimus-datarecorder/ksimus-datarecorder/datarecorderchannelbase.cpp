@@ -174,7 +174,7 @@ void DataRecorderChannelBase::setChannelName(const QString & name)
 	QString simpStr(name.simplifyWhiteSpace());
 	if (simpStr != getConnector()->getName())
 	{
-		getDataRecorder()->undoChangeProperty(i18n("Change Channel Name"));
+		getDataRecorder()->undoChangeProperty(i18n("DataRecorder", "Change Channel Name"));
 		
 		getConnector()->setName(simpStr);
 		getDataRecorder()->setModified();
