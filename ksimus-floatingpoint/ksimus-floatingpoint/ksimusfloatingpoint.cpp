@@ -55,6 +55,7 @@
 #include "floattan.h"
 #include "floatmax.h"
 #include "floatmin.h"
+#include "delay.h"
 
 // Forward declaration
 
@@ -115,6 +116,7 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(getFloatATanInfo());
 		pDistComponents->append(getFloatMaxInfo());
 		pDistComponents->append(getFloatMinInfo());
+		pDistComponents->append(getDelayInfo());
 	}
 
 	return *pDistComponents;
