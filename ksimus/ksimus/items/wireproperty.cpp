@@ -129,7 +129,7 @@ int WirePropertySingleOutput::checkCircuit()
 	//*** min 1 Output or TriState required
 	if (m_outputCounter > 1)
 	{
-		logError(i18n("Wire has more than one contected output"));
+		logError(i18n("Wire has more than one connected output"));
 		errors += 1;
 	}
 	
