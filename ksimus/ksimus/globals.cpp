@@ -83,7 +83,7 @@ int getGreaterPrim(int number)
 //#########################################################################
 
 #include "connectorlabel.h"
-
+#include "connectorboolinedge.h"
 
 void ksimusDummyFunction()
 {
@@ -96,7 +96,7 @@ void ksimusDummyFunction()
 //#########################################################################
 //#########################################################################
 	new ConnectorLabel((ConnectorBase*)0, QString::null);
-
+  new ConnectorBoolInEdge((Component*)0, QString::null);
 }	
 
 

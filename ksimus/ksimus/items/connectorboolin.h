@@ -46,17 +46,19 @@ public:
 	/** Creates the property widget */
 	virtual QWidget* propertyWidget(QWidget * parent);
 
+	/** Add menu items depend on connetor properties */
 	virtual bool initPopupMenu(QPopupMenu * popup);
 	
 protected:
 	/** Returns a pointer to the data that's read from the component
 	  * The default implementation calls the function getWireData()
-	  * Reimplementations is required if the connector has to modify ths data (e.g. a neg. boolean input */
+	  * Reimplementations is required if the connector has to modify this data (e.g. a neg. boolean input */
 	virtual const void * readoutData() const;
 
-private slots:
+protected slots:
 	/** Display a status help message for popup menu entries, if highlighted */
 	virtual void popupMenuHighlighted(int msg) const;
+private slots:
 	/** Toggles the neg Type */
 	void slotToggleNegType();
 	

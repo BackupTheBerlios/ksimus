@@ -40,7 +40,7 @@ project_type=normal_kde2
 sgml_file=/home/rasmus/Projekte/ksimus/doc/en/index.docbook
 short_info=
 sub_dir=ksimus/
-version=0.2.0
+version=0.2.1
 version_control=CVS
 workspace=1
 
@@ -336,7 +336,7 @@ install_location=$$(kde_includes)/ksimus/globals.h
 type=HEADER
 
 [ksimus/items/Makefile.am]
-files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h
+files=ksimus/items/connectorbase.cpp,ksimus/items/connectorbase.h,ksimus/items/connectorboolin.cpp,ksimus/items/connectorboolin.h,ksimus/items/connectorboolinpropertywidget.cpp,ksimus/items/connectorboolinpropertywidget.h,ksimus/items/connectorboolout.cpp,ksimus/items/connectorboolout.h,ksimus/items/connectorbooloutpropertywidget.cpp,ksimus/items/connectorbooloutpropertywidget.h,ksimus/items/connectorlist.cpp,ksimus/items/connectorlist.h,ksimus/items/connectorpropertydialog.cpp,ksimus/items/connectorpropertydialog.h,ksimus/items/connectorpropertywidget.cpp,ksimus/items/connectorpropertywidget.h,ksimus/items/wireproperty.cpp,ksimus/items/wireproperty.h,ksimus/items/wirepropertyboolean.cpp,ksimus/items/wirepropertyboolean.h,ksimus/items/extconnboolin.cpp,ksimus/items/extconnboolin.h,ksimus/items/extconnboolout.cpp,ksimus/items/extconnboolout.h,ksimus/items/externalconnector.cpp,ksimus/items/externalconnector.h,ksimus/items/connectorlabel.cpp,ksimus/items/connectorlabel.h,ksimus/items/connectorboolinedge.cpp,ksimus/items/connectorboolinedge.h,ksimus/items/connectorboolinedgepropertywidget.cpp,ksimus/items/connectorboolinedgepropertywidget.h
 sub_dirs=
 type=static_library
 
@@ -362,6 +362,30 @@ type=SOURCE
 dist=true
 install=true
 install_location=$$(kde_includes)/ksimus/connectorboolin.h
+type=HEADER
+
+[ksimus/items/connectorboolinedge.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorboolinedge.h]
+dist=true
+install=true
+install_location=$$(kde_includes)/ksimus/connectorboolinedge.h
+type=HEADER
+
+[ksimus/items/connectorboolinedgepropertywidget.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimus/items/connectorboolinedgepropertywidget.h]
+dist=true
+install=true
+install_location=$$(kde_includes)/ksimus/connectorboolinpropertywidget.h
 type=HEADER
 
 [ksimus/items/connectorboolinpropertywidget.cpp]

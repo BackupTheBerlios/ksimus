@@ -93,8 +93,12 @@ bool ConnectorBoolIn::initPopupMenu(QPopupMenu * popup)
 	
 	if (isNegateEnabled())
 	{
-		idNegate = popup->insertItem((const char*)i18n("&Negate connector"), this,SLOT(slotToggleNegType()));
+		idNegate = popup->insertItem(i18n("&Negate connector"), this,SLOT(slotToggleNegType()));
 		popup->setItemChecked(idNegate, isNegated());
+	}
+	else
+	{
+		idNegate = 0;
 	}
 
 	return true;
