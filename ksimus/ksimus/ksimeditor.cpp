@@ -1584,8 +1584,10 @@ void KSimEditor::backgroundPopup()
 void KSimEditor::componentPopup(bool connectorHit)
 {
 	int idx, connIdx;
+	int rot0Idx = 0;
 	int rotCWIdx = 0;
 	int rotCCWIdx = 0;
+	int rotFlipIdx = 0;
 	KSimUndo * undo = getDoc()->getUndo();
 	CHECK_PTR(undo);
 	QPopupMenu * menu = new QPopupMenu(0, "componentPopup");
@@ -1600,10 +1602,10 @@ void KSimEditor::componentPopup(bool connectorHit)
 		select(getContainer()->getFirstCompView(), TRUE);
 	}
 	
-	getApp()->editDelete->plug(menu);
 	getApp()->editCut->plug(menu);
 	getApp()->editCopy->plug(menu);
 	getApp()->editPaste->plug(menu);
+	getApp()->editDelete->plug(menu);
 	
 	if (selected.count()==1)
 	{
@@ -1615,9 +1617,21 @@ void KSimEditor::componentPopup(bool connectorHit)
 		// Init rotation
 		if(compView && compView->isNormalRotationEnabled())
 		{
+			QPopupMenu * rotMenu = new QPopupMenu(menu, "RotationMenu");
+			CHECK_PTR(rotMenu);
+			
 			menu->insertSeparator();
-			rotCWIdx = menu->insertItem(i18n("Rotate &CW"));
-			rotCCWIdx = menu->insertItem(i18n("Rotate CC&W"));
+			menu->insertItem(i18n("Ro&tate"), rotMenu);
+			
+			rot0Idx = rotMenu->insertItem(i18n("&Default Rotation"));
+			if ((compView->getRotation() < 45.0) || (compView->getRotation() > 315.0))
+			{
+				rotMenu->setItemEnabled(rot0Idx, false);
+			}
+			
+			rotCWIdx = rotMenu->insertItem(i18n("&Clockwise"));
+			rotCCWIdx = rotMenu->insertItem(i18n("Counterclock&wise"));
+			rotFlipIdx = rotMenu->insertItem(i18n("&Flip"));
 		}
 		
 		if (connectorHit)
@@ -1648,9 +1662,17 @@ void KSimEditor::componentPopup(bool connectorHit)
 			dia->exec();
 			delete dia;
 		}
+		else if (res == rot0Idx)
+		{
+			undo->changeProperty(compView, i18n("Default Rotation"));
+			compView->setRotation(0.0);
+			getDoc()->setModified();
+			getContainer()->routeComponents();
+			refresh();
+		}
 		else if (res == rotCWIdx)
 		{
-			undo->changeProperty(compView, i18n("Rotate CW"));
+			undo->changeProperty(compView, i18n("Rotate clockwise"));
 			compView->stepRotationCW();
 			getDoc()->setModified();
 			getContainer()->routeComponents();
@@ -1658,8 +1680,16 @@ void KSimEditor::componentPopup(bool connectorHit)
 		}
 		else if (res == rotCCWIdx)
 		{
-			undo->changeProperty(compView, i18n("Rotate CCW"));
+			undo->changeProperty(compView, i18n("Rotate counterclockwise"));
 			compView->stepRotationCCW();
+			getDoc()->setModified();
+			getContainer()->routeComponents();
+			refresh();
+		}
+		else if (res == rotFlipIdx)
+		{
+			undo->changeProperty(compView, i18n("Rotate half rotation"));
+			compView->setRotation(compView->getRotation() + 180.0);
 			getDoc()->setModified();
 			getContainer()->routeComponents();
 			refresh();

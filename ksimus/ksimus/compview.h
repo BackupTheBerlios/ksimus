@@ -112,6 +112,12 @@ public:
     * @see isConnectorSpacingBottom
     * @see isConnectorSpacingLeft */
 	QRect getDrawingPlace() const;	
+	/** Set the minimum size of the view. */
+	void setMinSize(int width, int height);
+	/** Set the minimum size of the view. */
+	void setMinSize(const QSize & size);
+	/**  Returns the minimum size of the view. */
+	QSize getMinSize() const;
 	/** Return last connector that was hit */
 	ConnectorBase * getLastHitConnector() const;
 	/** if insert = true, insert compview to sheet map
@@ -321,10 +327,6 @@ public:
 	/** load component properties
 		Returns true if successful */
 	virtual bool load(KSimData & file);
-	/** Set the minimum size of the view */
-	void setMinSize(int width, int height);
-	/** Set the minimum size of the view*/
-	void setMinSize(const QSize & size) { setMinSize(size.width(),size.height()); };
 	
 
 private:

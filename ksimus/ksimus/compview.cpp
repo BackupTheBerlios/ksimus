@@ -199,6 +199,7 @@ public:
 			posGridY(&sheetGridY),
 			viewType (vt),
 			widgetList(0),
+			minSize(2*gridX,2*gridY),
 			rotation(0.0)
 	{
 		if (vt == SHEET_VIEW)
@@ -224,6 +225,7 @@ public:
 	
 	eViewType viewType;
 	KSimWidgetList * widgetList;
+	QSize minSize;
 	float rotation;
 };
 
@@ -360,6 +362,10 @@ void CompView::setPlace(const QRect & place, bool degree0)
 {
 	QRect newPlace(place);
 	
+	// Limit size
+	if(newPlace.width()  < getMinSize().width())  newPlace.setWidth(getMinSize().width());
+	if(newPlace.height() < getMinSize().height()) newPlace.setHeight(getMinSize().height());
+	
 	if (degree0 && isNormalRotationEnabled())
 	{
 		newPlace.setSize(convertSize(newPlace.size(), ROT_0_DEG, convertRotToInt(getRotation())));
@@ -398,13 +404,13 @@ void CompView::setPlace(const QRect & place, bool degree0)
 	
 	if (newPlace != m_p->place)
 	{
-	
 		// Remove Object from sheet map
 		updateSheetMap(false);
 		m_p->place = newPlace;
 		// Insert Object to sheet map
 		updateSheetMap(true);
 
+		// Don't forget setRotation !!
 		emit signalMove(getPlace().topLeft());
 		emit signalResize(getPlace().size());
 		emit signalMoveWidget(getWidgetPlace().topLeft());
@@ -430,32 +436,52 @@ QRect CompView::getPlace() const
 	return m_p->place;
 }
 
-/**  */
 QRect CompView::getWidgetPlace() const
 {
-	//Default complete place
 	QRect widgetPlace(getPlace());
 	
-	if (isConnectorSpacingTop())
+	int rotStep = ROT_0_DEG;
+	
+	if(isNormalRotationEnabled())
 	{
-		widgetPlace.rTop() += gridY;
-	}
-
-	if (isConnectorSpacingRight())
-	{
-		widgetPlace.rRight() -= gridX;
-	}
-
-	if (isConnectorSpacingBottom())
-	{
-		widgetPlace.rBottom() -= gridY;
-	}
-
-	if (isConnectorSpacingLeft())
-	{
-		widgetPlace.rLeft() += gridX;
+		rotStep = convertRotToInt(getRotation());
 	}
 		
+	switch(rotStep)
+	{
+		case ROT_0_DEG:
+			if (isConnectorSpacingTop())    widgetPlace.rTop()    += gridY;
+			if (isConnectorSpacingRight())  widgetPlace.rRight()  -= gridX;
+			if (isConnectorSpacingBottom())	widgetPlace.rBottom() -= gridY;
+			if (isConnectorSpacingLeft())   widgetPlace.rLeft()   += gridX;
+			break;
+			
+		case ROT_90_DEG:
+			if (isConnectorSpacingTop())    widgetPlace.rRight()  -= gridX;
+			if (isConnectorSpacingRight())  widgetPlace.rBottom() -= gridY;
+			if (isConnectorSpacingBottom())	widgetPlace.rLeft()   += gridX;
+			if (isConnectorSpacingLeft())   widgetPlace.rTop()    += gridY;
+			break;
+				
+		case ROT_180_DEG:
+			if (isConnectorSpacingTop())    widgetPlace.rBottom() -= gridY;
+			if (isConnectorSpacingRight())  widgetPlace.rLeft()   += gridX;
+			if (isConnectorSpacingBottom())	widgetPlace.rTop()    += gridY;
+			if (isConnectorSpacingLeft())   widgetPlace.rRight()  -= gridX;
+			break;
+				
+		case ROT_270_DEG:
+			if (isConnectorSpacingTop())    widgetPlace.rLeft()   += gridX;
+			if (isConnectorSpacingRight())  widgetPlace.rTop()    += gridY;
+			if (isConnectorSpacingBottom())	widgetPlace.rRight()  -= gridX;
+			if (isConnectorSpacingLeft())   widgetPlace.rBottom() -= gridY;
+			break;
+			
+		default:
+			KSIMDEBUG_VAR("Unkown",rotStep);
+			break;
+	}
+	
 	return widgetPlace;
 }
 
@@ -475,6 +501,23 @@ QRect CompView::getDrawingPlace() const
 	
 	return QRect(left, top, right - left, bottom - top);
 }
+
+void CompView::setMinSize(const QSize & size)
+{
+	m_p->minSize = size;
+}
+
+void CompView::setMinSize(int width, int height)
+{
+	setMinSize(QSize(width,height));
+}
+
+QSize CompView::getMinSize() const
+{
+	return m_p->minSize;
+}
+
+
 
 /** Hit point x,y the component ?
 NO_HIT      - component is not hit
@@ -949,8 +992,23 @@ void CompView::setRotation(double rotation)
 		{
 			m_p->rotation = 270.0;
 		}
+		// Update widget size and widget min size
+		setMinSize(convertSize(getMinSize(), curRot, convertRotToInt(m_p->rotation)));
 		QSize newSize(convertSize(getPlace().size(), curRot, convertRotToInt(m_p->rotation)));
-		setPlace(QRect(getPlace().topLeft(), newSize));
+		if (newSize == getPlace().size())
+		{
+			// Manually
+			emit signalMove(getPlace().topLeft());
+			emit signalResize(getPlace().size());
+			emit signalMoveWidget(getWidgetPlace().topLeft());
+			emit signalResizeWidget(getWidgetPlace().size());
+	
+			resize();
+		}
+		else
+		{
+			setPlace(QRect(getPlace().topLeft(), newSize));
+		}
 	}
 	else
 	{
@@ -1043,15 +1101,13 @@ class CompViewSize::CompViewSizePrivate
 public:	
 	CompViewSizePrivate()
 		:	oldPlace(),
-			minSize(2*gridX,2*gridY),
 			resizeMode(0),
-			lmbDown(0)
+			lmbDown(false)
 	{};
 	
-	~CompViewSizePrivate() {};
+//	~CompViewSizePrivate() {};
 			
 	QRect oldPlace;
-	QSize minSize;
 	int resizeMode;
 	bool lmbDown;
 };
@@ -1135,8 +1191,8 @@ void CompViewSize::mouseMove(QMouseEvent *ev, QPainter *p)
 			if (left < 0)
 				left = 0;
 			newPlace.setLeft(left);
-			if (newPlace.width() < m_ps->minSize.width())
-				newPlace.setLeft(newPlace.right()-m_ps->minSize.width()+1);
+			if (newPlace.width() < getMinSize().width())
+				newPlace.setLeft(newPlace.right()-getMinSize().width()+1);
 		}
 		if (m_ps->resizeMode & CV_RIGHT)
 		{
@@ -1144,16 +1200,16 @@ void CompViewSize::mouseMove(QMouseEvent *ev, QPainter *p)
 			if (right >= maxSize.width())
 				right = maxSize.width()-1;
 			newPlace.setRight(right);
-			if (newPlace.width() < m_ps->minSize.width())
-				newPlace.setRight(newPlace.left()+m_ps->minSize.width()-1);
+			if (newPlace.width() < getMinSize().width())
+				newPlace.setRight(newPlace.left()+getMinSize().width()-1);
 		}
 		if (m_ps->resizeMode & CV_TOP)
 		{
 			int top = mousePos.y();// - HANDLE_SIZE / 2;
 			if (top < 0) top = 0;
 			newPlace.setTop(top);
-			if (newPlace.height() < m_ps->minSize.height())
-				newPlace.setTop(newPlace.bottom()-m_ps->minSize.height()+1);
+			if (newPlace.height() < getMinSize().height())
+				newPlace.setTop(newPlace.bottom()-getMinSize().height()+1);
 		}
 		if (m_ps->resizeMode & CV_BOTTOM)
 		{
@@ -1161,8 +1217,8 @@ void CompViewSize::mouseMove(QMouseEvent *ev, QPainter *p)
 			if (bottom >= maxSize.height())
 				bottom = maxSize.height()-1;
 			newPlace.setBottom(bottom);
-			if (newPlace.height() < m_ps->minSize.height())
-				newPlace.setBottom(newPlace.top()+m_ps->minSize.height()-1);
+			if (newPlace.height() < getMinSize().height())
+				newPlace.setBottom(newPlace.top()+getMinSize().height()-1);
 		}
 		drawBound(p);
 		m_p->place = newPlace;
@@ -1284,16 +1340,12 @@ bool CompViewSize::load(KSimData & file)
 {
 	bool ok;
 	// Load size first, then load pos!!!
-	setPlace(QRect(getPos(),file.readSizeEntry(sSize,&m_ps->minSize)));
 	ok = CompView::load(file);
+	QSize tmpSize(getMinSize());
+	setPlace(QRect(getPos(),file.readSizeEntry(sSize,&tmpSize)));
+//	ok = CompView::load(file);
 	resize();
 	return ok;
-}
-
-/** Set the minimum size of the view */
-void CompViewSize::setMinSize(int width, int height)
-{
-	m_ps->minSize = QSize(width,height);
 }
 
 
