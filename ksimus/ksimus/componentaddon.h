@@ -129,6 +129,9 @@ public:
 		* Enables the auto delete function.
 		*/
 	ComponentAddOnList();
+	/** Destructor. Deletes all add on.
+		*/
+	~ComponentAddOnList();
 	
 	/** Save all component add on's properties.
 		*/

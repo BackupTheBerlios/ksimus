@@ -55,6 +55,7 @@ ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName)
 
 ComponentAddOn::~ComponentAddOn()
 {
+//	KSIMDEBUG_VAR("Delete", m_addOnName);
 	getComponent()->m_addonList->removeRef(this);
 }
 	
@@ -113,6 +114,13 @@ ComponentAddOnList::ComponentAddOnList()
 {
 	setAutoDelete(true);
 }
+
+ComponentAddOnList::~ComponentAddOnList()
+{
+	// Remove from last element to first element
+	while (removeLast());
+}
+
 
 /** Save all component add on's properties.
 	*/
