@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-02 23:30+0100\n"
+"POT-Creation-Date: 2002-03-09 13:17+0100\n"
 "PO-Revision-Date: 2002-02-26 13:30GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
 "Language-Team: Français <de@li.org>\n"
@@ -14,19 +14,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: dflipflop.cpp:50
+#: dflipflop.cpp:52
 msgid "D Latch"
 msgstr "Bascule D"
 
-#: dflipflop.cpp:51
+#: dflipflop.cpp:53
 msgid "Boolean/Flip Flop/D Latch"
 msgstr "Logique/Bascule/Bascule D"
 
-#: dflipflop.cpp:69
+#: dflipflop.cpp:71
 msgid "Data"
 msgstr "Data"
 
-#: dflipflop.cpp:72 multidlatch.cpp:96
+#: dflipflop.cpp:74 multidlatch.cpp:96
 msgid "Enable"
 msgstr "Enable"
 
@@ -361,3 +361,19 @@ msgstr "Bascule RS"
 #: rsflipflop.cpp:49
 msgid "Boolean/Flip Flop/RS-FF"
 msgstr "Logique/Bascule/Bascule RS"
+
+#, fuzzy
+#~ msgid "KSimLibBoolean::DFlipFlop"
+#~ msgstr "Logique/Bascule/Bascule JK"
+
+#, fuzzy
+#~ msgid "KSimLibBoolean::JKFlipFlop"
+#~ msgstr "Logique/Bascule/Bascule JK"
+
+#, fuzzy
+#~ msgid "KSimLibBoolean::FlipFlopBase"
+#~ msgstr "Logique/Bascule/Bascule D"
+
+#, fuzzy
+#~ msgid "KSimLibBoolean::RSFlipFlop"
+#~ msgstr "Logique/Bascule/Bascule JK"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-04 18:16+0100\n"
+"POT-Creation-Date: 2002-03-07 22:59+0100\n"
 "PO-Revision-Date: 2002-03-04 19:04GMT\n"
 "Last-Translator: Rasmus Diekenbrock <rasmus@diekenbrock.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -415,8 +415,10 @@ msgstr ""
 "Die 'Genauigkeit' gibt die Anzahl der Ziffern nach dem Dezimalpunkt an.\n"
 "Automatisch:\n"
 "Die Notation hängt von dem Wert und der Genauigkeit ab.\n"
-"Der wert wird in der Exponentialnotation angezeigt, wenn der Exponent kleiner als -4 oder\n"
-"größer/gleich der 'Genauigkeit' ist; ansonsten wird die Festkommanotation verwendet."
+"Der wert wird in der Exponentialnotation angezeigt, wenn der Exponent "
+"kleiner als -4 oder\n"
+"größer/gleich der 'Genauigkeit' ist; ansonsten wird die Festkommanotation "
+"verwendet."
 
 #: floatlineinput.cpp:372
 msgid "Precision: "
@@ -439,7 +441,8 @@ msgid ""
 msgstr ""
 "Aktiviert die Wertverfolgung.\n"
 "Wenn aktiviert wird der Ausgang nach jeder eingegebenen Zahl aktualisiert.\n"
-"Wenn deaktiviert wird der Ausgang aktualisiert nachdem der Benutzer die Returntaste\n"
+"Wenn deaktiviert wird der Ausgang aktualisiert nachdem der Benutzer die "
+"Returntaste\n"
 "betätigt hat oder ein anderes Feld angewählt hat."
 
 #: floatinputslider.cpp:58
@@ -500,7 +503,8 @@ msgstr "Mittlerer Schwellwert: "
 
 #: convertfloatbool.cpp:249
 msgid "Shows the medium value between 'False Threshold' and 'True Threshold'."
-msgstr "Zeigt den Mittelwert zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
+msgstr ""
+"Zeigt den Mittelwert zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
 
 #: convertfloatbool.cpp:253
 msgid "Hysteresis: "
@@ -508,7 +512,8 @@ msgstr "Hysterese: "
 
 #: convertfloatbool.cpp:258
 msgid "Shows the hysteresis between 'False Threshold' and 'True Threshold'."
-msgstr "Zeigt die Hysterese zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
+msgstr ""
+"Zeigt die Hysterese zwischen dem Falsch-Schwellwert und Wahr-Schwellwert an."
 
 #: floatconstinput.cpp:53
 msgid "Floating Point Constant"
@@ -668,3 +673,10 @@ msgstr "Floating Point/Arithmetic/Multiplier"
 msgid "Factor %1"
 msgstr "Factor %1"
 
+#, fuzzy
+#~ msgid "&Add Input"
+#~ msgstr "Input"
+
+#, fuzzy
+#~ msgid "&Delete Input"
+#~ msgstr "&Entferne Kanal"

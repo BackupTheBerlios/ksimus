@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-04 18:16+0100\n"
+"POT-Creation-Date: 2002-03-07 22:59+0100\n"
 "PO-Revision-Date: 2002-02-26 20:52GMT+1\n"
 "Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
 "Language-Team: Français <de@li.org>\n"
@@ -674,3 +674,11 @@ msgstr "Virgule flottante/Arithmétique/Multiplication"
 #, c-format, ycp-format
 msgid "Factor %1"
 msgstr "Facteur %1"
+
+#, fuzzy
+#~ msgid "&Add Input"
+#~ msgstr "Entrée"
+
+#, fuzzy
+#~ msgid "&Delete Input"
+#~ msgstr "&Supprimer le canal"
