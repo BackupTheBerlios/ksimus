@@ -1,3 +1,8 @@
+	06.01.2002
+* New: Schematic and User Interface resize dialog
+* Fix: Past large component parts into small Schematic and User Interface views.
+* Fix: Schematic and User Interface resizing bug.
+* Change: Version 0.3.3.cvs
 	05.01.2002
 * Change: Version 0.3.2
 * Fix: Beautify examples
