@@ -20,7 +20,7 @@ Pos=16,48
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=28
+Last Serial Number=30
 Number of channels=2
 Serial List=1,2
 Serial Number=10
@@ -37,7 +37,7 @@ Name=saw 2
 Serial Number=2
 
 [/Component 1/File/]
-Filename=../../../../projekte/Projekte/ksimus-testsuite/result/floating-0220.txt
+Filename=../result/floating-0220.txt
 Path Type=Relative Document
 
 [/Component 1/Sheet/]

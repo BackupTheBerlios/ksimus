@@ -7,7 +7,7 @@ Document Version=KSimus 0.3.5
 Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
-Last Serial Number=73
+Last Serial Number=78
 Number of channels=5
 Serial List=69,70,71,72,73
 Serial Number=10
@@ -39,7 +39,7 @@ Name=1 / -10
 Serial Number=73
 
 [/Component 0/File/]
-Filename=../../../../projekte/Projekte/ksimus-testsuite/result/floating-0610.txt
+Filename=../result/floating-0610.txt
 Path Type=Relative Document
 
 [/Component 0/Sheet/]

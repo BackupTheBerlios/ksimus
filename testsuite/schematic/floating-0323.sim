@@ -20,7 +20,7 @@ Add Connector Names=true
 Add Line Numbers=true
 Add Time Stamp=true
 Column Separator=,
-Last Serial Number=82
+Last Serial Number=87
 Number of channels=5
 Serial List=1,2,29,33,82
 Serial Number=10
@@ -52,7 +52,7 @@ Name=Result -1000
 Serial Number=82
 
 [/Component 1/File/]
-Filename=../../../../projekte/Projekte/ksimus-testsuite/result/floating-0323.txt
+Filename=../result/floating-0323.txt
 Path Type=Relative Document
 
 [/Component 1/Sheet/]
