@@ -120,6 +120,21 @@ void WirePropertyMultipleOutput::setupCircuit()
 		{
 			it.current()->setWireProperty(this);
 			comp = it.current()->getComponent();
+			if (comp->isModule())
+			{
+				// Get the external connector if comp is a module
+				ExternalConnector * extConn = ((Module *)comp)->searchExtConn(it.current());
+				if (extConn)
+				{
+					comp = extConn;
+				}
+				else
+				{
+					KSIMDEBUG(QString::fromLatin1("ExternalConnector not found Module %1 Connector %2")
+					          .arg(comp->getName()).arg(it.current()->getFullName()));
+					ASSERT(extConn);
+				}
+			}
 			if (it.current()->inherits("ConnectorInputBase"))
 			{
 				if (-1 == m_connectorInputList->findRef((ConnectorInputBase*)it.current()))
@@ -127,14 +142,14 @@ void WirePropertyMultipleOutput::setupCircuit()
 					m_connectorInputList->append((ConnectorInputBase*)it.current());
 					if (comp->isZeroDelayComponent())
 					{
-//						KSIMDEBUG_VAR("In Zero", comp->getName());
+//						KSIMDEBUG_VAR("Input Zero", comp->getName());
 						// Component has to caclulate immediatly
 						if (-1 == m_zeroDelayList->findRef(comp))
 							m_zeroDelayList->append(comp);
 					}
 					else
 					{
-//						KSIMDEBUG_VAR("In Next", comp->getName());
+//						KSIMDEBUG_VAR("Input Next", comp->getName());
 						// Component has to caclulate in next cycle
 						if (-1 == m_executeNextList->findRef(comp))
 							m_executeNextList->append(comp);
@@ -192,7 +207,8 @@ void WirePropertyMultipleOutput::setupInternal(WirePropertyMultipleOutput * wire
 				}
 				else
 				{
-					KSIMDEBUG("ExternalConnector not found");
+					KSIMDEBUG(QString::fromLatin1("ExternalConnector not found Module %1 Connector %2")
+					          .arg(comp->getName()).arg(it.current()->getFullName()));
 					ASSERT(extConn);
 				}
 			}
