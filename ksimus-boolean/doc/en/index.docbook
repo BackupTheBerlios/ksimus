@@ -10,25 +10,29 @@
 
 
 <!-- ########################          Components        ######################## -->
-  <!ENTITY BooleanOR '<link linkend="component-boolean-or">Boolean OR Gate</link>'>
-  <!ENTITY BooleanNOR '<link linkend="component-boolean-nor">Boolean NOR Gate</link>'>
-  <!ENTITY BooleanXOR '<link linkend="component-boolean-xor">Boolean XOR Gate</link>'>
-  <!ENTITY BooleanXNOR '<link linkend="component-boolean-xnor">Boolean XNOR Gate</link>'>
+  <!ENTITY BooleanOR '<link linkend="component-boolean-or">OR Gate</link>'>
+  <!ENTITY BooleanNOR '<link linkend="component-boolean-nor">NOR Gate</link>'>
+  <!ENTITY BooleanXOR '<link linkend="component-boolean-xor">XOR Gate</link>'>
+  <!ENTITY BooleanXNOR '<link linkend="component-boolean-xnor">XNOR Gate</link>'>
 
-  <!ENTITY Boolean7SegDisp '<link linkend="component-boolean-7segment">Boolean 7 Segment Display</link>'>
+  <!ENTITY Boolean7SegDisp '<link linkend="component-boolean-7segment">7 Segment Display</link>'>
 
-  <!ENTITY BooleanConstTrue '<link linkend="component-boolean-const-true">Boolean Constant True</link>'>
-  <!ENTITY BooleanConstFalse '<link linkend="component-boolean-const-false">Boolean Constant False</link>'>
+  <!ENTITY BooleanConstTrue '<link linkend="component-boolean-const-true">Constant True</link>'>
+  <!ENTITY BooleanConstFalse '<link linkend="component-boolean-const-false">Constant False</link>'>
 
-  <!ENTITY BooleanRSFF '<link linkend="component-boolean-rs-ff">Boolean RS Flip Flop</link>'>
-  <!ENTITY BooleanJKFF '<link linkend="component-boolean-jk-ff">Boolean JK (MS) Flip Flop</link>'>
-  <!ENTITY BooleanDLatch '<link linkend="component-boolean-rs-ff">Boolean D Latch</link>'>
-  <!ENTITY BooleanMutliDLatch '<link linkend="component-boolean-multiple-d-latches">Boolean Muliple D Latches</link>'>
-  <!ENTITY BooleanMonoFlop '<link linkend="component-boolean-monoflop">Boolean Mono Flop</link>'>
+  <!ENTITY BooleanRSFF '<link linkend="component-boolean-rs-ff">RS Flip Flop</link>'>
+  <!ENTITY BooleanJKFF '<link linkend="component-boolean-jk-ff">JK (MS) Flip Flop</link>'>
+  <!ENTITY BooleanDLatch '<link linkend="component-boolean-rs-ff">D Latch</link>'>
+  <!ENTITY BooleanMutliDLatch '<link linkend="component-boolean-multiple-d-latches">Muliple D Latches</link>'>
+  <!ENTITY BooleanMonoFlop '<link linkend="component-boolean-monoflop">Mono Flop</link>'>
 
-  <!ENTITY BooleanCounterRcoRbo '<link linkend="component-boolean-counter-rco-rbo">Boolean Counter with RCO and RBO</link>'>
+  <!ENTITY BooleanCounterRcoRbo '<link linkend="component-boolean-counter-rco-rbo">Counter with RCO and RBO</link>'>
 
+  <!ENTITY BooleanMultiplexer '<link linkend="component-boolean-multiplexer">Multiplexer</link>'>
+  <!ENTITY BooleanDemultiplexer '<link linkend="component-boolean-demultiplexer">Demultiplexer</link>'>
 
+  <!ENTITY BooleanTimingDelay '<link linkend="component-boolean-timing-delay">Delay</link>'>
+  
   <!ENTITY todo '<para>[TODO]</para>'>
 
   <!ENTITY boolean-gates-part SYSTEM "boolean-gates.docbook">
@@ -36,6 +40,8 @@
   <!ENTITY boolean-input-part SYSTEM "boolean-input.docbook">
   <!ENTITY boolean-latches-part SYSTEM "boolean-latches.docbook">
   <!ENTITY boolean-counters-part SYSTEM "boolean-counter.docbook">
+  <!ENTITY boolean-muxdemux-part SYSTEM "boolean-muxdemux.docbook">
+  <!ENTITY boolean-timing-part SYSTEM "boolean-timing.docbook">
 
 <!-- ########################        Truth table items       ######################## -->
 
@@ -110,8 +116,8 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>02/03/2002</date>
-<releaseinfo>0.01.00</releaseinfo>
+<date>2002-09-20</date>
+<releaseinfo>0.3.5</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -238,10 +244,18 @@ patent issues. -->
 </itemizedlist>
 </para>
 
+<para>Multiplexer &amp; Demultiplexer:
+<itemizedlist>
+<listitem><para>&BooleanMultiplexer;</para></listitem>
+<listitem><para>&BooleanDemultiplexer;</para></listitem>
+</itemizedlist>
+</para>
 
-
-
-
+<para>Timing:
+<itemizedlist>
+<listitem><para>&BooleanTimingDelay;</para></listitem>
+</itemizedlist>
+</para>
 
 
 
@@ -297,6 +311,26 @@ patent issues. -->
 <!-- ############################################################################### -->
 
 &boolean-counters-part;
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################  Multiplexer & Demultiplexer  ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-muxdemux-part;
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################          Timing               ######################## -->
+<!-- ############################################################################### -->
+
+&boolean-timing-part;
 
 
 </chapter>
@@ -416,7 +450,7 @@ Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
 <title>Installation</title>
 
 <sect1 id="getting-test">
-<title>How to obtain Test</title>
+<title>How to obtain the Boolean package</title>
 
 <para>
 The Boolean package can be found on
@@ -459,7 +493,7 @@ directory of the distribution:
 </para>
 
 <para>Since the Boolean package uses autoconf and automake you should have not trouble compiling it.
-Should you run into problems please report them to the KDE mailing lists.</para>
+Should you run into problems please report them to &kappmail;.</para>
 
 </sect1>
 

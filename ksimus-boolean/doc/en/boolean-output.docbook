@@ -3,7 +3,7 @@
 <!-- ############################################################################### -->
 
 <sect1 id="component-boolean-output">
-<title>Boolean Outputs and Displays</title>
+<title>Outputs and Displays</title>
 
 <simplelist>
 <member>&Boolean7SegDisp;</member>
@@ -16,7 +16,7 @@
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-7segment">
-<title>Boolean 7 Segment Display</title>
+<title>7 Segment Display</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>

@@ -3,7 +3,7 @@
 <!-- ############################################################################### -->
 
 <sect1 id="component-boolean-latches">
-<title>Boolean Latches</title>
+<title>Latches</title>
 
 <simplelist>
 <member>&BooleanRSFF;</member>
@@ -22,7 +22,7 @@
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-rs-ff">
-<title>Boolean RS Flip Flop</title>
+<title>RS Flip Flop</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
@@ -86,7 +86,7 @@ Set and reset inputs are level sensitive. Reset input is dominant.
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-jk-ff">
-<title>Boolean JK (Master Slave) Flip Flop</title>
+<title>JK (Master Slave) Flip Flop</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
@@ -177,7 +177,7 @@ Set, reset and enable inputs are level sensitive. Reset input is dominant. Maste
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-d-latch">
-<title>Boolean D Latch</title>
+<title>D Latch</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
@@ -252,7 +252,7 @@ Set, reset and enable inputs are level sensitive. Reset input is dominant.
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-multiple-d-latches">
-<title>Boolean Multiple D Latches</title>
+<title>Multiple D Latches</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
@@ -324,7 +324,7 @@ Reset and enable inputs are level sensitive.
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-monoflop">
-<title>Boolean Monoflop</title>
+<title>Monoflop</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>

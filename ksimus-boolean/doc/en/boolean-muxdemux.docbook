@@ -1,0 +1,217 @@
+<!-- ############################################################################### -->
+<!-- ########################  Multiplexer & Demultiplexer  ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-boolean-muxdemux">
+<title>Multiplexer &amp; Demultiplexer</title>
+
+<simplelist>
+<member>&BooleanMultiplexer;</member>
+<member>&BooleanDemultiplexer;</member>
+</simplelist>
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Boolean Multiplexer            ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-multiplexer">
+<title>Multiplexer</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component contains a multiplexer for boolean values. The multiplexer routes one of the
+input values to the output connector. The selected input connector depends on the address read from
+the address inputs.
+</para><para>
+The component has an internal address latch. This latch is activated if the optional connector 'Enable Latch Address' is
+activated. During true condition at this input the current address is used. A transition to false condition
+latches the address. During false condition at this input the latched address is used. The latch is bypassed if the
+optional connector 'Enable Latch Address' is deactivated.
+</para><para>
+The component has also an internal output latch. This latch is activated if the connector 'Enable Latch Output'
+is activated. During true condition at this input the current addressed input value is used. A transition to
+false condition latches the output value. During false condition at this input the latched outut value is used.
+The latch is bypassed if the optional connector 'Enable Latch Output' is deactivated.
+</para><para>
+If an input is addressed which does not exist (e.g. the 15th input is selected but the component has only 14
+inputs) the reset value is used.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 16 inputs.
+</para></listitem><listitem><para>
+The all inputs and outputs are negatable.
+</para></listitem><listitem><para>
+The 'Latch Address Input' and 'Latch Output' inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Activate or deactivate the optional 'Latch Address Input' and 'Latch Output' inputs (deactivated connectors are hidden).
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_multiplexer.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_multiplexer_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="8">
+<thead>
+<row><entry>Address A</entry> <entry>Address B</entry> <entry>Input A</entry> <entry>Input B</entry> <entry>Input C</entry> <entry>Input D</entry> <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>False</entry> <entry>False</entry> <entry>False</entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
+<row><entry>False</entry> <entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>X    </entry> <entry>False</entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>X    </entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
+<row><entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>False</entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
+<row><entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>True </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry>True </entry> <entry></entry> <entry>True </entry></row>
+</tbody>
+</tgroup></informaltable>
+The truth table shows a 4-input multiplexer.
+</para><para>
+<informaltable><tgroup cols="6">
+<thead>
+<row><entry>Enable Output Latch</entry> <entry>Address A</entry> <entry>Input A</entry> <entry>Input B</entry> <entry></entry> <entry>Output</entry> </row>
+</thead>
+<tbody>
+<row><entry>True </entry> <entry>False</entry> <entry>False</entry> <entry>X    </entry> <entry></entry> <entry>False</entry></row>
+<row><entry>True </entry> <entry>False</entry> <entry>True </entry> <entry>X    </entry> <entry></entry> <entry>True </entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>False</entry> <entry></entry> <entry>False</entry></row>
+<row><entry>True </entry> <entry>True </entry> <entry>X    </entry> <entry>True </entry> <entry></entry> <entry>True </entry></row>
+<row><entry>False</entry> <entry>X    </entry> <entry>X    </entry> <entry>X    </entry> <entry></entry> <entry>Output<subscript> T-1</subscript></entry></row>
+</tbody>
+</tgroup></informaltable>
+The truth table shows a 2-input multiplexer width output latch. The enable input of the output latch input is level senitive.
+</para></sect3>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Mux &amp; Demux -> Multiplexer</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Boolean Demultiplexer          ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-boolean-demultiplexer">
+<title>Demultiplexer</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component contains a demultiplexer for boolean values. The demultiplexer routes the
+input value to one of the output connectors. The selected output connector depends on the address read from
+the address inputs.
+</para><para>
+The component has an internal address latch. This latch is activated if the optional connector 'Enable Latch Address' is
+activated. During true condition at this input the current address is used. A transition to false condition
+latches the address. During false condition at this input the latched address is used. The latch is bypassed
+if the optional connector 'Enable Latch Address' is deactivated.
+</para><para>
+The component has also an internal output latch. This latch is activated if the connector 'Enable Latch Output'
+is activated. During true condition at this input the latch is bypassed. A transition to
+false condition latches the last output values. During false condition at this input the latched output values
+are used. The latch is bypassed if the optional connector 'Enable Latch' is deactivated.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 16 outputs.
+</para></listitem><listitem><para>
+The all inputs and outputs are negatable.
+</para></listitem><listitem><para>
+The 'Latch Address Input' input are level or edge sensitive.
+</para></listitem><listitem><para>
+Activate or deactivate the optional 'Latch Address Input' (deactivated connectors are hidden).
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="boolean_demultiplexer.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="boolean_demultiplexer_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+<!-- ################################# Truth Table ################################# -->
+<sect3><title>Truth Table</title><para>
+<informaltable><tgroup cols="8">
+<thead>
+<row><entry>Address A</entry> <entry>Address B</entry> <entry>Input</entry> <entry></entry> <entry>Output A</entry> <entry>Output B</entry> <entry>Output C</entry> <entry>Output D</entry> </row>
+</thead>
+<tbody>
+<row><entry>X    </entry>     <entry>X    </entry>     <entry>False</entry> <entry></entry> <entry>False</entry>    <entry>False</entry>    <entry>False</entry>    <entry>False</entry></row>
+<row><entry>False</entry>     <entry>False</entry>     <entry>True </entry> <entry></entry> <entry>True </entry>    <entry>False</entry>    <entry>False</entry>    <entry>False</entry></row>
+<row><entry>True </entry>     <entry>False</entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>True </entry>    <entry>False</entry>    <entry>False</entry></row>
+<row><entry>False</entry>     <entry>True </entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>False</entry>    <entry>True </entry>    <entry>False</entry></row>
+<row><entry>True </entry>     <entry>True </entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>False</entry>    <entry>False</entry>    <entry>True </entry></row>
+</tbody>
+</tgroup></informaltable>
+The truth table shows a 4-output demultiplexer (or a 2-to-4 decoder).
+</para><para>
+<informaltable><tgroup cols="6">
+<thead>
+<row><entry>Enable Output Latch</entry> <entry>Address A</entry> <entry>Input</entry> <entry></entry> <entry>Output A</entry> <entry>Output B</entry> </row>
+</thead>
+<tbody>
+<row><entry>True </entry>               <entry>X    </entry>     <entry>False</entry> <entry></entry> <entry>False</entry>    <entry>False</entry></row>
+<row><entry>True </entry>               <entry>False</entry>     <entry>True </entry> <entry></entry> <entry>True </entry>    <entry>False</entry></row>
+<row><entry>True </entry>               <entry>True </entry>     <entry>True </entry> <entry></entry> <entry>False</entry>    <entry>True </entry></row>
+<row><entry>False</entry>               <entry>X    </entry>     <entry>X    </entry> <entry></entry> <entry>Output A<subscript> T-1</subscript></entry><entry>Output B<subscript> T-1</subscript></entry></row>
+</tbody>
+</tgroup></informaltable>
+The truth table shows a 2-input multiplexer width output latch. The enable input of the output latch input is level senitive.
+</para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Boolean -> Mux &amp; Demux -> Demultiplexer</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

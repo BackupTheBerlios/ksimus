@@ -3,7 +3,7 @@
 <!-- ############################################################################### -->
 
 <sect1 id="component-boolean-input">
-<title>Boolean Inputs</title>
+<title>Inputs</title>
 
 <simplelist>
 <member>&BooleanConstTrue;</member>
@@ -17,7 +17,7 @@
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-const-true">
-<title>Boolean Constant True</title>
+<title>Constant True</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
@@ -54,7 +54,7 @@ The component is rotatable.
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-const-false">
-<title>Boolean Constant False</title>
+<title>Constant False</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>

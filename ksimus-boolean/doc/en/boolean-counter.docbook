@@ -3,7 +3,7 @@
 <!-- ############################################################################### -->
 
 <sect1 id="component-boolean-counters">
-<title>Boolean Counters</title>
+<title>Counters</title>
 
 <simplelist>
 <member>&BooleanCounterRcoRbo;</member>
@@ -16,15 +16,15 @@
 <!-- ############################################################################### -->
 
 <sect2 id="component-boolean-counter-rco-rbo">
-<title>Boolean Counter with RCO and RBO</title>
+<title>Counter with RCO and RBO</title>
 
 <!-- ################################### Description ############################### -->
 <sect3><title>Description</title><para>
-This component is a up/down counter with Ripple Carry Out (RCO) and Ripple Borrow Out (RBO).
+This component is an up/down counter with Ripple Carry Out (RCO) and Ripple Borrow Out (RBO).
 The counter width is selectable from 2 bit up to 16 bit. The counter supports also a minimum
 and maximum value as well as a special reset value. These values are user adjustable with following limit:
 </para><para>
-Min Counter Value &lt;= Reset Value &lt;= Max Counter Value
+0 &lt;= Min Counter Value &lt;= Reset Value &lt;= Max Counter Value  &lt;= 2<superscript>counter width</superscript>-1
 </para><para>
 The output RCO is one simulation cycle active if overflow event has occurred.
 The output RBO is one simulation cycle active if underflow event has occurred.
@@ -46,10 +46,12 @@ The reset input, the RCO and RBO output are hideable.
 </para></listitem><listitem><para>
 The input line for reset, minimum and maximum accepts binary, octal, decimal and hexadecimal values.
 See the following examples how to select the different bases:
-</para><para>Binary: 0b11001
-</para><para>Octal: 0o31
-</para><para>Decimal: 25
-</para><para>Hexadecimal: 0x19
+<informaltable frame="none"><tgroup cols="3"><tbody>
+<row><entry>Binary</entry><entry>0b11001</entry></row>
+<row><entry>Octal</entry><entry>0o31</entry></row>
+<row><entry>Decimal</entry><entry>25</entry></row>
+<row><entry>Hexadecimal</entry><entry>0x19</entry></row>
+</tbody></tgroup></informaltable>
 </para></listitem><listitem><para>
 The component is rotatable.
 </para></listitem></itemizedlist></sect3>
