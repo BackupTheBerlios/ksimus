@@ -233,7 +233,7 @@ void Boolean1OutPropertyGeneralWidget::defaultPressed()
 {
 	ComponentPropertyGeneralWidget::defaultPressed();
 
-	m_resetState->setValue(false);
+	m_resetState->setValue(getBoolean1Out()->getResetStateInit());
 }
 
 #undef getBoolean1Out()
