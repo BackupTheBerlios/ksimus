@@ -1,8 +1,8 @@
 /***************************************************************************
-                          datarecorderchannelboolean.cpp  -  description
+                          datarecorderchannelfloat.cpp  -  description
                              -------------------
-    begin                : Sun Aug 19 2001
-    copyright            : (C) 2001 by Rasmus Diekenbrock
+    begin                : Sun Feb 3 2002
+    copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
 
@@ -32,12 +32,12 @@
 // KSIMUS-Includes
 #include "ksimus/ksimdata.h"
 #include <ksimus/ksimlineedit.h>
-#include "ksimus/connectorboolin.h"
+#include "ksimus/connectorfloatin.h"
 #include "ksimus/ksimdebug.h"
 
 // Project-Includes
 #include "datarecorder.h"
-#include "datarecorderchannelboolean.h"
+#include "datarecorderchannelfloat.h"
 #include "channelpositionwidget.h"
 
 // Forward declaration
@@ -54,54 +54,49 @@ static int counter = 1;
 //#############################################################################
 //#############################################################################
 
-class BoolStorage
+class FloatStorage
 {
-	#define BITS_PER_BYTE		8
-	#define INTS_PER_ARRAY	16
-	#define BITS_PER_INT		(BITS_PER_BYTE * sizeof(unsigned int))
-	#define BITS_PER_TDATA	(BITS_PER_INT * INTS_PER_ARRAY)
+	#define DOUBLE_PER_ARRAY	256
+	
 	typedef struct
 	{
-		unsigned int array[INTS_PER_ARRAY];
+		double array[DOUBLE_PER_ARRAY];
 	}tData;
 
 public:
-	BoolStorage()
+	FloatStorage()
 		:	m_count(0)
 	{
 		m_data.setAutoDelete(true);
 	
 	};
-	~BoolStorage()
+	~FloatStorage()
 	{};
 	
-	void append(bool data)
+	void append(double data)
 	{
-		int index = m_count / BITS_PER_TDATA;
-		int arrayOffset = (m_count % BITS_PER_TDATA) / BITS_PER_INT;
-		int uintOffset = m_count % BITS_PER_INT;
+		int index = m_count / DOUBLE_PER_ARRAY;
+		int offset = m_count % DOUBLE_PER_ARRAY;
 
-		if((arrayOffset == 0) && (uintOffset == 0))
+		if(offset == 0)
 		{
 			tData * newData = new tData;
-			for (int i = 0; i < INTS_PER_ARRAY; i++)
-				newData->array[i] = 0;
+			for (int i = 0; i < DOUBLE_PER_ARRAY; i++)
+				newData->array[i] = 0.0;
 			m_data.append(newData);
 		}
-		if(data)
-			m_data.at(index)->array[arrayOffset] |= 1 << uintOffset;
+		m_data.at(index)->array[offset] = data;
 		m_count++;
 	};
 			
-	bool get(int number)
+	double get(int number)
 	{
-  	if(number >= m_count) return false;
+  	if(number >= m_count) return 0.0;
   	
-		int index = number / BITS_PER_TDATA;
-		int arrayOffset = (number % BITS_PER_TDATA) / BITS_PER_INT;
-		int uintOffset = number % BITS_PER_INT;
+		int index = number / DOUBLE_PER_ARRAY;
+		int offset = number % DOUBLE_PER_ARRAY;
 
- 		return (m_data.at(index)->array[arrayOffset] & (1 << uintOffset));
+ 		return m_data.at(index)->array[offset];
  	}
 		
 				
@@ -121,17 +116,17 @@ private:
 //#############################################################################
 //#############################################################################
 
-DataRecorderChannelBoolean::DataRecorderChannelBoolean(DataRecorder * recorder)
+DataRecorderChannelFloat::DataRecorderChannelFloat(DataRecorder * recorder)
 	:	DataRecorderChannelBase(recorder),
 		m_propertyWidget(0)
 {
-	setChannelType(CT_Boolean);
-	m_input = new ConnectorBoolIn(recorder,I18N_NOOP("Boolean"),QPoint());
+	setChannelType(CT_Float);
+	m_input = new ConnectorFloatIn(recorder,I18N_NOOP("Floating Point"),QPoint());
 	m_input->setErasable(true);
 	m_input->getAction().disable(KSimAction::STORAGE);
 	connect(m_input, SIGNAL(signalDeleteRequest(ConnectorBase *)),
 	        recorder, SLOT(slotRemoveChannelConn(ConnectorBase *)));
-	m_data = new BoolStorage();
+	m_data = new FloatStorage();
 	
 	counter++;
 	
@@ -139,10 +134,9 @@ DataRecorderChannelBoolean::DataRecorderChannelBoolean(DataRecorder * recorder)
 
 	setVerticalGain(1);
 	setVerticalOffset(0.5 * counter);
-	
 }
 
-DataRecorderChannelBoolean::~DataRecorderChannelBoolean()
+DataRecorderChannelFloat::~DataRecorderChannelFloat()
 {
 	if (m_propertyWidget)
 		delete m_propertyWidget;
@@ -150,28 +144,28 @@ DataRecorderChannelBoolean::~DataRecorderChannelBoolean()
 //	delete m_input;
 }
 
-void DataRecorderChannelBoolean::fetchData()
+void DataRecorderChannelFloat::fetchData()
 {
-	bool data = ((ConnectorBoolIn*)getConnector())->getInput();
+	double data = ((ConnectorFloatIn*)getConnector())->getInput();
 	
 	m_data->append(data);
 }
 	
-bool DataRecorderChannelBoolean::getData(unsigned int number)
+double DataRecorderChannelFloat::getData(unsigned int number)
 {
 	return m_data->get(number);
 }	
 
 /** Resets channel. Delete data. */
-void DataRecorderChannelBoolean::reset()
+void DataRecorderChannelFloat::reset()
 {
 	m_data->clear();
 }
 
-int DataRecorderChannelBoolean::drawData(QPaintDevice * paintDev,
-											 int startSample, int stopSample,
-											 int horizontalOffset, int height,
-											 double samplePerPixel, int verticalDivs)
+int DataRecorderChannelFloat::drawData(QPaintDevice * paintDev,
+                                       int startSample, int stopSample,
+                                       int horizontalOffset, int height,
+                                       double samplePerPixel, int verticalDivs)
 {
 	int index = startSample;
 	int counter = 0;
@@ -190,28 +184,27 @@ int DataRecorderChannelBoolean::drawData(QPaintDevice * paintDev,
 	if (stopSample >= m_data->count())
 		stopSample = m_data->count()-1; // Limit samples
 		
-	lastVertPos = height - (verticalGain * getData(index) + verticalOffset);
+	vertPos = lastVertPos = qRound(height - (verticalGain * getData(index) + verticalOffset));
 	
-	while(index <= stopSample)
+	while(index < stopSample)
 	{
-		vertPos = height - (verticalGain * getData(index) + verticalOffset);
-		if(lastVertPos != vertPos)
+		index++;
+		counter++;
+		vertPos = qRound(height - (verticalGain * getData(index) + verticalOffset));
+		horiPos = horizontalOffset + qRound(counter / samplePerPixel);
+		if(lastVertPos != vertPos)		// Speed up static signals
 		{
-			painter.drawLine(lastHoriPos, lastVertPos, horiPos, lastVertPos);
-			painter.drawLine(horiPos, lastVertPos, horiPos, vertPos);
+			painter.drawLine(lastHoriPos, lastVertPos, horiPos, vertPos);
 			lastVertPos = vertPos;
 			lastHoriPos = horiPos;
 		}
-		horiPos = horizontalOffset + qRound(counter / samplePerPixel);
-		index++;
-		counter++;
 	}
 	// Draw final line
-	painter.drawLine(lastHoriPos, lastVertPos, horiPos, lastVertPos);
+	painter.drawLine(lastHoriPos, lastVertPos, horiPos, vertPos);
 	return index-1;
 }
 
-QWidget * DataRecorderChannelBoolean::getPropertyWidget(QWidget * parent, const char * name)
+QWidget * DataRecorderChannelFloat::getPropertyWidget(QWidget * parent, const char * name)
 {
 	if (!m_propertyWidget)
 	{

@@ -18,10 +18,10 @@ libdatarecorder_la_LDFLAGS = -avoid-version -module -no-undefined
 
 libdatarecorder_la_METASOURCES = AUTO
 
-libdatarecorder_la_SOURCES = zoomwidget.cpp widgetcontrolbutton.cpp channelpositionwidget.cpp datarecorderchannelboolean.cpp datarecorderwidget.cpp datarecorderview.cpp datarecorderdataview.cpp datarecorderchannelbase.cpp datarecorder.cpp 
+libdatarecorder_la_SOURCES = datarecorderchannelfloat.cpp zoomwidget.cpp widgetcontrolbutton.cpp channelpositionwidget.cpp datarecorderchannelboolean.cpp datarecorderwidget.cpp datarecorderview.cpp datarecorderdataview.cpp datarecorderchannelbase.cpp datarecorder.cpp 
 
 
-EXTRA_DIST = lo16-app-datarecorder.png datarecorder.cpp datarecorder.h datarecorderchannelbase.cpp datarecorderchannelbase.h datarecorderdataview.cpp datarecorderdataview.h datarecorderview.cpp datarecorderview.h datarecorderwidget.cpp datarecorderwidget.h datarecorderchannelboolean.cpp datarecorderchannelboolean.h channelpositionwidget.cpp channelpositionwidget.h widgetcontrolbutton.cpp widgetcontrolbutton.h zoomwidget.cpp zoomwidget.h 
+EXTRA_DIST = lo16-app-datarecorder.png datarecorder.cpp datarecorder.h datarecorderchannelbase.cpp datarecorderchannelbase.h datarecorderdataview.cpp datarecorderdataview.h datarecorderview.cpp datarecorderview.h datarecorderwidget.cpp datarecorderwidget.h datarecorderchannelboolean.cpp datarecorderchannelboolean.h channelpositionwidget.cpp channelpositionwidget.h widgetcontrolbutton.cpp widgetcontrolbutton.h zoomwidget.cpp zoomwidget.h datarecorderchannelfloat.cpp datarecorderchannelfloat.h 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_icondir)/locolor/16x16/apps/

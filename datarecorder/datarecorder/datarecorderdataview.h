@@ -32,6 +32,11 @@
 // Forward declaration
 class QPixmap;
 class QTimer;
+
+namespace KSimLibDataRecorder
+{
+
+// Forward declaration (namespace)
 class DataRecorder;
 class DataRecorderWidget;
 class DataRecorderPixmap;
@@ -215,6 +220,9 @@ class DataRecorderDataViewItemList : public QList<DataRecorderDataViewItem>
 		for(QListIterator<DataRecorderDataViewItem> _it_(_itemList_);_it_.current();++_it_)
 
 
+
+
+};  //namespace KSimLibDataRecorder
 
 
 #endif

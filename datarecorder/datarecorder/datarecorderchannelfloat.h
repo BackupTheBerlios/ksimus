@@ -1,8 +1,8 @@
 /***************************************************************************
-                          datarecorderchannelboolean.h  -  description
+                          datarecorderchannelfloat.h  -  description
                              -------------------
-    begin                : Sun Aug 19 2001
-    copyright            : (C) 2001 by Rasmus Diekenbrock
+    begin                : Sun Feb 3 2002
+    copyright            : (C) 2002 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
 
@@ -15,8 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef DATARECORDERCHANNELBOOLEAN_H
-#define DATARECORDERCHANNELBOOLEAN_H
+#ifndef DATARECORDERCHANNELFLOAT_H
+#define DATARECORDERCHANNELFLOAT_H
+
+
+/**A floating point channel.
+  *@author Rasmus Diekenbrock
+  */
 
 // C-Includes
 
@@ -29,23 +34,23 @@
 
 // Forward declaration
 
-
 namespace KSimLibDataRecorder
 {
 
-class BoolStorage;
+class FloatStorage;
+
 
 /**a boolean channel
   *@author Rasmus Diekenbrock
   */
 
 		
-class DataRecorderChannelBoolean : public KSimLibDataRecorder::DataRecorderChannelBase
+class DataRecorderChannelFloat : public KSimLibDataRecorder::DataRecorderChannelBase
 {
    Q_OBJECT
 public:
-	DataRecorderChannelBoolean(DataRecorder * recorder);
-	virtual ~DataRecorderChannelBoolean();
+	DataRecorderChannelFloat(DataRecorder * recorder);
+	virtual ~DataRecorderChannelFloat();
 
 	/** Fetches a data. This function is called if a single data is to record.
 		*/
@@ -71,11 +76,11 @@ public:
 	virtual QWidget * getPropertyWidget(QWidget * parent = 0, const char * name = 0);
 
 protected:
-	bool getData(unsigned int number);
+	double getData(unsigned int number);
 
 	
 private:
-	BoolStorage * m_data;
+	FloatStorage * m_data;
 	QWidget * m_propertyWidget;
 };
 

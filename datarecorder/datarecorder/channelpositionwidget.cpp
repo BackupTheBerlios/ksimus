@@ -35,6 +35,8 @@
 
 		
 
+namespace KSimLibDataRecorder
+{
 
 //#######################################################################
 //#######################################################################
@@ -186,5 +188,8 @@ void ChannelPositionWidget::slotSetCaption(const QString & caption)
 	topLevelWidget()->setCaption(caption);
 }
 
+
+
+};  //namespace KSimLibDataRecorder
 
 

@@ -42,6 +42,7 @@
 #include "datarecorderwidget.h"
 #include "datarecorderchannelbase.h"
 #include "datarecorderchannelboolean.h"
+#include "datarecorderchannelfloat.h"
 #include "widgetcontrolbutton.h"
 #include "zoomwidget.h"
 
@@ -54,7 +55,7 @@
 
 
 
-namespace LIB_NAMESPACE
+namespace KSimLibDataRecorder
 {
 
 
@@ -106,7 +107,7 @@ static const WirePropertyInfoPtr distributeWireProperty[] =
 /******************************************************************************************
  ******************************************************************************************
  **
- **  No changes required below !!!
+ **  Changes only the namespace below !!!
  **
  ******************************************************************************************
  ******************************************************************************************/
@@ -114,7 +115,7 @@ static const WirePropertyInfoPtr distributeWireProperty[] =
 KInstance * instance = 0;
 const PackageInfo * packageInfo = 0;
 
-};  //namespace LIB_NAMESPACE
+};  //namespace KSimLibDataRecorder
 
 
 
@@ -125,23 +126,23 @@ extern "C"
 
 		KSIMDEBUG("Init Package " PACKAGE_NAME);
 			
-		if (LIB_NAMESPACE::instance == 0)
+		if (KSimLibDataRecorder::instance == 0)
 		{
-			LIB_NAMESPACE::instance = new KInstance(PACKAGE_LOWER_NAME);
+			KSimLibDataRecorder::instance = new KInstance(PACKAGE_LOWER_NAME);
 		}
 	
-		if (LIB_NAMESPACE::packageInfo == 0)
+		if (KSimLibDataRecorder::packageInfo == 0)
 		{
-			LIB_NAMESPACE::packageInfo = new PackageInfo( PACKAGE_NAME,
-			                                              LIB_NAMESPACE::instance,
-	  		                                            VERSION,      // version from config.h
-	    		                                          LIB_NAMESPACE::distributeComponent,
-	      		                                        LIB_NAMESPACE::distributeConnector,
-	        		                                      LIB_NAMESPACE::distributeWireProperty);
+			KSimLibDataRecorder::packageInfo = new PackageInfo( PACKAGE_NAME,
+			                                                    KSimLibDataRecorder::instance,
+	  		                                                  VERSION,      // version from config.h
+	    		                                                KSimLibDataRecorder::distributeComponent,
+	      		                                              KSimLibDataRecorder::distributeConnector,
+	        		                                            KSimLibDataRecorder::distributeWireProperty);
 	  }
 	
 
-		return LIB_NAMESPACE::packageInfo;
+		return KSimLibDataRecorder::packageInfo;
 	}
 }
 
@@ -153,6 +154,9 @@ extern "C"
 
 //#################################################################
 //#################################################################
+
+namespace KSimLibDataRecorder
+{
 
 #define MAX_CHANNEL 16
 
@@ -175,10 +179,11 @@ const ComponentInfo DataRecorderInfo(I18N_NOOP("Data Recorder"),
 //#################################################################
 
 
-const char * sNumberChannels = "Number of channels";
-const char * sChannelX       = "Channel %1/";
-const char * sChannelType    = "Channel Type";								
-const char * sSerialList     = "Serial List";
+static const char * sNumberChannels = "Number of channels";
+static const char * sChannelX       = "Channel %1/";
+static const char * sChannelType    = "Channel Type";								
+static const char * sSerialList     = "Serial List";
+static const char * sSerialNumber   = "Last Serial Number";
 
 static const QColor defaultColors[] = {Qt::black, Qt::red, Qt::green, Qt::blue,
                                        Qt::cyan, Qt::magenta, Qt::yellow, Qt::gray,
@@ -234,6 +239,11 @@ DataRecorderChannelBase * DataRecorder::createChannel(eChannelType type)
 	{
  		case CT_Boolean:
  			newChannel = new DataRecorderChannelBoolean(this);
+ 			CHECK_PTR(newChannel);
+ 			break;
+  			
+ 		case CT_Float:
+ 			newChannel = new DataRecorderChannelFloat(this);
  			CHECK_PTR(newChannel);
  			break;
   			
@@ -372,6 +382,9 @@ void DataRecorder::save(KSimData & file) const
 {
 	const QString baseGroup(file.group());
 
+	// Save last serial number
+	file.writeEntry(sSerialNumber, m_serialNumberGenerator);
+	
 	// Write serial numbers
 	QValueList<int> serialNumberList;
 	FOR_EACH_CHANNEL(it, *getChannelList())
@@ -406,6 +419,9 @@ bool DataRecorder::load(KSimData & file, bool copyLoad)
 {
 	bool ok = true;
 	const QString baseGroup(file.group());
+	
+	// Read last serial number
+	m_serialNumberGenerator = file.readUnsignedNumEntry(sSerialNumber, 0);
 	
 	QValueList<int> serialNumberList;
 	serialNumberList = file.readIntListEntry(sSerialList);
@@ -447,6 +463,9 @@ bool DataRecorder::load(KSimData & file, bool copyLoad)
   	}
   	
   	channel->load(file, copyLoad);
+  	KSIMDEBUG_VAR("", channel->getConnector()->getName());
+  	KSIMDEBUG_VAR("", channel->getConnector()->getInitName());
+  	KSIMDEBUG_VAR("", channel->getConnector()->getWireName());
   	
   	if (create)
   	{
@@ -511,7 +530,8 @@ bool DataRecorder::initPopupMenu(QPopupMenu * popup)
 	
 	popup->insertSeparator();
 	popup->insertItem(i18n("&Open"), this, SLOT(slotOpenWidget()));
-	popup->insertItem(i18n("&Add boolean connector"), this, SLOT(slotAddBoolChannel()));
+	popup->insertItem(i18n("Add &boolean connector"), this, SLOT(slotAddBoolChannel()));
+	popup->insertItem(i18n("Add &floating point connector"), this, SLOT(slotAddFloatChannel()));
 	
 	return true;
 }
@@ -541,6 +561,17 @@ void DataRecorder::slotAddBoolChannel()
 	setModified();
 	
 }
+
+void DataRecorder::slotAddFloatChannel()
+{
+	DataRecorderChannelFloat * channel;
+	
+	undoChangeProperty(i18n("Add channel"));
+	channel = new DataRecorderChannelFloat(this);
+	newChannel(channel);
+	setModified();
+}
+
 
 void DataRecorder::slotRemoveChannelConn(ConnectorBase * conn)
 {
@@ -605,6 +636,9 @@ const DataRecorderWidget * DataRecorder::getDataRecoderWidget() const
 int DataRecorder::nextSerialNumber()
 {
 	bool found;
+	
+	m_serialNumberGenerator++;
+	
 	do
 	{
 		found = false;
@@ -656,3 +690,6 @@ void DataRecorder::undoZoom()
 		}
 	}
 }
+
+
+};  //namespace KSimLibDataRecorder

@@ -31,6 +31,11 @@
 
 // Forward declaration
 class QPushButton;
+
+namespace KSimLibDataRecorder
+{
+
+// Forward declaration (namespace)
 class KSimColorLabel;
 
 /**A button which raises or hides widgets
@@ -91,5 +96,8 @@ public:
 public slots:
 	void setColor(const QColor & color);
 };
+
+
+};  //namespace KSimLibDataRecorder
 
 #endif

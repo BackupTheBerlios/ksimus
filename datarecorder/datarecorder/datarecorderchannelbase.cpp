@@ -34,6 +34,8 @@
 // Forward declaration
 
 
+namespace KSimLibDataRecorder
+{
 
 // Statics
 
@@ -51,9 +53,10 @@ static const char * sSerial   = "Serial Number";
 static EnumDict<eChannelType> channelTypeDict;
 
 EnumDict<eChannelType>::tData EnumDict<eChannelType>::data[]
-			= { {"Unknown", CT_Unknown},
-          {"Boolean",  CT_Boolean},
-          {0,(eChannelType)0}};
+			= { {"Unknown", KSimLibDataRecorder::CT_Unknown},
+          {"Boolean",  KSimLibDataRecorder::CT_Boolean},
+          {"Floating Point",  KSimLibDataRecorder::CT_Float},
+          {0,(KSimLibDataRecorder::eChannelType)0}};
 
 /** Converts the channel type */
 eChannelType DataRecorderChannelBase::str2ChannelType(const char * str)
@@ -199,13 +202,18 @@ void DataRecorderChannelBase::setChannelType(eChannelType ct)
 	m_channelType = ct;
 }
 
+void DataRecorderChannelBase::setSerialNumber(unsigned int no)
+{
+	m_serialNumber = no;
+	getConnector()->setWireName(QString("Input %1").arg(no));
+};
 
 //#############################################################################
 //#############################################################################
 
 
 
-DataRecorderChannelBase * DataRecorderChannelList::findSerial(int no) const
+DataRecorderChannelBase * DataRecorderChannelList::findSerial(unsigned int no) const
 {
 	DataRecorderChannelBase * channel = 0;
 	
@@ -236,6 +244,9 @@ int DataRecorderChannelList::compareItems(QCollection::Item di1, QCollection::It
 	return 0;
 }
 
+
+
+};  //namespace KSimLibDataRecorder
 
 
 

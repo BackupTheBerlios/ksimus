@@ -30,10 +30,15 @@
 // Project-Includes
 
 // Forward declaration
-class DataRecorderChannelBase;
-class ChannelPositionWidgetPrivate;
 class KSimDoubleSpinBox;
 
+
+namespace KSimLibDataRecorder
+{
+
+// Forward declaration (namespace)
+class DataRecorderChannelBase;
+class ChannelPositionWidgetPrivate;
 
 /**Widget for channel positioning
   *@author Rasmus Diekenbrock
@@ -96,5 +101,8 @@ signals:
 	void gainChanged(double gain);	
 
 };
+
+
+};  //namespace KSimLibDataRecorder
 
 #endif

@@ -27,6 +27,8 @@
 // KDE-Includes
 #include <kdialogbase.h>
 #include <klocale.h>
+#include <kinstance.h>
+#include <kconfig.h>
 
 // KSimus-Includes
 #include "ksimus/ksimdoublespinbox.h"
@@ -45,6 +47,8 @@
 // Forward declaration
 
 
+namespace KSimLibDataRecorder
+{
 
 //#####################################################################################
 
@@ -160,6 +164,8 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 	:	QWidget(parent,name),
 		m_recorder(recorder)
 {
+	
+	
 	m_dataView = new DataRecorderDataView(this);
 	CHECK_PTR(m_dataView); 	
 
@@ -192,11 +198,35 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 	}
 	
 	getDataRecorder()->getZoomVar().copyTo(*m_zoom);
+
+
+	// Load last size
+	KConfig * conf = KSimLibDataRecorder::instance->config();
+	QString saveGrp(conf->group());
+	
+	conf->setGroup("DataRecorderWidget");
+	QSize size=conf->readSizeEntry("Geometry");
+	if(!size.isEmpty())
+	{
+		resize(size);
+	}
+	conf->setGroup(saveGrp);
+
 }
 
 DataRecorderWidget::~DataRecorderWidget()
 {
-//	KSIMDEBUG("DataRecorderWidget::~DataRecorderWidget()");
+	// Store size
+	KConfig * conf = KSimLibDataRecorder::instance->config();
+	QString saveGrp(conf->group());
+	
+	conf->setGroup("DataRecorderWidget");
+	conf->writeEntry("Geometry", size());
+	conf->setGroup(saveGrp);
+	conf->sync();
+
+
+	KSIMDEBUG("DataRecorderWidget::~DataRecorderWidget()");
 	emit signalDeleted();
 }
 	
@@ -232,4 +262,7 @@ void DataRecorderWidget::createChannelButton(DataRecorderChannelBase * channel)
   connect(channel->getConnector(), SIGNAL(signalSetName(const QString &)), but, SLOT(setText(const QString &)));
   connect(channel, SIGNAL(lineColorChanged(const QColor &)), but, SLOT(setColor(const QColor &)));
 }
+
+
+};  //namespace KSimLibDataRecorder
 

@@ -23,17 +23,26 @@
 // QT-Includes
 #include <qwidget.h>
 #include <qscrollview.h>
+#include <qlayout.h>
+#include <qlist.h>
 
 // KDE-Includes
 
 // Project-Includes
 
 // Forward declaration
+
+
+namespace KSimLibDataRecorder
+{
+
+// Forward declaration (namespace)
 class DataRecorder;
 class DataRecorderDataView;
 class DataRecorderChannelBase;
 class KSimGridWidget;
 class ZoomWidget;
+
 
 /**Widget class for the data recorder.
   *@author Rasmus Diekenbrock
@@ -76,8 +85,6 @@ signals:
 //#####################################################################################
 //#####################################################################################
 
-#include <qlayout.h>
-#include <qlist.h>
 
 class KSimGridWidget : public QWidget
 {
@@ -112,5 +119,8 @@ private slots:
 //#####################################################################################
 //#####################################################################################
 
+
+
+};  //namespace KSimLibDataRecorder
 
 #endif

@@ -29,6 +29,9 @@
 // Forward declaration
 
 
+namespace KSimLibDataRecorder
+{
+
 DataRecorderView::DataRecorderView(Component * comp, eViewType viewType)
 	: CompView(comp,viewType)
 {
@@ -46,7 +49,13 @@ DataRecorderView::~DataRecorderView()
 void DataRecorderView::draw(QPainter * p)
 {
 	drawFrame(p);
+	
+	QFont newFont("helvetica",10);
+	p->setFont(newFont);
 	p->drawText(getDrawingPlace(), AlignCenter, "Data\nRec");
 
 	CompView::draw(p);
 }
+
+};  //namespace KSimLibDataRecorder
+

@@ -33,11 +33,17 @@
 #include "datarecorderchannelbase.h"
 
 // Forward declaration
+class ConnectorBase;
+class ConnectorInputList;
+
+
+namespace KSimLibDataRecorder
+{
+
+// Forward declaration (namespace)
 class DataRecorderWidget;
 class DataRecorderChannelBase;
 class DataRecorderChannelList;
-class ConnectorBase;
-class ConnectorInputList;
 class ZoomWidgetVar;
 
 /**The Data Recorder
@@ -61,9 +67,6 @@ class ZoomWidgetVar;
 /**  Enter the lower case package name. E.g. "boolean" */
 #define PACKAGE_LOWER_NAME        "datarecorder"
 
-/**  Enter the library namespace. Format KSimLib + package name. E.g. KSimLibBoolean */
-#define LIB_NAMESPACE             /*KSimLibBoolean*/
-
 /**  Enter the init function name. Format init_lib + lower case package name. E.g. init_libboolean */
 #define PACKAGE_INIT_FUNCTION     init_libdatarecorder
 
@@ -72,18 +75,16 @@ class ZoomWidgetVar;
 /******************************************************************************************
  ******************************************************************************************
  **
- **  No changes required below !!!
+ **  Changes only the namespace below !!!
  **
  ******************************************************************************************
  ******************************************************************************************/
 
-namespace LIB_NAMESPACE
-{
 extern KInstance * instance;
 extern const PackageInfo * packageInfo;
 
 
-};  //namespace LIB_NAMESPACE
+};  //namespace KSimLibDataRecorder
 
 /** The init function. PACKAGE_INIT_FUNCTION is a macro which expands to the real function name. */
 extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
@@ -92,6 +93,9 @@ extern "C" const PackageInfo * PACKAGE_INIT_FUNCTION();
 
 //#################################################################
 //#################################################################
+
+namespace KSimLibDataRecorder
+{
 
 extern const ComponentInfo DataRecorderInfo;
 
@@ -162,7 +166,7 @@ private:
 	DataRecorderChannelList * m_channelList;
 	ConnectorInputList * m_channelInputList;
 	unsigned int m_dataCount;
-	int m_serialNumberGenerator;
+	unsigned int m_serialNumberGenerator;
 	double m_sampleTime;
 	ZoomWidgetVar * m_zoomVar;
 
@@ -171,6 +175,10 @@ private slots:
 	void widgetDestroyed();
 	/** Adds a new boolean channel. */
 	void slotAddBoolChannel();
+	/** Adds a new floating point channel. */
+	void slotAddFloatChannel();
 };
+
+};  //namespace KSimLibDataRecorder
 
 #endif

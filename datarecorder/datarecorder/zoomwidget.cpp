@@ -38,6 +38,8 @@
 // Forward declaration
 
 
+namespace KSimLibDataRecorder
+{
 
 static const KSimUnitList & getTimeDivList()
 {
@@ -391,5 +393,8 @@ bool ZoomWidgetVar::load(KSimData & file, bool /*copyLoad*/)
 }
 	
 	
+
+
+};  //namespace KSimLibDataRecorder
 
 

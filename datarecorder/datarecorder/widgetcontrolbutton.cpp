@@ -31,6 +31,9 @@
 
 // Forward declaration
 
+namespace KSimLibDataRecorder
+{
+
 WidgetControlButton::WidgetControlButton(QWidget * controlledWidget, QWidget *parent, const char *name )
 	: QHBox(parent,name),
 		m_controlledWidget(controlledWidget),
@@ -182,4 +185,7 @@ const QColor & KSimColorLabel::getColor() const
 {
 	return backgroundColor();
 }
+
+
+};  //namespace KSimLibDataRecorder
 

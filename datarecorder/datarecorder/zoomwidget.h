@@ -33,8 +33,14 @@
 // Forward declaration
 class QLabel;
 class KSimDoubleUnitSpinBox;
-class DataRecorderDataView;
 class KSimData;
+
+
+namespace KSimLibDataRecorder
+{
+
+// Forward declaration (namespace)
+class DataRecorderDataView;
 
 
 /**Time division selector.
@@ -129,6 +135,9 @@ private:
 };
 
 
+
+
+};  //namespace KSimLibDataRecorder
 
 
 #endif

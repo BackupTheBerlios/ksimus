@@ -31,6 +31,9 @@
 // Forward declaration
 
 
+namespace KSimLibDataRecorder
+{
+
 /**The view of the data recorder
   *@author Rasmus Diekenbrock
   */
@@ -56,5 +59,8 @@ protected:
 };
 
 
+
+
+};  //namespace KSimLibDataRecorder
 
 #endif

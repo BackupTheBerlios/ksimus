@@ -37,6 +37,9 @@
 // Forward declaration
 
 
+namespace KSimLibDataRecorder
+{
+
 // Debug switch
 //#define VIEW_DEBUG_ENABLE
 
@@ -571,6 +574,9 @@ void DataRecorderDataViewDivGrid::setTimeStampEnabled(bool ena)
 //#############################################################################
 //#############################################################################
 
+
+
+};  //namespace KSimLibDataRecorder
 
 
 

@@ -36,7 +36,13 @@
 class KSimData;
 class QPaintDevice;
 class ConnectorInputBase;
+
+
+namespace KSimLibDataRecorder
+{
+
 class DataRecorder;
+
 
 /**Base class for all data recorder channels
   *@author Rasmus Diekenbrock
@@ -46,8 +52,10 @@ class DataRecorder;
 enum eChannelType
 {
 	CT_Unknown = 0,
-	CT_Boolean = 1
+	CT_Boolean = 1,
+	CT_Float = 2
 };
+
 
 
 class DataRecorderChannelBase : public QObject
@@ -112,8 +120,8 @@ public:
 	virtual QWidget * getPropertyWidget(QWidget * parent = 0, const char * name = 0) = 0;
 
 
-	void setSerialNumber(int no) { m_serialNumber = no; };
-	int getSerialNumber() const { return m_serialNumber; };
+	void setSerialNumber(unsigned int no);
+	unsigned int getSerialNumber() const { return m_serialNumber; };
 
 
 public slots:
@@ -144,7 +152,7 @@ private:
 	double m_vertOffset;
 	double m_vertGain;
 	eChannelType m_channelType;
-	int m_serialNumber;
+	unsigned int m_serialNumber;
 
 signals:
 	void lineColorChanged(const QColor & newColor);
@@ -160,7 +168,7 @@ signals:
 class DataRecorderChannelList : public QList<DataRecorderChannelBase>
 {
 public:
-	DataRecorderChannelBase * findSerial(int no) const;
+	DataRecorderChannelBase * findSerial(unsigned int no) const;
 
 protected:
 	virtual int compareItems(QCollection::Item di1, QCollection::Item di2);
@@ -170,6 +178,9 @@ protected:
 		for(QListIterator<DataRecorderChannelBase> _it_(_channelList_);_it_.current();++_it_)
 
 
+
+
+};  //namespace KSimLibDataRecorder
 
 
 #endif
