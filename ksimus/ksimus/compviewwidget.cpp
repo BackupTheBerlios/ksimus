@@ -24,6 +24,7 @@
 // Project-Includes
 #include "compviewwidget.h"
 #include "compview.h"
+#include "componentstyle.h"
 #include "ksimwidget.h"
 
 // Forward declaration
@@ -73,6 +74,22 @@ CompViewWidget::CompViewWidget(CompView * cv, QWidget *parent, const char *name 
 		connect(parent, SIGNAL(destroyed()), this, SLOT(slotDelete()));
 	}
 
+	Component * comp = getComponent();
+	
+	if (comp->inherits("ComponentStyle"))
+	{
+		ComponentStyle * compStyle = (ComponentStyle *)getComponent();
+		
+		// Connect special properties
+		connect(compStyle, SIGNAL(signalForegroundColor(const QColor &)), this, SLOT(setForegroundColor(const QColor &)));
+		connect(compStyle, SIGNAL(signalBackgroundColor(const QColor &)), this, SLOT(setBackgroundColor(const QColor &)));
+		connect(compStyle, SIGNAL(signalFont(const QFont &)), this, SLOT(setSpecialFont(const QFont &)));
+		
+		// Set special values
+		setForegroundColor(compStyle->getForegroundColor());
+		setBackgroundColor(compStyle->getBackgroundColor());
+		setSpecialFont(compStyle->getFont());
+	}
 }
 
 CompViewWidget::~CompViewWidget()
@@ -88,3 +105,45 @@ void CompViewWidget::slotDelete(void)
 	delete this;
 }
 
+void CompViewWidget::setForegroundColor(const QColor & color)
+{
+	QPalette pal = palette();
+	QColor newColor(color);
+	
+	if (!newColor.isValid() && (parent()->inherits("QWidget")))
+	{
+		QPalette parentPal = ((QWidget*)parent())->palette();
+		newColor = parentPal.color(QPalette::Active, QColorGroup::Foreground);
+	}		
+	
+	pal.setColor(QPalette::Active, QColorGroup::Foreground, newColor);
+	pal.setColor(QPalette::Inactive, QColorGroup::Foreground, newColor);
+	
+	setPalette(pal);
+	update();
+}
+
+void CompViewWidget::setBackgroundColor(const QColor & color)
+{
+	QPalette pal = palette();
+	QColor newColor(color);
+	
+	
+	if (!newColor.isValid() && (parent()->inherits("QWidget")))
+	{
+		QPalette parentPal = ((QWidget*)parent())->palette();
+		newColor = parentPal.color(QPalette::Active, QColorGroup::Background);
+	}		
+	
+	pal.setColor(QPalette::Active, QColorGroup::Background, newColor);
+	pal.setColor(QPalette::Inactive, QColorGroup::Background, newColor);
+	
+	setPalette(pal);
+	update();
+}
+
+void CompViewWidget::setSpecialFont(const QFont & font)
+{
+	setFont(font);	
+	update();
+}

@@ -26,9 +26,9 @@
 // KDE-Includes
 
 // Project-Includes
+#include "compview.h"
 
 // Forward declaration
-class CompView;
 
 /**Widget class for CompViews
   *@author Rasmus Diekenbrock
@@ -44,9 +44,20 @@ public:
 	~CompViewWidget();
 	
 	/** Returns the component view. */
+	Component * getComponent() const { return getCompView()->getComponent(); };
+
+	/** Returns the component view. */
 	CompView * getCompView() const { return m_compView; };
 
 		
+public slots:
+	/** Set the foreground color. */
+	void setForegroundColor(const QColor & color);
+	/** Set the background color. */
+	void setBackgroundColor(const QColor & color);
+	/** Sets the font. */
+	void setSpecialFont(const QFont & font);
+
 private slots:
 	/** This slot delete this widget */
 	void slotDelete(void);
