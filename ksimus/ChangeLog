@@ -1,4 +1,5 @@
 	02.12.2001
+* ComponentAddOn have now a name. This name must be unique within a component.
 * BooleanAnd: The AND/NAND has a variable count of connectors. Unfortunately this breaks
   the document compatibility.
 * Change default setting of ConnectorBase: The connectors are not able to hide.
