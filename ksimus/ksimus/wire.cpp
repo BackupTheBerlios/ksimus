@@ -307,7 +307,7 @@ void Wire::save(KSimData & file) const
 		dir.sprintf("Connection %u/",i);
 		file.setGroup(connGroup + dir );
 		file.writeEntry("Component", conn->getComponent()->getSerialNumber());
-		file.writeEntry("Connector", conn->getName());
+		file.writeEntry("Connector", conn->getWireName());
 	}
 	
 	// Save property
@@ -360,7 +360,8 @@ bool Wire::load(KSimData & file, bool copyLoad)
 		
 		compNo = file.readUnsignedNumEntry("Component", 0);
 		ASSERT (compNo != 0);
-        connName = file.readEntry("Connector", 0);
+		
+		connName = file.readEntry("Connector", 0);
 
 		// Search component
 		found = false;
