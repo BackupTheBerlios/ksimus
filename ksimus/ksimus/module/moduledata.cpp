@@ -125,13 +125,13 @@ static const unsigned int minY;
 //###### Some statics
 //################################################################################
 
-static const char * sViewType;
-static const char * sPixmapFile;
-static const char * sModuleName;
-static const char * sModuleLibNames;
-static const char * sShortDescr;
-static const char * sPixmapStore;
-static const char * sPixmapData;
+static const char * const sViewType;
+static const char * const sPixmapFile;
+static const char * const sModuleName;
+static const char * const sModuleLibNames;
+static const char * const sShortDescr;
+static const char * const sPixmapStore;
+static const char * const sPixmapData;
 
 
 static const EnumDict<ModuleViewType> & getModuleViewDict()
@@ -155,13 +155,13 @@ const unsigned int ModuleData::Private::minX = 8;
 const unsigned int ModuleData::Private::minY = 7;
 
 
-const char * ModuleData::Private::sViewType       = "ViewType";
-const char * ModuleData::Private::sPixmapFile     = "PixFile";
-const char * ModuleData::Private::sModuleName     = "Module Name";
-const char * ModuleData::Private::sModuleLibNames = "Module Lib Names";
-const char * ModuleData::Private::sShortDescr     = "Short Descr";
-const char * ModuleData::Private::sPixmapStore    = "Pixmap Store";
-const char * ModuleData::Private::sPixmapData     = "Pixmap Data";
+const char * const ModuleData::Private::sViewType       = "ViewType";
+const char * const ModuleData::Private::sPixmapFile     = "PixFile";
+const char * const ModuleData::Private::sModuleName     = "Module Name";
+const char * const ModuleData::Private::sModuleLibNames = "Module Lib Names";
+const char * const ModuleData::Private::sShortDescr     = "Short Descr";
+const char * const ModuleData::Private::sPixmapStore    = "Pixmap Store";
+const char * const ModuleData::Private::sPixmapData     = "Pixmap Data";
 
 
 

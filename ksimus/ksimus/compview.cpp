@@ -51,34 +51,34 @@
 
 
 
-static const char * sPos      = "Pos";
-static const char * sSize     = "Size";
-static const char * sHide     = "Hidden";
-static const char * sRotation = "Rotation";
+static const char * const sPos      = "Pos";
+static const char * const sSize     = "Size";
+static const char * const sHide     = "Hidden";
+static const char * const sRotation = "Rotation";
 
 static const int sheetGridX = gridX;
 static const int sheetGridY = gridY;
 
 
 // Used for m_flags
-//#define FLAGS_VIEW_CHANGED			0x00000001
-#define FLAGS_HIDDEN							0x00000002
-#define FLAGS_RESIZEABLE					0x00000004
-#define FLAGS_CONN_SPACING_TOP		0x00000008
-#define FLAGS_CONN_SPACING_RIGHT	0x00000010
-#define FLAGS_CONN_SPACING_BOTTOM	0x00000020
-#define FLAGS_CONN_SPACING_LEFT		0x00000040
-#define FLAGS_ENABLE_GRID_SNAP		0x00000080
+//#define FLAGS_VIEW_CHANGED        0x00000001
+#define FLAGS_HIDDEN              0x00000002
+#define FLAGS_RESIZEABLE          0x00000004
+#define FLAGS_CONN_SPACING_TOP    0x00000008
+#define FLAGS_CONN_SPACING_RIGHT  0x00000010
+#define FLAGS_CONN_SPACING_BOTTOM 0x00000020
+#define FLAGS_CONN_SPACING_LEFT   0x00000040
+#define FLAGS_ENABLE_GRID_SNAP    0x00000080
 #define FLAGS_ROTATE_ENABLE       0x00000100
 #define FLAGS_ROTATE_SPECIAL      0x00000200
 // 0x0001xxxx - 0xFFFFxxxx Reserved for CompViewSize
 
 
 
-#define ROT_0_DEG	  0
-#define ROT_90_DEG	1
-#define ROT_180_DEG	2
-#define ROT_270_DEG	3
+#define ROT_0_DEG   0
+#define ROT_90_DEG  1
+#define ROT_180_DEG 2
+#define ROT_270_DEG 3
 
 
 static int convertRotToInt(double degree)

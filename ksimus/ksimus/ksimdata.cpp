@@ -64,8 +64,8 @@ static const tVersionList versionList[] =
 };
 
 
-static const char * sVersionTypeKey = "Document Version";
-static const char * sKSimusKey =      "Document Type";
+static const char * const sVersionTypeKey = "Document Version";
+static const char * const sKSimusKey =      "Document Type";
 
 
 //#########################################################################################

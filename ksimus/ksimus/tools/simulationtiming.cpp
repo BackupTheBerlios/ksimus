@@ -35,11 +35,11 @@
 #include "ksimdebug.h"
 
 // Forward declaration
-static const char * sExecTime       = "Execution/";
-static const char * sSimulationTime = "Simulation/";
-static const char * sUpdateTime     = "Update/";
-static const char * sFastest        = "Fastest";
-static const char * sSynchronized   = "Sychronized";
+static const char * const sExecTime       = "Execution/";
+static const char * const sSimulationTime = "Simulation/";
+static const char * const sUpdateTime     = "Update/";
+static const char * const sFastest        = "Fastest";
+static const char * const sSynchronized   = "Sychronized";
 
 
 SimulationTiming::SimulationTiming(KSimusDoc *parent, const char *name )

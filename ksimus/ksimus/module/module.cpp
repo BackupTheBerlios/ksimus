@@ -43,7 +43,7 @@
 #include "externalconnector.h"
 #include "optionalconnector.h"
 
-static const char * sModFile = "ModuleFile";
+static const char * const sModFile = "ModuleFile";
 
 #define minX	8
 #define minY	7

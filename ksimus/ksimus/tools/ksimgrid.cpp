@@ -31,12 +31,12 @@
 #include "ksimgrid.h"
 #include "ksimdata.h"
 
-static const char * sGridStyle	= "Style";
-static const char * sGridColor	= "Color";
-static const char * sGridX 		= "SpaceX";
-static const char * sGridY		= "SpaceY";
-static const char * sEnable		= "Enable";
-static const char * sGlobaleEna	= "GlobalGrid";
+static const char * const sGridStyle  = "Style";
+static const char * const sGridColor  = "Color";
+static const char * const sGridX      = "SpaceX";
+static const char * const sGridY      = "SpaceY";
+static const char * const sEnable     = "Enable";
+static const char * const sGlobaleEna = "GlobalGrid";
 
 KSimGrid::KSimGrid(GRIDSTYLE style, const QColor & color)
 	:	m_style((style == GridNone)?GridDots:style),

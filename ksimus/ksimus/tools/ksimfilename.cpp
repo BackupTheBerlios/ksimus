@@ -64,9 +64,9 @@ KSimFilename::ePathType KSimFilename::convertPathType(const char * pathType, KSi
 }
 
 
-static const char * sFilename       = "Filename";
-static const char * sIsPathType     = "Path Type";
-static const char * sShouldPathType = "should Path Type";
+static const char * const sFilename       = "Filename";
+static const char * const sIsPathType     = "Path Type";
+static const char * const sShouldPathType = "should Path Type";
 
 
 

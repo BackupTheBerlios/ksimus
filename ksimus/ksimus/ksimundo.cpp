@@ -44,18 +44,18 @@
 
 
 
-static const char * sUndoGrp   = "/Undo Property/";
-static const char * sRemove    = "RemoveList";
-static const char * sDesc      = "Description";
-static const char * sNoDesc    = "No description";
-static const char * sModi      = "Modified";
-static const char * sSelect    = "Select";
-static const char * sUserSize  = "UserSize";
-static const char * sSheetSize = "SheetSize";
-static const char * sLastView  = "Last View";
+static const char * const sUndoGrp   = "/Undo Property/";
+static const char * const sRemove    = "RemoveList";
+static const char * const sDesc      = "Description";
+static const char * const sNoDesc    = "No description";
+static const char * const sModi      = "Modified";
+static const char * const sSelect    = "Select";
+static const char * const sUserSize  = "UserSize";
+static const char * const sSheetSize = "SheetSize";
+static const char * const sLastView  = "Last View";
 
-#define SHEET_VIEW	0
-#define USER_VIEW	1
+#define SHEET_VIEW  0
+#define USER_VIEW   1
 
 
 //#define KSIMUNDODEBUG_ENABLE 1

@@ -27,7 +27,7 @@
 #include "config.h"
 
 // INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
-static const char *description =
+static const char * const description =
 	I18N_NOOP("KSimus is an application for simulating networks with boolean and floating point data type.\n"
 	          "String and some more data types are planned.");
 	
