@@ -1,3 +1,8 @@
+	02.04.2002
+* Fix sticking Button and ToggleButton
+* Fix search algorithm for relative paths (empty path)
+* New option execute
+* Fix X error during File/Close and File/Quit
 	28.03.2002
 * Fix some compiler warnings
 	23.03.2002
