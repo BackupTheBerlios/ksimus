@@ -35,7 +35,6 @@
 // Project-Includes
 #include "componentpropertystylewidget.h"
 #include "componentstyle.h"
-#include "componentinfo.h"
 #include "ksimdebug.h"
 
 // Forward declaration

@@ -31,7 +31,6 @@
 #include "connectorbase.h"
 #include "connectorlist.h"
 #include "library.h"
-#include "componentinfo.h"
 #include "connectorinfo.h"
 #include "wirepropertylibrary.h"
 #include "wirepropertyinfo.h"

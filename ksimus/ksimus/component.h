@@ -27,6 +27,7 @@
 // Include Project-Header
 #include "types.h"
 #include "ksimaction.h"
+#include "componentinfo.h"
 
 
 // Forward declaration
@@ -36,7 +37,6 @@ class QPopupMenu;
 class KSimusDoc;
 class CompContainer;
 class ComponentMap;
-class ComponentInfo;
 class CompView;
 class LogList;
 class KSimUndo;

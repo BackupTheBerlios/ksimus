@@ -27,7 +27,6 @@
 #include "ksimdata.h"
 #include "component.h"
 #include "compcontainer.h"
-#include "componentinfo.h"
 #include "componentaddon.h"
 #include "connectorbase.h"
 #include "connectorlist.h"
