@@ -78,8 +78,8 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 		g_editorList = new KSimEditorList;
 	g_editorList->append(this);
 	
-  	drawMap = new QPixmap;
-  	CHECK_PTR(drawMap);
+	drawMap = new QPixmap;
+	CHECK_PTR(drawMap);
   	
 	setMouseTracking(true);
 	setEditorMode(EM_SELECT);
@@ -200,7 +200,7 @@ void KSimEditor::updateDrawMap()
 
 void KSimEditor::paintEvent(QPaintEvent *)
 {
-	bitBlt(this, 0, 0, drawMap);
+	bitBlt(this, 0, 0, drawMap, 0, 0, -1, -1);
 }	
 
 /** All views of the document redraw and show the drawMap */
@@ -515,7 +515,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				getDoc()->setModified();
 				KSimUndo * undo = getDoc()->getUndo();
 				undo->begin(i18n("Copy Components"));
-				getContainer()->pastComponent(&compList, &pos);
+				getContainer()->pastComponent(&compList, pos);
 				undo->end();
 				convertComponentToCompView(&compList, &selected);
 				// Calculate dimension and the middle of all components
@@ -547,7 +547,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				if (pos.y() > sheet.bottom()-maxY)
 					pos.setY(sheet.bottom()-maxY);
 				
-				getContainer()->moveComponent(&selected, &pos);
+				getContainer()->moveComponent(&selected, pos);
 				select(selected.first(),true);
 				getContainer()->routeComponents();
 				refresh();
@@ -896,7 +896,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 				undo->begin(i18n("Move Components"));
 				undo->reload(&selected);
 				undo->end();
-				getContainer()->moveComponent(&selected, &diff);
+				getContainer()->moveComponent(&selected, diff);
 				getContainer()->setModified();
 				getContainer()->routeComponents();
 				refresh();
@@ -912,7 +912,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 				ComponentList compList;
 				getContainer()->copyComponent(&selected);
 				selected.clear();
-				getContainer()->pastComponent(&compList, &diff);
+				getContainer()->pastComponent(&compList, diff);
 				convertComponentToCompView(&compList, &selected);
 				undo->end();
 				getContainer()->setModified();
@@ -926,7 +926,7 @@ void KSimEditor::mouseReleaseEvent (QMouseEvent *ev)
 			case EM_PAST_MOVE:
 			{
 				QPoint diff(dragNow - dragStart);
-				getContainer()->moveComponent(&selected, &diff);
+				getContainer()->moveComponent(&selected, diff);
 				getDoc()->setModified();
 				getContainer()->routeComponents();
 				refresh();
@@ -1180,9 +1180,14 @@ const QSize & KSimEditor::getSize() const
 void KSimEditor::setSize(const QSize & newSize)
 {
 	size = newSize;
+/*	delete drawMap;
+	drawMap = new QPixmap(size);
+	CHECK_PTR(drawMap);*/
+
 	drawMap->resize(size);
-	setFixedSize( size );
+	setFixedSize(size);
 	getView()->resizeContents(size.width(),size.height());
+	getView()->moveChild(this,0,0);
 }
 
 /** Manages map resizing
@@ -1296,36 +1301,36 @@ QPoint KSimEditor::resizingMap(const QPoint & mousePos, bool increaseOnly)
 		{
 			if(!isMapResized)
 			{
-				getDoc()->getUndo()->begin(i18n("Resizing sheet map"));
+				getDoc()->getUndo()->begin(i18n("Resizing schematic map"));
 				isMapResized = true;
 				getDoc()->setModified();
 			}
-			getContainer()->setSheetSize(size);
+/*			getContainer()->setSheetSize(size);
 			size = getContainer()->getSheetSize();
-			getView()->resizeContents(  size.width()+100,
-										size.height()+100);
+			getView()->resizeContents(size.width(),	size.height()/);*/
+			getDoc()->setSheetSize(size);
 		}
 		else
 		{
 			if(!isMapResized)
 			{
-				getDoc()->getUndo()->begin(i18n("Resizing user map"));
+				getDoc()->getUndo()->begin(i18n("Resizing user interface map"));
 				isMapResized = true;
 				getDoc()->setModified();
 			}
-			getContainer()->setUserSize(size);
+/*			getContainer()->setUserSize(size);
 			size = getContainer()->getUserSize();
-			getView()->resizeContents(  size.width()+2,
-										size.height()+2);
+			getView()->resizeContents(size.width(), size.height());*/
+			getDoc()->setUserSize(size);
 		}
-		setFixedSize( size );
-        drawMap->resize(size);
+/*		setFixedSize( size );
+		drawMap->resize(size);*/
 		
 		
 		if (!move.isNull())
 		{
 			getDoc()->getUndo()->reload(viewList);
-			getContainer()->moveComponent(viewList,&move);
+			getContainer()->moveComponent(viewList,move);
 			getContainer()->routeComponents();
 		}
 		updateDrawMap();
