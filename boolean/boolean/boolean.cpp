@@ -39,6 +39,7 @@
 #include "booleancounter.h"
 #include "booleanconstant.h"
 #include "boolean7segment.h"
+#include "multidlatch.h"
 
 // Forward declaration
 
@@ -71,6 +72,7 @@ static const ComponentInfoPtr distributeComponent[] =
 	&BooleanConstantTrue,
 	&BooleanConstantFalse,
 	&Boolean7SegmentInfo,
+	&MultiDLatchInfo,
 	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
 };
 
