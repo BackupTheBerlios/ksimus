@@ -1,0 +1,312 @@
+<!-- ############################################################################### -->
+<!-- ########################          Arithmetic           ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-arithmetics">
+<title>Arithmetic Components</title>
+
+<simplelist>
+<member>&FloatAbs;</member>
+<member>&FloatAdd;</member>
+<member>&FloatSub;</member>
+<member>&FloatMul;</member>
+<member>&FloatDiv;</member>
+<member>&FloatMod;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Abs                     ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-abs">
+<title>Absolute Value</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component shifts the absolute value from the input to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_abs.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = |Input|
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Absolute Value</para></sect3>
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Adder                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-add">
+<title>Adder</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component adds all input values and shifts the result to the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable input count (2-26 inputs).
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_add.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = Summand A + Summand B + ... + Summand Z
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Adder</para></sect3>
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################              Subtractor                 ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-sub">
+<title>Subtractor</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component calculates the difference of the inputs and shifts the result to the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_sub.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = Minuend - Subtrahend
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Subtractor</para></sect3>
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Multiplier              ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-mul">
+<title>Multiplier</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component multiplies all input values and shifts the result to the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+User definable input count (2-26 inputs).
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_mul.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = Factor A + Factor B + ... + Factor Z
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Multiplier</para></sect3>
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Divider                 ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-div">
+<title>Divider</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component the quotient from the division of Dividend by Divisor and shifts the result
+to the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_div.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = Dividend / Divisor
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Divider</para></sect3>
+</sect2>
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                 Remainder               ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-mod">
+<title>Remainder</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component the remainder from the division of Dividend by Divisor and shifts the result
+to the output connector.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_mod.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = Dividend - n * Divisor
+</para><para>
+where n is the quotient of Dividend divided by Divisor rounded towards zero to an integer.
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Remainder</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

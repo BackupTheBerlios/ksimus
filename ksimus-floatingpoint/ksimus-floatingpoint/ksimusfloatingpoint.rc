@@ -1,0 +1,14 @@
+<!DOCTYPE kpartgui> 
+	<kpartgui library="libksimusfloatingpoint" name="ksimusfloatingpoint" version="0.0.1" > 
+	<MenuBar> 
+		<Menu name="tools">
+			<Text>&amp;Tools</Text> 
+			<Action name="ksimusfloatingpoint"/> 
+		</Menu> 
+	</MenuBar> 
+ 	<ToolBar name="mainToolBar">
+  		<Action name="ksimusfloatingpoint"/>
+ 	</ToolBar>
+
+</kpartgui>
+

@@ -1,0 +1,331 @@
+<!-- ############################################################################### -->
+<!-- ########################        Trigonometric          ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-trigonometric">
+<title>Trigonometric Components</title>
+
+<simplelist>
+<member>&FloatTrigSin;</member>
+<member>&FloatTrigCos;</member>
+<member>&FloatTrigTan;</member>
+<member>&FloatTrigASin;</member>
+<member>&FloatTrigACos;</member>
+<member>&FloatTrigATan;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                sin(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-sin">
+<title>sin(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the sine of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The argument of this function is given in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_sin.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = sin(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> sin(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                cos(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-cos">
+<title>cos(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the cosine of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The argument of this function is given in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_cos.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = cos(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> cos(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                tan(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-tan">
+<title>tan(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the tangent of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The argument of this function is given in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_tan.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = tan(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> tan(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               asin(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-asin">
+<title>asin(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the arc sine of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The argument of this function is given in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_asin.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = arcsin(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> asin(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               acos(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-acos">
+<title>acos(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the arc cosine of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The argument of this function is given in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_acos.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = arccos(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> acos(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################               atan(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-trigonometric-atan">
+<title>atan(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the arc tangent of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The argument of this function is given in radians.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="trigonometric_atan.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = arctan(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Trigonometric -> atan(x)</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+	22.03.2002
+* Add missing #include <math.h>. Thanks Francois Dickey!
+* New: Version 0.3.4-1
+	20.03.2002
+* New: Version 0.3.4
+	04.03.2002
+* New: Component documentation
+* New: French translation from Aurelien Jarno. Thanks!
+* New: German translation.
+* Fix: better version request in configure.in.in. Thanks Aurelien!
+	24.02.2002
+* New: sin, asin, cos, acos, log, tan, atan, exp, min and max components
+* Change: some DataSelector fixes
+* Change: some Floating Point Latch fixes
+* Change: Waveform Generator library path
+	18.02.2002
+* New: DataSelector (MUX)
+* New: Converter Boolean <-> Floating Point
+* New: External Connectors
+* New: Absolute Componente
+* New: Constant value
+* New: Floating Point Latch
+* New: Conditional Components
+* New: Waveform Generator
+

@@ -1,0 +1,684 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-04-09 21:59+0200\n"
+"PO-Revision-Date: 2002-02-26 20:52GMT+1\n"
+"Last-Translator: Aurelien Jarno <aurelien@aurel32.net>\n"
+"Language-Team: Français <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: floatsin.cpp:45
+msgid "Floating Point sin(x)"
+msgstr "sin(x) virgule flottante"
+
+#: floatsin.cpp:46
+msgid "Floating Point/Arithmetic/Trigonometric/sin(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrique/sin(x)"
+
+#: floatsin.cpp:59
+msgid "Floating Point asin(x)"
+msgstr "arcsin() virgule flottante"
+
+#: floatsin.cpp:60
+msgid "Floating Point/Arithmetic/Trigonometric/asin(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrique/arcsin(x)"
+
+#: floatlineoutput.cpp:48
+msgid "Floating Point Label"
+msgstr "Afficheur virgule flottante"
+
+#: floatlineoutput.cpp:49
+msgid "Floating Point/Output/Label"
+msgstr "Virgule flottante/Sortie/Afficheur"
+
+#: convertboolfloat.cpp:85 convertfloatbool.cpp:76 dataselector.cpp:105
+#: extconnfloatin.cpp:48 extconnfloatout.cpp:48 float1in1out.cpp:40
+#: floatlatch.cpp:98 floatlineoutput.cpp:66 floatxin1out.cpp:48
+msgid "Input"
+msgstr "Entrée"
+
+#: floatmax.cpp:44
+msgid "Floating Point Maximum"
+msgstr "Maximum virgule flottante"
+
+#: floatmax.cpp:45
+msgid "Floating Point/Control/Maximum"
+msgstr "Virgule flottante/Contrôle/Maximum"
+
+#: floattan.cpp:45
+msgid "Floating Point tan(x)"
+msgstr "tan() virgule flottante"
+
+#: floattan.cpp:46
+msgid "Floating Point/Arithmetic/Trigonometric/tan(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrique/tan(x)"
+
+#: floattan.cpp:59
+msgid "Floating Point atan(x)"
+msgstr "arctan() virgule flottante"
+
+#: floattan.cpp:60
+msgid "Floating Point/Arithmetic/Trigonometric/atan(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrique/arctan(x)"
+
+#: floatlog.cpp:45
+msgid "Floating Point log(x)"
+msgstr "log() virgule flottante"
+
+#: floatlog.cpp:46
+msgid "Floating Point/Arithmetic/Exponentiation & Logarithms/log(x)"
+msgstr "Virgule flottante/Arithmétique/Exponentiel & Logarithme/log(x)"
+
+#: floatsubtractor.cpp:44
+msgid "Floating Point Subtractor"
+msgstr "Soustraction virgule flottante"
+
+#: floatsubtractor.cpp:45
+msgid "Floating Point/Arithmetic/Subtractor"
+msgstr "Virgule flottante/Arithmétique/Soustraction"
+
+#: floatsubtractor.cpp:82
+msgid "Minuend"
+msgstr "Terme 1"
+
+#: floatsubtractor.cpp:83
+msgid "Subtrahend"
+msgstr "Terme 2"
+
+#: floatmin.cpp:44
+msgid "Floating Point Minimum"
+msgstr "Minimum virgule flottante"
+
+#: floatmin.cpp:45
+msgid "Floating Point/Control/Minimum"
+msgstr "Virgule flottante/Contrôle/Minimum"
+
+#: dataselector.cpp:67
+msgid "Floating Data Selector"
+msgstr "Multiplexeur virgule flottante"
+
+#: dataselector.cpp:68
+msgid "Floating Point/Control/Data Selector"
+msgstr "Virgule flottante/Contrôle/Multiplexeur"
+
+#: dataselector.cpp:93
+msgid "Latch Output"
+msgstr "Latch Output"
+
+#: dataselector.cpp:99
+msgid "Latch Address Input"
+msgstr "Latch Address Input"
+
+#: dataselector.cpp:108 floatlatch.cpp:101 floatxin1out.cpp:50
+#, c-format, ycp-format
+msgid "Input %1"
+msgstr "Entrée %1"
+
+#: dataselector.cpp:112
+msgid "Address"
+msgstr "Address"
+
+#: dataselector.cpp:115
+#, c-format, ycp-format
+msgid "Address %1"
+msgstr "Adress %1"
+
+#: dataselector.cpp:180 floatlatch.cpp:190
+msgid "&Add Channel"
+msgstr "&Ajouter un canal"
+
+#: dataselector.cpp:187 floatlatch.cpp:198
+msgid "&Delete Channel"
+msgstr "&Supprimer le canal"
+
+#: dataselector.cpp:375 floatlatch.cpp:347
+msgid "Channel count: "
+msgstr "Nombre de canaux :"
+
+#: dataselector.cpp:380 floatlatch.cpp:352
+msgid "Change count of channels here."
+msgstr "Changez ici le nombre de canaux."
+
+#: dataselector.cpp:385 float1out.cpp:171 floatlatch.cpp:357
+#: floatstyle1out.cpp:166
+msgid "Reset value: "
+msgstr "Valeur initiale :"
+
+#: dataselector.cpp:390 float1out.cpp:176 floatlatch.cpp:362
+msgid "Change the reset value of the component here."
+msgstr "Changez la valeur intiale du composant ici."
+
+#: floatexp.cpp:45
+msgid "Floating Point exp(x)"
+msgstr "exp() virgule flottante"
+
+#: floatexp.cpp:46
+msgid "Floating Point/Arithmetic/Exponentiation & Logarithms/exp(x)"
+msgstr "Virgule flottante/Arithmétique/Exponentiel & Logarithme/exp(x)"
+
+#: waveformgenerator.cpp:59
+msgid "Floating Point Waveform Generator"
+msgstr "Générateur de signal virgule flottante"
+
+#: waveformgenerator.cpp:60
+msgid "Floating Point/Control/Waveform Generator"
+msgstr "Virgule flottante/Contrôle/Générateur de signal"
+
+#: waveformgenerator.cpp:533
+msgid "Waveform: "
+msgstr "Signal :"
+
+#: waveformgenerator.cpp:538
+msgid "Sinusoidal"
+msgstr "Sinusoïde"
+
+#: waveformgenerator.cpp:539
+msgid "Square"
+msgstr "Carré"
+
+#: waveformgenerator.cpp:540
+msgid "Sawtooth"
+msgstr "Dents de scie"
+
+#: waveformgenerator.cpp:541
+msgid "Triangular"
+msgstr "Triangle"
+
+#: waveformgenerator.cpp:542
+msgid "Dirac"
+msgstr "Dirac"
+
+#: waveformgenerator.cpp:545
+msgid "Sets the waveform."
+msgstr "Paramètre le signal."
+
+#: waveformgenerator.cpp:551
+msgid "Period: "
+msgstr "Période :"
+
+#: waveformgenerator.cpp:556
+msgid "The period or frequency of the wave."
+msgstr "Période et fréquence du signal."
+
+#: waveformgenerator.cpp:562
+msgid "Frequency: "
+msgstr "Fréquence :"
+
+#: waveformgenerator.cpp:567
+msgid "Shows the frequency (depends on the period)."
+msgstr "Montre la fréquence (dépend de la période)."
+
+#: waveformgenerator.cpp:574
+msgid "Phase: "
+msgstr "Phase :"
+
+#: waveformgenerator.cpp:579
+msgid "The phase of the wave. The phase is measured in degree."
+msgstr "Phase du signal. La phase est mesurée en degrés."
+
+#: waveformgenerator.cpp:586
+msgid "Amplitude: "
+msgstr "Amplitude :"
+
+#: waveformgenerator.cpp:591
+msgid "The amplitude of the wave."
+msgstr "Amplitude du signal."
+
+#: waveformgenerator.cpp:598
+msgid "Offset: "
+msgstr "Offset :"
+
+#: waveformgenerator.cpp:603
+msgid "The offset of the wave."
+msgstr "Offset du signal."
+
+#: waveformgenerator.cpp:674
+#, ycp-format
+msgid "%1 Hz"
+msgstr "%1 Hz"
+
+#: extconnfloatin.cpp:46 extconnfloatout.cpp:46 float1out.cpp:58
+#: floatlatch.cpp:105 floatstyle1out.cpp:60
+msgid "Output"
+msgstr "Sortie"
+
+#: floatstylerange1out.cpp:142
+msgid ""
+"The reset, minimum and maximum values do not match!\n"
+"The values have to match following conditions:\n"
+"\tMinimum Value <= Reset Value <= Maximum Value\n"
+"or\n"
+"\tMinimum Value >= Reset Value >= Maximum Value\n"
+msgstr ""
+"La valeur par défaut, la valeur minimum et la valeur maximum ne "
+"correspondent pas !\n"
+"Les valeurs doivent satisfaire les conditions suivantes :\n"
+"\tvaleur minimum <= valeur initiale <= valeur maximale\n"
+"ou\n"
+"\tvaleur minimum >= valeur initiale >= valeur maximum\n"
+
+#: floatstylerange1out.cpp:157
+msgid ""
+"The reset, minimum and maximum values do not match!\n"
+"The values have to match following condition:\n"
+"\tMinimum Value <= Reset Value <= Maximum Value\n"
+msgstr ""
+"La valeur par défaut, la valeur minimum et la valeur maximum ne "
+"correspondent pas !\n"
+"Les valeurs doivent satisfaire la condition suivante :\n"
+"\tvaleur minimum <= valeur initiale <= valeur maximale\n"
+
+#: floatstylerange1out.cpp:179
+msgid "Maximum value: "
+msgstr "Valeur maximum :"
+
+#: floatstylerange1out.cpp:184
+msgid "The maximum value of the component."
+msgstr "Valeur maximum du composant."
+
+#: floatstylerange1out.cpp:189
+msgid "Minimum value: "
+msgstr "Valeur minimum :"
+
+#: floatstylerange1out.cpp:194
+msgid "The minimum value of the component."
+msgstr "Valeur minimum du composant."
+
+#: floatabs.cpp:45
+msgid "Floating Point Absolute Value"
+msgstr "Valeur absolue virgule flottante"
+
+#: floatabs.cpp:46
+msgid "Floating Point/Arithmetic/Absolute Value"
+msgstr "Virgule flottante/Arithmétique/Valeur absolue"
+
+#: floatadd.cpp:44
+msgid "Floating Point Adder"
+msgstr "Addition virgule flottante"
+
+#: floatadd.cpp:45
+msgid "Floating Point/Arithmetic/Adder"
+msgstr "Virgule flottante/Arithmétique/Addition"
+
+#: floatadd.cpp:82
+#, c-format, ycp-format
+msgid "Summand %1"
+msgstr "Terme %1"
+
+#: float2in1out.cpp:40 simpleconditional.cpp:112
+msgid "Input A"
+msgstr "Entrée A"
+
+#: float2in1out.cpp:41 simpleconditional.cpp:115
+msgid "Input B"
+msgstr "Entrée B"
+
+#: floatdivider.cpp:43
+msgid "Floating Point Divider"
+msgstr "Division virgule flottante"
+
+#: floatdivider.cpp:44
+msgid "Floating Point/Arithmetic/Divider"
+msgstr "Virgule flottante/Arithmétique/Division"
+
+#: floatdivider.cpp:81 floatremainder.cpp:83
+msgid "Dividend"
+msgstr "Dividende"
+
+#: floatdivider.cpp:82 floatremainder.cpp:84
+msgid "Divisor"
+msgstr "Diviseur"
+
+#: convertboolfloat.cpp:66
+msgid "Converter Boolean to Floating Point"
+msgstr "Convertisseur logique vers virgule flottante"
+
+#: convertboolfloat.cpp:67
+msgid "Converter/Boolean to Float"
+msgstr "Convertisseur/Logique vers virgule flottante"
+
+#: convertboolfloat.cpp:208
+msgid "True Value: "
+msgstr "Valeur vraie :"
+
+#: convertboolfloat.cpp:213
+msgid "Sets the value which represents the true level."
+msgstr "Paramètre la valeur qui représente le niveau vrai."
+
+#: convertboolfloat.cpp:220
+#, fuzzy
+msgid "False Value: "
+msgstr "Valeur vraie :"
+
+#: convertboolfloat.cpp:225
+#, fuzzy
+msgid "Sets the value which represents the false level."
+msgstr "Paramètre la valeur qui représente le niveau vrai."
+
+#: floatstyle1out.cpp:171
+msgid "Change the reset value of the component here"
+msgstr "Changez la valeur initiale du composant ici"
+
+#: floatlineinput.cpp:67
+msgid "Floating Point Line Edit Input"
+msgstr "Ligne d'édition virgule flottante"
+
+#: floatlineinput.cpp:68
+msgid "Floating Point/Input/Line Edit"
+msgstr "Virgule flottante/Entrée/Ligne d'édition"
+
+#: floatlineinput.cpp:348
+msgid "Notation: "
+msgstr "Notation :"
+
+#: floatlineinput.cpp:353
+msgid "Fixed Point"
+msgstr "Virgule Fixe"
+
+#: floatlineinput.cpp:354
+msgid "Exponential"
+msgstr "Exponentielle"
+
+#: floatlineinput.cpp:355
+msgid "Automatic"
+msgstr "Automatique"
+
+#: floatlineinput.cpp:356
+msgid "Sets the notation type of the input."
+msgstr "Paramètre le type de notation de l'entrée."
+
+#: floatlineinput.cpp:358
+msgid ""
+"\n"
+"Fixed Point:\n"
+"The value is displayed in fixed point notation.\n"
+"The 'Precision' gives the number of digits after the decimal point.\n"
+"Exponential:\n"
+"The value is displayed in exponential notation.\n"
+"The 'Precision' gives the number of digits after the decimal point.\n"
+"Automatic:\n"
+"The notation depends on the value and precision.\n"
+"The value is displayed in exponent notation if the exponent is less than -4 "
+"or\n"
+"greater than or equal to the 'Precision'; otherwise the fixed-point notation "
+"is used."
+msgstr ""
+"\n"
+"Virgule fixe :\n"
+"La valeur est affichée en notation virgule fixe.\n"
+"La 'précision' donne le nombre de chiffre après la virgule.\n"
+"Exponentielle :\n"
+"La value est affichée en notation exponentielle.\n"
+"La 'précision' donne le nombre de chiffre après la virgule.\n"
+"Automatic:\n"
+"La notation dépend de la valeur et de la précision.\n"
+"La valeur est affichée en notation exponentielle si l'exposant est inférieur "
+"à -4 ou\n"
+"supérieur ou égal à la 'précision' ; dans le cas contraire, la notation "
+"virgule fixe est utilisée."
+
+#: floatlineinput.cpp:372
+msgid "Precision: "
+msgstr "Précision :"
+
+#: floatlineinput.cpp:377
+msgid "Sets the 'Precision' of the input."
+msgstr "Paramètre la 'précision' de l'entrée."
+
+#: floatlineinput.cpp:382
+msgid "Tracking"
+msgstr "Suivi de la valeur"
+
+#: floatlineinput.cpp:384
+msgid ""
+"Enables the value tracking.\n"
+"If enabled the output will be updated after each inserted digit.\n"
+"If disabled the output will be updated after the user press return or select "
+"another input field."
+msgstr ""
+"Active le suivi de la valeur.\n"
+"Si cette option est activée, la sortie sera activée après chaque chiffre "
+"inséré.\n"
+"Si elle est désactivée, la sortie sera activée après l'appui sur entrée ou "
+"après la selection d'un autre composant."
+
+#: floatinputslider.cpp:58
+msgid "Floating Point Input Slider"
+msgstr "Potentiomètre virgule flottante"
+
+#: floatinputslider.cpp:59
+msgid "Floating Point/Input/Slider"
+msgstr "Virgule flottante/Entrée/Potentiomètre"
+
+#: floatinputslider.cpp:298
+msgid "The reset value of the slider."
+msgstr "Valeur par défaut du potentiomètre."
+
+#: floatinputslider.cpp:304
+msgid "Top/Left value: "
+msgstr "Valeur haute/gauche :"
+
+#: floatinputslider.cpp:309
+msgid "The value of the slider at the top or left position."
+msgstr "Valeur du potentiomètre en position haute ou gauche."
+
+#: floatinputslider.cpp:314
+msgid "Bottom/Right value: "
+msgstr "Valeur basse/droite :"
+
+#: floatinputslider.cpp:319
+msgid "The value of the slider at the bottom or right position."
+msgstr "Valeur du potentiomètre en position basse ou droite."
+
+#: convertfloatbool.cpp:57
+msgid "Converter Floating Point to Boolean"
+msgstr "Convertisseur virgule flottante vers logique"
+
+#: convertfloatbool.cpp:58
+msgid "Converter/Float to Boolean"
+msgstr "Convertisseur/Virgule flottante vers logique"
+
+#: convertfloatbool.cpp:223
+msgid "True Threshold: "
+msgstr "Seuil vrai :"
+
+#: convertfloatbool.cpp:228
+msgid "Sets the threshold where the converter switch to true."
+msgstr "Paramètre la seuil où le convertisseur bascule à la valeur vrai."
+
+#: convertfloatbool.cpp:235
+msgid "False Threshold: "
+msgstr "Seuil faux :"
+
+#: convertfloatbool.cpp:240
+msgid "Sets the threshold where the converter switch to false."
+msgstr "Paramètre la seuil où le convertisseur bascule à la valeur fausse."
+
+#: convertfloatbool.cpp:245
+msgid "Medium Threshold: "
+msgstr "Seuil médian :"
+
+#: convertfloatbool.cpp:250
+msgid "Shows the medium value between 'False Threshold' and 'True Threshold'."
+msgstr "Affiche la valeur médiane entre 'Seuil faux' et 'Seuil vrai'"
+
+#: convertfloatbool.cpp:254
+msgid "Hysteresis: "
+msgstr "Hystérisis :"
+
+#: convertfloatbool.cpp:259
+msgid "Shows the hysteresis between 'False Threshold' and 'True Threshold'."
+msgstr "Affiche l'hystérisis entre 'Seuil faux' et 'Seuil vrai'."
+
+#: floatconstinput.cpp:53
+msgid "Floating Point Constant"
+msgstr "Constante virgule flottante"
+
+#: floatconstinput.cpp:54
+msgid "Floating Point/Input/Constant"
+msgstr "Virgule flottante/Entrée/Constante"
+
+#: floatconstinput.cpp:102
+msgid "Edit &Value..."
+msgstr "Modifier la &valeur..."
+
+#: floatconstinput.cpp:229
+msgid "Value: "
+msgstr "Valeur :"
+
+#: floatcos.cpp:45
+msgid "Floating Point cos(x)"
+msgstr "cos() virgule flottante"
+
+#: floatcos.cpp:46
+msgid "Floating Point/Arithmetic/Trigonometric/cos(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrique/cos(x)"
+
+#: floatcos.cpp:59
+msgid "Floating Point acos(x)"
+msgstr "arccos() virgule flottante"
+
+#: floatcos.cpp:60
+msgid "Floating Point/Arithmetic/Trigonometric/acos(x)"
+msgstr "Virgule flottante/Arithmétique/Trigonométrique/arccos(x)"
+
+#: extconnfloatout.cpp:33
+msgid "External Connector Floating Point Output"
+msgstr "Sortie virgule flottante externe"
+
+#: extconnfloatout.cpp:34
+msgid "External Connector/Floating Point Output"
+msgstr "Connecteur externe/Sortie virgule flottante"
+
+#: extconnfloatin.cpp:33
+msgid "External Connector Floating Point Input"
+msgstr "Entrée virgule flottante externe"
+
+#: extconnfloatin.cpp:34
+msgid "External Connector/Floating Point Input"
+msgstr "Connecteur externe/Entrée virgule flottante"
+
+#: floatlatch.cpp:66
+msgid "Floating Point Latch"
+msgstr "Registre virgule flottante"
+
+#: floatlatch.cpp:67
+msgid "Floating Point/Control/Latch"
+msgstr "Virgule flottante/Contrôle/Registre"
+
+#: floatlatch.cpp:89
+msgid "Reset"
+msgstr "Reset"
+
+#: floatlatch.cpp:95
+msgid "Enable"
+msgstr "Enable"
+
+#: floatlatch.cpp:108
+#, c-format, ycp-format
+msgid "Output %1"
+msgstr "Sortie %1"
+
+#: floatremainder.cpp:45
+msgid "Floating Point Remainder"
+msgstr "Reste virgule flottante"
+
+#: floatremainder.cpp:46
+msgid "Floating Point/Arithmetic/Remainder"
+msgstr "Virgule flottante/Arithmétique/Reste"
+
+#: simpleconditional.cpp:53
+msgid "Floating Point Conditional Lesser"
+msgstr "Condition 'inférieur' virgule flottante"
+
+#: simpleconditional.cpp:54
+msgid "Floating Point/Conditional/Lesser"
+msgstr "Virgule flottante/Condition/Inférieur"
+
+#: simpleconditional.cpp:62
+msgid "Floating Point Conditional Lesser Equal"
+msgstr "Condition 'inférieur ou égal' virgule flottante"
+
+#: simpleconditional.cpp:63
+msgid "Floating Point/Conditional/Lesser Equal"
+msgstr "Virgule flottante/Condition/Inférieur ou égal"
+
+#: simpleconditional.cpp:71
+msgid "Floating Point Conditional Equal"
+msgstr "Condition 'égal' virgule flottante"
+
+#: simpleconditional.cpp:72
+msgid "Floating Point/Conditional/Equal"
+msgstr "Virgule flottante/Condition/Égal"
+
+#: simpleconditional.cpp:80
+msgid "Floating Point Conditional Larger Equal"
+msgstr "Condition 'supérieur ou égal' virgule flottante"
+
+#: simpleconditional.cpp:81
+msgid "Floating Point/Conditional/Larger Equal"
+msgstr "Virgule flottante/Condition/Supérieur ou égal"
+
+#: simpleconditional.cpp:89
+msgid "Floating Point Conditional Larger"
+msgstr "Condition 'supérieur' virgule flottante"
+
+#: simpleconditional.cpp:90
+msgid "Floating Point/Conditional/Larger"
+msgstr "Virgule flottante/Condition/Supérieur"
+
+#: simpleconditional.cpp:226
+msgid "Conditional: "
+msgstr "Condition :"
+
+#: simpleconditional.cpp:231
+msgid "A < B"
+msgstr "A < B"
+
+#: simpleconditional.cpp:232
+msgid "A <= B"
+msgstr "A <= B"
+
+#: simpleconditional.cpp:233
+msgid "A == B"
+msgstr "A == B"
+
+#: simpleconditional.cpp:234
+msgid "A >= B"
+msgstr "A >= B"
+
+#: simpleconditional.cpp:235
+msgid "A > B"
+msgstr "A > B"
+
+#: simpleconditional.cpp:237
+msgid "Sets the conditional."
+msgstr "Paramètre la condition."
+
+#: floatmultiplier.cpp:45
+msgid "Floating Point Multiplier"
+msgstr "Multiplication virgule flottante"
+
+#: floatmultiplier.cpp:46
+msgid "Floating Point/Arithmetic/Multiplier"
+msgstr "Virgule flottante/Arithmétique/Multiplication"
+
+#: floatmultiplier.cpp:83
+#, c-format, ycp-format
+msgid "Factor %1"
+msgstr "Facteur %1"
+
+#, fuzzy
+#~ msgid "&Add Input"
+#~ msgstr "Entrée"
+
+#, fuzzy
+#~ msgid "&Delete Input"
+#~ msgstr "&Supprimer le canal"

@@ -1,0 +1,16 @@
+Makefile
+Makefile.in
+acinclude.m4
+aclocal.m4
+config.h
+config.h.in
+configure
+configure.files
+configure.in
+libtool
+stamp-h
+stamp-h.in
+subdirs
+messages.log
+tags
+ksimus-floatingpoint.kdevses

@@ -1,0 +1,323 @@
+<!-- ############################################################################### -->
+<!-- ########################        Float Controls         ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-controls">
+<title>Control Components</title>
+
+<simplelist>
+<member>&FloatCtrlLatch;</member>
+<member>&FloatCtrlDataSel;</member>
+<member>&FloatCtrlMaximum;</member>
+<member>&FloatCtrlMinimum;</member>
+<member>&FloatCtrlWaveGen;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                latch                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-control-latch">
+<title>Latch</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component contains several latches for floating point values. These latches have a common
+enable and reset input.
+</para><para>
+During a true condition at the enable input the data is fetched from the input and shifted to the
+output. A false condition latches the current value.
+</para><para>
+A true condition at the reset input sets the output values to the reset value. The reset value is
+user definable and is also used during the first simulation cycle.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 26 separate latches.
+</para></listitem><listitem><para>
+The enable and reset inputs are negatable.
+</para></listitem><listitem><para>
+The reset and enable inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Activate or deactivate the reset input (deactivated connectors are hidden).
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0. This reset value is also used, if a the reset input is active.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="control_datalatch.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_datalatch_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Control -> Latch</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Data Selector                  ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-control-dataSelect">
+<title>Data Selector (MUX)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+This component contains a multiplexer for floating point values. The Data Selector routes one of the
+input values to the output connector. The selected input connector depends on the address read from
+the address inputs.
+</para><para>
+The component has an internal address latch. This latch is activated if the connector 'Latch Address Input' is
+activated. During true condition at this input the current address is used. A transition to false condition
+latches the address.
+</para><para>
+The component has also an internal output latch. This latch is activated if the connector 'Latch Output' is
+activated. During true condition at this input the current addressed input value is used. A transition to
+false condition latches the value.
+</para><para>
+If an input is addressed which does not exist (e.g. the 15th input is selected but the component has only 14
+inputs) the reset value is used.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 16 inputs.
+</para></listitem><listitem><para>
+The 'Latch Address Input', 'Latch Output' and the address inputs are negatable.
+</para></listitem><listitem><para>
+The 'Latch Address Input' and 'Latch Output' inputs are level or edge sensitive.
+</para></listitem><listitem><para>
+Activate or deactivate the 'Latch Address Input' and 'Latch Output' inputs (deactivated connectors are hidden).
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="control_dataselector.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_dataselector_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Control -> Data Selector</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################              Maximum                    ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-control-maximum">
+<title>Maximum</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component shifts the maximum value of all inputs to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 26 inputs.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="control_maximum.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_maximum_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Control -> Maximum</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################              Minimum                    ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-control-minimum">
+<title>Minimum</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component shifts the minimum value of all inputs to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Up to 26 inputs.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="control_minimum.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_minimum_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Control -> Minimum</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################          Waveform Generator             ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-control-waveform-gen">
+<title>Waveform Generator</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component generates one of five available waveforms with user definable period and phase.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+Available waveforms: Sinusoidal, Square, Sawtooth, Triangular, Dirac
+</para></listitem><listitem><para>
+An additional amplitude and offset.
+</para></listitem><listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="control_waveform_1.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_waveform_2.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_waveform_3.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_waveform_4.png" format="PNG"/>
+</imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject>
+<imagedata fileref="control_waveform_5.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = f(x, t / Period + (Phase * Period / 360)) * Amplitude + Offset
+</para><para>
+x: the selected waveform
+</para><para>
+t: time since simulation start
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Control -> Waveform Generator</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,131 @@
+<!-- ############################################################################### -->
+<!-- ########################  Exponentiation & Logarithms  ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-float-arithmetics-exp-log">
+<title>Exponentiation &amp; Logarithm Components</title>
+
+<simplelist>
+<member>&FloatExp;</member>
+<member>&FloatLog;</member>
+</simplelist>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                exp(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-exp">
+<title>exp(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the value of e (the base of natural logarithms) raised to power input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_exp.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = e<superscript>Input</superscript>
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Exponentiation &amp; Logarithms -> exp(x)</para></sect3>
+</sect2>
+
+
+
+
+
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+<!-- ###################                log(x)                   ################### -->
+<!-- ############################################################################### -->
+<!-- ############################################################################### -->
+
+<sect2 id="component-float-arithmetic-log">
+<title>log(x)</title>
+
+<!-- ################################### Description ############################### -->
+<sect3><title>Description</title><para>
+The component calculates the natural logarithm of input value
+and shifts the result to the output.
+</para></sect3>
+
+<!-- #################################### Features ################################# -->
+<sect3><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The component supports a user definable reset value. The output adopts this value during
+the reset cycle and keeps this value until the first simulation cycle is finished.
+The default reset value is 0.0.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect3>
+
+<!-- #################################### View ##################################### -->
+<sect3><title>View</title>
+<para><inlinemediaobject><imageobject>
+<imagedata fileref="arithmetic_log.png" format="PNG"/>
+</imageobject></inlinemediaobject></para></sect3>
+
+
+<!-- ################################# Equation ################################# -->
+<sect3><title>Equation</title><para>
+Output = log(Input)
+</para></sect3>
+
+<!-- ################################## Location ################################### -->
+<sect3><title>Location</title><para>Floating Point -> Arithmetic -> Exponentiation &amp; Logarithms -> log(x)</para></sect3>
+</sect2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
