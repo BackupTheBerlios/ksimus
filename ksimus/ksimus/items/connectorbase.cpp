@@ -257,8 +257,7 @@ const QPoint & ConnectorBase::getGridPos() const
 /** Returns the current relative connector position */	
 QPoint ConnectorBase::getRelPos() const
 {
-	return QPoint ( m_p->connectorPos.x()*gridX+gridX/2,
-					m_p->connectorPos.y()*gridY+gridY/2);
+	return QPoint ( m_p->connectorPos.x()*gridX+gridX/2, m_p->connectorPos.y()*gridY+gridY/2);
 }
 
 /** Returns the current absolute connector position */	
@@ -269,7 +268,8 @@ QPoint ConnectorBase::getPos() const
 
 QPoint ConnectorBase::getWirePos() const
 {
-	QPoint pos(getPos());
+	CompView * cv = getComponent()->getSheetView();
+	QPoint pos(getRelPos() + cv->getPos());
 
 	switch (getOrientation())
 	{
@@ -293,14 +293,20 @@ QPoint ConnectorBase::getWirePos() const
 			KSIMDEBUG_VAR("Bad orientation",getOrientation());
 			break;
 	}
-	return pos;
+	return cv->mapToRotation(pos);
+}
+
+QPoint ConnectorBase::getWireGridPos() const
+{
+	QPoint p(getWirePos());
+	return QPoint(p.x()/gridX, p.y()/gridY);
 }
 			
 
 /** Returns true, if the given positon hit the connector */
 eHitType ConnectorBase::isHit(int x, int y) const
 {
-	QPoint pos = getPos();
+	QPoint pos(getPos());
 	
 	if ( isHidden()
 		|| (x <= pos.x()-gridX/2)
@@ -633,7 +639,7 @@ void ConnectorBase::draw (QPainter * p) const
 {
 	if (!isHidden())
 	{
-		QPoint pos(getPos());
+		QPoint pos(getRelPos());
 		draw(p, getOrientation(), pos.x(), pos.y());
 	}
 }

@@ -110,6 +110,8 @@ public:
 	QPoint getPos() const;
 	/** Returns the position where the wire has to connect. */
 	QPoint getWirePos() const;
+	/** Returns the position where the wire has to connect. The position is converted to grid. */
+	QPoint getWireGridPos() const;
 	
 	/** Returns true, if the given positon hit the connector. */
 	eHitType isHit(int x, int y) const;

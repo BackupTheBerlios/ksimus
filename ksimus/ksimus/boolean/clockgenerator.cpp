@@ -71,24 +71,22 @@ ClockGeneratorView::ClockGeneratorView(Component * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableConnectorSpacingTop(false);
+//	enableConnectorSpacingRight(bool enable = true);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
+	enableRotation(true);
 }
 
 void ClockGeneratorView::draw(QPainter * p)
 {
-	QRect rect(getPlace().topLeft()+QPoint(gridX+1,1),
-							getPlace().bottomRight()-QPoint(gridX-0,0));
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-//	p->drawText(rect, AlignCenter, "Clk");
+	drawFrame(p);
 
 	// 8 Steps (width)
 	#define XSTEP      (((5*gridX - 2*gridX) - 2) / 8)
-	#define XPOS(step) (((XSTEP * step) + 1*gridX + gridX/2 -1) + getPlace().left())
+	#define XPOS(step) (((XSTEP * step) + 1*gridX + gridX/2 -1) /*+ getPlace().left()*/)
 	// heigth
-	#define YPOS(high) ((high ? 2*gridY : 3*gridY) -1 + getPlace().top())
+	#define YPOS(high) ((high ? 2*gridY : 3*gridY) -1 /*+ getPlace().top()*/)
 	
 	
 	p->setPen(QPen(black, 0));
@@ -105,7 +103,6 @@ void ClockGeneratorView::draw(QPainter * p)
 	#undef YPOS
 	#undef XPOS
 	#undef XSTEP
-	
 	
 	CompView::draw(p);
 }
