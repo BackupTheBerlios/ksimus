@@ -1,8 +1,8 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
-SUBDIRS = ksimus-floatingpoint po doc
+SUBDIRS = ksimus-floatingpoint po doc 
 
-EXTRA_DIST = ksimus-floatingpoint.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-floatingpoint.lsm
+EXTRA_DIST = ksimus-floatingpoint.kdevprj admin AUTHORS COPYING ChangeLog INSTALL README TODO ksimus-floatingpoint.lsm 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 

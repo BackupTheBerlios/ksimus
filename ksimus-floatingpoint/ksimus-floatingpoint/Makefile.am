@@ -11,7 +11,7 @@ LDFLAGS = -shared
 LDADD = 
 
 
-libksimus_floatingpoint_la_LIBADD =
+libksimus_floatingpoint_la_LIBADD = 
 
 
 libksimus_floatingpoint_la_LDFLAGS = -avoid-version -module -no-undefined

@@ -1,4 +1,6 @@
 	21.04.2002
+* Change: Remove unused parameter comp from Component::createGeneralProperty(Component * comp, QWidget *parent)
+	21.04.2002
 * Change: Use singleton patterns instead of static objects
 * Improve i18n
 	20.04.2002
