@@ -1,5 +1,11 @@
 	05.12.2001
-* Improve Fold/Unfold mechanism of the component supplier.
+* Change: Improve Fold/Unfold mechanism of the component supplier.
+* New: ComponentPropertyInfoWidget::getGrid() and ComponentPropertyGeneralWidget::getGrid()
+* New: Component::createGeneralProperty(...) and Component::createInfoProperty(...)
+* New: Improve connector delete mechanism.
+* New: ConnectorBase::signalInitPopupMenu(QPopupMenu * popup)
+* Change: ComponentLayout accepts as parameter a CompView instead a Component object
+* Change: BooleanAnd because changes of ComponentLayout
 	02.12.2001
 * ComponentAddOn have now a name. This name must be unique within a component.
 * BooleanAnd: The AND/NAND has a variable count of connectors. Unfortunately this breaks
