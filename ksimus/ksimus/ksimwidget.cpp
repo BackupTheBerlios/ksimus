@@ -66,7 +66,7 @@ void KSimWidgetList::slotRemoveWidget(const QWidget * widget)
 	
 QWidget * KSimWidgetList::getActiveWidget()
 {
-	QWidget * activeWidget = 0;
+	QWidget * activeWidget = (QWidget *)0;
 	QWidget * currentWidget = widgetList.getFirst();
 	
 	while (currentWidget)

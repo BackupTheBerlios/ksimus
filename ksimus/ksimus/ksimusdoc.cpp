@@ -81,7 +81,7 @@ KSimusDoc::KSimusDoc(QWidget *parent, const char *name)
 	m_pViewList = new QList<KSimusView>();
 	m_pViewList->setAutoDelete(true);
 
-	m_activeView = 0;
+	m_activeView = (KSimusView *)0;
 	m_container = new CompContainer(this);
 	m_undo = new KSimUndo(this);
 	
@@ -125,7 +125,7 @@ void KSimusDoc::removeView(KSimusView *view)
 		}
 		else
 		{
-			m_activeView = 0;
+			m_activeView = (KSimusView *)0;
 		}
 	}
 }
