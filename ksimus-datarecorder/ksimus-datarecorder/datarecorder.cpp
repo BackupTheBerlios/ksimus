@@ -180,14 +180,14 @@ const PackageInfo * packageInfo = 0;
 
 extern "C"
 {
-	const PackageInfo * PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
+	const PackageInfo * KSIMUS_PACKAGE_INIT_FUNCTION(KLocale * ksimusLocale)
 	{
 
-//		KSIMDEBUG("Init Package " PACKAGE_NAME);
+//		KSIMDEBUG("Init Package " KSIMUS_PACKAGE_NAME);
 			
 		if (KSimLibDataRecorder::instance == 0)
 		{
-			KSimLibDataRecorder::instance = new KInstance(PACKAGE_LOWER_NAME);
+			KSimLibDataRecorder::instance = new KInstance(KSIMUS_PACKAGE_LOWER_NAME);
 			CHECK_PTR(KSimLibDataRecorder::instance);
 			CHECK_PTR(ksimusLocale);
 			// add translation
@@ -196,7 +196,7 @@ extern "C"
 	
 		if (KSimLibDataRecorder::packageInfo == 0)
 		{
-			KSimLibDataRecorder::packageInfo = new PackageInfo( PACKAGE_NAME,
+			KSimLibDataRecorder::packageInfo = new PackageInfo( KSIMUS_PACKAGE_NAME,
 			                                                    KSimLibDataRecorder::instance,
 			                                                    VERSION,      // version from config.h
 			                                                    KSimLibDataRecorder::getDistComponents(),
@@ -572,6 +572,8 @@ void DataRecorder::calculate()
 
 void DataRecorder::reset()
 {
+	Component::reset();
+
 	readSampleTime();
 	
 	FOR_EACH_CHANNEL(it, *m_channelList)
