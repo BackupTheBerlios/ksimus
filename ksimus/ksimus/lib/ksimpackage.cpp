@@ -125,11 +125,11 @@ KSimPackageHandle::eResult KSimPackageHandle::open()
 	  		
 	    if (sym)
 	    {
-    		KSIMDEBUG("Exec init function 1");
+//    		KSIMDEBUG("Exec init function 1");
 		    typedef const PackageInfo * (*t_func)();
   		  t_func func = (t_func)sym;
     		m_packageInfo = func();
-    		KSIMDEBUG_VAR("Exec init function",getFilename());
+//    		KSIMDEBUG_VAR("Exec init function",getFilename());
     	}
     	else
     	{
