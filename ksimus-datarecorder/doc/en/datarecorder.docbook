@@ -1,0 +1,230 @@
+<!-- ############################################################################### -->
+<!-- ########################        Datarecorder           ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-datarecorder-datarecorder">
+<title>Data Recorder</title>
+
+<!-- ################################### Description ############################### -->
+<sect2><title>Description</title><para>
+The component Data Recorder records boolean and floating point values. The values are shown
+like a storage oszilloscope it does.
+</para><para>
+How to add a new connector? Open the component popup menu and select the entry
+'Add boolean connector' or 'Add floating point connector'.
+The component popup menu is shown if the mouse pointer is above the Data Recorder and then
+the right mouse button is clicked.
+</para><para>
+How to remove a connector? Open the connector popup menu and select the entry
+'Erase Connector'. The connector has to be not connected!
+The connector popup menu is shown if the mouse pointer is above the connector and then
+the right mouse button is clicked.
+</para><para>
+In the current version the DataRecorder uses a separate window for displaying the values. In a
+future version it will be also possible to place the data view inside the schematic and user view.
+</para></sect2>
+
+
+
+<!-- #################################### Features ################################# -->
+<sect2><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The Data Recorder can connect any combination of boolean and floating point connectors.
+</para></listitem><listitem><para>
+Change the time base to see more details.
+</para></listitem><listitem><para>
+Each channel supports an individual 'Gain' or 'Offset'.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect2>
+
+<!-- #################################### View ##################################### -->
+<sect2><title>View</title>
+
+<informaltable frame="none">
+<tgroup cols="4">
+<tbody>
+<row><entry><inlinemediaobject><imageobject>
+<imagedata fileref="schematic_1.png" format="PNG"/>
+</imageobject></inlinemediaobject></entry>
+<entry>A Data Recorder with a boolean input.</entry></row>
+<row><entry><inlinemediaobject><imageobject>
+<imagedata fileref="schematic_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></entry>
+<entry>A Data Recorder with two floating point inputs.</entry></row>
+<row><entry><inlinemediaobject><imageobject>
+<imagedata fileref="schematic_3.png" format="PNG"/>
+</imageobject></inlinemediaobject></entry>
+<entry>A Data Recorder with a boolean and two floating point inputs.</entry></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</sect2>
+
+<!-- #################################### Popupmenu ##################################### -->
+<sect2><title>Popupmenu</title>
+
+<informaltable frame="none"><tgroup cols="2"><tbody>
+<row><entry><screenshot>
+<screeninfo>This is the component popup menu</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="popupmenu_2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Component Popup Menu</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot></entry>
+<entry><screenshot>
+<screeninfo>This is the connector popup menu</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="popupmenu.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Connector Popup Menu</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</entry></row>
+</tbody></tgroup></informaltable>
+
+<para>
+The left image shows the component popup menu of the Data Recorder, the right shows the connector popup
+menu.
+</para>
+
+<para>
+There are four additional items at these popup menus:
+</para>
+<itemizedlist>
+<listitem>
+<para>Erase Connector</para>
+<para>Removes the connector on which the mouse has pointed when you pressed the right mouse button.
+The connector must be not connected. This entry exists only in the connector popup menu.</para>
+</listitem>
+
+<listitem>
+<para>Open graph</para>
+<para>Opens the data view (see below). This entry exists also during active simulation.</para>
+</listitem>
+
+<listitem>
+<para>Add boolean connector</para>
+<para>Adds a new boolean channel.</para>
+</listitem>
+
+<listitem>
+<para>Add floating point connector</para>
+<para>Adds a new floating point channel.</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+
+<!-- #################################### Dataview ##################################### -->
+<sect2><title>Data View</title>
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of a data view</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="dataview.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Date view</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+The screenshot above shows the data view with three functions:
+</para>
+
+<itemizedlist>
+<listitem>
+<para>f1(t) = sin(t)</para>
+<para>This is the black line.</para>
+</listitem>
+
+<listitem>
+<para>f2(t) = t</para>
+<para>This is the red line.</para>
+</listitem>
+
+<listitem>
+<para>f3(t) = f1(t)/f(2t) = sin(t)/t </para>
+<para>This is the green line.</para>
+</listitem>
+</itemizedlist>
+
+<para>
+The the data view has on the left side a panel with one button for each channel and a
+zoom control. On the right side is the data area.
+</para>
+
+<para>
+The buttons on the panel are named like the related connectors. Left on each button is a small
+colored rectangle. This color is used to draw the line of this channel. A press on a button opens
+or closes a control window for the channel.
+</para>
+</sect2>
+
+
+
+<!-- #################################### Channel Control Window ##################################### -->
+<sect2><title>Channel Control Window</title>
+
+
+<para>
+<screenshot>
+<screeninfo>Here's a screenshot of a channel control window</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="channelcontrol.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Control window</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+The first item in the control window shows the channel name which is also the related connector name.
+Changes in this item will change the channel name as well as the connector name. The second item is a
+offset control and the third item is a gain control. Changes at this items cause an immediately update
+of the data area. The last item let you change the color of the line.
+</para>
+
+</sect2>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect2><title>Location</title><para>Recorder -> Data Recorder</para></sect2>
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,114 @@
+<!-- ############################################################################### -->
+<!-- ########################        Textrecorder           ######################## -->
+<!-- ############################################################################### -->
+
+<sect1 id="component-datarecorder-textrecorder">
+<title>Text Recorder</title>
+
+<!-- ################################### Description ############################### -->
+<sect2><title>Description</title><para>
+The component Text Recorder records boolean and floating point values in a log file.
+</para><para>
+The Text Recorder has an optional trigger input. The values are only recorded if the
+trigger input detects a true condition. Possible true conditions are true or false level,
+or a false-to-true or true-to-false edge. A deactivated trigger input results also in a
+true condtion.
+</para><para>
+The name of log file is user definable. The path may be absolute, relative to the home
+directory or relative to the document directory. The document directory is the directory
+where the KSimus file is stored.
+</para><para>
+The log file is line orientated. This means all values fetched the same time are stored
+in a single line. Each new value set is appended to the existing lines.
+</para><para>
+How to add a new connector? Open the component popup menu and select the entry
+'Add boolean connector' or 'Add floating point connector'.
+The component popup menu is shown if the mouse pointer is above the Text Recorder and then
+the right mouse button is clicked.
+</para><para>
+How to remove a connector? Open the connector popup menu and select the entry
+'Erase Connector'. The connector has to be not connected!
+The connector popup menu is shown if the mouse pointer is above the connector and then
+the right mouse button is clicked.
+</para><para>
+How to examin the log file? The log file is a simple text file. So you can use any editor
+to open the file. A disadvantage is that the columns of the log file are not aligned. So
+it is not clear to realize the columns. More comfortable is to open the file with 
+<application>KSpread</application> which is part of <application>KOffice</application>. 
+<application>KSpread</application> opens a dialog where you are able to select the colum
+separator (the default separator of KSimus is a semicolon). This way should work with all
+other office suites.
+</para></sect2>
+
+
+
+<!-- #################################### Features ################################# -->
+<sect2><title>Features</title>
+<itemizedlist>
+<listitem><para>
+The Text Recorder can connect any combination of boolean and floating point connectors.
+</para></listitem><listitem><para>
+The trigger input is level or edge sensitive and negatable.
+</para></listitem><listitem><para>
+The data in a lines is separate by a user definable character or character sequence. The
+default separator is a semicolon.
+</para></listitem><listitem><para>
+It is possible to remove the old log files each simulation start or to append the new data
+to the exeisting log file.
+</para></listitem><listitem><para>
+It is possible to add a line with the current date and time first after simulation starts.
+</para></listitem><listitem><para>
+Enable or disable an optional column with a line counter.
+</para></listitem><listitem><para>
+Enable or disable an optional column with the current simulation time.
+</para></listitem><listitem><para>
+The component is rotatable.
+</para></listitem></itemizedlist></sect2>
+
+<!-- #################################### View ##################################### -->
+<sect2><title>View</title>
+
+<informaltable frame="none">
+<tgroup cols="2">
+<tbody>
+<row><entry><inlinemediaobject><imageobject>
+<imagedata fileref="textrecorder_1.png" format="PNG"/>
+</imageobject></inlinemediaobject></entry>
+<entry>A Text Recorder with two boolean inputs.</entry></row>
+<row><entry><inlinemediaobject><imageobject>
+<imagedata fileref="textrecorder_2.png" format="PNG"/>
+</imageobject></inlinemediaobject></entry>
+<entry>A Text Recorder with two floating point inputs.</entry></row>
+<row><entry><inlinemediaobject><imageobject>
+<imagedata fileref="textrecorder_3.png" format="PNG"/>
+</imageobject></inlinemediaobject></entry>
+<entry>A Text Recorder with the optional trigger, a boolean and a floating point input.</entry></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</sect2>
+
+
+
+<!-- ################################## Location ################################### -->
+<sect2><title>Location</title><para>Recorder -> Text Recorder</para></sect2>
+</sect1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

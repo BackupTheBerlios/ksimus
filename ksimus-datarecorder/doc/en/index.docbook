@@ -12,6 +12,17 @@
 
   <!ENTITY todo '<para>[TODO]</para>'>
 
+<!-- ########################          Components        ######################## -->
+
+  <!ENTITY DataRecDataRecorder '<link linkend="component-datarecorder-datarecorder">Data Recorder</link>'>
+  <!ENTITY DataRecTextRecorder '<link linkend="component-datarecorder-textrecorder">Text Recorder</link>'>
+
+
+
+  <!ENTITY datarecoder-datarecoder-part SYSTEM "datarecorder.docbook">
+  <!ENTITY datarecoder-textrecoder-part SYSTEM "textrecorder.docbook">
+
+
 
 
   <!-- Do not define any other entities; instead, use the entities
@@ -81,14 +92,14 @@ Please respect the format of the date (DD/MM/YYYY) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>04/03/2002</date>
-<releaseinfo>0.01.00</releaseinfo>
+<date>2002-09-22</date>
+<releaseinfo>0.3.5</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para>
-The package &packageName; contains some floating point related components for KSimus.
+The package &packageName; contains some components which records data.
 </para>
 </abstract>
 
@@ -101,10 +112,10 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>KSimus</keyword>
 <keyword>Simulate</keyword>
 <keyword>Simulation</keyword>
-<keyword>Logic</keyword>
-<keyword>Floating-point</keyword>
+<keyword>Recording</keyword>
 <keyword>Floating</keyword>
-<keyword>Point</keyword>
+<keyword>Boolean</keyword>
+<keyword>Data</keyword>
 <keyword>Package</keyword>
 </keywordset>
 
@@ -128,7 +139,7 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-The &packageName; Package contains a graphical data recorder for KSimus.
+The &packageName; Package contains a graphical data recorder and a textual recorder for KSimus.
 </para>
 
 </chapter>
@@ -170,153 +181,50 @@ patent issues. -->
 <chapter id="kapp-features">
 <title>&packageName; package features</title>
 
-<para>
-The component DataRecorder records boolean and floating point values. The values are shown
-like a storage oszilloscope it does.
-</para>
-
-<para>
-In the current version the DataRecorder uses a separate window for displaying the values. In a
-future version it will be also possible to place the data view inside the schematic and user view.
-</para>
+<para>The &packageName; package contains following components:</para>
 
 
-<para>
-The schematic view of the DataRecorder:
-</para>
-
-
-<para><inlinemediaobject><imageobject>
-<imagedata fileref="schematic_1.png" format="PNG"/>
-</imageobject></inlinemediaobject>
-<inlinemediaobject><imageobject>
-<imagedata fileref="schematic_2.png" format="PNG"/>
-</imageobject></inlinemediaobject>
-<inlinemediaobject><imageobject>
-<imagedata fileref="schematic_3.png" format="PNG"/>
-</imageobject></inlinemediaobject>
-</para>
-
-<para>
-The DataRecorder can connect any combination of boolean and floating point connectors.
-</para>
-
-<para>
-<screenshot>
-<screeninfo>Here's a screenshot of the popup menu</screeninfo>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="popupmenu.png" format="PNG"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Popup Menu</phrase>
-	  </textobject>
-	</mediaobject>
-</screenshot>
-</para>
-
-<para>
-There are four additional items at the component popup menu:
-</para>
+<para>Gates:
 <itemizedlist>
-<listitem>
-<para>Erase Connector</para>
-<para>Removes the connector on which the mouse has pointed when you pressed the right mouse button.
-The connector must be not connected.</para>
-</listitem>
-
-<listitem>
-<para>Open</para>
-<para>Opens the data view (see below).</para>
-</listitem>
-
-<listitem>
-<para>Add boolean connector</para>
-<para>Adds a new boolean channel.</para>
-</listitem>
-
-<listitem>
-<para>Add floating point connector</para>
-<para>Adds a new floating point channel.</para>
-</listitem>
+<listitem><para>&DataRecDataRecorder;</para></listitem>
+<listitem><para>&DataRecTextRecorder;</para></listitem>
 </itemizedlist>
-
-
-<para>
-<screenshot>
-<screeninfo>Here's a screenshot of a data view</screeninfo>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="dataview.png" format="PNG"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Date view</phrase>
-	  </textobject>
-	</mediaobject>
-</screenshot>
 </para>
-
-<para>
-The screenshot above shows the data view with three functions:
-</para>
-
-<itemizedlist>
-<listitem>
-<para>f1(t) = sin(t)</para>
-<para>This is the black line.</para>
-</listitem>
-
-<listitem>
-<para>f2(t) = t</para>
-<para>This is the red line.</para>
-</listitem>
-
-<listitem>
-<para>f3(t) = f1(t)/f(2t) = sin(t)/t </para>
-<para>This is the green line.</para>
-</listitem>
-</itemizedlist>
-
-<para>
-The the data view has on the left side a panel with one button for each channel and a
-zoom control. On the right side is the data area.
-</para>
-
-<para>
-The buttons on the panel are named like the related connectors. Left on each button is a small
-colored rectangle. This color is used to draw the line of this channel. A press on a button opens
-or closes a control window for the channel.
-</para>
-
-<para>
-<screenshot>
-<screeninfo>Here's a screenshot of a channel control window</screeninfo>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="channelcontrol.png" format="PNG"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Control window</phrase>
-	  </textobject>
-	</mediaobject>
-</screenshot>
-</para>
-
-<para>
-The first item in the control window shows the channel name which is also the related connector name.
-Changes in this item will change the channel name as well as the connector name. The second item is a
-offset control and the third item is a gain control. Changes at this items cause an immediately update
-of the data area. The last item let you change the color of the line.
-</para>
-
-
 
 
 </chapter>
 
+
+
+<!-- ############################################################################### -->
+<!-- ########################            Components         ######################## -->
+<!-- ############################################################################### -->
+
+<chapter id="component">
+<title>Component Reference</title>
+
+<!-- ############################################################################### -->
+<!-- ########################          DataRecorder         ######################## -->
+<!-- ############################################################################### -->
+
+&datarecoder-datarecoder-part;
+
+
+
+<!-- ############################################################################### -->
+<!-- ########################          TextRecorder         ######################## -->
+<!-- ############################################################################### -->
+
+&datarecoder-textrecoder-part;
+
+
+
 <!-- ############################################################################### -->
 <!-- ########################          Developers           ######################## -->
 <!-- ############################################################################### -->
+
+
+</chapter>
 
 <chapter id="developers">
 <title>Developer's Guide to the &packageName; Package</title>
@@ -429,7 +337,7 @@ Documentation copyright 2002 Rasmus Diekenbrock &kappmail;
 <title>Installation</title>
 
 <sect1 id="getting-test">
-<title>How to obtain Test</title>
+<title>How to obtain &packageName;</title>
 
 <para>
 The &packageName; Package can be found on
@@ -472,7 +380,7 @@ directory of the distribution:
 </para>
 
 <para>Since the &packageName; package uses autoconf and automake you should have not trouble compiling it.
-Should you run into problems please report them to the KDE mailing lists.</para>
+Should you run into problems please report them to &kappmail;.</para>
 
 </sect1>
 
