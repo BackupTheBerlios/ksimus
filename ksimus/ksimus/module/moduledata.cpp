@@ -598,7 +598,7 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 	if(moduleView == MV_NONE)
 	{
 		// No module
-		return 0;
+		return (const ModuleInfo *)0;
 	}
 	
 	QString moduleName = file.readEntry(sModuleName);
@@ -624,7 +624,7 @@ const ModuleInfo * ModuleData::makeModuleInfo(const QString & filename)
 			break;
 	
 		case MV_PIXMAP:
-			viewAttrib = VA_SHEET_AND_USER;
+			viewAttrib = VA_SHEETVIEW;
 			break;
 	
 		default:
