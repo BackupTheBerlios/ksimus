@@ -32,9 +32,10 @@
 #include "connectorinfo.h"
 #include "wirepropertyinfo.h"
 #include "implicitconverterinfo.h"
+#include "ksimiodeviceinfo.h"
+#include "ksimiojoininfo.h"
 
 // Forward declaration
-
 
 
 /**Contains information about packages.
@@ -43,38 +44,48 @@
 
 class PackageInfo
 {
-public: 
-	PackageInfo(const QString m_packageName,
+class Private;
+
+public:
+	PackageInfo(const char * packageName,
 	            KInstance * instance,
-	            const char * packageVersion,
-	            const ComponentInfoList & componentList,
-	            const ConnectorInfoList & connectorList,
-	            const WirePropertyInfoList & wirePropertyList,
-	            const ImplicitConverterInfoList & implicitConverterList
+	            const char * packageVersion
 	);
 
-//	~PackageInfo();
+	~PackageInfo();
 
 	
 	const QString & getPackageName() const;
 	KInstance * getInstance() const;
 	const char * getPackageVersion() const;
+
+	void insert(const ComponentInfoList & componentList);
 	const ComponentInfoList & getComponentList() const;
+	bool hasComponentList() const;
+
+	void insert(const ConnectorInfoList & connectorList);
 	const ConnectorInfoList & getConnectorList() const;
+	bool hasConnectorList() const;
+
+	void insert(const WirePropertyInfoList & wirePropertyList);
 	const WirePropertyInfoList & getWirePropertyList() const;
+	bool hasWirePropertyList() const;
+
+	void insert(const ImplicitConverterInfoList & implicitConverterList);
 	const ImplicitConverterInfoList & getImplicitConverterList() const;
+	bool hasImplicitConverterList() const;
 	
-	
-	
-	
+	void insert(const KSimIoDeviceInfoList & ioDeviceList);
+	const KSimIoDeviceInfoList & getKSimIoDeviceList() const;
+	bool hasKSimIoDeviceList() const;
+
+	void insert(const KSimIoJoinInfoList & ioJoinList);
+	const KSimIoJoinInfoList & getKSimIoJoinList() const;
+	bool hasKSimIoJoinList() const;
+
+
 private:
-	const QString m_packageName;
-	KInstance * m_instance;
-	const char * m_packageVersion;
-	const ComponentInfoList & m_componentList;
-	const ConnectorInfoList & m_connectorList;
-	const WirePropertyInfoList & m_wirePropertyList;
-	const ImplicitConverterInfoList & m_implicitConverterList;
+	Private * m_p;
 };
 
 #endif
