@@ -22,7 +22,7 @@ rm $DIR_RESULT/*.txt
 
 for file in $EXECUTE_MASK; do
 	echo execute $file
-	ksimus --execute $file
+	ksimus --language C --execute $file
 
 	BASENAME=`basename $file .sim`
 
