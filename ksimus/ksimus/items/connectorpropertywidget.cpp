@@ -137,7 +137,7 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 
 	if (m_conn->isNegateEnabled())
 	{
-		m_p->negate = new QCheckBox(i18n("Negate"),settingWidget(),"NegateCheck");
+		m_p->negate = new QCheckBox(i18n("Negated"),settingWidget(),"NegateCheck");
 		m_p->negate->setChecked(m_conn->isNegated());
 		QToolTip::add(m_p->negate,i18n("Negate the connector"));
 	}
