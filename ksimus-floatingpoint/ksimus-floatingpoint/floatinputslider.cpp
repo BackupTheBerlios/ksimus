@@ -189,6 +189,7 @@ FloatInputSliderView::FloatInputSliderView(FloatInputSlider * comp, eViewType vi
 		getComponentLayout()->setFixedSize(true);
 		setPlace(QRect(0, 0, 5*gridX, 15*gridY));
 		setMinSize(5*gridX, 4*gridY);
+		getComponentLayout()->updateLayout();
 		enableConnectorSpacingTop(false);
 		enableConnectorSpacingBottom(false);
 		enableConnectorSpacingLeft(false);

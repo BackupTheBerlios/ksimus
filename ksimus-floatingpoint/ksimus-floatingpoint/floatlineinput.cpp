@@ -239,6 +239,7 @@ FloatLineInputView::FloatLineInputView(FloatLineInput * comp, eViewType viewType
 		getComponentLayout()->setFixedSize(true);
 		setPlace(QRect(0, 0, 7*gridX, 3*gridY));
 		setMinSize(5*gridX, 3*gridY);
+		getComponentLayout()->updateLayout();
 		enableConnectorSpacingTop(false);
 		enableConnectorSpacingBottom(false);
 		enableConnectorSpacingLeft(false);
