@@ -46,7 +46,7 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	m_grid->setMargin(KDialog::marginHint());
 	m_grid->setSpacing(KDialog::spacingHint());
 	
-	new QLabel(i18n("Name : "), m_grid,"LineEditLabel");
+	new QLabel(i18n("Name: "), m_grid,"LineEditLabel");
 	
 	m_nameEdit = new QLineEdit(m_grid,"LineEdit");
 	m_nameEdit->setText(getComponent()->getName());
