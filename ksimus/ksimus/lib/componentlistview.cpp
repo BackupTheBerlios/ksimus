@@ -62,6 +62,9 @@ ComponentListView::ComponentListView(QWidget *parent, const char *name )
 	
 	connect(this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotSelection(QListViewItem*)));
 
+	connect(this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)),
+	        this, SLOT(slotRightButtonPressed(QListViewItem *, const QPoint &, int)));
+
 }
 
 
@@ -193,7 +196,7 @@ void ComponentListView::insert(const QString & libName, const ComponentInfo * ci
 
 void ComponentListView::contentsMousePressEvent(QMouseEvent * ev)
 {
-	if (ev->button() == RightButton)
+/*	if (ev->button() == RightButton)
 	{
 		QPopupMenu * menu = new QPopupMenu();
 		
@@ -206,21 +209,23 @@ void ComponentListView::contentsMousePressEvent(QMouseEvent * ev)
 
     delete menu;
 	}
-	else
+	else*/
 	{
 		QListView::contentsMousePressEvent(ev);
 	}
 }
 
-static void foldRecursive(QListViewItem * parent, bool open)
+static void foldRecursive(QListViewItem * parent, bool close)
 {
-	parent->setOpen(open);
+	// Do not close if base item
+	if (!((parent->parent() == 0) && close))
+		parent->setOpen(!close);
 	
 	QListViewItem * item = parent->firstChild();
 	
 	while(item)
 	{
-		foldRecursive(item,open);
+		foldRecursive(item,close);
 		item = item->nextSibling();
 	}
 }
@@ -260,6 +265,56 @@ void ComponentListView::slotHideMe()
 	emit signalHideMe();
 }
 
+void ComponentListView::slotRightButtonPressed(QListViewItem * item, const QPoint & p, int c)
+{
+	if (item)
+	{
+		KSIMDEBUG_VAR("item",item->text(0));
+	}
+	else
+	{
+		KSIMDEBUG("item == 0");
+	}
+	
+	int foldAll = 0;
+	int unfoldAll = 0;
+	int res;
+
+	if (!item) item = firstChild();
+	
+	if (item->childCount() == 0) item = item->parent();
+		
+	QPopupMenu * menu = new QPopupMenu();
+		
+	if (item == firstChild())
+	{
+		foldAll = menu->insertItem(i18n("&Fold Tree"));
+		unfoldAll = menu->insertItem(i18n("&Unfold Tree"));
+	}
+	else
+	{
+		foldAll = menu->insertItem(i18n("&Fold %1 Tree").arg(item->text(0)));
+		unfoldAll = menu->insertItem(i18n("&Unfold %1 Tree").arg(item->text(0)));
+	}	
+	menu->insertSeparator();
+	menu->insertItem(i18n("&Hide Component Supplier"),this, SLOT(slotHideMe()));
+	
+  res = menu->exec(QCursor::pos());
+
+
+  if (res == foldAll)
+  {
+		foldRecursive(item, true);
+	}
+
+  if (res == unfoldAll)
+  {
+		foldRecursive(item, false);
+	}
+
+	delete menu;
+	
+}
 
 
 

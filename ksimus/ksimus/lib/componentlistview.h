@@ -73,6 +73,7 @@ public slots:
 private slots:
 	void slotSelection(QListViewItem * lvi);
 	void slotHideMe();
+	void slotRightButtonPressed(QListViewItem * item, const QPoint & p, int c);
 	
 private:
 	eAppViewType m_currentView;
