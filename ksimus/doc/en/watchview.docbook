@@ -10,10 +10,10 @@ the so called Watchpoints, to this view. During a simulation the values of these
 tracked and displayed in the view. There exists also a trace buffer where the last values are
 stored. The buffer depth is user definable.
 </para><para>
-Each Watchpoint is also an optional break point. The event which triggers the break
-of the simulation depends on the data type. Each break point has an individual trigger counter
-which is decremented each trigger condition. A break event is released if the counter is
-counted down to zero.
+Each Watchpoint is also an optional break point. The event which triggers the break 
+of the simulation depends on the data type. Each break point has an individual trigger counter 
+which is decremented with each trigger condition. A break event is released if the counter 
+counts down to zero. 
 </para><para>
 After a break event the simulation is paused. While the simulation is paused it is possible to
 examin the trace buffer. Press the start button to continue the simulation or the stop button
@@ -38,13 +38,13 @@ See some screenshots about Watch View and Watchpoints:
 The left window shows the Watch View. The main part of the Watch View is the list of the Watchpoints.
 Below is the trace buffer control.
 </para><para>
-The Watchlist has 3 columns. The first shows the number of trigger conditions until a break event is
-released. It shows an exclamation mark if the Watchpoint has released a break event. The field is empty 
-if the trigger is disabled. The second column shows an unique name of the Watchpoint. The third
-column shows the value. The may be the current or a traced value.
+The Watchlist has 3 columns. The first shows the number of trigger conditions until a break event is 
+released. It shows an exclamation mark if the Watchpoint has released a break event. The field is empty
+ if the trigger is disabled. The second column shows a unique name of the Watchpoint. The third 
+column shows the current or traced value. 
 </para><para>
-With the trace buffer control it is possible to step back some simulation cycle while the simulation is paused
-or stopped. The number of steps are adjustable.
+With the trace buffer control, it is possible to step back simulation cycles while the simulation is paused 
+or stopped. The number of steps are adjustable. 
 </para><para>
 In the example (see also &exampleRSFF;) there are 2 Watchpoints:
 
@@ -58,7 +58,7 @@ The entry 'Wire 9' is the watchpoint of the wire with the serial ID 9. In the ex
 'Set' button. This watchpoint shows the exclamation mark in the first column which indicates that the wire has
 caused a break event.
 </para></listitem></orderedlist>
-The names of the watchpoints are sometime or most time not expressive. So it is up to you the give the components
+The names of the watchpoints are sometimes (most times) not expressive. So it is up to you the give the components 
 or wires expressive names.
 </para>
 
@@ -78,7 +78,7 @@ or wires expressive names.
 </para>
 
 <para>
-This is the dialog for watch view setting. It ist reachable via:
+This is the dialog for the watch view settings. It is reachable via:
 <menuchoice>
 <guimenu>Settings</guimenu>
 <guimenuitem>Watch</guimenuitem>
@@ -94,13 +94,13 @@ Trace buffer size
 </entry><entry>
 The values of each watchpoint are traced during execution.
 You can examin these traced values if the execution is stopped or paused.
-Enter here the maximum number of traced values. The unit of size may be ticks or some time units like sec.
+Enter here the maximum number of traced values. The unit size may be ticks or time units like sec. 
 </entry></row>
 <row><entry>
-Rise watch view if watchpoint is added
+Raise watch view if watchpoint is added
 </entry><entry>
-If checked the watch view is rised each time the user will add a new watchpoint to the watch list.
-Disable it if you don't like this. The default is enabled.
+If checked the watch view is raised each time the user adds a new watchpoint 
+to the watch list. Disable it if you don't like this. The default is enabled.
 </entry></row>
 </tbody>
 </tgroup>
@@ -122,15 +122,16 @@ Disable it if you don't like this. The default is enabled.
 </para>
 
 <para>
-This is the popup menu if the user presses the right mouse button until the mouse pointer is above
-a watchpoint entry in the Watch View while none or one entry is selceted.
+If the user presses the right mouse button above a watchpoint entry in the 
+Watch View when only one watchpoint is selected, then this popup menu will 
+raise.
 <informaltable>
 <tgroup cols="2">
 <tbody>
 <row><entry>
 Enable trigger / Disable trigger
 </entry><entry>
-Enables or disables the trigger conditions. A disabled trigger condition causes never a break event.
+Enables or disables the trigger conditions. A disabled trigger condition never causes a break event.
 </entry></row>
 <row><entry>
 Delete selected watchpoint
@@ -145,7 +146,7 @@ Disables all trigger conditions. Next simulation will run without any break even
 <row><entry>
 Delete all watchpoints
 </entry><entry>
-Deletes all watchpoints and removes it from the list.
+Deletes all watchpoints and removes them from the list.
 </entry></row>
 <row><entry>
 Watchpoint settings
@@ -172,8 +173,8 @@ Opens a dialog with the watchpoint settings. See an example below.
 </para>
 
 <para>
-This is the popup menu if the user presses the right mouse button until the mouse pointer is above
-a watchpoint entry in the Watch View while more than one entry is selceted.
+If the user presses the right mouse button above a watchpoint entry in the 
+Watch View while more than one entry is selceted, this popup menu raises. 
 <informaltable>
 <tgroup cols="2">
 <tbody>
@@ -185,7 +186,7 @@ Enables the trigger conditions of all selected watchpoints.
 <row><entry>
 Disable selected triggers
 </entry><entry>
-Disables the trigger conditions of all selected watchpoints. A disabled trigger condition causes never a break event.
+Disables the trigger conditions of all selected watchpoints. A disabled trigger condition never causes a break event.
 </entry></row>
 <row><entry>
 Delete selected watchpoint
@@ -223,10 +224,10 @@ Deletes all watchpoints and removes it from the list.
 </para>
 
 <para>
-The screenshot above shows of a setting dialog of a boolean watchpoint. It has only three items. The first
-items enables the trigger if checked or disable if not checked. The second item sets the number of trigger
-which have to occur until a break event is released.
-The box above contains the adjustment for the triger conditions. This is different for different data types.
+The screenshot above shows a setting dialog of a boolean watchpoint. It has only three items. The first 
+item enables the trigger if checked and disables the trigger if not checked. The second item sets the number
+of triggers which have to occur before a break event is released. The box above contains the 
+adjustments for the triger conditions. This is different for different data types.
 </para>
 
 

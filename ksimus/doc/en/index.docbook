@@ -123,11 +123,10 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para>
-&kapp; is an application for simulating networks with boolean data type. Analog,
- string and some
-more data types are planned. Currently there exists only a few boolean
- components, but because of the
-modular character of &kapp; extensions are easy to develop.
+&kapp; is an application for simulating networks with boolean and Analog data 
+types. String and other types are planned for the future. Currently there 
+exists an array of basic components but because of the modular 
+characteristics of KSimus, development of more components are easy. 
 </para>
 </abstract>
 
@@ -168,14 +167,14 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-&kapp; is a program that lets you design a network of components. A component
- is a more or lesser complex active item like a boolean AND gate or a PID
-controller (PID controller is not implemented yet ;-).
-&kapp; lets you design your sheet without any worry about the wiring between the
-components. &kapp; does it in a hopefully successful way for you. Just place the
-components free arbitrary on the schematic and &wire; the connectors of the
-components.  Voil&aacute;, you are ready for
-simulating! </para>
+&kapp; is a program that lets you design a network of components. A component 
+is more or less a complex active item like a boolean AND gate or a PID 
+controller (PID controller is not implemented yet ;-). &kapp; lets you design
+your sheet without any worry about the wiring between the components. KSimus
+does it in a hopefully successful way for you. Just place the components
+arbitrarily on the schematic and wire the connectors of the components.
+Voil&aacute;, you are ready for simulating!
+</para>
 <para>
 Please report any problems or feature requests to <email>ksimus@gmx.de</email>.
 </para>
@@ -236,7 +235,7 @@ or menu bars. -->
 <!-- ############################################################################### -->
 <sect1 id="ksimus-mainwindow">
 <title>The main KSimus window</title>
-<para>First let us take a look to the GUI of &kapp;:</para>
+<para>First let us take a look at the GUI of &kapp;:</para>
 
 <para>
 <screenshot>
@@ -315,10 +314,10 @@ type of the current view. Here you can find the &componentSupplier; and &watchVi
 </entry><entry><para>
 This is the &listView;. It shows the &componentSupplier; or the &watchView;.
 </para><para>
-The &componentSupplier; contains all available
-&components;. The number and types of available &components; depends on the loaded
-&kapp; packages. You can select a &component; by a click and place it on the
-&schematicView; or the &uiView;.
+The &componentSupplier; contains all available &components;. The number and types 
+of available &components; depends on the loaded &kapp; packages. You can select 
+a &component; with one click and place it on the &schematicView; or the &uiView;
+with your next click. 
 </para><para>
 The &watchView; shows a list of all watch points created by the user.
 </para></entry></row>
@@ -335,8 +334,8 @@ The &watchView; shows a list of all watch points created by the user.
 	  </textobject>
 </inlinemediaobject>
 </entry><entry>
-This is the tab bar of the &workingView;. The tab bar allows you to select the
-type of the current view. Here you can find the &schematicView;, &uiView; and &moduleView;.
+This is the tab bar of the &workingView;. The tab bar allows you to select the 
+view type. Here you can find the &schematicView;, &uiView; and &moduleView;. 
 </entry></row>
 
 <row><entry><para></para></entry></row> <!-- A little spacer -->
@@ -351,8 +350,8 @@ type of the current view. Here you can find the &schematicView;, &uiView; and &m
 	  </textobject>
 </inlinemediaobject>
 </entry><entry>
-This is the &workingView;. The type of &workingView; changes depending on the
- selecting of the tab bar.
+This is the &workingView;. The type of &workingView; changes depending upon the 
+selection of the tab bar.
 </entry></row>
 
 <row><entry><para></para></entry></row> <!-- A little spacer -->
@@ -583,9 +582,9 @@ clipboard.
 <guimenu>Edit</guimenu>
 <guimenuitem>Paste</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Pastes the contents of the internal
-clipboard to the document. The cursor changes into a cross cursor and lets you
-select the position where the contents will be insert.
+<listitem><para><action>Pastes the contents of the internal clipboard to 
+the document. The cursor changes into a cross cursor and lets you select 
+the position where the contents will be inserted.
 </action></para></listitem> </varlistentry>
 
 <varlistentry>
@@ -595,8 +594,8 @@ select the position where the contents will be insert.
 </menuchoice></term>
 <listitem><para><action>Lets you insert an existing &module;. First &kapp; opens a
 file open dialog and lets you select a module. After selecting the cursor
-changes to a cross cursor and lets you place the module. The module is also
-inserted to the &componentSupplier;.
+changes to a cross cursor and lets you place the module. The module is also inserted 
+into the &componentSupplier;.
 </action></para></listitem> </varlistentry>
 
 </variablelist>
@@ -624,8 +623,9 @@ inserted to the &componentSupplier;.
 <guimenu>Execute</guimenu>
 <guimenuitem>Start</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Resets the &components; and starts the simulation if simulation is stopped. In case of a paused
-simulation this menu item continues the simulation.
+<listitem><para><action>Resets the &components; and starts the simulation. 
+In the case of a paused simulation, this menu item continues the simulation 
+without resetting the components. 
 </action></para></listitem> </varlistentry>
 
 <varlistentry>
@@ -762,22 +762,21 @@ the simulation time and the view update speed.
 
 <varlistentry><term><guilabel>Execution speed</guilabel>
 </term><listitem><para>
-Sets the duration of one simulation cycle here. Possible range is from 1ms to 1s. The minimally
-usefull value depends on your system. <!-- On my system it seems to be 2ms. Anyone knows more? Please
-mail to &kappmail;. -->
+Sets the duration of one simulation cycle. Possible range is from 1ms to 1s. 
+The minimal useful value depends upon your system.
 </para></listitem></varlistentry>
 
 <varlistentry><term><guilabel>Fast as possible</guilabel>
 </term><listitem><para>
-Enable this check box if you want the fastest simulation.
-&kapp; starts a new simulation cycle immediately after completion the last if this option is
-enabled.
+Enable this check box if you want the fastest simulation. &kapp; starts a new 
+simulation cycle immediately after completing the last one.
 </para></listitem></varlistentry>
 
 <varlistentry><term><guilabel>Simulation time per tick</guilabel>
 </term><listitem><para>
-Set the simulation time per simulation cycle here. This means the time which elapses
-each cycle in simulation purpose. Possible range is from 100ps to 1s.
+Set the simulation time per simulation cycle. This means the amount of time 
+that you would like to emulate for each simulation cycle. Possible range is 
+from 100ps to 1s. 
 </para></listitem></varlistentry>
 
 <varlistentry><term><guilabel>Synchronized to execution speed</guilabel>
@@ -789,9 +788,9 @@ time of a simulation cycle.
 
 <varlistentry><term><guilabel>View update speed</guilabel>
 </term><listitem><para>
-Set the update time of the GUI here. Possible range is from 1ms to 1s. But the update is
-allways synchronized to the execution speed. This means that the update speed can not be
-faster than the execution speed.
+Set the update time of the GUI here. Possible range is from 1ms to 1s. The 
+update is always synchronised to the execution speed. This means that the 
+update speed can not be faster than the execution speed. 
 <tip><para>Lower the update speed if the system load is too high.</para></tip>
 </para></listitem></varlistentry>
 
@@ -890,8 +889,8 @@ components. It is possible to use additional locally installed package files.
 
 <varlistentry><term><guilabel>Package directories</guilabel>
 </term><listitem><para>
-Lets you select directories which contains &kapp; package files. All package files in this
-and all subdirectories will be load at application start.
+Lets you select directories which contain &kapp; package files. All package 
+files in this and all subdirectories will be loaded at application startup. 
 The default is <filename>$KDEDIR/lib/ksimus/</filename>.
 </para>
 <para>
@@ -907,18 +906,20 @@ the Add button to the list.
 
 <varlistentry><term><guilabel>Add</guilabel>
 </term><listitem><para>
-Adds a directory from the single line edit field to the package directory list. If the single
-edit line is empty or the directory exists already in list the button does nothing.
-<remark>The package file configuration is only evaluted at the application start.
-Because of this, the new configuration influence &kapp; not before an application restart.
+Adds a directory from the single line edit field to the package directory list. 
+If the single edit line is empty or the directory exists already in the list, nothing is done.
+<remark>The package file configuration is only evaluated at application startup. 
+Because of this, the new configuration for &kapp; is not recognised until the 
+application is restarted.
 </remark>
 </para></listitem></varlistentry>
 
 <varlistentry><term><guilabel>Remove</guilabel>
 </term><listitem><para>
 Removes the highlighted directory from the package directory list.
-<remark>The package file configuration is only evaluted at the application start.
-Because of this, the new configuration influence &kapp; not before an application restart.
+<remark>The package file configuration is only evaluated at application startup. 
+Because of this, the new configuration for &kapp; is not recognised until the 
+application is restarted.
 </remark>
 </para></listitem></varlistentry>
 
@@ -932,7 +933,7 @@ Lets you select single &kapp; package files. This is useful if you develop your 
 file, because you don't need to install it for testing. The default is no files.
 </para>
 <para>
-The using of <guilabel>Package files</guilabel> is analog to the using of
+The usage of <guilabel>Package files</guilabel> is similar to the use of
 <guilabel>Package directories</guilabel>.
 </para></listitem></varlistentry>
 
@@ -962,7 +963,7 @@ startup.
 <guimenuitem>Watch</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>
-Opens the dialog with the globale watch settings. See also &watchView;.
+Opens the dialog with the global watch settings. See also &watchView;.
 </action></para></listitem> </varlistentry>
 
 <varlistentry>
@@ -1014,7 +1015,7 @@ items. <!-- Please mail to &kappmail; if not! ****** nicht jetzt ***** -->
 <guimenu>Help</guimenu>
 <guimenuitem>Report Bug</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>This entry allows to submit bugs. I hope it works :)
+<listitem><para><action>This entry allows you to submit bug reports. I hope it works :)
 </action></para></listitem>
 </varlistentry>
 
@@ -1048,7 +1049,7 @@ items. <!-- Please mail to &kappmail; if not! ****** nicht jetzt ***** -->
 <sect1 id="working-view">
 <title>The Working View</title>
 <para>
-This chapter describes the different kind of the Working View.
+This chapter describes the different kind of the Working Views.
 </para>
 
 
@@ -1063,7 +1064,7 @@ Develop your network or circuit at the Schematic View.
 Features:
 <itemizedlist>
 <listitem><para>
-Select the &components; from the &componentSupplier; and place them at the view.
+Select the &components; from the &componentSupplier; and place them onto the view.
 </para></listitem>
 <listitem><para>
 &Wire; the connectors or &wires; with drag and drop.
@@ -1086,8 +1087,8 @@ Use the context sensitive popup menus. There are four different areas:
 	</itemizedlist>
 </para></listitem>
 <listitem><para>
-Select a single &component; with a right mouse click on it. Collect multiple
-components with a right mouse click on each single component while pressed
+Select a single &component; with a right mouse click. Collect multiple 
+components with a right mouse click on each component while pressing the
 <keycombo><keycap>Ctrl</keycap></keycombo> key.
 </para></listitem>
 <listitem><para>
