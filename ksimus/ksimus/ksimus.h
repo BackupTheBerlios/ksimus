@@ -224,6 +224,8 @@ public slots:
 	void slotExecuteStop();
 	void slotExecutePause();
 
+	void slotHelpPackages();
+	
 	/** changes the statusbar contents for the standard label permanently, used to indicate current actions.
 	 * @param text the text that is displayed in the statusbar
 	 */
@@ -304,6 +306,8 @@ private:
 	KAction* executeStart;
 	KAction* executeStop;
 	KToggleAction* executePause;
+
+	KSelectAction * helpPackages;
 
 	KAction* testAction;
 	
