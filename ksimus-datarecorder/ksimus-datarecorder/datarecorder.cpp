@@ -542,10 +542,10 @@ void DataRecorder::calculate()
 void DataRecorder::updateOutput()
 {
 //	readSampleTime(); in reset() only
-	if (getDataRecoderWidget() != 0)
+/*	if (getDataRecoderWidget() != 0)
 	{
 		getDataRecoderWidget()->getDataView()->newData();
-	}
+	}*/
 }
 
 
@@ -569,9 +569,9 @@ bool DataRecorder::initPopupMenu(QPopupMenu * popup)
 	Component::initPopupMenu(popup);
 	
 	popup->insertSeparator();
-	popup->insertItem(i18n("&Open graph"), this, SLOT(slotOpenWidget()));
-	popup->insertItem(i18n("Add &boolean connector"), this, SLOT(slotAddBoolChannel()));
-	popup->insertItem(i18n("Add &floating point connector"), this, SLOT(slotAddFloatChannel()));
+	popup->insertItem(i18n("DataRecorder", "&Open graph"), this, SLOT(slotOpenWidget()));
+	popup->insertItem(i18n("DataRecorder", "Add &boolean connector"), this, SLOT(slotAddBoolChannel()));
+	popup->insertItem(i18n("DataRecorder", "Add &floating point connector"), this, SLOT(slotAddFloatChannel()));
 	
 	return true;
 }
@@ -594,7 +594,7 @@ void DataRecorder::slotAddBoolChannel()
 {
 	DataRecorderChannelBoolean * channel;
 	
-	undoChangeProperty(i18n("Add channel"));
+	undoChangeProperty(i18n("DataRecorder", "Add channel"));
 	channel = new DataRecorderChannelBoolean(this);
 	newChannel(channel);
 	setModified();
@@ -605,7 +605,7 @@ void DataRecorder::slotAddFloatChannel()
 {
 	DataRecorderChannelFloat * channel;
 	
-	undoChangeProperty(i18n("Add channel"));
+	undoChangeProperty(i18n("DataRecorder", "Add channel"));
 	channel = new DataRecorderChannelFloat(this);
 	newChannel(channel);
 	setModified();
@@ -621,7 +621,7 @@ void DataRecorder::slotRemoveChannelConn(ConnectorBase * conn)
 	{
 		if (it.current()->getConnector() == conn)
 		{
-			undoChangeProperty(i18n("Remove channel"));
+			undoChangeProperty(i18n("DataRecorder", "Remove channel"));
 			found = true;
 			removeChannel(it.current());
 			setModified();
@@ -721,7 +721,7 @@ void DataRecorder::undoZoom()
 		if (temp != getZoomVar())
 		{
 			// Todo: Is undo required ?
-			//undoChangeProperty(i18n("Change time division"));
+			//undoChangeProperty(i18n("DataRecorder", "Change time division"));
 	
 			getZoomVar().copyFrom(*getDataRecoderWidget()->getZoomWidget());
 			setModified();
