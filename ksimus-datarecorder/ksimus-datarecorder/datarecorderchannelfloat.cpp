@@ -255,3 +255,4 @@ QWidget * DataRecorderChannelFloat::getPropertyWidget(QWidget * parent, const ch
 
 };  //namespace KSimLibDataRecorder
 
+#include "datarecorderchannelfloat.moc"

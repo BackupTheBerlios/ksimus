@@ -690,3 +690,5 @@ void DataRecorder::undoZoom()
 
 
 };  //namespace KSimLibDataRecorder
+
+#include "datarecorder.moc"

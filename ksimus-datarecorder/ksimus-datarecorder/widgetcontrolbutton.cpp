@@ -189,3 +189,4 @@ const QColor & KSimColorLabel::getColor() const
 
 };  //namespace KSimLibDataRecorder
 
+#include "widgetcontrolbutton.moc"

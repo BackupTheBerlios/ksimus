@@ -26,14 +26,15 @@
 // KDE-Includes
 
 // Project-Includes
-#include "datarecorderdataview.h"
-#include "datarecorder.h"
-#include "datarecorderchannelbase.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimtimeserver.h"
 
 #include <ksimus/ksimunit.h>
+
+#include "datarecorderdataview.h"
+#include "datarecorder.h"
+#include "datarecorderchannelbase.h"
 // Forward declaration
 
 
@@ -586,5 +587,6 @@ void DataRecorderDataViewDivGrid::setTimeStampEnabled(bool ena)
 };  //namespace KSimLibDataRecorder
 
 
+#include "datarecorderdataview.moc"
 
 

@@ -265,3 +265,4 @@ QWidget * DataRecorderChannelBoolean::getPropertyWidget(QWidget * parent, const 
 
 };  //namespace KSimLibDataRecorder
 
+#include "datarecorderchannelboolean.moc"

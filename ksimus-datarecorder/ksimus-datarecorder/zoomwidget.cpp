@@ -397,4 +397,5 @@ bool ZoomWidgetVar::load(KSimData & file, bool /*copyLoad*/)
 
 };  //namespace KSimLibDataRecorder
 
+#include "zoomwidget.moc"
 

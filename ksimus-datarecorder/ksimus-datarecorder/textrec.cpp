@@ -1039,3 +1039,4 @@ void TextRecPropertyGeneralWidget::defaultPressed()
 
 };  //namespace KSimLibDataRecorder
 
+#include "textrec.moc"

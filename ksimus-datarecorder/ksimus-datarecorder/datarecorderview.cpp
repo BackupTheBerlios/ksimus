@@ -92,3 +92,4 @@ void DataRecorderView::mousePress(QMouseEvent * ev, QPainter * p)
 
 };  //namespace KSimLibDataRecorder
 
+#include "datarecorderview.moc"

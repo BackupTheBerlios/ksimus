@@ -192,4 +192,5 @@ void ChannelPositionWidget::slotSetCaption(const QString & caption)
 
 };  //namespace KSimLibDataRecorder
 
+#include "channelpositionwidget.moc"
 

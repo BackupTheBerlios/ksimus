@@ -25,12 +25,13 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "datarecorder.h"
-#include "datarecorderchannelbase.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/enumdict.h"
 #include "ksimus/connectorbase.h"
+#include "datarecorder.h"
+#include "datarecorderchannelbase.h"
+
 // Forward declaration
 
 
@@ -249,4 +250,5 @@ int DataRecorderChannelList::compareItems(QCollection::Item di1, QCollection::It
 };  //namespace KSimLibDataRecorder
 
 
+#include "datarecorderchannelbase.moc"
 

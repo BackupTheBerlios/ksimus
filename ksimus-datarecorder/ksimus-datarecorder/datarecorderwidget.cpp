@@ -265,3 +265,4 @@ void DataRecorderWidget::createChannelButton(DataRecorderChannelBase * channel)
 
 };  //namespace KSimLibDataRecorder
 
+#include "datarecorderwidget.moc"
