@@ -48,24 +48,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer absolute gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerAbs::View : public Integer1In1OutView
-{
-public:
-	View(IntegerAbs * comp, eViewType viewType)
-		: Integer1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

@@ -26,7 +26,6 @@
 // Project-Includes
 #include "floatdivider.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/connectorpack.h"
 
 // Forward declaration
 
@@ -53,24 +52,6 @@ const ComponentInfo * FloatDivider::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatDividerView::draw(QPainter * p)
-{
-	Float2In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Div");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -80,7 +61,7 @@ FloatDivider::FloatDivider(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatDividerView(this, SHEET_VIEW);
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Div"));
 	}
 
 	getInputA()->setName(i18n("FloatingPoint", "Dividend"), true);
@@ -91,10 +72,7 @@ FloatDivider::FloatDivider(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatDivider::calculate()
 {
-	Float2In1Out::calculate();
-	
 	setValue(getInputA()->getInput() / getInputB()->getInput());
-	
 }
 
 

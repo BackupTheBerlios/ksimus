@@ -66,10 +66,8 @@ BooleanXIn1OutView::BooleanXIn1OutView(BooleanXIn1Out * comp, eViewType viewType
 {
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnectorPack(comp->getInputConnectorPack());
-	
-		getComponentLayout()->updateLayout();
+		((ComponentLayoutSimple*)getComponentLayout())->getLeft()->addSpace(1);
+		((ComponentLayoutSimple*)getComponentLayout())->getLeft()->addConnectorPack(comp->getInputConnectorPack());
 	}
 }
 

@@ -34,8 +34,6 @@
 // Forward declaration
 class ConnectorBoolInEdge;
 class ConnectorPack;
-class ComponentControlBlock;
-class ComponentLayout;
 class ConnectorLabel;
 class KSimSpinBox;
 class QLabel;
@@ -55,6 +53,7 @@ namespace KSimLibFloatingPoint
 
 class FloatLatch : public Component
 {
+class View;
 
 	Q_OBJECT
 
@@ -139,29 +138,13 @@ private:
   */
 
 
-class FloatLatchView : public CompView
+class FloatLatch::View : public CompView
 {
-
-	Q_OBJECT
-
 public:
-	FloatLatchView(FloatLatch * comp, eViewType viewType);
-//	~FloatLatchView();
-	virtual void draw(QPainter * p);
+	View(FloatLatch * comp, eViewType viewType);
+//	~View();
 	
 	FloatLatch* getComponent() { return (FloatLatch*) CompView::getComponent(); };
-	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-
-
-private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
-
-/*private slots:
-	void addConn(ConnectorBase * conn);*/
-
 };
 
 //###############################################################

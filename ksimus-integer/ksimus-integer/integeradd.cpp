@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -54,23 +53,6 @@ const ComponentInfo * IntegerAdd::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-void IntegerAdd::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Add");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -82,15 +64,13 @@ IntegerAdd::IntegerAdd(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "Add");
 	}
 }
 
 /** Executes the simulation of this component */
 void IntegerAdd::calculate()
 {
-//	IntegerXIn1Out::calculate();
-	
 	int result = 0;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

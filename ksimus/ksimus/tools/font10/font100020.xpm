@@ -1,8 +1,8 @@
 /* XPM */
 static char * font100020_xpm[] = {
 "3 10 2 1",
-" 	g None",
-".	g #FFFFFF",
+" 	c #FFFFFF",
+".	c #000000",
 "   ",
 "   ",
 "   ",

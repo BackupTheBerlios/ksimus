@@ -117,8 +117,6 @@ void ConvertBoolFloat::reset()
 /** Executes the simulation of this component */
 void ConvertBoolFloat::calculate()
 {
-	Component::calculate();
-	
 	if (!m_recursionLocked)
 	{
 		m_recursionLocked = true;
@@ -216,7 +214,7 @@ void ConvertBoolFloatView::draw(QPainter * p)
 	
 	if(getRotation() != 0)
 	{
-		int yMid = place.top() + place.bottom() / 2;
+		const int yMid = place.top() + place.bottom() / 2;
 	
 		p->drawLine(QPoint(place.left()+4, yMid) , QPoint(place.right()-4, yMid));
 		p->drawLine(QPoint(place.right()-8, yMid-3) , QPoint(place.right()-4, yMid));

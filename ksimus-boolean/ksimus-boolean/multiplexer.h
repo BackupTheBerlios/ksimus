@@ -36,8 +36,7 @@ class ConnectorBoolIn;
 class ConnectorBoolInEdge;
 class ConnectorBoolInOut;
 class ConnectorPack;
-class ComponentControlBlock;
-class ComponentLayout;
+class ComponentLayoutVerticalCtrl;
 class ConnectorLabel;
 class KSimSpinBox;
 class QLabel;
@@ -142,18 +141,9 @@ class MultiplexerView : public CompView
 public:
 	MultiplexerView(Multiplexer * comp, eViewType viewType);
 //	~MultiplexerView();
-	virtual void draw(QPainter * p);
 	
 	Multiplexer* getComponent() { return (Multiplexer*) CompView::getComponent(); };
 	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-
-
-private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
-
 private slots:
 	void addInConn(ConnectorBase * conn);
 	void addAdrConn(ConnectorBase * conn);

@@ -277,14 +277,14 @@ JKFlipFlopView::JKFlipFlopView(JKFlipFlop * comp, eViewType viewType)
 	if (viewType == SHEET_VIEW)
 	{
 		new ConnectorLabel(getJKFF()->getOutputConnector(), "Q");
-		new ConnectorLabel(getJKFF()->getNotOutputConnector(), "/Q");
+		new ConnectorLabel(getJKFF()->getNotOutputConnector(), "Q");
 		new ConnectorLabel(getJKFF()->getSetInputConnector(), "S");
 		new ConnectorLabel(getJKFF()->getResetInputConnector(), "R");
 		new ConnectorLabel(getJKFF()->getJInputConnector(), "J");
 		new ConnectorLabel(getJKFF()->getKInputConnector(), "K");
 		new ConnectorLabel(getJKFF()->getClockInputConnector(), "C");
 	
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);
 		
 		m_layout->getLeft()->addSpace(1);
@@ -310,12 +310,12 @@ JKFlipFlopView::JKFlipFlopView(JKFlipFlop * comp, eViewType viewType)
 {
 }*/
 
-void JKFlipFlopView::draw(QPainter * p)
+/*void JKFlipFlopView::draw(QPainter * p)
 {
   drawFrame(p);
 	
 	CompView::draw(p);
-}
+}*/
 
 
 //###############################################################

@@ -19,7 +19,6 @@
 #include <limits.h>
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 
 // KDE-Includes

@@ -54,23 +54,6 @@ public:
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticOrInfo();
 	static const ComponentInfo * getStaticNorInfo();
-
-};
-
-//###############################################################
-
-/** The view for the boolean OR/NOR gates with a tristate output.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class BoolTristateOrView : public BoolTristateXIn1Out1EnaView
-{
-
-	Q_OBJECT
-
-public:
-	BoolTristateOrView(BoolTristateOr * comp, eViewType viewType)
-		: BoolTristateXIn1Out1EnaView(QString::fromLatin1(">=1"), comp, viewType) {};
 };
 
 //###############################################################

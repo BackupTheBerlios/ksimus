@@ -99,7 +99,7 @@ signals:
 //#######################################################################
 //#######################################################################
 
-class FloatInputSliderView : public KSimLibFloatingPoint::FloatStyle1OutView
+class FloatInputSliderView : public CompViewSize
 {
 
 	Q_OBJECT

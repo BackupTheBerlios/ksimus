@@ -1,9 +1,8 @@
 /* XPM */
-static char * font10003c_xpm[] = {
+static char * font102264_xpm[] = {
 "3 10 2 1",
 " 	c #FFFFFF",
 ".	c #000000",
-"   ",
 "   ",
 "  .",
 " . ",
@@ -11,5 +10,6 @@ static char * font10003c_xpm[] = {
 " . ",
 "  .",
 "   ",
+"...",
 "   ",
 "   "};

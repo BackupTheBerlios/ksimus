@@ -82,15 +82,11 @@ private:
   * @author Rasmus Diekenbrock
   */
 
-class FloatXIn1OutView : public Float1OutView
+class FloatXIn1OutView : public CompView
 {
-
 public:
+	FloatXIn1OutView(FloatXIn1Out * comp, eViewType viewType, const QString & text);
 //	~FloatXIn1OutView();
-	
-protected:
-	FloatXIn1OutView(FloatXIn1Out * comp, eViewType viewType);
-
 };
 
 

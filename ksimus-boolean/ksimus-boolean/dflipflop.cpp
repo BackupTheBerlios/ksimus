@@ -145,13 +145,13 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 	if (viewType == SHEET_VIEW)
 	{
 		new ConnectorLabel(getDFF()->getOutputConnector(), "Q");
-		new ConnectorLabel(getDFF()->getNotOutputConnector(), "/Q");
+		new ConnectorLabel(getDFF()->getNotOutputConnector(), "Q");
 		new ConnectorLabel(getDFF()->getSetInputConnector(), "S");
 		new ConnectorLabel(getDFF()->getResetInputConnector(), "R");
 		new ConnectorLabel(getDFF()->getEnableInputConnector(), "E");
 		new ConnectorLabel(getDFF()->getDataInputConnector(), "D");
 	
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);
 		
 		m_layout->getLeft()->addSpace(1);
@@ -168,7 +168,6 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 		m_layout->getRight()->addStretch(1);
 			
 //		m_layout->setMinSize(5,6);
-		m_layout->updateLayout();
 	}
 }
 
@@ -176,12 +175,12 @@ DFlipFlopView::DFlipFlopView(DFlipFlop * comp, eViewType viewType)
 {
 }*/
 
-void DFlipFlopView::draw(QPainter * p)
+/*void DFlipFlopView::draw(QPainter * p)
 {
   drawFrame(p);
 
 	CompView::draw(p);
-}
+}*/
 
 
 //###############################################################

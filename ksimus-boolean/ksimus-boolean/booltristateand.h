@@ -54,23 +54,6 @@ public:
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticAndInfo();
 	static const ComponentInfo * getStaticNandInfo();
-
-};
-
-//###############################################################
-
-/** The view for the boolean AND/NAND gates with a tristate output.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class BoolTristateAndView : public BoolTristateXIn1Out1EnaView
-{
-
-	Q_OBJECT
-
-public:
-	BoolTristateAndView(BoolTristateAnd * comp, eViewType viewType)
-		: BoolTristateXIn1Out1EnaView(QString::fromLatin1("&"), comp, viewType) {};
 };
 
 //###############################################################

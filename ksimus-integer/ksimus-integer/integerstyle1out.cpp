@@ -145,7 +145,7 @@ IntegerStyle1OutView::IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType vi
 	
 	if (viewType == SHEET_VIEW)
 	{
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);
 	
 		m_layout->getRight()->addStretch(2);

@@ -58,7 +58,7 @@ friend class ConnectorPropertyWidget;
 
 class ConnectorBasePrivate;
 
-	
+
 	Q_OBJECT
 	
 public:
@@ -314,8 +314,6 @@ protected:
 	              ConnOrientationType orient,
 	              ConnDirType dir,
 	              const ConnectorInfo * ci);
-	
-	
 
 protected slots:
 	/** Disconnect the wire. */

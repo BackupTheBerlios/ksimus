@@ -1,7 +1,7 @@
 /* XPM */
 static char * font080040_xpm[] = {
 "8 8 2 1",
-" 	c None",
+" 	c #FFFFFF",
 ".	c #000000",
 "        ",
 "  ..... ",

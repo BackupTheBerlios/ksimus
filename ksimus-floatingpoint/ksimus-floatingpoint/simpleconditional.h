@@ -109,30 +109,11 @@ class SimpleConditional::View : public CompView
 {
 public:
 	View(SimpleConditional * comp, eViewType viewType);
-	~View();
+//	~View();
 	
 	virtual void draw(QPainter * p);
 	
 	SimpleConditional* getSimpleConditional() { return (SimpleConditional*) getComponent(); };
-
-	// Pixmaps
-	static const char * AltB_xpm[];
-	static const char * AlteqB_xpm[];
-	static const char * AeqB_xpm[];
-	static const char * AgteqB_xpm[];
-	static const char * AgtB_xpm[];
-
-protected:
-	static unsigned int sInstanceCount;
-	static QPixmap * sPixmapLesser;
-	static QPixmap * sPixmapLesserEqual;
-	static QPixmap * sPixmapEqual;
-	static QPixmap * sPixmapLargerEqual;
-	static QPixmap * sPixmapLarger;
-	static int sPixmapOffsetTop;
-	static int sPixmapOffsetLeft;
-
-private:
 };
 
 //###############################################################

@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -54,24 +53,6 @@ const ComponentInfo * IntegerMultiplier::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void IntegerMultiplier::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Mul");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -83,7 +64,7 @@ IntegerMultiplier::IntegerMultiplier(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "Mul");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

@@ -19,8 +19,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qpainter.h>
-
 
 // KDE-Includes
 #include <klocale.h>
@@ -225,46 +223,30 @@ void Integer2MultiBool::addConn(ConnectorBase * conn)
 Integer2MultiBool::View::View(Integer2MultiBool * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
-	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 	enableRotation(true);
 	
 	if (viewType == SHEET_VIEW)
 	{
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
 	
-		m_layout->getLeft()->addStretch(2);
-		m_layout->getLeft()->addConnector(comp->getInputConnector(),0);
-		m_layout->getLeft()->addStretch(2);
-	
-		m_layout->getRight()->addSpace(2);
-		m_layout->getRight()->addConnectorPack(comp->getOutputConnectorPack());
-		m_layout->getRight()->addStretch(2);
+		layout->setMinSize(4, 5);
 
-		m_layout->updateLayout();
-	}
-	else
-	{
-		m_layout = 0;
+		layout->getLeft()->addStretch(2);
+		layout->getLeft()->addConnector(comp->getInputConnector(),0);
+		layout->getLeft()->addStretch(2);
+	
+		layout->getRight()->addSpace(1);
+		layout->getRight()->addConnectorPack(comp->getOutputConnectorPack());
+
+//		new ComponentLayoutBlockContentText(layout->getBlock(), "Int -> Bool", AlignTop|AlignHCenter, 270.0);
+		new ComponentLayoutBlockContentText(layout->getBlock(), "Int -> Bool", AlignCenter, 270.0);
 	}
 }
 /*Integer2MultiBool::View::~View()
 {
 }*/
-
-void Integer2MultiBool::View::draw(QPainter * p)
-{
-	drawFrame(p);
-	CompView::draw(p);
-	QFont newFont("helvetica",8);
-
-	p->setFont(newFont);
-//	p->drawText(getDrawingPlace(), AlignCenter, "Int\nto\nBool");
-	QRect rect(getDrawingPlace());
-	rect.rTop() += 1;
-	p->drawText(rect, AlignTop|AlignHCenter, "I>B");
-}
-
 
 //###############################################################
 //###############################################################

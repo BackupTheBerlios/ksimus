@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qlabel.h>
 
@@ -26,6 +25,7 @@
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/resource.h"
 #include "ksimus/ksimspinbox.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolin.h"
@@ -35,7 +35,6 @@
 #include "ksimus/ksimdata.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimbaseintedit.h"
 #include "ksimus/optionalconnector.h"
@@ -306,28 +305,27 @@ IntegerDataSelectorView::IntegerDataSelectorView(IntegerDataSelector * comp, eVi
 {
 	if (viewType == SHEET_VIEW)
 	{
+		setPlace(QRect(0, 0, 6*gridX, 5*gridY));
 		enableRotation(true);
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
+		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
+		CHECK_PTR(layout);
 		
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
-		
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getComponent()->getLatchOutput());
-		m_ctrlBlock->getLeft()->addConnector(getComponent()->getLatchAddress());
-		m_ctrlBlock->getLeft()->addConnectorPack(getComponent()->getAddressPack());
+		layout->getCtrlBlock()->getLeft()->addSpace(1);
+		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchOutput());
+		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchAddress());
+		layout->getCtrlBlock()->getLeft()->addConnectorPack(getComponent()->getAddressPack());
 		
 		
-		m_layout->getLeft()->addSpace(1);
-		m_layout->getLeft()->addConnectorPack(getComponent()->getInputPack());
+		layout->getFuncBlock()->getLeft()->addSpace(1);
+		layout->getFuncBlock()->getLeft()->addConnectorPack(getComponent()->getInputPack());
 		
-		m_layout->getRight()->addStretch(1);
-		m_layout->getRight()->addConnector(getComponent()->getOutputConnector(),0);
-		m_layout->getRight()->addStretch(1);
+		layout->getFuncBlock()->getRight()->addStretch(1);
+		layout->getFuncBlock()->getRight()->addConnector(getComponent()->getOutputConnector(),0);
+		layout->getFuncBlock()->getRight()->addStretch(1);
 		
-		m_layout->setMinSize(6,5);
-		m_layout->updateLayout();
+		layout->getFuncBlock()->setMinSize(4,5);
+	
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "MUX", AlignCenter, 270.0);
 	
 		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
 		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
@@ -349,26 +347,6 @@ IntegerDataSelectorView::IntegerDataSelectorView(IntegerDataSelector * comp, eVi
 		connect(getComponent()->getAddressPack(), SIGNAL(signalAddConnector(ConnectorBase *)), this, SLOT(addAdrConn(ConnectorBase *)));
 	}
 }
-
-void IntegerDataSelectorView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-	p->setPen(black);
-	p->drawText(rect, (AlignHCenter | AlignTop), "MUX");
-}
-
 
 void IntegerDataSelectorView::addInConn(ConnectorBase * conn)
 {

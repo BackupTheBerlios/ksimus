@@ -1,3 +1,6 @@
+	2.3.2004
+* Fix some drawing issues
+* Add the new embedded font
 	11.10.2003
 * Use KSimSpinBox instead of QSpinBix
 * Minor changes

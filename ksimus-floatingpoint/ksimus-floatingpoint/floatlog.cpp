@@ -75,24 +75,6 @@ const ComponentInfo * FloatLog10::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatLogView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -102,7 +84,7 @@ FloatLog::FloatLog(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatLogView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("log"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -111,29 +93,8 @@ FloatLog::FloatLog(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatLog::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(log(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatLog10View::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\n10");
-}
-
 
 //###############################################################
 //###############################################################
@@ -144,7 +105,7 @@ FloatLog10::FloatLog10(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatLog10View(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("log\n10"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -153,8 +114,6 @@ FloatLog10::FloatLog10(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatLog10::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(log10(getInput()->getInput()));
 }
 

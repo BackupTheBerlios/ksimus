@@ -151,7 +151,9 @@ class ConnectorBase_Bitmap : public QBitmap
 public:
 	ConnectorBase_Bitmap(const char * const xpm[])
 	{
-		*(QBitmap *)this = QImage(xpm);
+		*static_cast<QBitmap *>(this) = QImage(xpm);
+		setMask(*this); // selfMask 
+
 	}
 };
 

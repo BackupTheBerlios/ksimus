@@ -48,24 +48,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer minimum gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerMin::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerMin * comp, eViewType viewType)
-		: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

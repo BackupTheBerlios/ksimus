@@ -53,20 +53,4 @@ public:
 
 //###############################################################
 
-/** The view for the boolean AND/NAND gates.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class BooleanAndView : public BooleanXIn1OutView
-{
-public:
-	BooleanAndView(BooleanAnd * comp, eViewType viewType)
-		: BooleanXIn1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
-};
-
-
-//###############################################################
-
 #endif

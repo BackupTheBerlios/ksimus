@@ -35,8 +35,6 @@
 class ConnectorBoolInEdge;
 class ConnectorFloatOut;
 class ConnectorPack;
-class ComponentControlBlock;
-class ComponentLayout;
 class ConnectorLabel;
 class KSimSpinBox;
 class QLabel;
@@ -142,18 +140,9 @@ class DataSelectorView : public CompView
 public:
 	DataSelectorView(DataSelector * comp, eViewType viewType);
 //	~DataSelectorView();
-	virtual void draw(QPainter * p);
 	
 	DataSelector* getComponent() { return (DataSelector*) CompView::getComponent(); };
 	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-
-
-private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
-
 private slots:
 	void addInConn(ConnectorBase * conn);
 	void addAdrConn(ConnectorBase * conn);

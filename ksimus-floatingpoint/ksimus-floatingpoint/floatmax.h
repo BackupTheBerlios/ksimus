@@ -53,21 +53,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point maximum gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatMaxView : public FloatXIn1OutView
-{
-public:
-	FloatMaxView(FloatMax * comp, eViewType viewType)
-		: FloatXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 
 };  //namespace KSimLibFloatingPoint
 #endif

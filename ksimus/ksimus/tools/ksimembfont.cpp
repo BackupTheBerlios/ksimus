@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+
 // C-Includes
 
 // QT-Includes
@@ -23,11 +24,14 @@
 #include <qrect.h>
 #include <qpoint.h>
 #include <qimage.h>
+#include <qstringlist.h>
 
 // KDE-Includes
 
 // Project-Includes
+#include "ksimdebug.h"
 #include "ksimembfont.h"
+#include "globals.h"
 
 // Forward declaration
 
@@ -159,6 +163,7 @@ struct tFontInfo
 #include "font08/font08007d.xpm"
 #include "font08/font08007e.xpm"
 
+#include "font08/font082264.xpm"
 #include "font08/font082265.xpm"
 
 #include "font08/font08unknown.xpm"
@@ -269,6 +274,7 @@ static const struct tGlyphList glyphList08[] = {
 	{ 0x007d, font08007d_xpm },
 	{ 0x007e, font08007e_xpm },
 
+	{ 0x2264, font082264_xpm },
 	{ 0x2265, font082265_xpm }
 };
 
@@ -388,6 +394,7 @@ static const struct tFontInfo font08Info =
 #include "font10/font10007d.xpm"
 #include "font10/font10007e.xpm"
 
+#include "font10/font102264.xpm"
 #include "font10/font102265.xpm"
 
 #include "font10/font10unknown.xpm"
@@ -499,6 +506,7 @@ static const struct tGlyphList glyphList10[] = {
 	{ 0x007d, font10007d_xpm },
 	{ 0x007e, font10007e_xpm },
 
+	{ 0x2264, font102264_xpm },
 	{ 0x2265, font102265_xpm }
 };
 
@@ -520,7 +528,7 @@ KSimEmbFont::KSimEmbFont(enum eFont font)
 {
 	const struct tFontInfo * fontInfo;
 
-	if (font == eFont08)
+	if (font == FONT_08)
 	{
 		fontInfo = &font08Info;
 	}
@@ -534,16 +542,18 @@ KSimEmbFont::KSimEmbFont(enum eFont font)
 
 	for (unsigned int i = 0; i < fontInfo->glyphListLength; i++)
 	{
-		QBitmap * p = new QBitmap();
-		*p = QImage(fontInfo->glyphList[i].xpm);
-		m_glyphDict.insert(fontInfo->glyphList[i].unicode, p);
+		QBitmap * pBitmap = new QBitmap();
+		CHECK_PTR(pBitmap);
+		*pBitmap = QImage(fontInfo->glyphList[i].xpm);
+		pBitmap->setMask(*pBitmap); // selfMask 
+		m_glyphDict.insert(fontInfo->glyphList[i].unicode, pBitmap);
 		if (m_height == -1)
 		{
-			m_height = p->height();
+			m_height = pBitmap->height();
 		}
-		else if (p->height() != m_height)
+		else if (pBitmap->height() != m_height)
 		{
-			qWarning("Font with different heights!");
+			KSIMDEBUG_VAR("Font with different heights!", fontInfo->glyphList[i].unicode);
 		}
 	}
 
@@ -571,7 +581,30 @@ bool KSimEmbFont::exist(const QChar & c) const
 	return (m_glyphDict.find(c.unicode()) != 0);
 }
 
-int KSimEmbFont::width(const QString & str) const
+unsigned char KSimEmbFont::toRotMode(double rot)
+{
+	// Only angles 0°, 90°, 180° and 270° are allowed.
+	if ((rot <= 45.0) || (rot > 315.0)) return 0; // 0 degree
+	else if (rot <= 135.0)              return 1; // 90 degree
+	else if (rot <= 225.0)              return 2; // 180 degree
+	return 3; // 270 degree
+}
+
+unsigned char KSimEmbFont::toVerMode(int tf)
+{
+	if ((tf & Qt::AlignBottom) == Qt::AlignBottom)        return 2;
+	else if ((tf & Qt::AlignVCenter) == Qt::AlignVCenter) return 1;
+	return 0;
+}
+
+unsigned char KSimEmbFont::toHorMode(int tf)
+{
+	if ((tf & Qt::AlignRight) == Qt::AlignRight)          return 2;
+	else if ((tf & Qt::AlignHCenter) == Qt::AlignHCenter) return 1;
+	return 0;
+}
+
+int KSimEmbFont::getWidthSL(const QString & str) const
 {
 	int w = 0;
 	const unsigned int len = str.length();
@@ -584,12 +617,42 @@ int KSimEmbFont::width(const QString & str) const
 	return w;
 }
 
-int KSimEmbFont::height() const
+int KSimEmbFont::getLineHeight(int tf) const
 {
-	return m_height;
+	int h = m_height;
+	if (tf & UnderlineMask) h += 2;
+	if (tf & OverlineMask)  h += 2;
+	return h;
 }
 
-void KSimEmbFont::drawText(QPainter * p, int x, int y, const QString & str) const
+QSize KSimEmbFont::getSize(double rot, int tf, const QString & str) const
+{
+	int w = 0;
+	const QStringList list(QStringList::split(QChar('\n'), str));
+	QStringList::const_iterator it;
+	for ( it = list.begin(); it != list.end(); ++it )
+	{
+		const int w2 = getWidthSL(*it);
+		if (w2 > w) 
+			w = w2;
+	}
+
+	const int h = list.count() * getLineHeight(tf);
+	
+	if (toRotMode(rot) & 1)
+	{
+		return QSize(h, w);
+	}
+	
+	return QSize(w, h);
+}
+
+QSize KSimEmbFont::getSize(const QString & str) const
+{
+	return getSize(0.0, 0, str);
+}
+
+int KSimEmbFont::drawTextSL(QPainter * p, int x, int y, const QString & str) const
 {
 	const unsigned int len = str.length();
 	for (unsigned int i = 0; i < len; i++)
@@ -598,89 +661,177 @@ void KSimEmbFont::drawText(QPainter * p, int x, int y, const QString & str) cons
 		p->drawPixmap(x, y, pix);
 		x += pix.width() + m_glyphSpace;
 	}
+	return x;
+}
+
+void KSimEmbFont::drawText(QPainter * p, int x, int y, const QString & str) const
+{
+	drawText(p, QRect(QPoint(x,y), QSize (0,0)), 0.0, 0, str);
 }
 
 void KSimEmbFont::drawText(QPainter * p, int x, int y, int tf, const QString & str) const
 {
-	if ((tf & Qt::AlignRight) == Qt::AlignRight)
-	{
-		x -= width(str);
-	}
-	else if ((tf & Qt::AlignHCenter) == Qt::AlignHCenter)
-	{
-		x -= width(str) / 2;
-	}
+	drawText(p, QRect(QPoint(x,y), QSize (0,0)), 0.0, tf, str);
+}
 
-	if ((tf & Qt::AlignBottom) == Qt::AlignBottom)
-	{
-		y -= height();
-	}
-	else if ((tf & Qt::AlignVCenter) == Qt::AlignVCenter)
-	{
-		y -= height() / 2;
-	}
+void KSimEmbFont::drawText(QPainter * p, int x, int y, double rot, int tf, const QString & str) const
+{
+	drawText(p, QRect(QPoint(x,y), QSize (0,0)), rot, tf, str);
+}
 
-	drawText(p, x, y, str);
+void KSimEmbFont::drawText(QPainter * p, const QPoint & pos, int tf, const QString & str) const
+{
+	drawText(p, QRect(pos, QSize (0,0)), 0.0, tf, str);
 }
 
 void KSimEmbFont::drawText(QPainter * p, const QRect & r, int tf, const QString & str) const
 {
-	QPoint pos(r.topLeft());
-	if ((tf & Qt::AlignRight) == Qt::AlignRight)
-	{
-		pos.rx() = r.right() - width(str);
-	}
-	else if ((tf & Qt::AlignHCenter) == Qt::AlignHCenter)
-	{
-		pos.rx() += (r.width() - width(str)) / 2;
-	}
-
-	if ((tf & Qt::AlignBottom) == Qt::AlignBottom)
-	{
-		pos.ry() = r.bottom() - height();
-	}
-	else if ((tf & Qt::AlignVCenter) == Qt::AlignVCenter)
-	{
-		pos.ry() += (r.height() - height()) / 2;
-	}
-
-	drawText(p, pos.x(), pos.y(), str);
+	drawText(p,r,0.0,tf,str);
 }
 
 
-void KSimEmbFont::drawText(QPainter * p, const QPoint & pos, double rot, int /*tf*/, const QString & str) const
+void KSimEmbFont::drawText(QPainter * p, const QPoint & pos, double rot, int tf, const QString & str) const
 {
+	drawText(p, QRect(pos, QSize (0,0)), rot, tf, str);
+}
 
-	// Only angles 0°, 90°, 180° and 270° are allowed.
-	if ((rot > 45.0) && (rot <= 135.0))
-	{
-		rot = 90.0;
-	}
-	else if (rot <= 225.0)
-	{
-		rot = 180.0;
-	}
-	else if (rot <= 315.0)
-	{
-		rot = 270.0;
-	}
-	else
-	{
-		rot = 0.0;
-	}
+#define RSWITCH3(x, v0, v1, v2) ((x == 0) ? v0 : ((x == 1) ? v1 : v2))
 
+void KSimEmbFont::drawText(QPainter * p, const QRect & r, double rot, int tf, const QString & str) const
+{
+	static const unsigned char horModeTransTab[3][3][4] =
+	// hor, ver, degree
+	{	//   left
+		{	{ 0, 0, 2, 2 },    // top
+			{ 0, 1, 2, 1 },    // ver center
+			{ 0, 2, 2, 0 } },  // bottom
+		//   hori center
+		{	{ 1, 0, 1, 2 },    // top
+			{ 1, 1, 1, 1 },    // ver center
+			{ 1, 2, 1, 0 } },  // bottom
+		//   right
+		{	{ 2, 0, 0, 2 },    // top
+			{ 2, 1, 0, 1 },    // ver center
+			{ 2, 2, 0, 0 } } };// bottom
+	
+	const unsigned char rotMode = toRotMode(rot);
+	KSIMASSERT_VAR(rotMode <= 3, rotMode);
+	unsigned char horMode = toHorMode(tf);
+	KSIMASSERT_VAR(horMode <= 2, horMode);
+	const unsigned char verMode = toVerMode(tf);
+	KSIMASSERT_VAR(verMode <= 2, verMode);
+	int lineHeight = getLineHeight(tf) + 1;
+	
+	const QStringList list(QStringList::split(QChar('\n'), str));
+	
+	QStringList::const_iterator it;
+	
+	// Calc dimension
+	int allW = 0;
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		const int w = getWidthSL(*it);
+		if (w > allW) allW = w;
+	}
+	const int maxWidth = allW;
+	int allH = list.count() * lineHeight - 1;
+	const int maxHeight = allH;
+	
+	if ((rotMode == 1) || (rotMode == 3))
+	{
+		const int dummy = allW;
+		allW = allH;
+		allH = dummy;
+	}
+	
+	// Calc horizontal position
+	const int xOff = RSWITCH3(horMode, r.left(),                           // == 0
+	                                   r.left() + (r.width() - allW) / 2,  // == 1
+	                                   r.right() - allW);                  // == 2
+	
+	// Calc vertical position
+	const int yOff = RSWITCH3(verMode, r.top(),                           // == 0
+	                                   r.top() + (r.height() - allH) / 2, // == 1
+	                                   r.bottom() - allH);                // == 2
+	
+	horMode = horModeTransTab[horMode][verMode][rotMode];
+	KSIMASSERT_VAR(horMode <= 2, horMode);
+	
+	int x = 0;
+	int y = 0;
+	QBitmap bitmap(maxWidth + 1, maxHeight + 1, true);
+	QPainter paintBitmap;
+	paintBitmap.begin(&bitmap);
+	
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		switch(horMode)
+		{
+			case 0: x = 0;                                break;
+			case 1: x = (maxWidth - getWidthSL(*it)) / 2; break;
+			case 2: x =  maxWidth - getWidthSL(*it);      break;
+		}
+		
+		int y1 = y;
+		if (tf & OverlineMask)
+			y1 += 2;
+		int x1 = drawTextSL(&paintBitmap, x, y1, *it) - m_glyphSpace - 1;
+		if (tf & Overline)
+			paintBitmap.drawLine(x, y, x1,y);
+		if (tf & Underline)
+		{
+			y1 += m_height;
+			paintBitmap.drawLine(x, y1, x1, y1);
+		}
+		
+		y += lineHeight;
+	}
+	paintBitmap.end();
+	
 	p->save();
-	p->translate(pos.x(), pos.y());
-	p->rotate(rot);
-
-	drawText(p, 0, 0, str);
-
+	switch(rotMode)
+	{
+		case 0: p->setWorldMatrix(QWMatrix( 1.0,  0.0,  0.0,  1.0, xOff, yOff), true);               break;
+		case 1: p->setWorldMatrix(QWMatrix( 0.0,  1.0, -1.0,  0.0, xOff + allW, yOff), true);        break;
+		case 2: p->setWorldMatrix(QWMatrix(-1.0,  0.0,  0.0, -1.0, xOff + allW, yOff + allH), true); break;
+		case 3: p->setWorldMatrix(QWMatrix( 0.0, -1.0,  1.0,  0.0, xOff, yOff + allH), true);        break;
+	}
+	
+	bitmap.setMask(bitmap);
+	p->drawPixmap(QPoint(0,0), bitmap);
 	p->restore();
 }
 
-KSimEmbFont * g_embFont08 = (KSimEmbFont *)0;
-KSimEmbFont * g_embFont10 = (KSimEmbFont *)0;
+#undef RSWITCH3
 
+
+KSimEmbFont * KSimEmbFont::getFont08()
+{
+	static KSimEmbFont embFont(FONT_08);
+	return &embFont;
+}
+
+KSimEmbFont * KSimEmbFont::getFont10()
+{
+	static KSimEmbFont embFont(FONT_10);
+	return &embFont;
+}
+
+KSimEmbFont * KSimEmbFont::getFont(eFont font)
+{
+	switch(font)
+	{
+		case FONT_08:
+			return getFont08();
+		break;
+
+		case FONT_10:
+			return getFont10();
+		break;
+	}
+
+	return 0;	// Not possible
+}
 
 
 

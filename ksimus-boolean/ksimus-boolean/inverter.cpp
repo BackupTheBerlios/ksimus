@@ -27,6 +27,7 @@
 #include "ksimus/resource.h"
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorboolout.h"
+#include "ksimus/ksimembfont.h"
 
 // Project-Includes
 #include "inverter.h"
@@ -135,9 +136,8 @@ InverterView::InverterView(Inverter * comp, eViewType viewType)
 void InverterView::draw(QPainter * p)
 {
 	drawFrame(p);
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "1");
+	
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "1");
 	
 	CompView::draw(p);
 }

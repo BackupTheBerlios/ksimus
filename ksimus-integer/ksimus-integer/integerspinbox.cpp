@@ -306,24 +306,30 @@ void IntegerSpinbox::checkProperty(QStringList & errorMsg)
 //############################################################################
 
 IntegerSpinboxView::IntegerSpinboxView(IntegerSpinbox * comp, eViewType viewType)
-	: IntegerStyleRange1OutView(comp,viewType)
+	: CompViewSize(comp,viewType)
 {
+	enableRotation(false);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->setFixedSize(true);
-		setPlace(QRect(0, 0, 8*gridX, 3*gridY));
+		setPlace(QRect(0, 0, 9*gridX, 3*gridY));
 		setMinSize(5*gridX, 3*gridY);
-		getComponentLayout()->updateLayout();
-		enableConnectorSpacingTop(false);
-		enableConnectorSpacingBottom(false);
-		enableConnectorSpacingLeft(false);
-//		enableConnectorSpacingRight(false);
+
+		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
+		CHECK_PTR(layout);
+		
+		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
+		CHECK_PTR(layout);
+	
+		block->getRight()->addStretch(2);
+		block->getRight()->addConnector(comp->getOutputConnector(),0);
+		block->getRight()->addStretch(2);
 	}
 	else
 	{
 		setPlace(QRect(0, 0, 8*gridX, 3*gridY));
 		setMinSize(4*gridX, 3*gridY);
-	}	
+	}
 }
 
 

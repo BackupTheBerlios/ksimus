@@ -1,3 +1,6 @@
+	2.3.2004
+* Fix some drawing issues
+* Add the new embedded font
 	11.10.2003
 * Change: Use KSimSpinBox instead of QSpinBox in some component dialogs
 	6.8.2003

@@ -6,8 +6,8 @@ AC_DEFUN(CHECK_KSIMUS_HEADER,
 [
   AC_MSG_CHECKING(for KSimus Header);
 
-  KSIMUS_HEADER_DIR=$includedir/ksimus
-
+  KSIMUS_HEADER_DIR=${includedir}/ksimus
+  
   if eval "test -f $KSIMUS_HEADER_DIR/component.h" && eval "test -f $KSIMUS_HEADER_DIR/ksimus.h"; then
     AC_MSG_RESULT(yes)
   else
@@ -20,7 +20,7 @@ AC_DEFUN(CHECK_KSIMUS_BINARY,
 [
   AC_MSG_CHECKING(for KSimus Binary);
 
-  KSIMUS_BINARY_DIR=$bindir
+  KSIMUS_BINARY_DIR=${bindir}
 
 
   if test "${exec_prefix}" != NONE; then

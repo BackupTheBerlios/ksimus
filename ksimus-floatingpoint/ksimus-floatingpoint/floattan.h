@@ -53,23 +53,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point tangent gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatTanView : public Float1In1OutView
-{
-public:
-	FloatTanView(FloatTan * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-//###############################################################
-
 /**A floating point inverse tangential gate.
   * @author Rasmus Diekenbrock
   */
@@ -85,23 +68,6 @@ public:
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
 };
-
-//###############################################################
-
-/** The view for the floating point inverse tangent gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatATanView : public Float1In1OutView
-{
-public:
-	FloatATanView(FloatATan * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
 
 //###############################################################
 
@@ -123,23 +89,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point inverse tangent gate with 2 inputs.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatATan2View : public Float2In1OutView
-{
-public:
-	FloatATan2View(FloatATan2 * comp, eViewType viewType)
-		: Float2In1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-//###############################################################
-
 /**A floating point hyperbolic tangent gate.
   * @author Rasmus Diekenbrock
   */
@@ -158,23 +107,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point hyperbolic tangent gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatTanhView : public Float1In1OutView
-{
-public:
-	FloatTanhView(FloatTanh * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-//###############################################################
-
 /**A floating point inverse hyperbolic tangential gate.
   * @author Rasmus Diekenbrock
   */
@@ -189,21 +121,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-};
-
-//###############################################################
-
-/** The view for the floating point inverse hyperbolic tangent gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatATanhView : public Float1In1OutView
-{
-public:
-	FloatATanhView(FloatATanh * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

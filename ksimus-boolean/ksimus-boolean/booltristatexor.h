@@ -54,23 +54,6 @@ public:
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticXorInfo();
 	static const ComponentInfo * getStaticXnorInfo();
-
-};
-
-//###############################################################
-
-/** The view for the boolean XOR/XNOR gates with a tristate output.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class BoolTristateXorView : public BoolTristateXIn1Out1EnaView
-{
-
-	Q_OBJECT
-
-public:
-	BoolTristateXorView(BoolTristateXor * comp, eViewType viewType)
-		: BoolTristateXIn1Out1EnaView(QString::fromLatin1("=1"), comp, viewType) {};
 };
 
 //###############################################################

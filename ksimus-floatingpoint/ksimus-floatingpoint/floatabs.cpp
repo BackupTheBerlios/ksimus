@@ -19,7 +19,6 @@
 #include <math.h>
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -62,27 +61,13 @@ const ComponentInfo * FloatAbs::getStaticInfo()
 //###############################################################
 //###############################################################
 
-
-void FloatAbsView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Abs");
-}
-
-
-//###############################################################
-//###############################################################
-
 FloatAbs::FloatAbs(CompContainer * container, const ComponentInfo * ci)
 	: Float1In1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatAbsView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("Abs"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -91,8 +76,6 @@ FloatAbs::FloatAbs(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatAbs::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(fabs(getInput()->getInput()));
 }
 

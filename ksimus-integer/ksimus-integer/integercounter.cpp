@@ -19,7 +19,6 @@
 #include <limits.h>
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qvbox.h>
 #include <qcheckbox.h>
@@ -35,7 +34,6 @@
 #include "ksimus/connectorintegerout.h"
 #include "ksimus/connectorintegerin.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/componentpropertydialog.h"
@@ -196,49 +194,27 @@ IntegerCounterBaseView::IntegerCounterBaseView(IntegerCounterBase * comp, eViewT
 	if (viewType == SHEET_VIEW)
 	{
 		enableRotation(true);
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutVerticalCtrl(this);
 		CHECK_PTR(m_layout);
 		
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
-		
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getCounterBase()->getInputClear());
-
-		m_ctrlBlock->getRight()->addSpace(1);
-		m_ctrlBlock->getRight()->addConnector(getCounterBase()->getOutputMin());
-		m_ctrlBlock->getRight()->addConnector(getCounterBase()->getOutputMax());
-
-		m_layout->getRight()->addSpace(1);
-		m_layout->getRight()->addConnector(getCounterBase()->getOutput());
-		
-		m_layout->setMinSize(7,7);
-		m_layout->updateLayout();
+		m_layout->setMinSize(5,5);
 	
+		m_layout->getCtrlBlock()->getLeft()->addSpace(1);
+		m_layout->getCtrlBlock()->getLeft()->addConnector(getCounterBase()->getInputClear());
+
+		m_layout->getCtrlBlock()->getRight()->addSpace(1);
+		m_layout->getCtrlBlock()->getRight()->addConnector(getCounterBase()->getOutputMin());
+		m_layout->getCtrlBlock()->getRight()->addConnector(getCounterBase()->getOutputMax());
+
+		m_layout->getFuncBlock()->getRight()->addSpace(1);
+		m_layout->getFuncBlock()->getRight()->addConnector(getCounterBase()->getOutput());
+		
+		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), "CTR", (AlignHCenter | AlignTop), 0.0);
+		
 		new ConnectorLabel(getCounterBase()->getInputClear(), "R");
 		new ConnectorLabel(getCounterBase()->getOutputMin(), "Min");
 		new ConnectorLabel(getCounterBase()->getOutputMax(), "Max");
 	}
-}
-
-
-void IntegerCounterBaseView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-	p->setPen(black);
-	p->drawText(rect, (AlignHCenter | AlignTop), "CTR");
 }
 
 //###############################################################
@@ -463,12 +439,9 @@ IntegerCounterClkUpClkDownView::IntegerCounterClkUpClkDownView(IntegerCounterClk
 {
 	if (viewType == SHEET_VIEW)
 	{
-		getControlBlock()->getLeft()->addConnector(getCounterClkUpClkDown()->getInputClockUp());
-		getControlBlock()->getLeft()->addConnector(getCounterClkUpClkDown()->getInputClockDown());
-//		getControlBlock()->getLeft()->addSpace(1);
-
-		getComponentLayout()->setMinSize(7,7);
-		getComponentLayout()->updateLayout();
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkUpClkDown()->getInputClockUp());
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkUpClkDown()->getInputClockDown());
+//		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
 
 		new ConnectorLabel(getCounterClkUpClkDown()->getInputClockUp(), "Up");
 		new ConnectorLabel(getCounterClkUpClkDown()->getInputClockDown(), "Do");
@@ -594,14 +567,11 @@ IntegerCounterClkUpClkDownLoadView::IntegerCounterClkUpClkDownLoadView(IntegerCo
 {
 	if (viewType == SHEET_VIEW)
 	{
-//		getControlBlock()->getLeft()->addSpace(1);
-		getControlBlock()->getLeft()->addConnector(getCounterClkUpClkDownLoad()->getInputLoadEnable());
+//		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkUpClkDownLoad()->getInputLoadEnable());
 
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(getCounterClkUpClkDownLoad()->getInputCounter());
-
-		getComponentLayout()->setMinSize(7,7);
-		getComponentLayout()->updateLayout();
+		getComponentLayout()->getFuncBlock()->getLeft()->addSpace(1);
+		getComponentLayout()->getFuncBlock()->getLeft()->addConnector(getCounterClkUpClkDownLoad()->getInputCounter());
 
 		new ConnectorLabel(getCounterClkUpClkDownLoad()->getInputLoadEnable(), "Ld");
 	}
@@ -717,12 +687,9 @@ IntegerCounterClkDirView::IntegerCounterClkDirView(IntegerCounterClkDir * comp, 
 {
 	if (viewType == SHEET_VIEW)
 	{
-		getControlBlock()->getLeft()->addConnector(getCounterClkDir()->getInputDir());
-		getControlBlock()->getLeft()->addConnector(getCounterClkDir()->getInputClock());
-//		getControlBlock()->getLeft()->addSpace(1);
-
-		getComponentLayout()->setMinSize(7,7);
-		getComponentLayout()->updateLayout();
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkDir()->getInputDir());
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkDir()->getInputClock());
+//		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
 
 		new ConnectorLabel(getCounterClkDir()->getInputDir(), "Dir");
 		new ConnectorLabel(getCounterClkDir()->getInputClock(), "Clk");
@@ -851,14 +818,11 @@ IntegerCounterClkDirLoadView::IntegerCounterClkDirLoadView(IntegerCounterClkDirL
 {
 	if (viewType == SHEET_VIEW)
 	{
-//		getControlBlock()->getLeft()->addSpace(1);
-		getControlBlock()->getLeft()->addConnector(getCounterClkDirLoad()->getInputLoadEnable());
+//		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getCounterClkDirLoad()->getInputLoadEnable());
 
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(getCounterClkDirLoad()->getInputCounter());
-
-		getComponentLayout()->setMinSize(7,7);
-		getComponentLayout()->updateLayout();
+		getComponentLayout()->getFuncBlock()->getLeft()->addSpace(1);
+		getComponentLayout()->getFuncBlock()->getLeft()->addConnector(getCounterClkDirLoad()->getInputCounter());
 
 		new ConnectorLabel(getCounterClkDirLoad()->getInputLoadEnable(), "Ld");
 	}

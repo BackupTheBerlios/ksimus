@@ -46,24 +46,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer divider gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerDivider::View : public Integer2In1OutView
-{
-public:
-	View(IntegerDivider * comp, eViewType viewType)
-		: Integer2In1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

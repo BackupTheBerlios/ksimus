@@ -27,6 +27,7 @@
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorintegerin.h"
+#include "ksimus/connectorintegerout.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/componentlayout.h"
 
@@ -65,16 +66,32 @@ Integer2In1Out::Integer2In1Out(CompContainer * container, const ComponentInfo * 
 
 
 
-Integer2In1OutView::Integer2In1OutView(Integer2In1Out * comp, eViewType viewType)
-	: Integer1OutView(comp, viewType)
+Integer2In1OutView::Integer2In1OutView(Integer2In1Out * comp, eViewType viewType, const QString & text)
+	: CompView(comp, viewType)
 {
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableRotation(true);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(comp->getInputA());
-		getComponentLayout()->getLeft()->addConnector(comp->getInputB());
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
 	
-		getComponentLayout()->updateLayout();
+		layout->setMinSize(3, 5);
+
+		layout->getLeft()->addStretch(2);
+		layout->getLeft()->addConnector(comp->getInputA(),1);
+		layout->getLeft()->addConnector(comp->getInputB(),0);
+		layout->getLeft()->addStretch(2);
+		
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector());
+		layout->getRight()->addStretch(2);
+		
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getBlock(), text);
+		}
 	}
 }
 

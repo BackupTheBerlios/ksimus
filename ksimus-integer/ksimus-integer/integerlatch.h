@@ -147,17 +147,8 @@ class IntegerLatch::View : public CompView
 public:
 	View(IntegerLatch * comp, eViewType viewType);
 //	~View();
-	virtual void draw(QPainter * p);
 	
 	IntegerLatch* getComponent() { return (IntegerLatch*) CompView::getComponent(); };
-	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-
-
-private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout;
 };
 
 //###############################################################

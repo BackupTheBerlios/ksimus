@@ -43,6 +43,7 @@ namespace KSimLibBoolean
 
 class ConvertBoolTristate2Bool : public Component
 {
+class View;
 
 	Q_OBJECT
 
@@ -66,17 +67,6 @@ private:
 	ConnectorBoolOut * m_connActiveOut;
 	bool m_lockRecursion;
 
-};
-
-
-//###############################################################
-
-class ConvertBoolTristate2BoolView : public CompView
-{
-public:
-	ConvertBoolTristate2BoolView(ConvertBoolTristate2Bool * comp, eViewType viewType);
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

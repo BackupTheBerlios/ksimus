@@ -55,23 +55,6 @@ const ComponentInfo * FloatSubtractor::getStaticInfo()
 }
 
 
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatSubtractorView::draw(QPainter * p)
-{
-	Float2In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Sub");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -81,7 +64,7 @@ FloatSubtractor::FloatSubtractor(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatSubtractorView(this, SHEET_VIEW);
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Sub"));
 	}
 
 	getInputA()->setName(i18n("FloatingPoint", "Minuend"));
@@ -93,10 +76,7 @@ FloatSubtractor::FloatSubtractor(CompContainer * container, const ComponentInfo 
 /** Executes the simulation of this component */
 void FloatSubtractor::calculate()
 {
-	Float2In1Out::calculate();
-	
 	setValue(getInputA()->getInput() - getInputB()->getInput());
-	
 }
 
 

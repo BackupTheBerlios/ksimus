@@ -19,7 +19,6 @@
 #include <limits.h>
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -37,16 +36,16 @@
 namespace KSimLibInteger
 {
 
-Component * IntegerBitwiseAnd::create(CompContainer * container, const ComponentInfo * ci)
+Component * IntegerAnd::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new IntegerBitwiseAnd(container, ci);
+	return new IntegerAnd(container, ci);
 }
 
-const ComponentInfo * IntegerBitwiseAnd::getStaticInfo()
+const ComponentInfo * IntegerAnd::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Integer Bitwise AND"),
-	                                QString::fromLatin1("Integer/Logic/Bitwise AND"),
-	                                i18n("Component", "Integer/Logic/Bitwise AND"),
+	static const ComponentInfo Info(i18n("Component", "Integer AND"),
+	                                QString::fromLatin1("Integer/Logic/AND"),
+	                                i18n("Component", "Integer/Logic/AND"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
@@ -57,31 +56,20 @@ const ComponentInfo * IntegerBitwiseAnd::getStaticInfo()
 
 //###############################################################
 
-void IntegerBitwiseAnd::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "bit\nAnd");
-}
-
-//###############################################################
-
-IntegerBitwiseAnd::IntegerBitwiseAnd(CompContainer * container, const ComponentInfo * ci)
+IntegerAnd::IntegerAnd(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "&");
 	}
 }
 
 //###############################################################
 
 /** Executes the simulation of this component */
-void IntegerBitwiseAnd::calculate()
+void IntegerAnd::calculate()
 {
 //	IntegerXIn1Out::calculate();
 
@@ -99,16 +87,16 @@ void IntegerBitwiseAnd::calculate()
 //###############################################################
 //###############################################################
 
-Component * IntegerBitwiseNand::create(CompContainer * container, const ComponentInfo * ci)
+Component * IntegerNand::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new IntegerBitwiseNand(container, ci);
+	return new IntegerNand(container, ci);
 }
 
-const ComponentInfo * IntegerBitwiseNand::getStaticInfo()
+const ComponentInfo * IntegerNand::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Integer Bitwise NAND"),
-	                                QString::fromLatin1("Integer/Logic/Bitwise NAND"),
-	                                i18n("Component", "Integer/Logic/Bitwise NAND"),
+	static const ComponentInfo Info(i18n("Component", "Integer NAND"),
+	                                QString::fromLatin1("Integer/Logic/NAND"),
+	                                i18n("Component", "Integer/Logic/NAND"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
@@ -119,31 +107,20 @@ const ComponentInfo * IntegerBitwiseNand::getStaticInfo()
 
 //###############################################################
 
-void IntegerBitwiseNand::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "bit\nNand");
-}
-
-//###############################################################
-
-IntegerBitwiseNand::IntegerBitwiseNand(CompContainer * container, const ComponentInfo * ci)
+IntegerNand::IntegerNand(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "!&");
 	}
 }
 
 //###############################################################
 
 /** Executes the simulation of this component */
-void IntegerBitwiseNand::calculate()
+void IntegerNand::calculate()
 {
 //	IntegerXIn1Out::calculate();
 
@@ -155,136 +132,6 @@ void IntegerBitwiseNand::calculate()
 	}
 
 	setValue((int)~result);
-}
-
-//###############################################################
-//###############################################################
-
-Component * IntegerLogicalAnd::create(CompContainer * container, const ComponentInfo * ci)
-{
-	return new IntegerLogicalAnd(container, ci);
-}
-
-const ComponentInfo * IntegerLogicalAnd::getStaticInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Integer Logical AND"),
-	                                QString::fromLatin1("Integer/Logic/Logical AND"),
-	                                i18n("Component", "Integer/Logic/Logical AND"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null /* TODO,
-	                                QString::fromLatin1("component-float-arithmetic-add")*/);
-	return &Info;
-}
-
-//###############################################################
-
-void IntegerLogicalAnd::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\nAnd");
-}
-
-//###############################################################
-
-IntegerLogicalAnd::IntegerLogicalAnd(CompContainer * container, const ComponentInfo * ci)
-	: IntegerXIn1Out(container, ci)
-{
-	// Initializes the sheet view
-	if (getSheetMap())
-	{
-		new View(this, SHEET_VIEW);
-	}
-}
-
-//###############################################################
-
-/** Executes the simulation of this component */
-void IntegerLogicalAnd::calculate()
-{
-//	IntegerXIn1Out::calculate();
-
-	int result = 1;
-
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		if (((ConnectorIntegerIn*)it.current())->getInput() == 0)
-		{
-			result = 0;
-			break;
-		}
-	}
-
-	setValue(result);
-}
-
-//###############################################################
-//###############################################################
-
-Component * IntegerLogicalNand::create(CompContainer * container, const ComponentInfo * ci)
-{
-	return new IntegerLogicalNand(container, ci);
-}
-
-const ComponentInfo * IntegerLogicalNand::getStaticInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Integer Logical NAND"),
-	                                QString::fromLatin1("Integer/Logic/Logical NAND"),
-	                                i18n("Component", "Integer/Logic/Logical NAND"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null /* TODO,
-	                                QString::fromLatin1("component-float-arithmetic-add")*/);
-	return &Info;
-}
-
-//###############################################################
-
-void IntegerLogicalNand::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\nNand");
-}
-
-//###############################################################
-
-IntegerLogicalNand::IntegerLogicalNand(CompContainer * container, const ComponentInfo * ci)
-	: IntegerXIn1Out(container, ci)
-{
-	// Initializes the sheet view
-	if (getSheetMap())
-	{
-		new View(this, SHEET_VIEW);
-	}
-}
-
-//###############################################################
-
-/** Executes the simulation of this component */
-void IntegerLogicalNand::calculate()
-{
-//	IntegerXIn1Out::calculate();
-
-	int result = 1;
-
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		if (((ConnectorIntegerIn*)it.current())->getInput() == 0)
-		{
-			result = 0;
-			break;
-		}
-	}
-
-	setValue(!result);
 }
 
 //###############################################################

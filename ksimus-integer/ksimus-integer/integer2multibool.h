@@ -147,19 +147,7 @@ public:
 	View(Integer2MultiBool * comp, eViewType viewType);
 //	~View();
 
-	virtual void draw(QPainter * p);
-
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-
 	Integer2MultiBool* getInteger2MultiBool() { return (Integer2MultiBool*) getComponent(); };
-
-
-
-protected:
-
-private:
-	ComponentLayout * m_layout;
-
 };
 
 //###############################################################

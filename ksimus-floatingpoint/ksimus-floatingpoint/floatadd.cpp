@@ -55,36 +55,6 @@ const ComponentInfo * FloatAdd::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-FloatAddView::FloatAddView(FloatAdd * comp, eViewType viewType)
-	: Float1OutView(comp, viewType)
-{
-	if (viewType == SHEET_VIEW)
-	{
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnectorPack(comp->getInputConnectorPack());
-	
-		getComponentLayout()->updateLayout();
-	}
-}
-
-void FloatAddView::draw(QPainter * p)
-{
-	Float1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Add");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -101,20 +71,24 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 	m_inPack->setConnectorCount(2);
 	m_inPack->setStoreName(QString::fromLatin1("Input"));
 	
+	getAction().disable(KSimAction::UPDATEVIEW);
+	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatAddView(this, SHEET_VIEW);
+		Float1OutView * view = new Float1OutView(this, SHEET_VIEW);
+		
+		view->getComponentLayout()->getLeft()->addSpace(1);
+		view->getComponentLayout()->getLeft()->addConnectorPack(getInputConnectorPack());
+		
+		new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Add");
 	}
 
-	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
 void FloatAdd::calculate()
 {
-	Float1Out::calculate();
-	
 	double result = 0.0;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

@@ -40,15 +40,16 @@ namespace KSimLibBoolean
 {
 
 
-/**Boolean constant component.
+/**Boolean constant false component.
   *@author Rasmus Diekenbrock
   */
 
-class BooleanConstant : public Component
+class BooleanConstantFalse : public Component
 {
+class View;
 public:
-	BooleanConstant(CompContainer * container, const ComponentInfo * ci);
-//	~BooleanConstant();
+	BooleanConstantFalse(CompContainer * container, const ComponentInfo * ci);
+//	~BooleanConstantFalse();
 
 	/** Resets the component state. */
 	virtual void reset();
@@ -57,13 +58,40 @@ public:
 	
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
-	static const ComponentInfo * getStaticTrueInfo();
-	static const ComponentInfo * getStaticFalseInfo();
+	static const ComponentInfo * getStaticInfo();
 
 private:
 	ConnectorBoolOut * m_out;
 };
 
+//###############################################################
+//###############################################################
+
+/**Boolean constant component.
+  *@author Rasmus Diekenbrock
+  */
+
+class BooleanConstantTrue : public Component
+{
+class View;
+public:
+	BooleanConstantTrue(CompContainer * container, const ComponentInfo * ci);
+//	~BooleanConstantTrue();
+
+	/** Resets the component state. */
+	virtual void reset();
+	
+	ConnectorBoolOut * getOutputConnector() const { return m_out; };
+	
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
+
+private:
+	ConnectorBoolOut * m_out;
+	static QBitmap * m_bitmap;
+	static unsigned int m_instanceCnt;
+};
 
 //###############################################################
 //###############################################################

@@ -51,21 +51,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point divider gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatDividerView : public Float2In1OutView
-{
-public:
-	FloatDividerView(FloatDivider * comp, eViewType viewType)
-		: Float2In1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 
 };  //namespace KSimLibFloatingPoint
 #endif

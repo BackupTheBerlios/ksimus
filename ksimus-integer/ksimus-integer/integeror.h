@@ -37,34 +37,16 @@ namespace KSimLibInteger
   * @author Rasmus Diekenbrock
   */
 
-class IntegerBitwiseOr : public IntegerXIn1Out
+class IntegerOr : public IntegerXIn1Out
 {
 public:
 	/** Constructs a bitwise integer OR */
-	IntegerBitwiseOr(CompContainer * container, const ComponentInfo * ci);
+	IntegerOr(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise integer OR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerBitwiseOr::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerBitwiseOr * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################
@@ -76,110 +58,16 @@ public:
   * @author Rasmus Diekenbrock
   */
 
-class IntegerBitwiseNor : public IntegerXIn1Out
+class IntegerNor : public IntegerXIn1Out
 {
 public:
 	/** Constructs a bitwise integer NOR */
-	IntegerBitwiseNor(CompContainer * container, const ComponentInfo * ci);
+	IntegerNor(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise integer NOR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerBitwiseNor::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerBitwiseNor * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-//###############################################################
-
-/**A logical integer OR gate with muliple inputs
-	*
-  * @author Rasmus Diekenbrock
-  */
-
-class IntegerLogicalOr : public IntegerXIn1Out
-{
-public:
-	/** Constructs a logical integer OR */
-	IntegerLogicalOr(CompContainer * container, const ComponentInfo * ci);
-	/** Executes the simulation of this component */
-	virtual void calculate();
-
-	static Component * create(CompContainer * container, const ComponentInfo * ci);
-	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise logical OR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerLogicalOr::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerLogicalOr * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-//###############################################################
-
-/**A logical integer NOR gate with muliple inputs
-	*
-  * @author Rasmus Diekenbrock
-  */
-
-class IntegerLogicalNor : public IntegerXIn1Out
-{
-public:
-	/** Constructs a logical integer NOR */
-	IntegerLogicalNor(CompContainer * container, const ComponentInfo * ci);
-	/** Executes the simulation of this component */
-	virtual void calculate();
-
-	static Component * create(CompContainer * container, const ComponentInfo * ci);
-	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise logical NOR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerLogicalNor::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerLogicalNor * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

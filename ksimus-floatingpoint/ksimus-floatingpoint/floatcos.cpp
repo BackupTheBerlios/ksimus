@@ -27,7 +27,6 @@
 // Project-Includes
 #include "floatcos.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/connectorpack.h"
 
 // Forward declaration
 
@@ -113,23 +112,6 @@ const ComponentInfo * FloatACosh::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatCosView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "cos");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -139,7 +121,7 @@ FloatCos::FloatCos(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatCosView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("cos"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -148,29 +130,8 @@ FloatCos::FloatCos(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatCos::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(cos(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatACosView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\ncos");
-}
-
 
 //###############################################################
 //###############################################################
@@ -181,7 +142,7 @@ FloatACos::FloatACos(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatACosView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ncos"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -190,29 +151,8 @@ FloatACos::FloatACos(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatACos::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(acos(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatCoshView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "cos\nhyp");
-}
-
 
 //###############################################################
 //###############################################################
@@ -223,7 +163,7 @@ FloatCosh::FloatCosh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatCoshView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("cos\nhyp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -232,29 +172,8 @@ FloatCosh::FloatCosh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatCosh::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(cosh(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatACoshView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\ncos\nhyp");
-}
-
 
 //###############################################################
 //###############################################################
@@ -265,7 +184,7 @@ FloatACosh::FloatACosh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatACoshView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ncos\nhyp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -274,8 +193,6 @@ FloatACosh::FloatACosh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatACosh::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(acosh(getInput()->getInput()));
 }
 

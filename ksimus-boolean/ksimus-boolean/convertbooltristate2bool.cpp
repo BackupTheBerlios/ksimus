@@ -58,6 +58,31 @@ const ComponentInfo * ConvertBoolTristate2Bool::getStaticInfo()
 //###############################################################
 //###############################################################
 
+class ConvertBoolTristate2Bool::View : public CompView
+{
+public:
+	View(ConvertBoolTristate2Bool * comp, eViewType viewType);
+	
+	virtual void draw(QPainter * p);
+};
+
+ConvertBoolTristate2Bool::View::View(ConvertBoolTristate2Bool * comp, eViewType viewType)
+	: CompView(comp, viewType)
+{
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableConnectorSpacingTop(false);
+//	enableConnectorSpacingRight(false);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
+	enableRotation(true);
+}
+
+void ConvertBoolTristate2Bool::View::draw(QPainter * p)
+{
+	CompView::draw(p);
+	
+	drawFrame(p);
+}
 
 //###############################################################
 //###############################################################
@@ -95,7 +120,7 @@ ConvertBoolTristate2Bool::ConvertBoolTristate2Bool(CompContainer * container, co
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ConvertBoolTristate2BoolView(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
@@ -139,25 +164,6 @@ void ConvertBoolTristate2Bool::calculate()
 //###############################################################
 
 
-ConvertBoolTristate2BoolView::ConvertBoolTristate2BoolView(ConvertBoolTristate2Bool * comp, eViewType viewType)
-	: CompView(comp, viewType)
-{
-	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
-	enableConnectorSpacingTop(false);
-//	enableConnectorSpacingRight(false);
-	enableConnectorSpacingBottom(false);
-//	enableConnectorSpacingLeft(false);
-	enableRotation(true);
-}
-
-void ConvertBoolTristate2BoolView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-	drawFrame(p);
-}
-
-//###############################################################
 
 }; //namespace KSimLibBoolean
 

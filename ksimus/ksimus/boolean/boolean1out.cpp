@@ -162,14 +162,22 @@ Boolean1OutView::Boolean1OutView(Boolean1Out * comp, eViewType viewType)
 	
 	if (viewType == SHEET_VIEW)
 	{
-		m_layout = new ComponentLayout(this);
+/*		m_layout = new ComponentLayout(this);
 		CHECK_PTR(m_layout);
-	
+
 		m_layout->getRight()->addStretch(2);
 		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
 		m_layout->getRight()->addStretch(2);
-	
-		m_layout->updateLayout();
+
+		m_layout->updateLayout();*/
+		m_layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(m_layout);
+
+		((ComponentLayoutSimple*)m_layout)->getRight()->addStretch(2);
+		((ComponentLayoutSimple*)m_layout)->getRight()->addConnector(comp->getOutputConnector(),0);
+		((ComponentLayoutSimple*)m_layout)->getRight()->addStretch(2);
+
+//		m_layout->updateLayout();
 	}
 	else
 	{

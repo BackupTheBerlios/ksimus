@@ -37,6 +37,8 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/optionalconnector.h"
+#include "ksimus/ksimembfont.h"
+
 
 // Project-Includes
 #include "random.h"
@@ -123,8 +125,6 @@ Random::Random(CompContainer * container, const ComponentInfo * ci)
 
 void Random::calculate()
 {
-	Component::calculate();
-	
 	bool ena = getEnableConnector()->isHidden() || getEnableConnector()->getInput();
 
 	if (ena)
@@ -213,17 +213,16 @@ RandomView::RandomView(Random * comp, eViewType viewType)
 void RandomView::draw(QPainter * p)
 {
 	drawFrame(p);
-	p->setFont(QFont("helvetica",10));
-
+	
 	if (getRandom()->getEnableConnector()->isHidden())
 	{
-		p->drawText(getDrawingPlace(), AlignCenter, "Rnd");
+		KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Rnd");
 	}
 	else
 	{
 		QRect place = getDrawingPlace();
-		place.rTop() += 2;
-		p->drawText(place, AlignTop | AlignHCenter, "Rnd");
+		place.rTop() += 4;
+		KSimEmbFont::getFont10()->drawText(p, place, AlignTop | AlignHCenter, "Rnd");
 	}
 	
 	CompView::draw(p);

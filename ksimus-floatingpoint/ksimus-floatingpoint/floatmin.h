@@ -51,23 +51,5 @@ public:
 	static const ComponentInfo * getStaticInfo();
 };
 
-//###############################################################
-
-/** The view for the floating point minimum gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatMinView : public FloatXIn1OutView
-{
-public:
-	FloatMinView(FloatMin * comp, eViewType viewType)
-		: FloatXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-
 };  //namespace KSimLibFloatingPoint
 #endif

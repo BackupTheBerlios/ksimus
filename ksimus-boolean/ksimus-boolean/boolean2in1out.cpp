@@ -30,6 +30,7 @@
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/componentinfo.h"
+#include "ksimus/componentlayout.h"
 
 // Forward declaration
 
@@ -42,22 +43,36 @@ namespace KSimLibBoolean
 {
 
 
-Boolean2In1OutView::Boolean2In1OutView(Component * comp, eViewType viewType)
+Boolean2In1OutView::Boolean2In1OutView(Boolean2In1Out * comp, eViewType viewType, const QString & text)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableRotation(true);
+	
+	if (viewType == SHEET_VIEW)
+	{
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
+	
+		layout->setMinSize(3, 5);
+
+		layout->getLeft()->addSpace(1);
+		layout->getLeft()->addConnector(comp->getInputConnectorA());
+		layout->getLeft()->addConnector(comp->getInputConnectorB());
+		
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector());
+		layout->getRight()->addStretch(2);
+		
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getBlock(), text);
+		}
+	}
 }
 /*Boolean2In1OutView::~Boolean2In1OutView()
 {
 }*/
-
-void Boolean2In1OutView::draw(QPainter * p)
-{
-	drawFrame(p);
-	
-	CompView::draw(p);
-}
-
 
 //###############################################################
 

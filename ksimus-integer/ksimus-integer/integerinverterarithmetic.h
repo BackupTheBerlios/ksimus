@@ -48,24 +48,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the arithmetic integer inverter gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerArithmeticInverter::View : public Integer1In1OutView
-{
-public:
-	View(IntegerArithmeticInverter * comp, eViewType viewType)
-		: Integer1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

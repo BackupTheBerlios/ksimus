@@ -34,7 +34,6 @@
 class ConnectorBoolInEdge;
 class ConnectorIntegerOut;
 class ConnectorPack;
-class ComponentControlBlock;
 class ComponentLayout;
 class ConnectorLabel;
 class KSimSpinBox;
@@ -141,17 +140,8 @@ class IntegerDataSelectorView : public CompView
 public:
 	IntegerDataSelectorView(IntegerDataSelector * comp, eViewType viewType);
 //	~IntegerDataSelectorView();
-	virtual void draw(QPainter * p);
 	
 	IntegerDataSelector* getComponent() { return (IntegerDataSelector*) CompView::getComponent(); };
-	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-
-
-private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
 
 private slots:
 	void addInConn(ConnectorBase * conn);

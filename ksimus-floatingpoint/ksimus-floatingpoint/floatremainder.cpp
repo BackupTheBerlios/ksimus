@@ -25,10 +25,8 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "floatremainder.h"
-#include "ksimus/resource.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/connectorpack.h"
+#include "floatremainder.h"
 
 // Forward declaration
 
@@ -56,23 +54,6 @@ const ComponentInfo * FloatRemainder::getStaticInfo()
 }
 
 
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatRemainderView::draw(QPainter * p)
-{
-	Float2In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Mod");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -82,7 +63,7 @@ FloatRemainder::FloatRemainder(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatRemainderView(this, SHEET_VIEW);
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("Mod"));
 	}
 
 	getInputA()->setName(i18n("FloatingPoint", "Dividend"), true);
@@ -93,8 +74,6 @@ FloatRemainder::FloatRemainder(CompContainer * container, const ComponentInfo * 
 /** Executes the simulation of this component */
 void FloatRemainder::calculate()
 {
-	Float2In1Out::calculate();
-	
 	setValue(fmod(getInputA()->getInput(), getInputB()->getInput()));
 }
 

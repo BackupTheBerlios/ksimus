@@ -52,24 +52,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point cosinusoidal gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatCosView : public Float1In1OutView
-{
-public:
-	FloatCosView(FloatCos * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-
-//###############################################################
-
 /**A floating point inverse cosinusoidal gate.
   * @author Rasmus Diekenbrock
   */
@@ -85,23 +67,6 @@ public:
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
 };
-
-//###############################################################
-
-/** The view for the floating point inverse cosinusoidal gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatACosView : public Float1In1OutView
-{
-public:
-	FloatACosView(FloatACos * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
 
 //###############################################################
 
@@ -123,24 +88,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point hyperbolic cosinusoidal gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatCoshView : public Float1In1OutView
-{
-public:
-	FloatCoshView(FloatCosh * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-
-//###############################################################
-
 /**A floating point inverse hyperbolic cosinusoidal gate.
   * @author Rasmus Diekenbrock
   */
@@ -155,21 +102,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-};
-
-//###############################################################
-
-/** The view for the floating point inverse hyperbolic cosinusoidal gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatACoshView : public Float1In1OutView
-{
-public:
-	FloatACoshView(FloatACosh * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

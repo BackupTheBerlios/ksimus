@@ -112,7 +112,7 @@ signals:
 //#######################################################################
 //#######################################################################
 
-class FloatLineInputView : public KSimLibFloatingPoint::FloatStyleRange1OutView
+class FloatLineInputView : public CompViewSize
 {
 
 	Q_OBJECT
@@ -123,7 +123,7 @@ public:
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);
 
-	FloatLineInput * getComponent() { return (FloatLineInput *)FloatStyleRange1OutView::getComponent(); };
+	FloatLineInput * getLineInput() { return (FloatLineInput *)getComponent(); };
 
 
 protected:

@@ -20,11 +20,13 @@
 
 // QT-Includes
 #include <qpainter.h>
+#include <qbitmap.h>
 
 // KDE-Includes
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/ksimdebug.h"
 #include "ksimus/resource.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/compview.h"
@@ -35,25 +37,12 @@
 namespace KSimLibBoolean
 {
 
-Component * BooleanConstant::create(CompContainer * container, const ComponentInfo * ci)
+Component * BooleanConstantFalse::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new BooleanConstant(container, ci);
+	return new BooleanConstantFalse(container, ci);
 }
 
-const ComponentInfo * BooleanConstant::getStaticTrueInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Boolean Const True"),
-	                                QString::fromLatin1("Boolean/Input/Const True"),
-	                                i18n("Component", "Boolean/Input/Const True"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null,
-	                                QString::fromLatin1("component-boolean-const-true"));
-	return &Info;
-}
-
-const ComponentInfo * BooleanConstant::getStaticFalseInfo()
+const ComponentInfo * BooleanConstantFalse::getStaticInfo()
 {
 	static const ComponentInfo Info(i18n("Component", "Boolean Const False"),
 	                                QString::fromLatin1("Boolean/Input/Const False"),
@@ -74,89 +63,69 @@ const ComponentInfo * BooleanConstant::getStaticFalseInfo()
   */
 
 
-class BooleanConstantView : public CompView
+class BooleanConstantFalse::View : public CompView
 {
 public:
-	BooleanConstantView(BooleanConstant * comp, eViewType viewType);
-//	~BooleanConstantView();
+	View(BooleanConstantFalse * comp, eViewType viewType);
+	~View();
 	
 	virtual void draw(QPainter * p);
-	
-	ConnectorBoolOut * getConnector() const { return ((BooleanConstant *)getComponent())->getOutputConnector(); };
-	
-	void setConnPos();
-
-	
-protected:
+	ConnectorBoolOut * getConnector() const { return ((BooleanConstantFalse *)getComponent())->getOutputConnector(); };
 	
 private:	
+	static QBitmap * m_bitmap;
+	static unsigned int m_instanceCnt;
 };
 
-BooleanConstantView::BooleanConstantView(BooleanConstant * comp, eViewType viewType)
+unsigned int BooleanConstantFalse::View::m_instanceCnt = 0;
+QBitmap * BooleanConstantFalse::View::m_bitmap = 0;
+
+BooleanConstantFalse::View::View(BooleanConstantFalse * comp, eViewType viewType)
 	:	CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 3*gridX, 3*gridY));
 	enableRotation(true);
 
-	setConnPos();
+	getConnector()->setGridPos(1,0);
+	getConnector()->setOrientation(CO_TOP);
+	
+	m_instanceCnt++;
+	if (m_bitmap == 0)
+	{
+		m_bitmap = new QBitmap(3*gridX, 3*gridY, true);
+		Q_CHECK_PTR(m_bitmap);
+		QPainter p(m_bitmap);
+		p.setPen(QPen(color1,2));
+		p.setBrush(NoBrush);
+		const int x = 3*gridX/2;	// to middle
+		const int y = 3*gridY/2;
+		p.drawLine(x,   y-4, x,   y+4);
+		p.drawLine(x-6, y+4, x+6, y+4);
+		m_bitmap->setMask(*m_bitmap); // selfMask 
+	}
 }
 
 
-void BooleanConstantView::setConnPos()
+BooleanConstantFalse::View::~View()
 {
-	if (getComponent()->getInfo() == BooleanConstant::getStaticTrueInfo())
+	if (--m_instanceCnt == 0)
 	{
-		// True
-		getConnector()->setGridPos(1,2);
-		getConnector()->setOrientation(CO_BOTTOM);
-	}
-	else
-	{
-		// False
-		getConnector()->setGridPos(1,0);
-		getConnector()->setOrientation(CO_TOP);
+		delete m_bitmap;
+		m_bitmap = 0;
 	}
 }
 
-
-
-void BooleanConstantView::draw(QPainter * p)
+void BooleanConstantFalse::View::draw(QPainter * p)
 {
 	CompView::draw(p);
-	
-	QPoint pos(0,0);
-	
-	if (getComponent()->getInfo() == BooleanConstant::getStaticTrueInfo())
-	{
-		#define dia 12
-		// True
-		p->setPen(QPen(black,2));
-		p->setBrush(NoBrush);
-		pos.rx() += 3*gridX/2;	// to middle
-		pos.ry() += 3*gridY/2 - 2;
-		p->drawEllipse(pos.x()-dia/2,pos.y()-dia/2,dia,dia);
-		p->drawLine(pos.x(), pos.y()-dia/4, pos.x(), pos.y()+dia/4);
-		p->drawLine(pos.x()-dia/4, pos.y(), pos.x()+dia/4, pos.y());
-		
-		#undef dia
-	}
-	else
-	{
-		// False
-		p->setPen(QPen(black,2));
-		p->setBrush(NoBrush);
-		pos.rx() += 3*gridX/2;	// to middle
-		pos.ry() += 3*gridY/2;
-		p->drawLine(pos.x(), pos.y()-4, pos.x(), pos.y()+4);
-		p->drawLine(pos.x()-6, pos.y()+4, pos.x()+6, pos.y()+4);
-	}
+	p->drawPixmap(QPoint(0,0), *m_bitmap);
 }
 
 //############################################################################
 //############################################################################
 
 
-BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo * ci)
+BooleanConstantFalse::BooleanConstantFalse(CompContainer * container, const ComponentInfo * ci)
 	:	Component(container, ci)
 {
 	m_out = new ConnectorBoolOut(this,
@@ -167,7 +136,126 @@ BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BooleanConstantView(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW);
+	}
+	getAction().disable(KSimAction::UPDATEVIEW);
+	getAction().disable(KSimAction::CALCULATE);
+}
+
+/*BooleanConstantFalse::~BooleanConstantFalse()
+{}*/
+
+void BooleanConstantFalse::reset()
+{
+  	getOutputConnector()->setOutput(false);
+}
+
+//###############################################################
+//###############################################################
+
+
+Component * BooleanConstantTrue::create(CompContainer * container, const ComponentInfo * ci)
+{
+	return new BooleanConstantTrue(container, ci);
+}
+
+const ComponentInfo * BooleanConstantTrue::getStaticInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Boolean Const True"),
+	                                QString::fromLatin1("Boolean/Input/Const True"),
+	                                i18n("Component", "Boolean/Input/Const True"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create,
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-const-true"));
+	return &Info;
+}
+
+//###############################################################
+//###############################################################
+
+/** Comp view for boolan constants.
+  * @author Rasmus Diekenbrock
+  */
+
+
+class BooleanConstantTrue::View : public CompView
+{
+public:
+	View(BooleanConstantTrue * comp, eViewType viewType);
+	~View();
+	
+	virtual void draw(QPainter * p);
+	ConnectorBoolOut * getConnector() const { return ((BooleanConstantTrue *)getComponent())->getOutputConnector(); };
+	
+private:
+	static QBitmap * m_bitmap;
+	static unsigned int m_instanceCnt;
+};
+
+unsigned int BooleanConstantTrue::View::m_instanceCnt = 0;
+QBitmap * BooleanConstantTrue::View::m_bitmap = 0;
+
+BooleanConstantTrue::View::View(BooleanConstantTrue * comp, eViewType viewType)
+	:	CompView(comp, viewType)
+{
+	setPlace(QRect(0, 0, 3*gridX, 3*gridY));
+	enableRotation(true);
+
+	getConnector()->setGridPos(1,2);
+	getConnector()->setOrientation(CO_BOTTOM);
+	
+	m_instanceCnt++;
+	if (m_bitmap == 0)
+	{
+		m_bitmap = new QBitmap(3*gridX, 3*gridY, true);
+		Q_CHECK_PTR(m_bitmap);
+		QPainter p(m_bitmap);
+		p.setPen(QPen(color1, 2));
+		p.setBrush(NoBrush);
+		const int x = 3*gridX/2;	// to middle
+		const int y = 3*gridY/2 - 2;
+		const int dia = 12;
+		p.drawEllipse(x - dia/2, y - dia/2, dia, dia);
+		p.drawLine(x, y - dia/4, x, y + dia/4);
+		p.drawLine(x - dia/4, y, x + dia/4, y);
+		m_bitmap->setMask(*m_bitmap); // selfMask 
+	}
+}
+
+
+BooleanConstantTrue::View::~View()
+{
+	if (--m_instanceCnt == 0)
+	{
+		delete m_bitmap;
+		m_bitmap = 0;
+	}
+}
+
+void BooleanConstantTrue::View::draw(QPainter * p)
+{
+	CompView::draw(p);
+	p->drawPixmap(QPoint(0,0), *m_bitmap);
+}
+
+//############################################################################
+//############################################################################
+
+
+BooleanConstantTrue::BooleanConstantTrue(CompContainer * container, const ComponentInfo * ci)
+	:	Component(container, ci)
+{
+	m_out = new ConnectorBoolOut(this,
+	                             QString::fromLatin1("Output"),
+	                             i18n("Boolean-Connector", "Output"));
+	CHECK_PTR(m_out);
+	
+	// Initializes the sheet view
+	if (getSheetMap())
+	{
+		new View(this, SHEET_VIEW);
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 	getAction().disable(KSimAction::CALCULATE);
@@ -176,19 +264,14 @@ BooleanConstant::BooleanConstant(CompContainer * container, const ComponentInfo 
 /*BooleanConstant::~BooleanConstant()
 {}*/
 
-void BooleanConstant::reset()
+void BooleanConstantTrue::reset()
 {
-	if (getInfo() == BooleanConstant::getStaticTrueInfo())
-	{
-  	getOutputConnector()->setOutput(true);
-  }
-  else
-	{
-  	getOutputConnector()->setOutput(false);
-  }
+	getOutputConnector()->setOutput(true);
 }
 
 //###############################################################
+//###############################################################
+
 
 }; //namespace KSimLibBoolean
 

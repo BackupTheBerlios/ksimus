@@ -84,7 +84,7 @@ BoolTristateOr::BoolTristateOr(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTristateOrView(this, SHEET_VIEW);
+		new BoolTristateXIn1Out1EnaView(this, SHEET_VIEW, QString::null + QChar(0x2265) + "1");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

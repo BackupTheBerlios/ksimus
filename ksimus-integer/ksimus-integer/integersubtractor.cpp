@@ -18,14 +18,12 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
 
 // Project-Includes
 #include "integersubtractor.h"
-#include "ksimus/resource.h"
 #include "ksimus/connectorintegerin.h"
 #include "ksimus/connectorpack.h"
 
@@ -54,24 +52,6 @@ const ComponentInfo * IntegerSubtractor::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void IntegerSubtractor::View::draw(QPainter * p)
-{
-	Integer2In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Sub");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -81,7 +61,7 @@ IntegerSubtractor::IntegerSubtractor(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new Integer2In1OutView(this, SHEET_VIEW, "Sub");
 	}
 
 	getInputA()->setName(i18n("Integer", "Minuend"));

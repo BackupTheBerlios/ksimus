@@ -26,7 +26,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "globals.h"
+#include "types.h"
 
 // Forward declaration
 class QPainter;
@@ -43,37 +43,52 @@ A class with embedded fonts.
 class KSimEmbFont
 {
 public:
-	enum eFont { eFont08, eFont10 };
-
-	KSimEmbFont(enum eFont font);
+	enum TextFlags { Underline       = 0x00010000,
+	                 UnderlineSpace  = 0x00020000,
+	                 UnderlineMask   = Underline | UnderlineSpace,
+	                 Overline        = 0x00040000,
+	                 OverlineSpace   = 0x00080000,
+	                 OverlineMask    = Overline | OverlineSpace
+	               };
+	
 	~KSimEmbFont();
 
-	int width(const QString & str) const;
-	int height() const;
+	QSize getSize(double rot, int tf, const QString & str) const;
+	QSize getSize(const QString & str) const;
 
 	const QBitmap & getBitmap(const QChar & c) const;
 	bool exist(const QChar & c) const;
 	void drawText(QPainter * p, int x, int y, const QString & str) const;
 	void drawText(QPainter * p, int x, int y, int tf, const QString & str) const;
+	void drawText(QPainter * p, int x, int y, double rot, int tf, const QString & str) const;
 	void drawText(QPainter * p, const QPoint & pos, int tf, const QString & str) const;
 	void drawText(QPainter * p, const QRect & r, int tf, const QString & str) const;
 	void drawText(QPainter * p, const QPoint & pos, double rot, int tf, const QString & str) const;
+	void drawText(QPainter * p, const QRect & r, double rot, int tf, const QString & str) const;
+
+
+	static KSimEmbFont * getFont08();
+	static KSimEmbFont * f08() { return getFont08(); };
+	static KSimEmbFont * getFont10();
+	static KSimEmbFont * f10() { return getFont10(); };
+	static KSimEmbFont * getFont(eFont font);
+	static KSimEmbFont * font(eFont font) { return getFont(font); };
 
 protected:
+	KSimEmbFont(enum eFont font);
 
 private:
+	int getWidthSL(const QString & str) const;
+	int drawTextSL(QPainter * p, int x, int y, const QString & str) const;
+	int getLineHeight(int tf) const;
+	static unsigned char toRotMode(double rot);
+	static unsigned char toVerMode(int tf);
+	static unsigned char toHorMode(int tf);
+	
 	QIntDict<QBitmap> m_glyphDict;
 	QBitmap m_unknownGlyph;
 	int m_height;
 	int m_glyphSpace;
 };
-
-inline void KSimEmbFont::drawText(QPainter * p, const QPoint & pos, int tf, const QString & str) const
-{
-	drawText(p, pos.x(), pos.y(), tf, str);
-}
-
-extern KSimEmbFont * g_embFont08;
-extern KSimEmbFont * g_embFont10;
 
 #endif

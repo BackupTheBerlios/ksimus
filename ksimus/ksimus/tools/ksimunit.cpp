@@ -27,23 +27,9 @@
 // Project-Includes
 #include "ksimunit.h"
 #include "ksimtime.h"
-#include <kdebug.h>
+#include "ksimdebug.h"
 
 // Forward declaration
-
-#ifndef KSIMDEBUG
-#ifdef DEBUG
-#define __DEBUG_INFO__        __FILE__ << "(" << __LINE__ << ") "
-#define KSIMDEBUG(str) 	 	 {kdDebug() << __DEBUG_INFO__ << str << endl;}
-#define KSIMDEBUG_VAR(str,x) {kdDebug() << __DEBUG_INFO__ << str << " " << #x << " = " << x << endl;}
-#define KSIMDEBUG_FUNCTION   {kdDebug() << k_funcinfo << endl;}
-#else
-#define KSIMDEBUG(str) 	
-#define KSIMDEBUG_VAR(str,x)
-#define KSIMDEBUG_FUNCTION
-#endif
-#endif
-
 
 KSimUnitBase::KSimUnitBase(const QString & unitString, double preferMin, double preferMax, bool hidden)
 	:	m_unitStr(unitString),

@@ -32,6 +32,7 @@
 #include "ksimus/connectorboolout.h"
 #include "ksimus/connectorintegerin.h"
 #include "ksimus/ksimdata.h"
+#include "ksimus/ksimembfont.h"
 #include "ksimus/resource.h"
 #include "integerconditional.h"
 
@@ -113,6 +114,19 @@ const ComponentInfo * IntegerConditional::getStaticLargerInfo()
 	return &Info;
 }
 
+const ComponentInfo * IntegerConditional::getStaticNotEqualInfo()
+{
+	static const ComponentInfo Info(i18n("Component", "Integer Conditional Not Equal"),
+	                                QString::fromLatin1("Integer/Conditional/Not Equal"),
+	                                i18n("Component", "Integer/Conditional/Not Equal"),
+	                                QString::null,
+	                                VA_SHEETVIEW,
+	                                create /* TODO ,
+	                                QString::null,
+	                                QString::fromLatin1("component-float-conditional-larger")*/);
+	return &Info;
+}
+
 //###############################################################
 //###############################################################
 
@@ -120,11 +134,12 @@ IntegerConditional::IntegerConditional(CompContainer * container, const Componen
 	: Boolean1Out(container, ci)
 {
 	
-	if      (ci == getStaticLesserInfo())      m_conditionalType = eLesser;
-	else if (ci == getStaticLesserEqualInfo()) m_conditionalType = eLesserEqual;
-	else if (ci == getStaticEqualInfo())       m_conditionalType = eEqual;
-	else if (ci == getStaticLargerEqualInfo()) m_conditionalType = eLargerEqual;
-	else /*if (ci == getStaticLargerInfo())*/  m_conditionalType = eLarger;
+	if      (ci == getStaticLesserInfo())        m_conditionalType = eLesser;
+	else if (ci == getStaticLesserEqualInfo())   m_conditionalType = eLesserEqual;
+	else if (ci == getStaticEqualInfo())         m_conditionalType = eEqual;
+	else if (ci == getStaticLargerEqualInfo())   m_conditionalType = eLargerEqual;
+	else if (ci == getStaticLargerInfo())        m_conditionalType = eLarger;
+	else /*if (ci == getStaticNotEqualInfo())*/  m_conditionalType = eNotEqual;
 	
 	
 	m_inputA = new ConnectorIntegerIn(this,
@@ -169,7 +184,8 @@ bool IntegerConditional::isProperReloadType(const QString & type) const
 	    || (type == getStaticLesserEqualInfo()->getLibName())
 	    || (type == getStaticEqualInfo()->getLibName())
 	    || (type == getStaticLargerEqualInfo()->getLibName())
-	    || (type == getStaticLargerInfo()->getLibName());
+	    || (type == getStaticLargerInfo()->getLibName())
+	    || (type == getStaticNotEqualInfo()->getLibName());
 }
 
 void IntegerConditional::calculate()
@@ -185,6 +201,7 @@ void IntegerConditional::calculate()
 		case eEqual:       state = getInputA()->getInput() == getInputB()->getInput(); break;
 		case eLargerEqual: state = getInputA()->getInput() >= getInputB()->getInput(); break;
 		case eLarger:      state = getInputA()->getInput() >  getInputB()->getInput(); break;
+		case eNotEqual:    state = getInputA()->getInput() != getInputB()->getInput(); break;
 	}
 	setState(state);
 }
@@ -198,6 +215,7 @@ void IntegerConditional::setConditionalType(eConditionalType newCond)
 		case eEqual:       setInfo(getStaticEqualInfo());       break;
 		case eLargerEqual: setInfo(getStaticLargerEqualInfo()); break;
 		case eLarger:      setInfo(getStaticLargerInfo());      break;
+		case eNotEqual:    setInfo(getStaticNotEqualInfo());    break;
 	}
 	m_conditionalType = newCond;
 	if (hasDefaultName())
@@ -214,6 +232,7 @@ void IntegerConditional::setConditionalType(const QString & type)
 	else if (type == getStaticEqualInfo()->getLibName())        setConditionalType(eEqual);
 	else if (type == getStaticLargerEqualInfo()->getLibName())  setConditionalType(eLargerEqual);
 	else if (type == getStaticLargerInfo()->getLibName())       setConditionalType(eLarger);
+	else if (type == getStaticNotEqualInfo()->getLibName())     setConditionalType(eNotEqual);
 	else
 	{
 		KSIMDEBUG_VAR("Unknown type", type);
@@ -236,89 +255,6 @@ ComponentPropertyBaseWidget * IntegerConditional::createGeneralProperty(QWidget 
 //###############################################################
 //###############################################################
 
-
-/* XPM */
-const char * IntegerConditional::View::AltB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .         .   .",
-"  . .      . .   .",
-"  . .    ..  .... ",
-" .   . ..    .   .",
-" .....   ..  .   .",
-".     .    . .   .",
-".     .      .... "};
-
-/* XPM */
-const char * IntegerConditional::View::AlteqB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .       . .   .",
-"  . .    ..  .   .",
-"  . .  ..    .... ",
-" .   .   ..  .   .",
-" ..... ..  . .   .",
-".     .  ..  .   .",
-".     .    . .... "};
-
-/* XPM */
-const char * IntegerConditional::View::AeqB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .         .   .",
-"  . .        .   .",
-"  . .   .... .... ",
-" .   .       .   .",
-" .....  .... .   .",
-".     .      .   .",
-".     .      .... "};
-
-/* XPM */
-const char * IntegerConditional::View::AgteqB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .   .     .   .",
-"  . .   ..   .   .",
-"  . .     .. .... ",
-" .   .  ..   .   .",
-" ..... .  .. .   .",
-".     . ..   .   .",
-".     ..     .... "};
-
-/* XPM */
-const char * IntegerConditional::View::AgtB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .         .   .",
-"  . .  .     .   .",
-"  . .   ..   .... ",
-" .   .    .. .   .",
-" .....  ..   .   .",
-".     ..     .   .",
-".     .      .... "};
-
-
-
-unsigned int IntegerConditional::View::sInstanceCount  = 0;
-QPixmap * IntegerConditional::View::sPixmapLesser      = 0;
-QPixmap * IntegerConditional::View::sPixmapLesserEqual = 0;
-QPixmap * IntegerConditional::View::sPixmapEqual       = 0;
-QPixmap * IntegerConditional::View::sPixmapLargerEqual = 0;
-QPixmap * IntegerConditional::View::sPixmapLarger      = 0;
-int IntegerConditional::View::sPixmapOffsetTop;
-int IntegerConditional::View::sPixmapOffsetLeft;
-
-
 IntegerConditional::View::View(IntegerConditional * comp, eViewType viewType)
 	: CompView(comp, viewType)
 {
@@ -333,43 +269,10 @@ IntegerConditional::View::View(IntegerConditional * comp, eViewType viewType)
 	getIntegerConditional()->getInputB()->setGridPos(0,3);
 	getIntegerConditional()->getOutputConnector()->setGridPos(4,2);
 
-	if (sInstanceCount == 0)
-	{
-		sPixmapLesser      = new QPixmap(AltB_xpm);   CHECK_PTR(sPixmapLesser);
-		sPixmapLesserEqual = new QPixmap(AlteqB_xpm); CHECK_PTR(sPixmapLesserEqual);
-		sPixmapEqual       = new QPixmap(AeqB_xpm);   CHECK_PTR(sPixmapEqual);
-		sPixmapLargerEqual = new QPixmap(AgteqB_xpm); CHECK_PTR(sPixmapLargerEqual);
-		sPixmapLarger      = new QPixmap(AgtB_xpm);   CHECK_PTR(sPixmapLarger);
-		
-		sPixmapOffsetLeft = (getDrawingPlace().width() - sPixmapLesser->width())/2 + getDrawingPlace().left();
-		sPixmapOffsetTop = (getDrawingPlace().height() - sPixmapLesser->height())/2 + getDrawingPlace().top();
-
-#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
-		// Assume same size of all pixmaps !!!!
-		if ((sPixmapLesser->size() != sPixmapLesserEqual->size())
-		 || (sPixmapLesser->size() != sPixmapEqual->size())
-		 || (sPixmapLesser->size() != sPixmapLargerEqual->size())
-		 || (sPixmapLesser->size() != sPixmapLarger->size()))
-		{
-			KSIMDEBUG("FIX ME: Assume same size of all pixmaps !!!!");
-		}
-#endif //defined(DEBUG) && !defined(NO_KSIMDEBUG)
-
-	}
-	sInstanceCount++;
 }
 
 IntegerConditional::View::~View()
 {
-	sInstanceCount--;
-	if (sInstanceCount == 0)
-	{
-		delete sPixmapLesser;       sPixmapLesser = 0;
-		delete sPixmapLesserEqual;  sPixmapLesserEqual = 0;
-		delete sPixmapEqual;        sPixmapEqual = 0;
-		delete sPixmapLargerEqual;  sPixmapLargerEqual = 0;
-		delete sPixmapLarger;       sPixmapLarger = 0;
-	}
 }
 
 void IntegerConditional::View::draw(QPainter * p)
@@ -377,19 +280,56 @@ void IntegerConditional::View::draw(QPainter * p)
 	drawFrame(p);
 	CompView::draw(p);
 	
-/*	KSIMDEBUG(QString("getDrawingPlace(%1,%2) sPixmapSize(%3,%4) xy(%5,%6)")
-	                  .arg(getDrawingPlace().width()).arg(getDrawingPlace().height())
-	                  .arg(sPixmapLesser->width()).arg(sPixmapLesser->height())
-	                  .arg(sPixmapOffsetLeft).arg(sPixmapOffsetTop));*/
-
+	
+	QString s;
+	
 	switch(getIntegerConditional()->getConditionalType())
 	{
-		case eLesser:      p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLesser);      break;
-		case eLesserEqual: p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLesserEqual); break;
-		case eEqual:       p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapEqual);       break;
-		case eLargerEqual: p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLargerEqual); break;
-		case eLarger:      p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLarger);      break;
+		case eLesser:      
+		{
+			static const QString ss("A<B");
+			s = ss;
+		}
+		break;
+		
+		case eLesserEqual:      
+		{
+			static const QString ss(QString("A") + QChar(0X2264) + QString("B"));
+			s = ss;
+		}
+		break;
+		
+		case eEqual:      
+		{
+			static const QString ss("A=B");
+			s = ss;
+		}
+		break;
+		
+		case eLargerEqual:      
+		{
+			static const QString ss(QString("A") + QChar(0X2265) + QString("B"));
+			s = ss;
+		}
+		break;
+		
+		case eLarger:      
+		{
+			static const QString ss("A>B");
+			s = ss;
+		}
+		break;
+		
+		case eNotEqual:      
+		{
+			static const QString ss("A!=B");
+			s = ss;
+		}
+		break;
+		
 	}
+	
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, s); 
 }
 
 
@@ -400,18 +340,27 @@ void IntegerConditional::View::draw(QPainter * p)
 IntegerConditional::PropertyGeneralWidget::PropertyGeneralWidget(IntegerConditional * comp, QWidget *parent, const char *name)
 	:	Boolean1OutPropertyGeneralWidget(comp, parent, name)
 {
-	QString tip;
+	QString tip, s;
 	
 	m_conditionalLabel = new QLabel(i18n("Integer", "Conditional: "), this, "m_conditionalLabel");
 	CHECK_PTR(m_conditionalLabel);
 	
 	m_conditional = new QComboBox(this, "m_conditional");
 	CHECK_PTR(m_conditional);
-	m_conditional->insertItem(i18n("Integer", "A < B"),  (int)eLesser);
-	m_conditional->insertItem(i18n("Integer", "A <= B"), (int)eLesserEqual);
-	m_conditional->insertItem(i18n("Integer", "A = B"), (int)eEqual);
-	m_conditional->insertItem(i18n("Integer", "A >= B"), (int)eLargerEqual);
-	m_conditional->insertItem(i18n("Integer", "A > B"),  (int)eLarger);
+	m_conditional->insertItem(QString::fromLatin1("A < B"),  (int)eLesser);
+	if (fontMetrics().inFont(QChar(0x2264)))
+		s = QString("A ") + QChar(0x2264) + QString(" B");
+	else
+		s = QString::fromLatin1("A <= B");
+	m_conditional->insertItem(s, (int)eLesserEqual);
+	m_conditional->insertItem(QString::fromLatin1("A = B"), (int)eEqual);
+	if (fontMetrics().inFont(QChar(0x2265)))
+		s = QString("A ") + QChar(0x2265) + QString(" B");
+	else
+		s = QString::fromLatin1("A >= B");
+	m_conditional->insertItem(s, (int)eLargerEqual);
+	m_conditional->insertItem(QString::fromLatin1("A > B"),  (int)eLarger);
+	m_conditional->insertItem(QString::fromLatin1("A != B"), (int)eNotEqual);
 	
 	tip = i18n("Integer", "Sets the conditional.");
 	addToolTip(tip, m_conditional, m_conditionalLabel);

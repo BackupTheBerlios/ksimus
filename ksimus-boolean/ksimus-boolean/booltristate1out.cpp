@@ -35,7 +35,6 @@
 #include "ksimus/connectorboolin.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdata.h"
@@ -143,38 +142,30 @@ ComponentPropertyBaseWidget * BoolTristate1Out::createGeneralProperty(QWidget *p
 //###############################################################
 
 
-BoolTristate1OutView::BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType)
+BoolTristate1OutView::BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType, const QString & text)
 	: CompView(comp, viewType)
 {
-//	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	enableRotation(true);
-	
 	if (viewType == SHEET_VIEW)
 	{
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
-	
-		m_layout->getRight()->addStretch(2);
-		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
-		m_layout->getRight()->addStretch(2);
-	
-		m_layout->updateLayout();
-	}
-	else
-	{
-		m_layout = 0;
+		enableRotation(true);
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
+
+		layout->getRight()->addStretch(1);
+		layout->getRight()->addConnector(getBoolTristate1Out()->getOutputConnector());
+		layout->getRight()->addStretch(1);
+
+		layout->setMinSize(3,5);
+
+		new ComponentLayoutBlockContentText(layout->getBlock(), text, AlignCenter);
 	}
 }
+
 /*BoolTristate1OutView::~BoolTristate1OutView()
 {
 }*/
-
-void BoolTristate1OutView::draw(QPainter * p)
-{
-	drawFrame(p);
-	
-	CompView::draw(p);
-}
 
 
 //###############################################################
@@ -226,6 +217,7 @@ void BoolTristate1OutPropertyGeneralWidget::defaultPressed()
 //###############################################################
 //###############################################################
 
+
 BoolTristate1Out1Ena::BoolTristate1Out1Ena(CompContainer * container, const ComponentInfo * ci)
 	:	BoolTristate1Out(container, ci)
 {
@@ -251,7 +243,7 @@ bool BoolTristate1Out1Ena::getState() const
 //###############################################################
 //###############################################################
 
-BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType)
+/*BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType)
 	:	BoolTristate1OutView(comp, viewType),
 		m_label(QString::fromLatin1(""))
 {
@@ -270,40 +262,50 @@ void BoolTristate1Out1EnaView::init(eViewType viewType)
 {
 	if (viewType == SHEET_VIEW)
 	{
+		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
+		getComponentLayout()->getCtrlBlock()->getLeft()->addConnector(getBoolTristate1Out1Ena()->getEnableOutputConnector());
+//		getComponentLayout()->getCtrlBlock()->getLeft()->addSpace(1);
+
+		//getComponentLayout()->setMinSize(3,3);
+
+		new ConnectorLabel(getBoolTristate1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
+	}
+}*/
+
+
+BoolTristate1Out1EnaView::BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType, const QString & text)
+	:	CompView(comp, viewType)
+{
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	if (viewType == SHEET_VIEW)
+	{
 		enableRotation(true);
-		m_ctrlBlock = new ComponentControlBlock(this, getComponentLayout());
-		CHECK_PTR(m_ctrlBlock);
-
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(getBoolTristate1Out1Ena()->getEnableOutputConnector());
-//		getComponentLayout()->getLeft()->addSpace(1);
-
-		getComponentLayout()->setMinSize(5,5);
-		getComponentLayout()->updateLayout();
-
+		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
+		CHECK_PTR(layout);
+		
+		layout->getCtrlBlock()->getLeft()->addSpace(1);
+		layout->getCtrlBlock()->getLeft()->addConnector(getBoolTristate1Out1Ena()->getEnableOutputConnector());
+		
+		layout->getFuncBlock()->getRight()->addStretch(1);
+		layout->getFuncBlock()->getRight()->addConnector(comp->getOutputConnector(),0);
+		layout->getFuncBlock()->getRight()->addStretch(1);
+		
+		layout->getFuncBlock()->setMinSize(3,5);
+	
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getFuncBlock(), text);
+		}
+	
 		new ConnectorLabel(getBoolTristate1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
 	}
 }
 
+
+
 /*	BoolTristate1Out1EnaView::~BoolTristate1OutView()
 {}*/
 
-void BoolTristate1Out1EnaView::draw(QPainter * p)
-{
-	// Don't use the BoolTristate1OutView::draw(QPainter * p) !!!
-	CompView::draw(p);
-
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-
-	p->drawText(rect, (AlignHCenter | AlignTop), m_label);
-}
 
 //###############################################################
 //###############################################################
@@ -326,79 +328,39 @@ BoolTristateXIn1Out1Ena::BoolTristateXIn1Out1Ena(CompContainer * container, cons
 //###############################################################
 //###############################################################
 
-BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType)
-	:	CompView(comp, viewType),
-		m_label(QString::fromLatin1(""))
+BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType, const QString & text)
+	:	CompView(comp, viewType)
 {
-	init(viewType);
-}
-
-BoolTristateXIn1Out1EnaView::BoolTristateXIn1Out1EnaView(const QString & label, BoolTristateXIn1Out1Ena * comp, eViewType viewType)
-	:	CompView(comp, viewType),
-		m_label(label)
-{
-	init(viewType);
-}
-
-void BoolTristateXIn1Out1EnaView::init(eViewType viewType)
-{
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
 	if (viewType == SHEET_VIEW)
 	{
 		enableRotation(true);
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
+		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
+		CHECK_PTR(layout);
 
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
+		layout->getCtrlBlock()->getLeft()->addSpace(1);
+		layout->getCtrlBlock()->getLeft()->addConnector(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector(), 0);
 
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector());
+		layout->getFuncBlock()->getRight()->addStretch(1);
+		layout->getFuncBlock()->getRight()->addConnector(getBoolTristateXIn1Out1Ena()->getOutputConnector());
+		layout->getFuncBlock()->getRight()->addStretch(1);
 
-		m_layout->getRight()->addStretch(1);
-		m_layout->getRight()->addConnector(getBoolTristateXIn1Out1Ena()->getOutputConnector());
-		m_layout->getRight()->addStretch(1);
+		layout->getFuncBlock()->getLeft()->addSpace(1);
+		layout->getFuncBlock()->getLeft()->addConnectorPack(getBoolTristateXIn1Out1Ena()->getInputConnector());
 
-		m_layout->getLeft()->addSpace(1);
-		m_layout->getLeft()->addConnectorPack(getBoolTristateXIn1Out1Ena()->getInputConnector());
+		layout->setMinSize(3,5);
 
-		m_layout->setMinSize(5,5);
-		m_layout->updateLayout();
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getFuncBlock(), text);
+		}
 
-		new ConnectorLabel(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("EO"));
+		new ConnectorLabel(getBoolTristateXIn1Out1Ena()->getEnableOutputConnector(), QString::fromLatin1("E"));
 	}
-/*	if (viewType == SHEET_VIEW)
-	{
-//		enableRotation(true);
-
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnectorPack(getBoolTristateXIn1Out1Ena()->getInputConnector());
-//		getComponentLayout()->getRight()->addSpace(1);
-
-		getComponentLayout()->setMinSize(5,5);
-		getComponentLayout()->updateLayout();
-	}*/
 }
 
 /* BoolTristateXIn1Out1EnaView::~BoolTristateXIn1Out1EnaView()
 {}*/
-
-
-void BoolTristateXIn1Out1EnaView::draw(QPainter * p)
-{
-	// Don't use the BoolTristate1OutView::draw(QPainter * p) !!!
-	CompView::draw(p);
-
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-
-	p->drawText(rect, AlignCenter, m_label);
-}
 
 //###############################################################
 

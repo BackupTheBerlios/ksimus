@@ -47,24 +47,6 @@ public:
 	
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer multiplier gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerMultiplier::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerMultiplier * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

@@ -119,7 +119,7 @@ RSFlipFlopView::RSFlipFlopView(RSFlipFlop * comp, eViewType viewType)
 	new ConnectorLabel(getRSFF()->getOutputConnector(), "Q");
 	
 	getRSFF()->getNotOutputConnector()->setGridPos(4,3);
-	new ConnectorLabel(getRSFF()->getNotOutputConnector(), "/Q");
+	new ConnectorLabel(getRSFF()->getNotOutputConnector(), "Q");
 	
 	getRSFF()->getSetInputConnector()->setGridPos(0,1);
 	new ConnectorLabel(getRSFF()->getSetInputConnector(), "S");

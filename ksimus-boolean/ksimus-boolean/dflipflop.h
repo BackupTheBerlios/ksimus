@@ -34,7 +34,7 @@
 // Forward declaration
 class ConnectorBoolIn;
 class ConnectorBoolInEdge;
-class ComponentLayout;
+class ComponentLayoutSimple;
 
 
 namespace KSimLibBoolean
@@ -84,12 +84,12 @@ class DFlipFlopView : public CompView
 public:
 	DFlipFlopView(DFlipFlop * comp, eViewType viewType);
 //	~DFlipFlopView();
-	virtual void draw(QPainter * p);
+//	virtual void draw(QPainter * p);
 
 private:
 	DFlipFlop * getDFF() const { return (DFlipFlop *) getComponent(); };
 
-	ComponentLayout * m_layout;
+	ComponentLayoutSimple * m_layout;
 };
 
 

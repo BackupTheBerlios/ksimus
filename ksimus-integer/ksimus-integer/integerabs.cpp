@@ -19,7 +19,6 @@
 #include <stdlib.h>
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -54,24 +53,6 @@ const ComponentInfo * IntegerAbs::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void IntegerAbs::View::draw(QPainter * p)
-{
-	Integer1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Abs");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -81,7 +62,7 @@ IntegerAbs::IntegerAbs(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new Integer1In1OutView(this, SHEET_VIEW, "Abs");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

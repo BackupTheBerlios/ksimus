@@ -73,25 +73,6 @@ const ComponentInfo * BooleanOr::getStaticNorInfo()
 }
 
 
-
-
-//###############################################################
-//###############################################################
-
-
-BooleanOrView::BooleanOrView(BooleanOr * comp, eViewType viewType)
-	: BooleanXIn1OutView(comp, viewType)
-{
-}
-
-void BooleanOrView::draw(QPainter * p)
-{
-	BooleanXIn1OutView::draw(p);
-	
-	p->drawText(getDrawingPlace(), AlignCenter, ">=1");
-}
-
-
 //###############################################################
 
 BooleanOr::BooleanOr(CompContainer * container, const ComponentInfo * ci)
@@ -106,7 +87,24 @@ BooleanOr::BooleanOr(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BooleanOrView(this, SHEET_VIEW);
+		CompView * sheetView = new CompView(this, SHEET_VIEW);
+		Q_CHECK_PTR(sheetView);
+		
+		ComponentLayout * layout = new ComponentLayout(sheetView, false);
+		Q_CHECK_PTR(layout);
+		layout->setMinSize(3,3);
+
+		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
+		Q_CHECK_PTR(block);
+
+		block->getLeft()->addSpace(1);
+		block->getLeft()->addConnectorPack(getInputConnectorPack());
+
+		block->getRight()->addStretch(1);
+		block->getRight()->addConnector(getOutputConnector(),0);
+		block->getRight()->addStretch(1);
+
+		new ComponentLayoutBlockContentText(block, QString::null + QChar(0x2265) + "1");
 	}
 	
 	getAction().disable(KSimAction::UPDATEVIEW);

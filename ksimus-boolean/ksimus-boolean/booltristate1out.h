@@ -39,7 +39,7 @@
 class QLabel;
 class ConnectorBoolTristate;
 class ConnectorBoolIn;
-class ComponentLayout;
+class ComponentLayoutVerticalCtrl;
 class ComponentControlBlock;
 class ConnectorPack;
 class KSimBoolTristateBox;
@@ -122,24 +122,11 @@ private:
 
 class BoolTristate1OutView : public CompView
 {
-
-	Q_OBJECT
-
 public:
+	BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType, const QString & text);
 //	~BoolTristate1OutView();
 	
-	virtual void draw(QPainter * p);
-	
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-	
 	BoolTristate1Out * getBoolTristate1Out() const { return (BoolTristate1Out*) getComponent(); };
-
-protected:
-	BoolTristate1OutView(BoolTristate1Out * comp, eViewType viewType);
-	
-private:	
-	ComponentLayout * m_layout;
-
 };
 
 //###############################################################
@@ -184,7 +171,6 @@ protected:
 
 
 //###############################################################
-
 
 /**Base class for components with one boolean tristate output and one outout enable input.
   *@author Rasmus Diekenbrock
@@ -234,28 +220,16 @@ private:
   */
 
 
-class BoolTristate1Out1EnaView : public BoolTristate1OutView
+class BoolTristate1Out1EnaView : public CompView
 {
 
 	Q_OBJECT
 
 public:
+	BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType, const QString & text);
 //	~BoolTristate1Out1EnaView();
 
-	virtual void draw(QPainter * p);
-
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-
 	BoolTristate1Out1Ena * getBoolTristate1Out1Ena() const { return (BoolTristate1Out1Ena*) getComponent(); };
-
-protected:
-	BoolTristate1Out1EnaView(BoolTristate1Out1Ena * comp, eViewType viewType);
-	BoolTristate1Out1EnaView(const QString & label, BoolTristate1Out1Ena * comp, eViewType viewType);
-
-private:
-	void init(eViewType viewType);
-	ComponentControlBlock * m_ctrlBlock;
-	QString m_label;
 };
 
 //###############################################################
@@ -326,24 +300,10 @@ class BoolTristateXIn1Out1EnaView : public CompView
 	Q_OBJECT
 
 public:
+	BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType, const QString & text);
 //	~BoolTristateXIn1Out1EnaView();
 
 	BoolTristateXIn1Out1Ena * getBoolTristateXIn1Out1Ena() const { return (BoolTristateXIn1Out1Ena*) getComponent(); };
-
-	virtual void draw(QPainter * p);
-
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-
-protected:
-	BoolTristateXIn1Out1EnaView(BoolTristateXIn1Out1Ena * comp, eViewType viewType);
-	BoolTristateXIn1Out1EnaView(const QString & label, BoolTristateXIn1Out1Ena * comp, eViewType viewType);
-
-private:
-	void init(eViewType viewType);
-	ComponentLayout * m_layout;
-	ComponentControlBlock * m_ctrlBlock;
-	QString m_label;
 };
 
 //###############################################################

@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qhbox.h>
 
@@ -34,6 +33,7 @@
 #include "ksimus/ksimtimeserver.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimtimespinbox.h"
+#include "ksimus/ksimembfont.h"
 
 // Project-Includes
 #include "delay.h"
@@ -65,8 +65,51 @@ const ComponentInfo * Delay::getStaticInfo()
 }
 
 
+///###############################################################
+//###############################################################
+
+
+class Delay::View : public CompView
+{
+public:
+	View(Delay * comp, eViewType viewType);
+//	~View();
+	virtual void draw(QPainter * p);
+	
+	Delay * getDelay() const { return (Delay*) getComponent(); };
+
+};
+
+Delay::View::View(Delay * comp, eViewType viewType)
+	: CompView(comp, viewType)
+{
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableConnectorSpacingTop(false);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
+//	enableConnectorSpacingRight(false);
+	
+	enableRotation(true);
+	
+	getDelay()->getInputConnector()->setGridPos(0,2);
+	getDelay()->getOutputConnector()->setGridPos(4,2);
+}
+
+/*Delay::View::~View()
+{
+}*/
+
+void Delay::View::draw(QPainter * p)
+{
+	drawFrame(p);
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Dly");
+	
+	CompView::draw(p);
+}
+
 //###############################################################
 //###############################################################
+
 
 #define MAX_DEPTH    (1<<16)
 const char * const Delay::sDelayTime   = "Delay Time/";
@@ -85,7 +128,7 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new DelayView(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW);
 	}
 	
 	m_delayTime.setValue(1, unit_sec);
@@ -98,8 +141,6 @@ Delay::Delay(CompContainer * container, const ComponentInfo * ci)
 
 void Delay::calculate()
 {
-//	Float1Out::calculate();
-	
 	if (m_list.size() < 1)
 	{
 		setValue(getInputConnector()->getInput());
@@ -204,38 +245,6 @@ ComponentPropertyBaseWidget * Delay::createGeneralProperty(QWidget *parent)
 	CHECK_PTR(wid);
 	
 	return wid;
-}
-
-//###############################################################
-//###############################################################
-
-DelayView::DelayView(Delay * comp, eViewType viewType)
-	: CompView(comp, viewType)
-{
-	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
-	enableConnectorSpacingTop(false);
-	enableConnectorSpacingBottom(false);
-//	enableConnectorSpacingLeft(false);
-//	enableConnectorSpacingRight(false);
-	
-	enableRotation(true);
-	
-	getDelay()->getInputConnector()->setGridPos(0,2);
-	getDelay()->getOutputConnector()->setGridPos(4,2);
-}
-
-/*DelayView::~DelayView()
-{
-}*/
-
-void DelayView::draw(QPainter * p)
-{
-	drawFrame(p);
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Dly");
-	
-	CompView::draw(p);
 }
 
 //###############################################################

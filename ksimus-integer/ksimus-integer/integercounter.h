@@ -29,6 +29,7 @@
 #include "ksimus/compview.h"
 #include "ksimus/componentpropertybasewidget.h"
 #include "ksimus/ksimbaseint.h"
+#include "ksimus/componentlayout.h"
 
 
 
@@ -41,8 +42,6 @@ class ConnectorBoolOut;
 class ConnectorIntegerIn;
 class ConnectorIntegerOut;
 class ConnectorPack;
-class ComponentControlBlock;
-class ComponentLayout;
 class ConnectorLabel;
 class KSimBaseIntEdit;
 //class KSimBaseUIntEdit;
@@ -135,17 +134,14 @@ class IntegerCounterBaseView : public CompView
 public:
 	IntegerCounterBaseView(IntegerCounterBase * comp, eViewType viewType);
 //	~IntegerCounterView();
-	virtual void draw(QPainter * p);
 	
 	IntegerCounterBase * getCounterBase() const { return (IntegerCounterBase*) getComponent(); };
 	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
+	ComponentLayoutVerticalCtrl * getComponentLayout() const { return m_layout; };
 
 
 private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
+	ComponentLayoutVerticalCtrl * m_layout;
 };
 
 //###############################################################

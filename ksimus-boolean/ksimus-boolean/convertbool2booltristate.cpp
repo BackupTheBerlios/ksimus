@@ -24,7 +24,7 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "convertbool2booltristate.h"
+#include "ksimus/compview.h"
 #include "ksimus/connectorboolin.h"
 #include "ksimus/resource.h"
 #include "ksimus/componentinfo.h"
@@ -32,7 +32,7 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/wireproperty.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
+#include "convertbool2booltristate.h"
 
 // Forward declaration
 
@@ -89,7 +89,28 @@ ConvertBool2BoolTristate::ConvertBool2BoolTristate(CompContainer * container, co
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new ConvertBool2BoolTristateView(this, SHEET_VIEW);
+//		new ConvertBool2BoolTristateView(this, SHEET_VIEW);
+		CompView * sheetView = new CompView(this, SHEET_VIEW);
+		Q_CHECK_PTR(sheetView);
+		
+		ComponentLayout * layout = new ComponentLayout(sheetView, false);
+		Q_CHECK_PTR(layout);
+		layout->setMinSize(3,3);
+
+		ComponentLayoutControlBlock * pCtrlBlock = new ComponentLayoutControlBlock(layout);
+		Q_CHECK_PTR(pCtrlBlock);
+
+		pCtrlBlock->getLeft()->addSpace(1);
+		pCtrlBlock->getLeft()->addConnector(getInputActiveIn());
+
+		ComponentLayoutBlock * pFuncBlock = new ComponentLayoutBlock(layout);
+		Q_CHECK_PTR(pFuncBlock);
+
+		pFuncBlock->getLeft()->addSpace(1);
+		pFuncBlock->getLeft()->addConnector(getInputDataIn());
+
+		pFuncBlock->getRight()->addSpace(1);
+		pFuncBlock->getRight()->addConnector(getOutput());
 	}
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
@@ -125,53 +146,6 @@ void ConvertBool2BoolTristate::calculate()
 	}
 //	KSIMDEBUG("ConvertBool2BoolTristate::calculate()");
 }
-
-//###############################################################
-//###############################################################
-
-
-ConvertBool2BoolTristateView::ConvertBool2BoolTristateView(ConvertBool2BoolTristate * comp, eViewType viewType)
-	: CompView(comp, viewType)
-{
-	if (viewType == SHEET_VIEW)
-	{
-		enableRotation(true);
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
-
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
-
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getConverter()->getInputActiveIn());
-
-		m_layout->getLeft()->addSpace(1);
-		m_layout->getLeft()->addConnector(getConverter()->getInputDataIn());
-
-		m_layout->getRight()->addSpace(1);
-		m_layout->getRight()->addConnector(getConverter()->getOutput());
-
-		m_layout->setMinSize(5,5);
-		m_layout->updateLayout();
-
-	}
-}
-
-void ConvertBool2BoolTristateView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-}
-
-//###############################################################
 
 }; //namespace KSimLibBoolean
 

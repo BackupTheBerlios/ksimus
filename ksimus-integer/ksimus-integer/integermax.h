@@ -48,24 +48,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer maximum gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerMax::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerMax * comp, eViewType viewType)
-		: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

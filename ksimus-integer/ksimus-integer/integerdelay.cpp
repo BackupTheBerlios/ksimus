@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qhbox.h>
 
@@ -34,6 +33,7 @@
 #include "ksimus/ksimtimeserver.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimtimespinbox.h"
+#include "ksimus/ksimembfont.h"
 
 // Project-Includes
 #include "integerdelay.h"
@@ -68,8 +68,11 @@ const ComponentInfo * IntegerDelay::getStaticInfo()
 //###############################################################
 //###############################################################
 
-static const unsigned long IntegerDelay_maxDepth           = (1<<16);
-static const char * const IntegerDelay_DelayTime = "Delay Time/";
+const unsigned long IntegerDelay::maxDepth  = (1<<16);
+const char * const IntegerDelay::strDelayTime  = "Delay Time/";
+
+/*const unsigned long IntegerDelay_maxDepth  = (1<<16);
+const char * const IntegerDelay_DelayTime  = "Delay Time/";*/
 
 
 IntegerDelay::IntegerDelay(CompContainer * container, const ComponentInfo * ci)
@@ -135,9 +138,9 @@ void IntegerDelay::reset()
 	
 	unsigned long listLength = (unsigned long)(m_delayTime.getValue(unit_ticks) + 0.5);
 	
-	if(listLength > IntegerDelay_maxDepth)
+	if(listLength > maxDepth)
 	{
-		listLength = IntegerDelay_maxDepth;
+		listLength = maxDepth;
 		KSimTime myTime(m_delayTime);
 		myTime.setValue((double)listLength, unit_ticks);
 		logWarning(i18n("Integer", "Delay limited: %1").arg(myTime.getAdjustValueString()));
@@ -147,13 +150,13 @@ void IntegerDelay::reset()
 		listLength--;
 	}
 	
-	bool res = m_list.fill(getResetValue().value(), listLength);
+	m_lastValue = getResetValue().value();
+	bool res = m_list.fill(m_lastValue, listLength);
 	if(!res)
 	{
 		KSIMDEBUG("Resize of QArray failed");
 	}
-	m_lastValue = getResetValue().value();
-	setValue(getResetValue().value());
+	setValue(m_lastValue);
 	m_counter = m_list.size();
 	m_index = 0;
 }
@@ -163,7 +166,7 @@ void IntegerDelay::save(KSimData & file) const
 {
 	Integer1In1Out::save(file);
 	
-	file.pushGroupRel(IntegerDelay_DelayTime);
+	file.pushGroupRel(strDelayTime);
 	
 	m_delayTime.save(file);
 
@@ -177,9 +180,9 @@ bool IntegerDelay::load(KSimData & file, bool copyLoad)
 	
 	ok = Integer1In1Out::load(file, copyLoad);
 	
-	if (file.hasGroupRel(IntegerDelay_DelayTime))
+	if (file.hasGroupRel(strDelayTime))
 	{
-		file.pushGroupRel(IntegerDelay_DelayTime);
+		file.pushGroupRel(strDelayTime);
 		m_delayTime.load(file);
 		file.popGroup();
 	}
@@ -225,9 +228,7 @@ IntegerDelay::View::View(IntegerDelay * comp, eViewType viewType)
 void IntegerDelay::View::draw(QPainter * p)
 {
 	drawFrame(p);
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Dly");
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, "Dly");
 	
 	CompView::draw(p);
 }
@@ -250,7 +251,7 @@ IntegerDelay::PropertyGeneralWidget::PropertyGeneralWidget(IntegerDelay * comp, 
 	CHECK_PTR(m_delayTime);
 	lab->setBuddy(m_delayTime);
 	KSimTime myTime(comp->getDelayTime());
-	myTime.setValue((double)IntegerDelay_maxDepth, unit_ticks);
+	myTime.setValue((double)maxDepth, unit_ticks);
 	m_delayTime->setMaxValue(myTime.getValue(unit_sec));
 	myTime.setValue(1.0, unit_ticks);
 	m_delayTime->setMinValue(myTime.getValue(unit_sec));

@@ -84,7 +84,7 @@ BoolTristateXor::BoolTristateXor(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTristateXorView(this, SHEET_VIEW);
+		new BoolTristateXIn1Out1EnaView(this, SHEET_VIEW, "=1");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

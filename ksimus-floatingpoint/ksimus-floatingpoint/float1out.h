@@ -31,7 +31,7 @@
 #include "ksimus/componentpropertygeneralwidget.h"
 
 // Forward declaration
-class ComponentLayout;
+class ComponentLayoutSimple;
 class KSimDoubleEdit;
 class QLabel;
 class ConnectorFloatOut;
@@ -114,22 +114,14 @@ class Float1OutView : public CompView
 	Q_OBJECT
 
 public:
+	Float1OutView(Float1Out * comp, eViewType viewType, const QString & text = QString::null);
 //	~Float1OutView();
 	
-	virtual void draw(QPainter * p);
-	
-	ComponentLayout * getComponentLayout() const { return m_layout; };
-	
+	ComponentLayoutSimple * getComponentLayout() const { return m_layout; };
 	Float1Out* getFloat1Out() { return (Float1Out*) getComponent(); };
-
-	
-
-protected:
-	Float1OutView(Float1Out * comp, eViewType viewType);
 	
 private:	
-	ComponentLayout * m_layout;
-
+	ComponentLayoutSimple * m_layout;
 };
 
 //###############################################################

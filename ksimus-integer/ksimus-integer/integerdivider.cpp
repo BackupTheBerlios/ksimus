@@ -20,7 +20,6 @@
 #include <limits.h>
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -55,24 +54,6 @@ const ComponentInfo * IntegerDivider::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void IntegerDivider::View::draw(QPainter * p)
-{
-	Integer2In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Div");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -82,7 +63,7 @@ IntegerDivider::IntegerDivider(CompContainer * container, const ComponentInfo * 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new IntegerDivider::View(this, SHEET_VIEW);
+		new Integer2In1OutView(this, SHEET_VIEW, "Div");
 	}
 
 	getInputA()->setName(i18n("Integer", "Dividend"), true);

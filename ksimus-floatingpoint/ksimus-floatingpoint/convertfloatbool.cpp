@@ -113,8 +113,6 @@ void ConvertFloatBool::calculate()
 {
 	if (!m_recursionLocked)
 	{
-		Component::calculate();
-		
 		m_recursionLocked = true;
 
 		bool state, oldState;
@@ -239,7 +237,7 @@ void ConvertFloatBoolView::draw(QPainter * p)
 	
 	if(getRotation() != 0)
 	{
-		int yMid = place.top() + place.bottom() / 2;
+		const int yMid = place.top() + place.bottom() / 2;
 		
 		p->drawLine(QPoint(place.left()+4, yMid) , QPoint(place.right()-4, yMid));
 		p->drawLine(QPoint(place.right()-8, yMid-3) , QPoint(place.right()-4, yMid));

@@ -48,7 +48,7 @@ namespace KSimLibInteger
 class IntegerConditional : public Boolean1Out
 {
 public:
-	enum eConditionalType { eLesser = 0, eLesserEqual, eEqual, eLargerEqual, eLarger };
+	enum eConditionalType { eLesser = 0, eLesserEqual, eEqual, eLargerEqual, eLarger, eNotEqual };
 
 	/** Creates the component.
 	  */
@@ -84,6 +84,7 @@ public:
 	static const ComponentInfo * getStaticEqualInfo();
 	static const ComponentInfo * getStaticLargerEqualInfo();
 	static const ComponentInfo * getStaticLargerInfo();
+	static const ComponentInfo * getStaticNotEqualInfo();
 
 protected:
 	class View;
@@ -113,25 +114,6 @@ public:
 	virtual void draw(QPainter * p);
 	
 	IntegerConditional* getIntegerConditional() { return (IntegerConditional*) CompView::getComponent(); };
-
-	// Pixmaps
-	static const char * AltB_xpm[];
-	static const char * AlteqB_xpm[];
-	static const char * AeqB_xpm[];
-	static const char * AgteqB_xpm[];
-	static const char * AgtB_xpm[];
-
-protected:
-	static unsigned int sInstanceCount;
-	static QPixmap * sPixmapLesser;
-	static QPixmap * sPixmapLesserEqual;
-	static QPixmap * sPixmapEqual;
-	static QPixmap * sPixmapLargerEqual;
-	static QPixmap * sPixmapLarger;
-	static int sPixmapOffsetTop;
-	static int sPixmapOffsetLeft;
-	
-private:
 };
 
 //###############################################################

@@ -35,7 +35,7 @@
 // Forward declaration
 class ConnectorBoolIn;
 class ConnectorBoolInEdge;
-class ComponentLayout;
+class ComponentLayoutSimple;
 class KSimTimeSpinBox;
 class KSimBooleanBox;
 
@@ -102,11 +102,11 @@ class MonoFlopView : public CompView
 public:
 	MonoFlopView(MonoFlop * comp, eViewType viewType);
 //	~MonoFlopView();
-	virtual void draw(QPainter * p);
+//	virtual void draw(QPainter * p);
 
 	MonoFlop * getMF() { return ((MonoFlop *) getComponent()); };
 private:
-	ComponentLayout * m_layout;
+	ComponentLayoutSimple * m_layout;
 };
 
 

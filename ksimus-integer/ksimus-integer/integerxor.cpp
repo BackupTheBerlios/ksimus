@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -36,16 +35,16 @@
 namespace KSimLibInteger
 {
 
-Component * IntegerBitwiseXor::create(CompContainer * container, const ComponentInfo * ci)
+Component * IntegerXor::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new IntegerBitwiseXor(container, ci);
+	return new IntegerXor(container, ci);
 }
 
-const ComponentInfo * IntegerBitwiseXor::getStaticInfo()
+const ComponentInfo * IntegerXor::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Integer Bitwise XOR"),
-	                                QString::fromLatin1("Integer/Logic/Bitwise XOR"),
-	                                i18n("Component", "Integer/Logic/Bitwise XOR"),
+	static const ComponentInfo Info(i18n("Component", "Integer XOR"),
+	                                QString::fromLatin1("Integer/Logic/XOR"),
+	                                i18n("Component", "Integer/Logic/XOR"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
@@ -56,31 +55,20 @@ const ComponentInfo * IntegerBitwiseXor::getStaticInfo()
 
 //###############################################################
 
-void IntegerBitwiseXor::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "bit\nXor");
-}
-
-//###############################################################
-
-IntegerBitwiseXor::IntegerBitwiseXor(CompContainer * container, const ComponentInfo * ci)
+IntegerXor::IntegerXor(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "=1");
 	}
 }
 
 //###############################################################
 
 /** Executes the simulation of this component */
-void IntegerBitwiseXor::calculate()
+void IntegerXor::calculate()
 {
 //	IntegerXIn1Out::calculate();
 
@@ -98,16 +86,16 @@ void IntegerBitwiseXor::calculate()
 //###############################################################
 //###############################################################
 
-Component * IntegerBitwiseXnor::create(CompContainer * container, const ComponentInfo * ci)
+Component * IntegerXnor::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new IntegerBitwiseXnor(container, ci);
+	return new IntegerXnor(container, ci);
 }
 
-const ComponentInfo * IntegerBitwiseXnor::getStaticInfo()
+const ComponentInfo * IntegerXnor::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Integer Bitwise XNOR"),
-	                                QString::fromLatin1("Integer/Logic/Bitwise XNOR"),
-	                                i18n("Component", "Integer/Logic/Bitwise XNOR"),
+	static const ComponentInfo Info(i18n("Component", "Integer XNOR"),
+	                                QString::fromLatin1("Integer/Logic/XNOR"),
+	                                i18n("Component", "Integer/Logic/XNOR"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
@@ -118,31 +106,20 @@ const ComponentInfo * IntegerBitwiseXnor::getStaticInfo()
 
 //###############################################################
 
-void IntegerBitwiseXnor::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "bit\nXnor");
-}
-
-//###############################################################
-
-IntegerBitwiseXnor::IntegerBitwiseXnor(CompContainer * container, const ComponentInfo * ci)
+IntegerXnor::IntegerXnor(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "!=1");
 	}
 }
 
 //###############################################################
 
 /** Executes the simulation of this component */
-void IntegerBitwiseXnor::calculate()
+void IntegerXnor::calculate()
 {
 //	IntegerXIn1Out::calculate();
 
@@ -154,134 +131,6 @@ void IntegerBitwiseXnor::calculate()
 	}
 
 	setValue((int)~result);
-}
-
-//###############################################################
-//###############################################################
-
-Component * IntegerLogicalXor::create(CompContainer * container, const ComponentInfo * ci)
-{
-	return new IntegerLogicalXor(container, ci);
-}
-
-const ComponentInfo * IntegerLogicalXor::getStaticInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Integer Logical XOR"),
-	                                QString::fromLatin1("Integer/Logic/Logical XOR"),
-	                                i18n("Component", "Integer/Logic/Logical XOR"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null /* TODO,
-	                                QString::fromLatin1("component-float-arithmetic-add")*/);
-	return &Info;
-}
-
-//###############################################################
-
-void IntegerLogicalXor::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\nXor");
-}
-
-//###############################################################
-
-IntegerLogicalXor::IntegerLogicalXor(CompContainer * container, const ComponentInfo * ci)
-	: IntegerXIn1Out(container, ci)
-{
-	// Initializes the sheet view
-	if (getSheetMap())
-	{
-		new View(this, SHEET_VIEW);
-	}
-}
-
-//###############################################################
-
-/** Executes the simulation of this component */
-void IntegerLogicalXor::calculate()
-{
-//	IntegerXIn1Out::calculate();
-
-	int result = 0;
-
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		if (((ConnectorIntegerIn*)it.current())->getInput() != 0)
-		{
-			result ^= 1;
-		}
-	}
-
-	setValue(result);
-}
-
-//###############################################################
-//###############################################################
-
-Component * IntegerLogicalXnor::create(CompContainer * container, const ComponentInfo * ci)
-{
-	return new IntegerLogicalXnor(container, ci);
-}
-
-const ComponentInfo * IntegerLogicalXnor::getStaticInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Integer Logical XNOR"),
-	                                QString::fromLatin1("Integer/Logic/Logical XNOR"),
-	                                i18n("Component", "Integer/Logic/Logical XNOR"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null /* TODO,
-	                                QString::fromLatin1("component-float-arithmetic-add")*/);
-	return &Info;
-}
-
-//###############################################################
-
-void IntegerLogicalXnor::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\nXnor");
-}
-
-//###############################################################
-
-IntegerLogicalXnor::IntegerLogicalXnor(CompContainer * container, const ComponentInfo * ci)
-	: IntegerXIn1Out(container, ci)
-{
-	// Initializes the sheet view
-	if (getSheetMap())
-	{
-		new View(this, SHEET_VIEW);
-	}
-}
-
-//###############################################################
-
-/** Executes the simulation of this component */
-void IntegerLogicalXnor::calculate()
-{
-//	IntegerXIn1Out::calculate();
-
-	int result = 0;
-
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		if (((ConnectorIntegerIn*)it.current())->getInput() != 0)
-		{
-			result ^= 1;
-		}
-	}
-
-	setValue(!result);
 }
 
 //###############################################################

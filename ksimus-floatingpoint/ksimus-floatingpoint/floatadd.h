@@ -61,20 +61,6 @@ private:
 
 //###############################################################
 
-/** The view for the floating point add gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatAddView : public Float1OutView
-{
-public:
-	FloatAddView(FloatAdd * comp, eViewType viewType);
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 
 };  //namespace KSimLibFloatingPoint
 #endif

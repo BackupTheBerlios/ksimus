@@ -53,21 +53,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point absolute gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatAbsView : public Float1In1OutView
-{
-public:
-	FloatAbsView(FloatAbs * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 
 };  //namespace KSimLibFloatingPoint
 #endif

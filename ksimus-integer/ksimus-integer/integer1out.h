@@ -121,26 +121,13 @@ signals:
 
 class Integer1OutView : public CompView
 {
-
-	Q_OBJECT
-
 public:
+	Integer1OutView(Integer1Out * comp, eViewType viewType, const QString & text);
 //	~Integer1OutView();
-	
-	virtual void draw(QPainter * p);
-	
-	ComponentLayout * getComponentLayout() const { return m_layout; };
 	
 	Integer1Out* getInteger1Out() { return (Integer1Out*) getComponent(); };
 
-	
-
-protected:
-	Integer1OutView(Integer1Out * comp, eViewType viewType);
-	
 private:	
-	ComponentLayout * m_layout;
-
 };
 
 //###############################################################

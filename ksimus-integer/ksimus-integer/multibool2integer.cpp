@@ -18,16 +18,17 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 #include <qlabel.h>
 
 // KDE-Includes
 #include <klocale.h>
 
 // KSimus-Includes
+#include "ksimus/resource.h"
 #include "ksimus/ksimspinbox.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolin.h"
+#include "ksimus/connectorintegerout.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/componentlayout.h"
@@ -169,34 +170,33 @@ void MultiBool2Integer::addConn(ConnectorBase * conn)
 
 
 MultiBool2Integer::View::View(MultiBool2Integer * comp, eViewType viewType)
-	: Integer1OutView(comp, viewType)
+	: CompView(comp, viewType)
 {
+	setPlace(QRect(0, 0, 6*gridX, 5*gridY));
+	enableRotation(true);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->getLeft()->addSpace(2);
-		getComponentLayout()->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
+	
+		layout->setMinSize(4, 5);
 
-		getComponentLayout()->updateLayout();
+		layout->getLeft()->addSpace(1);
+		layout->getLeft()->addConnectorPack(comp->getInputConnectorPack());
+
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector(),0);
+		layout->getRight()->addStretch(2);
+	
+//		new ComponentLayoutBlockContentText(layout->getBlock(), "B>I", AlignTop|AlignHCenter);
+		new ComponentLayoutBlockContentText(layout->getBlock(), "Bool -> Int", AlignCenter, 270.0);
 	}
 }
 
 /*MultiBool2Integer::View::~View()
 {
 }*/
-
-
-void MultiBool2Integer::View::draw(QPainter * p)
-{
-	Integer1OutView::draw(p);
-
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-//	p->drawText(getDrawingPlace(), AlignCenter, "Bool\nto\nInt");
-	QRect rect(getDrawingPlace());
-	rect.rTop() += 1;
-	p->drawText(rect, AlignTop|AlignHCenter, "B>I");
-}
-
 
 
 //###############################################################

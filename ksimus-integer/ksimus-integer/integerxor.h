@@ -37,34 +37,16 @@ namespace KSimLibInteger
   * @author Rasmus Diekenbrock
   */
 
-class IntegerBitwiseXor : public IntegerXIn1Out
+class IntegerXor : public IntegerXIn1Out
 {
 public:
 	/** Constructs a bitwise integer XOR */
-	IntegerBitwiseXor(CompContainer * container, const ComponentInfo * ci);
+	IntegerXor(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise integer XOR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerBitwiseXor::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerBitwiseXor * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################
@@ -76,110 +58,16 @@ public:
   * @author Rasmus Diekenbrock
   */
 
-class IntegerBitwiseXnor : public IntegerXIn1Out
+class IntegerXnor : public IntegerXIn1Out
 {
 public:
 	/** Constructs a bitwise integer XNOR */
-	IntegerBitwiseXnor(CompContainer * container, const ComponentInfo * ci);
+	IntegerXnor(CompContainer * container, const ComponentInfo * ci);
 	/** Executes the simulation of this component */
 	virtual void calculate();
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise integer XNOR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerBitwiseXnor::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerBitwiseXnor * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-//###############################################################
-
-/**A logical integer XOR gate with muliple inputs
-	*
-  * @author Rasmus Diekenbrock
-  */
-
-class IntegerLogicalXor : public IntegerXIn1Out
-{
-public:
-	/** Constructs a logical integer XOR */
-	IntegerLogicalXor(CompContainer * container, const ComponentInfo * ci);
-	/** Executes the simulation of this component */
-	virtual void calculate();
-
-	static Component * create(CompContainer * container, const ComponentInfo * ci);
-	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise logical XOR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerLogicalXor::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerLogicalXor * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-//###############################################################
-
-/**A logical integer XNOR gate with muliple inputs
-	*
-  * @author Rasmus Diekenbrock
-  */
-
-class IntegerLogicalXnor : public IntegerXIn1Out
-{
-public:
-	/** Constructs a logical integer XNOR */
-	IntegerLogicalXnor(CompContainer * container, const ComponentInfo * ci);
-	/** Executes the simulation of this component */
-	virtual void calculate();
-
-	static Component * create(CompContainer * container, const ComponentInfo * ci);
-	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the bitwise logical XNOR gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerLogicalXnor::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerLogicalXnor * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

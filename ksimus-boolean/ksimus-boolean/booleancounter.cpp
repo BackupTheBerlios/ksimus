@@ -36,7 +36,6 @@
 #include "ksimus/connectorboolout.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/componentpropertydialog.h"
@@ -335,29 +334,26 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 	if (viewType == SHEET_VIEW)
 	{
 		enableRotation(true);
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutVerticalCtrl(this);
 		CHECK_PTR(m_layout);
+
+		m_layout->getCtrlBlock()->getLeft()->addSpace(1);
+		m_layout->getCtrlBlock()->getLeft()->addConnector(getCounter()->getInputClear());
+		m_layout->getCtrlBlock()->getLeft()->addConnector(getCounter()->getInputClockUp());
+		m_layout->getCtrlBlock()->getLeft()->addConnector(getCounter()->getInputClockDown());
+//		m_layout->getCtrlBlock()->getLeft()->addSpace(1);
 		
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
+		m_layout->getCtrlBlock()->getRight()->addSpace(1);
+		m_layout->getCtrlBlock()->getRight()->addConnector(getCounter()->getOutputCarry());
+		m_layout->getCtrlBlock()->getRight()->addConnector(getCounter()->getOutputBorrow());
+//		m_layout->getCtrlBlock()->getRight()->addSpace(1);
 		
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getCounter()->getInputClear());
-		m_ctrlBlock->getLeft()->addConnector(getCounter()->getInputClockUp());
-		m_ctrlBlock->getLeft()->addConnector(getCounter()->getInputClockDown());
-//		m_ctrlBlock->getLeft()->addSpace(1);
+		m_layout->getFuncBlock()->getRight()->addSpace(1);
+		m_layout->getFuncBlock()->getRight()->addConnectorPack(getCounter()->getOutputCounter());
 		
-		m_ctrlBlock->getRight()->addSpace(1);
-		m_ctrlBlock->getRight()->addConnector(getCounter()->getOutputCarry());
-		m_ctrlBlock->getRight()->addConnector(getCounter()->getOutputBorrow());
-//		m_ctrlBlock->getRight()->addSpace(1);
+		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), "CTR", AlignTop|AlignHCenter);
 		
-		m_layout->getRight()->addSpace(1);
-		m_layout->getRight()->addConnectorPack(getCounter()->getOutputCounter());
-//		m_layout->getRight()->addSpace(1);
-		
-		m_layout->setMinSize(7,7);
-		m_layout->updateLayout();
+		m_layout->setMinSize(5,7);
 	
 		new ConnectorLabel(getCounter()->getInputClear(), "R");
 		new ConnectorLabel(getCounter()->getInputClockUp(), "Up");
@@ -365,10 +361,6 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 
 		new ConnectorLabel(getCounter()->getOutputCarry(), "RC");
 		new ConnectorLabel(getCounter()->getOutputBorrow(), "RB");
-		
-/*		m_ctrlBlock->setText("CTR");
-		m_ctrlBlock->setAlign((AlignmentFlags)(AlignHCenter | AlignTop));*/
-		
 		
 		unsigned int i = 1;
 		FOR_EACH_CONNECTOR(it, *getCounter()->getOutputCounter()->getConnList())
@@ -381,26 +373,6 @@ BooleanCounterView::BooleanCounterView(BooleanCounter * comp, eViewType viewType
 }
 
 
-void BooleanCounterView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-//	QRect rect(getWidgetPlace());
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-	p->setPen(black);
-	p->drawText(rect, (AlignHCenter | AlignTop), "CTR");
-}
-	
 void BooleanCounterView::addConn(ConnectorBase * conn)
 {
 	new ConnectorLabel(conn, QChar('A' - 1 + getCounter()->getOutputCounter()->getConnectorCount()));

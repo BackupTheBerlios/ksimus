@@ -54,24 +54,6 @@ const ComponentInfo * FloatMax::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatMaxView::draw(QPainter * p)
-{
-	FloatXIn1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Max");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -81,7 +63,7 @@ FloatMax::FloatMax(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatMaxView(this, SHEET_VIEW);
+		new FloatXIn1OutView(this, SHEET_VIEW, "Max");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -90,8 +72,6 @@ FloatMax::FloatMax(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatMax::calculate()
 {
-	FloatXIn1Out::calculate();
-	
 	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
 	
 	

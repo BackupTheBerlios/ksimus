@@ -110,22 +110,6 @@ const ComponentInfo * FloatASinh::getStaticInfo()
 	return &Info;
 }
 
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatSinView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "sin");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -135,7 +119,7 @@ FloatSin::FloatSin(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatSinView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sin"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -144,29 +128,8 @@ FloatSin::FloatSin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatSin::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(sin(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatASinView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\nsin");
-}
-
 
 //###############################################################
 //###############################################################
@@ -177,7 +140,7 @@ FloatASin::FloatASin(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatASinView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\nsin"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -186,29 +149,8 @@ FloatASin::FloatASin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatASin::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(asin(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatSinhView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "sin\nhyp");
-}
-
 
 //###############################################################
 //###############################################################
@@ -219,7 +161,7 @@ FloatSinh::FloatSinh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatSinhView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sin\nhyp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -228,29 +170,8 @@ FloatSinh::FloatSinh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatSinh::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(sinh(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatASinhView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\nsin\nhyp");
-}
-
 
 //###############################################################
 //###############################################################
@@ -261,7 +182,7 @@ FloatASinh::FloatASinh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatASinhView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\nsin\nhyp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -270,8 +191,6 @@ FloatASinh::FloatASinh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatASinh::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(asinh(getInput()->getInput()));
 }
 

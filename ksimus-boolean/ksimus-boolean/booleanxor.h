@@ -53,16 +53,6 @@ public:
 
 //###############################################################
 
-class BooleanXorView : public BooleanXIn1OutView
-{
-public:
-	BooleanXorView(BooleanXor * comp, eViewType viewType);
-//	~BooleanOrView();
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 }; //namespace KSimLibBoolean
 
 #endif

@@ -52,23 +52,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point natural logarithm gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatLogView : public Float1In1OutView
-{
-public:
-	FloatLogView(FloatLog * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-//###############################################################
-
 /**A floating point natural logarithm gate.
   * @author Rasmus Diekenbrock
   */
@@ -83,21 +66,6 @@ public:
 	
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-};
-
-//###############################################################
-
-/** The view for the floating point base-10 logarithm gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatLog10View : public Float1In1OutView
-{
-public:
-	FloatLog10View(FloatLog10 * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

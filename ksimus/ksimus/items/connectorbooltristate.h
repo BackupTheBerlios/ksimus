@@ -80,7 +80,7 @@ public:
 	
 /** Set the current output.
 	* @param out                      The new output value.
-	* @param active                   Ture, if out is active.
+	* @param active                   True, if out is active.
 	* @param executeWirePropertyNext  If set the wire property is execute next. The parameter is used
 	*                                 with zero delay components.
 	*/

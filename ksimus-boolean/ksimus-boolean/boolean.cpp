@@ -132,8 +132,8 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(DFlipFlop::getStaticInfo());
 		pDistComponents->append(MonoFlop::getStaticInfo());
 		pDistComponents->append(BooleanCounter::getStaticInfo());
-		pDistComponents->append(BooleanConstant::getStaticTrueInfo());
-		pDistComponents->append(BooleanConstant::getStaticFalseInfo());
+		pDistComponents->append(BooleanConstantFalse::getStaticInfo());
+		pDistComponents->append(BooleanConstantTrue::getStaticInfo());
 		pDistComponents->append(Boolean7Segment::getStaticInfo());
 		pDistComponents->append(MultiDLatch::getStaticInfo());
 		pDistComponents->append(Multiplexer::getStaticInfo());

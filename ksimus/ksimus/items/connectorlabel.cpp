@@ -101,71 +101,78 @@ void ConnectorLabel::drawSheetView (QPainter *p) const
 {
 	if (!m_conn->isHidden())
 	{
-		QPoint pos(m_conn->getRelPos());
+		const QPoint pos(m_conn->getRelPos());
+		const bool edgeIn = (isBoolInEdge() && getBoolInEdgeConn()->isEdgeSensitive());
 		int spacing = getSpacing();
-		bool edgeIn = (isBoolInEdge() && getBoolInEdgeConn()->isEdgeSensitive());
-
-		p->save();
-		p->setPen(black);
-		int height = p->fontMetrics().height();
-		int width = p->fontMetrics().width(m_descr)+2;  //+2 because rotating problem
-
 		if (edgeIn)
 		{
 			spacing += 5;
 		}
+		
+		p->save();
+		p->setPen(black);
 
 		switch (m_conn->getOrientation())
 		{
 			case CO_TOP:
+			{
 				if (edgeIn)
 				{
 					QPoint center (pos + QPoint (-1, gridY/2 + 1));
 					p->drawLine(center.x()+2, center.y(), center.x(), center.y()+5);
 					p->drawLine(center.x()-2, center.y(), center.x(), center.y()+5);
 				}
-				pos.rx() += -width/2 - 1;
-				pos.ry() += gridY/2 - 1 + spacing;
-				p->drawText(pos.x(), pos.y(), width, height, AlignCenter, m_descr);
-				break;
+				const int tf = (m_conn->isNegated())
+				             ? (AlignHCenter | AlignTop | KSimEmbFont::Overline)
+				             : (AlignHCenter | AlignTop | KSimEmbFont::OverlineSpace);
+				KSimEmbFont::f08()->drawText(p, pos.x() - 1, pos.y() + spacing + gridY - 3, 270.0, tf , m_descr);
+			}
+			break;
 
 			case CO_RIGHT:
+			{
 				if (edgeIn)
 				{
 					QPoint center (pos + QPoint (- gridX/2 - 2, -1));
 					p->drawLine(center.x(), center.y()+2, center.x()-5, center.y());
 					p->drawLine(center.x(), center.y()-2, center.x()-5, center.y());
 				}
-				/*pos.rx() += -width - gridX/2 - 2 - spacing;
-				pos.ry() += -height + gridY/2 + 1;
-				p->drawText(pos.x(), pos.y(), width, height, AlignCenter, m_descr);*/
-				g_embFont08->drawText(p, pos.x() - spacing - gridX + 2, pos.y(), AlignRight | AlignVCenter, m_descr);
-				break;
+				const int tf = (m_conn->isNegated())
+				             ? (AlignRight | AlignVCenter | KSimEmbFont::Overline)
+				             : (AlignRight | AlignVCenter | KSimEmbFont::OverlineSpace);
+				KSimEmbFont::f08()->drawText(p, pos.x() - spacing - gridX + 3, pos.y() - 1, tf , m_descr);
+			}
+			break;
 
 			case CO_BOTTOM:
+			{
 				if (edgeIn)
 				{
 					QPoint center (pos + QPoint (-1, - gridY/2 - 2));
 					p->drawLine(center.x()+2, center.y(), center.x(), center.y()-5);
 					p->drawLine(center.x()-2, center.y(), center.x(), center.y()-5);
 				}
-				pos.rx() += -width/2 - 1;
-				pos.ry() += - height - gridY/2 - spacing;
-				p->drawText(pos.x(), pos.y(), width, height, AlignCenter, m_descr);
-				break;
+				const int tf = (m_conn->isNegated())
+				             ? (AlignHCenter | AlignBottom | KSimEmbFont::Overline)
+				             : (AlignHCenter | AlignBottom | KSimEmbFont::OverlineSpace);
+				KSimEmbFont::f08()->drawText(p, pos.x() - 2, pos.y() - spacing - gridX + 2, 270.0, tf , m_descr);
+			}
+			break;
 
 			case CO_LEFT:
+			{
 				if (edgeIn)
 				{
 					QPoint center (pos + QPoint (gridX/2 +1 , 0));
 					p->drawLine(center.x(), center.y()+2, center.x()+5, center.y());
 					p->drawLine(center.x(), center.y()-2, center.x()+5, center.y());
 				}
-/*				pos.rx() +=  gridX/2 + spacing;
-				pos.ry() += -height + gridY/2 + 1;
-				p->drawText(pos.x(), pos.y(), width, height, AlignCenter, m_descr);*/
-				g_embFont08->drawText(p, pos.x() + spacing + gridX - 2, pos.y(), AlignLeft | AlignVCenter, m_descr);
-				break;
+				const int tf = (m_conn->isNegated())
+				             ? (AlignLeft | AlignVCenter | KSimEmbFont::Overline)
+				             : (AlignLeft | AlignVCenter | KSimEmbFont::OverlineSpace);
+				KSimEmbFont::f08()->drawText(p, pos.x() + spacing + gridX - 2, pos.y() - 1, tf, m_descr);
+			}
+			break;
 
 			default:
 				KSIMDEBUG_VAR("Unknown connector orientation",m_conn->getOrientation());

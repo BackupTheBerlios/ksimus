@@ -112,16 +112,11 @@ private slots:
   * @author Rasmus Diekenbrock
   */
 
-class MultiBool2Integer::View : public Integer1OutView
+class MultiBool2Integer::View : public CompView
 {
 public:
 	View(MultiBool2Integer * comp, eViewType viewType);
 //	~View();
-
-	virtual void draw(QPainter * p);
-
-protected:
-
 };
 
 

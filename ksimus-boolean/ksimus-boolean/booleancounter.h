@@ -39,8 +39,7 @@ class ConnectorBoolIn;
 class ConnectorBoolInEdge;
 class ConnectorBoolOut;
 class ConnectorPack;
-class ComponentControlBlock;
-class ComponentLayout;
+class ComponentLayoutVerticalCtrl;
 class ConnectorLabel;
 class KSimBaseUIntEdit;
 
@@ -131,23 +130,22 @@ protected:
 
 class BooleanCounterView : public CompView
 {
+friend class BooleanCounter;
 
 	Q_OBJECT
 
 public:
 	BooleanCounterView(BooleanCounter * comp, eViewType viewType);
 //	~BooleanCounterView();
-	virtual void draw(QPainter * p);
-	
+
 	BooleanCounter * getCounter() const { return (BooleanCounter*) getComponent(); };
 	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
+protected:
+	ComponentLayoutVerticalCtrl * getComponentLayout() const { return m_layout; };
 
 
 private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
+	ComponentLayoutVerticalCtrl * m_layout;
 
 private slots:
 	void addConn(ConnectorBase * conn);

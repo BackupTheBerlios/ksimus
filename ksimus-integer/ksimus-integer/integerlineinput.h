@@ -102,7 +102,7 @@ signals:
 //#######################################################################
 //#######################################################################
 
-class IntegerLineInputView : public IntegerStyleRange1OutView
+class IntegerLineInputView : public CompViewSize
 {
 
 	Q_OBJECT
@@ -113,7 +113,7 @@ public:
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);
 
-	IntegerLineInput * getIntegerLineInput() { return (IntegerLineInput *)IntegerStyleRange1OutView::getComponent(); };
+	IntegerLineInput * getIntegerLineInput() { return (IntegerLineInput *)CompViewSize::getComponent(); };
 
 
 protected:

@@ -54,24 +54,6 @@ const ComponentInfo * FloatMin::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatMinView::draw(QPainter * p)
-{
-	FloatXIn1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Min");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -81,7 +63,7 @@ FloatMin::FloatMin(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatMinView(this, SHEET_VIEW);
+		new FloatXIn1OutView(this, SHEET_VIEW, "Min");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -90,18 +72,19 @@ FloatMin::FloatMin(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatMin::calculate()
 {
-	FloatXIn1Out::calculate();
-	
 	QListIterator<ConnectorBase> it(*getInputConnectorPack()->getConnList());
-	
 	
 	// Hint: Gate has min 2 inputs !!! No check is required.
 	double result = ((ConnectorFloatIn*)it.current())->getInput();
 	++it;
 		
-	while (it.current())		
+	while (it.current())
 	{
-		result = QMIN(result, ((ConnectorFloatIn*)it.current())->getInput());
+		const double in = ((ConnectorFloatIn*)it.current())->getInput();
+		if (result > in)
+		{
+			result = in;
+		}
 		++it;
 	}
 		

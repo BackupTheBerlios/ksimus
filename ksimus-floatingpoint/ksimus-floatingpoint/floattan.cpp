@@ -27,7 +27,6 @@
 // Project-Includes
 #include "floattan.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/connectorpack.h"
 
 // Forward declaration
 
@@ -139,27 +138,13 @@ const ComponentInfo * FloatATanh::getStaticInfo()
 //###############################################################
 //###############################################################
 
-
-void FloatTanView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "tan");
-}
-
-
-//###############################################################
-//###############################################################
-
 FloatTan::FloatTan(CompContainer * container, const ComponentInfo * ci)
 	: Float1In1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatTanView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("tan"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -168,29 +153,8 @@ FloatTan::FloatTan(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatTan::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(tan(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatATanView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\ntan");
-}
-
 
 //###############################################################
 //###############################################################
@@ -201,7 +165,7 @@ FloatATan::FloatATan(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatATanView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -210,28 +174,8 @@ FloatATan::FloatATan(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatATan::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(atan(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-//###############################################################
-//###############################################################
-
-
-void FloatATan2View::draw(QPainter * p)
-{
-	Float2In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\ntan\n2");
-}
-
 
 //###############################################################
 //###############################################################
@@ -242,7 +186,7 @@ FloatATan2::FloatATan2(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatATan2View(this, SHEET_VIEW);
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan\n2"));
 	}
 	getInputA()->setName(i18n("FloatingPoint", "Input X"));
 	getInputB()->setName(i18n("FloatingPoint", "Input Y"));
@@ -253,30 +197,8 @@ FloatATan2::FloatATan2(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatATan2::calculate()
 {
-	Float2In1Out::calculate();
-
 	setValue(atan2(getInputA()->getInput(), getInputB()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatTanhView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "tan\nhyp");
-}
-
 
 //###############################################################
 //###############################################################
@@ -287,7 +209,7 @@ FloatTanh::FloatTanh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatTanhView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("tan\nhyp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -296,29 +218,8 @@ FloatTanh::FloatTanh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatTanh::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(tanh(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatATanhView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "arc\ntan\nhyp");
-}
-
 
 //###############################################################
 //###############################################################
@@ -329,7 +230,7 @@ FloatATanh::FloatATanh(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatATanhView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("arc\ntan\nhyp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -338,8 +239,6 @@ FloatATanh::FloatATanh(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatATanh::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(atanh(getInput()->getInput()));
 }
 

@@ -95,24 +95,6 @@ const ComponentInfo * FloatSqrt::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void FloatExpView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "exp");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -122,7 +104,7 @@ FloatExp::FloatExp(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatExpView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("exp"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -131,28 +113,8 @@ FloatExp::FloatExp(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatExp::calculate()
 {
-	Float1In1Out::calculate();
-	
 	setValue(exp(getInput()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-//###############################################################
-//###############################################################
-
-
-void FloatPowView::draw(QPainter * p)
-{
-	Float2In1OutView::draw(p);
-
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "pow");
-}
-
 
 //###############################################################
 //###############################################################
@@ -163,7 +125,7 @@ FloatPow::FloatPow(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatPowView(this, SHEET_VIEW);
+		new Float2In1OutView(this, SHEET_VIEW, QString::fromLatin1("pow"));
 	}
 	getInputA()->setName(i18n("FloatingPoint", "Power"));
 	getInputB()->setName(i18n("FloatingPoint", "Base"));
@@ -174,28 +136,8 @@ FloatPow::FloatPow(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatPow::calculate()
 {
-	Float2In1Out::calculate();
-
 	setValue(pow(getInputB()->getInput(), getInputA()->getInput()));
 }
-
-
-//###############################################################
-//###############################################################
-
-//###############################################################
-//###############################################################
-
-
-void FloatSqrtView::draw(QPainter * p)
-{
-	Float1In1OutView::draw(p);
-
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "sqrt");
-}
-
 
 //###############################################################
 //###############################################################
@@ -206,7 +148,7 @@ FloatSqrt::FloatSqrt(CompContainer * container, const ComponentInfo * ci)
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatSqrtView(this, SHEET_VIEW);
+		new Float1In1OutView(this, SHEET_VIEW, QString::fromLatin1("sqrt"));
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -215,8 +157,6 @@ FloatSqrt::FloatSqrt(CompContainer * container, const ComponentInfo * ci)
 /** Executes the simulation of this component */
 void FloatSqrt::calculate()
 {
-	Float1In1Out::calculate();
-
 	setValue(sqrt(getInput()->getInput()));
 }
 

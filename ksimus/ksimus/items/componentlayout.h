@@ -1,5 +1,5 @@
 /***************************************************************************
-                          complayout.h  -  description
+                          componentlayout.h  -  description
                              -------------------
     begin                : Sat Nov 24 2001
     copyright            : (C) 2001 by Rasmus Diekenbrock
@@ -21,7 +21,8 @@
 // C-Includes
 
 // QT-Includes
-#include <qlist.h>
+#include <qstring.h>
+#include <qpixmap.h>
 
 // KDE-Includes
 
@@ -31,257 +32,520 @@
 
 
 // Forward declaration
-class CompLayoutConnector;
-class CompLayoutSpace;
-class CompLayoutStretch;
+class QPainter;
 class ConnectorBase;
-class ComponentLayout;
 class ConnectorPack;
-class CompLayoutBase;
 class CompView;
+class Component;
+class ComponentLayout;
+class ComponentLayoutBlock;
+class ComponentLayoutBlockContentBase;
+class ComponentLayoutItemBase;
+class ComponentLayoutSide;
+
 
 
 //#######################################################################
 //#######################################################################
 
-/** Smallest item class for component layouts. All layout elements are based on this class.
-  * This class defines the base API of all layout classes. The class itself does nothing.
-  * @author Rasmus Diekenbrock
+/** The base class which contains the simplest layout items like connectors, spacings or what else.
+  *@author Rasmus Diekenbrock
   */
 
-class CompLayoutBaseItem
+class ComponentLayoutItemBase
 {
-public:
 
-	/** Constructor. Does nothing. */
-	CompLayoutBaseItem(CompLayoutBase * parentLayout);
-	/** Destructor. Does nothing. */
-	virtual ~CompLayoutBaseItem();
-	
-	/** This functions returns the size of the layout element. The size is measured in grid (8 Pixels).
- 	  * @param size       Add the size of the layout element to the variable size.
- 	  * @param connectors Add the numbers of connectors to the variable connectors. Hidden connectors
- 	  *                   are not counted.
-	  */
-	virtual void getSize(unsigned int & size, unsigned int & connectors) const = 0;
-	/** Returns the stretch factor of the layout element. In most case the factor is 0
-	 */
-	virtual unsigned int getStretchFactor() const = 0;
-	/** Positionized the layout element.
-	 *  @param size       The number of grid to distribute for stretch elements.
-	 *	@param sumStretch The sum of all stretch factors which have to split the size from above.
-	 *  @param startPos   The first position usable by this layout element.
-	 */
-	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos) = 0;
-	
-	/** Returns the parent layout.*/
-	CompLayoutBase * getParent() const { return m_parentLayout; };
-  /** Returns the main layout. */
-  ComponentLayout * getBaseLayout() const;
-  /** Returns the related component. */
-  Component * getComponent() const;
+friend class ComponentLayoutSide;
+
+public:
+	/** The destructor */
+	virtual ~ComponentLayoutItemBase();
+
+protected:
+	/** The protected constructor.
+	  *
+	  * @param layoutSide The parent layout. This layout has to be a ComponentLayoutSide layout. */
+	ComponentLayoutItemBase(ComponentLayoutSide * layoutSide);
+	/** Returns the number of grids which this item needs. This implementation returns 0. */
+	virtual int getRequiredSize() const;
+	/** Returns the stretch factor of this item. This implementation returns 0. */
+	virtual int getStretchFactor() const;
+	/** Returns the number of connectors of this item. This implementation returns 0. */
+	virtual int getConnectorCount() const;
+	/** Sets the positions of the connector contained by this item. */
+	virtual void updateLayout(const QPoint & pos);
+	/* Call first if layout update is started. Used to preclalculate local properties. */
+	virtual void preCalc();
+
+	/** Returns the "layout side". */
+	ComponentLayoutSide * getSide() const { return m_layoutSide; };
+	/** Returns the layout block. */
+	ComponentLayoutBlock * getLayoutBlock() const;
+	/** Returns the component layout. */
+	ComponentLayout * getLayout() const;
+	/** Returns the component view. */
+	CompView * getCompView() const;
+	/** Returns the component. */
+	Component * getComponent() const;
+
+	/** Sets the layout dirty. The positions will be calculated before next drawing. */
+	void setDirty();
+	/** Returns true if the layout has a horizontal orientation */
+	bool isHorizontal() const;
+
+	/** Returns the next layout item. This is part of the list implementation of layout items. */
+	ComponentLayoutItemBase * getNextLayoutItem() const { return m_nextLayoutItem; };
+	/** Sets the next layout item. */
+	void setNextLayoutItem(ComponentLayoutItemBase * next);
 
 private:
-	CompLayoutBase * m_parentLayout;
+	/** The parent layout side . */
+	ComponentLayoutSide * m_layoutSide;
+	/** The next item in the list. */
+	ComponentLayoutItemBase * m_nextLayoutItem;
+};
+
+
+//#######################################################################
+//#######################################################################
+
+/** The layout item which represents a conntector.
+  *@author Rasmus Diekenbrock
+  */
+
+class ComponentLayoutItemConnector : public ComponentLayoutItemBase
+{
+
+public:
+	/** The Constructor.
+	  * @param layoutSide The parent layout side.
+	  * @param conn       The connector to add to the layout.
+	  * @param addSpace   Additional space after the connector (default = 1). */
+	ComponentLayoutItemConnector(ComponentLayoutSide * layoutSide, ConnectorBase * conn, int addSpace = 1);
+
+protected:
+	/** Returns the number of grids which this item needs. */
+	virtual int getRequiredSize() const;
+	/** Returns the number of connectors of this item. */
+	virtual int getConnectorCount() const;
+	/** Sets the positions of the connector contained by this item. */
+	virtual void updateLayout(const QPoint & pos);
+
+private:
+	ConnectorBase * m_conn;
+	int m_addSpace;
 };
 
 //#######################################################################
 //#######################################################################
 
-/** A list which contains @ref CompLayoutBaseItem elements.
-  * @author Rasmus Diekenbrock
-  */
-
-class CompLayoutList : public QList<CompLayoutBaseItem>
-{};
-
-
-#define FOR_EACH_LAYOUTITEM(_it_,_layoutList_)	\
-		for(QListIterator<CompLayoutBaseItem> _it_(_layoutList_);_it_.current();++_it_)
-
-
-//#######################################################################
-//#######################################################################
-
-
-/**Base class for component layouts.
-   This class manages the position of the connectors.
+/** The layout item which represents a conntector pack.
   *@author Rasmus Diekenbrock
   */
 
-
-class CompLayoutBase : public CompLayoutBaseItem
+class ComponentLayoutItemConnectorPack : public ComponentLayoutItemBase
 {
-friend class ComponentLayout;
 
 public:
-	/** Constructs a layout element.
-			@param parentLayout The parent layout element.
-			@param orientation  Sets the connector orientation of this layout. Has to be equal as the
-			                    orientation of the parent layout.
-	 */
-	CompLayoutBase(CompLayoutBase * parentLayout, ConnOrientationType orientation);
-	/** The destructor. Deletes all layout element which where added to this element.
-	 */
-	virtual ~CompLayoutBase();
+	/** The Constructor.
+	  * @param layoutSide The parent layout side.
+	  * @param connPack   The connector pack to add to the layout.
+	  * @param addSpace   Additional space after the connector (default = 1). */
+	ComponentLayoutItemConnectorPack(ComponentLayoutSide * layoutSide, ConnectorPack * connPack, int addSpace = 1);
 
-  /** Adds a sub layout. The layout must have th same orientation.
-   */
-  void addLayout(CompLayoutBase * layout);
-  /** Adds a connector to the layout element. The orentation of the connector is set by the function.
-   *  It is not necassary to set a proper connector position (because this is the task auf this class).
-   *  Create a connector and add it, there is nothing else to do.
-   *  @param conn            The connector to add.
-   *  @param additionalSpace A additional space after the connector.
-   */
-  void addConnector(ConnectorBase * conn, unsigned int additionalSpace = 1);
-  /** Adds a space to the layout item.
-    * @param space Space size measured in grids.
-    */
-  void addSpace(unsigned int space);
-  /** Adds a stretch item to the layout element. The size of a stretch item depends on the unused space
-    * of the component side and the stretch factor.
-    * @param factor   The factor is relative to other stretch factors of the layout element. Higher stretch
-                      factors get more space.
-    */
-  void addStretch(unsigned int factor);
-  /** Adds a connector pack to the layout element. The required space of this element is count of connector *
-      (1 + space).
-    * @param connPack           The connector pack to add.
-    * @param additionalSpace    Space between two connectors and after the last connector.
-    */
-  void addConnectorPack(ConnectorPack * connPack, unsigned int additionalSpace = 1);
+protected:
+	/** Returns the number of grids which this item needs. */
+	virtual int getRequiredSize() const;
+	/** Returns the number of connectors of this item. This implementation returns 0. */
+	virtual int getConnectorCount() const;
+	/** Sets the positions of the connector contained by this item. */
+	virtual void updateLayout(const QPoint & pos);
 
-	/** Removes the given item from this layout.
-	  * @param layoutItem Remove this item from layout.
-	  * @param del        If true, the item will be deleted also.
-	  */
-  bool removeItem(CompLayoutBaseItem * layoutItem, bool del = true);
+private:
+	ConnectorPack * m_connPack;
+	int m_addSpace;
+};
 
-  /** Returns the orientations of the element. */
-  ConnOrientationType getOrientation() const { return m_orientation; };
+//#######################################################################
+//#######################################################################
 
-  /** Returns the list of containing elements.*/
-  CompLayoutList * getItemList() const { return m_itemList; };
-	
-	/** This functions returns the size of the layout element. The size is measured in grid (8 Pixels).
- 	  * @param size       Add the size of the layout element to the variable size.
- 	  * @param connectors Add the numbers of connectors to the variable connectors. Hidden connectors
- 	  *                   are not counted.
-	 */
-	virtual void getSize(unsigned int & size, unsigned int & connectors) const;
-	/** Returns the stretch factor of the layout element. In most case the factor is 0
- 	  * @param size       Add the size of the layout element to the variable size.
- 	  * @param connectors Add the numbers of connectors to the variable connectors. Hidden connectors
- 	  *                   are not counted.
-	 */
-	virtual unsigned int getStretchFactor() const;
-	/** Positionized the layout element.
-	 *  @param size       The number of grid to distribute for stretch elements.
-	 *	@param sumStretch The sum of all stretch factors which have to split the size from above.
-	 *  @param startPos   The first position usable by this layout element.
-	 */
-	virtual unsigned int position(unsigned int & size, unsigned int & sumStretch, QPoint startPos);
+/** The layout item which represents a simple fixed size space between two layout items.
+  *@author Rasmus Diekenbrock
+  */
+
+class ComponentLayoutItemSpace : public ComponentLayoutItemBase
+{
+public:
+	/** The Constructor.
+	  * @param layoutSide The parent layout side.
+	  * @param space      The number of grids to add between the last item and the next. */
+	ComponentLayoutItemSpace(ComponentLayoutSide * layoutSide, int space);
+
+protected:
+	/** Returns the number of grids which this item needs.*/
+	virtual int getRequiredSize() const;
+
+private:
+	int m_space;
+};
+
+//#######################################################################
+//#######################################################################
+
+/** The layout item which represents a stretchable space between two layout items.
+  * A larger stretch factor results in a larger part of the size which is avaliable for stretching.
+  *@author Rasmus Diekenbrock
+  */
+
+class ComponentLayoutItemStretch : public ComponentLayoutItemBase
+{
+public:
+	/** The Constructor.
+	  * @param layoutSide The parent layout side.
+	  * @param stretch    The stretch factor of the item. */
+	ComponentLayoutItemStretch(ComponentLayoutSide * layoutSide, int stretchFactor);
+
+protected:
+	/** Returns the stretch factor of this item. */
+	virtual int getStretchFactor() const;
+
+private:
+	int m_stretchFactor;
+};
+
+//#######################################################################
+//#######################################################################
+
+class ComponentLayoutSide
+{
+friend class ComponentLayoutBlock;
+
+public:
+	ComponentLayoutSide(ComponentLayoutBlock * layoutBlock, ConnOrientationType orientation);
+	~ComponentLayoutSide();
+
+	void addLayoutItem(ComponentLayoutItemBase * newItem);
+	void addConnector(ConnectorBase * conn, int addSpace = 1);
+	void addConnectorPack(ConnectorPack * connPack, int addSpace = 1);
+	void addSpace(int space);
+	void addStretch(int stretch);
+
+	/** Returns the number of connectors of this item. */
+	int getConnectorCount() const;
+	bool hasConnector() const;
+	bool isHorizontal() const;
 
 
-  /** Returns the parent layout. Returns a null pointer if the layout have no parent. */
-  CompLayoutBase * getParentLayout() const;
-  /** Returns the main layout. */
-  ComponentLayout * getBaseLayout() const;
-  /** Returns the related component. */
-  Component * getComponent() const;
+	ComponentLayout * getLayout() const;
+	ComponentLayoutBlock * getLayoutBlock() const { return m_layoutBlock; };
+	ConnOrientationType getOrientation() const { return m_orientation; };
+	void setDirty();
 
-	/** Moves the position "pos" by "add" in the direction given by the orientation. */
-  void addPosition(QPoint & pos, unsigned int add);
+protected:
+	void updateLayout(const QPoint & startPos, int size) const;
+	/* Call first if layout update is started. Used to preclalculate local properties. */
+	void preCalc();
+	int getRequiredSize() const;
+	int getStretchFactor() const;
+
+private:
+	ComponentLayoutBlock * m_layoutBlock;
+	ComponentLayoutItemBase * m_firstLayoutItem;
+	ConnOrientationType m_orientation;
+};
+
+//#######################################################################
+//#######################################################################
+
+class ComponentLayoutBlockContentBase
+{
+friend class ComponentLayoutBlock;
+public:
+	virtual ~ComponentLayoutBlockContentBase();
+
+	/** Sets the layout dirty. */
+	void setDirty();
+	/** Set the alignment of the drawn text or pixmap. */
+	void setAlign(int align);
+	/** Returns the alignment of the drawn text or pixmap. */
+	int getAlign() const { return m_align; };
+
+	ComponentLayoutBlock * getLayoutBlock() const { return m_parentBlock; };
+
+protected:
+	ComponentLayoutBlockContentBase(ComponentLayoutBlock * parentBlock, int align = Qt::AlignCenter);
+	/* Call first if layout update is started. Used to preclalculate local properties. */
+	virtual void preCalc();
+	/** Reutrns the minimum required size. */
+	virtual QSize getRequiredSize() const = 0;
+	/** Returns the rect where the content has to be drawn. */
+	virtual QRect getContentPlace() const;
+	/** Draws the content. */
+	virtual void draw(QPainter *p) const = 0;
+	virtual void updateLayout(const QRect & rect);
+
+	ComponentLayoutBlock * m_parentBlock;
+	ComponentLayoutBlockContentBase * m_nextContent;
+	int m_align;
+};
+
+//#######################################################################
+//#######################################################################
+
+class ComponentLayoutBlockContentText : public ComponentLayoutBlockContentBase
+{
+public:
+	ComponentLayoutBlockContentText(ComponentLayoutBlock * parentBlock);
+	ComponentLayoutBlockContentText(ComponentLayoutBlock * parentBlock, const QString & text, int align = Qt::AlignCenter, double rot = 0.0, eFont = FONT_10);
+
+	/** Set a text which will be drawn in the frame.  A previously set pixmap will be discarded. */
+	void setText(const QString & text);
+	/** Returns the text which will be drawn in the frame. */
+	const QString & getText() const { return m_text; };
+
+	/** Sets the rotation of the text. Only 0, 90, 180 and 270 is allowed! */
+	void setRotation(double rot);
+	/** Returns the text rotation. */
+	double getRotation() const { return m_rot; };
+
+	/** Selects an embedded font. */
+	void setFont(eFont font);
+	/** Returns the selected embedded font. */
+	eFont getFont() const { return m_font; };
 
 
 protected:
-	/** Constructor for internal purpose. */
-	CompLayoutBase(ComponentLayout * parent, ConnOrientationType orientation);
-	/** Sets the orientation. For internal use only. */
-  void setOrientation(ConnOrientationType orient) { m_orientation = orient; };
+	/** Reutrns the minimum required size. */
+	virtual QSize getRequiredSize() const;
+	/** Draws the content. */
+	virtual void draw(QPainter *p) const;
 
-private:
-	/** Contains the parent. */
-	union
-	{
-		CompLayoutBase * layout;
-		ComponentLayout * base;
-	} m_parent;
+	QString m_text;
+	double m_rot;
+	eFont m_font;
+};
+
+//#######################################################################
+//#######################################################################
+
+class ComponentLayoutBlockContentPixmap : public ComponentLayoutBlockContentBase
+{
+public:
+	ComponentLayoutBlockContentPixmap(ComponentLayoutBlock * parentBlock);
+	ComponentLayoutBlockContentPixmap(ComponentLayoutBlock * parentBlock, const QPixmap & pixmap, int align = Qt::AlignCenter);
+
+	/** Set a pixmap which will be drawn in the frame.  A previously set pixmap will be discarded. */
+	void setPixmap(const QPixmap & pixmap);
+	/** Returns the pixmap which will be drawn in the frame. */
+	const QPixmap & getPixmap() const { return m_pixmap; };
+
+protected:
+	/** Reutrns the minimum required size. */
+	virtual QSize getRequiredSize() const;
+	/** Draws the content. */
+	virtual void draw(QPainter *p) const;
+
+	QPixmap m_pixmap;
+	int m_xoffs;
+	int m_yoffs;
+};
+
+//#######################################################################
+//#######################################################################
+
+class ComponentLayoutBlock
+{
+friend class ComponentLayout;
+friend class ComponentLayoutBlockContentBase;
+public:
+	ComponentLayoutBlock(ComponentLayout * layout);
+	virtual ~ComponentLayoutBlock();
+
+	ComponentLayout * getLayout() const { return m_layout; };
+	ComponentLayoutBlock * getNext() const { return m_nextBlock; };
+
+	const QRect & getPlace() const;
+
+	void setDirty() const;
+
+	ComponentLayoutSide * getTop();
+	ComponentLayoutSide * getRight();
+	ComponentLayoutSide * getBottom();
+	ComponentLayoutSide * getLeft();
+
+	bool hasTop() const    { return (m_top != 0); };
+	bool hasRight() const  { return (m_right != 0); };
+	bool hasBottom() const { return (m_bottom != 0); };
+	bool hasLeft() const   { return (m_left != 0); };
+
+	void setMinSize(const QSize & minSize);
+	void setMinSize(int width, int height);
+	QSize getMinSize() const { return m_minSize; };
+	void setStretch(int stretchFactor);
+	int getStretchFactor() const;
+
+	/** Enables the drawing of the top bar. */
+	void enableTopBar(bool ena);
+	/** Returns true, if the drawing of the top bar is enabled. */
+	bool isTopBarEnabled() const { return m_flags.drawTopBar; };
+
+	/** Enables the drawing of the right bar. */
+	void enableRightBar(bool ena);
+	/** Returns true, if the drawing of the right bar is enabled. */
+	bool isRightBarEnabled() const { return m_flags.drawRightBar; };
+
+	/** Enables the drawing of the bottom bar. */
+	void enableBottomBar(bool ena);
+	/** Returns true, if the drawing of the bottom bar is enabled. */
+	bool isBottomBarEnabled() const { return m_flags.drawBottomBar; };
+
+	/** Enables the drawing of the left bar. */
+	void enableLeftBar(bool ena);
+	/** Returns true, if the drawing of the left bar is enabled. */
+	bool isLeftBarEnabled() const { return m_flags.drawLeftBar; };
+
+	/** Hides the block if ena is true and the block contains no visible connector. */
+	void hideWithoutConnector(bool ena);
+	/** Returns true, if a empty block will be hidden. */
+	bool isHideWithoutConnector() const { return m_flags.hideWithoutConnector; };
+
+	bool isHorizontal() const { return m_flags.horizontal; };
 	
-	/** Contains the orientation. */
-	ConnOrientationType m_orientation;
-	/** Conatins all child layout elements. */
-	CompLayoutList * m_itemList;
+	bool hasConnectors() const;
+
+protected:
+	void addContent(ComponentLayoutBlockContentBase * content);
+	/* Call first if layout update is started. Used to preclalculate local properties. */
+	virtual void preCalc();
+	virtual QSize getRequiredSize() const;
+	QSize getRequiredSizeSide() const;
+	QSize getRequiredSizeContent() const;
+	/** Returns the rect where the content has to be drawn. */
+	virtual QRect getContentPlace() const;
+	virtual void updateLayout(const QRect & rect);
+	virtual void draw(QPainter *p) const;
+	/** Draws the content. */
+	void drawContent(QPainter *p) const;
+	
+	static const int m_frameSpace;
+	/** Contains the parent layout. */
+	ComponentLayout * m_layout;
+	ComponentLayoutSide * m_top;
+	ComponentLayoutSide * m_right;
+	ComponentLayoutSide * m_bottom;
+	ComponentLayoutSide * m_left;
+	ComponentLayoutBlock * m_nextBlock;
+	ComponentLayoutBlockContentBase * m_firstContent;
+	QRect m_place;
+	QSize m_minSize;
+	int m_stretchFactor;
 	/** Some internal flags. */
-	Q_UINT32 m_flags;
-
+	struct
+	{
+		unsigned int drawTopBar           :1;
+		unsigned int drawRightBar         :1;
+		unsigned int drawBottomBar        :1;
+		unsigned int drawLeftBar          :1;
+		unsigned int horizontal           :1;
+		unsigned int first                :1;
+		unsigned int last                 :1;
+		unsigned int hideWithoutConnector :1;
+		unsigned int withoutConnector     :1;
+	} m_flags;
 };
+
 
 //#######################################################################
 //#######################################################################
 
-/**A class for sub layout elements at the left side of the component.
-  *@author Rasmus Diekenbrock
-  */
-
-class ComponentLayoutLeft : public CompLayoutBase
+class ComponentLayoutControlBlock : public ComponentLayoutBlock 
 {
 public:
-	/** Constructs a sub layout element for the left component side. */
-	ComponentLayoutLeft(CompLayoutBase * parentLayout)
-	:	CompLayoutBase(parentLayout, CO_LEFT)
-	{};
+	ComponentLayoutControlBlock(ComponentLayout * layout);
+	virtual ~ComponentLayoutControlBlock();
+	
+protected:
+	/** Returns the rect where the content has to be drawn. */
+	virtual QRect getContentPlace() const;
+	virtual QSize getRequiredSize() const;
+	virtual void draw(QPainter *p) const;
 };
 
-/**A class for sub layout elements at the right side of the component.
-  *@author Rasmus Diekenbrock
-  */
-
-class ComponentLayoutRight : public CompLayoutBase
-{
-public:
-	/** Constructs a sub layout element for the right component side. */
-	ComponentLayoutRight(CompLayoutBase * parentLayout)
-	:	CompLayoutBase(parentLayout, CO_RIGHT)
-	{};
-};
-
-/**A class for sub layout elements at the top side of the component.
-  *@author Rasmus Diekenbrock
-  */
-
-class ComponentLayoutTop : public CompLayoutBase
-{
-public:
-	/** Constructs a sub layout element for the top component side. */
-	ComponentLayoutTop(CompLayoutBase * parentLayout)
-	:	CompLayoutBase(parentLayout, CO_TOP)
-	{};
-};
-
-/**A class for sub layout elements at the bottom side of the component.
-  *@author Rasmus Diekenbrock
-  */
-
-class ComponentLayoutBottom : public CompLayoutBase
-{
-public:
-	/** Constructs a sub layout element for the bottom component side. */
-	ComponentLayoutBottom(CompLayoutBase * parentLayout)
-	:	CompLayoutBase(parentLayout, CO_BOTTOM)
-	{};
-};
-
-//#######################################################################
-//#######################################################################
-
-/** A class for component layout. Add one element to your component. Add the layout elements to
-  * one of the four layouts. Each layout represents one side of the component.
-  * @author Rasmus Diekenbrock
-  */
+//###########################################################################################
+//###########################################################################################
 
 class ComponentLayout : public ComponentAddOn
+{
+friend class ComponentLayoutBlock;
+
+  Q_OBJECT
+
+public:
+	/** Constructs a component layout.
+	  *
+	  * Construct a component layout, add connectors and other layout elements and forgot it :).
+	  * @param component Component for which the layout is.
+	  */
+	ComponentLayout(CompView * compView, bool horizontal);
+	/** The destructor. Deletes also all added layout items. */
+	~ComponentLayout();
+
+	QSize getMinSize() const { return m_minSize; };
+	void setMinSize(const QSize & size);
+	void setMinSize(unsigned int width, unsigned int height) { setMinSize(QSize(width, height)); };
+
+	bool isDirty() const { return m_flags.dirty; };
+	bool isHorizontal() const { return m_flags.horizontal; };
+
+	CompView * getCompView() const { return m_compView; };
+
+	/** Draw the sheet view.
+		* The default implementation does nothing.
+		*/
+	virtual void drawSheetView (QPainter *p) const;
+	/** Draw the user view.
+		* The default implementation does nothing.
+		*/
+	virtual void drawUserView (QPainter *p) const;
+
+
+public slots:
+	void setDirty();
+	virtual void updateLayout();
+
+protected:
+	void addBlock(ComponentLayoutBlock * pNewBlock);
+	/* Call first if layout update is started. Used to preclalculate local properties. */
+	void preCalc();
+	QSize getRequiredSizeChilds() const;
+	QSize getRequiredSize() const;
+	int getAllStretch() const;
+	bool hasConnectorTop() const { return m_flags.hasTopConn; };
+	bool hasConnectorRight() const { return m_flags.hasRightConn; };
+	bool hasConnectorBottom() const { return m_flags.hasBottomConn; };
+	bool hasConnectorLeft() const { return m_flags.hasLeftConn; };
+	
+	void updateConnectorSpacings();
+	void calcLayout(const QSize & size, const QSize & requiredSizeSize);
+	
+	CompView * m_compView;
+	QSize m_minSize;
+	struct
+	{
+		unsigned int dirty : 1;
+		unsigned int horizontal : 1;
+		unsigned int hasTopConn : 1;
+		unsigned int hasRightConn : 1;
+		unsigned int hasBottomConn : 1;
+		unsigned int hasLeftConn : 1;
+	} m_flags;
+	ComponentLayoutBlock * m_firstBlock;
+};
+
+//###########################################################################################
+//###########################################################################################
+
+class ComponentLayoutFixed : public ComponentLayout
 {
   Q_OBJECT
 
@@ -291,62 +555,63 @@ public:
 	  * Construct a component layout, add connectors and other layout elements and forgot it :).
 	  * @param component Component for which the layout is.
 	  */
-	ComponentLayout(CompView * sheetView);
-	/** The destructor. Deletes also all added layout items. Do not use the destructor, this is done
-	  * by KSimus. */
-	~ComponentLayout();
-	
-	
-	/** Returns the layout for the left side. */
-	CompLayoutBase * getLeft() const   { return m_left; };
-	/** Returns the layout for the right side. */
-	CompLayoutBase * getRight() const  { return m_right; };
-	/** Returns the layout for the top side. */
-	CompLayoutBase * getTop() const    { return m_top; };
-	/** Returns the layout for the bottom side. */
-	CompLayoutBase * getBottom() const { return m_bottom; };
-	
-
-  /** Returns the minimum size. The default minimum size is QSize(5,5).*/
-  const QSize & getMinSize() const { return m_minSize; };
-  /** Sets the minimum size. */
-  void setMinSize(const QSize & minSize);
-  /** Sets the minimum size. */
-  void setMinSize(unsigned int width, unsigned int height) { setMinSize(QSize(width, height)); };
-	
-  /** Returns the current component size.*/
-  const QSize & getSize() const { return m_currentSize; };
-
-  /** Set component size fixed. If true, the layout dont change the size of the component. */
-  void setFixedSize(bool fixed);
-  /** Returns, if the component size is set to fix. */
-  bool isFixedSize() const { return m_fixedSize; };
-
-	/** Returns the sheet view which uses the layout.
-	  */
-	CompView * getSheetView() const { return m_sheetView; };
-
+	ComponentLayoutFixed(CompView * compView, bool horizontal);
 
 public slots:
-	/** Calculates uns sets new component size and connector positions. */
-	void updateLayout();
-	/** Actually calls @ref updateLayout().*/
-	void slotResizeView();
+	virtual void updateLayout();
+};
 
+//###########################################################################################
+//###########################################################################################
 
+class ComponentLayoutSimple : public ComponentLayout
+{
+  Q_OBJECT
+
+public:
+	/** Constructs a component layout.
+	  *
+	  * Construct a component layout, add connectors and other layout elements and forget it :).
+	  * @param component Component for which the layout is.
+	  */
+	ComponentLayoutSimple(CompView * compView);
+
+	ComponentLayoutBlock * getBlock() { return m_block; };
+	
+	ComponentLayoutSide * getTop() { return m_block->getTop(); };
+	ComponentLayoutSide * getRight() { return m_block->getRight(); };
+	ComponentLayoutSide * getBottom() { return m_block->getBottom(); };
+	ComponentLayoutSide * getLeft() { return m_block->getLeft(); };
 
 private:
-	CompView * m_sheetView;
-	CompLayoutBase * m_left;
-	CompLayoutBase * m_right;
-	CompLayoutBase * m_top;
-	CompLayoutBase * m_bottom;
-	QSize m_minSize;
-	QSize m_currentSize;
-	bool m_fixedSize;
+	ComponentLayoutBlock * m_block;
 
 };
 
+//###########################################################################################
+//###########################################################################################
 
+class ComponentLayoutVerticalCtrl : public ComponentLayout
+{
+  Q_OBJECT
+
+public:
+	/** Constructs a component layout with vertical orientation. It  contains a control block and a normal block.
+	  *
+	  * Construct a component layout, add connectors and other layout elements and forget it :).
+	  * @param component Component for which the layout is.
+	  */
+	ComponentLayoutVerticalCtrl(CompView * compView);
+	
+	ComponentLayoutControlBlock * getCtrlBlock() const { return m_ctrlBlock; } ;
+	ComponentLayoutBlock * getFuncBlock() const { return m_funcBlock; } ;
+
+private:
+	ComponentLayoutControlBlock * m_ctrlBlock;
+	ComponentLayoutBlock * m_funcBlock;
+
+};
 
 #endif
+
+

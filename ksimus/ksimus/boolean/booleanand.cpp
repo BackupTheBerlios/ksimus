@@ -29,6 +29,8 @@
 #include "connectorboolout.h"
 #include "connectorpack.h"
 #include "ksimembfont.h"
+#include "componentlayout.h"
+
 
 
 // Forward declaration
@@ -67,57 +69,51 @@ const ComponentInfo * BooleanAnd::getStaticNandInfo()
 }
 
 
-
-
 //###############################################################
 //###############################################################
 
-void BooleanAndView::draw(QPainter * p)
-{
-	BooleanXIn1OutView::draw(p);
-
-	g_embFont10->drawText(p, getDrawingPlace(), AlignCenter, QString::fromLatin1("&"));
-}
-
-
-//###############################################################
-//###############################################################
 
 BooleanAnd::BooleanAnd(CompContainer * container, const ComponentInfo * ci)
 	: BooleanXIn1Out(container, ci)
 {
-	
+
 	// make NAND
 	if (ci == getStaticNandInfo())
 	{
 		getOutputConnector()->setNegate(true, true);
 	}
-	
+
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BooleanAndView(this, SHEET_VIEW);
-	}
+		CompView * sheetView = new CompView(this, SHEET_VIEW);
+		Q_CHECK_PTR(sheetView);
+		
+		ComponentLayout * layout = new ComponentLayout(sheetView, false);
+		Q_CHECK_PTR(layout);
+		layout->setMinSize(3,3);
 
+		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
+		Q_CHECK_PTR(block);
+
+		block->getLeft()->addSpace(1);
+		block->getLeft()->addConnectorPack(getInputConnectorPack());
+
+		block->getRight()->addStretch(1);
+		block->getRight()->addConnector(getOutputConnector(),0);
+		block->getRight()->addStretch(1);
+
+		new ComponentLayoutBlockContentText(block, QString::fromLatin1("&"));
+	}
+	
 	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
 void BooleanAnd::calculate()
 {
-	BooleanXIn1Out::calculate();
+//	BooleanXIn1Out::calculate();
 	
-/*	bool result = true;
-	
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		result &= ((ConnectorBoolIn*)it.current())->getInput();
-		if (!result) break;	//  No more changes possible
-	}
-	
-	setState(result);*/
-
-
 	bool result = true;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

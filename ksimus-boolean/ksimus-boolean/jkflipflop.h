@@ -34,7 +34,7 @@
 // Forward declaration
 class ConnectorBoolInEdge;
 class ConnectorBoolIn;
-class ComponentLayout;
+class ComponentLayoutSimple;
 class CompContainer;
 
 
@@ -129,10 +129,10 @@ class JKFlipFlopView : public CompView
 public:
 	JKFlipFlopView(JKFlipFlop * comp, eViewType viewType);
 //	~JKFlipFlopView();
-	virtual void draw(QPainter * p);
+//	virtual void draw(QPainter * p);
 
 private:
-	ComponentLayout * m_layout;
+	ComponentLayoutSimple * m_layout;
 
 	JKFlipFlop * getJKFF() { return (JKFlipFlop *) getComponent(); };
 

@@ -36,7 +36,6 @@
 #include "ksimus/ksimdata.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimbooleanbox.h"
 #include "ksimus/optionalconnector.h"
@@ -303,50 +302,28 @@ MultiDLatchView::MultiDLatchView(MultiDLatch * comp, eViewType viewType)
 	if (viewType == SHEET_VIEW)
 	{
 		enableRotation(true);
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutVerticalCtrl(this);
 		CHECK_PTR(m_layout);
 		
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
-		
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getComponent()->getInputReset());
-		m_ctrlBlock->getLeft()->addConnector(getComponent()->getInputEnable());
+		m_layout->getCtrlBlock()->getLeft()->addSpace(1);
+		m_layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getInputReset());
+		m_layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getInputEnable());
 		
 		
-		m_layout->getLeft()->addSpace(1);
-		m_layout->getLeft()->addConnectorPack(getComponent()->getInputPack());
+		m_layout->getFuncBlock()->getLeft()->addSpace(1);
+		m_layout->getFuncBlock()->getLeft()->addConnectorPack(getComponent()->getInputPack());
 		
-		m_layout->getRight()->addSpace(1);
-		m_layout->getRight()->addConnectorPack(getComponent()->getOutputPack());
+		m_layout->getFuncBlock()->getRight()->addSpace(1);
+		m_layout->getFuncBlock()->getRight()->addConnectorPack(getComponent()->getOutputPack());
 		
-		m_layout->setMinSize(6,5);
-		m_layout->updateLayout();
+		m_layout->setMinSize(4,5);
 	
+		new ComponentLayoutBlockContentText(m_layout->getFuncBlock(), "Latch", AlignCenter);
+
 		new ConnectorLabel(getComponent()->getInputReset(), "R");
 		new ConnectorLabel(getComponent()->getInputEnable(), "E");
 	}
 }
-
-void MultiDLatchView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-	p->setPen(black);
-	p->drawText(rect, (AlignHCenter | AlignTop), "Latch");
-}
-
 
 //###############################################################
 //###############################################################

@@ -62,20 +62,6 @@ private:
 
 //###############################################################
 
-/** The view for the floating point multiplier gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatMultiplierView : public Float1OutView
-{
-public:
-	FloatMultiplierView(FloatMultiplier * comp, eViewType viewType);
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 
 };  //namespace KSimLibFloatingPoint
 #endif

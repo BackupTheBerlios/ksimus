@@ -16,10 +16,8 @@
  ***************************************************************************/
 
 // C-Includes
-#include <stdlib.h>
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -61,27 +59,13 @@ const ComponentInfo * IntegerArithmeticInverter::getStaticInfo()
 //###############################################################
 //###############################################################
 
-
-void IntegerArithmeticInverter::View::draw(QPainter * p)
-{
-	Integer1In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "*-1");
-}
-
-
-//###############################################################
-//###############################################################
-
 IntegerArithmeticInverter::IntegerArithmeticInverter(CompContainer * container, const ComponentInfo * ci)
 	: Integer1In1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new Integer1In1OutView(this, SHEET_VIEW, "*(-1)");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

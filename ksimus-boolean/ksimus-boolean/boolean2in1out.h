@@ -76,9 +76,8 @@ private:
 class Boolean2In1OutView : public CompView
 {
 public:
-	Boolean2In1OutView(Component * comp, eViewType viewType);
+	Boolean2In1OutView(Boolean2In1Out * comp, eViewType viewType, const QString & text);
 //	~Boolean2In1OutView();
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

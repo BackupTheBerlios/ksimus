@@ -84,7 +84,7 @@ BoolTristateAnd::BoolTristateAnd(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new BoolTristateAndView(this, SHEET_VIEW);
+		new BoolTristateXIn1Out1EnaView(this, SHEET_VIEW, "&");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

@@ -146,9 +146,7 @@ void WaveformGenerator::reset()
 /** Executes the simulation of this component */
 void WaveformGenerator::calculate()
 {
-	Float1Out::calculate();
-	
-	double frac = ((double)((getTimeServer().raw() + m_phaseLength) % getPeriod().raw()))
+	const double frac = ((double)((getTimeServer().raw() + m_phaseLength) % getPeriod().raw()))
 	                                  / m_periodLength;
 	double val = 0;
 	
@@ -312,11 +310,11 @@ public:
 };
 
 
-QPixmap * WaveformGeneratorView::Private::sinusoidalPix = (QPixmap*)0;
-QPixmap * WaveformGeneratorView::Private::squarePix     = (QPixmap*)0;
-QPixmap * WaveformGeneratorView::Private::sawtoothPix   = (QPixmap*)0;
-QPixmap * WaveformGeneratorView::Private::triangularPix = (QPixmap*)0;
-QPixmap * WaveformGeneratorView::Private::diracPix      = (QPixmap*)0;
+QPixmap * WaveformGeneratorView::Private::sinusoidalPix = 0;
+QPixmap * WaveformGeneratorView::Private::squarePix     = 0;
+QPixmap * WaveformGeneratorView::Private::sawtoothPix   = 0;
+QPixmap * WaveformGeneratorView::Private::triangularPix = 0;
+QPixmap * WaveformGeneratorView::Private::diracPix      = 0;
 
 unsigned int WaveformGeneratorView::Private::viewCounter = 0;
 
@@ -466,8 +464,7 @@ WaveformGeneratorView::WaveformGeneratorView(WaveformGenerator * comp, eViewType
 			Private::diracPix = new QPixmap(Private::dirac);
 			CHECK_PTR(Private::diracPix);
 		} 	
-		getComponentLayout()->setMinSize(4,3);
-		getComponentLayout()->updateLayout();
+		getComponentLayout()->setMinSize(3,3);
 	}
 };
 
@@ -477,31 +474,16 @@ WaveformGeneratorView::~WaveformGeneratorView()
 	
 	if (Private::viewCounter == 0)
 	{
-		if (Private::sinusoidalPix != (QPixmap*)0)
-		{
-			delete Private::sinusoidalPix;
-			Private::sinusoidalPix = (QPixmap*)0;
-		}
-		if (Private::squarePix != (QPixmap*)0)
-		{
-			delete Private::squarePix;
-			Private::squarePix = (QPixmap*)0;
-		}
-		if (Private::sawtoothPix != (QPixmap*)0)
-		{
-			delete Private::sawtoothPix;
-			Private::sawtoothPix = (QPixmap*)0;
-		}
-		if (Private::triangularPix != (QPixmap*)0)
-		{
-			delete Private::triangularPix;
-			Private::triangularPix = (QPixmap*)0;
-		}
-		if (Private::diracPix != (QPixmap*)0)
-		{
-			delete Private::diracPix;
-			Private::diracPix = (QPixmap*)0;
-		}
+		delete Private::sinusoidalPix;
+		Private::sinusoidalPix = 0;
+		delete Private::squarePix;
+		Private::squarePix = 0;
+		delete Private::sawtoothPix;
+		Private::sawtoothPix = 0;
+		delete Private::triangularPix;
+		Private::triangularPix = 0;
+		delete Private::diracPix;
+		Private::diracPix = 0;
 	}
 }
 
@@ -515,45 +497,45 @@ void WaveformGeneratorView::draw(QPainter * p)
 	{
 		case WaveformGenerator::eSinusoidal:
 		{
-			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - Private::sinusoidalPix->width()) / 2;
-			int y = place.top() + (place.height() - Private::sinusoidalPix->height()) / 2;
+			const QRect place(getDrawingPlace());
+			const int x = place.left() + (place.width() - Private::sinusoidalPix->width()) / 2;
+			const int y = place.top() + (place.height() - Private::sinusoidalPix->height()) / 2;
 			p->drawPixmap(x,y,*Private::sinusoidalPix);
 		}
 		break;
 		
 		case WaveformGenerator::eSquare:
 		{
-			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - Private::squarePix->width()) / 2;
-			int y = place.top() + (place.height() - Private::squarePix->height()) / 2;
+			const QRect place(getDrawingPlace());
+			const int x = place.left() + (place.width() - Private::squarePix->width()) / 2;
+			const int y = place.top() + (place.height() - Private::squarePix->height()) / 2;
 			p->drawPixmap(x,y,*Private::squarePix);
 		}
 		break;
 		
 		case WaveformGenerator::eSawtooth:
 		{
-			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - Private::sawtoothPix->width()) / 2;
-			int y = place.top() + (place.height() - Private::sawtoothPix->height()) / 2;
+			const QRect place(getDrawingPlace());
+			const int x = place.left() + (place.width() - Private::sawtoothPix->width()) / 2;
+			const int y = place.top() + (place.height() - Private::sawtoothPix->height()) / 2;
 			p->drawPixmap(x,y,*Private::sawtoothPix);
 		}
 		break;
 		
 		case WaveformGenerator::eTriangular:
 		{
-			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - Private::triangularPix->width()) / 2;
-			int y = place.top() + (place.height() - Private::triangularPix->height()) / 2;
+			const QRect place(getDrawingPlace());
+			const int x = place.left() + (place.width() - Private::triangularPix->width()) / 2;
+			const int y = place.top() + (place.height() - Private::triangularPix->height()) / 2;
 			p->drawPixmap(x,y,*Private::triangularPix);
 		}
 		break;
 		
 		case WaveformGenerator::eDirac:
 		{
-			QRect place(getDrawingPlace());
-			int x = place.left() + (place.width() - Private::diracPix->width()) / 2;
-			int y = place.top() + (place.height() - Private::diracPix->height()) / 2;
+			const QRect place(getDrawingPlace());
+			const int x = place.left() + (place.width() - Private::diracPix->width()) / 2;
+			const int y = place.top() + (place.height() - Private::diracPix->height()) / 2;
 			p->drawPixmap(x,y,*Private::diracPix);
 		}
 		break;

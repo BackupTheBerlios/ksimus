@@ -56,36 +56,6 @@ const ComponentInfo * FloatMultiplier::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-FloatMultiplierView::FloatMultiplierView(FloatMultiplier * comp, eViewType viewType)
-	: Float1OutView(comp, viewType)
-{
-	if (viewType == SHEET_VIEW)
-	{
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnectorPack(comp->getInputConnectorPack());
-	
-		getComponentLayout()->updateLayout();
-	}
-}
-
-void FloatMultiplierView::draw(QPainter * p)
-{
-	Float1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Mul");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -105,7 +75,12 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new FloatMultiplierView(this, SHEET_VIEW);
+		Float1OutView * view = new Float1OutView(this, SHEET_VIEW);
+		
+		view->getComponentLayout()->getLeft()->addSpace(1);
+		view->getComponentLayout()->getLeft()->addConnectorPack(getInputConnectorPack());
+		
+		new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Mul");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -114,8 +89,6 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 /** Executes the simulation of this component */
 void FloatMultiplier::calculate()
 {
-	Float1Out::calculate();
-	
 	double result = 1.0;
 	
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())

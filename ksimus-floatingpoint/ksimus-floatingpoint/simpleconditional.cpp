@@ -35,6 +35,7 @@
 #include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/ksimdata.h"
+#include "ksimus/ksimembfont.h"
 #include "simpleconditional.h"
 
 // Forward declaration
@@ -176,8 +177,6 @@ bool SimpleConditional::isProperReloadType(const QString & type) const
 
 void SimpleConditional::calculate()
 {
-	Boolean1Out::calculate();
-
 	bool state = false;
 	
 	switch(getConditionalType())
@@ -240,92 +239,6 @@ ComponentPropertyBaseWidget * SimpleConditional::createGeneralProperty(QWidget *
 	return wid;
 }
 
-//###############################################################
-//###############################################################
-
-
-
-/* XPM */
-const char * SimpleConditional::View::AltB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .         .   .",
-"  . .      . .   .",
-"  . .    ..  .... ",
-" .   . ..    .   .",
-" .....   ..  .   .",
-".     .    . .   .",
-".     .      .... "};
-
-/* XPM */
-const char * SimpleConditional::View::AlteqB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .       . .   .",
-"  . .    ..  .   .",
-"  . .  ..    .... ",
-" .   .   ..  .   .",
-" ..... ..  . .   .",
-".     .  ..  .   .",
-".     .    . .... "};
-
-/* XPM */
-const char * SimpleConditional::View::AeqB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .         .   .",
-"  . .        .   .",
-"  . .   .... .... ",
-" .   .       .   .",
-" .....  .... .   .",
-".     .      .   .",
-".     .      .... "};
-
-/* XPM */
-const char * SimpleConditional::View::AgteqB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .   .     .   .",
-"  . .   ..   .   .",
-"  . .     .. .... ",
-" .   .  ..   .   .",
-" ..... .  .. .   .",
-".     . ..   .   .",
-".     ..     .... "};
-
-/* XPM */
-const char * SimpleConditional::View::AgtB_xpm[] = {
-"18 8 2 1",
-" 	c None",
-".	c #000000",
-"   .         .... ",
-"   .         .   .",
-"  . .  .     .   .",
-"  . .   ..   .... ",
-" .   .    .. .   .",
-" .....  ..   .   .",
-".     ..     .   .",
-".     .      .... "};
-
-
-
-unsigned int SimpleConditional::View::sInstanceCount  = 0;
-QPixmap * SimpleConditional::View::sPixmapLesser      = 0;
-QPixmap * SimpleConditional::View::sPixmapLesserEqual = 0;
-QPixmap * SimpleConditional::View::sPixmapEqual       = 0;
-QPixmap * SimpleConditional::View::sPixmapLargerEqual = 0;
-QPixmap * SimpleConditional::View::sPixmapLarger      = 0;
-int SimpleConditional::View::sPixmapOffsetTop;
-int SimpleConditional::View::sPixmapOffsetLeft;
-
 
 SimpleConditional::View::View(SimpleConditional * comp, eViewType viewType)
 	: CompView(comp, viewType)
@@ -340,64 +253,58 @@ SimpleConditional::View::View(SimpleConditional * comp, eViewType viewType)
 	getSimpleConditional()->getInputA()->setGridPos(0,1);
 	getSimpleConditional()->getInputB()->setGridPos(0,3);
 	getSimpleConditional()->getOutputConnector()->setGridPos(4,2);
-
-	if (sInstanceCount == 0)
-	{
-		sPixmapLesser      = new QPixmap(AltB_xpm);   CHECK_PTR(sPixmapLesser);
-		sPixmapLesserEqual = new QPixmap(AlteqB_xpm); CHECK_PTR(sPixmapLesserEqual);
-		sPixmapEqual       = new QPixmap(AeqB_xpm);   CHECK_PTR(sPixmapEqual);
-		sPixmapLargerEqual = new QPixmap(AgteqB_xpm); CHECK_PTR(sPixmapLargerEqual);
-		sPixmapLarger      = new QPixmap(AgtB_xpm);   CHECK_PTR(sPixmapLarger);
-
-		sPixmapOffsetLeft = (getDrawingPlace().width() - sPixmapLesser->width())/2 + getDrawingPlace().left();
-		sPixmapOffsetTop = (getDrawingPlace().height() - sPixmapLesser->height())/2 + getDrawingPlace().top();
-
-#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
-		// Assume same size of all pixmaps !!!!
-		if ((sPixmapLesser->size() != sPixmapLesserEqual->size())
-		 || (sPixmapLesser->size() != sPixmapEqual->size())
-		 || (sPixmapLesser->size() != sPixmapLargerEqual->size())
-		 || (sPixmapLesser->size() != sPixmapLarger->size()))
-		{
-			KSIMDEBUG("FIX ME: Assume same size of all pixmaps !!!!");
-		}
-#endif //defined(DEBUG) && !defined(NO_KSIMDEBUG)
-
-	}
-	sInstanceCount++;
 }
 
-SimpleConditional::View::~View()
+/*SimpleConditional::View::~View()
 {
-	sInstanceCount--;
-	if (sInstanceCount == 0)
-	{
-		delete sPixmapLesser;       sPixmapLesser = 0;
-		delete sPixmapLesserEqual;  sPixmapLesserEqual = 0;
-		delete sPixmapEqual;        sPixmapEqual = 0;
-		delete sPixmapLargerEqual;  sPixmapLargerEqual = 0;
-		delete sPixmapLarger;       sPixmapLarger = 0;
-	}
-}
+}*/
 
 void SimpleConditional::View::draw(QPainter * p)
 {
 	drawFrame(p);
 	CompView::draw(p);
-
-/*	KSIMDEBUG(QString("getDrawingPlace(%1,%2) sPixmapSize(%3,%4) xy(%5,%6)")
-	                  .arg(getDrawingPlace().width()).arg(getDrawingPlace().height())
-	                  .arg(sPixmapLesser->width()).arg(sPixmapLesser->height())
-	                  .arg(sPixmapOffsetLeft).arg(sPixmapOffsetTop));*/
-
+	
+	QString s;
+	
 	switch(getSimpleConditional()->getConditionalType())
 	{
-		case eLesser:      p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLesser);      break;
-		case eLesserEqual: p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLesserEqual); break;
-		case eEqual:       p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapEqual);       break;
-		case eLargerEqual: p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLargerEqual); break;
-		case eLarger:      p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLarger);      break;
+		case eLesser:      
+		{
+			static const QString ss("A<B");
+			s = ss;
+		}
+		break;
+		
+		case eLesserEqual:      
+		{
+			static const QString ss(QString("A") + QChar(0X2264) + QString("B"));
+			s = ss;
+		}
+		break;
+		
+		case eEqual:      
+		{
+			static const QString ss("A=B");
+			s = ss;
+		}
+		break;
+		
+		case eLargerEqual:      
+		{
+			static const QString ss(QString("A") + QChar(0X2265) + QString("B"));
+			s = ss;
+		}
+		break;
+		
+		case eLarger:      
+		{
+			static const QString ss("A>B");
+			s = ss;
+		}
+		break;
 	}
+	
+	KSimEmbFont::getFont10()->drawText(p, getDrawingPlace(), AlignCenter, s); 
 }
 
 
@@ -408,18 +315,27 @@ void SimpleConditional::View::draw(QPainter * p)
 SimpleConditionalPropertyGeneralWidget::SimpleConditionalPropertyGeneralWidget(SimpleConditional * comp, QWidget *parent, const char *name)
 	:	Boolean1OutPropertyGeneralWidget(comp, parent, name)
 {
-	QString tip;
+	QString tip, s;
 	
 	m_conditionalLabel = new QLabel(i18n("FloatingPoint", "Conditional: "), this, "m_conditionalLabel");
 	CHECK_PTR(m_conditionalLabel);
 	
 	m_conditional = new QComboBox(this, "m_conditional");
 	CHECK_PTR(m_conditional);
-	m_conditional->insertItem(i18n("FloatingPoint", "A < B"),  (int)eLesser);
-	m_conditional->insertItem(i18n("FloatingPoint", "A <= B"), (int)eLesserEqual);
-	m_conditional->insertItem(i18n("FloatingPoint", "A = B"), (int)eEqual);
-	m_conditional->insertItem(i18n("FloatingPoint", "A >= B"), (int)eLargerEqual);
-	m_conditional->insertItem(i18n("FloatingPoint", "A > B"),  (int)eLarger);
+	
+	m_conditional->insertItem(QString::fromLatin1("A < B"),  (int)eLesser);
+	if (fontMetrics().inFont(QChar(0x2264)))
+		s = QString("A ") + QChar(0x2264) + QString(" B");
+	else
+		s = QString::fromLatin1("A <= B");
+	m_conditional->insertItem(s, (int)eLesserEqual);
+	m_conditional->insertItem(QString::fromLatin1("A = B"), (int)eEqual);
+	if (fontMetrics().inFont(QChar(0x2265)))
+		s = QString("A ") + QChar(0x2265) + QString(" B");
+	else
+		s = QString::fromLatin1("A >= B");
+	m_conditional->insertItem(s, (int)eLargerEqual);
+	m_conditional->insertItem(QString::fromLatin1("A > B"),  (int)eLarger);
 	
 	tip = i18n("FloatingPoint", "Sets the conditional.");
 	addToolTip(tip, m_conditional, m_conditionalLabel);

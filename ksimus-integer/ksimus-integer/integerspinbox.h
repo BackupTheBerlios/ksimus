@@ -158,7 +158,7 @@ signals:
 //#######################################################################
 //#######################################################################
 
-class IntegerSpinboxView : public IntegerStyleRange1OutView
+class IntegerSpinboxView : public CompViewSize
 {
 
 	Q_OBJECT
@@ -169,7 +169,7 @@ public:
 	
 	virtual QWidget * createCompViewWidget(QWidget * parent);
 
-	IntegerSpinbox * getIntegerSpinbox() { return (IntegerSpinbox *)IntegerStyleRange1OutView::getComponent(); };
+	IntegerSpinbox * getIntegerSpinbox() { return (IntegerSpinbox *)CompViewSize::getComponent(); };
 
 
 protected:

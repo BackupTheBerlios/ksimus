@@ -32,7 +32,7 @@
 
 // Forward declaration
 class ConnectorFloatOut;
-class ComponentLayout;
+class ComponentLayoutSimple;
 class KSimDoubleEdit;
 class QLabel;
 
@@ -116,7 +116,7 @@ class FloatStyle1OutView : public CompViewSize
 public:
 //	~Float1OutView();
 	
-	ComponentLayout * getComponentLayout() const { return m_layout; };
+	ComponentLayoutSimple * getComponentLayout() const { return m_layout; };
 	
 	FloatStyle1Out* getFloatStyle1Out() { return (FloatStyle1Out*) getComponent(); };
 
@@ -126,7 +126,7 @@ protected:
 	FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType);
 	
 private:	
-	ComponentLayout * m_layout;
+	ComponentLayoutSimple * m_layout;
 
 };
 

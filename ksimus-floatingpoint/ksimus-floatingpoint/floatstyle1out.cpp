@@ -139,14 +139,12 @@ FloatStyle1OutView::FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType
 	
 	if (viewType == SHEET_VIEW)
 	{
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);
 	
 		m_layout->getRight()->addStretch(2);
 		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
 		m_layout->getRight()->addStretch(2);
-	
-		m_layout->updateLayout();
 	}
 	else
 	{

@@ -141,7 +141,7 @@ ComponentPropertyBaseWidget * Integer1Out::createGeneralProperty(QWidget *parent
 //###############################################################
 
 
-Integer1OutView::Integer1OutView(Integer1Out * comp, eViewType viewType)
+Integer1OutView::Integer1OutView(Integer1Out * comp, eViewType viewType, const QString & text)
 	: CompView(comp, viewType)
 {
 	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
@@ -149,29 +149,24 @@ Integer1OutView::Integer1OutView(Integer1Out * comp, eViewType viewType)
 	
 	if (viewType == SHEET_VIEW)
 	{
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
 	
-		m_layout->getRight()->addStretch(2);
-		m_layout->getRight()->addConnector(comp->getOutputConnector(),0);
-		m_layout->getRight()->addStretch(2);
+		layout->setMinSize(3, 5);
+		
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector(),0);
+		layout->getRight()->addStretch(2);
 	
-		m_layout->updateLayout();
-	}
-	else
-	{
-		m_layout = 0;
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getBlock(), text);
+		}
 	}
 }
 /*Integer1OutView::~Integer1OutView()
 {
 }*/
-
-void Integer1OutView::draw(QPainter * p)
-{
-	drawFrame(p);	
-	CompView::draw(p);
-}
 
 
 //###############################################################

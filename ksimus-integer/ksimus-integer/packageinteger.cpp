@@ -141,20 +141,13 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(IntegerDataSelector::getStaticInfo());
 		pDistComponents->append(IntegerDelay::getStaticInfo());
 
-		pDistComponents->append(IntegerBitwiseInverter::getStaticInfo());
-		pDistComponents->append(IntegerLogicalInverter::getStaticInfo());
-		pDistComponents->append(IntegerBitwiseAnd::getStaticInfo());
-		pDistComponents->append(IntegerBitwiseNand::getStaticInfo());
-		pDistComponents->append(IntegerLogicalAnd::getStaticInfo());
-		pDistComponents->append(IntegerLogicalNand::getStaticInfo());
-		pDistComponents->append(IntegerBitwiseOr::getStaticInfo());
-		pDistComponents->append(IntegerBitwiseNor::getStaticInfo());
-		pDistComponents->append(IntegerLogicalOr::getStaticInfo());
-		pDistComponents->append(IntegerLogicalNor::getStaticInfo());
-		pDistComponents->append(IntegerBitwiseXor::getStaticInfo());
-		pDistComponents->append(IntegerBitwiseXnor::getStaticInfo());
-		pDistComponents->append(IntegerLogicalXor::getStaticInfo());
-		pDistComponents->append(IntegerLogicalXnor::getStaticInfo());
+		pDistComponents->append(IntegerInverter::getStaticInfo());
+		pDistComponents->append(IntegerAnd::getStaticInfo());
+		pDistComponents->append(IntegerNand::getStaticInfo());
+		pDistComponents->append(IntegerOr::getStaticInfo());
+		pDistComponents->append(IntegerNor::getStaticInfo());
+		pDistComponents->append(IntegerXor::getStaticInfo());
+		pDistComponents->append(IntegerXnor::getStaticInfo());
 
 		pDistComponents->append(IntegerCounterClkUpClkDown::getStaticInfo());
 		pDistComponents->append(IntegerCounterClkUpClkDownLoad::getStaticInfo());
@@ -166,6 +159,7 @@ static const ComponentInfoList & getDistComponents()
 		pDistComponents->append(IntegerConditional::getStaticEqualInfo());
 		pDistComponents->append(IntegerConditional::getStaticLargerEqualInfo());
 		pDistComponents->append(IntegerConditional::getStaticLargerInfo());
+		pDistComponents->append(IntegerConditional::getStaticNotEqualInfo());
 		pDistComponents->append(IntegerMin::getStaticInfo());
 		pDistComponents->append(IntegerMax::getStaticInfo());
 		pDistComponents->append(IntegerLatch::getStaticInfo());

@@ -34,8 +34,7 @@
 // Forward declaration
 class ConnectorBoolInEdge;
 class ConnectorPack;
-class ComponentControlBlock;
-class ComponentLayout;
+class ComponentLayoutVerticalCtrl;
 class ConnectorLabel;
 class KSimSpinBox;
 class QLabel;
@@ -142,17 +141,14 @@ class MultiDLatchView : public CompView
 public:
 	MultiDLatchView(MultiDLatch * comp, eViewType viewType);
 //	~MultiDLatchView();
-	virtual void draw(QPainter * p);
 	
 	MultiDLatch* getComponent() { return (MultiDLatch*) CompView::getComponent(); };
 	
-	ComponentControlBlock * getControlBlock() const { return m_ctrlBlock; };
-	ComponentLayout * getComponentLayout() const { return m_layout; };
+	ComponentLayoutVerticalCtrl * getComponentLayout() const { return m_layout; };
 
 
 private:
-	ComponentControlBlock * m_ctrlBlock;
-	ComponentLayout * m_layout; 	
+	ComponentLayoutVerticalCtrl * m_layout; 	
 
 /*private slots:
 	void addConn(ConnectorBase * conn);*/

@@ -47,24 +47,6 @@ public:
 	
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer add gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerAdd::View : public IntegerXIn1OutView
-{
-public:
-	View(IntegerAdd * comp, eViewType viewType)
-	: IntegerXIn1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

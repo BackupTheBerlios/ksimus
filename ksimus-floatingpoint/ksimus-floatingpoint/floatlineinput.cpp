@@ -30,6 +30,7 @@
 #include "ksimus/ksimspinbox.h"
 #include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
+#include "ksimus/connectorfloatout.h"
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimdata.h"
@@ -232,18 +233,24 @@ ComponentPropertyBaseWidget * FloatLineInput::createGeneralProperty(QWidget *par
 //############################################################################
 
 FloatLineInputView::FloatLineInputView(FloatLineInput * comp, eViewType viewType)
-	: FloatStyleRange1OutView(comp,viewType)
+	: CompViewSize(comp,viewType)
 {
+	enableRotation(false);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->setFixedSize(true);
 		setPlace(QRect(0, 0, 7*gridX, 3*gridY));
 		setMinSize(5*gridX, 3*gridY);
-		getComponentLayout()->updateLayout();
-		enableConnectorSpacingTop(false);
-		enableConnectorSpacingBottom(false);
-		enableConnectorSpacingLeft(false);
-//		enableConnectorSpacingRight(false);
+
+		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
+		CHECK_PTR(layout);
+		
+		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
+		CHECK_PTR(layout);
+	
+		block->getRight()->addStretch(2);
+		block->getRight()->addConnector(comp->getOutputConnector(),0);
+		block->getRight()->addStretch(2);
 	}
 	else
 	{
@@ -259,21 +266,21 @@ QWidget * FloatLineInputView::createCompViewWidget(QWidget * parent)
 	
 	/* Specific signals */
 	// Number changed (Component->Edit)
-	connect(getComponent(), SIGNAL(valueChanged(double)), wid->m_edit, SLOT(setValue(double)));
+	connect(getLineInput(), SIGNAL(valueChanged(double)), wid->m_edit, SLOT(setValue(double)));
 	// Number changed (final) (Edit->Component)
 	connect(wid->m_edit, SIGNAL(valueChanged(double)), getComponent(), SLOT(newValue(double)));
 	// Number changed (tracked) (Edit->Component)
 	connect(wid->m_edit, SIGNAL(valueChangedTracking(double)), getComponent(), SLOT(newValueTracking(double)));
 	// min value changed (Component->Widget)
-	connect(getComponent(), SIGNAL(minChanged(double)), wid, SLOT(setMinValue(double)));
+	connect(getLineInput(), SIGNAL(minChanged(double)), wid, SLOT(setMinValue(double)));
 	// max value changed (Component->Widget)
-	connect(getComponent(), SIGNAL(maxChanged(double)), wid, SLOT(setMaxValue(double)));
+	connect(getLineInput(), SIGNAL(maxChanged(double)), wid, SLOT(setMaxValue(double)));
 	// decimals changed (Component->Widget)
-	connect(getComponent(), SIGNAL(decimalsChanged(int)), wid, SLOT(setDecimals(int)));
+	connect(getLineInput(), SIGNAL(decimalsChanged(int)), wid, SLOT(setDecimals(int)));
 	// tracking changed (Component->Widget)
-	connect(getComponent(), SIGNAL(trackingChanged(bool)), wid, SLOT(setTrackingEnabled(bool)));
+	connect(getLineInput(), SIGNAL(trackingChanged(bool)), wid, SLOT(setTrackingEnabled(bool)));
 	// tracking changed (Component->Widget)
-	connect(getComponent(), SIGNAL(conversionTypeChanged(char)), wid, SLOT(setConversionType(char)));
+	connect(getLineInput(), SIGNAL(conversionTypeChanged(char)), wid, SLOT(setConversionType(char)));
 	
 	return wid;
 }

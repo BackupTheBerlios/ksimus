@@ -84,17 +84,14 @@ private:
   * @author Rasmus Diekenbrock
   */
 
-class Integer1In1OutView : public Integer1OutView
+class Integer1In1OutView : public CompView
 {
 
 	Q_OBJECT
 
 public:
+	Integer1In1OutView(Integer1In1Out * comp, eViewType viewType, const QString & text);
 //	~Integer1In1OutView();
-	
-protected:
-	Integer1In1OutView(Integer1In1Out * comp, eViewType viewType, unsigned int width = 5, unsigned int height = 3);
-
 };
 
 

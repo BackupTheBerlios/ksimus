@@ -27,7 +27,7 @@
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/connectorpack.h"
+#include "ksimus/connectorfloatout.h"
 #include "ksimus/componentlayout.h"
 
 
@@ -65,16 +65,31 @@ Float2In1Out::Float2In1Out(CompContainer * container, const ComponentInfo * ci)
 
 
 
-Float2In1OutView::Float2In1OutView(Float2In1Out * comp, eViewType viewType)
-	: Float1OutView(comp, viewType)
+Float2In1OutView::Float2In1OutView(Float2In1Out * comp, eViewType viewType, const QString & text)
+	: CompView(comp, viewType)
 {
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	enableRotation(true);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(comp->getInputA());
-		getComponentLayout()->getLeft()->addConnector(comp->getInputB());
+		ComponentLayoutSimple * layout = new ComponentLayoutSimple(this);
+		CHECK_PTR(layout);
 	
-		getComponentLayout()->updateLayout();
+		layout->setMinSize(3, 5);
+
+		layout->getLeft()->addSpace(1);
+		layout->getLeft()->addConnector(comp->getInputA());
+		layout->getLeft()->addConnector(comp->getInputB());
+		
+		layout->getRight()->addStretch(2);
+		layout->getRight()->addConnector(comp->getOutputConnector());
+		layout->getRight()->addStretch(2);
+		
+		if (!text.isEmpty())
+		{
+			new ComponentLayoutBlockContentText(layout->getBlock(), text);
+		}
 	}
 }
 

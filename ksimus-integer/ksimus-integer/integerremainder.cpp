@@ -19,7 +19,6 @@
 #include <stdlib.h>
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -54,24 +53,6 @@ const ComponentInfo * IntegerRemainder::getStaticInfo()
 	return &Info;
 }
 
-
-
-
-
-//###############################################################
-//###############################################################
-
-
-void IntegerRemainder::View::draw(QPainter * p)
-{
-	Integer2In1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Mod");
-}
-
-
 //###############################################################
 //###############################################################
 
@@ -81,7 +62,7 @@ IntegerRemainder::IntegerRemainder(CompContainer * container, const ComponentInf
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new Integer2In1OutView(this, SHEET_VIEW, "Mod");
 	}
 
 	getInputA()->setName(i18n("Integer", "Dividend"), true);

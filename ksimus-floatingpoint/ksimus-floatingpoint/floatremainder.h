@@ -51,21 +51,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point remainder gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatRemainderView : public Float2In1OutView
-{
-public:
-	FloatRemainderView(FloatRemainder * comp, eViewType viewType)
-		: Float2In1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
 
 };  //namespace KSimLibFloatingPoint
 #endif

@@ -36,7 +36,6 @@
 #include "ksimus/ksimdata.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/componentlayout.h"
-#include "ksimus/componentblocklayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/optionalconnector.h"
 
@@ -315,28 +314,26 @@ DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType)
 	if (viewType == SHEET_VIEW)
 	{
 		enableRotation(true);
-		m_layout = new ComponentLayout(this);
-		CHECK_PTR(m_layout);
+		ComponentLayoutVerticalCtrl * layout = new ComponentLayoutVerticalCtrl(this);
+		CHECK_PTR(layout);
 		
-		m_ctrlBlock = new ComponentControlBlock(this, m_layout);
-		CHECK_PTR(m_ctrlBlock);
-		
-		m_ctrlBlock->getLeft()->addSpace(1);
-		m_ctrlBlock->getLeft()->addConnector(getComponent()->getLatchOutput());
-		m_ctrlBlock->getLeft()->addConnector(getComponent()->getLatchAddress());
-		m_ctrlBlock->getLeft()->addConnectorPack(getComponent()->getAddressPack());
+		layout->getCtrlBlock()->getLeft()->addSpace(1);
+		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchOutput());
+		layout->getCtrlBlock()->getLeft()->addConnector(getComponent()->getLatchAddress());
+		layout->getCtrlBlock()->getLeft()->addConnectorPack(getComponent()->getAddressPack());
 		
 		
-		m_layout->getLeft()->addStretch(1);
-		m_layout->getLeft()->addConnector(getComponent()->getInputConn(),0);
-		m_layout->getLeft()->addStretch(1);
+		layout->getFuncBlock()->getLeft()->addStretch(1);
+		layout->getFuncBlock()->getLeft()->addConnector(getComponent()->getInputConn(),0);
+		layout->getFuncBlock()->getLeft()->addStretch(1);
 		
-		m_layout->getRight()->addSpace(1);
-		m_layout->getRight()->addConnectorPack(getComponent()->getOutputPack());
+		layout->getFuncBlock()->getRight()->addSpace(1);
+		layout->getFuncBlock()->getRight()->addConnectorPack(getComponent()->getOutputPack());
 		
 		
-		m_layout->setMinSize(6,5);
-		m_layout->updateLayout();
+		layout->getFuncBlock()->setMinSize(4,5);
+	
+		new ComponentLayoutBlockContentText(layout->getFuncBlock(), "DMUX", AlignCenter, 270.0);
 	
 		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
 		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
@@ -358,26 +355,6 @@ DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType)
 		connect(getComponent()->getAddressPack(), SIGNAL(signalAddConnector(ConnectorBase *)), this, SLOT(addAdrConn(ConnectorBase *)));
 	}
 }
-
-void DemultiplexerView::draw(QPainter * p)
-{
-	CompView::draw(p);
-	
-	QRect rect(getDrawingPlace());
-	rect.rLeft() ++;
-	rect.rTop() += 1 + m_ctrlBlock->getRect(false).bottom();
-	rect.rBottom() ++;
-	
-	p->setPen(QPen(black, 2));
-	p->setBrush(NoBrush);
-	p->drawRect(rect);
-	
-	QFont newFont("helvetica",8);
-	p->setFont(newFont);
-	p->setPen(black);
-	p->drawText(rect, (AlignHCenter | AlignTop), "DMX ");
-}
-
 
 void DemultiplexerView::addOutConn(ConnectorBase * conn)
 {

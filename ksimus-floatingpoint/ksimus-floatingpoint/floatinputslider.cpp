@@ -182,18 +182,24 @@ ComponentPropertyBaseWidget * FloatInputSlider::createGeneralProperty(QWidget *p
 
 
 FloatInputSliderView::FloatInputSliderView(FloatInputSlider * comp, eViewType viewType)
-	: FloatStyle1OutView(comp,viewType)
+	: CompViewSize(comp,viewType)
 {
+	enableRotation(false);
+	
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->setFixedSize(true);
 		setPlace(QRect(0, 0, 5*gridX, 15*gridY));
 		setMinSize(5*gridX, 4*gridY);
-		getComponentLayout()->updateLayout();
-		enableConnectorSpacingTop(false);
-		enableConnectorSpacingBottom(false);
-		enableConnectorSpacingLeft(false);
-//		enableConnectorSpacingRight(false);
+
+		ComponentLayoutFixed * layout = new ComponentLayoutFixed(this, false);
+		CHECK_PTR(layout);
+		
+		ComponentLayoutBlock * block = new ComponentLayoutBlock(layout);
+		CHECK_PTR(layout);
+	
+		block->getRight()->addStretch(2);
+		block->getRight()->addConnector(comp->getOutputConnector(),0);
+		block->getRight()->addStretch(2);
 	}
 	else
 	{
@@ -225,7 +231,7 @@ QWidget * FloatInputSliderView::createCompViewWidget(QWidget * parent)
 
 void FloatInputSliderView::resize()
 {
-	FloatStyle1OutView::resize();	
+	CompViewSize::resize();	
 
 	makeOrientation();
 }

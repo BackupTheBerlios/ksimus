@@ -53,23 +53,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point exponent gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatExpView : public Float1In1OutView
-{
-public:
-	FloatExpView(FloatExp * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-	
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-//###############################################################
-
 /**A floating point power gate.
   * @author Rasmus Diekenbrock
   */
@@ -88,23 +71,6 @@ public:
 
 //###############################################################
 
-/** The view for the floating point power gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatPowView : public Float2In1OutView
-{
-public:
-	FloatPowView(FloatPow * comp, eViewType viewType)
-		: Float2In1OutView(comp, viewType) {};
-
-	virtual void draw(QPainter * p);
-};
-
-//###############################################################
-
-//###############################################################
-
 /**A floating point square root gate.
   * @author Rasmus Diekenbrock
   */
@@ -119,21 +85,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-};
-
-//###############################################################
-
-/** The view for the floating point square root gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class FloatSqrtView : public Float1In1OutView
-{
-public:
-	FloatSqrtView(FloatSqrt * comp, eViewType viewType)
-		: Float1In1OutView(comp, viewType, 5, 5) {};
-
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

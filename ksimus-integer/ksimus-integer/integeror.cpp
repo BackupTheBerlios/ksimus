@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -36,16 +35,16 @@
 namespace KSimLibInteger
 {
 
-Component * IntegerBitwiseOr::create(CompContainer * container, const ComponentInfo * ci)
+Component * IntegerOr::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new IntegerBitwiseOr(container, ci);
+	return new IntegerOr(container, ci);
 }
 
-const ComponentInfo * IntegerBitwiseOr::getStaticInfo()
+const ComponentInfo * IntegerOr::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Integer Bitwise OR"),
-	                                QString::fromLatin1("Integer/Logic/Bitwise OR"),
-	                                i18n("Component", "Integer/Logic/Bitwise OR"),
+	static const ComponentInfo Info(i18n("Component", "Integer OR"),
+	                                QString::fromLatin1("Integer/Logic/OR"),
+	                                i18n("Component", "Integer/Logic/OR"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
@@ -56,34 +55,21 @@ const ComponentInfo * IntegerBitwiseOr::getStaticInfo()
 
 //###############################################################
 
-void IntegerBitwiseOr::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "bit\nOr");
-}
-
-//###############################################################
-
-IntegerBitwiseOr::IntegerBitwiseOr(CompContainer * container, const ComponentInfo * ci)
+IntegerOr::IntegerOr(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, QString::null + QChar(0x2265) + "1");
 	}
 }
 
 //###############################################################
 
 /** Executes the simulation of this component */
-void IntegerBitwiseOr::calculate()
+void IntegerOr::calculate()
 {
-//	IntegerXIn1Out::calculate();
-
 	unsigned int result = 0;
 
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
@@ -98,16 +84,16 @@ void IntegerBitwiseOr::calculate()
 //###############################################################
 //###############################################################
 
-Component * IntegerBitwiseNor::create(CompContainer * container, const ComponentInfo * ci)
+Component * IntegerNor::create(CompContainer * container, const ComponentInfo * ci)
 {
-	return new IntegerBitwiseNor(container, ci);
+	return new IntegerNor(container, ci);
 }
 
-const ComponentInfo * IntegerBitwiseNor::getStaticInfo()
+const ComponentInfo * IntegerNor::getStaticInfo()
 {
-	static const ComponentInfo Info(i18n("Component", "Integer Bitwise NOR"),
-	                                QString::fromLatin1("Integer/Logic/Bitwise NOR"),
-	                                i18n("Component", "Integer/Logic/Bitwise NOR"),
+	static const ComponentInfo Info(i18n("Component", "Integer NOR"),
+	                                QString::fromLatin1("Integer/Logic/NOR"),
+	                                i18n("Component", "Integer/Logic/NOR"),
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
@@ -118,34 +104,21 @@ const ComponentInfo * IntegerBitwiseNor::getStaticInfo()
 
 //###############################################################
 
-void IntegerBitwiseNor::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "bit\nNor");
-}
-
-//###############################################################
-
-IntegerBitwiseNor::IntegerBitwiseNor(CompContainer * container, const ComponentInfo * ci)
+IntegerNor::IntegerNor(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, QString("!") + QChar(0x2265) + "1");
 	}
 }
 
 //###############################################################
 
 /** Executes the simulation of this component */
-void IntegerBitwiseNor::calculate()
+void IntegerNor::calculate()
 {
-//	IntegerXIn1Out::calculate();
-
 	unsigned int result = 0;
 
 	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
@@ -154,136 +127,6 @@ void IntegerBitwiseNor::calculate()
 	}
 
 	setValue((int)~result);
-}
-
-//###############################################################
-//###############################################################
-
-Component * IntegerLogicalOr::create(CompContainer * container, const ComponentInfo * ci)
-{
-	return new IntegerLogicalOr(container, ci);
-}
-
-const ComponentInfo * IntegerLogicalOr::getStaticInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Integer Logical OR"),
-	                                QString::fromLatin1("Integer/Logic/Logical OR"),
-	                                i18n("Component", "Integer/Logic/Logical OR"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null /* TODO,
-	                                QString::fromLatin1("component-float-arithmetic-add")*/);
-	return &Info;
-}
-
-//###############################################################
-
-void IntegerLogicalOr::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\nOr");
-}
-
-//###############################################################
-
-IntegerLogicalOr::IntegerLogicalOr(CompContainer * container, const ComponentInfo * ci)
-	: IntegerXIn1Out(container, ci)
-{
-	// Initializes the sheet view
-	if (getSheetMap())
-	{
-		new View(this, SHEET_VIEW);
-	}
-}
-
-//###############################################################
-
-/** Executes the simulation of this component */
-void IntegerLogicalOr::calculate()
-{
-//	IntegerXIn1Out::calculate();
-
-	int result = 0; // all ones
-
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		if (((ConnectorIntegerIn*)it.current())->getInput() != 0)
-		{
-			result = 1;
-			break;
-		}
-	}
-
-	setValue(result);
-}
-
-//###############################################################
-//###############################################################
-
-Component * IntegerLogicalNor::create(CompContainer * container, const ComponentInfo * ci)
-{
-	return new IntegerLogicalNor(container, ci);
-}
-
-const ComponentInfo * IntegerLogicalNor::getStaticInfo()
-{
-	static const ComponentInfo Info(i18n("Component", "Integer Logical NOR"),
-	                                QString::fromLatin1("Integer/Logic/Logical NOR"),
-	                                i18n("Component", "Integer/Logic/Logical NOR"),
-	                                QString::null,
-	                                VA_SHEETVIEW,
-	                                create,
-	                                QString::null /* TODO,
-	                                QString::fromLatin1("component-float-arithmetic-add")*/);
-	return &Info;
-}
-
-//###############################################################
-
-void IntegerLogicalNor::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-
-	QFont newFont("helvetica",9);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "log\nNor");
-}
-
-//###############################################################
-
-IntegerLogicalNor::IntegerLogicalNor(CompContainer * container, const ComponentInfo * ci)
-	: IntegerXIn1Out(container, ci)
-{
-	// Initializes the sheet view
-	if (getSheetMap())
-	{
-		new View(this, SHEET_VIEW);
-	}
-}
-
-//###############################################################
-
-/** Executes the simulation of this component */
-void IntegerLogicalNor::calculate()
-{
-//	IntegerXIn1Out::calculate();
-
-	int result = 0;
-
-	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
-	{
-		if (((ConnectorIntegerIn*)it.current())->getInput() != 0)
-		{
-			result = 1;
-			break;
-		}
-	}
-
-	setValue(!result);
 }
 
 //###############################################################

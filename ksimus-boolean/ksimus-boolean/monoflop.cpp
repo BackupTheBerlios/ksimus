@@ -219,11 +219,11 @@ MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
 	if (viewType == SHEET_VIEW)
 	{
 		new ConnectorLabel(getMF()->getOutputConnector(), "Q");
-		new ConnectorLabel(getMF()->getNotOutputConnector(), "/Q");
+		new ConnectorLabel(getMF()->getNotOutputConnector(), "Q");
 		new ConnectorLabel(getMF()->getSetInputConnector(), "T");
 		new ConnectorLabel(getMF()->getResetInputConnector(), "R");
 	
-		m_layout = new ComponentLayout(this);
+		m_layout = new ComponentLayoutSimple(this);
 		CHECK_PTR(m_layout);
 		
 		m_layout->getLeft()->addSpace(1);
@@ -238,7 +238,7 @@ MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
 		m_layout->getRight()->addStretch(1);
 			
 //		m_layout->setMinSize(5,6);
-		m_layout->updateLayout();
+//		m_layout->updateLayout();
 	}
 }
 
@@ -246,12 +246,12 @@ MonoFlopView::MonoFlopView(MonoFlop * comp, eViewType viewType)
 {
 }*/
 
-void MonoFlopView::draw(QPainter * p)
+/*void MonoFlopView::draw(QPainter * p)
 {
   drawFrame(p);
 	
 	CompView::draw(p);
-}
+}*/
 
 //###############################################################
 //###############################################################

@@ -47,24 +47,6 @@ public:
 
 	static Component * create(CompContainer * container, const ComponentInfo * ci);
 	static const ComponentInfo * getStaticInfo();
-
-protected:
-	class View;
-};
-
-//###############################################################
-
-/** The view for the integer subtractor gate.
-	*
-  * @author Rasmus Diekenbrock
-  */
-class IntegerSubtractor::View : public Integer2In1OutView
-{
-public:
-	View(IntegerSubtractor * comp, eViewType viewType)
-		: Integer2In1OutView(comp, viewType) {};
-	
-	virtual void draw(QPainter * p);
 };
 
 //###############################################################

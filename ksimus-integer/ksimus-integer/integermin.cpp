@@ -18,7 +18,6 @@
 // C-Includes
 
 // QT-Includes
-#include <qpainter.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -61,27 +60,13 @@ const ComponentInfo * IntegerMin::getStaticInfo()
 //###############################################################
 //###############################################################
 
-
-void IntegerMin::View::draw(QPainter * p)
-{
-	IntegerXIn1OutView::draw(p);
-	
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	p->drawText(getDrawingPlace(), AlignCenter, "Min");
-}
-
-
-//###############################################################
-//###############################################################
-
 IntegerMin::IntegerMin(CompContainer * container, const ComponentInfo * ci)
 	: IntegerXIn1Out(container, ci)
 {
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new View(this, SHEET_VIEW);
+		new IntegerXIn1OutView(this, SHEET_VIEW, "Min");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

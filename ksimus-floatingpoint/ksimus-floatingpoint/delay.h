@@ -46,6 +46,8 @@ namespace KSimLibFloatingPoint
 
 class Delay : public KSimLibFloatingPoint::Float1Out
 {
+class View;
+
 	Q_OBJECT
 
 public:
@@ -87,20 +89,6 @@ private:
 	static const char * const sDelayTime;
 };
 
-//###############################################################
-//###############################################################
-
-
-class DelayView : public CompView
-{
-public:
-	DelayView(Delay * comp, eViewType viewType);
-//	~DelayView();
-	virtual void draw(QPainter * p);
-	
-	Delay * getDelay() const { return (Delay*) getComponent(); };
-
-};
 
 
 //###############################################################

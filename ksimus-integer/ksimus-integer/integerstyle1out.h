@@ -35,7 +35,7 @@
 // Forward declaration
 class QLabel;
 class ConnectorIntegerOut;
-class ComponentLayout;
+class ComponentLayoutSimple;
 class KSimBaseIntEdit;
 
 
@@ -127,7 +127,7 @@ class IntegerStyle1OutView : public CompViewSize
 public:
 //	~Integer1OutView();
 	
-	ComponentLayout * getComponentLayout() const { return m_layout; };
+	ComponentLayoutSimple * getComponentLayout() const { return m_layout; };
 	
 	IntegerStyle1Out* getIntegerStyle1Out() { return (IntegerStyle1Out*) getComponent(); };
 
@@ -137,7 +137,7 @@ protected:
 	IntegerStyle1OutView(IntegerStyle1Out * comp, eViewType viewType);
 	
 private:	
-	ComponentLayout * m_layout;
+	ComponentLayoutSimple * m_layout;
 
 };
 
