@@ -601,10 +601,20 @@ void CompView::draw (QPainter *p)
 	}
 }
 
-/** Draws the CompView to a printer */
+
 void CompView::print(QPainter * paint)
 {
 	draw(paint);
+
+  QWidget * pWid;
+	if (getWidgetList() && (pWid = getWidgetList()->getFirstWidget()))
+	{
+		// Reset the compView translation (a little bit ugly :)
+		paint->restore();
+		paint->drawPixmap(pWid->pos(), QPixmap::grabWidget(pWid));
+		// Push one
+		paint->save();
+	}
 }
 
 /** Draw the boundary of the component
@@ -1090,6 +1100,9 @@ QPoint CompView::mapFromRotation(const QPoint & rotPos) const
 		return rotPos;
 	}
 }
+
+
+
 
 //#############################################################################
 //#############################################################################

@@ -17,7 +17,6 @@
 
 // include files for QT
 #include <qdir.h>
-#include <qprinter.h>
 #include <qpainter.h>
 #include <qlayout.h>
 #include <qfiledialog.h>
@@ -26,6 +25,7 @@
 #include <qstring.h>
 
 // include files for KDE
+#include <kprinter.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
@@ -656,7 +656,7 @@ void KSimusApp::slotFilePrint()
 {
   slotStatusMsg(i18n("Printing..."));
 
-  QPrinter printer;
+  KPrinter printer;
   if (printer.setup(this))
   {
     doc->getActiveView()->print(&printer);
@@ -1236,7 +1236,7 @@ void KSimusApp::slotSetupActions()
 	fileSave->setEnabled(stopped && m_saveAllowed);
 	fileSaveAs->setEnabled(stopped);
 	fileClose->setEnabled(true);
-	filePrint->setEnabled(false);  // not yet
+	filePrint->setEnabled(true);
 	fileQuit->setEnabled(true);
 	
 	editUndo->setEnabled(stopped && m_undoAllowed);

@@ -41,6 +41,7 @@ class Wire;
 class ComponentInfo;
 class DynamicTip;
 class KSimEditorCursor;
+class KPrinter;
 
 /** The KSimEditor class provides the view widget for the KSimusApp instance.	
  * The View instance inherits QWidget as a base class and represents the view object of a KTMainWindow. As KSimEditor is part of the
@@ -88,10 +89,10 @@ public:
     KSimusView *getView() const;
     CompContainer * getContainer() const;
 
-    /** contains the implementation for printing functionality */
-    void print(QPrinter *pPrinter);
-    /** Redraw the drawMap with all components, wires and selections
-    	updateDrawMap() doesn't update the widget. update() will do that.*/
+	/** contains the implementation for printing functionality */
+	void print(KPrinter *pPrinter);
+	/** Redraw the drawMap with all components, wires and selections
+		updateDrawMap() doesn't update the widget. update() will do that.*/
 	void updateDrawMap();
 	
     /** All views of the document redraw and show the drawMap */

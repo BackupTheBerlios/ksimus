@@ -28,6 +28,7 @@
 class KSimusDoc;
 class KSimusApp;
 class KSimEditor;
+class KPrinter;
 
 /** The KSimusView class provides the view widget for the KSimusApp instance.	
  * The View instance inherits QWidget as a base class and represents the view object of a KTMainWindow. As KSimusView is part of the
@@ -40,25 +41,25 @@ class KSimEditor;
 class KSimusView : public QScrollView
 {
   Q_OBJECT
-  public:
-    /** Constructor for the main view */
-    KSimusView(KSimusApp * app, QWidget *parent = 0, const char *name=0);
-    /** Destructor for the main view */
-    ~KSimusView();
+public:
+	/** Constructor for the main view */
+	KSimusView(KSimusApp * app, QWidget *parent = 0, const char *name=0);
+	/** Destructor for the main view */
+	~KSimusView();
 
-    /** returns a pointer to the document connected to the view instance. Mind that this method requires a KSimusApp instance as a parent
-     * widget to get to the window document pointer by calling the KSimusApp::getDocument() method.
-     *
-     * @see KSimusApp#getDocument
-     */
-    KSimusDoc *getDocument() const;
+	/** returns a pointer to the document connected to the view instance. Mind that this method requires a KSimusApp instance as a parent
+	 * widget to get to the window document pointer by calling the KSimusApp::getDocument() method.
+	 *
+	 * @see KSimusApp#getDocument
+	 */
+	KSimusDoc *getDocument() const;
 	/** returns a pointer to the application */
-    KSimusApp *getApp() const;
+	KSimusApp *getApp() const;
 	/** returns a pointer to the editor */
-    KSimEditor *getEditor() const;
+	KSimEditor *getEditor() const;
 
-    /** contains the implementation for printing functionality */
-    void print(QPrinter *pPrinter);
+	/** contains the implementation for printing functionality */
+	void print(KPrinter *pPrinter);
 	
   private:
   	KSimusApp * m_app;

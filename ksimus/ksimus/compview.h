@@ -81,7 +81,7 @@ public:
 	
 	/** Draw the component view */
 	virtual void draw (QPainter *p);
-	/** Draws the CompView to a printer */
+	/** Draws the CompView to a printer. Widget are also drawn. */
 	virtual void print(QPainter * paint);
 	/** Draw the boundary of the component */
 	virtual void drawBound(QPainter * p);
@@ -287,6 +287,7 @@ signals: // Signals
 	void signalHide();
 	/** This signal is emitted, if view should show */
 	void signalShow();
+
 };
 
 //#############################################################################

@@ -16,8 +16,11 @@
  ***************************************************************************/
 
 // include files for Qt
-#include <qprinter.h>
 #include <qpainter.h>
+
+// include files for KDE
+#include <kprinter.h>
+
 
 // application specific includes
 #include "ksimusview.h"
@@ -55,12 +58,14 @@ KSimEditor *KSimusView::getEditor() const
 }
 
 
-void KSimusView::print(QPrinter *pPrinter)
+void KSimusView::print(KPrinter *pPrinter)
 {
-  QPainter printpainter;
-  printpainter.begin(pPrinter);
-	
-  // TODO: add your printing code here
+	getEditor()->print(pPrinter);
 
-  printpainter.end();
+/*	QPainter printpainter;
+	printpainter.begin(pPrinter);
+	
+	// TODO: add your printing code here
+
+	printpainter.end();*/
 }

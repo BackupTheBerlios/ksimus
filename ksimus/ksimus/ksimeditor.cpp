@@ -21,15 +21,16 @@
 
 
 // include files for Qt
-#include <qprinter.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qscrollview.h>
 #include <qpopupmenu.h>
 #include <qtooltip.h>
 #include <qbitmap.h>
+#include <qpaintdevicemetrics.h>
 
 // include files for KDE
+#include <kprinter.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 
@@ -257,20 +258,116 @@ KSimusView *KSimEditor::getView() const
   return theView;
 }
 
-void KSimEditor::print(QPrinter *pPrinter)
+void KSimEditor::print(KPrinter *pPrinter)
 {
-	QPainter printpainter;
-	printpainter.begin(pPrinter);
-//	printpainter.scale(0.5,0.5);
-	FOR_EACH_COMPVIEW(it, *viewList)
-	{
-		it.current()->print(&printpainter);
-	}
+	
+#define PRINT_FACTOR   2
 	
 	
-	// TODO: add your printing code here
+	
+	QPainter p;
+		p.begin(pPrinter);
+	
+/*	QPaintDeviceMetrics pdmEditor(this);
+	KSIMDEBUG("-------- this ---------");
+	KSIMDEBUG_VAR("",pdmEditor.width());
+	KSIMDEBUG_VAR("",pdmEditor.widthMM());
+	KSIMDEBUG_VAR("",pdmEditor.height());
+	KSIMDEBUG_VAR("",pdmEditor.heightMM());
+	KSIMDEBUG_VAR("",pdmEditor.logicalDpiX());
+	KSIMDEBUG_VAR("",pdmEditor.logicalDpiY());*/
 
-	printpainter.end();
+	
+	QPaintDeviceMetrics pdmPrinter(pPrinter);
+	KSIMDEBUG("-------- pPrinter ---------");
+	KSIMDEBUG_VAR("",pdmPrinter.width());
+	KSIMDEBUG_VAR("",pdmPrinter.widthMM());
+	KSIMDEBUG_VAR("",pdmPrinter.height());
+	KSIMDEBUG_VAR("",pdmPrinter.heightMM());
+	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiX());
+	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiY());
+	
+	QFont newFont("helvetica",12);
+	p.setFont(newFont);
+
+	int x = 0;
+	int y = 0;
+	
+	do
+	{
+		p.save();
+		
+		p.setClipRect(0,0,pdmPrinter.width(),pdmPrinter.height());
+		p.translate(-x,-y);
+		p.scale(1.0 / PRINT_FACTOR, 1.0 / PRINT_FACTOR);
+		
+		p.setPen(black);
+		p.setBrush(NoBrush);
+		p.drawRect(0,0,getSize().width(), getSize().height());
+		
+		FOR_EACH_COMPVIEW(it, *viewList)
+		{
+			p.save();
+		
+			if (it.current()->isNormalRotationEnabled())
+			{
+				double rot = it.current()->getRotation();
+				QRect rect(it.current()->getPlace());
+			
+				if((rot < 45.0) || (rot >= 315.0))
+				{
+					p.translate(rect.left(), rect.top());
+//					p.rotate(0.0);
+				}
+				else if(rot < 135.0)
+				{
+					p.translate(rect.left() + rect.width(), rect.top());
+					p.rotate(90.0);
+				}
+				else if(rot < 225.0)
+				{
+					p.translate(rect.right() + 1, rect.bottom() + 1);
+					p.rotate(180.0);
+				}
+				else
+				{
+					p.translate(rect.left(), rect.top() + rect.height());
+					p.rotate(270.0);
+				}
+			}
+			else
+			{
+				register QPoint pos(it.current()->getPos());
+				p.translate(pos.x(), pos.y());
+			}
+		
+			it.current()->print(&p);
+			
+			p.restore();
+		}
+	
+		p.restore();
+		p.flush();
+		
+		y += pdmPrinter.height();
+		if (y >= getSize().height() / PRINT_FACTOR)
+		{
+			x += pdmPrinter.width();
+			if(x >= getSize().width() / PRINT_FACTOR)
+			{
+				// All pages printed
+				break;
+			}
+			else
+			{
+				y = 0;
+			}
+		}
+		pPrinter->newPage();
+	}
+	while(1);
+
+	p.end();
 }
 
 /** Redraw the drawMap with all components, wires and selections
