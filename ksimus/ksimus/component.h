@@ -95,6 +95,9 @@ public:
 	*/
 	unsigned int getSerialNumber() const { return m_serialNumber; };
 	
+	/** Add a connector to the connector list and set the serial ID of the connector (if required). */
+	void addConnector(ConnectorBase * conn);
+	
 	ConnectorList * getConnList() const { return m_connList; };
 	
 	ComponentAddOnList * getAddOnList() { return m_addonList; };
@@ -214,9 +217,9 @@ public:
 	/** Returns a pointer to the sheet map from the parent conatiner */
 	ComponentMap * getUserMap() const;
 
-	/** Search a connector by the given name
+	/** Search a connector by the given wire name (@ref ConnectorBase:getWireName).
 		Return null, if connector is not found */
-	ConnectorBase * searchConnector(const char * name);
+	ConnectorBase * searchConnector(const QString & wireName) const;
 	
 	/** returns the info class for this component */
 	const ComponentInfo * getInfo() const { return m_info; };

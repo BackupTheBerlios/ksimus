@@ -125,6 +125,16 @@ const char * Component::getType() const
 	return getInfo()->getLibName();
 }	
 
+
+/** Add a connector to the connector list and set the serial ID of the connector (if required). */
+void Component::addConnector(ConnectorBase * conn)
+{
+	/** Add to list. Now the component is owner of the connector. */
+	getConnList()->append(conn);
+}
+
+
+
 /** save component properties */
 void Component::save(KSimData & file) const
 {
@@ -466,16 +476,14 @@ ComponentMap * Component::getUserMap() const
 	return getContainer()->getUserMap();
 }
 
-/** Search a connector by the given name
-	Return null, if connector is not found */
-ConnectorBase * Component::searchConnector(const char * name)
+ConnectorBase * Component::searchConnector(const QString & name) const
 {
 	ConnectorBase * conn = 0;
 	
 	FOR_EACH_CONNECTOR(it,*getConnList())
 	{
 		// equal names?
-		if (!strcmp(it.current()->getName(), name))
+		if (it.current()->getWireName() == name)
 		{
 			conn = it.current();
 			break;
