@@ -181,7 +181,7 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	
 	drawMap = new QPixmap;
 	CHECK_PTR(drawMap);
-  	
+	
 	m_myCursor = new KSimEditorCursor(this);
 	CHECK_PTR(m_myCursor);
 	
@@ -189,9 +189,9 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 	setEditorMode(EM_SELECT);
 	setEditorView(EV_SHEETVIEW);
 	lmbDown = dragging = isMapResized = false;
-   	
+	
 	selected.setAutoDelete(false);
-   	
+	
 	setBackgroundMode(NoBackground);
 
 	connect (&autoScrollTimer, SIGNAL(timeout()), SLOT(autoScroll()));
@@ -634,10 +634,15 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 			{
 				Component * newComp;
 				CompView * newCompView;
-				QRect place;
-				QPoint pos;
-				if (g_library->getComponentLib()->createComponent(&newComp, getDoc()->getContainer(), m_insertCI->getLibName()))
+				if (g_library->getComponentLib()->createComponent(&newComp, getContainer(), m_insertCI->getLibName()))
 				{
+					KSimUndo * undo = getDoc()->getUndo();
+					undo->begin(i18n("New Component"));
+					getContainer()->addComponent(newComp);
+					undo->end();
+					getDoc()->setModified();
+					setEditorMode(EM_INSERT_MOVE);
+
 					if (newComp->isModule())
 					{
 						if (((Module*)newComp)->getModuleFile().isEmpty())
@@ -661,21 +666,11 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 						}
 					}
 					
-					KSimUndo * undo = getDoc()->getUndo();
-					undo->begin(i18n("New Component"));
-					getContainer()->addComponent(newComp);
-					undo->end();
-					getDoc()->setModified();
-					
-					
-					setEditorMode(EM_INSERT_MOVE);
 					newCompView = getSpecificCompView(newComp);
 					
 					// Position check
-					place = newCompView->getPlace();
-					pos.setX(dragStart.x() - place.width()/2);
-					pos.setY(dragStart.y() - place.height()/2);
-					pos = newCompView->mapToGrid(pos);
+					QRect place(newCompView->getPlace());
+					QPoint pos(newCompView->mapToGrid(QPoint(dragStart.x() - place.width()/2, dragStart.y() - place.height()/2)));
 					if (pos.x() < 0)
 						pos.setX(0);
 					if (pos.x() >= size.width() - place.width())
@@ -763,7 +758,7 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 				break;
 		}
 	}
-  	// Right mouse button
+	// Right mouse button
 	else if ((ev->button() == RightButton) && (!lmbDown))
 	{
 		if ((editorMode == EM_INSERT) || (editorMode == EM_PAST))
@@ -821,19 +816,6 @@ void KSimEditor::mousePressEvent (QMouseEvent *ev)
 
 static QString getComponentPartName(const Component * comp, const ConnectorBase * conn)
 {
-/*	QString s(comp->getInfo()->getName());
-
-	if (conn)
-	{
-		s += ":" + conn->getName();
-	}
-		
-	if (comp->getName() != comp->getInfo()->getName())
-	{
-		s += " (" + comp->getName() + ")";
-	}
-	
-	return s;*/
 	if(conn)
 	{
 		return conn->getFullName();
@@ -871,13 +853,14 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			case SPECIAL_HIT:
 			case COMP_RESIZE_F_HIT:
 			case COMP_RESIZE_B_HIT:
-				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(), 0));
+				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
+				                                          (const ConnectorBase *) 0));
 				break;
 				
 			case CONNECTOR_HIT:
 			{
 				delayedStatusHelpMsg(getComponentPartName(getContainer()->getFirstCompView()->getComponent(),
-				                                      getContainer()->getFirstConnector()));
+				                                          getContainer()->getFirstConnector()));
 				break;
 			}
 		}
@@ -897,7 +880,7 @@ void KSimEditor::mouseMoveEvent (QMouseEvent *ev)
 			return;
 		}
 	
-		QRect sheet = QRect(QPoint(0,0), size);
+		QRect sheet(QPoint(0,0), size);
 		if ( dragging  ||
 			(abs(mousePos.x()-dragStart.x())>=4) ||
 			(abs(mousePos.y()-dragStart.y())>=4) )
@@ -1705,7 +1688,7 @@ void KSimEditor::componentPopup(bool connectorHit)
 	{
 		Component * comp = selected.first()->getComponent();
 		CompView * compView = getSpecificCompView(comp);
-		ConnectorBase * conn = 0;
+		ConnectorBase * conn = (ConnectorBase *)0;
 		
 		
 		// Init rotation
