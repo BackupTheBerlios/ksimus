@@ -61,14 +61,15 @@ Float1In1Out::Float1In1Out(CompContainer * container, const ComponentInfo * ci)
 
 
 
-Float1In1OutView::Float1In1OutView(Float1In1Out * comp, eViewType viewType)
+Float1In1OutView::Float1In1OutView(Float1In1Out * comp, eViewType viewType, unsigned int width, unsigned int height)
 	: Float1OutView(comp, viewType)
 {
 	if (viewType == SHEET_VIEW)
 	{
-		getComponentLayout()->setMinSize(5, 3);
-		getComponentLayout()->getLeft()->addSpace(1);
+		getComponentLayout()->setMinSize(width, height);
+		getComponentLayout()->getLeft()->addStretch(2);
 		getComponentLayout()->getLeft()->addConnector(comp->getInput());
+		getComponentLayout()->getLeft()->addStretch(2);
 	
 		getComponentLayout()->updateLayout();
 	}

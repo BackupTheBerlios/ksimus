@@ -88,7 +88,7 @@ public:
 //	~Float1In1OutView();
 	
 protected:
-	Float1In1OutView(Float1In1Out * comp, eViewType viewType);
+	Float1In1OutView(Float1In1Out * comp, eViewType viewType, unsigned int width = 5, unsigned int height = 3);
 
 };
 
