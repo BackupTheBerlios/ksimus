@@ -197,6 +197,7 @@ BooleanLedView::BooleanLedView(Component * comp, eViewType viewType)
 	if (viewType == SHEET_VIEW)
 	{
 		setPlace(QRect(0, 0, 4*gridX, 3*gridY));
+		enableRotation(true);
 		setMinSize(4*gridX,3*gridY);
 		enableConnectorSpacingTop(false);
 		enableConnectorSpacingBottom(false);
@@ -235,7 +236,7 @@ void BooleanLedView::resize()
 	{
 		QPoint connPos;
 		connPos.setX( 0 );
-		connPos.setY( getPlace().height()/(gridY*2) );
+		connPos.setY( getDrawingPlace().height()/(gridY*2) );
 		((BooleanLed*)getComponent())->m_inConn->setGridPos(connPos);
 	}
 }
