@@ -1,6 +1,10 @@
+	19.10.2002
+* New: Version 0.3.5-1
+* Fix: The handbook generation failed after update to KDE 3.0.4, libxml2 2.4.25 and libxslt 1.0.21. This is fixed now.
+* Fix: Remove double definition of EXTRA_DIST which cause to fail with some combination of autoconf and automake.
 	12.10.2002
 * New: Version 0.3.5
-* Remove the outdated brazilian portuguese translation from project.
+* Remove the outdated Brazilian Portuguese translation from project.
 	10.10.2002
 * Fix: Errors in documentation. Thanks MrTLee!
 * Fix: A wrong initialize sequence of the component package causes untranslated
