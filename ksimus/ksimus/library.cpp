@@ -15,8 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <dlfcn.h>
-
 #include <qstringlist.h>
 #include <qlist.h>
 #include <qdir.h>
@@ -64,9 +62,6 @@ ComponentInfoList distComponent = { &ExtConnBoolInInfo,
                                     &ClockGeneratorInfo,
                                     0 };
 
-/*	m_componentLibrary->insert(BooleanButtonList);
-	m_componentLibrary->insert(BooleanAndList); */
-
 ConnectorInfoList distConnector = { &ConnectorBoolInInfo,
                                     &ConnectorBoolInEdgeInfo,
                                     &ConnectorBoolOutInfo,
@@ -76,18 +71,6 @@ ConnectorInfoList distConnector = { &ConnectorBoolInInfo,
 WirePropertyInfoList distWireProp = { &wirePropertyBooleanInfo,
                                     0 };
 	
-PackageInfo KSimusPackageInfo("KSimus", KGlobal::instance(), VERSION, distComponent, distConnector, distWireProp);
-
-
-
-
-
-
-
-
-
-
-
 
 Library * g_library = 0;
 
@@ -116,6 +99,8 @@ public:
 
 Library::Library()
 {
+	PackageInfo * KSimusPackageInfo =
+		new PackageInfo("KSimus", KGlobal::instance(), VERSION, distComponent, distConnector, distWireProp);
 	
 	m_p = new LibraryPrivate;
 	
@@ -125,12 +110,8 @@ Library::Library()
 	m_componentLibrary = new ComponentLibrary;
 	CHECK_PTR(m_componentLibrary);
 
-/*	m_componentLibrary->insert(&ExtConnBoolInInfo);
-	m_componentLibrary->insert(&ExtConnBoolOutInfo);
-	m_componentLibrary->insert(&BooleanLedInfo);
-	m_componentLibrary->insert(&ClockGeneratorInfo);*/
-	m_componentLibrary->insert(BooleanButtonList, &KSimusPackageInfo);
-	m_componentLibrary->insert(BooleanAndList, &KSimusPackageInfo);
+	m_componentLibrary->insert(BooleanButtonList, KSimusPackageInfo);
+	m_componentLibrary->insert(BooleanAndList, KSimusPackageInfo);
 	
 	m_componentLibrary->insertInternal(&WireInfo);
 	m_componentLibrary->insertInternal(&ModuleBaseInfo);
@@ -139,17 +120,10 @@ Library::Library()
 	m_connectorLibrary = new ConnectorLibrary;
 	CHECK_PTR(m_connectorLibrary);
 	
-/*	m_connectorLibrary->insert(&ConnectorBoolInInfo);
-	m_connectorLibrary->insert(&ConnectorBoolInEdgeInfo);
-	m_connectorLibrary->insert(&ConnectorBoolOutInfo);*/
-
-	
 	m_wirePropertyLibrary = new WirePropertyLibrary;
 	CHECK_PTR(m_wirePropertyLibrary);
 	
-//	m_wirePropertyLibrary->insert(&wirePropertyBooleanInfo);
-	
-	insertPackage(&KSimusPackageInfo);
+	insertPackage(KSimusPackageInfo);
 		
 	loadPackageFiles();
 
@@ -250,12 +224,25 @@ void Library::loadPackageFiles()
 					case KSimPackageHandle::OPENED:
 						if (package->isPackage())
 						{
-							insertPackage(package->getPackageInfo());
 							msg = i18n ("Load package %1 %2").arg(package->getPackageInfo()->getPackageName())
 							                                 .arg(package->getPackageInfo()->getPackageVersion());
 							msg += " (" + package->getFilename() + ")";
 							m_messages->append(msg);
 							KSIMDEBUG(msg);
+							
+							// Add package to lib
+							insertPackage(package->getPackageInfo());
+							if (package->getPackageInfo()->getInstance())
+							{
+								// Add translations
+								KGlobal::locale()->insertCatalogue(package->getPackageInfo()->getInstance()->instanceName());
+							}
+							else
+							{
+								msg = i18n("Contains no KInstance!");
+								m_messages->append(msg);
+								KSIMDEBUG(msg);
+							}
 							end = false;
 						}
 						else
@@ -296,6 +283,10 @@ void Library::loadPackageFiles()
 	m_componentLibrary->resize();
 	m_connectorLibrary->resize();
 	m_wirePropertyLibrary->resize();
+//	KGlobal::locale()->setLanguage("de");
+
+
+
 }
 
 void Library::addPackageDirs()
