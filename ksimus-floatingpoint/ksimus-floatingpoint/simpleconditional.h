@@ -34,6 +34,7 @@
 class ConnectorFloatIn;
 class QLabel;
 class QComboBox;
+class QPixmap;
 
 namespace KSimLibFloatingPoint
 {
@@ -91,7 +92,9 @@ protected:
 	ConnectorFloatIn * m_inputA;	
 	ConnectorFloatIn * m_inputB;
 	
-	eConditionalType m_conditionalType;	
+	eConditionalType m_conditionalType;
+
+	class View;
 };
 
 //###############################################################
@@ -102,22 +105,34 @@ protected:
   */
 
 
-class SimpleConditionalView : public Boolean1OutView
+class SimpleConditional::View : public CompView
 {
-
-	Q_OBJECT
-
 public:
-	SimpleConditionalView(SimpleConditional * comp, eViewType viewType);
-//	~SimpleConditionalView();
+	View(SimpleConditional * comp, eViewType viewType);
+	~View();
 	
 	virtual void draw(QPainter * p);
 	
-	SimpleConditional* getComponent() { return (SimpleConditional*) Boolean1OutView::getComponent(); };
+	SimpleConditional* getSimpleConditional() { return (SimpleConditional*) getComponent(); };
+
+	// Pixmaps
+	static const char * AltB_xpm[];
+	static const char * AlteqB_xpm[];
+	static const char * AeqB_xpm[];
+	static const char * AgteqB_xpm[];
+	static const char * AgtB_xpm[];
 
 protected:
-	
-private:	
+	static unsigned int sInstanceCount;
+	static QPixmap * sPixmapLesser;
+	static QPixmap * sPixmapLesserEqual;
+	static QPixmap * sPixmapEqual;
+	static QPixmap * sPixmapLargerEqual;
+	static QPixmap * sPixmapLarger;
+	static int sPixmapOffsetTop;
+	static int sPixmapOffsetLeft;
+
+private:
 };
 
 //###############################################################
@@ -131,8 +146,6 @@ private:
 
 class SimpleConditionalPropertyGeneralWidget : public Boolean1OutPropertyGeneralWidget
 {
-	Q_OBJECT
-
 public:
 	SimpleConditionalPropertyGeneralWidget(SimpleConditional * comp, QWidget *parent=0, const char *name=0);
 
@@ -146,7 +159,7 @@ public:
 	 */
 	virtual void defaultPressed();
 
-	SimpleConditional* getComponent() { return (SimpleConditional*) Boolean1OutPropertyGeneralWidget::getComponent(); };
+	SimpleConditional* getSimpleConditional() { return (SimpleConditional*) Boolean1OutPropertyGeneralWidget::getComponent(); };
 	
 	
 protected:

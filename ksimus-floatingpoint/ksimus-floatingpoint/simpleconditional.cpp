@@ -19,6 +19,7 @@
 
 // QT-Includes
 #include <qpainter.h>
+#include <qpixmap.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 
@@ -27,6 +28,7 @@
 #include <klocale.h>
 
 // Project-Includes
+#include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/connectorfloatin.h"
@@ -140,7 +142,7 @@ SimpleConditional::SimpleConditional(CompContainer * container, const ComponentI
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
-		new SimpleConditionalView(this, SHEET_VIEW);
+		new View(this, SHEET_VIEW);
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);
@@ -242,40 +244,159 @@ ComponentPropertyBaseWidget * SimpleConditional::createGeneralProperty(QWidget *
 //###############################################################
 
 
-SimpleConditionalView::SimpleConditionalView(SimpleConditional * comp, eViewType viewType)
-	: Boolean1OutView(comp, viewType)
+
+/* XPM */
+const char * SimpleConditional::View::AltB_xpm[] = {
+"18 8 2 1",
+" 	c None",
+".	c #000000",
+"   .         .... ",
+"   .         .   .",
+"  . .      . .   .",
+"  . .    ..  .... ",
+" .   . ..    .   .",
+" .....   ..  .   .",
+".     .    . .   .",
+".     .      .... "};
+
+/* XPM */
+const char * SimpleConditional::View::AlteqB_xpm[] = {
+"18 8 2 1",
+" 	c None",
+".	c #000000",
+"   .         .... ",
+"   .       . .   .",
+"  . .    ..  .   .",
+"  . .  ..    .... ",
+" .   .   ..  .   .",
+" ..... ..  . .   .",
+".     .  ..  .   .",
+".     .    . .... "};
+
+/* XPM */
+const char * SimpleConditional::View::AeqB_xpm[] = {
+"18 8 2 1",
+" 	c None",
+".	c #000000",
+"   .         .... ",
+"   .         .   .",
+"  . .        .   .",
+"  . .   .... .... ",
+" .   .       .   .",
+" .....  .... .   .",
+".     .      .   .",
+".     .      .... "};
+
+/* XPM */
+const char * SimpleConditional::View::AgteqB_xpm[] = {
+"18 8 2 1",
+" 	c None",
+".	c #000000",
+"   .         .... ",
+"   .   .     .   .",
+"  . .   ..   .   .",
+"  . .     .. .... ",
+" .   .  ..   .   .",
+" ..... .  .. .   .",
+".     . ..   .   .",
+".     ..     .... "};
+
+/* XPM */
+const char * SimpleConditional::View::AgtB_xpm[] = {
+"18 8 2 1",
+" 	c None",
+".	c #000000",
+"   .         .... ",
+"   .         .   .",
+"  . .  .     .   .",
+"  . .   ..   .... ",
+" .   .    .. .   .",
+" .....  ..   .   .",
+".     ..     .   .",
+".     .      .... "};
+
+
+
+unsigned int SimpleConditional::View::sInstanceCount  = 0;
+QPixmap * SimpleConditional::View::sPixmapLesser      = 0;
+QPixmap * SimpleConditional::View::sPixmapLesserEqual = 0;
+QPixmap * SimpleConditional::View::sPixmapEqual       = 0;
+QPixmap * SimpleConditional::View::sPixmapLargerEqual = 0;
+QPixmap * SimpleConditional::View::sPixmapLarger      = 0;
+int SimpleConditional::View::sPixmapOffsetTop;
+int SimpleConditional::View::sPixmapOffsetLeft;
+
+
+SimpleConditional::View::View(SimpleConditional * comp, eViewType viewType)
+	: CompView(comp, viewType)
 {
+	enableConnectorSpacingTop(false);
+	enableConnectorSpacingBottom(false);
+//	enableConnectorSpacingLeft(false);
+//	enableConnectorSpacingRight(false);
 	enableRotation(true);
-	
-	if (viewType == SHEET_VIEW)
+
+	setPlace(QRect(0, 0, 5*gridX, 5*gridY));
+	getSimpleConditional()->getInputA()->setGridPos(0,1);
+	getSimpleConditional()->getInputB()->setGridPos(0,3);
+	getSimpleConditional()->getOutputConnector()->setGridPos(4,2);
+
+	if (sInstanceCount == 0)
 	{
-		getComponentLayout()->setMinSize(6,5);
-		
-		getComponentLayout()->getLeft()->addSpace(1);
-		getComponentLayout()->getLeft()->addConnector(comp->getInputA());
-		getComponentLayout()->getLeft()->addConnector(comp->getInputB());
-	
-		getComponentLayout()->updateLayout();
+		sPixmapLesser      = new QPixmap(AltB_xpm);   CHECK_PTR(sPixmapLesser);
+		sPixmapLesserEqual = new QPixmap(AlteqB_xpm); CHECK_PTR(sPixmapLesserEqual);
+		sPixmapEqual       = new QPixmap(AeqB_xpm);   CHECK_PTR(sPixmapEqual);
+		sPixmapLargerEqual = new QPixmap(AgteqB_xpm); CHECK_PTR(sPixmapLargerEqual);
+		sPixmapLarger      = new QPixmap(AgtB_xpm);   CHECK_PTR(sPixmapLarger);
+
+		sPixmapOffsetLeft = (getDrawingPlace().width() - sPixmapLesser->width())/2 + getDrawingPlace().left();
+		sPixmapOffsetTop = (getDrawingPlace().height() - sPixmapLesser->height())/2 + getDrawingPlace().top();
+
+#if defined(DEBUG) && !defined(NO_KSIMDEBUG)
+		// Assume same size of all pixmaps !!!!
+		if ((sPixmapLesser->size() != sPixmapLesserEqual->size())
+		 || (sPixmapLesser->size() != sPixmapEqual->size())
+		 || (sPixmapLesser->size() != sPixmapLargerEqual->size())
+		 || (sPixmapLesser->size() != sPixmapLarger->size()))
+		{
+			KSIMDEBUG("FIX ME: Assume same size of all pixmaps !!!!");
+		}
+#endif //defined(DEBUG) && !defined(NO_KSIMDEBUG)
+
+	}
+	sInstanceCount++;
+}
+
+SimpleConditional::View::~View()
+{
+	sInstanceCount--;
+	if (sInstanceCount == 0)
+	{
+		delete sPixmapLesser;       sPixmapLesser = 0;
+		delete sPixmapLesserEqual;  sPixmapLesserEqual = 0;
+		delete sPixmapEqual;        sPixmapEqual = 0;
+		delete sPixmapLargerEqual;  sPixmapLargerEqual = 0;
+		delete sPixmapLarger;       sPixmapLarger = 0;
 	}
 }
-/*SimpleConditionalView::~SimpleConditionalView()
-{
-}*/
 
-void SimpleConditionalView::draw(QPainter * p)
+void SimpleConditional::View::draw(QPainter * p)
 {
-	Boolean1OutView::draw(p);
-		
-	QFont newFont("helvetica",10);
-	p->setFont(newFont);
-	
-	switch(getComponent()->getConditionalType())
+	drawFrame(p);
+	CompView::draw(p);
+
+/*	KSIMDEBUG(QString("getDrawingPlace(%1,%2) sPixmapSize(%3,%4) xy(%5,%6)")
+	                  .arg(getDrawingPlace().width()).arg(getDrawingPlace().height())
+	                  .arg(sPixmapLesser->width()).arg(sPixmapLesser->height())
+	                  .arg(sPixmapOffsetLeft).arg(sPixmapOffsetTop));*/
+
+	switch(getSimpleConditional()->getConditionalType())
 	{
-		case eLesser:      p->drawText(getDrawingPlace(), AlignCenter, "A<B");  break;
-		case eLesserEqual: p->drawText(getDrawingPlace(), AlignCenter, "A<=B"); break;
-		case eEqual:       p->drawText(getDrawingPlace(), AlignCenter, "A==B"); break;
-		case eLargerEqual: p->drawText(getDrawingPlace(), AlignCenter, "A>=B"); break;
-		case eLarger:      p->drawText(getDrawingPlace(), AlignCenter, "A>B");  break;
+		case eLesser:      p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLesser);      break;
+		case eLesserEqual: p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLesserEqual); break;
+		case eEqual:       p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapEqual);       break;
+		case eLargerEqual: p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLargerEqual); break;
+		case eLarger:      p->drawPixmap(sPixmapOffsetLeft, sPixmapOffsetTop, *sPixmapLarger);      break;
 	}
 }
 
@@ -296,7 +417,7 @@ SimpleConditionalPropertyGeneralWidget::SimpleConditionalPropertyGeneralWidget(S
 	CHECK_PTR(m_conditional);
 	m_conditional->insertItem(i18n("FloatingPoint", "A < B"),  (int)eLesser);
 	m_conditional->insertItem(i18n("FloatingPoint", "A <= B"), (int)eLesserEqual);
-	m_conditional->insertItem(i18n("FloatingPoint", "A == B"), (int)eEqual);
+	m_conditional->insertItem(i18n("FloatingPoint", "A = B"), (int)eEqual);
 	m_conditional->insertItem(i18n("FloatingPoint", "A >= B"), (int)eLargerEqual);
 	m_conditional->insertItem(i18n("FloatingPoint", "A > B"),  (int)eLarger);
 	
@@ -316,10 +437,10 @@ void SimpleConditionalPropertyGeneralWidget::acceptPressed()
 {
 	Boolean1OutPropertyGeneralWidget::acceptPressed();
 	
-	if (getComponent()->getConditionalType() != (eConditionalType)m_conditional->currentItem())
+	if (getSimpleConditional()->getConditionalType() != (eConditionalType)m_conditional->currentItem())
 	{
 		changeData();
-		getComponent()->setConditionalType((eConditionalType)m_conditional->currentItem());
+		getSimpleConditional()->setConditionalType((eConditionalType)m_conditional->currentItem());
 	}
 }
 
@@ -331,7 +452,7 @@ void SimpleConditionalPropertyGeneralWidget::defaultPressed()
 {
 	Boolean1OutPropertyGeneralWidget::defaultPressed();
 
-	m_conditional->setCurrentItem((int)getComponent()->getConditionalType());
+	m_conditional->setCurrentItem((int)getSimpleConditional()->getConditionalType());
 }
 
 
