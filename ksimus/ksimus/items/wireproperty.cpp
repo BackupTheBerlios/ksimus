@@ -26,6 +26,8 @@
 // Project includes
 #include "wireproperty.h"
 
+#include "ksimus.h"
+#include "ksimusdoc.h"
 #include "ksimdata.h"
 #include "wirepropertyinfo.h"
 #include "wire.h"
@@ -126,7 +128,7 @@ const WirePropertyInfo * WireProperty::getInfo() const
 
 WatchItemBase * WireProperty::makeWatchItem()
 {
-	KMessageBox::sorry( (QWidget *)0,
+	KMessageBox::sorry( getComponent()->getDoc()->getApp(),
 	                    i18n("The watch functionality is not implementated yet.\n"
 	                         "Wire Type: %1")
 	                         .arg(this->getInfo()->getName()));

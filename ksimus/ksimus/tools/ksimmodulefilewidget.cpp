@@ -89,11 +89,12 @@ void KSimModuleFileWidget::acceptPressed()
 		config->setGroup(group);
 		config->sync();
 		
-		KMessageBox::information(0,i18n("KSimus modules are loaded only during the application start."
-		                                 "You have to restart ksimus if you want to apply the changes.\n"
-		                                 "This will be changed in a future version. Sorry!"),
-		                           i18n("Restart required"),
-		                           QString::fromLatin1("Modules changed - Restart Application"));
+		KMessageBox::information(parentWidget(),
+		                         i18n("KSimus modules are loaded only during the application start."
+		                              "You have to restart ksimus if you want to apply the changes.\n"
+		                              "This will be changed in a future version. Sorry!"),
+		                         i18n("Restart required"),
+		                         QString::fromLatin1("Modules changed - Restart Application"));
 	}
 }
 
