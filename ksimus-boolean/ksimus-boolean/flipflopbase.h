@@ -27,7 +27,6 @@
 // Project-Includes
 #include "ksimus/boolean1out.h"
 #include "ksimus/compview.h"
-#include "ksimus/componentinfo.h"
 
 // Forward declaration
 class ConnectorBoolOut;

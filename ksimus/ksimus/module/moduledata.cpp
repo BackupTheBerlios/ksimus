@@ -42,7 +42,6 @@
 #include "compcontainer.h"
 #include "compview.h"
 #include "connectorbase.h"
-#include "componentinfo.h"
 #include "moduleinfo.h"
 #include "resource.h"
 #include "externalconnector.h"

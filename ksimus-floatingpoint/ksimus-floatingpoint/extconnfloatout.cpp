@@ -19,7 +19,6 @@
 
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorfloatout.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/wireproperty.h"
 #include "extconnfloatout.h"
 

@@ -26,7 +26,6 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/componentinfo.h"
 #include "ksimus/component.h"
 #include "ksimus/compview.h"
 #include "ksimus/componentpropertygeneralwidget.h"

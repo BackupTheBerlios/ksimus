@@ -32,7 +32,6 @@
 #include "ksimus/ksimdebug.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/connectorfloatin.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimembfont.h"

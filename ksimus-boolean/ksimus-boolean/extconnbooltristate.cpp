@@ -21,7 +21,6 @@
 
 #include "ksimus/resource.h"
 #include "ksimus/connectorlist.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/connectorbooltristate.h"
 #include "ksimus/ksimbooltristatebox.h"
 #include "ksimus/wire.h"

@@ -27,7 +27,6 @@
 // KSimus-Includes
 #include "ksimus/component.h"
 #include "ksimus/resource.h"
-#include "ksimus/componentinfo.h"
 
 // Project-Includes
 #include "datarecorderchannelbase.h"

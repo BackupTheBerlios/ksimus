@@ -28,7 +28,6 @@
 
 // Project-Includes
 #include "ksimus/ksimspinbox.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/connectorfloatout.h"
 #include "ksimus/resource.h"

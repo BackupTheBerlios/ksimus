@@ -33,7 +33,6 @@
 #include "ksimus/connectorboolinedge.h"
 #include "ksimus/connectorpack.h"
 #include "ksimus/connectorboolout.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/connectorlabel.h"
 #include "ksimus/ksimdebug.h"

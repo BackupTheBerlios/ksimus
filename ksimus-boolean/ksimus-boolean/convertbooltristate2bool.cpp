@@ -25,7 +25,6 @@
 // Project-Includes
 #include "ksimus/connectorboolout.h"
 #include "ksimus/resource.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/connectorbooltristate.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/wireproperty.h"

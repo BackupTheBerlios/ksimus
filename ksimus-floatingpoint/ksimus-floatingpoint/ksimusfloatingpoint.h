@@ -24,7 +24,6 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/componentinfo.h"
 #include "ksimusfloatingpoint.h"
 
 // Forward declaration

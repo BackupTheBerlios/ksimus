@@ -30,7 +30,6 @@
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/connectorpack.h"
-#include "ksimus/componentinfo.h"
 
 
 // Forward declaration

@@ -28,7 +28,6 @@
 #include "ksimus/ksimspinbox.h"
 #include "ksimus/component.h"
 #include "ksimus/compview.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/componentpropertybasewidget.h"
 #include "ksimus/ksimbaseuint.h"
 

@@ -26,7 +26,6 @@
 
 // KSimus-Includes
 #include "ksimus/compview.h"
-#include "ksimus/componentinfo.h"
 
 // Project-Includes
 #include "flipflopbase.h"

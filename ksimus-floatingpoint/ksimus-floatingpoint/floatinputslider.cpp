@@ -26,7 +26,6 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "ksimus/componentinfo.h"
 #include "ksimus/componentlayout.h"
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"

@@ -25,7 +25,6 @@
 #include <klocale.h>
 
 // Project-Includes
-#include "ksimus/componentinfo.h"
 #include "ksimus/resource.h"
 #include "ksimus/connectorfloatin.h"
 

@@ -29,7 +29,6 @@
 #include "ksimus/component.h"
 #include "ksimus/componentpropertygeneralwidget.h"
 #include "ksimus/compview.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/ksimtime.h"
 #include "float1out.h"
 

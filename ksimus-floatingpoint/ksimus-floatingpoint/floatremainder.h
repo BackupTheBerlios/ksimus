@@ -26,7 +26,6 @@
 
 // Project-Includes
 #include "float2in1out.h"
-#include "ksimus/componentinfo.h"
 
 
 namespace KSimLibFloatingPoint

@@ -27,7 +27,6 @@
 #include "ksimus/connectorbooltristate.h"
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorpack.h"
-#include "ksimus/componentinfo.h"
 #include "booltristatexor.h"
 
 // Forward declaration

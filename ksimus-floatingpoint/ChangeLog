@@ -1,3 +1,5 @@
+	8.3.2004
+* Remove unnecessary include componentinfo.h
 	7.3.2004
 * CompView uses the object name now
 * Use explicit conversion fom const char * to QString

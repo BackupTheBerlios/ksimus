@@ -33,7 +33,6 @@
 
 // Project-Includes
 #include "ksimus/connectorboolin.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/resource.h"
 #include "ksimus/ksimdebug.h"
 #include "ksimus/ksimdata.h"

@@ -25,7 +25,6 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/componentinfo.h"
 
 // Forward declaration
 class KLocale;

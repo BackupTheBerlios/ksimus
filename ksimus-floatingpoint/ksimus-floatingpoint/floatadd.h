@@ -26,7 +26,6 @@
 
 // Project-Includes
 #include "float1out.h"
-#include "ksimus/componentinfo.h"
 
 
 // Forward declaration

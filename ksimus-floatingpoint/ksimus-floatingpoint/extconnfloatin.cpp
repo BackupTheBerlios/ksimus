@@ -27,7 +27,6 @@
 // Project-Includes
 #include "ksimus/connectorfloatin.h"
 #include "ksimus/connectorfloatout.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/wireproperty.h"
 #include "ksimus/ksimdoubleedit.h"
 #include "ksimus/ksimdata.h"

@@ -28,7 +28,6 @@
 // KSimus-Includes
 #include "ksimus/component.h"
 #include "ksimus/resource.h"
-#include "ksimus/componentinfo.h"
 #include "ksimus/connectorinfo.h"
 #include "ksimus/connectorbase.h"
 #include "ksimus/compview.h"
