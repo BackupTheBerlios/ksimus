@@ -1,3 +1,6 @@
+	22.01.2002
+* Fix: draw Module (caused by changes from 13.1.02)
+* Fix: some grid issues
 	21.01.2002
 * New: German translation
 * Fix: not translateable code
