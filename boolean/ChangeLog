@@ -1,4 +1,6 @@
 	28.12.2001
+* Fix: Boolean7Segment don't use i18n with Connector names
+* Fix: Rename BooleanBoolean7SegmentInfo to Boolean7SegmentInfo
 * Change: BooleanCounter has new library name "Boolean/Counter/with RCO and RBO"
 * New: Improve interface to loadable package.
 	27.12.2001
