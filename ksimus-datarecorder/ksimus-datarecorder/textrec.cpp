@@ -68,7 +68,7 @@ namespace KSimLibDataRecorder
 //#define DEFAULT_FLAGS      (FLAG_LINE_NO | FLAG_TIME_STAMP)
 #define DEFAULT_FLAGS      (FLAG_HEADER_DATE | FLAG_CONN_NAMES | FLAG_LINE_NO | FLAG_TIME_STAMP)
 
-#define DEFAULT_FILENAME   ""    // a default name dont work (abs path)
+#define DEFAULT_FILENAME   "text-recorder.log"
 #define DEFAULT_PATH_TYPE  KSimFilename::PATH_RELATIVE_DOCUMENT
 #define DEFAULT_SEPARATOR  QString::fromLatin1(";")
 
@@ -963,15 +963,22 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 
 void TextRecPropertyGeneralWidget::acceptPressed()
 {
+	KSIMDEBUG("TextRecPropertyGeneralWidget::acceptPressed()");
+	
 	ComponentPropertyGeneralWidget::acceptPressed();
 
 	
-	if ((getComponent()->getFilename().getFilename() != getFilenameWidget()->getFilename())
+/*	if ((getComponent()->getFilename().getFilename() != getFilenameWidget()->getFilename())
 	  ||(getComponent()->getFilename().getPathType() != getFilenameWidget()->getPathType()))
 	{
 		changeData();
 		getComponent()->getFilename().setFilename(getFilenameWidget()->getFilename());
 		getComponent()->getFilename().setPathType(getFilenameWidget()->getPathType());
+	}*/
+	if (getComponent()->getFilename() != getFilenameWidget()->getFileInfo())
+	{
+		changeData();
+		getComponent()->getFilename() = getFilenameWidget()->getFileInfo();
 	}
 
 	if (getComponent()->isAppendEnabled() != getAppendFileCheckBox()->isChecked())
@@ -1016,8 +1023,8 @@ void TextRecPropertyGeneralWidget::defaultPressed()
 {
 	ComponentPropertyGeneralWidget::defaultPressed();
 
-	getFilenameWidget()->setFilename(DEFAULT_FILENAME);
 	getFilenameWidget()->setPathType(DEFAULT_PATH_TYPE);
+	getFilenameWidget()->setFilename(DEFAULT_FILENAME);
 
 
 	getAppendFileCheckBox()->setChecked(DEFAULT_FLAGS & FLAG_APPEND);
