@@ -130,10 +130,10 @@ void ConnectorPack::setConnectorCount(unsigned int connCount)
 		connCount = getConnectorMinimum();
 	}
 	
-	do
+	while((connCount < getConnectorCount()) && (deleted))
 	{
 		deleted = internalDeleteConnector();
-	} while((connCount < getConnectorCount()) && (deleted));
+	};
 	
 	while(connCount > getConnectorCount())
 	{
