@@ -26,6 +26,11 @@ ksimus-003x.sim
   Test external connector floating-point in
   Test external connector floating-point out
   Different timings
+  
+ksimus-004x.sim
+  ksimus-0040.sim
+  Test implicit converter float to boolean
+  Test implicit converter boolean to float
 
 ############################################################################
 ############################################################################
@@ -41,6 +46,9 @@ boolean-001x.sim
 
 boolean-002x.sim
   Test XOR / XNOR gate
+
+boolean-003x.sim
+  Test Identity / Inverter gate
 
 boolean-0010x.sim
   Test RS flip flop

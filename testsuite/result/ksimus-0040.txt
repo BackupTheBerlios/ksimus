@@ -1,0 +1,8 @@
+Line;Time;Clock;Clock 1;Clock Floating Point;SimTime;SimTime 1;SimTime Boolean;
+1;0;True;True;1;0;0;False;
+2;1e-05;True;True;1;0;0;False;
+3;2e-05;True;True;1;1e-05;1e-05;True;
+4;3e-05;False;False;0;2e-05;2e-05;True;
+5;4e-05;False;False;0;3e-05;3e-05;True;
+6;5e-05;False;False;0;4e-05;4e-05;True;
+7;6e-05;True;True;1;5e-05;5e-05;True;
