@@ -1,4 +1,8 @@
+	12.12.2001
+* New: Component D-Flip Flop and Mono Flop
+* New function FlipFlopBasePropertyGeneralWidget::getDominantBox()
 	09.12.2001
+* Change: New version 0.3.0.
 * Change: Change lib names of the JKFlipFlip component
 * New: Components JK and JK MS Flip Flop
 * Change: BooleanOr and BooleanXor uses BooleanXIn1Out as base class
