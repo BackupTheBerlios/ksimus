@@ -20,8 +20,10 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <klocale.h>
+#include <kurl.h>
 
 #include "ksimus.h"
+#include "ksimdebug.h"
 
 // INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
 static const char *description =
@@ -33,7 +35,7 @@ static const char *description =
 static KCmdLineOptions options[] =
 {
   { "+[File]", I18N_NOOP("file to open"), 0 },
-  { "simpleVersion", I18N_NOOP("Returns the version of KSimus"), 0 },
+  { "execute", I18N_NOOP("starts the execution of the given file"), 0 },
   { 0, 0, 0 }
   // INSERT YOUR COMMANDLINE OPTIONS HERE
 };
@@ -59,25 +61,21 @@ int main(int argc, char *argv[])
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 		
-		if (args->isSet("simpleVersion"))
-		{
-			printf(VERSION "\n");
-			return 0;
-		}
-
     KSimusApp *ksimus = new KSimusApp();
     ksimus->show();
 
-		
 		if (args->count())
 		{
-
-			ksimus->openDocumentFile(args->arg(0));
+			if (args->isSet("execute"))
+			{
+				ksimus->executeDocumentFile(args->url(0));
+			}
+			else
+			{
+				ksimus->openDocumentFile(args->url(0));
+			}
 		}
-/*		else
-		{
-		  ksimus->openDocumentFile();
-		}*/
+
 		args->clear();
   }
 
