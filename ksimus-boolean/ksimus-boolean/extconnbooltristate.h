@@ -23,26 +23,34 @@
 namespace KSimLibBoolean
 {
 
-/**A external boolean input connector
+/**A external boolean tristate input connector
   *@author Rasmus Diekenbrock
   */
-
-const ComponentInfo * getExtConnBoolTriStateInInfo();
 
 class ExtConnBoolTriStateIn : public ExternalConnector
 {
 public: 
 	ExtConnBoolTriStateIn(CompContainer * container, const ComponentInfo * ci);
 //	~ExtConnBoolTriStateIn();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
-const ComponentInfo * getExtConnBoolTriStateOutInfo();
+//###############################################################
+
+/**A external boolean tristate output connector
+  *@author Rasmus Diekenbrock
+  */
 
 class ExtConnBoolTriStateOut : public ExternalConnector
 {
 public:
 	ExtConnBoolTriStateOut(CompContainer * container, const ComponentInfo * ci);
 //	~ExtConnBoolTriStateOut();
+
+	static Component * create(CompContainer * container, const ComponentInfo * ci);
+	static const ComponentInfo * getStaticInfo();
 };
 
 //###############################################################
