@@ -39,6 +39,7 @@
 #include "ksimus/ksimdata.h"
 #include "ksimus/ksimtimespinbox.h"
 #include "ksimus/ksimbooleanbox.h"
+#include "ksimus/optionalconnector.h"
 
 // Project-Includes
 #include "monoflop.h"
@@ -88,8 +89,10 @@ MonoFlop::MonoFlop(CompContainer * container, const ComponentInfo * ci)
 	getSetInputConnector()->setName(i18n("Boolean", "Trigger"), true);
 
 	getResetInputConnector()->setEdgeSensitive(false,true);
-	getResetInputConnector()->setHideEnabled(true);
-	getResetInputConnector()->setHide(true,true);
+	// make Reset optional
+	new OptionalConnector(getResetInputConnector(),
+	                      QString::fromLatin1("Reset input"),
+	                      i18n("Boolean", "Reset input:"));
 	
 	// Initializes the sheet view
 	if (getSheetMap())
@@ -122,14 +125,17 @@ void MonoFlop::calculate()
 		setState(true);
 		m_time = getTimeServer().getTime();
 		m_time += m_highTime;
+		
+		executeAt(0, m_time);
+		if(reset || !getSetInputConnector()->isEdgeSensitive())
+		{
+			executeNext();
+		}
 	}
 	else if (reset)
 	{
 		setState(false);
-		m_time = getTimeServer().getTime();
 	}
-	
-	executeNext();
 }
 
 /** Reset all simulation variables */
