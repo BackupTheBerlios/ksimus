@@ -25,7 +25,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "boolean2in1out.h"
+#include "ksimus/booleanxin1out.h"
 
 // Forward declaration
 
@@ -40,7 +40,7 @@ extern const ComponentInfo BooleanXorInfo;
 extern const ComponentInfo BooleanXnorInfo;
 
 
-class BooleanXor : public Boolean2In1Out
+class BooleanXor : public BooleanXIn1Out
 {
 public:
 	BooleanXor(CompContainer * container, const ComponentInfo * ci);
@@ -52,10 +52,10 @@ public:
 
 //###############################################################
 
-class BooleanXorView : public Boolean2In1OutView
+class BooleanXorView : public BooleanXIn1OutView
 {
 public:
-	BooleanXorView(Component * comp, eViewType viewType);
+	BooleanXorView(BooleanXor * comp, eViewType viewType);
 //	~BooleanOrView();
 	virtual void draw(QPainter * p);
 };

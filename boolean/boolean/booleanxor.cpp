@@ -29,6 +29,7 @@
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorboolout.h"
 #include "ksimus/componentinfo.h"
+#include "ksimus/connectorpack.h"
 
 // Forward declaration
 
@@ -60,13 +61,13 @@ const ComponentInfo BooleanXnorInfo (	"Boolean  Exclusive NOR",
 
 //###############################################################
 
-BooleanXorView::BooleanXorView(Component * comp, eViewType viewType)
-	: Boolean2In1OutView(comp, viewType)
+BooleanXorView::BooleanXorView(BooleanXor * comp, eViewType viewType)
+	: BooleanXIn1OutView(comp, viewType)
 {};
 
 void BooleanXorView::draw(QPainter * p)
 {
-	Boolean2In1OutView::draw(p);
+	BooleanXIn1OutView::draw(p);
 	
 	p->drawText(getPlace(), AlignCenter, "=1");
 }
@@ -76,12 +77,12 @@ void BooleanXorView::draw(QPainter * p)
 
 
 BooleanXor::BooleanXor(CompContainer * container, const ComponentInfo * ci)
-	: Boolean2In1Out(container, ci)
+	: BooleanXIn1Out(container, ci)
 {
 	// make Xnor
 	if (ci == &BooleanXnorInfo)
 	{
-		m_out->setNegate(true, true);
+		getOutputConnector()->setNegate(true, true);
 	}
 	
 	// Initializes the sheet view
@@ -89,6 +90,8 @@ BooleanXor::BooleanXor(CompContainer * container, const ComponentInfo * ci)
 	{
 		new BooleanXorView(this, SHEET_VIEW);
 	}
+	
+	getAction().disable(KSimAction::UPDATEVIEW);
 }
 /*BooleanXor::~BooleanXor()
 {
@@ -96,9 +99,16 @@ BooleanXor::BooleanXor(CompContainer * container, const ComponentInfo * ci)
 
 void BooleanXor::calculate()
 {
-	Boolean2In1Out::calculate();
+	BooleanXIn1Out::calculate();
 	
-	m_result = m_inA->getInput() ^ m_inB->getInput();
+	bool result = false;
+	
+	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
+	{
+		result ^= ((ConnectorBoolIn*)it.current())->getInput();
+	}
+	
+	setState(result);
 }
 
 

@@ -29,7 +29,9 @@
 #include "ksimus/resource.h"
 #include "ksimus/connectorboolin.h"
 #include "ksimus/connectorboolout.h"
+#include "ksimus/connectorpack.h"
 #include "ksimus/componentinfo.h"
+#include "ksimus/componentlayout.h"
 
 
 // Forward declaration
@@ -65,14 +67,14 @@ const ComponentInfo BooleanNorInfo (	"Boolean NOR",
 //###############################################################
 
 
-BooleanOrView::BooleanOrView(Component * comp, eViewType viewType)
-	: Boolean2In1OutView(comp, viewType)
+BooleanOrView::BooleanOrView(BooleanOr * comp, eViewType viewType)
+	: BooleanXIn1OutView(comp, viewType)
 {
 }
 
 void BooleanOrView::draw(QPainter * p)
 {
-	Boolean2In1OutView::draw(p);
+	BooleanXIn1OutView::draw(p);
 	
 	p->drawText(getPlace(), AlignCenter, ">=1");
 }
@@ -81,12 +83,12 @@ void BooleanOrView::draw(QPainter * p)
 //###############################################################
 
 BooleanOr::BooleanOr(CompContainer * container, const ComponentInfo * ci)
-	: Boolean2In1Out(container, ci)
+	: BooleanXIn1Out(container, ci)
 {
 	// make Nor
 	if (ci == &BooleanNorInfo)
 	{
-		m_out->setNegate(true, true);
+		getOutputConnector()->setNegate(true, true);
 	}
 	
 	// Initializes the sheet view
@@ -94,14 +96,24 @@ BooleanOr::BooleanOr(CompContainer * container, const ComponentInfo * ci)
 	{
 		new BooleanOrView(this, SHEET_VIEW);
 	}
+	
+	getAction().disable(KSimAction::UPDATEVIEW);
 }
 
 /** Executes the simulation of this component */
 void BooleanOr::calculate()
 {
-	Boolean2In1Out::calculate();
+	BooleanXIn1Out::calculate();
 	
-	m_result = m_inA->getInput() || m_inB->getInput();
+	bool result = false;
+	
+	FOR_EACH_CONNECTOR(it, *getInputConnectorPack()->getConnList())
+	{
+		result |= ((ConnectorBoolIn*)it.current())->getInput();
+		if (result) break;	//  No more changes possible
+	}
+	
+	setState(result);
 }
 
 }; //namespace KSimLibBoolean

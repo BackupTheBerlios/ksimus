@@ -30,7 +30,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "boolean2in1out.h"
+#include "ksimus/booleanxin1out.h"
 
 // Forward declaration
 
@@ -44,7 +44,7 @@ namespace KSimLibBoolean
 extern const ComponentInfo BooleanOrInfo;
 extern const ComponentInfo BooleanNorInfo;
 
-class BooleanOr : public Boolean2In1Out
+class BooleanOr : public BooleanXIn1Out
 {
 public:
 	BooleanOr(CompContainer * container, const ComponentInfo * ci);
@@ -55,10 +55,10 @@ public:
 
 //###############################################################
 
-class BooleanOrView : public Boolean2In1OutView
+class BooleanOrView : public BooleanXIn1OutView
 {
 public:
-	BooleanOrView(Component * comp, eViewType viewType);
+	BooleanOrView(BooleanOr * comp, eViewType viewType);
 	
 	virtual void draw(QPainter * p);
 };
