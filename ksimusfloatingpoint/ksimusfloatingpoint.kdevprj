@@ -29,7 +29,7 @@ author=Rasmus Diekenbrock
 configure_args=--prefix=/opt/kde2
 email=ksimus@gmx.de
 kdevprj_version=1.3
-lfv_open_groups=Quellen
+lfv_open_groups=GNU
 make_options=\s-j2
 makefiles=Makefile.am,ksimusfloatingpoint/Makefile.am,doc/Makefile.am,doc/en/Makefile.am,po/Makefile.am
 modifyMakefiles=true
@@ -108,7 +108,7 @@ install_location=
 type=DATA
 
 [ksimusfloatingpoint/Makefile.am]
-files=ksimusfloatingpoint/ksimusfloatingpoint.cpp,ksimusfloatingpoint/ksimusfloatingpoint.h,ksimusfloatingpoint/float1out.cpp,ksimusfloatingpoint/float1out.h,ksimusfloatingpoint/float2in1out.cpp,ksimusfloatingpoint/float2in1out.h,ksimusfloatingpoint/floatadd.cpp,ksimusfloatingpoint/floatadd.h,ksimusfloatingpoint/floatdivider.cpp,ksimusfloatingpoint/floatdivider.h,ksimusfloatingpoint/floatinputslider.cpp,ksimusfloatingpoint/floatinputslider.h,ksimusfloatingpoint/floatlineoutput.cpp,ksimusfloatingpoint/floatlineoutput.h,ksimusfloatingpoint/floatmultiplier.cpp,ksimusfloatingpoint/floatmultiplier.h,ksimusfloatingpoint/floatsubtractor.cpp,ksimusfloatingpoint/floatsubtractor.h,ksimusfloatingpoint/floatxin1out.cpp,ksimusfloatingpoint/floatxin1out.h,ksimusfloatingpoint/floatstyle1out.cpp,ksimusfloatingpoint/floatstyle1out.h,ksimusfloatingpoint/floatremainder.cpp,ksimusfloatingpoint/floatremainder.h,ksimusfloatingpoint/floatlineinput.cpp,ksimusfloatingpoint/floatlineinput.h,ksimusfloatingpoint/floatstylerange1out.cpp,ksimusfloatingpoint/floatstylerange1out.h,ksimusfloatingpoint/floatconstinput.cpp,ksimusfloatingpoint/floatconstinput.h,ksimusfloatingpoint/float1in1out.cpp,ksimusfloatingpoint/float1in1out.h,ksimusfloatingpoint/floatabs.cpp,ksimusfloatingpoint/floatabs.h,ksimusfloatingpoint/waveformgenerator.cpp,ksimusfloatingpoint/waveformgenerator.h,ksimusfloatingpoint/simpleconditional.cpp,ksimusfloatingpoint/simpleconditional.h,ksimusfloatingpoint/extconnfloatin.cpp,ksimusfloatingpoint/extconnfloatin.h,ksimusfloatingpoint/extconnfloatout.cpp,ksimusfloatingpoint/extconnfloatout.h,ksimusfloatingpoint/convertfloatbool.cpp,ksimusfloatingpoint/convertfloatbool.h,ksimusfloatingpoint/convertboolfloat.cpp,ksimusfloatingpoint/convertboolfloat.h,ksimusfloatingpoint/floatlatch.cpp,ksimusfloatingpoint/floatlatch.h,ksimusfloatingpoint/dataselector.cpp,ksimusfloatingpoint/dataselector.h
+files=ksimusfloatingpoint/ksimusfloatingpoint.cpp,ksimusfloatingpoint/ksimusfloatingpoint.h,ksimusfloatingpoint/float1out.cpp,ksimusfloatingpoint/float1out.h,ksimusfloatingpoint/float2in1out.cpp,ksimusfloatingpoint/float2in1out.h,ksimusfloatingpoint/floatadd.cpp,ksimusfloatingpoint/floatadd.h,ksimusfloatingpoint/floatdivider.cpp,ksimusfloatingpoint/floatdivider.h,ksimusfloatingpoint/floatinputslider.cpp,ksimusfloatingpoint/floatinputslider.h,ksimusfloatingpoint/floatlineoutput.cpp,ksimusfloatingpoint/floatlineoutput.h,ksimusfloatingpoint/floatmultiplier.cpp,ksimusfloatingpoint/floatmultiplier.h,ksimusfloatingpoint/floatsubtractor.cpp,ksimusfloatingpoint/floatsubtractor.h,ksimusfloatingpoint/floatxin1out.cpp,ksimusfloatingpoint/floatxin1out.h,ksimusfloatingpoint/floatstyle1out.cpp,ksimusfloatingpoint/floatstyle1out.h,ksimusfloatingpoint/floatremainder.cpp,ksimusfloatingpoint/floatremainder.h,ksimusfloatingpoint/floatlineinput.cpp,ksimusfloatingpoint/floatlineinput.h,ksimusfloatingpoint/floatstylerange1out.cpp,ksimusfloatingpoint/floatstylerange1out.h,ksimusfloatingpoint/floatconstinput.cpp,ksimusfloatingpoint/floatconstinput.h,ksimusfloatingpoint/float1in1out.cpp,ksimusfloatingpoint/float1in1out.h,ksimusfloatingpoint/floatabs.cpp,ksimusfloatingpoint/floatabs.h,ksimusfloatingpoint/waveformgenerator.cpp,ksimusfloatingpoint/waveformgenerator.h,ksimusfloatingpoint/simpleconditional.cpp,ksimusfloatingpoint/simpleconditional.h,ksimusfloatingpoint/extconnfloatin.cpp,ksimusfloatingpoint/extconnfloatin.h,ksimusfloatingpoint/extconnfloatout.cpp,ksimusfloatingpoint/extconnfloatout.h,ksimusfloatingpoint/convertfloatbool.cpp,ksimusfloatingpoint/convertfloatbool.h,ksimusfloatingpoint/convertboolfloat.cpp,ksimusfloatingpoint/convertboolfloat.h,ksimusfloatingpoint/floatlatch.cpp,ksimusfloatingpoint/floatlatch.h,ksimusfloatingpoint/dataselector.cpp,ksimusfloatingpoint/dataselector.h,ksimusfloatingpoint/floatexp.cpp,ksimusfloatingpoint/floatexp.h,ksimusfloatingpoint/floatlog.cpp,ksimusfloatingpoint/floatlog.h,ksimusfloatingpoint/floatsin.cpp,ksimusfloatingpoint/floatsin.h,ksimusfloatingpoint/floatcos.cpp,ksimusfloatingpoint/floatcos.h,ksimusfloatingpoint/floattan.cpp,ksimusfloatingpoint/floattan.h,ksimusfloatingpoint/floatmax.cpp,ksimusfloatingpoint/floatmax.h,ksimusfloatingpoint/floatmin.cpp,ksimusfloatingpoint/floatmin.h
 sub_dirs=
 type=shared_library
 
@@ -244,6 +244,18 @@ install=false
 install_location=
 type=HEADER
 
+[ksimusfloatingpoint/floatcos.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floatcos.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimusfloatingpoint/floatdivider.cpp]
 dist=true
 install=false
@@ -251,6 +263,18 @@ install_location=
 type=SOURCE
 
 [ksimusfloatingpoint/floatdivider.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimusfloatingpoint/floatexp.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floatexp.h]
 dist=true
 install=false
 install_location=
@@ -304,6 +328,42 @@ install=false
 install_location=
 type=HEADER
 
+[ksimusfloatingpoint/floatlog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floatlog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimusfloatingpoint/floatmax.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floatmax.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimusfloatingpoint/floatmin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floatmin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [ksimusfloatingpoint/floatmultiplier.cpp]
 dist=true
 install=false
@@ -323,6 +383,18 @@ install_location=
 type=SOURCE
 
 [ksimusfloatingpoint/floatremainder.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimusfloatingpoint/floatsin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floatsin.h]
 dist=true
 install=false
 install_location=
@@ -359,6 +431,18 @@ install_location=
 type=SOURCE
 
 [ksimusfloatingpoint/floatsubtractor.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[ksimusfloatingpoint/floattan.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[ksimusfloatingpoint/floattan.h]
 dist=true
 install=false
 install_location=
