@@ -92,10 +92,12 @@ void KSimBooleanBox::slotActivated(int i)
 	if (i == ID_FALSE)
 	{
 		emit activated(false);
+		emit deactivated(true);
 	}
 	else if (i == ID_TRUE)
 	{
 		emit activated(true);
+		emit deactivated(false);
 	}
 	else
 	{

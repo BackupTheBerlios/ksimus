@@ -57,6 +57,8 @@ public:
 	void setValue(bool b);
 	/** Returns the current state of the @ref ComboBox. */
 	bool getValue() const;	
+	/** Returns the current state of the @ref ComboBox. */
+	bool value() const { return getValue(); };
 
 private slots:
 	/** For internal use. */
@@ -71,6 +73,8 @@ private:
 signals:
 	/** Emitted, if the combo box changes the state. */
 	void activated(bool b);	
+	/** Emitted, if the combo box changes the state. */
+	void deactivated(bool notb);
 	/** Emitted, if the combo box changes the highlighted state. */
 	void highlighted(bool b);
 };
