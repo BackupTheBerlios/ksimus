@@ -30,7 +30,7 @@
 
 // Forward declaration
 
-ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName)
+ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName, bool unique)
 	: QObject(component),
 		ComponentItem(component),
 		m_myActions(KSimAction::ALL),
@@ -42,11 +42,14 @@ ComponentAddOn::ComponentAddOn(Component * component, const QString & addOnName)
 		CHECK_PTR(component->m_addonList);
 	}
 	
-	FOR_EACH_COMPONENT_ADDON(it, *component->m_addonList)
+	if (unique)
 	{
-		if (it.current()->getName() == m_addOnName)
+		FOR_EACH_COMPONENT_ADDON(it, *component->m_addonList)
 		{
-			KSIMDEBUG_VAR("Add on name not unique!", m_addOnName);
+			if (it.current()->getName() == m_addOnName)
+			{
+				KSIMDEBUG_VAR("Add on name not unique!", m_addOnName);
+			}
 		}
 	}
 	

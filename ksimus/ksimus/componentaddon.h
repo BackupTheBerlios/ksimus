@@ -111,9 +111,10 @@ protected:
 	/** Constructs a new add on.
 	  *
 	  * @param component The component to which the addon is added.
-	  * @param addOnName The name of the add on. The name have to be unique within a component.
+	  * @param addOnName The name of the add on.
+	  * @param unique    True if the name have to be unique within a component.
 	  */
-	ComponentAddOn(Component * component, const QString & addOnName);
+	ComponentAddOn(Component * component, const QString & addOnName, bool unique = true);
 
 private:
 	KSimAction m_myActions;
