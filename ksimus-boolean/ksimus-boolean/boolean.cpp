@@ -49,6 +49,7 @@
 #include "convertbooltristate2bool.h"
 #include "extconnbooltristate.h"
 #include "implicitconverterbooltristate2bool.h"
+#include "booltristateand.h"
 
 // Forward declaration
 
@@ -100,8 +101,10 @@ static const ComponentInfoList & getDistComponents()
 		// TriState
 		pDistComponents->append(getConvertBool2BoolTriStateInfo());
 		pDistComponents->append(getConvertBoolTriState2BoolInfo());
-		pDistComponents->append(getExtConnBoolTriStateInInfo());
-		pDistComponents->append(getExtConnBoolTriStateOutInfo());
+		pDistComponents->append(ExtConnBoolTriStateIn::getStaticInfo());
+		pDistComponents->append(ExtConnBoolTriStateOut::getStaticInfo());
+		pDistComponents->append(BoolTriStateAnd::getStaticAndInfo());
+		pDistComponents->append(BoolTriStateAnd::getStaticNandInfo());
 	}
 
 	return *pDistComponents;
