@@ -1,3 +1,7 @@
+	30.11.2002
+* Fix: Some timing issues External Connector
+* Fix: Timing issue in Converter Boolean to Floatingpoint
+* Fix: Timing issue in Converter Floatingpoint to Boolean
 	24.11.2002
 * Change: External Connector handling within modules improve. This change results in a more
   clear connector using.
