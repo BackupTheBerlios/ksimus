@@ -26,15 +26,14 @@
 // KDE-Includes
 
 // Project-Includes
-#include "boolean1out.h"
+#include "componentstyle.h"
 #include "compview.h"
 #include "compviewwidget.h"
 #include "componentinfo.h"
-#include "componentpropertybasewidget.h"
+#include "componentpropertygeneralwidget.h"
 
 // Forward declaration
 class ConnectorBoolOut;
-class ConnectorBoolIn;
 class QPushButton;
 class KSimBooleanBox;
 
@@ -48,7 +47,7 @@ extern const ComponentInfoList BooleanButtonList;
 //###############################################################
 
 
-class BooleanButton : public Boolean1Out
+class BooleanButton : public ComponentStyle
 {
 
 friend class BooleanButtonView;
@@ -59,8 +58,37 @@ public:
 	BooleanButton(CompContainer * container, const ComponentInfo * ci);
 //	~BooleanButton();
 
+	/** save component properties */
+	virtual void save(KSimData & file) const;
+	/** load component properties
+	*   copyLoad is true, if the load function is used as a copy function
+	*	  Returns true if successful */
+	virtual bool load(KSimData & file, bool copyLoad);
+	/** Shifts the current component state (@ref setState) to output connector. */
+	virtual void updateOutput();
 	/** Reset all simulation variables */
 	virtual void reset();
+	
+	/** Returns the output connector.
+	  */
+	ConnectorBoolOut * getOutputConnector() const { return m_out; };
+
+
+	/** Sets the current component state. */
+	void setState(bool newState) { m_state = newState; };
+	
+	/** Returns the current component state. */
+	bool getState() const { return m_state; };
+	
+	/** Sets the reset state. The component gets this state each call @ref reset.
+	 *  If init is true, the reset State is used as init value. The resetState is
+	 *  only saved, if the current resetState is not equal to resetState set as init value.*/
+	void setResetState(bool resetState, bool init = false);
+	
+	/** Returns the reset state. The component gets this state each call @ref reset. */
+	bool getResetState() const;
+	/** Returns the reset state. The component gets this state each call @ref reset. */
+	bool getResetStateInit() const;
 	
 	/** Creates the general property page for the property dialog.
 	  * This function creates a @ref BooleanButtonPropertyGeneralWidget.
@@ -77,6 +105,9 @@ public slots: // Public slots
 	void slotReleased();
 
 protected: // Protected attributes
+	bool m_state;
+	Q_UINT32 m_flags;
+	ConnectorBoolOut * m_out;
 	bool m_toggleButton;
 
 signals: // Signals
@@ -133,7 +164,7 @@ protected:
 //###############################################################
 //###############################################################
 
-class BooleanButtonPropertyGeneralWidget : public Boolean1OutPropertyGeneralWidget
+class BooleanButtonPropertyGeneralWidget : public ComponentPropertyGeneralWidget
 {
 	Q_OBJECT
 
@@ -157,6 +188,7 @@ private slots:
 	void slotActivateToggled(bool state);
 
 private:
+	KSimBooleanBox * m_resetState;
 	KSimBooleanBox * m_toggle;
 		
 

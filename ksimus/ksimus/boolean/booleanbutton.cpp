@@ -41,6 +41,7 @@
 #include "ksimdebug.h"
 #include "componentpropertydialog.h"
 #include "ksimbooleanbox.h"
+#include "ksimdata.h"
 
 // Forward declaration
 
@@ -75,10 +76,29 @@ const ComponentInfoList BooleanButtonList = { &BooleanButtonInfo, &BooleanToggle
 //###############################################################
 
 
+#define FLAGS_RESET_TRUE			0x0001;
+#define FLAGS_RESET_INIT_TRUE	0x0002;
+
+//###############################################################
+//###############################################################
+
+
 BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci)
-	:	Boolean1Out(container, ci),
+	:	ComponentStyle(container, ci),
+		m_state(false),
+		m_flags(0),
 		m_toggleButton(false)
 {
+	
+//	setColorAdjustmentEnabled(true);
+//	setFrameAdjustmentEnabled(true);
+	setFontAdjustmentEnabled(true);
+	
+	setFrameEnabled(false);
+	
+	m_out = new ConnectorBoolOut (this, I18N_NOOP("Output"));
+	CHECK_PTR(m_out);
+	
 	// Initializes the sheet view
 	if (getSheetMap())
 	{
@@ -104,16 +124,93 @@ BooleanButton::BooleanButton(CompContainer * container, const ComponentInfo * ci
 {
 }*/
 
-/** Reset all simulation variables */
-void BooleanButton::reset()
+void BooleanButton::updateOutput()
 {
-	Boolean1Out::reset();
-	toggled(getResetState());
-	if (isToggleButton())
+	ComponentStyle::updateOutput();
+	getOutputConnector()->setOutput(getState());
+}
+
+void BooleanButton::setResetState(bool resetState, bool init)
+{
+	if (resetState)
 	{
-		emit buttonChanged(getResetState());
+		m_flags |= FLAGS_RESET_TRUE;
+		if (init)
+		{
+			m_flags |= FLAGS_RESET_INIT_TRUE;
+		}
+	}
+	else
+	{
+		m_flags &= ~FLAGS_RESET_TRUE;
+		if (init)
+		{
+			m_flags &= ~FLAGS_RESET_INIT_TRUE;
+		}
 	}
 }
+	
+bool BooleanButton::getResetState() const
+{
+	return m_flags & FLAGS_RESET_TRUE;
+};
+	
+bool BooleanButton::getResetStateInit() const
+{
+	return m_flags & FLAGS_RESET_INIT_TRUE;
+};
+	
+
+
+void BooleanButton::reset()
+{
+	ComponentStyle::reset();
+	
+	setState( getResetState() );
+	getOutputConnector()->setOutput(getState());
+	
+	toggled(getState());
+	if (isToggleButton())
+	{
+		emit buttonChanged(getState());
+	}
+}
+
+/** save component properties */
+void BooleanButton::save(KSimData & file) const
+{
+	ComponentStyle::save(file);
+	
+	if (getResetState() != getResetStateInit())
+	{
+		file.writeEntry("Reset State", getResetState());
+	}
+}
+
+/** load component properties
+*   copyLoad is true, if the load function is used as a copy function
+*	Returns true if successful */
+bool BooleanButton::load(KSimData & file, bool copyLoad)
+{
+	setResetState( file.readBoolEntry("Reset State", getResetStateInit()) );
+	
+	return ComponentStyle::load(file, copyLoad);
+}
+
+
+/** Creates the general property page for the property dialog.
+ * Overload this function if you want to use a modified General Propery Page. Use as base class
+ * @ref ComponentPropertyGeneralWidget.
+ * This function is called by @ref addGeneralProperty*/
+ComponentPropertyBaseWidget * BooleanButton::createGeneralProperty(Component * comp, QWidget *parent)
+{
+	BooleanButtonPropertyGeneralWidget * wid;
+	wid = new BooleanButtonPropertyGeneralWidget(this, parent);
+	CHECK_PTR(wid);
+	
+	return wid;
+}
+
 
 void BooleanButton::toggled(bool pressed)
 {
@@ -164,18 +261,6 @@ void BooleanButton::slotReleased()
 	}
 }
 
-/** Creates the general property page for the property dialog.
- * Overload this function if you want to use a modified General Propery Page. Use as base class
- * @ref ComponentPropertyGeneralWidget.
- * This function is called by @ref addGeneralProperty*/
-ComponentPropertyBaseWidget * BooleanButton::createGeneralProperty(Component * comp, QWidget *parent)
-{
-	BooleanButtonPropertyGeneralWidget * wid;
-	wid = new BooleanButtonPropertyGeneralWidget(this, parent);
-	CHECK_PTR(wid);
-	
-	return wid;
-}
 
 //##########################################################################################
 //##########################################################################################
@@ -276,6 +361,7 @@ BooleanButtonWidgetView::BooleanButtonWidgetView(CompView * cv, QWidget *parent,
 	CHECK_PTR(m_button);
 	m_button->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum));
 	
+
 	QHBoxLayout * lay = new QHBoxLayout(this,0);
 	CHECK_PTR(lay);
 
@@ -305,10 +391,20 @@ void BooleanButtonWidgetView::slotSetToggleButton(bool toggle)
 
 
 BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanButton * comp, QWidget *parent, const char *name)
-	:	Boolean1OutPropertyGeneralWidget(comp, parent, name)
+	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
 	QLabel * lab;
 	QString str;	
+
+	lab = new QLabel(i18n("Reset State: "), getGrid(), "ResetStateLabel");
+	CHECK_PTR(lab);
+	
+	m_resetState = new KSimBooleanBox(comp->getResetState(), getGrid(), "ResetState");
+	CHECK_PTR(m_resetState);
+	
+	str = i18n("Changes the reset state of the component to true or false.");
+	addToolTip(str, lab, m_resetState);
+	addWhatsThis(str, lab, m_resetState);
 
 	lab = new QLabel(i18n("Toggle Function:"), getGrid());
 	CHECK_PTR(lab);
@@ -319,14 +415,11 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	m_toggle->setTrueText(i18n("On"));
 	m_toggle->setFalseText(i18n("Off"));
 	
-	str = i18n("Set toggle feature here.");
-	QToolTip::add(m_toggle, str);
-	QToolTip::add(lab, str);
-	QWhatsThis::add(m_toggle, str);
-	QWhatsThis::add(lab, str);
+	str = i18n("Enables or disables the toggle feature.");
+	addToolTip(str, lab, m_toggle);
+	addWhatsThis(str, lab, m_toggle);
 	
 	connect(m_toggle, SIGNAL(activated(bool)), this, SLOT(slotActivateToggled(bool)));
-	
 }
 
 /*BooleanButtonPropertyGeneralWidget::~BooleanButtonPropertyGeneralWidget()
@@ -335,8 +428,14 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 
 void BooleanButtonPropertyGeneralWidget::acceptPressed()
 {
-	Boolean1OutPropertyGeneralWidget::acceptPressed();
-
+	ComponentPropertyGeneralWidget::acceptPressed();
+	
+	if (((BooleanButton*)getComponent())->getResetState() != m_resetState->getValue())
+	{
+		changeData();
+		((BooleanButton*)getComponent())->setResetState( m_resetState->getValue() );
+	}
+	
 	if (((BooleanButton*)getComponent())->isToggleButton() != m_toggle->getValue())
 	{
 		changeData();
@@ -346,7 +445,9 @@ void BooleanButtonPropertyGeneralWidget::acceptPressed()
 
 void BooleanButtonPropertyGeneralWidget::defaultPressed()
 {
-	Boolean1OutPropertyGeneralWidget::defaultPressed();
+	ComponentPropertyGeneralWidget::defaultPressed();
+
+	m_resetState->setValue(false);
 
 	if(getComponent()->getInfo() == &BooleanToggleButtonInfo)
 	{
@@ -360,7 +461,7 @@ void BooleanButtonPropertyGeneralWidget::defaultPressed()
 
 void BooleanButtonPropertyGeneralWidget::slotActivateToggled(bool state)
 {
-	getResetStateBox()->setEnabled(state);
-	getResetStateBoxLabel()->setEnabled(state);
+	m_resetState->setEnabled(state);
+//	getResetStateBoxLabel()->setEnabled(state);
 }
 
