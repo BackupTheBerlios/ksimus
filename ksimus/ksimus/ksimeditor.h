@@ -39,6 +39,8 @@ class CompContainer;
 class ConnectorBase;
 class Wire;
 class ComponentInfo;
+class DynamicTip;
+class KSimEditorCursor;
 
 /** The KSimEditor class provides the view widget for the KSimusApp instance.	
  * The View instance inherits QWidget as a base class and represents the view object of a KTMainWindow. As KSimEditor is part of the
@@ -154,6 +156,8 @@ protected: // Protected methods
 	/** Execute the wire popup menu
 		This menu is display, if a wire is hit */
 	void wirePopup(const QPoint & pos);
+  /** Sets a proper cursor. */
+	void setEditorCursor(QPoint * pMousePos, eHitType hit) const;
 
 private:	
 	/** Displays the status message msg delayed */
@@ -188,6 +192,8 @@ private:
 	int resizeDir;
 	
 	const ComponentInfo * m_insertCI;
+	DynamicTip * m_myTip;
+	KSimEditorCursor * m_myCursor;
 	
 
 public slots: // Public slots
