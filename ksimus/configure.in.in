@@ -1,6 +1,6 @@
 #MIN_CONFIG
 
-AM_INIT_AUTOMAKE(ksimus,0.3.2.cvs)
+AM_INIT_AUTOMAKE(ksimus,0.3.2)
 
 CPPFLAGS="$CPPFLAGS -Wno-long-long"
 CXXFLAGS="$CXXFLAGS -fPIC"
