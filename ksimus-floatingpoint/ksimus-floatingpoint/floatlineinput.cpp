@@ -384,6 +384,7 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	               "greater than or equal to the 'Precision'; otherwise the fixed-point notation is used."
 	               );
 	addWhatsThis(tip + precTip, m_convertType, m_convertTypeLabel);
+	m_convertTypeLabel->setBuddy(m_convertType);
 	
 	
 	m_decimalsLabel = new QLabel(i18n("FloatingPoint", "Precision: "), this, "DecimalLabel");
@@ -394,6 +395,7 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	tip = i18n("FloatingPoint", "Sets the 'Precision' of the input.");
 	addToolTip(tip, m_decimals, m_decimalsLabel);
 	addWhatsThis(tip + precTip, m_decimals, m_decimalsLabel);
+	m_decimalsLabel->setBuddy(m_decimals);
 	
 	
 	m_tracking = new QCheckBox(i18n("FloatingPoint", "Tracking"), this, "Tracking");

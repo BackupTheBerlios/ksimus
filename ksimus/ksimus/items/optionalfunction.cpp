@@ -171,6 +171,7 @@ void OptionalFunction::addToPropertyWidget(PropertyWidget * widget)
 	getComboBox()->setCurrentItem((int)isEnabled());
 	getComboBox()->setEnabled(isChangeable());
 	
+	getLabel()->setBuddy(getComboBox());
 	PropertyWidget::addToolTip(getToolTipText(), getLabel(), getComboBox());
 	PropertyWidget::addWhatsThis(getWhatsThisText(), getLabel(), getComboBox());
 	

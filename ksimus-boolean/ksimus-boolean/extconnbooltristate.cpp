@@ -144,6 +144,7 @@ ExtConnBoolTristateBasePropertyGeneralWidget::ExtConnBoolTristateBasePropertyGen
 	           "This state is used if the external connector is not connected.");
 	addToolTip(str, lab, m_defaultState);
 	addWhatsThis(str, lab, m_defaultState);
+	lab->setBuddy(m_defaultState);
 
 	m_defaultState->setValue(getExtConn()->getResetState());
 }

@@ -503,6 +503,7 @@ WatchWidgetPropertyWidget::WatchWidgetPropertyWidget(WatchWidget * watchWidget, 
 
 	m_p->traceSize = new KSimSpinBox(1, 10000, 10, this, "history depth spinbox");
 	CHECK_PTR(m_p->traceSize);
+	label->setBuddy(m_p->traceSize);
 	addToolTip(i18n("Set the size of the trace buffer."),
 	           m_p->traceSize, label);
 	addWhatsThis(i18n("Set the size of the trace buffer.\n\n"

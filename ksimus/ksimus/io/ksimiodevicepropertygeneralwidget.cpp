@@ -56,6 +56,7 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	CHECK_PTR(m_nameEdit);
 	m_nameEdit->setText(getDevice()->getName());
 
+	label->setBuddy(m_nameEdit);
 	addToolTip(str, m_nameEdit, label);
 	addWhatsThis(str, m_nameEdit, label);
 
@@ -68,6 +69,7 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	QLabel * label1 = new QLabel(getDevice()->getInfo()->getName(), this);
 	CHECK_PTR(label1);
 	
+	label->setBuddy(label1);
 	addToolTip(str, label, label1);
 	addWhatsThis(str, label, label1);
 
@@ -83,6 +85,7 @@ KSimIoDevicePropertyGeneralWidget::KSimIoDevicePropertyGeneralWidget(KSimIoDevic
 	m_descriptionEdit->setText(getDevice()->getDescription());
 	m_descriptionEdit->setMaxLines(-1);
 
+	label->setBuddy(m_descriptionEdit);
 	addToolTip(str, m_descriptionEdit, label);
 	addWhatsThis(str, m_descriptionEdit, label);
 	

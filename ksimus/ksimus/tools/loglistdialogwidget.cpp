@@ -107,6 +107,8 @@ void LogListDialogWidget::initView()
 	m_errorColor = new KColorButton(this);
 	CHECK_PTR(m_errorColor);
 	connect(m_errorColor, SIGNAL(changed(const QColor &)), SLOT(slotErrorColorChanged(const QColor &)));
+	
+	//TODO add addToolTip
 }
 
 void LogListDialogWidget::initData()

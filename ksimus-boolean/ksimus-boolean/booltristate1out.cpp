@@ -21,8 +21,6 @@
 #include <qpainter.h>
 #include <qlabel.h>
 #include <qgrid.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
 
 
 // KDE-Includes
@@ -180,11 +178,9 @@ BoolTristate1OutPropertyGeneralWidget::BoolTristate1OutPropertyGeneralWidget(Boo
 	CHECK_PTR(m_resetState);
 	
 	QString tip(i18n("Changes the reset state of the component to true, false or inactive."));
-	QToolTip::add(m_resetState, tip);
-	QWhatsThis::add(m_resetState, tip);
-
-	QToolTip::add(m_resetStateLabel, tip);
-	QWhatsThis::add(m_resetStateLabel, tip);
+	addToolTip(tip, m_resetStateLabel, m_resetState);
+	addWhatsThis(tip, m_resetStateLabel, m_resetState);
+	m_resetStateLabel->setBuddy(m_resetState);
 }
 
 /** The function acceptPressed() is called, if changes are accepted.

@@ -282,6 +282,7 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	CHECK_PTR(m_startDelay);
 	m_startDelay->setExtraZeroAllowed(true);
 	m_startDelay->setValue(getClockGen()->m_startDelay);
+	lab->setBuddy(m_startDelay);
 	str = i18n("Delay before clock starts.");
 	addToolTip(str, lab, m_startDelay);
 	addWhatsThis(str, lab, m_startDelay);
@@ -290,6 +291,7 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	CHECK_PTR(lab);
 	m_highTime = new KSimTimeSpinBox(getClockGen()->m_highTime, this, "HighTime");
 	CHECK_PTR(m_highTime);
+	lab->setBuddy(m_highTime);
 	str = i18n("Time of high level.");
 	addToolTip(str, lab, m_highTime);
 	addWhatsThis(str, lab, m_highTime);
@@ -298,6 +300,7 @@ ClockGeneratorPropertyWidget::ClockGeneratorPropertyWidget(ClockGenerator * comp
 	CHECK_PTR(lab);
 	m_lowTime = new KSimTimeSpinBox(getClockGen()->m_lowTime, this, "LowTime");
 	CHECK_PTR(m_lowTime);
+	lab->setBuddy(m_lowTime);
 	str = i18n("Time of low level.");
 	addToolTip(str, lab, m_lowTime);
 	addWhatsThis(str, lab, m_lowTime);

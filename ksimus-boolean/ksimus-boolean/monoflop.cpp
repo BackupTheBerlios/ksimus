@@ -20,8 +20,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
 
 
 // KDE-Includes
@@ -279,10 +277,9 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	m_retrigger->setFalseText(i18n("Boolean", "Off"));
 	
 	str = i18n("Boolean", "Set here the retrigger mode.");
-	QToolTip::add(m_retrigger, str);
-	QToolTip::add(lab, str);
-	QWhatsThis::add(m_retrigger, str);
-	QWhatsThis::add(lab, str);
+	addToolTip(str, lab, m_retrigger);
+	addWhatsThis(str, lab, m_retrigger);
+	lab->setBuddy(m_retrigger);
 	
 	lab = new QLabel(i18n("Boolean", "Time:"), this);
 	CHECK_PTR(lab);
@@ -291,11 +288,9 @@ MonoFlopPropertyGeneralWidget::MonoFlopPropertyGeneralWidget(MonoFlop * comp, QW
 	CHECK_PTR(m_highTime);
 	
 	str = i18n("Boolean", "Set here the duration.");
-	QToolTip::add(m_highTime, str);
-	QToolTip::add(lab, str);
-	QWhatsThis::add(m_highTime, str);
-	QWhatsThis::add(lab, str);
-
+	addToolTip(str, lab, m_highTime);
+	addWhatsThis(str, lab, m_highTime);
+	lab->setBuddy(m_retrigger);
 }
 
 /*MonoFlopPropertyGeneralWidget::~MonoFlopPropertyGeneralWidget()

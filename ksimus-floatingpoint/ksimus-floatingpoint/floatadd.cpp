@@ -80,8 +80,6 @@ FloatAdd::FloatAdd(CompContainer * container, const ComponentInfo * ci)
 		
 		view->getComponentLayout()->getLeft()->addSpace(1);
 		view->getComponentLayout()->getLeft()->addConnectorPack(getInputConnectorPack());
-		
-// todo 		new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Add");
 	}
 
 }

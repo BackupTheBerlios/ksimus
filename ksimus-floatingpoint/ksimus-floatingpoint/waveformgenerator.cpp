@@ -569,6 +569,7 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	tip = i18n("FloatingPoint", "Sets the waveform.");
 	addToolTip(tip, m_waveform, m_waveformLabel);
 	addWhatsThis(tip, m_waveform, m_waveformLabel);
+	m_waveformLabel->setBuddy(m_waveform);
 	
 	
 	
@@ -580,6 +581,7 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	tip = i18n("FloatingPoint", "The period or frequency of the wave.");
 	addToolTip(tip, m_period, m_periodLabel);
 	addWhatsThis(tip, m_period, m_periodLabel);
+	m_periodLabel->setBuddy(m_period);
 	
 	
 	
@@ -591,8 +593,7 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	tip = i18n("FloatingPoint", "Shows the frequency (depends on the period).");
 	addToolTip(tip, m_frequency, m_frequencyLabel);
 	addWhatsThis(tip, m_frequency, m_frequencyLabel);
-
-		
+	
 	
 	
 	m_phaseLabel = new QLabel(i18n("FloatingPoint", "Phase: "), this, "m_phaseLabel");
@@ -603,7 +604,7 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	tip = i18n("FloatingPoint", "The phase of the wave. The phase is measured in degree.");
 	addToolTip(tip, m_phase, m_phaseLabel);
 	addWhatsThis(tip, m_phase, m_phaseLabel);
-	
+	m_phaseLabel->setBuddy(m_phase);
 	
 	
 	
@@ -615,7 +616,7 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	tip = i18n("FloatingPoint", "The amplitude of the wave.");
 	addToolTip(tip, m_amplitude, m_amplitudeLabel);
 	addWhatsThis(tip, m_amplitude, m_amplitudeLabel);
-	
+	m_amplitudeLabel->setBuddy(m_amplitude);
 	
 	
 	
@@ -627,7 +628,7 @@ WaveformGeneratorPropertyGeneralWidget::WaveformGeneratorPropertyGeneralWidget(W
 	tip = i18n("FloatingPoint", "The offset of the wave.");
 	addToolTip(tip, m_offset, m_offsetLabel);
 	addWhatsThis(tip, m_offset, m_offsetLabel);
-	
+	m_offsetLabel->setBuddy(m_offset);
 	
 	
 	connect(m_period, SIGNAL(valueChanged(double)), this, SLOT(valChanged()));

@@ -160,16 +160,17 @@ ExtConnBoolInPropertyGeneralWidget::ExtConnBoolInPropertyGeneralWidget(ExtConnBo
 {
 	QString str;
 
-	QLabel * lab = new QLabel(i18n("Default State:"), this, "m_defaultStateLabel"); 
-	CHECK_PTR(lab);
+	QLabel * label = new QLabel(i18n("Default State:"), this, "m_defaultStateLabel"); 
+	CHECK_PTR(label);
 	
 	m_defaultState = new KSimBooleanBox(this, "m_defaultState");
 	CHECK_PTR(m_defaultState);
 
+	label->setBuddy(m_defaultState);
 	str = i18n("Sets the default state of the external connector.\n"
 	           "This state is used if the external connector is not connected.");
-	addToolTip(str, lab, m_defaultState);
-	addWhatsThis(str, lab, m_defaultState);
+	addToolTip(str, label, m_defaultState);
+	addWhatsThis(str, label, m_defaultState);
 
 	m_defaultState->setValue(getExtConnIn()->isDefaultState());
 }

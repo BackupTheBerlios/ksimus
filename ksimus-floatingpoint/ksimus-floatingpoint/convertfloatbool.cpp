@@ -265,7 +265,7 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to true.");
 	addToolTip(tip, m_trueThreshold, m_trueThresholdLabel);
 	addWhatsThis(tip, m_trueThreshold, m_trueThresholdLabel);
-	
+	m_trueThresholdLabel->setBuddy(m_trueThreshold);
 	
 	
 	
@@ -277,6 +277,7 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to false.");
 	addToolTip(tip, m_falseThreshold, m_falseThresholdLabel);
 	addWhatsThis(tip, m_falseThreshold, m_falseThresholdLabel);
+	m_falseThresholdLabel->setBuddy(m_falseThreshold);
 	
 	// Some label
 	m_levelLabel = new QLabel(i18n("FloatingPoint", "Medium Threshold: "), this, "m_levelLabel");
@@ -287,6 +288,7 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Shows the medium value between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_level, m_levelLabel);
 	addWhatsThis(tip, m_level, m_levelLabel);
+	m_levelLabel->setBuddy(m_level);
 	
 	m_hysteresisLabel = new QLabel(i18n("FloatingPoint", "Hysteresis: "), this, "m_hysteresisLabel");
 	CHECK_PTR(m_hysteresisLabel);
@@ -296,6 +298,7 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Shows the hysteresis between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_hysteresis, m_hysteresisLabel);
 	addWhatsThis(tip, m_hysteresis, m_hysteresisLabel);
+	m_hysteresisLabel->setBuddy(m_hysteresis);
 	
 	connect(m_trueThreshold, SIGNAL(valueChangedTracking(double)), this, SLOT(valChanged()));
 	connect(m_trueThreshold, SIGNAL(valueChanged(double)), this, SLOT(valChanged()));

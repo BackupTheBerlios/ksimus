@@ -67,6 +67,7 @@ void KSimGridDialogWidget::initView()
 	styleSel->insertItem(i18n("Solid Line"), (int) GridSolidLine);
 	styleLabel->setBuddy(styleSel);
 	connect(styleSel, SIGNAL(activated(int)), SLOT(slotStyleSel(int)));
+	//TODO add addToolTip
 	
 	addEmptyCell();
 	
@@ -78,6 +79,8 @@ void KSimGridDialogWidget::initView()
 //	colorButton->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	colorLabel->setBuddy(colorButton);
 	connect(colorButton, SIGNAL(changed(const QColor &)), SLOT(slotColorChanged(const QColor &)));
+	//TODO add addToolTip
+	
 	
 	enaGlobalGrid = new QCheckBox(i18n("&User defined grid"), newRowVBox());
 	CHECK_PTR(enaGlobalGrid);
@@ -93,6 +96,7 @@ void KSimGridDialogWidget::initView()
 	gridXEdit->setRange(5,100,1,false);
 	gridXLabel->setBuddy(gridXEdit);
 	connect(gridXEdit, SIGNAL(valueChanged(int)), SLOT(slotGridXChanged(int)));
+	//TODO add addToolTip
 	
 	addEmptyCell();
 	
@@ -105,6 +109,7 @@ void KSimGridDialogWidget::initView()
 	gridYEdit->setRange(5,100,1,false);
 	gridYLabel->setBuddy(gridYEdit);
 	connect(gridYEdit, SIGNAL(valueChanged(int)), SLOT(slotGridYChanged(int)));
+	//TODO add addToolTip
 	
 //	setColStretch(0,0);
 	setColStretch(2,1);

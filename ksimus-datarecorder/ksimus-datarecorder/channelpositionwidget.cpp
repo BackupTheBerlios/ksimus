@@ -75,6 +75,7 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	m_p->offset->setValue(0.0);
 	label->setBuddy(m_p->offset);
 	connect(m_p->offset,SIGNAL(valueChanged(double)),SLOT(slotOffsetChanged(double)));
+	// TODO add ToolTip
 	
 	label = new QLabel(i18n("DataRecorder", "&Gain: "), this, "Gain Label");
 	CHECK_PTR(label);
@@ -85,6 +86,7 @@ ChannelPositionWidget::ChannelPositionWidget(DataRecorderChannelBase * channel, 
 	m_p->gain->setValue(1.0);
 	label->setBuddy(m_p->gain);
 	connect(m_p->gain,SIGNAL(valueChanged(double)),SLOT(slotGainChanged(double)));
+	// TODO add ToolTip
 	
 	slotSetCaption(getChannel()->getConnector()->getName());
 	connect(getChannel()->getConnector(), SIGNAL(signalSetName(const QString &)),SLOT(slotSetCaption(const QString &)));

@@ -344,6 +344,7 @@ MultiDLatchPropertyGeneralWidget::MultiDLatchPropertyGeneralWidget(MultiDLatch *
 	tip = i18n("Boolean", "Change number of latches here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
+	m_channelsLabel->setBuddy(m_channels);
 	
 	
 	m_resetValueLabel = new QLabel(i18n("Boolean", "Reset value: "), this, "m_resetValueLabel");
@@ -354,6 +355,7 @@ MultiDLatchPropertyGeneralWidget::MultiDLatchPropertyGeneralWidget(MultiDLatch *
 	tip = i18n("Boolean", "Set the reset value of the latches here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
+	m_resetValueLabel->setBuddy(m_resetValue);
 	
 	
 	// Setup value

@@ -380,6 +380,7 @@ DemultiplexerPropertyGeneralWidget::DemultiplexerPropertyGeneralWidget(Demultipl
 	tip = i18n("Boolean", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
+	m_channelsLabel->setBuddy(m_channels);
 	
 
 	// Setup value

@@ -89,11 +89,8 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	CHECK_PTR(m_p);
 	
 	// Name edit	
-	str = i18n("Change the name of the component here");
 	label = new QLabel(i18n("Name:"), this,"m_p->nameEdit Label");
 	CHECK_PTR(label);
-	addToolTip(str, label);
-	addWhatsThis(str, label);
 
 	QHBox * nameBox = new QHBox(this, "nameBox");
 	CHECK_PTR(nameBox);
@@ -103,8 +100,10 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	m_p->nameEdit = new QLineEdit(nameBox,"m_p->nameEdit");
 	CHECK_PTR(m_p->nameEdit);
 	m_p->nameEdit->setText(getComponent()->getName());
-	addToolTip(str, m_p->nameEdit);
-	addWhatsThis(str, m_p->nameEdit);
+	label->setBuddy(m_p->nameEdit);
+	str = i18n("Change the name of the component here");
+	addToolTip(str, m_p->nameEdit, label);
+	addWhatsThis(str, m_p->nameEdit, label);
 
 	str = i18n("Deletes the name input line.");
 	m_p->clearNameButton = new QPushButton(nameBox, "m_p->clearNameButton");
@@ -116,7 +115,6 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	addWhatsThis(str, m_p->clearNameButton);
 
 	str = i18n("Gives a name suggestion.");
-
 	m_p->suggestionButton = new QPushButton(nameBox, "m_p->suggestionButton");
 	CHECK_PTR(m_p->suggestionButton);
 	QPixmap suggestionPix(KSimIcon::load("1rightarrow", KIcon::Small));
@@ -130,13 +128,11 @@ ComponentPropertyGeneralWidget::ComponentPropertyGeneralWidget(Component * comp,
 	
 	label = new QLabel(i18n("Type:"), this);
 	CHECK_PTR(label);
-	addToolTip(str, label);
-	addWhatsThis(str, label);
 	
-	label = new QLabel(getComponent()->getInfo()->getName(), this);
-	CHECK_PTR(label);
-	addToolTip(str, label);
-	addWhatsThis(str, label);
+	QLabel * label1 = new QLabel(getComponent()->getInfo()->getName(), this);
+	CHECK_PTR(label1);
+	addToolTip(str, label1, label);
+	addWhatsThis(str, label1, label);
 }
 
 ComponentPropertyGeneralWidget::~ComponentPropertyGeneralWidget()

@@ -98,26 +98,26 @@ ComponentPropertyInfoWidget::ComponentPropertyInfoWidget(Component * comp, QWidg
 	if (comp->getSheetView())
 	{
 		new QLabel(i18n("Sheet Pos:"), this);
-		str = QString(i18n("X: %1 Y: %2"))	.arg(comp->getSheetView()->getPos().x())
-											.arg(comp->getSheetView()->getPos().y());
+		str = QString(i18n("X: %1 Y: %2")).arg(comp->getSheetView()->getPos().x())
+		                                  .arg(comp->getSheetView()->getPos().y());
 		new QLabel(str, this);
 
 		new QLabel(i18n("Sheet Size:"), this);
-		str = QString(i18n("Width: %1 Height: %2"))	.arg(comp->getSheetView()->getPlace().width())
-													.arg(comp->getSheetView()->getPlace().height());
+		str = QString(i18n("Width: %1 Height: %2")).arg(comp->getSheetView()->getPlace().width())
+		                                           .arg(comp->getSheetView()->getPlace().height());
 		new QLabel(str, this);
 	}
 
 	if (comp->getUserView())
 	{
 		new QLabel(i18n("User Pos:"), this);
-		str = QString(i18n("X: %1 Y: %2"))	.arg(comp->getUserView()->getPos().x())
-											.arg(comp->getUserView()->getPos().y());
+		str = QString(i18n("X: %1 Y: %2")).arg(comp->getUserView()->getPos().x())
+		                                  .arg(comp->getUserView()->getPos().y());
 		new QLabel(str, this);
 
 		new QLabel(i18n("User Size:"), this);
-		str = QString(i18n("Width: %1 Height: %2"))	.arg(comp->getUserView()->getPlace().width())
-													.arg(comp->getUserView()->getPlace().height());
+		str = QString(i18n("Width: %1 Height: %2")).arg(comp->getUserView()->getPlace().width())
+		                                           .arg(comp->getUserView()->getPlace().height());
 		new QLabel(str, this);
 	}
 }

@@ -151,7 +151,7 @@ ZoomWidget::ZoomWidget(DataRecorderDataView * recorderDV, QWidget *parent, const
 	connect(m_time, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
 	connect(m_time, SIGNAL(undoRequest()), this, SLOT(slotUndoRequest()));
 	
-  m_label = new QLabel(QString::fromLatin1("----"), this, "zoom label");
+	m_label = new QLabel(QString::fromLatin1("----"), this, "zoom label");
 	CHECK_PTR(m_label);
 
 	updateMinZoom();

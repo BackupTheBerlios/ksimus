@@ -69,6 +69,7 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	CHECK_PTR(label);
 	m_foreGround = new KColorButton(colButGrp);
 	CHECK_PTR(m_foreGround);
+	label->setBuddy(m_foreGround);
 	str = i18n("Select the foreground color.");
 	addToolTip(str, m_foreGround, label);
 	addWhatsThis(str, m_foreGround, label);
@@ -78,6 +79,7 @@ ComponentPropertyStyleWidget::ComponentPropertyStyleWidget(ComponentStyle * comp
 	CHECK_PTR(label);
 	m_backGround = new KColorButton(colButGrp);
 	CHECK_PTR(m_backGround);
+	label->setBuddy(m_backGround);
 	str = i18n("Select the background color.");
 	addToolTip(str, m_backGround, label);
 	addWhatsThis(str, m_backGround, label);

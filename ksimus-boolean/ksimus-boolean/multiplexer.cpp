@@ -375,6 +375,7 @@ MultiplexerPropertyGeneralWidget::MultiplexerPropertyGeneralWidget(Multiplexer *
 	tip = i18n("Boolean", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
+	m_channelsLabel->setBuddy(m_channels);
 	
 
 	m_resetStateLabel = new QLabel(i18n("Boolean", "Reset state: "), this, "m_resetValueLabel");
@@ -385,6 +386,7 @@ MultiplexerPropertyGeneralWidget::MultiplexerPropertyGeneralWidget(Multiplexer *
 	tip = i18n("Boolean", "Change the reset state of the channels here.");
 	addToolTip(tip, m_resetState, m_resetStateLabel);
 	addWhatsThis(tip, m_resetState, m_resetStateLabel);
+	m_resetStateLabel->setBuddy(m_resetState);
 	
 	
 	// Setup value

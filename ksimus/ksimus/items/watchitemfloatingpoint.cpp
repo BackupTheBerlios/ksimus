@@ -142,6 +142,8 @@ void WatchItemFloatingPointBase::createTriggerPropertyWidget(QWidget * parent)
 	CHECK_PTR(m_limitEdit);
 	m_limitEdit->setValue(m_limit);
 
+	limiLabel->setBuddy(m_limitEdit);
+	//TODO add addToolTip
 
 	slotTriggerBoxChanged();   // Dis-/enabled m_limitEdit
 

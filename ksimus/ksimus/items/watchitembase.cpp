@@ -256,6 +256,7 @@ PropertyWidget * WatchItemBase::createPropertyWidget(QWidget * parent)
 	
 	m_propertyWidget_cntSpinBox = new KSimSpinBox(1, INT_MAX, 1, cntBox, "watchpoint count spinbox");
 	CHECK_PTR(m_propertyWidget_cntSpinBox);
+	cntLabel->setBuddy(m_propertyWidget_cntSpinBox);
 	PropertyWidget::addToolTip(i18n("Set the count of trigger events until simulation breaks."),
 	                           m_propertyWidget_cntSpinBox, cntLabel);
 	PropertyWidget::addWhatsThis(i18n("Enables the break function of the watchpoint.\n\n"

@@ -346,6 +346,7 @@ FloatLatchPropertyGeneralWidget::FloatLatchPropertyGeneralWidget(FloatLatch * co
 	tip = i18n("FloatingPoint", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
+	m_channelsLabel->setBuddy(m_channels);
 	
 	
 	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), this, "m_resetValueLabel");
@@ -356,6 +357,7 @@ FloatLatchPropertyGeneralWidget::FloatLatchPropertyGeneralWidget(FloatLatch * co
 	tip = i18n("FloatingPoint", "Change the reset value of the channels here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
+	m_resetValueLabel->setBuddy(m_resetValue);
 	
 	
 	// Setup value

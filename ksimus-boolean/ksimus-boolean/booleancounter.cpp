@@ -404,6 +404,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	str = i18n("Boolean", "Sets the counter width.");
 	addToolTip(str, lab, m_bits);
 	addWhatsThis(str, lab, m_bits);
+	lab->setBuddy(m_bits);
 
 	// Maximum count
 	lab = new QLabel(i18n("Boolean", "Maximum:"), this);
@@ -414,6 +415,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	addToolTip(str, lab, m_maxValue);
 	str += m_maxValue->getWhatsThisHelp();
 	addWhatsThis(str, lab, m_maxValue);
+	lab->setBuddy(m_maxValue);
 
 	// Minimum count
 	lab = new QLabel(i18n("Boolean", "Minimum:"), this);
@@ -424,6 +426,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	addToolTip(str, lab, m_minValue);
 	str += m_minValue->getWhatsThisHelp();
 	addWhatsThis(str, lab, m_minValue);
+	lab->setBuddy(m_minValue);
 
 	// Reset value
 	lab = new QLabel(i18n("Boolean", "Reset value:"), this);
@@ -434,6 +437,7 @@ BooleanCounterPropertyWidget::BooleanCounterPropertyWidget(BooleanCounter * comp
 	addToolTip(str, lab, m_resetValue);
 	str += m_resetValue->getWhatsThisHelp();
 	addWhatsThis(str, lab, m_resetValue);
+	lab->setBuddy(m_resetValue);
 
 	
 	// Hint bit count

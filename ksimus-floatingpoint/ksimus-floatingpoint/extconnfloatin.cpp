@@ -169,6 +169,7 @@ ExtConnFloatInPropertyGeneralWidget::ExtConnFloatInPropertyGeneralWidget(ExtConn
 	                                   "This value is used if the external connector is not connected."));
 	addToolTip(tip, m_defaultValue, m_defaultValueLabel);
 	addWhatsThis(tip, m_defaultValue, m_defaultValueLabel);
+	m_defaultValueLabel->setBuddy(m_defaultValue);
 
 
 	// Setup value

@@ -219,6 +219,7 @@ ControlPausePropertyWidget::ControlPausePropertyWidget(ControlPause * comp, QWid
 	
 	m_counter = new KSimSpinBox(1, INT_MAX, 1, this, "m_counter");
 	CHECK_PTR(m_counter);
+	m_counterLabel->setBuddy(m_counter);
 	tip = i18n("Set number of required edges until the simulation is paused here.");
 	addToolTip(tip, m_counter, m_counterLabel);
 	addWhatsThis(tip, m_counter, m_counterLabel);

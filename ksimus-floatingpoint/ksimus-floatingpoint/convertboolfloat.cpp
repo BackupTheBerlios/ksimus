@@ -241,6 +241,7 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Sets the value which represents the true level.");
 	addToolTip(tip, m_trueValue, m_trueValueLabel);
 	addWhatsThis(tip, m_trueValue, m_trueValueLabel);
+	m_trueValueLabel->setBuddy(m_trueValue);
 	
 	
 	m_falseValueLabel = new QLabel(i18n("FloatingPoint", "False Value: "), this, "m_falseValueLabel");
@@ -251,7 +252,7 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	tip = i18n("FloatingPoint", "Sets the value which represents the false level.");
 	addToolTip(tip, m_falseValue, m_falseValueLabel);
 	addWhatsThis(tip, m_falseValue, m_falseValueLabel);
-	
+	m_falseValueLabel->setBuddy(m_falseValue);
 	
 	
 	// Setup value

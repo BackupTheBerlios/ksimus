@@ -23,8 +23,6 @@
 #include <qpainter.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
 #include <qlabel.h>
 #include <qgrid.h>
 
@@ -476,6 +474,7 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	CHECK_PTR(m_resetState);
 	m_resetState->setEnabled(comp->isToggleButton());
 	
+	lab->setBuddy(m_resetState);
 	str = i18n("Changes the reset state of the component to true or false.");
 	addToolTip(str, lab, m_resetState);
 	addWhatsThis(str, lab, m_resetState);
@@ -490,6 +489,7 @@ BooleanButtonPropertyGeneralWidget::BooleanButtonPropertyGeneralWidget(BooleanBu
 	m_toggle->setTrueText(i18n("On"));
 	m_toggle->setFalseText(i18n("Off"));
 	
+	lab->setBuddy(m_toggle);
 	str = i18n("Enables or disables the toggle feature.");
 	addToolTip(str, lab, m_toggle);
 	addWhatsThis(str, lab, m_toggle);

@@ -100,29 +100,34 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	str = i18n("Change the name of the connector here");
 	label = new QLabel(i18n("Name:"), grid,"LineEditLabel");
 	CHECK_PTR(label);
-	QToolTip::add(label, str);
 	
 	m_p->nameEdit = new QLineEdit(grid,"LineEdit");
 	CHECK_PTR(m_p->nameEdit);
 	m_p->nameEdit->setText(m_conn->getName());
-	QToolTip::add(m_p->nameEdit, str);
+	label->setBuddy(m_p->nameEdit);
+	PropertyWidget::addToolTip(str, label, m_p->nameEdit);
+	PropertyWidget::addWhatsThis(str, label, m_p->nameEdit);
+	
 
 	// Shows connector type
 	str = i18n("The shows the connector type.");
 	label = new QLabel(i18n("Type:"), grid,"TypeLabel");
 	CHECK_PTR(label);
-	QToolTip::add(label, str);
 	
-	label = new QLabel(m_conn->getConnInfo()->getName(), grid,"Type");
-	CHECK_PTR(label);
-	QToolTip::add(label, str);
+	QLabel * label1 = new QLabel(m_conn->getConnInfo()->getName(), grid,"Type");
+	CHECK_PTR(label1);
+	label->setBuddy(label1);
+	PropertyWidget::addToolTip(str, label, label1);
+	PropertyWidget::addWhatsThis(str, label, label1);
 	
 	
 	if (m_conn->isHideEnabled())
 	{
 		m_p->hide = new QCheckBox(i18n("Hidden"),settingWidget(),"HiddenCheck");
 		CHECK_PTR(m_p->hide);
-		QToolTip::add(m_p->hide,i18n("Hide the connector"));
+		str = i18n("Hide the connector");
+		PropertyWidget::addToolTip(str, m_p->hide);
+		PropertyWidget::addWhatsThis(str, m_p->hide);
 	
 		if (m_conn->getWire() != 0)
 		{
@@ -139,7 +144,9 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	{
 		m_p->negate = new QCheckBox(i18n("Negated"),settingWidget(),"NegateCheck");
 		m_p->negate->setChecked(m_conn->isNegated());
-		QToolTip::add(m_p->negate,i18n("Negate the connector"));
+		str = i18n("Negate the connector");
+		PropertyWidget::addToolTip(str, m_p->negate);
+		PropertyWidget::addWhatsThis(str, m_p->negate);
 	}
 	else
 	{

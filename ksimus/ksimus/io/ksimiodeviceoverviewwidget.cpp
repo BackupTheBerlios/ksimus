@@ -133,12 +133,16 @@ KSimIoDeviceOverviewWidget::KSimIoDeviceOverviewWidget(QWidget *parent, const ch
 	CHECK_PTR(leftBox);
 	leftBox->setSpacing(KDialog::spacingHint());
 
-	new QLabel(i18n("IO Devices known by KSimus:"), leftBox, "label");
+	QLabel * label = new QLabel(i18n("IO Devices known by KSimus:"), leftBox, "label");
 
 	m_list = new QListView(leftBox, "m_list");
 	CHECK_PTR(m_list);
 	m_list->addColumn(i18n("Name"));
 	m_list->addColumn(i18n("Type"));
+	
+	label->setBuddy(m_list);
+	//TODO add addToolTip
+
 	connect(m_list, SIGNAL(selectionChanged()), this, SLOT(slotSelectionChanged()));
 
 	addEmptyCell();
@@ -228,6 +232,9 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 
 	horLayout->addWidget(list);
 
+	l->setBuddy(list);
+	
+	//TODO add addToolTip
 	
 	// Create device list items
 	QListIterator<BaseLibraryItem> it(*g_library->getIoDeviceLib()->getList());

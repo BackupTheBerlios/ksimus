@@ -54,7 +54,8 @@ KSimIoDevicePropertyPinWidget::KSimIoDevicePropertyPinWidget(KSimIoPin * pin, QW
 	m_nameEdit = new QLineEdit(this,"m_nameEdit");
 	CHECK_PTR(m_nameEdit);
 	m_nameEdit->setText(getPin()->getName());
-
+	
+	label->setBuddy(m_nameEdit);
 	addToolTip(str, m_nameEdit, label);
 	addWhatsThis(str, m_nameEdit, label);
 
@@ -83,6 +84,7 @@ KSimIoDevicePropertyPinWidget::KSimIoDevicePropertyPinWidget(KSimIoPin * pin, QW
 		}
 		currentIndex++;
 	}
+	label->setBuddy(m_typeSelector);
 	addToolTip(str, label, m_typeSelector);
 	addWhatsThis(str, label, m_typeSelector);
 }

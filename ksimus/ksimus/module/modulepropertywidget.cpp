@@ -19,8 +19,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qwhatsthis.h>
-#include <qtooltip.h>
 #include <qhbox.h>
 #include <qpushbutton.h>
 #include <qcheckbox.h>
@@ -39,6 +37,7 @@
 #include "ksimdebug.h"
 #include "ksimlineedit.h"
 #include "ksimicon.h"
+#include "propertywidget.h"
 
 
 //#define data (m_dialog->getData())
@@ -58,55 +57,47 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	QString tooltip;
 
 	// Module name
-	tooltip = i18n("Enter the module name here.");
 	label = new QLabel(i18n("Module Name:"), this);
 	CHECK_PTR(label);
 	m_leModuleName = 	new KSimLineEdit(this);
 	CHECK_PTR(m_leModuleName);
 	label->setBuddy(m_leModuleName);
-	QToolTip::add(label,tooltip);
-	QWhatsThis::add(label,tooltip);
-	QToolTip::add(m_leModuleName,tooltip);
-	QWhatsThis::add(m_leModuleName,tooltip);
+	tooltip = i18n("Enter the module name here.");
+	PropertyWidget::addToolTip(tooltip, label, m_leModuleName);
+	PropertyWidget::addWhatsThis(tooltip, label, m_leModuleName);
 	connect(m_leModuleName, SIGNAL(changed()), SLOT(slotModuleNameChanged()));
 	
 	// Library names
-	tooltip = i18n("Describes the entry of the module at the component supplier.\nSeparate subdirecotries by a slash\"/\".\nSeparate library names by a semicolon \";\".");
 	label = new QLabel(i18n("Library Names:"), this);
 	CHECK_PTR(label);
 	m_leModuleLibNames = 	new KSimLineEdit(this);
 	CHECK_PTR(m_leModuleLibNames);
 	label->setBuddy(m_leModuleLibNames);
-	QToolTip::add(label,tooltip);
-	QWhatsThis::add(label,tooltip);
-	QToolTip::add(m_leModuleLibNames,tooltip);
-	QWhatsThis::add(m_leModuleLibNames,tooltip);
+	tooltip = i18n("Describes the entry of the module at the component supplier.\nSeparate subdirecotries by a slash\"/\".\nSeparate library names by a semicolon \";\".");
+	PropertyWidget::addToolTip(tooltip, label, m_leModuleLibNames);
+	PropertyWidget::addWhatsThis(tooltip, label, m_leModuleLibNames);
 	connect(m_leModuleLibNames, SIGNAL(changed()), SLOT(slotModuleLibNamesChanged()));
 
 	// Short Description
-	tooltip = i18n("Enter a short description of the module.");
 	label = new QLabel(i18n("Short Description:"), this);
 	CHECK_PTR(label);
 	m_leShortDescr = 	new KSimLineEdit(this);
 	CHECK_PTR(m_leShortDescr);
 	label->setBuddy(m_leShortDescr);
-	QToolTip::add(label,tooltip);
-	QWhatsThis::add(label,tooltip);
-	QToolTip::add(m_leShortDescr,tooltip);
-	QWhatsThis::add(m_leShortDescr,tooltip);
+	tooltip = i18n("Enter a short description of the module.");
+	PropertyWidget::addToolTip(tooltip, label, m_leShortDescr);
+	PropertyWidget::addWhatsThis(tooltip, label, m_leShortDescr);
 	connect(m_leShortDescr, SIGNAL(changed()), SLOT(slotShortDescrChanged()));
 
 
 	// Pixmap file
-	tooltip = i18n("Enter the path to image file (Image view only).");
 	label = new QLabel(i18n("Image &File:"), this);
 	CHECK_PTR(label);
 	widget = createPixmapFileWidget();
 	label->setBuddy(widget);
-	QToolTip::add(label,tooltip);
-	QWhatsThis::add(label,tooltip);
-	QToolTip::add(widget,tooltip);
-	QWhatsThis::add(widget,tooltip);
+	tooltip = i18n("Enter the path to image file (Image view only).");
+	PropertyWidget::addToolTip(tooltip, label, widget);
+	PropertyWidget::addWhatsThis(tooltip, label, widget);
 	connect(m_lePixmapFile, SIGNAL(changed()), SLOT(slotPixmapFileChanged()));
 
 
@@ -115,28 +106,28 @@ ModulePropertyWidget::ModulePropertyWidget(ModuleDialog * dialog, QWidget * pare
 	// Store selection
 	m_storeBox = new QVButtonGroup(i18n("Pixmap store location"), this);
 
-	tooltip = i18n("Stores the absolute path of the pixmap (Image view only).");
 	m_storeAbsolute = new QRadioButton(i18n("Absolute path"), m_storeBox);
 	CHECK_PTR(m_storeAbsolute);
 	m_storeAbsolute->setFocusPolicy(ClickFocus);
-	QToolTip::add(m_storeAbsolute,tooltip);
-	QWhatsThis::add(m_storeAbsolute,tooltip);
+	tooltip = i18n("Stores the absolute path of the pixmap (Image view only).");
+	PropertyWidget::addToolTip(tooltip, m_storeAbsolute);
+	PropertyWidget::addWhatsThis(tooltip, m_storeAbsolute);
 	connect(m_storeAbsolute, SIGNAL(clicked()), SLOT(slotStoreAbsoluteChanged()));
 
-	tooltip = i18n("Stores the path of the pixmap relative to module file (Image view only).");
 	m_storeRelative = new QRadioButton(i18n("Relative path"), m_storeBox);
 	CHECK_PTR(m_storeRelative);
 	m_storeRelative->setFocusPolicy(ClickFocus);
-	QToolTip::add(m_storeRelative,tooltip);
-	QWhatsThis::add(m_storeRelative,tooltip);
+	tooltip = i18n("Stores the path of the pixmap relative to module file (Image view only).");
+	PropertyWidget::addToolTip(tooltip, m_storeRelative);
+	PropertyWidget::addWhatsThis(tooltip, m_storeRelative);
 	connect(m_storeRelative, SIGNAL(clicked()), SLOT(slotStoreRelativeChanged()));
 
-	tooltip = i18n("Stores the pixmap into the module file (Image view only).");
 	m_storeInternal = new QRadioButton(i18n("Internal"), m_storeBox);
 	CHECK_PTR(m_storeInternal);
 	m_storeInternal->setFocusPolicy(ClickFocus);
-	QToolTip::add(m_storeInternal,tooltip);
-	QWhatsThis::add(m_storeInternal,tooltip);
+	tooltip = i18n("Stores the pixmap into the module file (Image view only).");
+	PropertyWidget::addToolTip(tooltip, m_storeInternal);
+	PropertyWidget::addWhatsThis(tooltip, m_storeInternal);
 	connect(m_storeInternal, SIGNAL(clicked()), SLOT(slotStoreInternalChanged()));
 }
 

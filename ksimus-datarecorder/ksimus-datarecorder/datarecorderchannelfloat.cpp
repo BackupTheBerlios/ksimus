@@ -222,8 +222,10 @@ QWidget * DataRecorderChannelFloat::getPropertyWidget(QWidget * parent, const ch
 		conName = new KSimLineEdit(widget);
 		CHECK_PTR(conName);
 		conName->setText(getConnector()->getName());
-	  connect(getConnector(), SIGNAL(signalSetName(const QString &)), conName, SLOT(setText(const QString &)));
-	  connect(conName, SIGNAL(changed(const QString &)), SLOT(setChannelName(const QString &)));
+		connect(getConnector(), SIGNAL(signalSetName(const QString &)), conName, SLOT(setText(const QString &)));
+		connect(conName, SIGNAL(changed(const QString &)), SLOT(setChannelName(const QString &)));
+		lab->setBuddy(conName);
+		// TODO add ToolTip
 		
 		ChannelPositionWidget * pos;
 		pos = new ChannelPositionWidget(this, widget);

@@ -21,8 +21,6 @@
 #include <qpainter.h>
 #include <qlabel.h>
 #include <qgrid.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
 
 
 // KDE-Includes
@@ -193,12 +191,10 @@ Boolean1OutPropertyGeneralWidget::Boolean1OutPropertyGeneralWidget(Boolean1Out *
 	m_resetState = new KSimBooleanBox(getBoolean1Out()->getResetState(), this, "ResetState");
 	CHECK_PTR(m_resetState);
 	
+	m_resetStateLabel->setBuddy(m_resetState);
 	QString tip(i18n("Changes the reset state of the component to true or false."));
-	QToolTip::add(m_resetState, tip);
-	QWhatsThis::add(m_resetState, tip);
-
-	QToolTip::add(m_resetStateLabel, tip);
-	QWhatsThis::add(m_resetStateLabel, tip);
+	PropertyWidget::addToolTip(tip, m_resetStateLabel, m_resetState);
+	PropertyWidget::addWhatsThis(tip, m_resetStateLabel, m_resetState);
 }
 
 /** The function acceptPressed() is called, if changes are accepted.

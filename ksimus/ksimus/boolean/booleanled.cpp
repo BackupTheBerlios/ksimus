@@ -363,6 +363,9 @@ BooleanLedColorPropertyWidget::BooleanLedColorPropertyWidget(const QString & tex
 	CHECK_PTR(label);
 	m_userColor = new KColorButton(userBox);;
 	CHECK_PTR(m_userColor);
+	label->setBuddy(m_userColor);
+	// TODO add ToolTip
+
 
 
 	connect(m_red,SIGNAL(clicked()),this,SLOT(slotRed()));

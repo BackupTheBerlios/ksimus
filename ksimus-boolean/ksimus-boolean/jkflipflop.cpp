@@ -20,8 +20,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
 
 
 // KDE-Includes
@@ -341,11 +339,9 @@ JKFlipFlopPropertyGeneralWidget::JKFlipFlopPropertyGeneralWidget(JKFlipFlop * co
 	m_masterSlave->setFalseText(i18n("Boolean", "Disabled"));
 	
 	str = i18n("Boolean", "Enables the Master Salve functionality.\nIf disabled, the FF works in single edge mode.");
-	QToolTip::add(m_masterSlave, str);
-	QToolTip::add(lab, str);
-	QWhatsThis::add(m_masterSlave, str);
-	QWhatsThis::add(lab, str);
-	
+	addToolTip(str, lab, m_masterSlave);
+	addWhatsThis(str, lab, m_masterSlave);
+	lab->setBuddy(m_masterSlave);
 }
 
 /*JKFlipFlopPropertyGeneralWidget::~JKFlipFlopPropertyGeneralWidget()

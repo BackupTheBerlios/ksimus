@@ -906,6 +906,8 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 	                                    | KSimFilename::PATH_RELATIVE_HOME,
 	                                    this, "m_filename");
 	CHECK_PTR(m_filename);
+	m_filenameLabel->setBuddy(m_filename);
+		// TODO add ToolTip
 	
 	m_separatorLabel = new QLabel(i18n("Column separator:"), this, "m_separatorLabel");
 	CHECK_PTR(m_separatorLabel);
@@ -914,6 +916,7 @@ TextRecPropertyGeneralWidget::TextRecPropertyGeneralWidget(TextRec * comp, QWidg
 	tip = i18n("Edit the column separator here.");
 	addToolTip(tip, m_separator, m_separatorLabel);
 	addWhatsThis(tip, m_separator, m_separatorLabel);
+	m_separatorLabel->setBuddy(m_separator);
 
 
 	QVBox * vbox = newRowVBox("vbox");

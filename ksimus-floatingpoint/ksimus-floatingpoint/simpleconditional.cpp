@@ -341,6 +341,7 @@ SimpleConditionalPropertyGeneralWidget::SimpleConditionalPropertyGeneralWidget(S
 	tip = i18n("FloatingPoint", "Sets the conditional.");
 	addToolTip(tip, m_conditional, m_conditionalLabel);
 	addWhatsThis(tip, m_conditional, m_conditionalLabel);
+	m_conditionalLabel->setBuddy(m_conditional);
 
 	// Setup value
 	m_conditional->setCurrentItem((int)comp->getConditionalType());

@@ -151,13 +151,17 @@ KSimIoPinSelectionWidget::KSimIoPinSelectionWidget(const KSimIoPin::List & pinLi
 	m_p = new Private();
 	CHECK_PTR(m_p);
 
-	new QLabel(i18n("IO Pins:"), this);
+	QLabel * label = new QLabel(i18n("IO Pins:"), this);
 
 	m_p->list = new QListView(this, "m_list");
 	CHECK_PTR(m_p->list);
 	m_p->list->addColumn(i18n("Name"));
 	m_p->list->addColumn(i18n("Type"));
 	m_p->list->setRootIsDecorated(true);
+	label->setBuddy(m_p->list);
+	
+	//TODO add addToolTip
+
 
 	connect(m_p->list, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(slotDoubleClicked(QListViewItem *)));
 

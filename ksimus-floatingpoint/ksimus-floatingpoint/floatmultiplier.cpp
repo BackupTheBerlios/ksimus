@@ -79,8 +79,6 @@ FloatMultiplier::FloatMultiplier(CompContainer * container, const ComponentInfo 
 		
 		view->getComponentLayout()->getLeft()->addSpace(1);
 		view->getComponentLayout()->getLeft()->addConnectorPack(getInputConnectorPack());
-		
-		// TODO new ComponentLayoutBlockContentText(view->getComponentLayout()->getBlock(), "Mul");
 	}
 
 	getAction().disable(KSimAction::UPDATEVIEW);

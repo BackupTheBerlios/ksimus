@@ -19,8 +19,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -147,11 +145,9 @@ FlipFlopBasePropertyGeneralWidget::FlipFlopBasePropertyGeneralWidget(FlipFlopBas
 	m_dominant->setFalseText(i18n("Boolean", "Reset Input"));
 	
 	str = i18n("Boolean", "Set here dominant input.");
-	QToolTip::add(m_dominant, str);
-	QToolTip::add(lab, str);
-	QWhatsThis::add(m_dominant, str);
-	QWhatsThis::add(lab, str);
-	
+	addToolTip(str, lab, m_dominant);
+	addWhatsThis(str, lab, m_dominant);
+	lab->setBuddy(m_dominant);
 }
 
 /*FlipFlopBasePropertyGeneralWidget::~FlipFlopBasePropertyGeneralWidget()

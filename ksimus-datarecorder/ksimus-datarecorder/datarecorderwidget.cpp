@@ -178,6 +178,8 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 	CHECK_PTR(lab); 	
 	m_buttonWidget = new KSimGridWidget (box);
 	CHECK_PTR(m_buttonWidget); 	
+	lab->setBuddy(m_buttonWidget);
+	// TODO add ToolTip
 	
 	lab = new QLabel(i18n("DataRecorder", "&Zoom:"),box);
 	CHECK_PTR(lab); 	
@@ -186,7 +188,8 @@ DataRecorderWidget::DataRecorderWidget(DataRecorder * recorder, QWidget *parent,
 	lab->setBuddy(m_zoom); 	
 	connect(m_zoom, SIGNAL(changedSamplePixel(double)),m_dataView,SLOT(setZoomSample(double)));
 	connect(m_zoom, SIGNAL(undoRequest()), getDataRecorder(), SLOT(undoZoom()));
-
+	// TODO add ToolTip
+	
 	QHBoxLayout * horiLayout = new QHBoxLayout(this);
 	CHECK_PTR(horiLayout);
 	horiLayout->addWidget(box);

@@ -505,6 +505,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	m_triggerInStateT0Widget = new StatePropertyWidget(m_triggerInStateT0, mainWid, "InT0Property");
 	CHECK_PTR(m_triggerInStateT0Widget);
+	label->setBuddy(m_triggerInStateT0Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the signal state at time t.");
 	PropertyWidget::addToolTip(s, label, m_triggerInStateT0Widget);
@@ -518,6 +519,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	m_triggerInActiveT0Widget = new ActivePropertyWidget(m_triggerInActiveT0, getMaxConnectors(), mainWid, "InT0Active");
 	CHECK_PTR(m_triggerInActiveT0Widget);
+	label->setBuddy(m_triggerInActiveT0Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "This trigger depends on the number of active connectors at time t.");
 	PropertyWidget::addToolTip(s, label, m_triggerInActiveT0Widget);
@@ -544,6 +546,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerOutStateT0Widget = new StatePropertyWidget(m_triggerOutStateT0, mainWid, "OutT0Property");
 	CHECK_PTR(m_triggerOutStateT0Widget);
 	HIDE_IF_WIRE(m_triggerOutStateT0Widget);
+	label->setBuddy(m_triggerOutStateT0Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the output signal state at time t.");
 	PropertyWidget::addToolTip(s, label, m_triggerOutStateT0Widget);
@@ -576,6 +579,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	m_triggerInStateT1Widget = new StatePropertyWidget(m_triggerInStateT1, mainWid, "InT1Property");
 	CHECK_PTR(m_triggerInStateT1Widget);
+	label->setBuddy(m_triggerInStateT1Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the signal state at time t-1.");
 	PropertyWidget::addToolTip(s, label, m_triggerInStateT1Widget);
@@ -588,6 +592,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 
 	m_triggerInActiveT1Widget = new ActivePropertyWidget(m_triggerInActiveT1, getMaxConnectors(), mainWid, "InT1Active");
 	CHECK_PTR(m_triggerInActiveT1Widget);
+	label->setBuddy(m_triggerInActiveT1Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "This trigger depends on the number of active connectors at time t-1.");
 	PropertyWidget::addToolTip(s, label, m_triggerInActiveT1Widget);
@@ -614,6 +619,7 @@ void WatchItemBoolTristateBase::createTriggerPropertyWidget(QWidget * parent)
 	m_triggerOutStateT1Widget = new StatePropertyWidget(m_triggerOutStateT1, mainWid, "OutT1Property");
 	CHECK_PTR(m_triggerOutStateT1Widget);
 	HIDE_IF_WIRE(m_triggerOutStateT1Widget);
+	label->setBuddy(m_triggerOutStateT1Widget);
 	s = i18n("Boolean Tristate Watch",
 	         "Defines the output signal state at time t-1.");
 	PropertyWidget::addToolTip(s, label, m_triggerOutStateT1Widget);

@@ -174,6 +174,7 @@ Float1OutPropertyGeneralWidget::Float1OutPropertyGeneralWidget(Float1Out * comp,
 	QString tip(i18n("FloatingPoint", "Change the reset value of the component here."));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);
 	addWhatsThis(tip, m_resetValue, m_resetValueLabel);
+	m_resetValueLabel->setBuddy(m_resetValue);
 	
 	
 	// Setup value
