@@ -26,7 +26,7 @@
 // KDE-Includes
 
 // Project-Includes
-#include "ksimus/watchitembase.h"
+#include "watchitembase.h"
 #include "wirepropertybooltristate.h"
 
 // Forward declaration
