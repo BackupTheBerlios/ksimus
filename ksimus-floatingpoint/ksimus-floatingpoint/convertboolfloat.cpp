@@ -22,7 +22,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
 
@@ -211,10 +210,10 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 {
 	QString tip;
 	
-	m_trueValueLabel = new QLabel(i18n("FloatingPoint", "True Value: "), getGrid(), "m_trueValueLabel");
+	m_trueValueLabel = new QLabel(i18n("FloatingPoint", "True Value: "), this, "m_trueValueLabel");
 	CHECK_PTR(m_trueValueLabel);
 	
-	m_trueValue = new KSimDoubleEdit(getGrid(), "m_trueValue");
+	m_trueValue = new KSimDoubleEdit(this, "m_trueValue");
 	CHECK_PTR(m_trueValue);
 	tip = i18n("FloatingPoint", "Sets the value which represents the true level.");
 	addToolTip(tip, m_trueValue, m_trueValueLabel);
@@ -223,10 +222,10 @@ ConvertBoolFloatPropertyGeneralWidget::ConvertBoolFloatPropertyGeneralWidget(Con
 	
 	
 	
-	m_falseValueLabel = new QLabel(i18n("FloatingPoint", "False Value: "), getGrid(), "m_falseValueLabel");
+	m_falseValueLabel = new QLabel(i18n("FloatingPoint", "False Value: "), this, "m_falseValueLabel");
 	CHECK_PTR(m_falseValueLabel);
 	
-	m_falseValue = new KSimDoubleEdit(getGrid(), "m_falseValue");
+	m_falseValue = new KSimDoubleEdit(this, "m_falseValue");
 	CHECK_PTR(m_falseValue);
 	tip = i18n("FloatingPoint", "Sets the value which represents the false level.");
 	addToolTip(tip, m_falseValue, m_falseValueLabel);

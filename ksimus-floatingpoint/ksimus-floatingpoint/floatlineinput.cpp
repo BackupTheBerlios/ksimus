@@ -20,7 +20,6 @@
 
 // QT-Includes
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
@@ -350,10 +349,10 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 {
 	QString tip, precTip;
 	
-	m_convertTypeLabel = new QLabel(i18n("FloatingPoint", "Notation: "), getGrid(), "m_convertTypeLabel");
+	m_convertTypeLabel = new QLabel(i18n("FloatingPoint", "Notation: "), this, "m_convertTypeLabel");
 	CHECK_PTR(m_convertTypeLabel);
 	
-	m_convertType = new QComboBox(getGrid(), "m_convertType");
+	m_convertType = new QComboBox(this, "m_convertType");
 	CHECK_PTR(m_convertType);
 	m_convertType->insertItem(i18n("FloatingPoint", "Fixed Point"), convertType2Idx('f'));
 	m_convertType->insertItem(i18n("FloatingPoint", "Exponential"), convertType2Idx('e'));
@@ -374,17 +373,17 @@ FloatLineInputPropertyGeneralWidget::FloatLineInputPropertyGeneralWidget(FloatLi
 	addWhatsThis(tip + precTip, m_convertType, m_convertTypeLabel);
 	
 	
-	m_decimalsLabel = new QLabel(i18n("FloatingPoint", "Precision: "), getGrid(), "DecimalLabel");
+	m_decimalsLabel = new QLabel(i18n("FloatingPoint", "Precision: "), this, "DecimalLabel");
 	CHECK_PTR(m_decimalsLabel);
 	
-	m_decimals = new QSpinBox(0, 100, 1, getGrid(), "Decimals");
+	m_decimals = new QSpinBox(0, 100, 1, this, "Decimals");
 	CHECK_PTR(m_decimals);
 	tip = i18n("FloatingPoint", "Sets the 'Precision' of the input.");
 	addToolTip(tip, m_decimals, m_decimalsLabel);
 	addWhatsThis(tip + precTip, m_decimals, m_decimalsLabel);
 	
 	
-	m_tracking = new QCheckBox(i18n("FloatingPoint", "Tracking"), getGrid(), "Tracking");
+	m_tracking = new QCheckBox(i18n("FloatingPoint", "Tracking"), this, "Tracking");
 	CHECK_PTR(m_tracking);
 	tip = i18n("Enables the value tracking.\n"
 	           "If enabled the output will be updated after each inserted digit.\n"

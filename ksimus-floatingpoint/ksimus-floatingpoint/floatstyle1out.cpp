@@ -19,10 +19,7 @@
 #include <float.h>
 
 // QT-Includes
-//#include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
-//#include <qvalidator.h>
 
 
 // KDE-Includes
@@ -167,10 +164,10 @@ FloatStyle1OutView::FloatStyle1OutView(FloatStyle1Out * comp, eViewType viewType
 FloatStyle1OutPropertyGeneralWidget::FloatStyle1OutPropertyGeneralWidget(FloatStyle1Out * comp, QWidget *parent, const char *name)
 	:	ComponentPropertyGeneralWidget(comp, parent, name)
 {
-	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), getGrid(), "ResetValueLabel");
+	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), this, "ResetValueLabel");
 	CHECK_PTR(m_resetValueLabel);
 	
-	m_resetValue = new KSimDoubleEdit(getGrid(), "ResetValue");
+	m_resetValue = new KSimDoubleEdit(this, "ResetValue");
 	CHECK_PTR(m_resetValue);
 	QString tip(i18n("FloatingPoint", "Change the reset value of the component here"));
 	addToolTip(tip, m_resetValue, m_resetValueLabel);

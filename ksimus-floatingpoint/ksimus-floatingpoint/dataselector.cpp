@@ -22,7 +22,6 @@
 #include <qpopupmenu.h>
 #include <qlabel.h>
 #include <qspinbox.h>
-#include <qgrid.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -386,20 +385,20 @@ DataSelectorPropertyGeneralWidget::DataSelectorPropertyGeneralWidget(DataSelecto
 	
 	QString tip;
 	
-	m_channelsLabel = new QLabel(i18n("FloatingPoint", "Number of channels: "), getGrid(), "m_channelsLabel");
+	m_channelsLabel = new QLabel(i18n("FloatingPoint", "Number of channels: "), this, "m_channelsLabel");
 	CHECK_PTR(m_channelsLabel);
 	
-	m_channels = new QSpinBox(comp->getMinChannelCount(), MAX_CHANNELS, 1, getGrid(), "m_channels");
+	m_channels = new QSpinBox(comp->getMinChannelCount(), MAX_CHANNELS, 1, this, "m_channels");
 	CHECK_PTR(m_channels);
 	tip = i18n("FloatingPoint", "Change number of channels here.");
 	addToolTip(tip, m_channels, m_channelsLabel);
 	addWhatsThis(tip, m_channels, m_channelsLabel);
 	
 	
-	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), getGrid(), "m_resetValueLabel");
+	m_resetValueLabel = new QLabel(i18n("FloatingPoint", "Reset value: "), this, "m_resetValueLabel");
 	CHECK_PTR(m_resetValueLabel);
 	
-	m_resetValue = new KSimDoubleEdit(getGrid(), "m_resetValue");
+	m_resetValue = new KSimDoubleEdit(this, "m_resetValue");
 	CHECK_PTR(m_resetValue);
 	tip = i18n("FloatingPoint", "Change the reset value of the channels here.");
 	addToolTip(tip, m_resetValue, m_resetValueLabel);

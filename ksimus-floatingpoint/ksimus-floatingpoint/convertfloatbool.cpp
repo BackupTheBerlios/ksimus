@@ -21,7 +21,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
 
 
 // KDE-Includes
@@ -226,10 +225,10 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 {
 	QString tip;
 	
-	m_trueThresholdLabel = new QLabel(i18n("FloatingPoint", "True Threshold: "), getGrid(), "m_trueThresholdLabel");
+	m_trueThresholdLabel = new QLabel(i18n("FloatingPoint", "True Threshold: "), this, "m_trueThresholdLabel");
 	CHECK_PTR(m_trueThresholdLabel);
 	
-	m_trueThreshold = new KSimDoubleEdit(getGrid(), "m_trueThreshold");
+	m_trueThreshold = new KSimDoubleEdit(this, "m_trueThreshold");
 	CHECK_PTR(m_trueThreshold);
 	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to true.");
 	addToolTip(tip, m_trueThreshold, m_trueThresholdLabel);
@@ -238,28 +237,28 @@ ConvertFloatBoolPropertyGeneralWidget::ConvertFloatBoolPropertyGeneralWidget(Con
 	
 	
 	
-	m_falseThresholdLabel = new QLabel(i18n("FloatingPoint", "False Threshold: "), getGrid(), "m_falseThresholdLabel");
+	m_falseThresholdLabel = new QLabel(i18n("FloatingPoint", "False Threshold: "), this, "m_falseThresholdLabel");
 	CHECK_PTR(m_falseThresholdLabel);
 	
-	m_falseThreshold = new KSimDoubleEdit(getGrid(), "m_falseThreshold");
+	m_falseThreshold = new KSimDoubleEdit(this, "m_falseThreshold");
 	CHECK_PTR(m_falseThreshold);
 	tip = i18n("FloatingPoint", "Sets the threshold where the converter switch to false.");
 	addToolTip(tip, m_falseThreshold, m_falseThresholdLabel);
 	addWhatsThis(tip, m_falseThreshold, m_falseThresholdLabel);
 	
 	// Some label
-	m_levelLabel = new QLabel(i18n("FloatingPoint", "Medium Threshold: "), getGrid(), "m_levelLabel");
+	m_levelLabel = new QLabel(i18n("FloatingPoint", "Medium Threshold: "), this, "m_levelLabel");
 	CHECK_PTR(m_levelLabel);
-	m_level = new QLabel(QString::null, getGrid(), "m_level");
+	m_level = new QLabel(QString::null, this, "m_level");
 	CHECK_PTR(m_level);
 	m_level->setAlignment(AlignRight);
 	tip = i18n("FloatingPoint", "Shows the medium value between 'False Threshold' and 'True Threshold'.");
 	addToolTip(tip, m_level, m_levelLabel);
 	addWhatsThis(tip, m_level, m_levelLabel);
 	
-	m_hysteresisLabel = new QLabel(i18n("FloatingPoint", "Hysteresis: "), getGrid(), "m_hysteresisLabel");
+	m_hysteresisLabel = new QLabel(i18n("FloatingPoint", "Hysteresis: "), this, "m_hysteresisLabel");
 	CHECK_PTR(m_hysteresisLabel);
-	m_hysteresis = new QLabel(QString::null, getGrid(), "m_hysteresis");
+	m_hysteresis = new QLabel(QString::null, this, "m_hysteresis");
 	CHECK_PTR(m_hysteresis);
 	m_hysteresis->setAlignment(AlignRight);
 	tip = i18n("FloatingPoint", "Shows the hysteresis between 'False Threshold' and 'True Threshold'.");

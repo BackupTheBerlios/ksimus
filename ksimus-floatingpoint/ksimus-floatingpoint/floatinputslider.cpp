@@ -21,7 +21,6 @@
 // QT-Includes
 #include <qslider.h>
 #include <qlabel.h>
-#include <qgrid.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -304,20 +303,20 @@ FloatInputSliderPropertyGeneralWidget::FloatInputSliderPropertyGeneralWidget(Flo
 	
 	
 	
-	m_maxValueLabel = new QLabel(i18n("FloatingPoint", "Top/Left value: "), getGrid(), "MaxValueLabel");
+	m_maxValueLabel = new QLabel(i18n("FloatingPoint", "Top/Left value: "), this, "MaxValueLabel");
 	CHECK_PTR(m_maxValueLabel);
 	
-	m_maxValue = new KSimDoubleEdit(getGrid(), "MaxValue");
+	m_maxValue = new KSimDoubleEdit(this, "MaxValue");
 	CHECK_PTR(m_maxValue);
 	tip = i18n("FloatingPoint", "The value of the slider at the top or left position.");
 	addToolTip(tip, m_maxValue, m_maxValueLabel);
 	addWhatsThis(tip, m_maxValue, m_maxValueLabel);
 	
 	
-	m_minValueLabel = new QLabel(i18n("FloatingPoint", "Bottom/Right value: "), getGrid(), "MinValueLabel");
+	m_minValueLabel = new QLabel(i18n("FloatingPoint", "Bottom/Right value: "), this, "MinValueLabel");
 	CHECK_PTR(m_minValueLabel);
 	
-	m_minValue = new KSimDoubleEdit(getGrid(), "MinValue");
+	m_minValue = new KSimDoubleEdit(this, "MinValue");
 	CHECK_PTR(m_minValue);
 	tip = i18n("FloatingPoint", "The value of the slider at the bottom or right position.");
 	addToolTip(tip, m_minValue, m_minValueLabel);

@@ -20,7 +20,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -176,20 +175,20 @@ ComponentPropertyBaseWidget * FloatStyleRange1Out::createGeneralProperty(QWidget
 FloatStyleRange1OutPropertyGeneralWidget::FloatStyleRange1OutPropertyGeneralWidget(FloatStyleRange1Out * comp, QWidget *parent, const char *name)
 	:	FloatStyle1OutPropertyGeneralWidget(comp, parent, name)
 {
-	m_maxValueLabel = new QLabel(i18n("Maximum value: "), getGrid(), "MaxValueLabel");
+	m_maxValueLabel = new QLabel(i18n("Maximum value: "), this, "MaxValueLabel");
 	CHECK_PTR(m_maxValueLabel);
 	
-	m_maxValue = new KSimDoubleEdit(getGrid(), "MaxValue");
+	m_maxValue = new KSimDoubleEdit(this, "MaxValue");
 	CHECK_PTR(m_maxValue);
 	QString tip(i18n("The maximum value of the component."));
 	addToolTip(tip, m_maxValue, m_maxValueLabel);
 	addWhatsThis(tip, m_maxValue, m_maxValueLabel);
 	
 	
-	m_minValueLabel = new QLabel(i18n("Minimum value: "), getGrid(), "MinValueLabel");
+	m_minValueLabel = new QLabel(i18n("Minimum value: "), this, "MinValueLabel");
 	CHECK_PTR(m_minValueLabel);
 	
-	m_minValue = new KSimDoubleEdit(getGrid(), "MinValue");
+	m_minValue = new KSimDoubleEdit(this, "MinValue");
 	CHECK_PTR(m_minValue);
 	tip = i18n("The minimum value of the component.");
 	addToolTip(tip, m_minValue, m_minValueLabel);

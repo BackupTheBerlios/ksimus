@@ -20,7 +20,6 @@
 // QT-Includes
 #include <qpainter.h>
 #include <qlabel.h>
-#include <qgrid.h>
 #include <qcombobox.h>
 
 
@@ -247,10 +246,10 @@ SimpleConditionalPropertyGeneralWidget::SimpleConditionalPropertyGeneralWidget(S
 {
 	QString tip;
 	
-	m_conditionalLabel = new QLabel(i18n("FloatingPoint", "Conditional: "), getGrid(), "m_conditionalLabel");
+	m_conditionalLabel = new QLabel(i18n("FloatingPoint", "Conditional: "), this, "m_conditionalLabel");
 	CHECK_PTR(m_conditionalLabel);
 	
-	m_conditional = new QComboBox(getGrid(), "m_conditional");
+	m_conditional = new QComboBox(this, "m_conditional");
 	CHECK_PTR(m_conditional);
 	m_conditional->insertItem(i18n("FloatingPoint", "A < B"),  (int)eLesser);
 	m_conditional->insertItem(i18n("FloatingPoint", "A <= B"), (int)eLesserEqual);
