@@ -94,7 +94,7 @@ void LogListItem::paint(QPainter * p)
 {
 	p->save();
 	bool firstLine = true;
-	QFontMetrics fm = p->fontMetrics();
+	const QFontMetrics fm = p->fontMetrics();
 	int ls = fm.lineSpacing();
 	int y = fm.ascent() + fm.leading()/2;
 	int leadingSpace = (m_textList->count() > 1) ? fm.width(getPrioText())+5 : 0;

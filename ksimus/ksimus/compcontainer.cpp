@@ -819,18 +819,6 @@ void CompContainer::drawUserView(QPainter * p) const
 
 void CompContainer::drawComponents(QPainter * p, CompViewList * cvList) const
 {
-/*
-//	QFont newFont(QString::fromLatin1("helvetica"),12);
-	QFont newFont;
-	//newFont.setRawName("-Misc-Fixed-Medium-R-Normal--7-70-75-75-C-50-ISO10646-1");
-	newFont.setRawName("-Misc-Fixed-Medium-R-Normal--10-100-75-75-C-60-ISO10646-1");
-//	newFont.setFixedPitch(true);
-//	newFont.setStyleHint( QFont::TypeWriter );
-	p->setFont(newFont);
-//	getLogList()->logDebug("CompContainer::drawComponents");
-
-	QWMatrix::setTransformationMode(QWMatrix::Areas );
-*/
 	FOR_EACH_COMPVIEW(it, *cvList)
 	{
 		if (!it.current()->isHidden())

@@ -192,8 +192,6 @@ void ConnectorLabel::drawSheetView (QPainter *p) const
 	bool edgeIn = (isBoolInEdge() && getBoolInEdgeConn()->isEdgeSensitive());
 
 	p->save();
-/*	QFont newFont(QString::fromLatin1("helvetica"),8);
-	p->setFont(newFont);*/
 	p->setPen(black);
 	int height = p->fontMetrics().height();
 	int width = p->fontMetrics().width(m_descr)+2;  //+2 because rotating problem

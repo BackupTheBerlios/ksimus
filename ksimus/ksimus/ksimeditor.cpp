@@ -195,11 +195,6 @@ KSimEditor::KSimEditor(QWidget *parent, const char *name)
 
 	connect (&autoScrollTimer, SIGNAL(timeout()), SLOT(autoScroll()));
 	connect (&delayedStatusHelpMsgTimer, SIGNAL(timeout()), SLOT(slotDelayedStatusHelpMsg()));
-	
-	
-	/*QFont newFont(QString::fromLatin1("helvetica"),12);
-	setFont(newFont);*/
-	
 }
 
 KSimEditor::~KSimEditor()
@@ -257,9 +252,6 @@ void KSimEditor::print(KPrinter *pPrinter)
 	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiX());
 	KSIMDEBUG_VAR("",pdmPrinter.logicalDpiY());*/
 	
-	/*QFont newFont(QString::fromLatin1("helvetica"),12);
-	p.setFont(newFont);*/
-
 	int x = 0;
 	int y = 0;
 	
