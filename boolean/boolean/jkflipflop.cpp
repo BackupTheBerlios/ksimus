@@ -56,14 +56,14 @@ static Component * create(CompContainer * container, const ComponentInfo * ci)
 }
 
 const ComponentInfo JKFlipFlopInfo("JK Flip Flop",
-                                   "Boolean/Flip Flop/JK Flip Flop",
+                                   "Boolean/Flip Flop/JK-FF",
                                    QString::null,/*"JK Flip Flop",*/
                                    VA_SHEETVIEW,
                                    create
                                   );
 
 const ComponentInfo JKMSFlipFlopInfo("JK Master Slave Flip Flop",
-                                   "Boolean/Flip Flop/JK Master Slave Flip Flop",
+                                   "Boolean/Flip Flop/JK-MS-FF",
                                    QString::null,/*"JK Flip Flop",*/
                                    VA_SHEETVIEW,
                                    create
