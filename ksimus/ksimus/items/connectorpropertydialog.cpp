@@ -22,8 +22,6 @@
 
 // KDE-Includes
 #include <klocale.h>
-#include <kconfig.h>
-#include <kapp.h>
 
 // Project-Includes
 #include "component.h"
@@ -75,22 +73,12 @@ int ConnectorPropertyDialog::execute(ConnectorList * connList, ConnectorBase * a
 	dia = new ConnectorPropertyDialog(connList, activeConn, caption, parent, name);
 
 	// Load last size
-	KConfig * config=kapp->config();
-	QString group(config->group());
-	config->setGroup("Connector/Property Dialog");
-	QSize size=config->readSizeEntry("Geometry");
-	config->setGroup(group);
-	if(!size.isEmpty())
-	{
-		dia->resize(size);
-	}
+	dia->readSize("Connector/Property Dialog");
 
 	result = dia->exec();
 
 	// Save size
-	config->setGroup("Connector/Property Dialog");
-	config->writeEntry("Geometry", dia->size());
-	config->setGroup(group);
+	dia->writeSize("Connector/Property Dialog");
 
 	delete dia;
 

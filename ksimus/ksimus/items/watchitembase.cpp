@@ -211,7 +211,11 @@ void WatchItemBase::executePropertyDialog(QWidget * parent)
 	PropertyWidget * propWid = createPropertyWidget(wid);
 	dia.connectSlots(propWid);
 
+	dia.readSize("Watch Options", "Dialog Geometry");
+
 	dia.exec();
+
+	dia.writeSize("Watch Options", "Dialog Geometry");
 }
 
 
