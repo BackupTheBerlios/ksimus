@@ -152,6 +152,8 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 	{
 		m_p->hide = 0;
 	}
+
+	connect(m_conn, SIGNAL(destroyed()), this, SLOT(slotDelete()));
 }
 
 
@@ -159,6 +161,11 @@ ConnectorPropertyWidget::ConnectorPropertyWidget(ConnectorBase * connector,QWidg
 ConnectorPropertyWidget::~ConnectorPropertyWidget()
 {
 	delete m_p;
+}
+
+void ConnectorPropertyWidget::slotDelete()
+{
+	delete this;
 }
 
 void ConnectorPropertyWidget::acceptPressed()

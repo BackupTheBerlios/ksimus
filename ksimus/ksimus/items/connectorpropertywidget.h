@@ -62,6 +62,7 @@ public:
 public slots:
 	
 	virtual void polish();
+	void slotDelete();
 	
 protected:
 	/** Use this widget as parent widget for the full row setting widget.
