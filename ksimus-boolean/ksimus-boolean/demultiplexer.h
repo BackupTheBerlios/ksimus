@@ -105,6 +105,7 @@ public:
 	
 	ConnectorPack * getOutputPack() const { return m_outputPack; };
 	ConnectorPack * getAddressPack() const { return m_addressPack; };
+	ConnectorBoolInEdge * getLatchOutput() const { return m_latchOutput; };
 	ConnectorBoolInEdge * getLatchAddress() const { return m_latchAddress; };
 	ConnectorBoolIn * getInputConn() const { return m_inputConn; };
 
@@ -116,6 +117,7 @@ private slots:
 
 private:
 	unsigned int m_addressLatch;
+	ConnectorBoolInEdge * m_latchOutput;
 	ConnectorBoolIn * m_inputConn;
 	ConnectorBoolInEdge * m_latchAddress;
 	ConnectorPack * m_outputPack;

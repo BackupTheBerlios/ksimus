@@ -69,8 +69,8 @@ const ComponentInfo * getDemultiplexerInfo()
 	                                QString::null,
 	                                VA_SHEETVIEW,
 	                                create,
-	                                QString::null/*,  TODO
-	                                QString::fromLatin1("component-float-control-dataSelect")*/);
+	                                QString::null,
+	                                QString::fromLatin1("component-boolean-demultiplexer"));
 	return &Info;
 }
 
@@ -89,15 +89,26 @@ const ComponentInfo * getDemultiplexerInfo()
 Demultiplexer::Demultiplexer(CompContainer * container, const ComponentInfo * ci)
 	: Component(container, ci)
 {
+
+	m_latchOutput = new ConnectorBoolInEdge(this,
+	                             QString::fromLatin1("Enable Latch Output"),
+	                             i18n("Boolean-Connector", "Enable Latch Output"));
+	CHECK_PTR(m_latchOutput);
+	m_latchOutput->setEdgeSensitive(false,true);
+	// make Output Latch optional
+	new OptionalConnector(m_latchOutput,
+	                      QString::fromLatin1("Enable Output Latch"),
+	                      i18n("Boolean", "Enable Output Latch:"));
+
 	m_latchAddress = new ConnectorBoolInEdge(this,
-	                             QString::fromLatin1("Latch Address Input"),
-	                             i18n("Boolean-Connector", "Latch Address Input"));
+	                             QString::fromLatin1("Enable Latch Address"),
+	                             i18n("Boolean-Connector", "Enable Latch Address"));
 	CHECK_PTR(m_latchAddress);
 	m_latchAddress->setEdgeSensitive(false,true);
 	// make Address Latch optional
 	new OptionalConnector(m_latchAddress,
-	                      QString::fromLatin1("Address Latch"),
-	                      i18n("Boolean", "Address Latch:"));
+	                      QString::fromLatin1("Enable Address Latch"),
+	                      i18n("Boolean", "Enable Address Latch:"));
 	
 	
 	m_inputConn = new ConnectorBoolIn(this,
@@ -168,15 +179,18 @@ void Demultiplexer::calculate()
 		}
 	}
 	
-	// First reset last addressed output
-	((ConnectorBoolOut*)getOutputPack()->getConnList()->current())->setOutput(false);
-
-	// Fetch output value if "Latch Output" is hidden or enabled
-	if (m_addressLatch < getOutputPack()->getConnectorCount())
+	if ((getLatchOutput()->isHidden()) || getLatchOutput()->getInput())
 	{
-		ConnectorBoolOut * out = (ConnectorBoolOut *)getOutputPack()->getConnList()->at(m_addressLatch);
-		ASSERT(out != 0);
-		out->setOutput(getInputConn()->getInput());
+		// First reset last addressed output
+		((ConnectorBoolOut*)getOutputPack()->getConnList()->current())->setOutput(false);
+
+		// Fetch output value
+		if (m_addressLatch < getOutputPack()->getConnectorCount())
+		{
+			ConnectorBoolOut * out = (ConnectorBoolOut *)getOutputPack()->getConnList()->at(m_addressLatch);
+			ASSERT(out != 0);
+			out->setOutput(getInputConn()->getInput());
+		}
 	}
 }
 
@@ -307,6 +321,7 @@ DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType)
 		CHECK_PTR(m_ctrlBlock);
 		
 		m_ctrlBlock->getLeft()->addSpace(1);
+		m_ctrlBlock->getLeft()->addConnector(getComponent()->getLatchOutput());
 		m_ctrlBlock->getLeft()->addConnector(getComponent()->getLatchAddress());
 		m_ctrlBlock->getLeft()->addConnectorPack(getComponent()->getAddressPack());
 		
@@ -322,6 +337,7 @@ DemultiplexerView::DemultiplexerView(Demultiplexer * comp, eViewType viewType)
 		m_layout->setMinSize(6,5);
 		m_layout->updateLayout();
 	
+		new ConnectorLabel(getComponent()->getLatchOutput(), "EO");
 		new ConnectorLabel(getComponent()->getLatchAddress(), "EA");
 	
 		unsigned int i = 1;
