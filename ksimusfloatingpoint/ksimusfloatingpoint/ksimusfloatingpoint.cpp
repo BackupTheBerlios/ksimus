@@ -48,6 +48,13 @@
 #include "convertboolfloat.h"
 #include "floatlatch.h"
 #include "dataselector.h"
+#include "floatexp.h"
+#include "floatlog.h"
+#include "floatsin.h"
+#include "floatcos.h"
+#include "floattan.h"
+#include "floatmax.h"
+#include "floatmin.h"
 
 // Forward declaration
 
@@ -89,6 +96,16 @@ static const ComponentInfoPtr distributeComponent[] =
 	&ConvertBoolFloatInfo,
 	&FloatLatchInfo,
 	&DataSelectorInfo,
+	&FloatExpInfo,
+	&FloatLogInfo,
+	&FloatSinInfo,
+	&FloatASinInfo,
+	&FloatCosInfo,
+	&FloatACosInfo,
+	&FloatTanInfo,
+	&FloatATanInfo,
+	&FloatMaxInfo,
+	&FloatMinInfo,
 	(ComponentInfoPtr) 0          // Do not remove. Must be the last item.
 };
 
