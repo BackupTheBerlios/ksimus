@@ -32,6 +32,45 @@
 // Forward declaration
 
 
+class KSimIoDevicePropertyDialog::Private
+{
+public:
+	Private()
+	{
+		tmpFile = (KTempFile *)0;
+	}
+
+	~Private()
+	{
+		deleteTempFile();
+	}
+
+	void deleteTempFile();
+	QString getTempFileName();
+	
+	KTempFile * tmpFile;
+};
+
+void KSimIoDevicePropertyDialog::Private::deleteTempFile()
+{
+	if (tmpFile)
+	{
+		tmpFile->unlink();
+		delete tmpFile;
+		tmpFile = (KTempFile *)0;
+	}
+}
+
+QString KSimIoDevicePropertyDialog::Private::getTempFileName()
+{
+	if (!tmpFile)
+	{
+		tmpFile = new KTempFile;
+		CHECK_PTR(tmpFile);
+	}
+
+	return tmpFile->name();
+}
 
 //#########################################################################
 //#########################################################################
@@ -40,54 +79,76 @@ KSimIoDevicePropertyDialog::KSimIoDevicePropertyDialog(KSimIoDevice *device, con
 	:	KSimDialog(caption, parent, name),
 		m_device(device)
 {
+	m_p = new Private;
+	CHECK_PTR(m_p);
+
+	device->initPropertyDialog(this);
 }
 
 KSimIoDevicePropertyDialog::~KSimIoDevicePropertyDialog()
 {
+	delete m_p;
 }
+
+
+void KSimIoDevicePropertyDialog::slotOk()
+{
+	unsigned int errors = 0;
+
+	emit okClicked();
+
+	if (isChanged())
+	{
+		// Only if something changed
+		errors = getDevice()->executePropertyCheck();
+
+		if(errors)
+		{
+			setChanged(false);
+			KSimpleConfig file(m_p->getTempFileName(), true);
+			file.setGroup("/save/");
+			getDevice()->load(file);
+			m_p->deleteTempFile();
+		}
+		else
+		{
+			// No errors
+			QDialog::accept();
+		}
+	}
+	else
+	{
+		// Nothing changed
+		QDialog::accept();
+	}
+}
+
+
+void KSimIoDevicePropertyDialog::slotDataChanged()
+{
+	if (!isChanged())
+	{
+		setChanged(true);
+		KSimpleConfig file(m_p->getTempFileName());
+		file.setGroup("/save/");
+		getDevice()->save(file);
+	}
+}
+
+
+
 
 int KSimIoDevicePropertyDialog::execute(KSimIoDevice *device, const QString & caption, QWidget *parent, const char *name)
 {
 	int result;
-	bool ready;
-	KTempFile tmpFile;
 
 	KSimIoDevicePropertyDialog * dia;
 	dia = new KSimIoDevicePropertyDialog(device, caption, parent, name);
 	CHECK_PTR(dia);
 
-	{
-		KSimpleConfig file(tmpFile.name());
-		file.setGroup("/save/");
-		device->save(file);
-		// Close "file"
-	}
-	
-	device->initPropertyDialog(dia);
-
 	dia->readSize("IO Devices/Property Dialog");
 
-	do
-	{
-		ready = true;
-		result = dia->exec();
-		if ((result == QDialog::Accepted)
-		 && (device->executePropertyCheck(parent) != 0))
-		{
-			ready = false;
-		}
-	}
-	while(!ready);
-
-	if(result == QDialog::Rejected)
-	{
-		KSimpleConfig file(tmpFile.name(), true);
-		file.setGroup("/save/");
-		device->load(file);
-		// Close "file"
-	}
-
-	tmpFile.unlink();
+	result = dia->exec();
 
 	dia->writeSize("IO Devices/Property Dialog");
 

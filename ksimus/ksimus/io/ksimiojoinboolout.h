@@ -1,7 +1,7 @@
 /***************************************************************************
-                          ksimiojoinboolin.h  -  description
+                          ksimiojoinboolout.h  -  description
                              -------------------
-    begin                : Sat Apr 5 2003
+    begin                : Sun May 18 2003
     copyright            : (C) 2003 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KSIMIOJOINBOOLIN_H
-#define KSIMIOJOINBOOLIN_H
+#ifndef KSIMIOJOINBOOLOUT_H
+#define KSIMIOJOINBOOLOUT_H
 
 // C/C++ includes
 
@@ -30,19 +30,20 @@
 // Forward declaration
 class KSimIoJoinInfo;
 
-/**A boolean input join.
+
+/**A boolean output join.
   *
-  * Remember: This is an input for KSimus and an output for the io device!!!
+  * Remember: This is an output for KSimus and an input for the io device!!!
   *
   *@author Rasmus Diekenbrock
   */
 
-class KSimIoJoinBoolIn : public KSimIoJoin
+class KSimIoJoinBoolOut : public KSimIoJoin
 {
    Q_OBJECT
-public: 
-	KSimIoJoinBoolIn(KSimIoComponent * comp, const KSimIoJoinInfo * info);
-	~KSimIoJoinBoolIn();
+public:
+	KSimIoJoinBoolOut(KSimIoComponent * comp, const KSimIoJoinInfo * info);
+	~KSimIoJoinBoolOut();
 
 	virtual ConnectorBase * createConnector();
 
@@ -53,7 +54,6 @@ public:
 	static KSimIoJoin * create(KSimIoComponent * comp, const KSimIoJoinInfo * info);
 
 private:
-	
-};
 
+};
 #endif

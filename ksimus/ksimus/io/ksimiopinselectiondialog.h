@@ -53,11 +53,13 @@ public:
 	/** Returns the currently selected pin. */
 	const KSimIoPin * getCurrentPin() const;
 
-	/** Executes a KSimIoPinSelectionDialog.
+	KSimIoPinSelectionWidget * getSelectionWidget() { return m_selWid; };
+	const KSimIoPinSelectionWidget * getSelectionWidget() const { return m_selWid; };
+
+	/** Executes a KSimIoPinSelectionDialog with KSimIoPin::Pool::get().
 	    Do some additional stuff like size storing.
 	    Returns the selected Pin or a null pointer if canceled. */
-	static const KSimIoPin * execute(const KSimIoPin::List & pinList,
-	                         const QString & caption,
+	static const KSimIoPin * execute(const QString & caption,
 	                         QWidget *parent= (QWidget *)0,
 	                         const char *name=(const char *)0);
 

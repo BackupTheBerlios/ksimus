@@ -287,8 +287,7 @@ void KSimIoComponent::removeJoin(KSimIoJoin * delJoin)
 
 void KSimIoComponent::slotPinSelection()
 {
-	const KSimIoPin * pin = KSimIoPinSelectionDialog::execute(KSimIoPin::Pool::get(),
-                                                            i18n("Select IO")/*,
+	const KSimIoPin * pin = KSimIoPinSelectionDialog::execute(i18n("Select IO Pin")/*,
                                                             QWidget *parent,
                                                             const char *name)*/);
 

@@ -189,6 +189,7 @@ void KSimIoDeviceOverviewWidget::slotConfDevice()
 
 		if (res == QDialog::Accepted)
 		{
+			dev->menuExecuted();
 			// Save to file
 			KSimIoStorage storage;
 			storage.open();
@@ -275,13 +276,14 @@ void KSimIoDeviceOverviewWidget::slotNewDevice()
 			// Append to globale list
 			KSimIoDeviceList::getList()->append(dev);
 			// Add pins to pool
-			dev->addPins2Pool();
+//			dev->addPinsToPool(); Done by device now // TODO remove comment
 			// Add to list view
 			KSimIoDeviceListItem * item = new KSimIoDeviceListItem(m_list, dev);
 			CHECK_PTR(item);
 
 			m_list->setCurrentItem(item);
 			
+			dev->menuExecuted();
 			// Save to file
 			KSimIoStorage storage;
 			storage.open();

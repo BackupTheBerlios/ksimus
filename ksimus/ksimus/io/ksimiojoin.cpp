@@ -69,7 +69,7 @@ const char * const KSimIoJoin::Private::sConnectorDir         = "Connector/";
 
 
 KSimIoJoin::KSimIoJoin(KSimIoComponent* ioComp, const KSimIoJoinInfo* info)
-	:	QObject(ioComp),
+	:	QObject(ioComp, info->getName().latin1()),
 		ComponentItem(ioComp),
 		m_pin((const KSimIoPin*) 0),
 		m_device((KSimIoDevice *)0),
@@ -261,8 +261,10 @@ void KSimIoJoin::slotConnDeleteRequest(ConnectorBase * conn)
 	if (conn == getConnector())
 	{
 		getIoComponent()->undoChangeProperty(i18n("Delete IO"));
+		getIoComponent()->setModified();
 		getIoComponent()->getConnList()->removeRef(getConnector());
 		getIoComponent()->updateLayout();
+		getIoComponent()->refresh();
 		delete this;
 	}
 	else

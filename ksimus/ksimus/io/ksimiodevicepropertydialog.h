@@ -53,6 +53,9 @@ public:
 	static int execute(KSimIoDevice *device, const QString & caption, QWidget *parent= (QWidget *)0, const char *name=(const char *)0);
 
 protected slots:
+	virtual void slotDataChanged();
+	virtual void slotOk();
+
 
 private:
 	KSimIoDevice * m_device;

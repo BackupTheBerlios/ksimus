@@ -29,7 +29,8 @@
 #include "ksimiopin.h"
 
 // Forward declaration
-class QListView;
+class QStringList;
+class QListViewItem;
 
 /**Select a pin from a pin list.
   *@author Rasmus Diekenbrock
@@ -44,9 +45,22 @@ public:
 
 	const KSimIoPin * getCurrentPin() const;
 
+	void setOpenDeviceList(const QStringList & openList);
+	QStringList getOpenDeviceList() const;
+
+
+private slots:
+	void slotDoubleClicked(QListViewItem * lvi);
+
+signals:
+	void signalValidDoubleClicked();
+
 private:
 	class ListItem;
-	QListView * m_list;
+	class DeviceListItem;
+	class PinListItem;
+	class Private;
+	Private * m_p;
 };
 
 #endif

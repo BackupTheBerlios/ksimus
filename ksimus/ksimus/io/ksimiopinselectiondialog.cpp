@@ -19,6 +19,7 @@
 
 // QT-Includes
 #include <qlayout.h>
+#include <qpushbutton.h>
 
 // KDE-Includes
 #include <klocale.h>
@@ -56,6 +57,11 @@ KSimIoPinSelectionDialog::KSimIoPinSelectionDialog(const KSimIoPin::List & pinLi
 	connect(this, SIGNAL(okClicked()), m_selWid, SLOT(slotAccept()));
 	connect(this, SIGNAL(defaultClicked()), m_selWid, SLOT(slotDefault()));
 	connect(this, SIGNAL(cancelClicked()), m_selWid, SLOT(slotCancel()));
+
+
+	QPushButton * okButton = actionButton(KDialogBase::Ok);
+	CHECK_PTR(okButton);
+	connect(m_selWid, SIGNAL(signalValidDoubleClicked()), okButton, SLOT(animateClick()));
 }
 
 KSimIoPinSelectionDialog::~KSimIoPinSelectionDialog()
@@ -70,12 +76,11 @@ const KSimIoPin * KSimIoPinSelectionDialog::getCurrentPin() const
 
 
 
-const KSimIoPin * KSimIoPinSelectionDialog::execute(const KSimIoPin::List & pinList,
-                                                    const QString & caption,
+const KSimIoPin * KSimIoPinSelectionDialog::execute(const QString & caption,
                                                     QWidget *parent,
                                                     const char *name)
 {
-	KSimIoPinSelectionDialog * dialog = new KSimIoPinSelectionDialog(pinList, caption, parent, name);
+	KSimIoPinSelectionDialog * dialog = new KSimIoPinSelectionDialog(KSimIoPin::Pool::get(), caption, parent, name);
 	CHECK_PTR(dialog);
 
 
@@ -84,11 +89,13 @@ const KSimIoPin * KSimIoPinSelectionDialog::execute(const KSimIoPin::List & pinL
 	QString group(config->group());
 	config->setGroup("IO Devices/Pin Selection");
 	QSize size=config->readSizeEntry("Geometry");
-	config->setGroup(group);
 	if(!size.isEmpty())
 	{
 		dialog->resize(size);
 	}
+
+	dialog->getSelectionWidget()->setOpenDeviceList(config->readListEntry("Opened Device List"));
+	config->setGroup(group);
 
 	// Execute dialog
 	int result = dialog->exec();
@@ -96,6 +103,8 @@ const KSimIoPin * KSimIoPinSelectionDialog::execute(const KSimIoPin::List & pinL
 	// Save size
 	config->setGroup("IO Devices/Pin Selection");
 	config->writeEntry("Geometry", dialog->size());
+	// Save opened devices
+	config->writeEntry("Opened Device List", dialog->getSelectionWidget()->getOpenDeviceList());
 	config->setGroup(group);
 
 	const KSimIoPin * pin = dialog->getCurrentPin();

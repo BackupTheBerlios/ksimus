@@ -100,7 +100,24 @@ public:
 	KSimIoPin::List & getPinList() { return m_pinList; };
 	const KSimIoPin * findPinByID(int ioPinID) const;
 	
-	void addPins2Pool();
+	/** Adds a pin to the device and to the pin pool. */
+	void addPin(const KSimIoPin * ioPin);
+	/** Removes a pin from the device and from the pin pool. The pin is *not* deleted. */
+	void removePin(const KSimIoPin * ioPin);
+	void removePin(int ioPinID);
+	/** Removes all pins contained by this device from the pin pool. The pins are *not* deleted. */
+	void removeAllPins();
+	/** Removes a pin from the device and from the pin pool. The pin is deleted. */
+	void deletePin(const KSimIoPin * ioPin);
+	void deletePin(int ioPinID);
+	/** Removes all pins contained by this device from the pin pool. The pins are deleted. */
+	void deleteAllPins();
+
+	
+	/** Returns the number usages of the pin. */
+	unsigned int getPinUsedCount(int ioPinID) const;
+	/** Returns true if the pin is used. */
+	bool isPinUsed(int ioPinID) const;
 
 	//#####################################
 	// Joins
@@ -141,8 +158,21 @@ public:
 	*/
   unsigned int executePropertyCheck(QWidget * parent=0);
 
+	/** Is called after execution of the PropertyDialog
+	  * (@ref initPropertyDialog). Use this function to adjust things which are difficult
+	  * to handle inside a slot or the function @ref PropertyWidget::acceptPressed.
+	  *
+	  * For example it is problematic to change the connector count inside the PropertyDialog
+	  * because each connector has also a property widget. If you reduce the connector count
+	  * some of these propert widgets have no valid connector. This function delays the connector
+	  * count modification until all property widgets are removed.
+	  *
+	  * The default implementation does nothing.
+	  */
+	virtual void menuExecuted();
+
 protected:
-	KSimIoDevice(const KSimIoDeviceInfo * info, QObject *parent=0, const char *name=0);
+	KSimIoDevice(const KSimIoDeviceInfo * info);
 
 private: // Private attributes
 	QString m_deviceName;
@@ -166,7 +196,7 @@ class KSimIoDeviceTest : public KSimIoDevice
 {
    Q_OBJECT
 public:
-	KSimIoDeviceTest(const KSimIoDeviceInfo * info, QObject *parent=0, const char *name=0);
+	KSimIoDeviceTest(const KSimIoDeviceInfo * info);
 
 
 	static const KSimIoDeviceInfo * getStaticInfo();

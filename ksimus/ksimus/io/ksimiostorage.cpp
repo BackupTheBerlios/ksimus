@@ -214,7 +214,7 @@ bool KSimIoStorage::load(unsigned int serial, KSimIoDevice * * device)
 	// Load device specifics
 	bool res = (*device)->load(*m_conf);
 
-	(*device)->addPins2Pool();
+//	(*device)->addPinsToPool(); Done by device now // TODO remove comment
 
 	return res;
 }

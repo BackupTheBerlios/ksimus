@@ -160,8 +160,8 @@ const char * const KSimIoDevice::Private::s_deviceDescription  = "Description";
 //################################################################################
 
 
-KSimIoDevice::KSimIoDevice(const KSimIoDeviceInfo * info, QObject *parent, const char *name)
-	:	QObject(parent,name),
+KSimIoDevice::KSimIoDevice(const KSimIoDeviceInfo * info)
+	:	QObject((QObject*)0, info->getName().latin1()),
 		m_deviceName(info->getI18nLibName()),
 		m_deviceDescription(QString::null),
 		m_info(info),
@@ -174,11 +174,7 @@ KSimIoDevice::KSimIoDevice(const KSimIoDeviceInfo * info, QObject *parent, const
 
 KSimIoDevice::~KSimIoDevice()
 {
-	KSimIoPin::Pool & pool = KSimIoPin::Pool::get();
-	FOR_EACH_IO_PIN(it, getPinList())
-	{
-		pool.remove(it);
-	}
+	removeAllPins();
 	delete m_p;
 }
 
@@ -193,15 +189,103 @@ void KSimIoDevice::setDescription(const QString & newDescription)
 	m_deviceDescription = newDescription;
 }
 
-void KSimIoDevice::addPins2Pool()
+void KSimIoDevice::addPin(const KSimIoPin * ioPin)
+{
+	ASSERT(ioPin);
+	
+	getPinList().append(ioPin);
+	KSimIoPin::Pool::get().append(ioPin);
+}
+
+
+void KSimIoDevice::removePin(const KSimIoPin * ioPin)
+{
+	if (ioPin)
+	{
+		KSimIoPin::Pool::get().remove(ioPin);
+		getPinList().remove(ioPin);
+	}
+	else
+	{
+		KSIMDEBUG("KSimIoDevice::removePin with null pointer");
+	}
+}
+
+void KSimIoDevice::removePin(int ioPinID)
+{
+	const KSimIoPin * ioPin = findPinByID(ioPinID);
+	if (ioPin)
+	{
+		removePin(ioPin);
+	}
+	else
+	{
+		KSIMDEBUG_VAR("KSimIoDevice::removePin Unkown pin",ioPinID);
+	}
+}
+
+
+void KSimIoDevice::removeAllPins()
 {
 	KSimIoPin::Pool & pool = KSimIoPin::Pool::get();
 	FOR_EACH_IO_PIN(it, getPinList())
 	{
-		pool.append(it);
+		pool.remove(it);
+	}
+	getPinList().clear();
+}
+
+void KSimIoDevice::deletePin(const KSimIoPin * ioPin)
+{
+	if (ioPin)
+	{
+		KSimIoPin::Pool::get().remove(ioPin);
+		getPinList().remove(ioPin);
+		delete ioPin;
+	}
+	else
+	{
+		KSIMDEBUG("KSimIoDevice::deletePin with null pointer");
 	}
 }
 
+void KSimIoDevice::deletePin(int ioPinID)
+{
+	const KSimIoPin * ioPin = findPinByID(ioPinID);
+	if (ioPin)
+	{
+		deletePin(ioPin);
+	}
+	else
+	{
+		KSIMDEBUG_VAR("KSimIoDevice::deletePin Unkown pin",ioPinID);
+	}
+}
+
+void KSimIoDevice::deleteAllPins()
+{
+	KSimIoPin::Pool & pool = KSimIoPin::Pool::get();
+	FOR_EACH_IO_PIN(it, getPinList())
+	{
+		pool.remove(it);
+	}
+	bool autoDel = getPinList().autoDelete();
+	getPinList().setAutoDelete(true);
+	getPinList().clear();
+	getPinList().setAutoDelete(autoDel);
+}
+
+
+unsigned int KSimIoDevice::getPinUsedCount(int ioPinID) const
+{
+	JoinItemList joinList = m_p->joinList.findListByPinId(ioPinID);
+	return joinList.count();
+}
+
+bool KSimIoDevice::isPinUsed(int ioPinID) const
+{
+	return (getPinUsedCount(ioPinID) != 0);
+}
 
 void KSimIoDevice::save(KConfigBase & config) const
 {
@@ -239,6 +323,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 {
 	ASSERT(doc != (const KSimusDoc *)0);
 
+	KSIMDEBUG_VAR("KSimIoDevice::checkCircuit", getName());
 	// Device used by this doc?
 	bool deviceUsed = false;
 	JoinItemList::ConstIterator cJoinIt;
@@ -278,6 +363,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 			                 .arg(getName())
 			                 .arg(runningDocnameDeviceExclusive.join(QString::fromLatin1(", ")));
 			errorMsgList.append(errMsg);
+			KSIMDEBUG_VAR("", errMsg);
 		}
 		
 	}
@@ -323,6 +409,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 			                 .arg(pin->getName())
 			                 .arg(usedCnt);
 			errorMsgList.append(errMsg);
+			KSIMDEBUG_VAR("", errMsg);
 		}
 		if (runningDocName.count())
 		{
@@ -331,6 +418,7 @@ void KSimIoDevice::checkCircuit(const KSimusDoc * doc, QStringList & errorMsgLis
 			                 .arg(pin->getName())
 			                 .arg(runningDocName.join(QString::fromLatin1(", ")));
 			errorMsgList.append(errMsg);
+			KSIMDEBUG_VAR("", errMsg);
 		}
 	}
 }
@@ -468,9 +556,17 @@ unsigned int KSimIoDevice::executePropertyCheck(QWidget * parent)
 	return errMsg.count();
 }
 
+void KSimIoDevice::menuExecuted()
+{
+	
+}
+
+
+
 //################################################################################
 //################################################################################
 #include "ksimiojoinboolin.h"
+#include "ksimiojoinboolout.h"
 
 KSimIoDevice * KSimIoDeviceTest::create(const KSimIoDeviceInfo * info)
 {
@@ -479,6 +575,15 @@ KSimIoDevice * KSimIoDeviceTest::create(const KSimIoDeviceInfo * info)
 
 const KSimIoDeviceInfo * KSimIoDeviceTest::getStaticInfo()
 {
+//	KSimIoDeviceInfo(const QString & name,
+//	                 const QString & i18nLibName,
+//	                 const QString & libName,
+//	                 const QString & additionalI18nLibNames,
+//	                 KSimIoDevice * (*factory)(const KSimIoDeviceInfo *),
+//	                 const QString & shortDescr = QString::null,
+//	                 const QString & HTMLDescr = QString::null,
+//	                 const QString & oldLibNames = QString::null );
+
 	static const KSimIoDeviceInfo Info(QString::fromLatin1("Test Device"),
 	                                   i18n("Test Device"),
 	                                   QString::fromLatin1("Test Device"),
@@ -487,19 +592,19 @@ const KSimIoDeviceInfo * KSimIoDeviceTest::getStaticInfo()
 	return &Info;
 }
                 
-KSimIoDeviceTest::KSimIoDeviceTest(const KSimIoDeviceInfo * info, QObject *parent, const char *name)
-	:	KSimIoDevice(info, parent, name)
+KSimIoDeviceTest::KSimIoDeviceTest(const KSimIoDeviceInfo * info)
+	:	KSimIoDevice(info)
 {
 	KSimIoPin * pin;
 	pin = new KSimIoPin(this, 0, QString::fromLatin1("PA 1"), i18n("PA 1"));
 	CHECK_PTR(pin);
 	pin->addPinInfo(KSimIoJoinBoolIn::getStaticInfo());
-	getPinList().append(pin);
+	addPin(pin);
 
 	pin = new KSimIoPin(this, 1, QString::fromLatin1("PA 2"), i18n("PA 2"));
 	CHECK_PTR(pin);
 	pin->addPinInfo(KSimIoJoinBoolOut::getStaticInfo());
-	getPinList().append(pin);
+	addPin(pin);
 
 //	setExclusive(true);
 }

@@ -1,7 +1,7 @@
 /***************************************************************************
-                          ksimiojoinboolin.cpp  -  description
+                          ksimiojoinboolout.cpp  -  description
                              -------------------
-    begin                : Sat Apr 5 2003
+    begin                : Sun May 18 2003
     copyright            : (C) 2003 by Rasmus Diekenbrock
     email                : ksimus@gmx.de
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 // Project includes
 #include "ksimdebug.h"
-#include "ksimiojoinboolin.h"
+#include "ksimiojoinboolout.h"
 #include "ksimiopin.h"
 #include "ksimiojoininfo.h"
 #include "ksimiodevice.h"
@@ -34,7 +34,7 @@
 // Forward declaration
 
 
-const KSimIoJoinInfo * KSimIoJoinBoolIn::getStaticInfo()
+const KSimIoJoinInfo * KSimIoJoinBoolOut::getStaticInfo()
 {
 // The required parameter of KSimIoJoinInfo
 //	KSimIoJoinInfo(const QString & name,
@@ -46,48 +46,45 @@ const KSimIoJoinInfo * KSimIoJoinBoolIn::getStaticInfo()
 //	               const QString & HTMLDescr = QString::null,
 //	               const QString & oldLibNames = QString::null );
 
-	static KSimIoJoinInfo info(QString::fromLatin1("Pin Boolean In"),
-	                           i18n("IO Join", "Boolean Input"),
-	                           QString::fromLatin1("Pin Boolean In"),
+	static KSimIoJoinInfo info(QString::fromLatin1("Pin Boolean Out"),
+	                           i18n("IO Join", "Boolean Output"),
+	                           QString::fromLatin1("Pin Boolean Out"),
 	                           QString::null,
 	                           create);
 	return &info;
 }
 
-KSimIoJoin * KSimIoJoinBoolIn::create(KSimIoComponent * comp, const KSimIoJoinInfo * info)
+KSimIoJoin * KSimIoJoinBoolOut::create(KSimIoComponent * comp, const KSimIoJoinInfo * info)
 {
-	KSimIoJoin * join = new KSimIoJoinBoolIn(comp, info);
+	KSimIoJoin * join = new KSimIoJoinBoolOut(comp, info);
 	CHECK_PTR(join);
 	return join;
 }
 
 
-KSimIoJoinBoolIn::KSimIoJoinBoolIn(KSimIoComponent * comp, const KSimIoJoinInfo * info)
+KSimIoJoinBoolOut::KSimIoJoinBoolOut(KSimIoComponent * comp, const KSimIoJoinInfo * info)
 	:	KSimIoJoin(comp, info)
 {
-	setExclusive(true);
+	setExclusive(false);
 }
 
-KSimIoJoinBoolIn::~KSimIoJoinBoolIn()
+KSimIoJoinBoolOut::~KSimIoJoinBoolOut()
 {
 }
 
-ConnectorBase * KSimIoJoinBoolIn::createConnector()
+
+ConnectorBase * KSimIoJoinBoolOut::createConnector()
 {
-	ConnectorBoolOut * conn = new ConnectorBoolOut(getComponent(), QString::null, QString::null);
+	ConnectorBoolIn * conn = new ConnectorBoolIn(getComponent(), QString::null, QString::null);
 	CHECK_PTR(conn);
 	conn->setErasable(true);
 	setConnector(conn);
 	return conn;
 }
 
-void KSimIoJoinBoolIn::calculate() const
+void KSimIoJoinBoolOut::calculate() const
 {
-	bool value;
+	bool value = ((ConnectorBoolIn *)getConnector())->getInput();
 
-	getDevice()->getIO(getPin()->getPinID(), &value);
-
-	((ConnectorBoolOut *)getConnector())->setOutput(value);
+	getDevice()->setIO(getPin()->getPinID(), &value);
 }
-
-

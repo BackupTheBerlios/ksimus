@@ -30,7 +30,7 @@
 
 
 KSimIoPin::KSimIoPin(KSimIoDevice * parentDevice, int pinID, const QString & name, const QString & i18nName)
-	:	QObject(parentDevice,name),
+	:	QObject(parentDevice,name.latin1()),
 		m_parentDevice(parentDevice),
 		m_pinID(pinID),
 		m_defaultName(name),
